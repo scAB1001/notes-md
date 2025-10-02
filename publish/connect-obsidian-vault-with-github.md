@@ -1,9 +1,9 @@
 ---
 title: "The Easiest Way to Connect Your Obsidian Vault with Github"
 ---
-I watched a few videos on how to setup the obsidian-git plugin and it feels like most of them overcomplicate the process. So I decided to write a set of instructions and a video to show how easy it to accomplish this even if you have no idea what "git" is.
+I watched a few videos on how to setup the obsidian-git plugin and it feels like most of them over-complicate the process. So I decided to write a set of instructions and a video to show how easy it to accomplish this even if you have no idea what "git" is.
 
-By the end of this tutorial, you will be able to sync your notes from Obsidian to Github for free!
+By the end of this tutorial, you will be able to sync your notes from Obsidian to GitHub for free!
 
 [https://youtu.be/5YZz38U20ws](https://youtu.be/5YZz38U20ws)
 
