@@ -1,44 +1,15 @@
-## Overview
+### Overview
 You have two storage drives:
 - **SATA SSD (69GB)**: `/` - Operating system and installed programs
 - **NVMe SSD (469GB)**: `/mnt/fast-data` - Fast storage for projects and data
 
-| Purpose             | Location                   | Command                      |
-| ------------------- | -------------------------- | ---------------------------- |
-| New GitHub projects | `~/github-projects/`       | `cd ~/github-projects`       |
-| Workspace & builds  | `~/workspace/`             | `cd ~/workspace`             |
-| Large archives      | `/mnt/fast-data/archives/` | `cd /mnt/fast-data/archives` |
-| System files        | `~/` (home)                | `cd ~`                       |
-
-### 1. Moving Between Storage Spaces
-
-**Check Available Space**
-```bash
-# See both drives
-df -h
-
-# See only NVMe space
-df -h /mnt/fast-data
-
-# See only system drive
-df -h /
-```
-**Navigate to Different Locations**
-```bash
-# Go to NVMe storage
-cd /mnt/fast-data
-
-# Go to NVMe projects (via symlink)
-cd ~/github-projects
-
-# Go to system home
-cd ~
-
-# Check which drive you're on
-df -h .
-```
-
-### 2. Running Programs from Different Locations
+| Purpose             | Location                          |
+| ------------------- | --------------------------------- |
+| New GitHub projects | `/mnt/fast-data/github-projects/` |
+| Workspace & builds  | `/mnt/fast-data/code/`            |
+| Large archives      | `/mnt/fast-data/documents/`       |
+| System files        | `~/` (home)                       |
+### Running Programs from Different Locations
 
 #### Python Projects
 ```bash
@@ -85,7 +56,7 @@ npm start
 nvm use node
 node app.js
 ```
-### 3. Docker on NVMe Storage
+### Docker on NVMe Storage
 **Move Docker Data to NVMe**
 ```bash
 # Stop Docker
@@ -115,7 +86,8 @@ docker build -t my-app .
 # Run container with NVMe volume mount
 docker run -v /mnt/fast-data/workspace/data:/app/data my-app
 ```
-### 4. Setting Default Download Locations
+### Data Locations
+#### Browser and installs
 1. **Firefox**: 
    - Settings → General → Files and Applications
    - Change "Save files to" to `/mnt/fast-data/Downloads`
@@ -139,7 +111,7 @@ wget -P /mnt/fast-data/Downloads https://example.com/large-file.zip
 cd ~/workspace
 wget https://example.com/large-file.tar.gz
 ```
-### 5. Moving Existing Data to NVMe
+#### Moving Existing Data to NVMe
 **Move Large Directories**
 ```bash
 # Move and create symlink (for configs you want to keep on system)
@@ -157,7 +129,7 @@ tar -czf old-project-$(date +%Y%m%d).tar.gz ~/old-project
 mv old-project-*.tar.gz /mnt/fast-data/archives/
 rm -rf ~/old-project
 ```
-### 6. Monitoring Storage Usage
+### Monitoring Storage Usage
 **Check Space Anytime**
 ```bash
 # Quick check
@@ -169,6 +141,18 @@ ncdu ~              # for system drive
 
 # GUI analysis
 baobab
+
+# Go to NVMe storage
+cd /mnt/fast-data
+
+# Go to NVMe projects (via symlink)
+cd ~/github-projects
+
+# Go to system home
+cd ~
+
+# Check which drive you're on
+df -h .
 ```
 **Find Large Files**
 ```bash
@@ -178,7 +162,7 @@ find /mnt/fast-data -type f -size +100M -exec ls -lh {} \; 2>/dev/null
 # Find files >50MB in home
 find ~ -type f -size +50M -exec ls -lh {} \; 2>/dev/null
 ```
-### 7. Best Practices
+### Best Practices
 **Do Store on NVMe:**
 - GitHub repositories and source code
 - Docker images and containers
