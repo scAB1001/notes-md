@@ -2,7 +2,6 @@
 You have two storage drives:
 - **SATA SSD (69GB)**: `/` - Operating system and installed programs
 - **NVMe SSD (469GB)**: `/mnt/fast-data` - Fast storage for projects and data
-### Quick Reference
 
 | Purpose             | Location                   | Command                      |
 | ------------------- | -------------------------- | ---------------------------- |
@@ -13,7 +12,7 @@ You have two storage drives:
 
 ### 1. Moving Between Storage Spaces
 
-#### Check Available Space
+**Check Available Space**
 ```bash
 # See both drives
 df -h
@@ -24,7 +23,7 @@ df -h /mnt/fast-data
 # See only system drive
 df -h /
 ```
-#### Navigate to Different Locations
+**Navigate to Different Locations**
 ```bash
 # Go to NVMe storage
 cd /mnt/fast-data
@@ -52,7 +51,6 @@ python3 -m venv /mnt/fast-data/venvs/myapp
 source /mnt/fast-data/venvs/myapp/bin/activate
 pip install -r requirements.txt
 ```
-
 #### Rust Projects
 ```bash
 # Create new Rust project on NVMe
@@ -65,7 +63,6 @@ cargo run
 cargo build --release
 # Binary created in ~/github-projects/my-rust-app/target/release/
 ```
-
 #### C/C++ Projects
 ```bash
 # Clone and build on NVMe
@@ -77,7 +74,6 @@ cmake ..
 make -j4
 ./my-program
 ```
-
 #### Node.js Projects
 ```bash
 # Node project on NVMe
@@ -89,7 +85,6 @@ npm start
 nvm use node
 node app.js
 ```
-
 ### 3. Docker on NVMe Storage
 **Move Docker Data to NVMe**
 ```bash

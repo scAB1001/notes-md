@@ -10,6 +10,3 @@ COMP5123M Cloud Computing Systems
 COMP3932 Synoptic Project
 
 
-
-
-
