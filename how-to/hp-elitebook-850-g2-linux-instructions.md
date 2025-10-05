@@ -7,7 +7,7 @@ You have two storage drives:
 | ------------------- | --------------------------------- |
 | New GitHub projects | `/mnt/fast-data/github-projects/` |
 | Workspace & builds  | `/mnt/fast-data/code/`            |
-| Large archives      | `/mnt/fast-data/documents/`       |
+| Large data archives | `/mnt/fast-data/documents/`       |
 | System files        | `~/` (home)                       |
 ### Running Programs from Different Locations
 
@@ -96,7 +96,7 @@ docker run -v /mnt/fast-data/workspace/data:/app/data my-app
 git config --global init.defaultBranch main
 
 # Go-to NVMe and clone there explicitly
-cd ~/github-projects
+cd /mnt/fast-data/github-projects
 git clone https://github.com/user/repo.git
 
 # Or clone anywhere and move after
