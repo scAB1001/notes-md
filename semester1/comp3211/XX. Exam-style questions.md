@@ -23,16 +23,23 @@
 9. Explain why a node in a DS does not have a global clock?
 10. Define the architecture of a DS.
 11. What is the definition of a centralised system?
-12. What is the definition of a decentralised system?
+12. Why might we use a centralised system? Give an example scenario.
+13. What is the definition of a decentralised system?
 	A **decentralised** system is a networked computer system in which processes and resources are **necessarily** spread across multiple computers.
-13. What’s the difference between a distributed and decentralised system?
-14. Provide an example of when a DS would be placed in a system.
-15. Explain what is meant by the term 'distribution transparency' and provide examples.
-16. Describe the integrative view of a DS.
+14. Why might we use a decentralised system? Give an example scenario.
+	They come to being because we want to connect systems, yet may be hindered by administrative boundaries. For example, many applications in the artificial-intelligence domain require massive amounts of data for building reliable predictive models.
+15. What’s the difference between a distributed and decentralised system?
+16. Provide an example of when a DS would be placed in a system.
+17. Explain what is meant by the term 'distribution transparency' and provide examples.
+18. Describe the integrative view of a DS.
 	Connecting existing networked computer systems into a larger a system.
-17. Describe the expansive view of a DS.
+19. Describe the expansive view of a DS.
 	An existing networked computer system is extended with additional computers.
-18. Describe some common challenges of a DS.
+20. What is the definition of federated learning?
+	Federated learning describes the method of building reliable predictive AI models, typically in a decentralised system.
+	Usually, HPC would be used to train these models but when data must remain within the organisation, the training is, instead, brought to the data.  
+21. 
+22. Describe some common challenges of a DS.
 	Architecture: common organisations, common styles
 	Process: what kind of processes, and their relationships
 	Communication: facilities for exchanging data
@@ -41,7 +48,7 @@
 	Consistency and replication: performance requires of data, which need to be the same
 	Fault tolerance: keep running in the presence of partial failures
 	Security: ensure authorised access to resources
-19. What is the definition of distribution transparency?
+23. What is the definition of distribution transparency?
 	 The phenomenon by which a DS attempts to hide the fact that its processes and resources are physically distributed across multiple computers, possibly separated by large distances.
-20. How does a DS achieve distribution transparency?
+24. How does a DS achieve distribution transparency?
 	
