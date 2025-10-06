@@ -49,6 +49,18 @@
 	Fault tolerance: keep running in the presence of partial failures
 	Security: ensure authorised access to resources
 23. What is the definition of distribution transparency?
-	 The phenomenon by which a DS attempts to hide the fact that its processes and resources are physically distributed across multiple computers, possibly separated by large distances.
+	 The phenomenon by which a DS attempts to hide the distribution of its processes and resources are physically from it's end-users and applications. They are typically distributed across multiple computers, possibly separated by large distances. 
 24. How does a DS achieve distribution transparency?
-	
+	Distribution transparency is realised through middleware.
+	In essence, what applications get to see is the same interface everywhere, whereas behind that interface, where and how processes and resources are and how they are accessed is kept transparent.
+25. What is the process perspective?
+26.  What is the communication perspective?
+27. Define access transparency of a DS. Provide an example.
+
+28. Define location transparency of a DS. Provide an example.
+	The Uniform Resource Locator (URL) for a website, gives no clue of the actual physical location of the web server, nor their previous whereabouts  where the data is/has been offered.
+29. Define migration transparency of a DS. Provide an example.
+30. Define relocation transparency of a DS. Provide an example.
+31. Define replication transparency of a DS. Provide an example.
+32. Define concurrency transparency of a DS. Provide an example.
+33. Define failure transparency of a DS. Provide an example.
