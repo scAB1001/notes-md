@@ -56,7 +56,6 @@
 25. What is the process perspective?
 26.  What is the communication perspective?
 27. Define access transparency of a DS. Provide an example.
-
 28. Define location transparency of a DS. Provide an example.
 	The Uniform Resource Locator (URL) for a website, gives no clue of the actual physical location of the web server, nor their previous whereabouts  where the data is/has been offered.
 29. Define migration transparency of a DS. Provide an example.
@@ -64,3 +63,7 @@
 31. Define replication transparency of a DS. Provide an example.
 32. Define concurrency transparency of a DS. Provide an example.
 33. Define failure transparency of a DS. Provide an example.
+34. What is meant by the terms 'resource sharing'? Give an example.
+35. What is meant by 'openness' in a DS? Give an example.
+36. Explain what the terms 'Interoperability, composability, and extensibility' refer to in an open DS.
+37. 
