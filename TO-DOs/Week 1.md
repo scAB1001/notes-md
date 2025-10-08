@@ -22,7 +22,7 @@
 - [ ] Maths WS (1 & 2)
 - [x] **Lab.** CPP Exercises
 ### COMP3911 Secure Computing (exam-heavy)
-- [ ] Lecture notes
+- [ ] Lecture notes (2)
 - [x] Watch the CYBERUK 2017 keynote video
 - [ ] Read and make notes on Bellovin's *microsoft-sdl-chapters-2-3*
 - [ ] Read and make notes on Howard & Lipner, *The Security Development Life-cycle*  
