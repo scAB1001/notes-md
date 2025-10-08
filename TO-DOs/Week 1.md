@@ -22,6 +22,7 @@
 - [ ] Maths WS (1 & 2)
 - [x] **Lab.** CPP Exercises
 ### COMP3911 Secure Computing (exam-heavy)
+- [x]  Lecture notes (1)
 - [ ] Lecture notes (2)
 - [x] Watch the CYBERUK 2017 keynote video
 - [ ] Read and make notes on Bellovin's *microsoft-sdl-chapters-2-3*
