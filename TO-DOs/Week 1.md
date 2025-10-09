@@ -1,6 +1,7 @@
 ### COMP3211 Distributed Systems (exam-heavy)
 - [ ] Lecture notes
 - [ ] **Lab**. Revision: sockets programming, multi-threading, network programming
+- [ ] **Lab**. MPI 
 - [ ] Quiz 1
 - [ ] Read and make notes on 17-52 (Chapter 1) of *Tanenbaum A & van Steen M, Distributed Systems: Principles & Paradigms, 4th edition, 2024*
 - [ ] Exam questions by section
@@ -37,6 +38,7 @@
 - [ ] Organise CWK group
 ### COMP5122M Data Science
 - [ ] Lecture notes
+- [ ] **Lab**.
 - [ ] Read and makes notes on *50 years of Data Science by David Donoho*
 - [x] Watch Visualising the Quality of Data
 - [ ] Exam questions by section
