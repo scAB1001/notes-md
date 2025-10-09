@@ -2,7 +2,7 @@
 - [ ] Lecture notes
 - [ ] **Lab**. Revision: sockets programming, multi-threading, network programming
 - [ ] Quiz 1
-- [ ] Read and make notes on 17-52 (Chapter 1)of *Tanenbaum A & van Steen M, Distributed Systems: Principles & Paradigms, 4th edition, 2024*
+- [ ] Read and make notes on 17-52 (Chapter 1) of *Tanenbaum A & van Steen M, Distributed Systems: Principles & Paradigms, 4th edition, 2024*
 - [ ] Exam questions by section
 ### COMP3771 User Adaptive Intelligent Systems (exam-heavy)
 - [ ] Lecture notes
