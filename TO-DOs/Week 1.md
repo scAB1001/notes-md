@@ -1,11 +1,20 @@
-### COMP3211 Distributed Systems (exam-heavy)
+## Priority
+
+
+## All
+In terms of the exam breakdown, you want to organising your learning on:
+1. Secure Computing
+2. Distributed Systems
+3. User Adaptive Intelligent Systems
+4. Data Science
+### COMP3211 Distributed Systems (40/60)
 - [ ] Lecture notes
 - [ ] **Lab**. Revision: sockets programming, multi-threading, network programming
 - [ ] **Lab**. MPI 
 - [ ] Quiz 1
 - [ ] Read and make notes on 17-52 (Chapter 1) of *Tanenbaum A & van Steen M, Distributed Systems: Principles & Paradigms, 4th edition, 2024*
 - [ ] Exam questions by section
-### COMP3771 User Adaptive Intelligent Systems (exam-heavy)
+### COMP3771 User Adaptive Intelligent Systems (40/60)
 - [ ] Lecture notes
 - [ ] Read and makes notes on  1-15 *Jameson, General-schema-of-user-adaptive-systems*
 	- [ ] Read the section about LILSYS and note:  
@@ -18,12 +27,12 @@
 	- Identify three differences between LILSYS and AGENTSALON
 - [ ] *Clark, B.R et al., Personalised Recommendations for the BBC iPlayer: Initial approach and current challenges*
 - [ ] Exam questions by section
-### COMP3811 Computer Graphics (no exam)
+### COMP3811 Computer Graphics (0/100)
 - [ ] Lecture notes (Vector / Maths stuff)
 - [ ] Maths WS (1 & 2)
 - [ ] CWK 1 is out
 - [x] **Lab.** CPP Exercises
-### COMP3911 Secure Computing (exam-heavy)
+### COMP3911 Secure Computing (30/70)
 - [x]  Lecture notes (1)
 - [ ] Lecture notes (2)
 - [x] Watch the CYBERUK 2017 keynote video
@@ -36,7 +45,7 @@
 	- [Common Vulnerability Scoring System](https://www.first.org/cvss/user-guide)
 - [ ] Exam questions by section
 - [ ] Organise CWK group
-### COMP5122M Data Science
+### COMP5122M Data Science (50/50)
 - [ ] Lecture notes
 - [ ] **Lab**.
 - [ ] Read and makes notes on *50 years of Data Science by David Donoho*
