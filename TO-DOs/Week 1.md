@@ -20,6 +20,7 @@
 ### COMP3811 Computer Graphics (no exam)
 - [ ] Lecture notes
 - [ ] Maths WS (1 & 2)
+- [ ] CWK 1 is out
 - [x] **Lab.** CPP Exercises
 ### COMP3911 Secure Computing (exam-heavy)
 - [x]  Lecture notes (1)
