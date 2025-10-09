@@ -1,8 +1,4 @@
-## Priority
-
-
-## All
-In terms of the exam breakdown, you want to organising your learning on:
+#### Organise
 1. Secure Computing
 2. Distributed Systems
 3. User Adaptive Intelligent Systems
