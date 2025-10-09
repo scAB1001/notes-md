@@ -18,7 +18,7 @@
 - [ ] *Clark, B.R et al., Personalised Recommendations for the BBC iPlayer: Initial approach and current challenges*
 - [ ] Exam questions by section
 ### COMP3811 Computer Graphics (no exam)
-- [ ] Lecture notes
+- [ ] Lecture notes (Vector / Maths stuff)
 - [ ] Maths WS (1 & 2)
 - [ ] CWK 1 is out
 - [x] **Lab.** CPP Exercises
