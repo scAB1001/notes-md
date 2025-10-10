@@ -42,7 +42,8 @@
 - [ ] Exam questions by section
 - [ ] Organise CWK group
 ### COMP5122M Data Science (50/50)
-- [ ] Lecture notes
+- [ ] Lecture notes (1)
+- [ ] Lecture notes (2)
 - [ ] **Lab**.
 - [ ] Read and makes notes on *50 years of Data Science by David Donoho*
 - [x] Watch Visualising the Quality of Data
