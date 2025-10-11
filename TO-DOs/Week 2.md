@@ -26,13 +26,10 @@
 - [ ] Exam questions by section
 ### COMP3811 Computer Graphics (0/100)
 - [ ] Lecture notes (Vector / Maths stuff)
-- [ ] Maths WS (1 & 2)
-- [x] CWK 1 is out
+- [ ] CWK 1 is out
 - [x] **Lab.** CPP Exercises
 ### COMP3911 Secure Computing (30/70)
-- [x]  Lecture notes (1)
 - [ ] Lecture notes (2)
-- [x] Watch the CYBERUK 2017 keynote video
 - [ ] Read and make notes on Bellovin's *microsoft-sdl-chapters-2-3*
 - [ ] Read and make notes on Howard & Lipner, *The Security Development Life-cycle*  
 	- Shostack, [Threat Modelling: Designing For Security](https://www.vlebooks.com/vleweb/Product/Index/345515)  
@@ -45,8 +42,5 @@
 ### COMP5122M Data Science (50/50)
 - [ ] Lecture notes (1)
 - [ ] Lecture notes (2)
-- [x] **Lab**.
 - [ ] Read and makes notes on *50 years of Data Science by David Donoho*
-- [x] Watch Visualising the Quality of Data
 - [ ] Exam questions by section
-- [x] Organise CWK group
