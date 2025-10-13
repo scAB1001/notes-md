@@ -4,7 +4,8 @@
 3. User Adaptive Intelligent Systems
 4. Data Science
 ### COMP3211 Distributed Systems (40/60)
-- [ ] Lecture notes
+- [ ] Lecture notes (1)
+- [ ] Lecture notes (2) 
 - [ ] **Lab**. Revision: sockets programming, multi-threading, network programming
 - [ ] **Lab**. MPI 
 - [ ] Quiz 1
