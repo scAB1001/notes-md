@@ -13,15 +13,16 @@
 ### COMP3771 User Adaptive Intelligent Systems (40/60)
 - [ ] Lecture notes (1)
 - [ ] Lecture notes (2)
-- [ ] Read and makes notes on  1-15 *Jameson, General-schema-of-user-adaptive-systems*
-	- [ ] Read the section about LILSYS and note:  
+- [x] Read and makes notes on  1-15 *Jameson, General-schema-of-user-adaptive-systems*
+	- [x] Read the section about LILSYS and note:  
 	- What information is collected about the user  
 	- Can there be any concerns regarding the information collected about users  
 	- Can you give examples of contemporary systems which are similar to LILSYS  
-	- [ ] Read the section about the AGENTSALON and note:  
+	- [x] Read the section about the AGENTSALON and note:  
 	- Can you give examples of contemporary systems which are similar to AGENTSALON  
 	- Identify three similarities between LILSYS and AGENTSALON  
 	- Identify three differences between LILSYS and AGENTSALON
+- [ ] ESSENTIAL READING: *User Profiles for Personalized Information Access.pdf*
 - [ ] *Clark, B.R et al., Personalised Recommendations for the BBC iPlayer: Initial approach and current challenges*
 - [ ] Exam questions by section
 ### COMP3811 Computer Graphics (0/100)
@@ -40,7 +41,6 @@
 - [ ] Exam questions by section
 - [ ] Organise CWK group
 ### COMP5122M Data Science (50/50)
-- [ ] Lecture notes (1)
-- [ ] Lecture notes (2)
+- [ ] Lecture notes (*Week 3 EDA and Viz (1).pdf*)
 - [ ] Read and makes notes on *50 years of Data Science by David Donoho*
 - [ ] Exam questions by section
