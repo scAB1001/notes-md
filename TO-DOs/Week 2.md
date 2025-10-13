@@ -11,6 +11,7 @@
 - [ ] Read and make notes on 17-52 (Chapter 1) of *Tanenbaum A & van Steen M, Distributed Systems: Principles & Paradigms, 4th edition, 2024*
 - [ ] Exam questions by section
 ### COMP3771 User Adaptive Intelligent Systems (40/60)
+- [ ] CWK 1 out
 - [ ] Lecture notes (1)
 - [ ] Lecture notes (2)
 - [x] Read and makes notes on  1-15 *Jameson, General-schema-of-user-adaptive-systems*
