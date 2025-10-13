@@ -22,24 +22,29 @@
 	They autonomous nodes have their own clock, ergo their own notion of time, in order to achieve synchronisation, as opposed to a global clock.
 9. Explain why a node in a DS does not have a global clock?
 10. Define the architecture of a DS.
-11. What is the definition of a centralised system?
-12. Why might we use a centralised system? Give an example scenario.
-13. What is the definition of a decentralised system?
+11. Which of the following is a key characteristic of DS?
+	Scalability.
+12. What is the definition of a centralised system?
+13. Why might we use a centralised system? Give an example scenario.
+14. What is the definition of a decentralised system?
 	A **decentralised** system is a networked computer system in which processes and resources are **necessarily** spread across multiple computers.
-14. Why might we use a decentralised system? Give an example scenario.
+15. Why might we use a decentralised system? Give an example scenario.
 	They come to being because we want to connect systems, yet may be hindered by administrative boundaries. For example, many applications in the artificial-intelligence domain require massive amounts of data for building reliable predictive models.
-15. What’s the difference between a distributed and decentralised system?
-16. Provide an example of when a DS would be placed in a system.
-17. Explain what is meant by the term 'distribution transparency' and provide examples.
-18. Describe the integrative view of a DS.
+16. What’s the difference between a distributed and decentralised system?
+17. What is the role of middleware in a DS? Give an example.
+	To enable communication and coordination between different components. Middleware acts a glue..
+18. Define middleware.
+19. Provide an example of when a DS would be placed in a system.
+20. Explain what is meant by the term 'distribution transparency' and provide examples.
+21. Describe the integrative view of a DS.
 	Connecting existing networked computer systems into a larger a system.
-19. Describe the expansive view of a DS.
+22. Describe the expansive view of a DS.
 	An existing networked computer system is extended with additional computers.
-20. What is the definition of federated learning?
+23. What is the definition of federated learning?
 	Federated learning describes the method of building reliable predictive AI models, typically in a decentralised system.
 	Usually, HPC would be used to train these models but when data must remain within the organisation, the training is, instead, brought to the data.  
-21. 
-22. Describe some common challenges of a DS.
+24. 
+25. Describe some common challenges of a DS.
 	Architecture: common organisations, common styles
 	Process: what kind of processes, and their relationships
 	Communication: facilities for exchanging data
@@ -48,22 +53,22 @@
 	Consistency and replication: performance requires of data, which need to be the same
 	Fault tolerance: keep running in the presence of partial failures
 	Security: ensure authorised access to resources
-23. What is the definition of distribution transparency?
+26. What is the definition of distribution transparency?
 	 The phenomenon by which a DS attempts to hide the distribution of its processes and resources are physically from it's end-users and applications. They are typically distributed across multiple computers, possibly separated by large distances. 
-24. How does a DS achieve distribution transparency?
+27. How does a DS achieve distribution transparency?
 	Distribution transparency is realised through middleware.
 	In essence, what applications get to see is the same interface everywhere, whereas behind that interface, where and how processes and resources are and how they are accessed is kept transparent.
-25. What is the process perspective?
-26.  What is the communication perspective?
-27. Define access transparency of a DS. Provide an example.
-28. Define location transparency of a DS. Provide an example.
+28. What is the process perspective?
+29.  What is the communication perspective?
+30. Define access transparency of a DS. Provide an example.
+31. Define location transparency of a DS. Provide an example.
 	The Uniform Resource Locator (URL) for a website, gives no clue of the actual physical location of the web server, nor their previous whereabouts  where the data is/has been offered.
-29. Define migration transparency of a DS. Provide an example.
-30. Define relocation transparency of a DS. Provide an example.
-31. Define replication transparency of a DS. Provide an example.
-32. Define concurrency transparency of a DS. Provide an example.
-33. Define failure transparency of a DS. Provide an example.
-34. What is meant by the terms 'resource sharing'? Give an example.
-35. What is meant by 'openness' in a DS? Give an example.
-36. Explain what the terms 'Interoperability, composability, and extensibility' refer to in an open DS.
-37. 
+32. Define migration transparency of a DS. Provide an example.
+33. Define relocation transparency of a DS. Provide an example.
+34. Define replication transparency of a DS. Provide an example.
+35. Define concurrency transparency of a DS. Provide an example.
+36. Define failure transparency of a DS. Provide an example.
+37. What is meant by the terms 'resource sharing'? Give an example.
+38. What is meant by 'openness' in a DS? Give an example.
+39. Explain what the terms 'Interoperability, composability, and extensibility' refer to in an open DS.
+40. 
