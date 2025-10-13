@@ -41,7 +41,7 @@
 	- An alternative approach: [OCTAVE Allegro](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=8419)  
 	- [Common Vulnerability Scoring System](https://www.first.org/cvss/user-guide)
 - [ ] Exam questions by section
-- [ ] Organise CWK group
+- [x] Organise CWK group
 ### COMP5122M Data Science (50/50)
 - [ ] Lecture notes (*Week 3 EDA and Viz (1).pdf*)
 - [ ] Read and makes notes on *50 years of Data Science by David Donoho*
