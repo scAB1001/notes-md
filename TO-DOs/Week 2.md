@@ -9,7 +9,7 @@
 	- [ ] (2) 
 - [x] **Lab**. Revision: sockets programming, multi-threading, network programming
 - [ ] **Lab**. MPI 
-- [ ] **Lab**. MPI 
+- [ ] **Lab**. Remote Database Connectivity 
 - [x] Quiz 1
 - [ ] Reading
 	- [ ] Make notes on 17-52 (Chapter 1) of *Tanenbaum A & van Steen M, Distributed Systems: Principles & Paradigms, 4th edition, 2024*
