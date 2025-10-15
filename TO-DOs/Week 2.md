@@ -49,8 +49,8 @@
 		- Microsoft Threat Modelling Tool: https://aka.ms/tmt  
 		- An alternative approach: [OCTAVE Allegro](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=8419)  
 		- [Common Vulnerability Scoring System](https://www.first.org/cvss/user-guide)
-- [ ] Exam questions by section
 - [x] Organise CWK group
+- [ ] Exam questions by section
 ### COMP5122M Data Science (50/50)
 - [ ] Lecture notes 
 	- [ ] (1) - *Week 3 EDA and Viz (1).pdf*
