@@ -4,6 +4,7 @@
 3. User Adaptive Intelligent Systems
 4. Data Science
 ### COMP3211 Distributed Systems (40/60)
+- [ ] ==CWK1 Out==
 - [ ] Lecture notes 
 	- [ ] (1)
 	- [ ] (2) 
@@ -57,4 +58,5 @@
 	- [ ] (2) 
 - [ ] Reading 
 	- [ ] (1) - Makes notes on *50 years of Data Science by David Donoho*
+- [x] **Labs**. Mark titanic work. Go through TB dataset.
 - [ ] Exam questions by section
