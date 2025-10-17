@@ -5,12 +5,12 @@
 4. Data Science
 ### COMP3211 Distributed Systems (40/60)
 - [ ] ==CWK1 Out==
-- [ ] Lecture notes 
-	- [ ] (1)
-	- [ ] (2) 
 - [ ] Make notes on quizzes 1, 2 & 3.
-- [ ] **Lab**. MPI 
-- [ ] **Lab**. Remote Database Connectivity 
+- [ ] Lecture notes 
+	- [ ] (1) - 
+- [ ] **Labs**
+	- [ ] MPI 
+	- [ ] Remote Database Connectivity 
 - [ ] Reading *Tanenbaum A & van Steen M, Distributed Systems: Principles & Paradigms, 4th edition, 2024*
 	- [ ] Make notes on 17-52 (Chapter 1)
 	- [ ] Make notes on (Chapter 2)

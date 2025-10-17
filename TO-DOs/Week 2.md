@@ -5,7 +5,7 @@
 4. Data Science
 ### COMP3211 Distributed Systems (40/60)
 - [ ] ==CWK1 Out==
-- [ ] Lecture notes 
+- [x] Lecture notes 
 	- [ ] (1)
 	- [ ] (2) 
 - [x] **Lab**. Revision: sockets programming, multi-threading, network programming
