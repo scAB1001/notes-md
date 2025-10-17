@@ -26,19 +26,10 @@
 - [ ] Reading
 	- [ ] ESSENTIAL: *User Profiles for Personalized Information Access.pdf*
 	- [ ] *Clark, B.R et al., Personalised Recommendations for the BBC iPlayer: Initial approach and current challenges*
-	- [ ] [OPTIONAL READING: Lecture03 - User Information Collection](https://minerva.leeds.ac.uk/ultra/courses/_567316_1/outline/edit/document/_13567879_1?courseId=_567316_1&view=content&state=view)
-
-[COMP3771-Lecture05-06-UserModel_Representation.pptx](https://minerva.leeds.ac.uk/ultra/courses/_567316_1/outline/file/_13591673_1)
-
-[ESSENTIAL READING: User Models for Adaptive Hypermedia and Adaptive Educational Systems.pdf](https://minerva.leeds.ac.uk/ultra/courses/_567316_1/outline/file/_13440058_1)
-
-This paper is relevant to lectures 5 and 6 - check only sections 1.2.1 to 1.2.6 (pages 5-17).
-
-[OPTIONAL READING: Lectures 05-06 user model representation](https://minerva.leeds.ac.uk/ultra/courses/_567316_1/outline/edit/document/_13591677_1?courseId=_567316_1&view=content&state=view)
-
-[OPTIONAL READING: Lectures 05-06 [Personality]](https://minerva.leeds.ac.uk/ultra/courses/_567316_1/outline/edit/document/_13440062_1?courseId=_567316_1&view=content&state=view)
-
-[COMP3771-Lecture07-UserModel_Building.pptx](https://minerva.leeds.ac.uk/ultra/courses/_567316_1/outline/file/_13591694_1)
+	- [ ] OPTIONAL:  *User Information Collection*
+	- [ ] ESSENTIAL: *User Models for Adaptive Hypermedia and Adaptive Educational Systems.pdf.* This paper is relevant to lectures 5 and 6 - check only sections 1.2.1 to 1.2.6 (pages 5-17).
+	- [ ] OPTIONAL: *Lectures 05-06 user model representation*
+	- [ ] OPTIONAL: *Lectures 05-06 Personality*
 - [ ] Exam questions by section
 ### COMP3811 Computer Graphics (0/100)
 - [ ] Lecture notes  
