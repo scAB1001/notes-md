@@ -21,8 +21,9 @@
 ### COMP3771 User Adaptive Intelligent Systems (40/60)
 - [ ] ==CWK 1 out==
 - [ ] Lecture notes 
-	- [ ] (1)
-	- [ ] (2) 
+	- [ ] (1) - User Information Collection
+	- [ ] (2) - General Schema Practical Task post lecture
+	- [ ] (3) - User model representation
 - [ ] Reading
 	- [ ] ESSENTIAL: *User Profiles for Personalized Information Access.pdf*
 	- [ ] *Clark, B.R et al., Personalised Recommendations for the BBC iPlayer: Initial approach and current challenges*
@@ -32,29 +33,33 @@
 	- [ ] OPTIONAL: *Lectures 05-06 Personality*
 - [ ] Exam questions by section
 ### COMP3811 Computer Graphics (0/100)
+- [ ] ==CWK 1 is out==
 - [ ] Lecture notes  
 	- [ ] (1) - Vector / Maths stuff
-- [ ] CWK 1 is out
-- [x] **Lab.** CPP Exercises
 ### COMP3911 Secure Computing (30/70)
 - [ ] Lecture notes
-	- [x] (1)
-	- [ ] (2) 
+	- [ ] (1) 
+	- [ ] (2) - CommandInjection-InputValidation.pdf
 - [ ] Reading
 	- [ ] (1) - Make notes on Bellovin's *microsoft-sdl-chapters-2-3*
-	- [ ] (2) - Read and make notes on Howard & Lipner, *The Security Development Life-cycle*  
+	- [ ] (2) - Make notes on Howard & Lipner, *The Security Development Life-cycle*  
 		- Shostack, [Threat Modelling: Designing For Security](https://www.vlebooks.com/vleweb/Product/Index/345515)  
 		- Protection Poker: [instructions and materials](https://www.sintef.no/protection-poker)  
 		- Microsoft Threat Modelling Tool: https://aka.ms/tmt  
 		- An alternative approach: [OCTAVE Allegro](https://resources.sei.cmu.edu/library/asset-view.cfm?assetID=8419)  
 		- [Common Vulnerability Scoring System](https://www.first.org/cvss/user-guide)
-- [x] Organise CWK group
+	- [ ] (3) - Make notes on *Whittaker JA & Thompson HH, How to Break Software Security, Pearson 2004*
+		- [ ] [CVE identifiers & CVE Numbering Authorities](https://cve.mitre.org/)
+		- [ ] [Common Weakness Enumeration & CWSS](https://cwe.mitre.org/)
+		- [ ] ZDNet article: [“Google Project Zero: 95.8% of all bug reports are fixed before deadline expires”](https://www.zdnet.com/article/google-project-zero-95-8-of-all-bug-reports-are-fixed-before-deadline-expires/)
+		- [ ] [Holodeck source code](https://github.com/SecurityInnovation/Holodeck) on GitHub
+		- [ ] [libfiu](https://blitiri.com.ar/p/libfiu/) – C library for fault injection in POSIX API
 - [ ] Exam questions by section
 ### COMP5122M Data Science (50/50)
 - [ ] Lecture notes 
-	- [ ] (1) - *Week 3 EDA and Viz (1).pdf*
-	- [ ] (2) 
+	- [ ] (1) - *Week 3 EDA and Viz.pdf*
+	- [ ] (2) - *Machine Learning (overview).pdf*
+	- [ ] (3) - *Data Similarity and Clustering.pdf*
 - [ ] Reading 
 	- [ ] (1) - Makes notes on *50 years of Data Science by David Donoho*
-- [x] **Labs**. Mark titanic work. Go through TB dataset.
 - [ ] Exam questions by section
