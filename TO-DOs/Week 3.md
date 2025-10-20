@@ -24,6 +24,7 @@
 	- [ ] (1) - User Information Collection
 	- [ ] (2) - General Schema Practical Task post lecture
 	- [ ] (3) - User model representation
+	- [ ] (4) - User model building
 - [ ] Reading
 	- [ ] ESSENTIAL: *User Profiles for Personalized Information Access.pdf*
 	- [ ] *Clark, B.R et al., Personalised Recommendations for the BBC iPlayer: Initial approach and current challenges*
