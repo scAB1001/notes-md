@@ -7,12 +7,12 @@
 - [ ] ==CWK1 Out==
 - [ ] Make notes on quizzes 1, 2 & 3.
 - [ ] Lecture notes 
-	- [ ] (1) - 
+	- [ ] (1) - Web Services and REST
 - [ ] **Labs**
 	- [ ] MPI 
 	- [ ] Remote Database Connectivity 
 - [ ] Reading *Tanenbaum A & van Steen M, Distributed Systems: Principles & Paradigms, 4th edition, 2024*
-	- [ ] Make notes on 17-52 (Chapter 1)
+	- [x] Make notes on 17-52 (Chapter 1)
 	- [ ] Make notes on (Chapter 2)
 	- [ ] Make notes on (Chapter 4) and
 		- [ ] Service-Oriented Architecture: Concepts, Technology & Design. Thomas Erl, Prentice Hall/Pearson, 2nd edition, 2017
