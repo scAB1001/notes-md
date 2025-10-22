@@ -1,6 +1,6 @@
 #### Priority
-1. Computer Graphics
-2. Distributed Systems
+1. **Computer Graphics**
+2. **Distributed Systems**
 3. User Adaptive Intelligent Systems
 4. Secure Computing
 5. Data Science
