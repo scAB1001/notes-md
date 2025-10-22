@@ -4,7 +4,7 @@
 3. User Adaptive Intelligent Systems
 4. Secure Computing
 5. Data Science
-### COMP3211 Distributed Systems (40/60)
+### COMP3211 **Distributed Systems** (40/60)
 - [ ] ==CWK1 Out== - due **23/10/2025**
 - [ ] Make notes on quizzes 1, 2 & 3.
 - [ ] Lecture notes 
@@ -34,7 +34,7 @@
 	- [ ] OPTIONAL: *Lectures 05-06 user model representation*
 	- [ ] OPTIONAL: *Lectures 05-06 Personality*
 - [ ] Exam questions by section
-### COMP3811 Computer Graphics (0/100)
+### COMP3811 **Computer Graphics** (0/100)
 - [ ] ==CWK 1 is out== - due **07/11/2025**
 - [ ] Lecture notes  
 	- [ ] (1) - _Vector / Maths stuff_
