@@ -1,10 +1,11 @@
 #### Priority
-1. Secure Computing
+1. Computer Graphics
 2. Distributed Systems
 3. User Adaptive Intelligent Systems
-4. Data Science
+4. Secure Computing
+5. Data Science
 ### COMP3211 Distributed Systems (40/60)
-- [ ] ==CWK1 Out==
+- [ ] ==CWK1 Out== - due **23/10/2025**
 - [ ] Make notes on quizzes 1, 2 & 3.
 - [ ] Lecture notes 
 	- [ ] (1) - Web Services and REST
@@ -19,12 +20,12 @@
 		- [ ] SOA Source Book. The Open Group, 2021. http://www.opengroup.org/soa/source-book/soa/
 - [ ] Exam questions by section
 ### COMP3771 User Adaptive Intelligent Systems (40/60)
-- [ ] ==CWK 1 out==
+- [ ] ==CWK 1 out== - due **21/11/2025**
 - [ ] Lecture notes 
-	- [ ] (1) - User Information Collection
-	- [ ] (2) - General Schema Practical Task post lecture
-	- [ ] (3) - User model representation
-	- [ ] (4) - User model building
+	- [ ] (1) - _User Information Collection_
+	- [ ] (2) - _General Schema Practical Task post lecture_
+	- [ ] (3) - _User model representation_
+	- [ ] (4) - _User model building_
 - [ ] Reading
 	- [ ] ESSENTIAL: *User Profiles for Personalized Information Access.pdf*
 	- [ ] *Clark, B.R et al., Personalised Recommendations for the BBC iPlayer: Initial approach and current challenges*
@@ -34,13 +35,15 @@
 	- [ ] OPTIONAL: *Lectures 05-06 Personality*
 - [ ] Exam questions by section
 ### COMP3811 Computer Graphics (0/100)
-- [ ] ==CWK 1 is out==
+- [ ] ==CWK 1 is out== - due **07/11/2025**
 - [ ] Lecture notes  
-	- [ ] (1) - Vector / Maths stuff
+	- [ ] (1) - _Vector / Maths stuff_
 ### COMP3911 Secure Computing (30/70)
+- [ ] ==CWK 1 is out== - due **26/11/2025**
 - [ ] Lecture notes
 	- [ ] (1) 
-	- [ ] (2) - CommandInjection-InputValidation.pdf
+	- [ ] (2) - _CommandInjection-InputValidation.pdf_
+	- [ ] (3) - _WebApp-Vulnerabilities.pdf_
 - [ ] Reading
 	- [ ] (1) - Make notes on Bellovin's *microsoft-sdl-chapters-2-3*
 	- [ ] (2) - Make notes on Howard & Lipner, *The Security Development Life-cycle*  
