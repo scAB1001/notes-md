@@ -71,4 +71,44 @@
 37. What is meant by the terms 'resource sharing'? Give an example.
 38. What is meant by 'openness' in a DS? Give an example.
 39. Explain what the terms 'Interoperability, composability, and extensibility' refer to in an open DS.
-40. 
+
+#### Quiz QnA
+##### Quiz 1
+1. What is the primary advantage of using a distributed system?
+	Improved performance and reliability
+2. What is a distributed system?
+	A network of independent computers that appear to the users as a single coherent system
+ 3. Which of the following is a key characteristic of distributed systems?
+	Scalability
+4. In a distributed system, what is the role of middleware?
+	To enable communication and coordination between different components. Middleware acts a glue
+5. Which of the following is an example of a distributed system?
+	A client-server architecture
+##### Quiz 2
+1. What is High Performance Computing (HPC)?
+	Use of (super)computers and parallel processing techniques
+
+2. Which of the following is a popular HPC architecture?
+
+Cluster computing
+
+  
+
+3. Which programming model is commonly used in HPC for parallel computing?
+
+Message Passing Interface (MPI)
+
+  
+
+4. What is Pervasive Computing?
+
+Computing integrated into everyday objects and activities
+
+  
+
+5. Which technology is often associated with pervasive computing?
+Internet of Things
+6. In the context of distributed systems, the Atomicity property of ACID ensures that:
+Either all operations of a transaction are completed successfully or none are applied
+7. In the context of ACID properties, what is a ‘transaction’?
+A sequence of operations performed as a single logical unit of work
