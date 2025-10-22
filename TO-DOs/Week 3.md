@@ -6,12 +6,12 @@
 5. Data Science
 ### COMP3211 **Distributed Systems** (40/60)
 - [ ] ==CWK1 Out== - due **23/10/2025**
-- [ ] Make notes on quizzes 1, 2 & 3.
+- [x] Make notes on quizzes 1, 2 & 3.
 - [ ] Lecture notes 
 	- [ ] (1) - Web Services and REST
 - [ ] **Labs**
-	- [ ] MPI 
-	- [ ] Remote Database Connectivity 
+	- [x] Parallel Programming with MPI 
+	- [x] Remote Database Connectivity 
 - [ ] Reading *Tanenbaum A & van Steen M, Distributed Systems: Principles & Paradigms, 4th edition, 2024*
 	- [x] Make notes on 17-52 (Chapter 1)
 	- [ ] Make notes on (Chapter 2)

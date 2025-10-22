@@ -100,4 +100,13 @@
 7. In the context of ACID properties, what is a ‘transaction’?
 	A sequence of operations performed as a single logical unit of work
 ##### Quiz 3
-1. 
+1. Which protocol is commonly used for reliable communication in distributed systems?
+	TCP
+2. In a distributed system, what does RPC stand for?
+	Remote Procedure Call
+3. What is the main advantage of using a publish-subscribe model in distributed systems?
+	Scalability and decoupling of components
+4. What does the term endianness refer to in distributed systems?
+	The order of bytes in a word
+5. What is the main difference between little-endian and big-endian formats?
+	Big-endian stores the most significant byte first while little-endian stores the least significant byte first, while 
