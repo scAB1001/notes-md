@@ -87,28 +87,17 @@
 ##### Quiz 2
 1. What is High Performance Computing (HPC)?
 	Use of (super)computers and parallel processing techniques
-
 2. Which of the following is a popular HPC architecture?
-
-Cluster computing
-
-  
-
+	Cluster computing
 3. Which programming model is commonly used in HPC for parallel computing?
-
-Message Passing Interface (MPI)
-
-  
-
+	Message Passing Interface (MPI)
 4. What is Pervasive Computing?
-
-Computing integrated into everyday objects and activities
-
-  
-
+	Computing integrated into everyday objects and activities
 5. Which technology is often associated with pervasive computing?
-Internet of Things
+	Internet of Things
 6. In the context of distributed systems, the Atomicity property of ACID ensures that:
-Either all operations of a transaction are completed successfully or none are applied
+	Either all operations of a transaction are completed successfully or none are applied
 7. In the context of ACID properties, what is a ‘transaction’?
-A sequence of operations performed as a single logical unit of work
+	A sequence of operations performed as a single logical unit of work
+##### Quiz 3
+1. 
