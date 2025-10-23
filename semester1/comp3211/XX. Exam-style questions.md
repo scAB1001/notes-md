@@ -1,3 +1,4 @@
+#### Main
 1. Before DS, what did we have?
 2. What purpose do DS fulfil?
 3. For what reasons are DS introduced?
@@ -110,3 +111,5 @@
 	The order of bytes in a word
 5. What is the main difference between little-endian and big-endian formats?
 	Big-endian stores the most significant byte first while little-endian stores the least significant byte first, while 
+#### Exam
+- 
