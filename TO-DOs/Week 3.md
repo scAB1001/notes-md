@@ -14,7 +14,7 @@
 	- [x] Remote Database Connectivity 
 - [ ] Reading *Tanenbaum A & van Steen M, Distributed Systems: Principles & Paradigms, 4th edition, 2024*
 	- [x] Make notes on 17-52 (Chapter 1)
-	- [ ] Make notes on (Chapter 2)
+	- [x] Make notes on (Chapter 2)
 	- [ ] Make notes on (Chapter 4) and
 		- [ ] Service-Oriented Architecture: Concepts, Technology & Design. Thomas Erl, Prentice Hall/Pearson, 2nd edition, 2017
 		- [ ] SOA Source Book. The Open Group, 2021. http://www.opengroup.org/soa/source-book/soa/
