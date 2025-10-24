@@ -1,24 +1,13 @@
 #### Priority
 1. **Computer Graphics**
-2. **Distributed Systems**
-3. User Adaptive Intelligent Systems
-4. Secure Computing
-5. Data Science
-### COMP3211 **Distributed Systems** (40/60)
-- [x] ==CWK1 Out== - due **23/10/2025**
-- [x] Make notes on quizzes 1, 2 & 3.
-- [ ] Lecture notes 
-	- [ ] (1) - Web Services and REST
-- [ ] **Labs**
-	- [x] Parallel Programming with MPI 
-	- [x] Remote Database Connectivity 
-- [ ] Reading *Tanenbaum A & van Steen M, Distributed Systems: Principles & Paradigms, 4th edition, 2024*
-	- [x] Make notes on 17-52 (Chapter 1)
-	- [x] Make notes on (Chapter 2)
-	- [ ] Make notes on (Chapter 4) and
-		- [ ] Service-Oriented Architecture: Concepts, Technology & Design. Thomas Erl, Prentice Hall/Pearson, 2nd edition, 2017
-		- [ ] SOA Source Book. The Open Group, 2021. http://www.opengroup.org/soa/source-book/soa/
-- [ ] Exam questions by section
+2. User Adaptive Intelligent Systems
+3. Secure Computing
+4. Data Science
+5. Distributed Systems
+### COMP3811 **Computer Graphics** (0/100)
+- [ ] ==CWK 1 is out== - due **07/11/2025**
+- [ ] Lecture notes  
+	- [ ] (1) - _Vector / Maths stuff_
 ### COMP3771 User Adaptive Intelligent Systems (40/60)
 - [ ] ==CWK 1 out== - due **21/11/2025**
 - [ ] Lecture notes 
@@ -34,14 +23,10 @@
 	- [ ] OPTIONAL: *Lectures 05-06 user model representation*
 	- [ ] OPTIONAL: *Lectures 05-06 Personality*
 - [ ] Exam questions by section
-### COMP3811 **Computer Graphics** (0/100)
-- [ ] ==CWK 1 is out== - due **07/11/2025**
-- [ ] Lecture notes  
-	- [ ] (1) - _Vector / Maths stuff_
 ### COMP3911 Secure Computing (30/70)
 - [ ] ==CWK 1 is out== - due **26/11/2025**
 - [ ] Lecture notes
-	- [ ] (1) 
+	- [ ] (1) - _SecurityModels.pdf_
 	- [ ] (2) - _CommandInjection-InputValidation.pdf_
 	- [ ] (3) - _WebApp-Vulnerabilities.pdf_
 - [ ] Reading
@@ -64,6 +49,18 @@
 	- [ ] (1) - *Week 3 EDA and Viz.pdf*
 	- [ ] (2) - *Machine Learning (overview).pdf*
 	- [ ] (3) - *Data Similarity and Clustering.pdf*
+- [ ] **Labs**
+	-  Titanic: Machine Learning From Disaster Dataset
 - [ ] Reading 
 	- [ ] (1) - Makes notes on *50 years of Data Science by David Donoho*
+- [ ] Exam questions by section
+### COMP3211 Distributed Systems (40/60)
+- [ ] Lecture notes 
+	- [ ] (1) - Web Services and REST
+- [ ] **Labs**
+	- 
+- [ ] Reading *Tanenbaum A & van Steen M, Distributed Systems: Principles & Paradigms, 4th edition, 2024*
+	- [ ] Make notes on (Chapter 4) and
+		- [ ] Service-Oriented Architecture: Concepts, Technology & Design. Thomas Erl, Prentice Hall/Pearson, 2nd edition, 2017
+		- [ ] SOA Source Book. The Open Group, 2021. http://www.opengroup.org/soa/source-book/soa/
 - [ ] Exam questions by section
