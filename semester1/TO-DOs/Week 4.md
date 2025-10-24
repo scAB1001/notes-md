@@ -8,7 +8,8 @@
 - [ ] ==CWK 1 is out== - due **07/11/2025**
 - [ ] Lecture notes  
 	- [ ] (1) - _Vector / Maths stuff_
-### COMP3771 User Adaptive Intelligent Systems (40/60)
+
+### COMP3771 User Adaptive Intelligent Systems (40/60) - Open book
 - [ ] ==CWK 1 out== - due **21/11/2025**
 - [ ] Lecture notes 
 	- [ ] (1) - _User Information Collection_
@@ -29,7 +30,7 @@
 		- [ ] *Lectures 05-06 Personality
 		- [ ] [Systematic-review-on-recommender-systems.pdf](https://minerva.leeds.ac.uk/ultra/courses/_567316_1/outline/file/_13440075_1)
 - [ ] Exam questions by section
-### COMP3911 Secure Computing (30/70)
+### COMP3911 Secure Computing (30/70) - Closed book
 - [ ] ==CWK 1 is out== - due **26/11/2025**
 - [ ] Lecture notes
 	- [ ] (1) - _SecurityModels.pdf_
@@ -50,7 +51,7 @@
 		- [ ] [Holodeck source code](https://github.com/SecurityInnovation/Holodeck) on GitHub
 		- [ ] [libfiu](https://blitiri.com.ar/p/libfiu/) – C library for fault injection in POSIX API
 - [ ] Exam questions by section
-### COMP5122M Data Science (50/50)
+### COMP5122M Data Science (50/50) - Closed book
 - [ ] Lecture notes 
 	- [ ] (1) - *Week 3 EDA and Viz.pdf*
 	- [ ] (2) - *Machine Learning (overview).pdf*
@@ -62,7 +63,7 @@
 - [ ] Reading 
 	- [ ] (1) - Makes notes on *50 years of Data Science by David Donoho*
 - [ ] Exam questions by section
-### COMP3211 Distributed Systems (40/60)
+### COMP3211 Distributed Systems (40/60) - Open book
 - [ ] Lecture notes 
 	- [ ] (1) - Web Services and REST
 - [ ] **Labs**
