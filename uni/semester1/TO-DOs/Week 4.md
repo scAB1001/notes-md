@@ -11,7 +11,6 @@
 	- [ ] (1) - _Vector / Maths stuff_
 ### COMP3932 - **Synoptic Project (EPA)**
 - [ ] ==Project outline deadline is live==
-- [ ] Intro
 - [ ] Email + prep for meeting
 - [ ] Gradescope
 ### COMP3771 **User Adaptive Intelligent Systems** (40/60) - Open book
