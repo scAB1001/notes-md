@@ -8,12 +8,12 @@
 ### COMP3811 **Computer Graphics** (0/100)
 - [ ] ==CWK 1 is out== - due **07/11/2025**
 - [ ] Lecture notes  
-	- [ ] (1) - _Vector / Maths stuff_
+	- [ ] (1) - 
 ### COMP3932 - **Synoptic Project (EPA)**
 - [ ] ==Project outline deadline is live==
+	- [ ] Gradescope
 - [x] Email Sharib
 - [ ] Prepare for meeting (minutes + content + presentation?)
-- [ ] Gradescope
 ### COMP3771 **User Adaptive Intelligent Systems** (40/60) - Open book
 - [ ] ==CWK 1 out== - due **21/11/2025**
 - [ ] Lecture notes 
