@@ -1,18 +1,20 @@
 #### Priority
 1. **Computer Graphics**
-2. User Adaptive Intelligent Systems
-3. Secure Computing
-4. Data Science
-5. Distributed Systems
+2. **Synoptic Project (EPA)**
+3. **User Adaptive Intelligent Systems**
+4. Secure Computing
+5. Data Science
+6. Distributed Systems
 ### COMP3811 **Computer Graphics** (0/100)
 - [ ] ==CWK 1 is out== - due **07/11/2025**
 - [ ] Lecture notes  
 	- [ ] (1) - _Vector / Maths stuff_
-### COMP3932 - Synoptic Project (EPA)
+### COMP3932 - **Synoptic Project (EPA)**
+- [ ] ==Project outline deadline is live==
 - [ ] Intro
 - [ ] Email + prep for meeting
 - [ ] Gradescope
-### COMP3771 User Adaptive Intelligent Systems (40/60) - Open book
+### COMP3771 **User Adaptive Intelligent Systems** (40/60) - Open book
 - [ ] ==CWK 1 out== - due **21/11/2025**
 - [ ] Lecture notes 
 	- [ ] (1) - _User Information Collection_
