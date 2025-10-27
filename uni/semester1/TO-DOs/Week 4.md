@@ -11,7 +11,8 @@
 	- [ ] (1) - _Vector / Maths stuff_
 ### COMP3932 - **Synoptic Project (EPA)**
 - [ ] ==Project outline deadline is live==
-- [ ] Email Shrep for meeting
+- [x] Email Sharib
+- [ ] Prepare for meeting (minutes + content + presentation?)
 - [ ] Gradescope
 ### COMP3771 **User Adaptive Intelligent Systems** (40/60) - Open book
 - [ ] ==CWK 1 out== - due **21/11/2025**
