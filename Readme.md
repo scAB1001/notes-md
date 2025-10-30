@@ -4,11 +4,12 @@ COMP3211 Distributed Systems
 COMP3771 User Adaptive Intelligent Systems
 COMP3811 Computer Graphics
 COMP3911 Secure Computing
-COMP5122M Data Science
+COMP3932 Synoptic Project *
+COMP5122M Dat\a Science
 ### Semester 2
 COMP3011 Web Services and Web Data
+COMP3932 Synoptic Project *
 COMP5123M Cloud Computing Systems
-COMP3932 Synoptic Project
 ## How to
 ### Connect obsidian vault with GitHub
 Sync your notes from Obsidian to GitHub for free! [[https://youtu.be/5YZz38U20ws|YouTube tutorial]]
