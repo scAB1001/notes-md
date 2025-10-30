@@ -71,8 +71,10 @@
 ### COMP3211 Distributed Systems (40/60) - Open book
 - [ ] Lecture notes 
 	- [ ] (1) - Web Services and REST
+	- [ ] (2) - Programming RESTful Services
 - [ ] **Labs**
-	- 
+	- Flask + RESTful
+	- Sessions
 - [ ] Reading *Tanenbaum A & van Steen M, Distributed Systems: Principles & Paradigms, 4th edition, 2024*
 	- [ ] Make notes on (Chapter 4) and
 		- [ ] Service-Oriented Architecture: Concepts, Technology & Design. Thomas Erl, Prentice Hall/Pearson, 2nd edition, 2017
