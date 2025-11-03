@@ -28,7 +28,7 @@
 - [ ] Exam questions by section
 ### COMP3771 **User Adaptive Intelligent Systems** (40/60) - Open book
 - [ ] ==CWK 1 out== - due **21/11/2025**
-- [ ] Lecture notes 
+- [ ] Lecture notes  - STOP AT LECTURE 8 FOR CWK
 	- [ ] (1) - _User Information Collection_
 	- [ ] (2) - _General Schema Practical Task post lecture_
 	- [ ] (3) - _User model representation_
