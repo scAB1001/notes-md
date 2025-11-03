@@ -13,6 +13,19 @@
 - [ ] ==Project outline deadline is live==
 	- [ ] Gradescope
 - [ ] Prepare for meeting (minutes + content + presentation?)
+### COMP5122M Data Science (50/50) - Closed book
+- [ ]  ==CWK 1 is out== - due **14/11/2025**
+- [ ] Lecture notes 
+	- [ ] (1) - *Week 3 EDA and Viz.pdf*
+	- [ ] (2) - *Machine Learning (overview).pdf*
+	- [ ] (3) - *Data Similarity and Clustering.pdf*
+	- [ ] (4) - _[Classification.pdf](https://minerva.leeds.ac.uk/ultra/courses/_571240_1/outline/file/_13606315_1)_
+		[Tutorial on knn classification with scikit learn.pdf](https://minerva.leeds.ac.uk/ultra/courses/_571240_1/outline/file/_13606314_1)
+- [ ] **Labs**
+	-  Titanic: Machine Learning From Disaster Dataset
+- [ ] Reading 
+	- [ ] (1) - Makes notes on *50 years of Data Science by David Donoho*
+- [ ] Exam questions by section
 ### COMP3771 **User Adaptive Intelligent Systems** (40/60) - Open book
 - [ ] ==CWK 1 out== - due **21/11/2025**
 - [ ] Lecture notes 
@@ -55,19 +68,8 @@
 		- [ ] [Holodeck source code](https://github.com/SecurityInnovation/Holodeck) on GitHub
 		- [ ] [libfiu](https://blitiri.com.ar/p/libfiu/) – C library for fault injection in POSIX API
 - [ ] Exam questions by section
-### COMP5122M Data Science (50/50) - Closed book
-- [ ] Lecture notes 
-	- [ ] (1) - *Week 3 EDA and Viz.pdf*
-	- [ ] (2) - *Machine Learning (overview).pdf*
-	- [ ] (3) - *Data Similarity and Clustering.pdf*
-	- [ ] (4) - _[Classification.pdf](https://minerva.leeds.ac.uk/ultra/courses/_571240_1/outline/file/_13606315_1)_
-		[Tutorial on knn classification with scikit learn.pdf](https://minerva.leeds.ac.uk/ultra/courses/_571240_1/outline/file/_13606314_1)
-- [ ] **Labs**
-	-  Titanic: Machine Learning From Disaster Dataset
-- [ ] Reading 
-	- [ ] (1) - Makes notes on *50 years of Data Science by David Donoho*
-- [ ] Exam questions by section
 ### COMP3211 Distributed Systems (40/60) - Open book
+- [ ] ==CWK 2 is out== - due **19/11/2025**
 - [ ] Lecture notes 
 	- [ ] (1) - Web Services and REST
 	- [ ] (2) - Programming RESTful Services
