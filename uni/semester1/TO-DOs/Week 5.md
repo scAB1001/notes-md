@@ -75,8 +75,6 @@
 	- [ ] (2) - Programming RESTful Services
 	- [ ] (3) - Naming pt.1
 - [ ] **Labs**
-	- Flask + RESTful
-	- Sessions
 	- Serverless Computing
 - [ ] Reading *Tanenbaum A & van Steen M, Distributed Systems: Principles & Paradigms, 4th edition, 2024*
 	- [ ] Make notes on (Chapter 4) and
