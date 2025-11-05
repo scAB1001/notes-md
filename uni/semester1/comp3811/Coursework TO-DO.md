@@ -86,6 +86,8 @@ Next, implement tests for each scenario. Each scenario must be implemented in a 
 ### 1.8 Testing: triangles (4 marks)
 Add at least two (2) more distinct test cases to the triangles-test program. Refer to Section 1.7 for details – the same requirements/guidelines apply here. 
 
+==2 SCENARIOS - 4 SECTIONS EACH==
+
 Illustrate each of the two scenarios for your tests using Figure 4, showing triangles for each case. Use the provided *scenarios.cpp* file. Make sure the tests that you add are meaningful.
 
 **In your report:** 
