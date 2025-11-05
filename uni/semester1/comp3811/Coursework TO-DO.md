@@ -1,4 +1,4 @@
-#### Final Checks
+## Final Checks
 - [ ] Code 
 	- [ ] Consistent, sensible and descriptive naming
 	- [ ] Removed unnecessary TO-DOs and Commented code
@@ -16,15 +16,15 @@
 	- [ ] No code has been dumped.
 	- [ ] All figures/listings have descriptive captions ==telling the reader what to pay attention to==
 ## Implementation
-#### 1.2 Clipping Lines (3 marks)
+### 1.2 Clipping Lines (3 marks)
 Consider the function `clip_line`. It is declared in *draw2d/draw.hpp* and defined in *draw2d/draw.cpp*.
 It is supposed to take the line from `aBegin` to `aEnd` and clip it against the `aTargetArea` rectangle (`Rect2F`, defined in *draw2d/rect.hpp*).
 
-If the line requires clipping, update the `aBegin` and `aEnd` arguments to define the clipped line (i.e., the portion of the line inside the target area). The arguments are defined as non-const references, meaning this will change the passed-in values. The function should return true if the line is visible and false otherwise. You should not make any dynamic allocations (nor any system calls) in the clipping method.
+If the line requires clipping, update the `aBegin` and `aEnd` arguments to define the clipped line (i.e., the portion of the line inside the target area). The arguments are defined as non-const references, meaning this will change the passed-in values. The function should return `true` if the line is visible and `false` otherwise. You should not make any dynamic allocations (nor any system calls) in the clipping method.
 
 **In your report:** 
-- [ ] Explain your method for clipping (as a reminder: do not just dump code into your report). Be concise. If appropriate, use a figure to support your explanation.
-#### 1.3 Drawing Lines (5 marks)
+- [ ] ==Explain== your method for clipping (as a reminder: do not just dump code into your report). Be concise. If appropriate, use a figure to support your explanation.
+### 1.3 Drawing Lines (5 marks)
 Next, consider the function `draw_line_solid` and the related `draw_clip_line_solid`. The functions are also declared in the *draw2d/draw.{hpp,cpp}* pair of files. The former is provided to you and simply calls `clip_line` and then -if visible- `draw_clip_line_solid`.
 
 Implement the `draw_clip_line_solid` function. The goal is to produce a line that is as thin as possible (single pixel width) and that does not have any holes (i.e., each pixel should connect to another pixel either by nearest neighbours or by diagonals). Recall the parametrised version of a line as a starting point. You should ensure that the function produces correct results with all pre-clipped inputs. You may pick any drawing method, but it should scale with `O(N)`with respect to the number of drawn pixels`(N)`.
@@ -40,7 +40,7 @@ testing library. Ensure that your implementation passes the existing tests. Refe
 **In your report:** 
 - [ ] Explain your line drawing method. Be concise. Focus on technical aspects. Use equations/figu res for support. A reader should be able to understand how your method works.  
 - [x] Include a screenshot of the drawn ship.
-#### 1.5 Drawing triangles (6 marks)
+### 1.5 Drawing triangles (6 marks)
 Consider the function `draw_triangle_interp`. It is also declared in the *draw2d/draw.hpp* header and defined in *draw2d/draw.cpp*. This function draws a single triangle defined by its three vertices (`aP0`, `aP1` and `aP2`). Each vertex is assigned a color (`aC0`, `aC1` and `aC2`, respectively). These colors should be interpolated across the triangle with barycentric interpolation. Implement this function. Make sure that the function works correctly with all (reasonable) inputs.
 
 Unlike earlier examples, the colors are specified in linear RGB (`ColorF`). You should perform the interpolation in linear RGB space and only convert to the 8-bit sRGB representation when writing the color to the surface. 
@@ -54,7 +54,7 @@ Note: You must not change the prototype of the `draw_triangle_interp` function. 
 **In your report:** 
 - [ ] Explain your method (same requirements as Section 1.3). Document any ==special handing== that you perform. 
 - [x] Include a screenshot of the main program, with the asteroids visible.
-#### 1.6 Blitting images (4 marks)
+### 1.6 Blitting images (4 marks)
 In this task, you will implement image blitting with alpha masking. Consider the `blit_masked` function
 declared in *draw2d/image.hpp* and defined in draw2d/image.cpp. 
 
@@ -67,7 +67,7 @@ Note: You must not change the prototype of the `blit_masked` function. You must 
 **In your report:** 
 - [ ] Describe your implementation of the blit (same requirements as Section 1.3). 
 - [ ] Discuss the efficiency of your implementation: Focus specifically on choices in your implementation that benefit efficiency and the ==impact of clipping/culling==.
-#### 1.7 Testing: lines (8 marks)
+### 1.7 Testing: lines (8 marks)
 Consider the lines-test program. It contains a few example tests that verify expected behaviour. However, the tests are far from exhaustive. We will explore the following four scenarios to verify that the line drawing (with clipping) works correctly:
 1. Consider lines with one point inside the surface and one outside.
 2. Consider lines with both points outside of the surface.
@@ -83,7 +83,7 @@ Next, implement tests for each scenario. Each scenario must be implemented in a 
 - [x] Include the four figures with your selected cases (label individual cases if necessary). 
 - [ ] ==Describe== them briefly and ==motivate your choice== of them: ==Why== are these are a good selection for your tests? 
 - [ ] Describe ==how== you have implemented the corresponding tests. No marks will be awarded for tests that lack an explanation and solid reasoning.
-#### 1.8 Testing: triangles (4 marks)
+### 1.8 Testing: triangles (4 marks)
 Add at least two (2) more distinct test cases to the triangles-test program. Refer to Section 1.7 for details – the same requirements/guidelines apply here. 
 
 Illustrate each of the two scenarios for your tests using Figure 4, showing triangles for each case. Use the provided *scenarios.cpp* file. Make sure the tests that you add are meaningful.
@@ -93,7 +93,7 @@ Illustrate each of the two scenarios for your tests using Figure 4, showing tria
 - [x] Include two figures with your representative cases for the scenarios (label individual cases if necessary). 
 - [ ] =Describe= them briefly and ==motivate your choice== of them: ==Why== are these are a good selection for your tests? 
 - [ ] Describe ==how== you have implemented the corresponding tests. No marks will be awarded for tests that lack an explanation and solid reasoning.
-#### 1.9 Benchmarking - Specs (0 marks) - REQUIRED for Sections 1.10 to 1.12
+### 1.9 Benchmarking - Specs (0 marks) - REQUIRED for Sections 1.10 to 1.12
 This task by itself does not give you any marks, but is required if you plan on attempting the benchmarking related tasks. If the information is missing from your report (or obviously incorrect), the benchmarking tasks will automatically receive zero marks.
 
 Important for all benchmarking tasks: You should only ever benchmark code built in the release configuration. The debug configuration disables many compiler optimizations (including code inlining!) to aid debugging and is therefore not representative of the final performance. Hence, when running benchmarks, make sure you only ever use release builds.
@@ -121,7 +121,7 @@ line. It should uniquely and unambiguously identify the CPU. Information on cach
 In the labs, you can use inxi to find information about system RAM:
 > module add inxi
 > inxi -m
-#### 1.10 Benchmark: Lines I (5 marks)
+### 1.10 Benchmark: Lines I (5 marks)
 Compare the performance of your line drawing (`draw_line_solid()`) under different conditions. For this task, use the line-benchmark application. It uses, in turn, Google’s microbenchmarking library, which
 allows you to implement these benchmarks. Study the documentation and examples at the provided link. 
 
@@ -136,7 +136,7 @@ Next, test your hypotheses by varying each variable (independently). Make sure y
 - [ ] ==Evaluate and analyze== your results: Were your ==hypotheses correct==? ==Discuss== the results and try to ==explain== what you have seen.
 - [ ] Do not forget to include units on axes/reported numbers. Marks are mainly awarded for a solid analysis and discussion of the results. Poor and/or badly motivated choices of variables will result in zero marks.
 - [ ] Benchmarking incorrect line drawing may result in zero marks, as will nonsensical results.
-#### 1.11 Benchmark: Blitting (5 marks)
+### 1.11 Benchmark: Blitting (5 marks)
 Compare the performance of your blit (blit_masked) to two more blit variants under different conditions. For this task, use the blit-benchmark program; like earlier tasks it uses Google’s microbenchmarking library.
 
 You should first implement the additional blit variants in draw-ex.cpp:
@@ -155,7 +155,7 @@ Benchmark the performance under different conditions. Identify candidate variabl
 - [ ] ==Present== your results using ==graphs/plots== (do not dump output from the terminal). What are your ==observations==? Try to ==explain== what you have seen.
 	- [ ] Marks are mainly awarded for a solid analysis and discussion of the results. 
 	- [ ] No marks are awarded for just showing the results. Do not forget to include units on axes/reported numbers.
-#### 1.12 Benchmark: Lines II (5 marks)
+### 1.12 Benchmark: Lines II (5 marks)
 Study the draw-ex.hpp and draw-ex.cpp files, specifically the declaration of draw_ex_line_solid() and
 the provided draw_ex_diagonal().
 
