@@ -12,7 +12,8 @@
 ### COMP3932 - **Synoptic Project (EPA)**
 - [ ] ==Project outline deadline is live==
 	- [ ] Look at all in downloads/
-		- [ ] INCLUDE chater 4 - see .docx
+		- [ ] INCLUDE chapter 4 - see the .docx
+		- [ ] Download and write-up the latest pdf for ethics.
 	- [ ] Gradescope
 - [ ] Prepare for meeting (minutes + content + presentation?)
 ### COMP5122M Data Science (50/50) - Closed book
