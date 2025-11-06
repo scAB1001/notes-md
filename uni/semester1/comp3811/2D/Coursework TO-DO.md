@@ -23,7 +23,7 @@ It is supposed to take the line from `aBegin` to `aEnd` and clip it against the 
 If the line requires clipping, update the `aBegin` and `aEnd` arguments to define the clipped line (i.e., the portion of the line inside the target area). The arguments are defined as non-const references, meaning this will change the passed-in values. The function should return `true` if the line is visible and `false` otherwise. You should not make any dynamic allocations (nor any system calls) in the clipping method.
 
 **In your report:** 
-- [ ] ==Explain== your method for clipping (as a reminder: do not just dump code into your report). Be concise. If appropriate, use a figure to support your explanation.
+- [x] ==Explain== your method for clipping (as a reminder: do not just dump code into your report). Be concise. If appropriate, use a figure to support your explanation.
 ### 1.3 Drawing Lines (5 marks)
 Next, consider the function `draw_line_solid` and the related `draw_clip_line_solid`. The functions are also declared in the *draw2d/draw.{hpp,cpp}* pair of files. The former is provided to you and simply calls `clip_line` and then -if visible- `draw_clip_line_solid`.
 
