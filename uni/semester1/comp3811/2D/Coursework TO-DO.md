@@ -1,17 +1,17 @@
 ## Final Checks
 - [ ] Code 
-	- [ ] Consistent, sensible and descriptive naming
+	- [x] Consistent, sensible and descriptive naming
 	- [ ] Removed unnecessary TO-DOs and Commented code
 	- [ ] Commented clearly throughout
-	- [ ] Kept some additional test scenarios and sandbox tests
+	- [x] Kept some additional sandbox tests
 	- [ ] Compiles on SoC machine with no warnings
-	- [ ] All default tests pass
+	- [x] All default tests pass
 	- [ ] Include units on axes/reported numbers
 - [ ] Document
 	- [ ] Referenced algorithms, images, quotes etc.
 	- [ ] ==FIX== backwards quote issue
 	- [ ] ==FIX== code listing && as ^ issue
-	- [ ] 13 Pages only, 1 task per page.
+	- [x] 13 Pages only, 1 task per page + references.
 	- [ ] Academic language, paragraphs, punctuation and spelling.
 	- [ ] No code has been dumped.
 	- [ ] All figures/listings have descriptive captions ==telling the reader what to pay attention to==
@@ -38,7 +38,7 @@ The second program, lines-test, runs a few automated tests on the line drawing. 
 testing library. Ensure that your implementation passes the existing tests. Refer to the source code for more information on the tests. With the line drawing in place, you should now be able to see a space ship (Figure 2a).
 
 **In your report:** 
-- [ ] Explain your line drawing method. Be concise. Focus on technical aspects. Use equations/figu res for support. A reader should be able to understand how your method works.  
+- [x] Explain your line drawing method. Be concise. Focus on technical aspects. Use equations/figu res for support. A reader should be able to understand how your method works.  
 - [x] Include a screenshot of the drawn ship.
 ### 1.5 Drawing triangles (6 marks)
 Consider the function `draw_triangle_interp`. It is also declared in the *draw2d/draw.hpp* header and defined in *draw2d/draw.cpp*. This function draws a single triangle defined by its three vertices (`aP0`, `aP1` and `aP2`). Each vertex is assigned a color (`aC0`, `aC1` and `aC2`, respectively). These colors should be interpolated across the triangle with barycentric interpolation. Implement this function. Make sure that the function works correctly with all (reasonable) inputs.
@@ -52,7 +52,7 @@ Use the `triangles-sandbox` to visually experiment with your triangle drawing in
 Note: You must not change the prototype of the `draw_triangle_interp` function. You must use `Surface▽ ▷ ::set_pixel_srgb` to draw pixels.
 
 **In your report:** 
-- [ ] Explain your method (same requirements as Section 1.3). Document any ==special handing== that you perform. 
+- [x] Explain your method (same requirements as Section 1.3). Document any ==special handing== that you perform. 
 - [x] Include a screenshot of the main program, with the asteroids visible.
 ### 1.6 Blitting images (4 marks)
 In this task, you will implement image blitting with alpha masking. Consider the `blit_masked` function
@@ -65,8 +65,8 @@ The position is relative to the center of the input image. Input pixels with an 
 Note: You must not change the prototype of the `blit_masked` function. You must not change the `ImageRGBA` class and the `load_image` function.
 
 **In your report:** 
-- [ ] Describe your implementation of the blit (same requirements as Section 1.3). 
-- [ ] Discuss the efficiency of your implementation: Focus specifically on choices in your implementation that benefit efficiency and the ==impact of clipping/culling==.
+- [x] Describe your implementation of the blit (same requirements as Section 1.3). 
+- [x] Discuss the efficiency of your implementation: Focus specifically on choices in your implementation that benefit efficiency and the ==impact of clipping/culling==.
 ### 1.7 Testing: lines (8 marks)
 Consider the lines-test program. It contains a few example tests that verify expected behaviour. However, the tests are far from exhaustive. We will explore the following four scenarios to verify that the line drawing (with clipping) works correctly:
 1. Consider lines with one point inside the surface and one outside.
@@ -82,7 +82,7 @@ Next, implement tests for each scenario. Each scenario must be implemented in a 
 **In your report:** 
 - [x] Include the four figures with your selected cases (label individual cases if necessary). 
 - [ ] ==Describe== them briefly and ==motivate your choice== of them: ==Why== are these are a good selection for your tests? 
-- [ ] Describe ==how== you have implemented the corresponding tests. No marks will be awarded for tests that lack an explanation and solid reasoning.
+- [x] Describe ==how== you have implemented the corresponding tests. No marks will be awarded for tests that lack an explanation and solid reasoning.
 ### 1.8 Testing: triangles (4 marks)
 Add at least two (2) more distinct test cases to the triangles-test program. Refer to Section 1.7 for details – the same requirements/guidelines apply here. 
 
@@ -91,9 +91,9 @@ Add at least two (2) more distinct test cases to the triangles-test program. Ref
 Illustrate each of the two scenarios for your tests using Figure 4, showing triangles for each case. Use the provided *scenarios.cpp* file. Make sure the tests that you add are meaningful.
 
 **In your report:** 
-- [ ] Describe each scenario. 
+- [x] Describe each scenario. 
 - [x] Include two figures with your representative cases for the scenarios (label individual cases if necessary). 
-- [ ] =Describe= them briefly and ==motivate your choice== of them: ==Why== are these are a good selection for your tests? 
+- [ ] ==Describe== them briefly and ==motivate your choice== of them: ==Why== are these are a good selection for your tests? 
 - [ ] Describe ==how== you have implemented the corresponding tests. No marks will be awarded for tests that lack an explanation and solid reasoning.
 ### 1.9 Benchmarking - Specs (0 marks) - REQUIRED for Sections 1.10 to 1.12
 This task by itself does not give you any marks, but is required if you plan on attempting the benchmarking related tasks. If the information is missing from your report (or obviously incorrect), the benchmarking tasks will automatically receive zero marks.
@@ -132,8 +132,8 @@ The provided code implements a simple example that shows how the library can be 
 Next, test your hypotheses by varying each variable (independently). Make sure your tests use representative lines. You might need to test with multiple different lines for each value of a certain variable. Always benchmark different lines in isolation. Check your results: do they make sense?
 
 **In your report:** 
-- [ ] As requested above, ==list== your variables, ==explanations== of them and your ==hypotheses==. 
-- [ ] ==Document== your representative lines and ==explain why== these are good picks (and ==sufficient== for your tests). 
+- [x] As requested above, ==list== your variables, ==explanations== of them and your ==hypotheses==. 
+- [x] ==Document== your representative lines and ==explain why== these are good picks (and ==sufficient== for your tests). 
 - [ ] ==Present== the results from your benchmarks using a ==graph/plot== (do not just dump output of the benchmarking program in the terminal). 
 - [ ] ==Evaluate and analyze== your results: Were your ==hypotheses correct==? ==Discuss== the results and try to ==explain== what you have seen.
 - [ ] Do not forget to include units on axes/reported numbers. Marks are mainly awarded for a solid analysis and discussion of the results. Poor and/or badly motivated choices of variables will result in zero marks.
@@ -142,11 +142,11 @@ Next, test your hypotheses by varying each variable (independently). Make sure y
 Compare the performance of your blit (blit_masked) to two more blit variants under different conditions. For this task, use the blit-benchmark program; like earlier tasks it uses Google’s microbenchmarking library.
 
 You should first implement the additional blit variants in draw-ex.cpp:
-- blit_ex_solid: A blit without alpha masking, where you just copy over the target image pixel by pixel.
+- `blit_ex_solid`: A blit without alpha masking, where you just copy over the target image pixel by pixel.
 
 Implement this yourself using loops in C++.
-- blit_ex_memcpy: A blit without alpha masking, but implement this using std::memcpy, one for each line in the image.
-These “extended” functions take a SurfaceEx argument instead of the Surface. The main difference is that SurfaceEx gives out a raw std::uint8_t* pointer to the image data; you will (minimally) need this for the std::memcpy-based variant. Study the declaration of SurfaceEx for details.
+- `blit_ex_memcpy`: A blit without alpha masking, but implement this using std::memcpy, one for each line in the image.
+These “extended” functions take a SurfaceEx argument instead of the Surface. The main difference is that `SurfaceEx` gives out a raw `std::uint8_t*` pointer to the image data; you will (minimally) need this for the `std::memcpy`-based variant. Study the declaration of `SurfaceEx` for details.
 
 As always, you should ensure that the variants work correctly. There is no point in benchmarking incorrect code.
 Benchmark the performance under different conditions. Identify candidate variables that could affect performance. Vary only one variable at a time. (However, the benchmark program should run all variants automatically.) Analyze your results. Do they seem realistic/reasonable?
@@ -158,19 +158,17 @@ Benchmark the performance under different conditions. Identify candidate variabl
 	- [ ] Marks are mainly awarded for a solid analysis and discussion of the results. 
 	- [ ] No marks are awarded for just showing the results. Do not forget to include units on axes/reported numbers.
 ### 1.12 Benchmark: Lines II (5 marks)
-Study the draw-ex.hpp and draw-ex.cpp files, specifically the declaration of draw_ex_line_solid() and
-the provided draw_ex_diagonal().
+Study the *draw-ex.hpp* and *draw-ex.cpp* files, specifically the declaration of `draw_ex_line_solid()` and the provided `draw_ex_diagonal()`.
 
-Your task is to implement a second line drawing method in draw_ex_line_solid(). Choose from the following options:
+Your task is to implement a second line drawing method in `draw_ex_line_solid().` Choose from the following options:
 - Research an optimized line drawing method. It should be based on existing (technical) literature that you can reference.
 - If you previously implemented a method like DDA (with floating point), implement an integer-only method (e.g. Bresenham). If you already implemented an integer-only method, then implement a standard DDA with floats1.
 
-Your improved method may use the SurfaceEx class. The method must function as a drop-in replacement for draw_line_solid() and work correctly in all circumstances.
+Your improved method may use the `SurfaceEx` class. The method must function as a drop-in replacement for `draw_line_solid()` and work correctly in all circumstances.
 
-Compare performance of the implementations. Include cases where you can use draw_ex_diagonal as a
-simple baseline for your comparisons. What can you learn from that?
+Compare performance of the implementations. Include cases where you can use `draw_ex_diagonal` as a simple baseline for your comparisons. What can you learn from that?
 
-Try to identify the bottlenecks in your implementations. What could you do to improve performance further? You might find Agner Fog’s instruction table listings helpful, along with Matt Godbolt’s compiler explorer.
+Try to identify the ==bottlenecks== in your implementations. What could you do to ==improve performance== further? You might find ==Agner Fog’s instruction table listings== helpful, along with ==Matt Godbolt’s compiler explorer.==
 
 **In your report:** 
 - [ ] ==Present== your findings appropriately (see previous benchmarking tasks). 
