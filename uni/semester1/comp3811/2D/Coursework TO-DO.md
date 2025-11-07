@@ -13,7 +13,7 @@
 	- [ ] ==FIX== code listing && as ^ issue
 	- [x] 13 Pages only, 1 task per page + references.
 	- [ ] Academic language, paragraphs, punctuation and spelling.
-	- [ ] No code has been dumped.
+	- [x] No code has been dumped.
 	- [ ] All figures/listings have descriptive captions ==telling the reader what to pay attention to==
 ## Implementation
 ### 1.2 Clipping Lines (3 marks)
@@ -81,7 +81,7 @@ Next, implement tests for each scenario. Each scenario must be implemented in a 
 
 **In your report:** 
 - [x] Include the four figures with your selected cases (label individual cases if necessary). 
-- [ ] ==Describe== them briefly and ==motivate your choice== of them: ==Why== are these are a good selection for your tests? 
+- [x] ==Describe== them briefly and ==motivate your choice== of them: ==Why== are these are a good selection for your tests? 
 - [x] Describe ==how== you have implemented the corresponding tests. No marks will be awarded for tests that lack an explanation and solid reasoning.
 ### 1.8 Testing: triangles (4 marks)
 Add at least two (2) more distinct test cases to the triangles-test program. Refer to Section 1.7 for details – the same requirements/guidelines apply here. 
@@ -94,7 +94,7 @@ Illustrate each of the two scenarios for your tests using Figure 4, showing tria
 - [x] Describe each scenario. 
 - [x] Include two figures with your representative cases for the scenarios (label individual cases if necessary). 
 - [ ] ==Describe== them briefly and ==motivate your choice== of them: ==Why== are these are a good selection for your tests? 
-- [ ] Describe ==how== you have implemented the corresponding tests. No marks will be awarded for tests that lack an explanation and solid reasoning.
+- [x] Describe ==how== you have implemented the corresponding tests. No marks will be awarded for tests that lack an explanation and solid reasoning.
 ### 1.9 Benchmarking - Specs (0 marks) - REQUIRED for Sections 1.10 to 1.12
 This task by itself does not give you any marks, but is required if you plan on attempting the benchmarking related tasks. If the information is missing from your report (or obviously incorrect), the benchmarking tasks will automatically receive zero marks.
 
@@ -134,10 +134,10 @@ Next, test your hypotheses by varying each variable (independently). Make sure y
 **In your report:** 
 - [x] As requested above, ==list== your variables, ==explanations== of them and your ==hypotheses==. 
 - [x] ==Document== your representative lines and ==explain why== these are good picks (and ==sufficient== for your tests). 
-- [ ] ==Present== the results from your benchmarks using a ==graph/plot== (do not just dump output of the benchmarking program in the terminal). 
-- [ ] ==Evaluate and analyze== your results: Were your ==hypotheses correct==? ==Discuss== the results and try to ==explain== what you have seen.
-- [ ] Do not forget to include units on axes/reported numbers. Marks are mainly awarded for a solid analysis and discussion of the results. Poor and/or badly motivated choices of variables will result in zero marks.
-- [ ] Benchmarking incorrect line drawing may result in zero marks, as will nonsensical results.
+- [x] ==Present== the results from your benchmarks using a ==graph/plot== (do not just dump output of the benchmarking program in the terminal). 
+- [x] ==Evaluate and analyze== your results: Were your ==hypotheses correct==? ==Discuss== the results and try to ==explain== what you have seen.
+- [x] Do not forget to include units on axes/reported numbers. Marks are mainly awarded for a solid analysis and discussion of the results. Poor and/or badly motivated choices of variables will result in zero marks.
+- [x] Benchmarking incorrect line drawing may result in zero marks, as will nonsensical results.
 ### 1.11 Benchmark: Blitting (5 marks)
 Compare the performance of your blit (blit_masked) to two more blit variants under different conditions. For this task, use the blit-benchmark program; like earlier tasks it uses Google’s microbenchmarking library.
 

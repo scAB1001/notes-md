@@ -6,9 +6,14 @@
 5. **User Adaptive Intelligent Systems**
 6. Distributed Systems
 ### COMP3811 **Computer Graphics** (0/100)
-- [x] ==CWK 1 is out== - due **07/11/2025**
 - [ ] Lecture notes  
-	- [ ] (1) - 
+	- [ ] (1) - OpenGL pt.1
+- [ ] **Labs**
+	-  Exercise G.2
+	-  Exercise G.3
+	-  Exercise G.4
+	-  Exercise G.5
+	-  Exercise G.6
 ### COMP3932 - **Synoptic Project (EPA)**
 - [ ] ==Project outline deadline is live==
 	- [ ] Look at all in downloads/
@@ -22,8 +27,9 @@
 	- [ ] (1) - *Week 3 EDA and Viz.pdf*
 	- [ ] (2) - *Machine Learning (overview).pdf*
 	- [ ] (3) - *Data Similarity and Clustering.pdf*
-	- [ ] (4) - _[Classification.pdf](https://minerva.leeds.ac.uk/ultra/courses/_571240_1/outline/file/_13606315_1)_
-		[Tutorial on knn classification with scikit learn.pdf](https://minerva.leeds.ac.uk/ultra/courses/_571240_1/outline/file/_13606314_1)
+	- [ ] (4) - _[Classification and Decision Trees.pdf](https://minerva.leeds.ac.uk/ultra/courses/_571240_1/outline/file/_13606315_1)_
+		- [ ] [Tutorial on knn classification with scikit learn.pdf](https://minerva.leeds.ac.uk/ultra/courses/_571240_1/outline/file/_13606314_1)
+	- [ ] (5) - [Regression and Model Fitting.pdf](https://minerva.leeds.ac.uk/ultra/courses/_571240_1/outline/file/_13633832_1)
 - [ ] **Labs**
 	-  Titanic: Machine Learning From Disaster Dataset
 - [ ] Reading 
@@ -80,6 +86,10 @@
 	- [ ] (3) - Naming pt.1
 - [ ] **Labs**
 	- Serverless Computing
+
+- [ ] **Quiz**
+	- [ ] (Week 5)
+	- [ ] (Week 6)
 - [ ] Reading *Tanenbaum A & van Steen M, Distributed Systems: Principles & Paradigms, 4th edition, 2024*
 	- [ ] Make notes on (Chapter 4) and
 		- [ ] Service-Oriented Architecture: Concepts, Technology & Design. Thomas Erl, Prentice Hall/Pearson, 2nd edition, 2017
