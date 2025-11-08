@@ -1,0 +1,61 @@
+The sections that are required at this point are:
+### 1. Title
+A concise title that accurately describes the subject of your project.
+The subject should be the computer science problem that you are investigating.
+It should not be, for example, a software artefact (e.g. a mobile app or web site) – that is a
+Deliverable of the project, and part of your solution, but not the subject.
+
+--- 
+*Replacing Joystick Control: A Hand-Gesture Based Navigation System for 3D Anatomy Manipulation in Virtual Reality*
+### 2. Aim
+A short paragraph describing the computer science problem that your project is
+investigating.
+You can describe the context of the problem but need to separate out the specifics of what
+you will be studying.
+This does not need to describe how you solve the problem or with what algorithms or tools,
+unless that is fundamental to the work, e.g. your project is studying a particular algorithm or
+technique.
+
+---
+Surgeons use 3D rendered images of anatomical models e.g. the liver to better familiarise themselves with the patient and the working environment before operating. Typically, this model viewing is done with a joy-stick, offering limited inisght and difficult navigation. The tool being used greatly limits visibility and understanding.
+### 3. Objectives (up to 5)
+Objectives should be SMART – Specific, Measurable, Achievable, Relevant, Time-bound.
+Objectives should be a list of tasks that collectively meet the Aim of your project (makes
+them Specific and Relevant)
+Consider what you need to achieve to reach your Aim, as stages of your project.
+Normal parts of the project such as literature review and report writing are not Objectives.
+
+---
+1. Learn Unityx`
+### 4. Deliverables (up to 5)
+Deliverables are concrete items produced as part of your project. They are the evidence
+required to show you have met your Objectives, and ultimately your Aim.
+You should link them to your Objectives such that it is clear which Deliverable relates to
+which objective (makes the Objective Measurable and Achievable).
+Your final report and your software repository can both be considered Deliverables. You
+may wish to further sub-divide this, for example if you project delivers several distinct
+software items or particular chapters of your report are relevant.
+This is the starting point for a plan, which you should also work on with your supervisor.
+### 5. Plan
+A schedule for your project from now until the final submission of the report (week 10 of
+semester 2). Weekly is probably an appropriate level of planning for most people.
+Use your Deliverables as milestones for your progress (makes the Objective Achievable and
+Time-bound).
+Allow time for completing evaluation of your work as well as completing development.
+Allow time for writing up, and consider how you will write up – regularly and incrementally,
+or later, once work is complete.
+Please consider when there are other demands there are on your time, e.g. exams,
+coursework, holidays.
+### 6. Risk
+A brief discussion of how to mitigate risk in your project and ensure sufficient work will be
+completed for final submission.
+This could include prioritisation of Objectives and Deliverables or development of
+prototypes as early-stage deliverables.
+This could include some contingency in your plan for delays.
+### 7. Ethics
+Describe the ethical issues associated with your project and how you will address them.
+For example, proper handling of data sets, user testing, etc.
+There is a lecture in Week 6 that you must attend and a further advice session in Week 7 if
+you need guidance on how to properly consider ethics.
+If you believe there are no ethical issues associated with your project you should state that
+here.
