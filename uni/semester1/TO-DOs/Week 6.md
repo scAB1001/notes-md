@@ -4,7 +4,7 @@
 3. **Data Science**
 4. **Secure Computing**
 5. **User Adaptive Intelligent Systems**
-6. Distributed Systems
+6. **Distributed Systems**
 ### COMP3811 **Computer Graphics** (0/100)
 - [ ] Lecture notes  
 	- [ ] (1) - OpenGL pt.1
