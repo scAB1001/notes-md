@@ -112,4 +112,147 @@
 5. What is the main difference between little-endian and big-endian formats?
 	Big-endian stores the most significant byte first while little-endian stores the least significant byte first, while 
 #### Exam
-- 
+1. What is the purpose of a message queue in a distributed system?
+- To store messages temporarily
+- To ensure messages are delivered in order
+
+2. What does an endpoint represent in a Service-Oriented Architecture(SOA)?
+- A network-accessible address where a service can be invoked
+- In SOA, an endpoint is the specific location(often a URL) where a service is made available to consumers. It defines how and where the service can be accessed.
+3. Consider a nested transaction that has started several subtransactions in parallel. One of these commits and makes its results visible to the parent transaction. After further computation, the parent aborts. What happens next?
+
+- The parent restores the entire system to the state it had before the top-level transaction started
+
+- The results of the subtransaction that committed are undone
+
+- As demonstrated by the ACID properties
+
+4. In addition to computers, which of the following resources can be shared on a Grid?
+
+- storage
+
+- application software
+
+- specialised equipment such as sensors
+
+- databases
+
+- By definition, anything can be shared on the Grid
+
+5. Consider a social-media application in which clients connect to an online service to exchange information. Which statement(s) is /are true?
+
+- The connection between a specific client and the service is tight
+
+- The coupling between clients is loose
+
+- The client first interacts with a centralised server, so the connection between a client and the service is tight. The coupling between clients is loose when they interact with each other(no dependency).
+
+6. Essentially everyone, when they first build a distributed application, makes eight assumptions as discussed in the lecture. All prove to be false in the long run and cause big trouble and painful learning experiences. There is argument for a 9th fallacy. Which one is it?
+
+- All clocks are synchronised
+
+7. What is a Virtual organisation?
+
+- a group of people geographically distributed that come together from different organisations to work on a Grid project
+
+8. Caching is a special form of replication, but caching and replication lead to consistency problems
+
+T
+
+F
+
+False
+
+9. A client binds to a distributed object. The proxy (the object’s interface implementation) is loaded into the client address’ space and an object’s method is invoked. The client realises that the result returned by the object is different from the one returned the day before. Is this possible?
+
+- Yes. Although the interface did not change, the implementation of the object's method may have. This is hidden from the end-user.
+
+10. An ad hoc network is created between a group of friends playing a multiplayer game over wireless links on a collection of mobile devices including smartphones and tablets. Identify the classes of heterogeneity that may occur in this scenario. - performance, platform and operating system
+
+- Three aspects of heterogeneity: performance, platform and operating system
+
+11. You are initiating an MPI program with the command "mpirun -np 4 ./myprog". What does the call to MPI_Init do?
+
+- Enable the 4 independent programs subsequently to communicate with each other
+
+- Enable the 4 independent programs subsequently to communicate with each other
+
+12. Consider a ubiquitous computing whose primary feature is to take into account the context in which interactions take place. Context aware applications are built with the consideration of shared data spaces. Which statement is true?
+
+- processes are decoupled in time and space
+
+- The aspect of shard data spaces is attractive as it combines flexibility and distribution. Processes are decoupled in time and space
+
+13. The DNS name space is organised
+
+- hierarchically into a tree of domains , which are divided into non-overlapping zones
+
+- DNS is organised hierarchically into a tree of domains , which are divided into non-overlapping zones
+
+14. In a structured peer-to-peer system where data items are stored, the system is seen to implement
+
+- a distributed hash table, as explained in the lecture (see slide)
+
+15. In the statement "Standard interfaces and protocols ensure that the _?_ of messages and the _?_ of communication are preserved when a message is passed between two dissimilar computer systems", what are the two missing words?
+
+- content / semantics: content of message and semantic of communication. Think protocols
+
+16. In the context of RPC, stubs make the remote procedure call appear as a local call to the client, hiding the complexities of network communication. - This is true, see the definition of a stub.
+
+17. The intra-Lilliputian quarrel was over
+
+- the practice of breaking eggs, smaller vs larger end (little vs big endian)
+
+18. Suppose you organise a sensor network as a distributed database. You decide that sensors do not cooperate but simply send their data to a centralised database located at the operator's site. This approach will
+
+- waste network resources
+
+- waste energy
+
+- Constantly sending data to a centralised database will lead to a waste of network resources (e.g. bandwidth) and energy (due to resource consumption)
+
+19. In a resource-based architecture, resources are addressed by
+
+- URIs, e.g. in the context of REST
+
+20. You are accessing from a computer in Bragg 2.05 Lab a remote database located on Microsoft Azure cloud (using JDBC). The MySQL server resides on a host called mariadb.azure.com, which stores additional data on a server called storage.azure.com. Which client/server architecture model is this?
+
+- 3-Tier
+
+21. In the context of RPC, which of these statements is true:
+
+- Serialisation is part of marshalling
+
+-The client-side stub is responsible for taking the parameters provided by the client, marshalling them into a format suitable for network transmission, and sending the request to the server. Serialisation is part of marshalling and consists of the conversion of the message into a linear sequence of bytes or characters that can be shared or stored.
+
+22. Consider a distributed system supported by message queues. A process needs to install a callback function, which is automatically invoked whenever a message is put into a specified queue. Such notification can be implemented by
+
+- a handler
+
+- To notify the process, a handler is to be called when a message is put into the specified queue
+
+23. What is the missing word? In a client/server architecture, a client with most resources installed locally rather than distributed over the network is known as a ??? client
+
+- Fat client as it does more than it should
+
+24. You are designing a ubiquitous computing system for a car where the settings of the driver’s seat, steering wheel, and mirrors are fully personalised. If Bob takes a seat, the system will recognise that it is dealing with Bob and subsequently makes the appropriate adjustments. The same happens when Alice uses the car. Which core requirement does this satisfy?
+
+- Interaction
+
+- In ubiquitous computing systems design, when it comes to interaction with end users, special attention needs to be paid to how the interaction between users and core system takes place.
+
+25. In an edge-server system, servers can be used to
+
+- optimise content distribution
+
+- optimise application distribution
+
+- optimise network traffic
+
+- support Quality of Service
+
+26. In a distributed system, how long does it take to send a file from a sender host A to a receiver host B considering the following assumptions: the file size is 256 MegaBytes, the communication link is 5.12 GigaBytes/second, and the propagation delay is 30 milli-seconds. Note: 1 Giga = 1,000 Mega
+
+- 0.08 seconds
+
+- Time = size/bandwidth + latency which is 128/5120 + 0.030 = 0.055 seconds = 55 milli-seconds
