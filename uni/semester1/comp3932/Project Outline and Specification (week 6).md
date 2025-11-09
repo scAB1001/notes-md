@@ -26,7 +26,8 @@ Consider what you need to achieve to reach your Aim, as stages of your project.
 Normal parts of the project such as literature review and report writing are not Objectives.
 
 ---
-1. Learn Unityx`
+1. Learn Unity
+2. `
 ### 4. Deliverables (up to 5)
 Deliverables are concrete items produced as part of your project. They are the evidence
 required to show you have met your Objectives, and ultimately your Aim.
