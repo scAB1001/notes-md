@@ -19,7 +19,12 @@ technique.
 ---
 Surgeons use 3D anatomical models e.g., the liver, to better familiarise themselves with the patient and their working environment before operating. This preparation reduces the operation's invasiveness and provides a quicker insight to the issue at hand. Typically, this model investigation and viewing is done on-screen using a joystick, offering limited inisght and difficult navigation. Futhermore, the tool also requires a steep learning curve before efficient use can be made of it. 
 
-A new method of 
+A new method of interacting with these 3D models is needed. It must meet the rquirements of:
+- easy and intuitive to use
+- improved perception 
+- improved navigation of the model
+
+To achieve this, the viewing space needs to be transformed. A virtual reality is the best way to acheive 
 ### 3. Objectives (up to 5)
 Objectives should be SMART – Specific, Measurable, Achievable, Relevant, Time-bound.
 Objectives should be a list of tasks that collectively meet the Aim of your project (makes
