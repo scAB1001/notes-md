@@ -24,7 +24,7 @@ A new method of interacting with these 3D models is needed. It must meet the rqu
 - improved perception 
 - improved navigation of the model
 
-To achieve this, the viewing space needs to be transformed. A virtual reality is the best way to acheive 
+To achieve this, the viewing space needs to be transformed. A virtual reality is the best way to view a 3D model from all perspectives. The next step concerns navigation: hand-gestures make the most sense as they complement the realistic experience and for this AI is needed to interpret these gestures. Ideally this new approach will enable system to simply hot-swap any model and render it into this virtual space. To render the model, the import will require complex mesh repairing, cleaning, simplification and other processing.
 ### 3. Objectives (up to 5)
 Objectives should be SMART – Specific, Measurable, Achievable, Relevant, Time-bound.
 Objectives should be a list of tasks that collectively meet the Aim of your project (makes
