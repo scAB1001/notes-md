@@ -17,7 +17,7 @@ unless that is fundamental to the work, e.g. your project is studying a particul
 technique.
 
 ---
-Surgeons use 3D rendered images of anatomical models e.g. the liver to better familiarise themselves with the patient and the working environment before operating. Typically, this model viewing is done with a joy-stick, offering limited inisght and difficult navigation. The tool being used greatly limits visibility and understanding.
+Surgeons use 3D rendered images of anatomical models e.g. the liver to better familiarise themselves with the patient and the working environment before operating. Typically, this model investigation and viewing is done on-screen using a joystick, offering limited inisght and difficult navigation. The tool greatly restricts  and requires a steep learning curve before efficient use. With the introduction of a hand gesture VR system, the 
 ### 3. Objectives (up to 5)
 Objectives should be SMART – Specific, Measurable, Achievable, Relevant, Time-bound.
 Objectives should be a list of tasks that collectively meet the Aim of your project (makes
