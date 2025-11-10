@@ -1,4 +1,3 @@
-The sections that are required at this point are:
 ### 1. Title
 A concise title that accurately describes the subject of your project.
 The subject should be the computer science problem that you are investigating.
@@ -10,8 +9,10 @@ Deliverable of the project, and part of your solution, but not the subject.
 ### 2. Aim
 A short paragraph describing the computer science problem that your project is
 investigating.
+
 You can describe the context of the problem but need to separate out the specifics of what
 you will be studying.
+
 This does not need to describe how you solve the problem or with what algorithms or tools,
 unless that is fundamental to the work, e.g. your project is studying a particular algorithm or
 technique.
@@ -50,17 +51,27 @@ software items or particular chapters of your report are relevant.
 This is the starting point for a plan, which you should also work on with your supervisor.
 
 ---
- 
+ 1. Final report
+ 2. Software Repository
+	 1. Camera interface 
+	 2. AI hand-gesture rendering
+	 3. 3D model mesh preparation
+	 4. VR navigation with hand-gestures.
 ### 5. Plan
 A schedule for your project from now until the final submission of the report (week 10 of
 semester 2). Weekly is probably an appropriate level of planning for most people.
 Use your Deliverables as milestones for your progress (makes the Objective Achievable and
 Time-bound).
+
 Allow time for completing evaluation of your work as well as completing development.
 Allow time for writing up, and consider how you will write up – regularly and incrementally,
 or later, once work is complete.
+
 Please consider when there are other demands there are on your time, e.g. exams,
 coursework, holidays.
+
+---
+ 
 ### 6. Risk
 A brief discussion of how to mitigate risk in your project and ensure sufficient work will be
 completed for final submission.
