@@ -9,8 +9,8 @@
 	- [ ] Include units on axes/reported numbers
 - [ ] Document
 	- [ ] Referenced algorithms, images, quotes etc.
-	- [ ] ==FIX== backwards quote issue
-	- [ ] ==FIX== code listing && as ^ issue
+	- [x] ==FIX== backwards quote issue
+	- [x] ==FIX== code listing && as ^ issue
 	- [x] 13 Pages only, 1 task per page + references.
 	- [ ] Academic language, paragraphs, punctuation and spelling.
 	- [x] No code has been dumped.
