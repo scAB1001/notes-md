@@ -34,11 +34,15 @@ Consider what you need to achieve to reach your Aim, as stages of your project.
 Normal parts of the project such as literature review and report writing are not Objectives.
 
 ---
-1. Import the 3D models into unity and process them for VR space
-2. Use the camera to process hand-tracking movements with the camera's API
-3. Interface the interpreted hand gestures with the VR space
-4. EXTRA
-5. EXTRA
+1. **Develop a robust 3D model preprocessing pipeline** that automatically repairs, simplifies, and optimizes anatomical meshes for real-time VR rendering while preserving critical topological features for surgical accuracy.
+    
+2. **Implement a real-time hand gesture recognition system** using the Varjo XR-4/Magic Leap 2 APIs that accurately interprets complex 3D hand movements with precision for intuitive model manipulation.
+    
+3. **Design and develop a gesture-to-action mapping framework** that translates recognized hand movements into precise 3D navigation commands (rotation, zoom, pan, selection) with appropriate feedback and visual confirmation.
+    
+4. **Conduct a comparative usability evaluation** measuring task completion time, error rates, and user satisfaction between the hand-gesture interface and traditional joystick control with at least 10 participants from technical backgrounds.
+    
+5. **Optimize the integrated system performance** to achieve consistent high framerate rendering in VR while maintaining reasonable latency for gesture recognition to ensure a comfortable, user-friendly experience.
 ### 4. Deliverables (up to 5)
 Deliverables are concrete items produced as part of your project. They are the evidence
 required to show you have met your Objectives, and ultimately your Aim.
@@ -72,18 +76,19 @@ coursework, holidays.
 
 ---
 #### Semester 1
-Week 6 (w/c 03/11)
+Week 06 (w/c 03/11)
+- Project Outline
+Week 07 (w/c 10/11)
+-  
+Week 08 (w/c 17/11)
 - 
-Week 7 (w/c 10/11)
-- 
-Week 8 (w/c 17/11)
-- 
-Week 9 (w/c 24/11)
+Week 09 (w/c 24/11)
 - 
 Week 10 (w/c 01/12)  
 - 
 Week 11 (w/c 08/12)  
 - 
+#### Break
 Week 12 (w/c 15/12)  
 - 
 Week 13 (w/c 22/12)  
@@ -94,23 +99,36 @@ Week 15 (w/c 05/01)
 - 
 #### Semester 2  
 Week 01 (w/c 12/01)
+- 
 Week 02 (w/c 19/01)  
-Week 3 (w/c 26/01)  
-Week 4 (w/c 02/02)  
-Week 5 (w/c 09/02)  
-Week 6 (w/c 16/02)
-Week 7 (w/c 23/02)
-Week 8 (w/c 02/03)
-Week 9 (w/c 09/03)
+- 
+Week 03 (w/c 26/01)  
+- 
+Week 04 (w/c 02/02)  
+- 
+Week 05 (w/c 09/02)  
+- 
+Week 06 (w/c 16/02)
+- 
+Week 07 (w/c 23/02)
+- 
+Week 08 (w/c 02/03)
+- 
+Week 09 (w/c 09/03)
+- 
 Week 10 (w/c 16/03)
-Week 11 (w/c 23/03)
-Week 12 (w/c 30/04)
+- 
 ### 6. Risk
 A brief discussion of how to mitigate risk in your project and ensure sufficient work will be
 completed for final submission.
 This could include prioritisation of Objectives and Deliverables or development of
 prototypes as early-stage deliverables.
 This could include some contingency in your plan for delays.
+
+---
+- Ensure models are cleaned, enables the first step in viewing them
+- Interfacing with the camera API to enable image tracking
+- 
 ### 7. Ethics
 Describe the ethical issues associated with your project and how you will address them.
 For example, proper handling of data sets, user testing, etc.
@@ -118,3 +136,6 @@ There is a lecture in Week 6 that you must attend and a further advice session i
 you need guidance on how to properly consider ethics.
 If you believe there are no ethical issues associated with your project you should state that
 here.
+
+---
+Propietary datasets/models. AI concerns.
