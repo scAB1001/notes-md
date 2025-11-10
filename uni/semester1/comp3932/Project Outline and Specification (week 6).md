@@ -34,9 +34,9 @@ Consider what you need to achieve to reach your Aim, as stages of your project.
 Normal parts of the project such as literature review and report writing are not Objectives.
 
 ---
-1. **Develop a robust 3D model preprocessing pipeline** that automatically repairs, simplifies, and optimizes anatomical meshes for real-time VR rendering while preserving critical topological features for surgical accuracy.
+1. **Develop a 3D model preprocessing pipeline** that automatically repairs, simplifies, and optimizes anatomical meshes for real-time VR rendering while preserving critical topological features for surgical accuracy.
     
-2. **Implement a real-time hand gesture recognition system** using the Varjo XR-4/Magic Leap 2 APIs that accurately interprets complex 3D hand movements with precision for intuitive model manipulation.
+2. **Implement a real-time hand-gesture recognition system** using the Varjo XR-4/Magic Leap 2 APIs that accurately interprets complex 3D hand movements with precision for intuitive model manipulation.
     
 3. **Design and develop a gesture-to-action mapping framework** that translates recognized hand movements into precise 3D navigation commands (rotation, zoom, pan, selection) with appropriate feedback and visual confirmation.
     
@@ -81,13 +81,13 @@ coursework, holidays.
 **Week 06 (w/c 03/11)**
 - Project outline approval
 - Literature review: VR interaction techniques & medical visualization
-- Setup development environment (Unity, Varjo SDK)
-    
+- Setup development environment (Unity, Varjo SDK/Magic Leap2 software)
+
 **Week 07 (w/c 10/11)**
 - Research 3D mesh processing algorithms
 - Acquire and test sample anatomical models
 - Begin mesh preprocessing implementation
-    
+
 **Week 08 (w/c 17/11)**
 - Complete mesh preprocessing pipeline
 - Test with complex liver models
@@ -97,7 +97,6 @@ coursework, holidays.
 - Implement basic gesture recognition (grab, rotate, zoom)
 - Integrate with simple 3D model in VR
 - **Milestone: Basic gesture control working**
-    
 
 **Week 10 (w/c 01/12)**
 - Refine gesture accuracy and sensitivity
@@ -109,101 +108,62 @@ coursework, holidays.
 - Initial performance optimization
 - **Milestone: All planned gestures implemented**
 #### Break
-**Week 12-13 (w/c 15/12 - 22/01)
-Week 13- 15 (w/c 15/12 - 05/01)**
+**Week 12-13 (w/c 15/12 - 22/12)
+- Holiday
+
+**Week 13- 15 (w/c 22/12 - 05/01)**
 - Light work: Continue literature review writing
 - Plan evaluation methodology
 - Prepare ethics considerations documentation
-    
-- **Holiday: 24/12 - 02/01**
 
 #### Semester 2
-
 **Week 01 (w/c 12/01)**
-
 - System integration testing
-    
 - Fix compatibility issues between components
-    
 - Begin Chapter 3 (Methodology)
-    
 
 **Week 02 (w/c 19/01)**
-
 - Develop evaluation protocol
-    
 - Create testing scenarios and tasks
-    
 - Prepare participant materials
     
-
 **Week 03 (w/c 26/01)**
-
 - Conduct pilot testing (3-5 participants)
-    
-- Refine system based on feedback
-    
+- Refine system based on feedback    
 - **Milestone: System ready for evaluation**
-    
 
 **Week 04 (w/c 02/02)**
-
 - Run formal user evaluation sessions
-    
 - Collect performance data and user feedback
-    
 - Begin data analysis
-    
 
 **Week 05 (w/c 09/02)**
-
 - Complete all user testing
-    
 - Analyze comparative results
-    
 - Start Chapter 4 (Results)
-    
 
 **Week 06 (w/c 16/02)**
-
 - Complete results analysis
-    
 - Draft Chapter 5 (Discussion)
-    
 - **Milestone: Evaluation complete**
-    
 
 **Week 07 (w/c 23/02)**
-
 - Full draft completion (all chapters)
-    
 - Initial proofreading and formatting
-    
 - Prepare appendices
-    
 
 **Week 08 (w/c 02/03)**
-
 - Supervisor feedback incorporation
-    
 - Technical refinement based on findings
-    
 - Final performance optimization
-    
 
 **Week 09 (w/c 09/03)**
-
 - Final proofreading and formatting
-    
 - Reference checking
-    
 - Submission preparation
-    
 
 **Week 10 (w/c 16/03)**
-
 - **FINAL SUBMISSION**
-    
 - Buffer week for unexpected delays
 ### 6. Risk
 A brief discussion of how to mitigate risk in your project and ensure sufficient work will be
@@ -226,6 +186,6 @@ here.
 
 ---
 - User Testing: All participants will provide informed consent; right to withdraw at any time; no medical professionals required for initial testing
-- Health & Safety: VR usage guidelines provided; regular breaks enforced; participants screened for epilepsy or motion sickness susceptibility
+- Health and Safety: VR usage guidelines provided; regular breaks enforced; participants screened for epilepsy or motion sickness susceptibility
 - Intellectual Property: Clear acknowledgment of university and individual contributions; no use of proprietary medical data.
 Ethical approval is required for the user-testing portion.
