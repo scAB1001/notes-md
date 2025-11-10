@@ -9,7 +9,7 @@ Deliverable of the project, and part of your solution, but not the subject.
 ### 2. Aim
 A short paragraph describing the computer science problem that your project is
 investigating.
-
+====
 You can describe the context of the problem but need to separate out the specifics of what
 you will be studying.
 
@@ -71,7 +71,40 @@ Please consider when there are other demands there are on your time, e.g. exams,
 coursework, holidays.
 
 ---
- 
+#### Semester 1
+Week 6 (w/c 03/11)
+- 
+Week 7 (w/c 10/11)
+- 
+Week 8 (w/c 17/11)
+- 
+Week 9 (w/c 24/11)
+- 
+Week 10 (w/c 01/12)  
+- 
+Week 11 (w/c 08/12)  
+- 
+Week 12 (w/c 15/12)  
+- 
+Week 13 (w/c 22/12)  
+- 
+Week 14 (w/c 29/12)  
+- 
+Week 15 (w/c 05/01)
+- 
+#### Semester 2  
+Week 01 (w/c 12/01)
+Week 02 (w/c 19/01)  
+Week 3 (w/c 26/01)  
+Week 4 (w/c 02/02)  
+Week 5 (w/c 09/02)  
+Week 6 (w/c 16/02)
+Week 7 (w/c 23/02)
+Week 8 (w/c 02/03)
+Week 9 (w/c 09/03)
+Week 10 (w/c 16/03)
+Week 11 (w/c 23/03)
+Week 12 (w/c 30/04)
 ### 6. Risk
 A brief discussion of how to mitigate risk in your project and ensure sufficient work will be
 completed for final submission.
