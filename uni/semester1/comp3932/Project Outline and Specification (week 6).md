@@ -33,17 +33,24 @@ Consider what you need to achieve to reach your Aim, as stages of your project.
 Normal parts of the project such as literature review and report writing are not Objectives.
 
 ---
-1. Learn Unity
-2. `
+1. Import the 3D models into unity and process them for VR space
+2. Use the camera to process hand-tracking movements with the camera's API
+3. Interface the interpreted hand gestures with the VR space
+4. EXTRA
+5. EXTRA
 ### 4. Deliverables (up to 5)
 Deliverables are concrete items produced as part of your project. They are the evidence
 required to show you have met your Objectives, and ultimately your Aim.
 You should link them to your Objectives such that it is clear which Deliverable relates to
 which objective (makes the Objective Measurable and Achievable).
+
 Your final report and your software repository can both be considered Deliverables. You
 may wish to further sub-divide this, for example if you project delivers several distinct
 software items or particular chapters of your report are relevant.
 This is the starting point for a plan, which you should also work on with your supervisor.
+
+---
+ 
 ### 5. Plan
 A schedule for your project from now until the final submission of the report (week 10 of
 semester 2). Weekly is probably an appropriate level of planning for most people.
