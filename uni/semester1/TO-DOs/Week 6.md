@@ -43,6 +43,7 @@
 	- [ ] (3) - _User model representation_
 	- [ ] (4) - _User model building_
 	- [ ] (5) - _Recommender Systems_
+	- [ ] (6) -  day 10/11/2025
 - [ ] Reading
 	- [ ] ESSENTIAL
 		- [ ] *User Profiles for Personalized Information Access.pdf*
@@ -84,6 +85,7 @@
 	- [ ] (1) - Web Services and REST
 	- [ ] (2) - Programming RESTful Services
 	- [ ] (3) - Naming pt.1
+	- [ ] (4) - Naming pt.2
 - [ ] **Labs**
 	- Serverless Computing
 
