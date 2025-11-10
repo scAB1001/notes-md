@@ -9,7 +9,7 @@ Deliverable of the project, and part of your solution, but not the subject.
 ### 2. Aim
 A short paragraph describing the computer science problem that your project is
 investigating.
-====
+
 You can describe the context of the problem but need to separate out the specifics of what
 you will be studying.
 
@@ -57,10 +57,12 @@ This is the starting point for a plan, which you should also work on with your s
 ---
  1. Final report
  2. Software Repository
-	 1. Camera interface 
-	 2. AI hand-gesture rendering
-	 3. 3D model mesh preparation
-	 4. VR navigation with hand-gestures.
+	 1. 3D mesh preprocessing toolkit with automated hole-filling, decimation, and optimization algorithms
+	 2. Real-time hand gesture recognition module with trained models and calibration utilities
+	 3. Unity-based VR integration framework with customizable gesture mappings
+	 4. Performance benchmarking and testing suite
+ 3. Functional Prototype Application demonstrating complete workflow from model import to immersive hand-controlled navigation with support for multiple anatomical structures.
+ 4. Evaluation Dataset & Results including recorded user sessions, performance metrics, comparative analysis, and structured feedback from usability testing.
 ### 5. Plan
 A schedule for your project from now until the final submission of the report (week 10 of
 semester 2). Weekly is probably an appropriate level of planning for most people.
@@ -76,48 +78,133 @@ coursework, holidays.
 
 ---
 #### Semester 1
-Week 06 (w/c 03/11)
-- Project Outline
-Week 07 (w/c 10/11)
--  
-Week 08 (w/c 17/11)
-- 
-Week 09 (w/c 24/11)
-- 
-Week 10 (w/c 01/12)  
-- 
-Week 11 (w/c 08/12)  
-- 
+**Week 06 (w/c 03/11)**
+- Project outline approval
+- Literature review: VR interaction techniques & medical visualization
+- Setup development environment (Unity, Varjo SDK)
+    
+**Week 07 (w/c 10/11)**
+- Research 3D mesh processing algorithms
+- Acquire and test sample anatomical models
+- Begin mesh preprocessing implementation
+    
+**Week 08 (w/c 17/11)**
+- Complete mesh preprocessing pipeline
+- Test with complex liver models
+- Start hand tracking API integration
+
+**Week 09 (w/c 24/11)**
+- Implement basic gesture recognition (grab, rotate, zoom)
+- Integrate with simple 3D model in VR
+- **Milestone: Basic gesture control working**
+    
+
+**Week 10 (w/c 01/12)**
+- Refine gesture accuracy and sensitivity
+- Add advanced gestures (pan, select, reset view)
+- Begin writing Chapter 2 (Literature Review)
+
+**Week 11 (w/c 08/12)**
+- Complete core gesture mapping system
+- Initial performance optimization
+- **Milestone: All planned gestures implemented**
 #### Break
-Week 12 (w/c 15/12)  
-- 
-Week 13 (w/c 22/12)  
-- 
-Week 14 (w/c 29/12)  
-- 
-Week 15 (w/c 05/01)
-- 
-#### Semester 2  
-Week 01 (w/c 12/01)
-- 
-Week 02 (w/c 19/01)  
-- 
-Week 03 (w/c 26/01)  
-- 
-Week 04 (w/c 02/02)  
-- 
-Week 05 (w/c 09/02)  
-- 
-Week 06 (w/c 16/02)
-- 
-Week 07 (w/c 23/02)
-- 
-Week 08 (w/c 02/03)
-- 
-Week 09 (w/c 09/03)
-- 
-Week 10 (w/c 16/03)
-- 
+**Week 12-13 (w/c 15/12 - 22/01)
+Week 13- 15 (w/c 15/12 - 05/01)**
+- Light work: Continue literature review writing
+- Plan evaluation methodology
+- Prepare ethics considerations documentation
+    
+- **Holiday: 24/12 - 02/01**
+
+#### Semester 2
+
+**Week 01 (w/c 12/01)**
+
+- System integration testing
+    
+- Fix compatibility issues between components
+    
+- Begin Chapter 3 (Methodology)
+    
+
+**Week 02 (w/c 19/01)**
+
+- Develop evaluation protocol
+    
+- Create testing scenarios and tasks
+    
+- Prepare participant materials
+    
+
+**Week 03 (w/c 26/01)**
+
+- Conduct pilot testing (3-5 participants)
+    
+- Refine system based on feedback
+    
+- **Milestone: System ready for evaluation**
+    
+
+**Week 04 (w/c 02/02)**
+
+- Run formal user evaluation sessions
+    
+- Collect performance data and user feedback
+    
+- Begin data analysis
+    
+
+**Week 05 (w/c 09/02)**
+
+- Complete all user testing
+    
+- Analyze comparative results
+    
+- Start Chapter 4 (Results)
+    
+
+**Week 06 (w/c 16/02)**
+
+- Complete results analysis
+    
+- Draft Chapter 5 (Discussion)
+    
+- **Milestone: Evaluation complete**
+    
+
+**Week 07 (w/c 23/02)**
+
+- Full draft completion (all chapters)
+    
+- Initial proofreading and formatting
+    
+- Prepare appendices
+    
+
+**Week 08 (w/c 02/03)**
+
+- Supervisor feedback incorporation
+    
+- Technical refinement based on findings
+    
+- Final performance optimization
+    
+
+**Week 09 (w/c 09/03)**
+
+- Final proofreading and formatting
+    
+- Reference checking
+    
+- Submission preparation
+    
+
+**Week 10 (w/c 16/03)**
+
+- **FINAL SUBMISSION**
+    
+- Buffer week for unexpected delays
 ### 6. Risk
 A brief discussion of how to mitigate risk in your project and ensure sufficient work will be
 completed for final submission.
@@ -126,9 +213,9 @@ prototypes as early-stage deliverables.
 This could include some contingency in your plan for delays.
 
 ---
-- Ensure models are cleaned, enables the first step in viewing them
-- Interfacing with the camera API to enable image tracking
-- 
+- Hand tracking accuracy issues: Some form of confidence scoring will be needed to assess accuracy
+- Performance bottlenecks: Progressive mesh loading may severely impact the system; maintain joystick compatibility as backup
+- VR motion sickness: Include comfort settings (snap turning, reduced movement); rigorous testing with multiple users early in development
 ### 7. Ethics
 Describe the ethical issues associated with your project and how you will address them.
 For example, proper handling of data sets, user testing, etc.
@@ -138,4 +225,7 @@ If you believe there are no ethical issues associated with your project you shou
 here.
 
 ---
-Propietary datasets/models. AI concerns.
+- User Testing: All participants will provide informed consent; right to withdraw at any time; no medical professionals required for initial testing
+- Health & Safety: VR usage guidelines provided; regular breaks enforced; participants screened for epilepsy or motion sickness susceptibility
+- Intellectual Property: Clear acknowledgment of university and individual contributions; no use of proprietary medical data.
+Ethical approval is required for the user-testing portion.
