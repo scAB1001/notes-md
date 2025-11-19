@@ -1,19 +1,19 @@
 ## Final Checks
 - [ ] Code 
 	- [x] Consistent, sensible and descriptive naming
+	- [x] Kept some additional sandbox tests
+	- [x] All default tests pass
 	- [ ] Removed unnecessary TO-DOs and Commented code
 	- [ ] Commented clearly throughout
-	- [x] Kept some additional sandbox tests
 	- [ ] Compiles on SoC machine with no warnings
-	- [x] All default tests pass
 	- [ ] Include units on axes/reported numbers
 - [ ] Document
-	- [ ] Referenced algorithms, images, quotes etc.
+	- [x] Referenced algorithms, images, quotes etc.
 	- [x] ==FIX== backwards quote issue
 	- [x] ==FIX== code listing && as ^ issue
 	- [x] 13 Pages only, 1 task per page + references.
-	- [ ] Academic language, paragraphs, punctuation and spelling.
 	- [x] No code has been dumped.
+	- [ ] Academic language, paragraphs, punctuation and spelling.
 	- [ ] All figures/listings have descriptive captions ==telling the reader what to pay attention to==
 ## Implementation
 ### 1.2 Clipping Lines (3 marks)
