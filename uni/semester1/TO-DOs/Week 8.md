@@ -1,10 +1,10 @@
 #### Priority
-1. **Computer Graphics**
-2. **Synoptic Project (EPA)**
-3. **Data Science**
-4. **Secure Computing**
-5. **User Adaptive Intelligent Systems**
-6. **Distributed Systems**
+1. **User Adaptive Intelligent Systems**
+2. **Secure Computing**
+3. **Computer Graphics**
+4. **Synoptic Project (EPA)**
+5. Data Science
+6. Distributed Systems
 ### COMP3811 **Computer Graphics** (0/100)
 - [ ] Lecture notes  
 	- [ ] (1) - OpenGL pt.1
@@ -15,14 +15,11 @@
 	-  Exercise G.5
 	-  Exercise G.6
 ### COMP3932 - **Synoptic Project (EPA)**
-- [x] ==Project outline deadline is live==
-	- [ ] Look at all in downloads/
+- [ ] Look at all in downloads/
 		- [ ] INCLUDE chapter 4 - see the .docx
 		- [ ] Download and write-up the latest pdf for ethics.
-	- [x] Gradescope
 - [ ] Prepare for meeting (minutes + content + presentation?)
 ### COMP5122M Data Science (50/50) - Closed book
-- [ ]  ==CWK 1 is out== - due **14/11/2025**
 - [ ] Lecture notes 
 	- [ ] (1) - *Week 3 EDA and Viz.pdf*
 	- [ ] (2) - *Machine Learning (overview).pdf*
@@ -80,7 +77,6 @@
 		- [ ] [libfiu](https://blitiri.com.ar/p/libfiu/) – C library for fault injection in POSIX API
 - [ ] Exam questions by section
 ### COMP3211 Distributed Systems (40/60) - Open book
-- [x] ==CWK 2 is out== - due **19/11/2025**
 - [ ] Lecture notes 
 	- [ ] (1) - Web Services and REST
 	- [ ] (2) - Programming RESTful Services
@@ -88,7 +84,6 @@
 	- [ ] (4) - Naming pt.2
 - [ ] **Labs**
 	- Serverless Computing
-
 - [ ] **Quiz**
 	- [ ] (Week 5)
 	- [ ] (Week 6)

@@ -3,18 +3,18 @@
 	- [x] Consistent, sensible and descriptive naming
 	- [x] Kept some additional sandbox tests
 	- [x] All default tests pass
-	- [ ] Removed unnecessary TO-DOs and Commented code
-	- [ ] Commented clearly throughout
+	- [x] Removed unnecessary TO-DOs and Commented code
+	- [x] Commented clearly throughout
 	- [ ] Compiles on SoC machine with no warnings
-	- [ ] Include units on axes/reported numbers
+	- [x] Include units on axes/reported numbers
 - [ ] Document
 	- [x] Referenced algorithms, images, quotes etc.
 	- [x] ==FIX== backwards quote issue
 	- [x] ==FIX== code listing && as ^ issue
 	- [x] 13 Pages only, 1 task per page + references.
 	- [x] No code has been dumped.
-	- [ ] Academic language, paragraphs, punctuation and spelling.
-	- [ ] All figures/listings have descriptive captions ==telling the reader what to pay attention to==
+	- [x] Academic language, paragraphs, punctuation and spelling.
+	- [x] All figures/listings have descriptive captions ==telling the reader what to pay attention to==
 ## Implementation
 ### 1.2 Clipping Lines (3 marks)
 Consider the function `clip_line`. It is declared in *draw2d/draw.hpp* and defined in *draw2d/draw.cpp*.
