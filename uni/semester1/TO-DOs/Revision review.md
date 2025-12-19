@@ -1,19 +1,9 @@
 #### Priority
 1. **User Adaptive Intelligent Systems**
 2. **Secure Computing**
-3. **Computer Graphics**
-4. **Synoptic Project (EPA)**
-5. Data Science
-6. Distributed Systems
-### COMP3811 **Computer Graphics** (0/100)
-- [ ] Lecture notes  
-	- [ ] (1) - OpenGL pt.1
-- [x] **Labs**
-	-  Exercise G.2
-	-  Exercise G.3
-	-  Exercise G.4
-	-  Exercise G.5
-	-  Exercise G.6
+3. **Synoptic Project (EPA)**
+4. Data Science
+5. Distributed Systems
 ### COMP3932 - **Synoptic Project (EPA)**
 - [ ] Look at all in downloads/
 		- [ ] INCLUDE chapter 4 - see the .docx
@@ -33,7 +23,6 @@
 	- [ ] (1) - Makes notes on *50 years of Data Science by David Donoho*
 - [ ] Exam questions by section
 ### COMP3771 **User Adaptive Intelligent Systems** (40/60) - Open book
-- [x] ==CWK 1 out== - due **21/11/2025**
 - [ ] Lecture notes  - STOP AT LECTURE 8 FOR CWK
 	- [ ] (1) - _User Information Collection_
 	- [ ] (2) - _General Schema Practical Task post lecture_
@@ -55,7 +44,6 @@
 		- [ ] [Systematic-review-on-recommender-systems.pdf](https://minerva.leeds.ac.uk/ultra/courses/_567316_1/outline/file/_13440075_1)
 - [ ] Exam questions by section
 ### COMP3911 Secure Computing (30/70) - Closed book
-- [x] ==CWK 1 is out== - due **26/11/2025**
 - [ ] Lecture notes
 	- [ ] (1) - _SecurityModels.pdf_
 	- [ ] (2) - _CommandInjection-InputValidation.pdf_
