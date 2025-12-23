@@ -1,7 +1,7 @@
 #### Priority
-1. **User Adaptive Intelligent Systems**
-2. **Secure Computing**
-3. **Synoptic Project (EPA)**
+1. User Adaptive Intelligent Systems
+2. Secure Computing
+3. Synoptic Project (EPA)
 4. Data Science
 5. Distributed Systems
 ### COMP3932 - **Synoptic Project (EPA)**
@@ -31,24 +31,13 @@
 	- [ ] (5) - _Recommender Systems_
 	- [ ] (6) -  day 10/11/2025
 - [ ] Reading
-	- [ ] ESSENTIAL
-		- [ ] *User Profiles for Personalized Information Access.pdf*
-		- [ ] *User Models for Adaptive Hypermedia and Adaptive Educational Systems.pdf.* This paper is relevant to lectures 5 and 6 - check only sections 1.2.1 to 1.2.6 (pages 5-17).
-		- [ ] [Hybrid-recommender-systems-survey-and-experiments.pdf](https://minerva.leeds.ac.uk/ultra/courses/_567316_1/outline/file/_13440071_1)
-		- [ ] [Recommender-systems-review.pdf](https://minerva.leeds.ac.uk/ultra/courses/_567316_1/outline/file/_13440072_1)
-	- [ ] OPTIONAL
-		- [ ] *Clark, B.R et al., Personalised Recommendations for the BBC iPlayer: Initial approach and current challenges*
-		- [ ] *User Information Collection*
-		- [ ] *Lectures 05-06 user model representation*
-		- [ ] *Lectures 05-06 Personality
-		- [ ] [Systematic-review-on-recommender-systems.pdf](https://minerva.leeds.ac.uk/ultra/courses/_567316_1/outline/file/_13440075_1)
+	- [ ] *User Profiles for Personalized Information Access.pdf*
+	- [ ] *User Models for Adaptive Hypermedia and Adaptive Educational Systems.pdf.* This paper is relevant to lectures 5 and 6 - check only sections 1.2.1 to 1.2.6 (pages 5-17).
+	- [ ] [Hybrid-recommender-systems-survey-and-experiments.pdf](https://minerva.leeds.ac.uk/ultra/courses/_567316_1/outline/file/_13440071_1)
+	- [ ] [Recommender-systems-review.pdf](https://minerva.leeds.ac.uk/ultra/courses/_567316_1/outline/file/_13440072_1)
 - [ ] Exam questions by section
 ### COMP3911 Secure Computing (30/70) - Closed book
-- [ ] Lecture notes
-	- [ ] (1) - _SecurityModels.pdf_
-	- [ ] (2) - _CommandInjection-InputValidation.pdf_
-	- [ ] (3) - _WebApp-Vulnerabilities1.pdf_
-	- [ ] (4) - _WebApp-Vulnerabilities2.pdf_
+- [ ] Lecture notes_
 - [ ] Reading
 	- [ ] (1) - Make notes on Bellovin's *microsoft-sdl-chapters-2-3*
 	- [ ] (2) - Make notes on Howard & Lipner, *The Security Development Life-cycle*  
@@ -65,16 +54,9 @@
 		- [ ] [libfiu](https://blitiri.com.ar/p/libfiu/) – C library for fault injection in POSIX API
 - [ ] Exam questions by section
 ### COMP3211 Distributed Systems (40/60) - Open book
-- [ ] Lecture notes 
-	- [ ] (1) - Web Services and REST
-	- [ ] (2) - Programming RESTful Services
-	- [ ] (3) - Naming pt.1
-	- [ ] (4) - Naming pt.2
-- [ ] **Labs**
-	- Serverless Computing
-- [ ] **Quiz**
-	- [ ] (Week 5)
-	- [ ] (Week 6)
+- [ ] Lecture notes
+- [ ] **Labs** (Weeks 1-6, 8, 9)
+- [ ] **Quiz** (Weeks 1-3, 5-10)
 - [ ] Reading *Tanenbaum A & van Steen M, Distributed Systems: Principles & Paradigms, 4th edition, 2024*
 	- [ ] Make notes on (Chapter 4) and
 		- [ ] Service-Oriented Architecture: Concepts, Technology & Design. Thomas Erl, Prentice Hall/Pearson, 2nd edition, 2017
