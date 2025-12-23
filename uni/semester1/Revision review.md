@@ -61,4 +61,4 @@
 	- [ ] Make notes on (Chapter 4) and
 		- [ ] Service-Oriented Architecture: Concepts, Technology & Design. Thomas Erl, Prentice Hall/Pearson, 2nd edition, 2017
 		- [ ] SOA Source Book. The Open Group, 2021. http://www.opengroup.org/soa/source-book/soa/
-- [ ] Exam questions by section
+	- [ ] Exam questions by section
