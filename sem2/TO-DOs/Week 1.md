@@ -1,5 +1,4 @@
 #### Priority
-1. 
 ### COMP3811 **Computer Graphics** (0/100)
 - [ ] ==CWK 1 is out== - due **07/11/2025**
 - [ ] Lecture notes  
