@@ -9,3 +9,4 @@
  media copa->quick drunk (light)
  prendido->tipsy
  borracho->drunk
+ sin nada que hacer

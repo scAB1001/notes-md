@@ -24,3 +24,4 @@ quieto/a->quiet
 el arete->earring
 
 Tierralta is the name of the municipality where the massacre took place.
+esta un peligro para ellos
