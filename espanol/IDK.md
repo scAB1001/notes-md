@@ -8,9 +8,18 @@ dirigir->to run/manage/lead
 >  ->
 >| She was a Colombian journalist known for running the company.
 
+la desesperanza->hopelessness
+provocar->provoke
+el suicidio->suicide
+
+> La depresion que la llevó al suicidio
+
 el partido ->party
 secuestrar, los secuestrados->to kidnap, the kidnapped
 desgarrarse->to tear apart
 la falda->skirt
 la alma->soul
 quieto/a->quiet
+el arete->earring
+
+Tierralta is the name of the municipality where the massacre took place.
