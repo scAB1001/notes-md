@@ -12,7 +12,8 @@ la desesperanza->hopelessness
 provocar->provoke
 el suicidio->suicide
 
-> La depresion que la llevó al suicidio
+> La depresión que la llevó al suicidio.
+> The depression that resulted in her suicide.
 
 el partido ->party
 secuestrar, los secuestrados->to kidnap, the kidnapped
