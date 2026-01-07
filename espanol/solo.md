@@ -10,3 +10,5 @@
  prendido->tipsy
  borracho->drunk
  sin nada que hacer
+ la linea
+ es por eso que 
