@@ -25,3 +25,7 @@ el arete->earring
 
 Tierralta is the name of the municipality where the massacre took place.
 esta un peligro para ellos
+los poemas
+movas a buscar
+al largo de pais - across the country
+tu entiendes lo que quiero decir
