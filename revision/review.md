@@ -37,7 +37,7 @@
 	- [ ] [Recommender-systems-review.pdf](https://minerva.leeds.ac.uk/ultra/courses/_567316_1/outline/file/_13440072_1)
 - [ ] Exam questions by section
 ### COMP3911 Secure Computing (30/70) - Closed book
-- [ ] Lecture notes_
+- [x] Lecture notes
 - [ ] Reading
 	- [ ] (1) - Make notes on Bellovin's *microsoft-sdl-chapters-2-3*
 	- [ ] (2) - Make notes on Howard & Lipner, *The Security Development Life-cycle*  
