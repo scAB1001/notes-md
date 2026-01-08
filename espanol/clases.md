@@ -38,3 +38,4 @@ Quiero hablarte sobre mi amiga Freya. Freya y yo somos amigos de la familia hace
 Por eso, siempre fuimos amigos pero cuando tenia, no se, 16 anos, nos convertimos en mejores amigos y desde este momento nos hemos acercado mas. Siempre he admiradola aunque se es más joven. Freya es tan inteligente que cada conversacion me solia asombrado.
 
 me hizo querer vivir
+nunca ha sido una persona a la que no le gusta el cambio en 
