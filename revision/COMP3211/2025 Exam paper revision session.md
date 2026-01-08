@@ -1,4 +1,4 @@
-# 2025 Exam paper revision session
+
 d) 
 Size/Bandwidth + Latency
 
