@@ -39,3 +39,6 @@ Por eso, siempre fuimos amigos pero cuando tenia, no se, 16 anos, nos convertimo
 
 me hizo querer vivir
 nunca ha sido una persona a la que no le gusta el cambio en 
+por si te caes
+en caso de que caigas
+colchoneta
