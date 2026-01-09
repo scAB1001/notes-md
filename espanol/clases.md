@@ -35,7 +35,7 @@ antes de que inicie mi trabajo.
 # Piensa en una persona que admiras: cuéntame su vida y por qué la admiras.
 Quiero hablarte sobre mi amiga Freya. Freya y yo somos amigos de la familia hace la infancia. La he conocido desde que yo *recuerde*. Mi hermana mayor fue en la misma clase en la escuela como su hermano mayor y es por eso que nuestras familias se conocen. Tengo memorias fragmentadas de las fiestas y vacaciones con ellos. 
 
-Por eso, siempre fuimos amigos pero cuando tenia, no se, 16 anos, nos convertimos en mejores amigos y desde este momento nos hemos acercado mas. Siempre he admiradola aunque se es más joven. Freya es tan inteligente que cada conversacion me solia asombrado.
+Por eso, siempre fuimos amigos pero cuando tenia, no se, 16 anos, nos convertimos en mejores amigos y desde este momento nos hemos acercado mas. Siempre la he admirado aunque se es más joven. Freya es tan inteligente que cada conversación **me solía** asombrado.
 
 me hizo querer vivir
 nunca ha sido una persona a la que no le gusta el cambio en 
