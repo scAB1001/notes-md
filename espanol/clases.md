@@ -42,3 +42,6 @@ nunca ha sido una persona a la que no le gusta el cambio en
 por si te caes
 en caso de que caigas
 colchoneta
+mas faciles de lo que esperas
+te cansa
+la piel -> skin
