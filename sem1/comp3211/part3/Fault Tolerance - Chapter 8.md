@@ -6,7 +6,7 @@ failures, followed by a discussion of failure models. The key technique for
 handling failures is redundancy.
 ### Dependability, reliability and availability in a DS
 Being fault tolerant is strongly related to what are called dependable systems.
-Requirements f
+Requirements for a dependabl
 ### Terminology
 ### Failure models
 ### Process resilience
