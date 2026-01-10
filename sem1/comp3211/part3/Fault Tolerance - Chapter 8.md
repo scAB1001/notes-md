@@ -83,8 +83,15 @@ can make decisions without bothering everyone else. In practice, when the
 coordinator in a hierarchical group fails, its role will need to be taken over and
 one of the workers is elected as new coordinator.
 #### Groups and Failure Masking
-A **k-fault tolerant group**: when a group can mask any $k$ concurrent member failures. k is called **degree of fault tolerance**.
+A **k-fault tolerant group**: when a group can mask any $k$ concurrent member failures. 
+A system is said to be **k-fault tolerant** if it can survive faults in $k$ components and still meet its specifications. $k$ is called **degree of fault tolerance**.
+
+If the components, say processes, fail silently, then having $k + 1$ of them is enough to provide k-fault tolerance. If $k$ of them simply stop, then use the answer from the other one.
+With **halting failures** (crash/omission/timing failures): we need a total of **k +1** members as no member will produce an incorrect result, so the result of one member is good enough.
+
+On the other hand, if processes exhibit **arbitrary failures**, continuing to run when faulty and sending out erroneous or random replies, a minimum of $2k + 1$ processes are needed to achieve k-fault tolerance. In the worst case, the $k$ failing processes could accidentally (or even intentionally) generate the same reply. However, the remaining $k + 1$ will also produce the same answer, so the client or voter can just believe the majority.
 ### Consensus with crash failures
+
 ### Consensus with arbitrary failures
 ### The Byzantine Generals Problem
 # Content:
