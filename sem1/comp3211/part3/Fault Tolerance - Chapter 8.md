@@ -162,5 +162,23 @@ Up to $f$ generals might behave maliciously
 
 DSs achieve consensus despite faulty or malicious nodes (generals) sending conflicting information, requiring honest nodes to agree on a single plan (attack/retreat) for system success.
 ### Consensus with arbitrary failures
+For replicas only subject to *crash failures*, a process group needs to consist of $2k + 1$ servers to survive $k$ crashed members. Here, we assume that a process does not collude with another process and that it is consistent in its messages to others. 
+
+Now, we look at reaching consensus in a fault-tolerant process group in which k members can fail assuming arbitrary failures. We need at least $3k + 1$ members to reach consensus under these failure assumptions.
+
+We consider process groups in which communication between processes is **inconsistent**.
+![[arb-consensus-1.png]]
+**System model**
+• Process group consisting of n members of which one is designated to be the *primary* $P$ and $n - 1$ *backups* $B1, …Bn-1$.
+• A client sends a value $v \in {T\text{rue}, F\text{alse}}$ to $P$
+• Messages may be lost, but this can be detected
+• Messages cannot be corrupted beyond detection
+• A receiver of a message can reliably detect its sender.
+#### Byzantine Agreement: Requirements
+BA1: Every nonfaulty backup process stores the same value
+BA2: If the primary is nonfaulty then every nonfaulty backup process stores exactly what the primary had sent.
+1. Primary is faulty -> BA1 says that backups may store the same, but different (and thus wrong) value than originally sent by the client.
+2. Primary is not faulty -> satisfying BA2 implies that BA1 is satisfied 
+#### Why having 3k processes is not enough
 
 # Content:
