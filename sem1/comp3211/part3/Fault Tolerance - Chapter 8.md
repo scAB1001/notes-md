@@ -102,13 +102,13 @@ A client contacts a group member requesting it to execute a command. Every group
 
 The algorithm operates in rounds. In each round, a process $P_i$ sends its list of proposed commands it has seen so far to every other process in $P$. At the end of a round, each process merges all received proposed commands into a new list, from which it then will deterministically select the command to execute, if possible. 
 
-It is important to realize that the selection
-algorithm is the same for all processes. In other words, if all process have
-exactly the same list, they will all select the same command to execute (and
-remove that command from their list).
-It is not difficult to see that this approach works as long as processes do
-not fail. Problems start when a process Pi detects, during round r, that, say
-process Pk has crashed. To make this concrete, assume we have a process
+It is important to realize that the selection algorithm is the same for all processes. In other words, if all process have exactly the same list, they will all select the same command to execute (and remove that command from their list). This approach works as long as processes do not fail. Problems start when a process $P_i$ detects, during round $r$, that, say process $P_k$ has crashed. 
+
+**(EXAMPLE)** assume we have a process group of four processes {P1, . . . , P4} and that $P_1$ crashes during round $r$. Also, assume that $P_2$ receives the list of proposed commands from $P_1$ before it crashes, but that $P_3$ and $P_4$ do not (in other words, $P_1$ crashes before it got
+a chance to send its list to $P_3$ and $P_4$).
+![[crash-ex-1.png]]
+- P3 may have detected that P1 crashed, but does not know if P2 received anything, i.e., P3 cannot know if it has the same information as P2 -> cannot make decision (same holds for P4)
+
 ### Consensus with arbitrary failures
 ### The Byzantine Generals Problem
 # Content:
