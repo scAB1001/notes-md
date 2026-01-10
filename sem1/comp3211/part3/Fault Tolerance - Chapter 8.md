@@ -107,8 +107,56 @@ It is important to realize that the selection algorithm is the same for all proc
 **(EXAMPLE)** assume we have a process group of four processes {P1, . . . , P4} and that $P_1$ crashes during round $r$. Also, assume that $P_2$ receives the list of proposed commands from $P_1$ before it crashes, but that $P_3$ and $P_4$ do not (in other words, $P_1$ crashes before it got
 a chance to send its list to $P_3$ and $P_4$).
 ![[crash-ex-1.png]]
-- P3 may have detected that P1 crashed, but does not know if P2 received anything, i.e., P3 cannot know if it has the same information as P2 -> cannot make decision (same holds for P4)
+- P3 may have detected that P1 crashed, but does not know if P2 received anything, i.e., P3 cannot know if it has the same info as P2 -> cannot make decision (same holds for P4)
+- P3 and P4 postpone decision to next round
+- P2 makes a decision and broadcast that decision to the others
+- P3 and P4 are able to make a decision at round (r+1)
+- P3 and P4 decide to execute the same command selected by P2
+#### Raft Consensus Algorithm
+**Developed for understandability**
+- Uses a fairly straightforward **leader-election** algorithm. The current leader operates during the **current term**.
+- Every server (typically, five) keeps a **log** of operations, some of which have been committed. *A backup will not vote for a new leader if its own log is more up to date*.
+- All committed operations have the same position in the log of each respective server.
+-The leader decides which pending op to commit next ⇒ a **primary-backup approach**.
+**When submitting an operation**
+- A client submits a request for operation $o$
+- The leader appends the request $⟨o, t.k⟩$ to its own log (registering the
+current term $t$ and length of ), $k$ is the index of o in the leader’s log
+- The log is (conceptually) broadcast to the other servers
+- The others (conceptually) copy the log and acknowledge the receipt
+- When a majority of ACKs arrives, the leader commits $o$.
+(**Note**) In practice, only updates are *broadcast*
+- At the end, every server has the *same view* and knows about the $c$ committed operations
+- Effectively, any information at the backups is *overwritten*
+#### Raft: When a Leader Crashes
+![[leader-crashes-raft.png]]
+New leader election is initiated
+• The new leader has the most committed operations in its log
+• Any missing commits will eventually be sent to the other backups.
+#### The Two Generals Problem
+- **Scenario:** Two armies (Generals) must coordinate an attack, but can only communicate via messengers through enemy territory, where messages might be lost.
+- **The Dilemma:** General A sends a messenger saying "Attack at dawn." General B receives it and agrees, but to be sure, sends a messenger back: "I agree." General A receives this confirmation, but now _A_ isn't sure _B_ got _A's_ confirmation of _B's_ agreement, so A might not attack, leaving B to attack alone and lose
 
-### Consensus with arbitrary failures
+Achieving perfect, guaranteed agreement (consensus) between two parties over an unreliable communication channel is impossible, even with multiple messages, because one party can never be 100% certain the other received their final confirmation, leading to potential failure if one acts alone. 
+
+In fault tolerance, this shows that systems must settle for probabilistic guarantees, use acknowledgements with timeouts (like TCP), and implement mechanisms (like idempotency) to handle potential duplicate messages and inconsistent states, as complete reliability is unattainable.
+![[two-generals-problem.png]]
+How Should the Generals Decide?
+a) General 1 always attacks, even if no response is received?
+- Send lots of messengers to increase probability that one will get through
+- If all are captured, general 2 does not know about the attack, so general 1 loses
+b) General 1 only attacks if positive response from general 2 is received?
+- Now general 1 is safe
+- But general 2 knows that general 1 will only attack if general 2's response gets through
+- Now general 2 is in the same situation as general 1 in option 1
+No common knowledge: the only way of knowing something is to communicate it.
 ### The Byzantine Generals Problem
+A group of Byzantine generals surrounds an enemy city, needing to agree on a coordinated attack or retreat. Communication is via messengers, but some generals might be traitors, sending different messages to different recipients (e.g., "Attack" to one, "Retreat" to another).
+- **The Goal**: All loyal generals must agree on the same plan (attack or retreat) and execute it together. A split decision leads to defeat.
+Up to $f$ generals might behave maliciously
+- Honest generals don't know who the malicious ones are and the malicious may collude
+- Honest generals must agree on plan
+- Theorem: need $3f + 1$ generals in total to tolerate $f$ malicious generals (i.e. < 1/3)
+- Cryptography (digital signatures) helps, but problem remains hard
+### Consensus with arbitrary failures
 # Content:
