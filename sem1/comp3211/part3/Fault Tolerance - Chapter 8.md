@@ -91,7 +91,24 @@ With **halting failures** (crash/omission/timing failures): we need a total of *
 
 On the other hand, if processes exhibit **arbitrary failures**, continuing to run when faulty and sending out erroneous or random replies, a minimum of $2k + 1$ processes are needed to achieve k-fault tolerance. In the worst case, the $k$ failing processes could accidentally (or even intentionally) generate the same reply. However, the remaining $k + 1$ will also produce the same answer, so the client or voter can just believe the majority.
 ### Consensus with crash failures
+In terms of clients and servers, we have adopted a model in which a potentially very large collection of clients now send commands to a group of processes that jointly behave as a single, highly robust process. To make this work, we need to make an important assumption:
 
+In a **fault-tolerant process group**, each nonfaulty process executes the same commands, in the same order, as every other nonfaulty process
+
+Group members must reach consensus on which command to execute. If failures cannot happen, reaching consensus is easy. For example, using a centralized sequencer that hands out a sequence number to each command that needs to be executed.
+#### Crash Failures: Flooding-based Consensus
+Assume we have a group of processes P = {P1, . . . , Pn} operating under **fail-stop** failure semantics. We assume that crash failures can be reliably detected among the group members (reliable failure detection). 
+A client contacts a group member requesting it to execute a command. Every group member maintains a list of proposed commands: some which it received directly from clients; others which it received from its fellow group members.
+
+The algorithm operates in rounds. In each round, a process $P_i$ sends its list of proposed commands it has seen so far to every other process in $P$. At the end of a round, each process merges all received proposed commands into a new list, from which it then will deterministically select the command to execute, if possible. 
+
+It is important to realize that the selection
+algorithm is the same for all processes. In other words, if all process have
+exactly the same list, they will all select the same command to execute (and
+remove that command from their list).
+It is not difficult to see that this approach works as long as processes do
+not fail. Problems start when a process Pi detects, during round r, that, say
+process Pk has crashed. To make this concrete, assume we have a process
 ### Consensus with arbitrary failures
 ### The Byzantine Generals Problem
 # Content:
