@@ -28,17 +28,17 @@ Likewise, the **reliability** $R(t)$ of a component in the time interval $[0, t]
 ### Terminology
 A system is said to *fail* when it cannot meet its promises. In particular, if a distributed system is designed to provide its users with a number of services, the system has failed when one or more of those services cannot be (completely) provided.
 
-| Term                               | Description                                                              | Example                                              |
-| ---------------------------------- | ------------------------------------------------------------------------ | ---------------------------------------------------- |
-| Failure                            | A component is not living up to its<br>specifications.                   | Program crashes.                                     |
-| Error                              | Part of a component (system's state) that can lead to a failure.         | Programming Bug.                                     |
-| Fault                              | The cause of an error.                                                   | The developer.                                       |
-| Fault Prevention                   | Prevent the occurrence of a fault.                                       | Thorough software verification and validation.       |
-| Fault Tolerance<br>(**Important**) | Build a component such that it can mask the occurrence of a fault.       | Build each component by two independent programmers. |
-| Fault Removal                      | Reduce the presence, number, or seriousness of a fault.                  | Thorough software verification<br>and validation.    |
-| Fault Forecasting                  | Estimate current presence, future incidence, and consequences of faults. | Check code quality /<br>programming experience.      |
+| Term                                    | Description                                                              | Example                                              |
+| --------------------------------------- | ------------------------------------------------------------------------ | ---------------------------------------------------- |
+| Failure                                 | A component is not living up to its<br>specifications.                   | Program crashes.                                     |
+| Error                                   | Part of a component (system's state) that can lead to a failure.         | Programming Bug.                                     |
+| Fault                                   | The cause of an error.                                                   | The developer.                                       |
+| Fault Prevention                        | Prevent the occurrence of a fault.                                       | Thorough software verification and validation.       |
+| Fault Tolerance (FT)<br>(**Important**) | Build a component such that it can mask the occurrence of a fault.       | Build each component by two independent programmers. |
+| Fault Removal                           | Reduce the presence, number, or seriousness of a fault.                  | Thorough software verification<br>and validation.    |
+| Fault Forecasting                       | Estimate current presence, future incidence, and consequences of faults. | Check code quality /<br>programming experience.      |
 The developer is the *fault* for the *error*: bug which caused the program to crash in *failure*.
-The aim is to improve *fault tolerance* so that the system can provide its services even in the case of faults.
+Aim: improve *fault tolerance* -> system can provide its services *even* in the case of faults.
 ### Failure models
 
 | Type of Failure                           | Description of Server’s Behaviour                                                                                   |
@@ -51,27 +51,39 @@ The aim is to improve *fault tolerance* so that the system can provide its servi
 | Arbitrary (or Byzantine)<br>**(Serious)** | May produce arbitrary responses at arbitrary<br>times that is not detected as incorrect. False info.                |
 #### Dependability vs Security (Omission versus commission)
 Arbitrary failures are sometimes qualified as malicious. It is important to make the following distinction:
-• Omission failures: a component fails to take an action that it should have taken
-• Commission failure: a component takes an action that it should not have taken
-• Deliberate failures, be they omission or commission failures
-are typically security problems. Distinguishing between
-deliberate failures and unintentional ones is, in general, very
-hard.
+- *Omission* failures: a component *fails to take an action* that it *should have* taken
+- *Commission* failure: a component *takes an action* that it *should not have* taken
+These deliberate failures are often *security* problems. Distinguishing between *deliberate* failures and *unintentional* ones is difficult.
 #### Failure Masking by Redundancy
-Types of Redundancy
-• Information redundancy: Add extra bits to data units so that
-errors can be recovered when bits are garbled
-• E.g. Hamming code
-• Time redundancy: Design a system such that an action can be
-performed again if anything went wrong
-• E.g. retransmission request to a server when lacking an expected
-response
-• Physical redundancy: add equipment or processes in order to
-allow one or more components to fail. This type is extensively
-used in distributed systems
-• E.g. extra processes are added to a system so that if a number of
-processes crash, the system can still function correctly.
-### Process resilience
+If a system is to be fault tolerant, the best it can do is to try to hide the occurrence of failures from other processes. The key technique for masking faults is to use redundancy:
+- **Information** redundancy: Add extra bits to data units so that errors can be recovered when bits are garbled e.g., Hamming code
+- **Time** redundancy: Design a system where actions can be performed again if anything went wrong e.g., retransmission request to a server when lacking an expected response
+- **Physical** redundancy: add equipment or processes in order to allow one or more components to fail. Often used in DS e.g., extra processes are added to a system so that the system can still function correctly if processes crash.
+### Process resilience by Groups
+FT can actually be achieved in DS by *protecting* against *process failures*, which is achieved by **replicating processes** into groups. 
+
+organize several identical processes into a group. The key property that all groups have is that when a message is sent to the group itself, all members of the group receive it. In this way, if one process in a group fails, hopefully some other process can take over for it.
+
+Process groups may be dynamic. New groups can be created and old
+groups can be destroyed. A process can join a group or leave one during
+system operation. A process can be a member of several groups at the same
+time. Consequently, mechanisms are needed for managing groups and group
+membership.
+#### Groups Organisation
+An important distinction between different groups has to do with their internal structure. In some groups, all processes are equal. There is no distinctive leader and all decisions are made collectively. In other groups, some kind of hierarchy exists. 
+![[process-groups.png]]
+**(FLAT GROUP)** symmetrical and has no single point of failure. If one of
+the processes crashes, the group simply becomes smaller, but can otherwise
+continue. A disadvantage is that decision making is more complicated. For
+example, to decide anything, a vote often has to be taken, incurring some
+delay and overhead.
+**(HIERARCHICAL GROUP)** has the opposite properties. Loss of the coordinator
+brings the entire group to a grinding halt, but as long as it is running, it
+can make decisions without bothering everyone else. In practice, when the
+coordinator in a hierarchical group fails, its role will need to be taken over and
+one of the workers is elected as new coordinator.
+#### Groups and Failure Masking
+A **k-fault tolerant group**: when a group can mask any $k$ concurrent member failures. k is called **degree of fault tolerance**.
 ### Consensus with crash failures
 ### Consensus with arbitrary failures
 ### The Byzantine Generals Problem
