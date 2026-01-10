@@ -152,11 +152,15 @@ b) General 1 only attacks if positive response from general 2 is received?
 No common knowledge: the only way of knowing something is to communicate it.
 ### The Byzantine Generals Problem
 A group of Byzantine generals surrounds an enemy city, needing to agree on a coordinated attack or retreat. Communication is via messengers, but some generals might be traitors, sending different messages to different recipients (e.g., "Attack" to one, "Retreat" to another).
-- **The Goal**: All loyal generals must agree on the same plan (attack or retreat) and execute it together. A split decision leads to defeat.
+**The Goal**: All loyal generals must agree on the same plan (attack or retreat) and execute it together. A split decision leads to defeat.
+![[byzantine=generals-problem.png]]
 Up to $f$ generals might behave maliciously
 - Honest generals don't know who the malicious ones are and the malicious may collude
 - Honest generals must agree on plan
 - Theorem: need $3f + 1$ generals in total to tolerate $f$ malicious generals (i.e. < 1/3)
 - Cryptography (digital signatures) helps, but problem remains hard
+
+DSs achieve consensus despite faulty or malicious nodes (generals) sending conflicting information, requiring honest nodes to agree on a single plan (attack/retreat) for system success.
 ### Consensus with arbitrary failures
+
 # Content:
