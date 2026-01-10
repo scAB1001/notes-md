@@ -28,16 +28,49 @@ Likewise, the **reliability** $R(t)$ of a component in the time interval $[0, t]
 ### Terminology
 A system is said to *fail* when it cannot meet its promises. In particular, if a distributed system is designed to provide its users with a number of services, the system has failed when one or more of those services cannot be (completely) provided.
 
-| Term              | Description                                           | Example |
-| ----------------- | ----------------------------------------------------- | ------- |
-| Failure           | A component is not living up to its<br>specifications |         |
-| Error             | Part of a component that can<br>lead to a failure     |         |
-| Fault             |                                                       |         |
-| Fault Prevention  |                                                       |         |
-| Fault Tolerance   |                                                       |         |
-| Fault Forecasting |                                                       |         |
-
+| Term                               | Description                                                              | Example                                              |
+| ---------------------------------- | ------------------------------------------------------------------------ | ---------------------------------------------------- |
+| Failure                            | A component is not living up to its<br>specifications.                   | Program crashes.                                     |
+| Error                              | Part of a component (system's state) that can lead to a failure.         | Programming Bug.                                     |
+| Fault                              | The cause of an error.                                                   | The developer.                                       |
+| Fault Prevention                   | Prevent the occurrence of a fault.                                       | Thorough software verification and validation.       |
+| Fault Tolerance<br>(**Important**) | Build a component such that it can mask the occurrence of a fault.       | Build each component by two independent programmers. |
+| Fault Removal                      | Reduce the presence, number, or seriousness of a fault.                  | Thorough software verification<br>and validation.    |
+| Fault Forecasting                  | Estimate current presence, future incidence, and consequences of faults. | Check code quality /<br>programming experience.      |
+The developer is the *fault* for the *error*: bug which caused the program to crash in *failure*.
+The aim is to improve *fault tolerance* so that the system can provide its services even in the case of faults.
 ### Failure models
+
+| Type of Failure                           | Description of Server’s Behaviour                                                                                   |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| Crash                                     | Halts, but is working correctly until it halts                                                                      |
+| Omission:<br> Receive<br> Send            | Fails to respond to incoming requests<br>Fails to receive incoming messages<br>Fails to send messages (response)    |
+| Timing                                    | Response lies outside a specified time interval                                                                     |
+| Performance                               | Server responds too late.                                                                                           |
+| Response<br> Value<br> State-transition   | Response is incorrect<br>The value of the response is wrong<br>Deviates from correct flow of control (reacts wrong) |
+| Arbitrary (or Byzantine)<br>**(Serious)** | May produce arbitrary responses at arbitrary<br>times that is not detected as incorrect. False info.                |
+#### Dependability vs Security (Omission versus commission)
+Arbitrary failures are sometimes qualified as malicious. It is important to make the following distinction:
+• Omission failures: a component fails to take an action that it should have taken
+• Commission failure: a component takes an action that it should not have taken
+• Deliberate failures, be they omission or commission failures
+are typically security problems. Distinguishing between
+deliberate failures and unintentional ones is, in general, very
+hard.
+#### Failure Masking by Redundancy
+Types of Redundancy
+• Information redundancy: Add extra bits to data units so that
+errors can be recovered when bits are garbled
+• E.g. Hamming code
+• Time redundancy: Design a system such that an action can be
+performed again if anything went wrong
+• E.g. retransmission request to a server when lacking an expected
+response
+• Physical redundancy: add equipment or processes in order to
+allow one or more components to fail. This type is extensively
+used in distributed systems
+• E.g. extra processes are added to a system so that if a number of
+processes crash, the system can still function correctly.
 ### Process resilience
 ### Consensus with crash failures
 ### Consensus with arbitrary failures
