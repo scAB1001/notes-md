@@ -44,8 +44,7 @@
 23. What is the definition of federated learning?
 	Federated learning describes the method of building reliable predictive AI models, typically in a decentralised system.
 	Usually, HPC would be used to train these models but when data must remain within the organisation, the training is, instead, brought to the data.  
-24. 
-25. Describe some common challenges of a DS.
+24. Describe some common challenges of a DS.
 	Architecture: common organisations, common styles
 	Process: what kind of processes, and their relationships
 	Communication: facilities for exchanging data
@@ -54,24 +53,24 @@
 	Consistency and replication: performance requires of data, which need to be the same
 	Fault tolerance: keep running in the presence of partial failures
 	Security: ensure authorised access to resources
-26. What is the definition of distribution transparency?
+25. What is the definition of distribution transparency?
 	 The phenomenon by which a DS attempts to hide the distribution of its processes and resources are physically from it's end-users and applications. They are typically distributed across multiple computers, possibly separated by large distances. 
-27. How does a DS achieve distribution transparency?
+26. How does a DS achieve distribution transparency?
 	Distribution transparency is realised through middleware.
 	In essence, what applications get to see is the same interface everywhere, whereas behind that interface, where and how processes and resources are and how they are accessed is kept transparent.
-28. What is the process perspective?
-29.  What is the communication perspective?
-30. Define access transparency of a DS. Provide an example.
-31. Define location transparency of a DS. Provide an example.
+27. What is the process perspective?
+28.  What is the communication perspective?
+29. Define access transparency of a DS. Provide an example.
+30. Define location transparency of a DS. Provide an example.
 	The Uniform Resource Locator (URL) for a website, gives no clue of the actual physical location of the web server, nor their previous whereabouts  where the data is/has been offered.
-32. Define migration transparency of a DS. Provide an example.
-33. Define relocation transparency of a DS. Provide an example.
-34. Define replication transparency of a DS. Provide an example.
-35. Define concurrency transparency of a DS. Provide an example.
-36. Define failure transparency of a DS. Provide an example.
-37. What is meant by the terms 'resource sharing'? Give an example.
-38. What is meant by 'openness' in a DS? Give an example.
-39. Explain what the terms 'Interoperability, composability, and extensibility' refer to in an open DS.
+31. Define migration transparency of a DS. Provide an example.
+32. Define relocation transparency of a DS. Provide an example.
+33. Define replication transparency of a DS. Provide an example.
+34. Define concurrency transparency of a DS. Provide an example.
+35. Define failure transparency of a DS. Provide an example.
+36. What is meant by the terms 'resource sharing'? Give an example.
+37. What is meant by 'openness' in a DS? Give an example.
+38. Explain what the terms 'Interoperability, composability, and extensibility' refer to in an open DS.
 
 #### Quiz QnA
 ##### Quiz 1
@@ -111,6 +110,8 @@
 	The order of bytes in a word
 5. What is the main difference between little-endian and big-endian formats?
 	Big-endian stores the most significant byte first while little-endian stores the least significant byte first, while 
+##### Quiz 4
+
 #### Exam
 1. What is the purpose of a message queue in a distributed system?
 - To store messages temporarily
