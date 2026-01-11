@@ -892,6 +892,63 @@ class BookResource(Resource):
 **004. Which of the following is a common use case for LDAP?**
 - User authentication and authorization.
 - LDAP is extensively used as a central repository for user credentials and attributes (like groups and roles), enabling single sign-on (SSO) and centralized access control across many applications.
+**005. In the graph representation of a structured namespace, what are the two types of nodes, and what does each store?**
+1.  **Leaf Node:** Represents a **named entity** (e.g., a file, host, service). It stores the **entity's state or attributes** (e.g., file contents, IP address).
+2.  **Directory Node:** Acts as a **catalog**. It stores a **directory table** of (`edge-label`, `node-identifier`) pairs, which map outgoing labels to child nodes (which can be other directories or leaves).
+- *Explanation:* Tests the fundamental data model for structured namespaces.
+**006. What is a **closure mechanism** in the context of name resolution? Provide an example from a filesystem and one from the Internet.**
+- A **closure mechanism** is the rule or context that determines the **starting point (initial node or index node)** for resolving a structured name.
+- **Filesystem Example:** In Unix, to resolve `/home/steen/mbox`, the closure mechanism provides access to the **inode of the root directory** (found via the disk's superblock).
+- **Internet Example:** To resolve `www.distributed-systems.net`, the closure mechanism is the **IP address of a configured DNS resolver** (or root hints) that provides the starting point for the DNS hierarchy.
+- *Explanation:* Tests a critical but often implicit concept that makes resolution possible.
+**007. Describe the step-by-step process of **path name resolution** for the Unix file path `/home/steen/mbox`, starting from the root inode.**
+1.  Start at the root directory's inode.
+2.  Read the root directory's data blocks, which contain a table mapping names to inode numbers.
+3.  Look up the name `"home"` in this table to get the inode number of the `/home` directory.
+4.  Access that inode, read its data blocks, and look up `"steen"` to get the inode number of `/home/steen`.
+5.  Access that inode, read its data blocks, and look up `"mbox"` to get the inode number of the target file.
+6.  Access that final inode to read the file's attributes and data.
+- *Explanation:* Tests the concrete algorithm for walking a hierarchical namespace.
+**008. What is the key difference between a **hard link** and a **symbolic (soft) link** in a filesystem?**
+- A **hard link** is a **direct directory entry** that points to the same underlying inode (data structure) as the original file. It creates another absolute path to the same node.
+- A **symbolic (soft) link** is a **special type of leaf node** whose *data* is a **path name** (a string) of the target file. It is an indirect reference; if the target file is deleted, the symbolic link becomes a **dangling reference**.
+- *Explanation:* Tests a core concept for creating aliases in a namespace.
+**009. What is the purpose of **mounting** in the context of distributed namespaces? Provide a brief example.**
+- **Mounting** transparently **integrates a foreign namespace** (e.g., a remote filesystem) into the local namespace at a specified directory (the **mount point**).
+- **Example:** Mounting the Network File System (NFS) export `/remote/vu` from server `fs.vu.nl` to the local directory `/home/steen/remote`. After mounting, accessing the local path `/home/steen/remote/mbox` actually accesses the file `/remote/vu/mbox` on the remote server, without the user needing to know the remote path.
+- *Explanation:* Tests the mechanism for building unified namespaces from disparate parts.
+**010. The DNS namespace is partitioned into three logical layers for implementation. What are these layers, and what is the primary characteristic of each?**
+1.  **Global Layer:** Consists of the **root and top-level domains** (e.g., `.com`, `.uk`). **Highly stable**, changes infrequently, managed by large organisations.
+2.  **Administrational Layer:** Consists of **zones managed by large organisations** (e.g., `example.com`, `ac.uk`). Managed independently, changes moderately.
+3.  **Managerial Layer:** Consists of **individual hosts and services** within an organisation (e.g., `www.example.com`). **Highly dynamic**, frequently updated, and often replicated for performance and availability.
+- *Explanation:* Tests the architectural design of DNS for scalability and manageability.
+**011. Compare **iterative** and **recursive** DNS resolution. What is the key trade-off between them?**
+- **Iterative Resolution:** The contacted server returns the **best answer it has** (often a referral to another server). The **client is responsible** for querying the next server.
+- **Recursive Resolution:** The contacted server **takes on the responsibility** of finding the full answer. It queries other servers on the client's behalf and returns the final result.
+- **Trade-off:** Recursive resolution places a **higher processing and state burden on the name server** but allows for **effective caching of results** at intermediate resolvers, benefiting future clients. Iterative resolution is **less demanding on individual servers**.
+- *Explanation:* Tests the two fundamental resolution strategies and their impact on performance and load.
+**012. In LDAP, data is organised in a **Directory Information Tree (DIT)**. What is an **entry** in this tree, and how is it uniquely identified?**
+- An **entry** is a collection of **attribute-value pairs** that describes an object (e.g., a person, a printer, a group).
+- It is uniquely identified by its **Distinguished Name (DN)**, which is a sequence of **Relative Distinguished Names (RDNs)** read from the entry up to the root of the DIT. An RDN is a single attribute-value pair that uniquely identifies the entry among its siblings.
+- *Explanation:* Tests the core data model of LDAP.
+**013. What problem does the **Java Naming and Directory Interface (JNDI)** solve for Java application developers?**
+- JNDI provides a **uniform, standard Java API** for accessing **different, heterogeneous naming and directory services** (like LDAP, DNS, RMI registry, CORBA Naming Service). It solves the problem of **vendor lock-in** and **implementation complexity** by allowing developers to write code against a single interface while using pluggable **service providers** for the underlying service.
+- *Explanation:* Tests the purpose and benefit of the JNDI abstraction layer.
+**014. In the "Check of Understanding" scenario (finding a colour A3 printer on the same floor), why is an **attribute-based naming** service like LDAP necessary, rather than a structured naming service like DNS?**
+- Structured naming services like DNS are designed for **lookup by precise, hierarchical name** (e.g., `printer5.floor3.example.com`). They cannot efficiently answer **queries based on multiple, arbitrary attributes** (colour-capable, A3, floor location).
+- Attribute-based naming services are built precisely for this: they allow **search queries** over a set of descriptive attributes (e.g., `(&(type=printer)(capabilities=colour)(capabilities=A3)(locationFloor=5))`), returning all matching entries regardless of their exact name.
+- *Explanation:* Applies the core distinction between the two naming paradigms to a practical scenario.
+**015. When a DNS server returns a **CNAME record** during resolution, what does this indicate, and how does the resolver proceed?**
+- A **CNAME (Canonical Name) record** indicates that the queried name is an **alias** for another domain name (the canonical name).
+- The resolver must **suspend its current resolution** and **restart the resolution process** for the canonical name provided in the CNAME record. Once the canonical name is resolved to an IP address, that address is returned for the original alias query.
+- *Explanation:* Tests understanding of a specific DNS record type and its impact on the resolution algorithm.
+**016. What is the purpose of the **Time-To-Live (TTL)** value associated with DNS resource records?**
+- The **TTL** specifies how **long (in seconds) a DNS record can be cached** by resolvers and clients before it must be considered stale and re-fetched from an authoritative server. It is a critical mechanism for **balancing consistency and performance**: a low TTL allows quick propagation of changes, while a high TTL reduces load on authoritative servers and speeds up lookups via caching.
+- *Explanation:* Tests the role of caching and its management in DNS.
+**017. In a Unix filesystem, after creating a hard link `link.txt` to an existing file `original.txt`, what happens if you delete `original.txt`? Can you still access the file's content via `link.txt`? Why?**
+- **Yes, you can still access the file's content via `link.txt`.**
+- **Why:** A hard link is a direct reference to the underlying **inode** (the data structure containing the file's metadata and pointers to data blocks). Deleting `original.txt` only removes **one directory entry** pointing to that inode. As long as at least one hard link (directory entry) to the inode exists—in this case, `link.txt`—the inode and its data are not freed. The file continues to exist.
+- *Explanation:* A practical test of hard link semantics.
 ### **11. Timing and Synchronisation**
 **001. What is the primary purpose of synchronization in distributed systems?**
 - To coordinate actions and events across different nodes.
@@ -950,6 +1007,48 @@ class BookResource(Resource):
     - **Adjusted Client Time = T_server + Delay**
     - = 13:49:02 + 1 second = **13:49:03**.
 - *Note:* The client's original time (13:48:56) is irrelevant for the calculation; it's used to compute the offset to apply.
+**012. Why is it impossible to have a perfectly accurate global clock in a distributed system?**
+- Due to **clock drift** and **network latency**. Each computer's internal clock (based on a quartz crystal) drifts at a unique, non-zero rate (**parts per million, ppm**). Additionally, even if clocks were perfect, synchronising them requires message exchange, and the **variable, unpredictable propagation delays** in a network make it impossible to determine the exact instant a message was sent or received at a remote machine.
+- *Explanation:* Tests the fundamental physical and network limitations that make time synchronization a problem.
+**013. What is the **maximum drift rate (ρ)** of a physical clock, and what does it imply about the guaranteed accuracy of the clock over a time interval `t`?**
+- The **maximum drift rate (ρ)** is a constant (e.g., 10^-6 or 1 ppm) that bounds the rate at which a computer's clock can deviate from real (UTC) time: $1 - \rho ≤ dC/dt ≤ 1 + \rho$.
+- Over a time interval `t` without synchronization, the clock can be off by at most $± \rho t$. For example, with $\rho = 1 \text{ ppm} = 10^{-6}$, after 24 hours (86,400 seconds), the maximum error is $10^{-6} * 86400 \text{ s} ≈ 0.0864 \text{ s}$, or about **86 milliseconds**.
+- *Explanation:* Tests the mathematical model for clock drift and its practical implications.
+**014. The 1991 **Patriot Missile failure** is cited as an example of a catastrophic timing error. What was the root cause in terms of clock synchronisation?**
+- A **software truncation error** in converting system time (in tenths of a second) led to an **accumulated clock drift** of approximately 0.34 seconds over 100 hours of continuous operation. This caused the missile's tracking system to miscalculate the target's position, leading to a failed interception.
+- *Explanation:* Tests a famous real-world case study of the consequences of poor timekeeping.
+**015. In the **Bully Election Algorithm**, what does a process do when it receives an **ELECTION** message from a process with a **lower ID**?**
+- It sends back an **OK** message to acknowledge the election, and then **immediately starts its own election** by sending ELECTION messages to processes with IDs higher than its own. This ensures that the process with the **highest ID among the active processes** eventually wins.
+- *Explanation:* Tests a key step in the bully algorithm's logic to ensure the highest-ID candidate emerges.
+**016. Describe the message flow in the **Ring Election Algorithm** when a single process `P2` detects the coordinator's failure and initiates an election in a ring of 5 processes (P1-P5).**
+1.  `P2` creates an **ELECTION** message containing its own ID (`[2]`) and sends it to its successor in the ring (e.g., `P3`).
+2.  `P3` receives it, appends its own ID (`[2,3]`), and forwards it to `P4`.
+3.  `P4` appends its ID (`[2,3,4]`) and forwards to `P5`.
+4.  `P5` appends its ID (`[2,3,4,5]`) and forwards to `P1`.
+5.  `P1` appends its ID (`[2,3,4,5,1]`) and forwards back to the initiator `P2`.
+6.  `P2` receives its own message, sees the list `[2,3,4,5,1]`, identifies the highest ID (`5`).
+7.  `P2` (or `P5` directly) sends a **COORDINATOR** message around the ring announcing `P5` as the new leader.
+- *Explanation:* Tests the step-by-step mechanics of the ring algorithm.
+**017. In **NTP's hierarchical structure**, what is a **Stratum 1** server, and why is the stratum number important?**
+- A **Stratum 1** server is a **primary time server** that is directly synchronized to an authoritative external time source, such as an atomic clock, a GPS receiver, or a radio clock. It has minimal delay to the source.
+- The **stratum number** indicates the **distance (in network hops) from an authoritative UTC source**. Lower stratum numbers imply **higher accuracy and reliability**. A Stratum 2 server syncs with Stratum 1, Stratum 3 with Stratum 2, and so on. Accuracy generally decreases as stratum increases.
+- *Explanation:* Tests the core hierarchical design of NTP.
+**018. NTP uses different **clock correction mechanisms** based on the calculated offset (θ). What action does NTP take for an offset of **200 ms**?**
+- For an offset where **125 ms ≤ |θ| < 1000 ms**, NTP will perform a **step** correction. This means it will **jump** (set) the local clock to the corrected time immediately, rather than trying to adjust its speed gradually.
+- *Explanation:* Tests the specific operational rules of NTP for handling different magnitudes of error.
+**019. In the "Check of Understanding" scenario about sensor timestamps, the first potential cause is **asymmetric network delay**. Why does this break the assumption of Cristian's algorithm and affect NTP accuracy?**
+- Both Cristian's algorithm and NTP's basic offset calculation assume that the **network delay is symmetric**—the time for a message to travel from client to server is roughly equal to the time from server to client ($T_{go} ≈ T_{return}$). If this assumption is false (asymmetric routes or congestion), the calculated one-way delay (RTT/2) is incorrect, leading to a **systematic error** in the synchronized time. A consistent 50ms offset suggests a fixed asymmetry.
+- *Explanation:* Tests understanding of a fundamental limitation in time sync protocols.
+**020. What is the primary **disadvantage** of the Berkeley Algorithm compared to synchronizing each machine directly with an external UTC source?**
+- The Berkeley Algorithm synchronizes clocks **only relative to each other**, not to **absolute UTC time**. The computed "average" time may drift away from real-world time if the coordinator or the group of machines has a systematic drift. It provides **internal consistency** but not **external accuracy**.
+- *Explanation:* Highlights the key trade-off of internal vs. external synchronization.
+**021. After a successful election using the Bully Algorithm, the new coordinator (e.g., process with ID 6) sends a **COORDINATOR** message. To which processes should this message be sent?**
+- The new coordinator should send the COORDINATOR message to **all processes with lower IDs** than itself. It may also broadcast it to all processes in the system to ensure everyone is aware of the new leadership.
+- *Explanation:* Tests a final step in the bully algorithm's protocol.
+**022. What is a **logical clock** (as mentioned in Q002), and how does its purpose differ from the **physical clock synchronization** methods (Cristian's, Berkeley, NTP) discussed in this chapter?**
+- A **logical clock** is a mechanism (e.g., Lamport timestamps, vector clocks) that **orders events causally** without measuring real time. It tracks **happens-before** relationships.
+- **Difference:** Physical clock synchronisation aims to make local clocks **read approximately the same absolute (UTC) time**. Logical clocks abandon the goal of measuring real time entirely, focusing only on **maintaining a consistent causal order** of events, which is sufficient for many distributed algorithms (e.g., consistency protocols).
+- *Explanation:* Clarifies the distinction between two major approaches to "time" in distributed systems, linking back to a previous question.
 ### **12. Consistency and Replication Pt.1**
 **001. Which of the following is a common challenge in maintaining consistency in distributed systems?**
 - Network latency.
@@ -972,10 +1071,114 @@ class BookResource(Resource):
 **006. Think about a simple interaction of the car by means of a data store consistency model... "a write operation by a process on a data item x following a previous read operation on x by the same process is guaranteed to take place on the same or a more recent value of x that was read." Does the data store consistency hold in such case?**
 - The described model is **Read-Your-Writes (RYW)** consistency, a **client-centric** model.
 - **To evaluate:** Check the sequence for a specific process (e.g., L1 or L2). For every `W(x)` operation, look at the most recent `R(x)` by the *same* process before it. The value written must be based on the value read or a newer one. If the figure shows a process writing a value *older* than what it last read (which shouldn't happen in a correct program), the model would be violated. The answer depends on the provided figure.
-
-
+**007. What is the fundamental **trade-off** between achieving strong consistency (like sequential consistency) and achieving scalability in a replicated system?**
+- Achieving strong consistency requires **global synchronisation** to agree on the order of conflicting operations across all replicas. This synchronisation involves **communication delays and coordination overhead**, which **increases latency** and **limits throughput**, directly hindering the system's ability to scale in size and geography.
+- *Explanation:* Tests the core "performance-scale dilemma" introduced at the start of the chapter.
+**008. The **Continuous Consistency** model allows an application to specify tolerance for inconsistency along three dimensions. Name these three dimensions.**
+1.  **Numerical Deviation:** The maximum absolute difference in value between replicas.
+2.  **Staleness Deviation:** The maximum time a replica's value is older than another's.
+3.  **Ordering Deviation:** The maximum number of unpropagated (pending) write operations.
+- *Explanation:* Tests the key innovation of the continuous consistency model.
+**009. In the Continuous Consistency example for a fleet manager, what is the role of a **Conit**?**
+- A **Conit** is the **consistency unit**—a specific set of related data items (e.g., gallons tanked, price paid, distance driven) over which the numerical, staleness, and ordering deviations are measured and bounded. The application defines the Conit, and the system ensures the replicas of that Conit stay within the specified deviation bounds.
+- *Explanation:* Tests the central data structure of the continuous model.
+**010. What is the key guarantee provided by the **Sequential Consistency** model?**
+- The result of any execution is equivalent to some **sequential execution** of all operations, where the operations **of each individual process** appear in this sequence in the **order specified by its program** (program order). All processes agree on this single global interleaving.
+- *Explanation:* Tests the formal definition of sequential consistency.
+**011. Using the **happens-before relation**, explain why the execution in Diagram (b) of the sequential consistency notes (where P3 and P4 see different interleavings of writes) is **not** sequentially consistent.**
+- For sequential consistency to hold, **all processes must agree on a single global order** of all operations. In Diagram (b), P3 sees the order `W2(x)b` -> `W1(x)a`, while P4 sees the order `W1(x)a` -> `W2(x)b`. These are **contradictory observations**. There is no single sequential order that can satisfy both P3's and P4's view of the write order, thus violating the model.
+- *Explanation:* Applies the happens-before/logical ordering concept to diagnose a consistency violation.
+**012. The provided print program example (with processes P1, P2, P3) demonstrates that sequential consistency does **not** guarantee all prints will be `(1,1,1)`. Why is the output `(1,0,0)` a valid outcome under sequential consistency?**
+- Sequential consistency only requires that the execution be equivalent to *some* sequential interleaving of the statements that respects each process's **program order**. One such valid interleaving is:
+    1.  P1: `x = 1; print(y, z)` -> prints `(0,0)` because P2 and P3 haven't run yet.
+    2.  P2: `y = 1; print(x, z)` -> prints `(1,0)`.
+    3.  P3: `z = 1; print(x, y)` -> prints `(1,1)`.
+- In this interleaving, P1 prints before P2 and P3 set `y` and `z`, leading to the output `(1,0,0)` for P1. This is permissible.
+- *Explanation:* Tests understanding that sequential consistency is about order, not about real-time simultaneity.
+**013. How does **Causal Consistency** relax the requirements of Sequential Consistency?**
+- Causal Consistency **only requires that causally related writes be seen by all processes in the same order**. **Concurrent writes** (writes that are not causally related) can be seen in **different orders** by different processes. Sequential Consistency requires a *total* order of *all* writes, regardless of causality.
+- *Explanation:* Tests the core distinction between these two strict models.
+**014. Define the **happens-before relation (→)**. Provide a small example diagram with two processes and one message, labelling the relation between events.**
+- **Definition:** Event `a` happens-before event `b` (`a → b`) if:
+    1.  `a` and `b` are events in the same process and `a` occurs before `b`.
+    2.  `a` is the sending of a message and `b` is the receipt of that *same* message.
+    3.  It is transitive: if `a → c` and `c → b`, then `a → b`.
+- **Example Diagram:**
+    ```
+    Process P1: a (send msg m) ---> b (local event)
+                     |
+                     v (message m)
+    Process P2: c (receive msg m) ---> d (local event)
+    ```
+    Relations: `a → b` (same process), `a → c` (message send/receive), `c → d` (same process). By transitivity, `a → d`.
+- *Explanation:* Tests the formal definition and ability to apply it to a simple scenario.
+**015. In the "Check of Understanding" social media scenario, why does the Asian user's read of the post establish a causal link between Write A (post) and Write B (comment)?**
+- Because the Asian user **performed a read operation (`R_A`)** that returned the value written by Write A, and then **performed Write B** based on that information. This sequence creates a **happens-before chain**: `Write A → R_A → Write B`. Therefore, `Write A` is a **cause** of `Write B`; Write B could not have occurred without the knowledge gained from reading Write A.
+- *Explanation:* Tests the application of causality to a real-world example.
+**016. Diagram (a) in the causal consistency notes shows a violation. Which specific read operation creates the causal link that is subsequently violated?**
+- The read operation `R2(x)a` performed by Process P2. This read observes the value `'a'` written by `W1(x)a`. Because P2 later performs `W2(x)b`, a causal link `W1(x)a → W2(x)b` is established. The violation occurs because Process P3 sees `W2(x)b` (via `R3(x)b`) **before** it sees `W1(x)a`, thereby inverting the order of causally related writes.
+- *Explanation:* Tests the ability to pinpoint the source of causality in a violation diagram.
+**017. If two write operations, `W1` and `W2`, are **concurrent** (`W1 || W2`), what does this imply about the **happens-before** relation between them, and what freedom does this give under Causal Consistency?**
+- If they are concurrent (`W1 || W2`), it means **neither `W1 → W2` nor `W2 → W1`**. There is no causal relationship between them.
+- Under **Causal Consistency**, this gives processes the freedom to see these two writes in **any order**. Process P may see `W1` then `W2`, while process Q may see `W2` then `W1`. Both are valid.
+- *Explanation:* Tests the implication of concurrency within the causal consistency model.
+**018. What is the primary purpose of defining a **consistency model**?**
+- It defines a **formal contract** or set of guarantees between the distributed data store (the system) and the client processes (the application) about the possible results of **read** and **write** operations when executed concurrently. It tells the programmer what values a read operation is allowed to return, enabling them to reason about their program's behaviour.
+- *Explanation:* Tests the fundamental reason for having these models.
 ### **13. Consistency and Replication Pt.2**
-*(All key questions for this topic are covered in Pt.1. The list does not contain specific questions on the sub-headings like Monotonic Reads or specific protocols).*
+***001. What is the key difference between **data-centric** and **client-centric** consistency models?**
+- **Data-centric models** (like Sequential, Causal) define **global guarantees** about the order of operations visible to *all processes* in the system.
+- **Client-centric models** (like Monotonic Reads, Read Your Writes) define guarantees only for the **sequence of operations performed by a *single client***, ensuring a self-consistent view for that client as it moves or interacts with different replicas. They make no guarantees about consistency between operations of *different* clients.
+- *Explanation:* Tests the fundamental distinction that introduces client-centric models.
+**002. Describe the guarantee provided by the **Monotonic Reads (MR)** client-centric consistency model. Provide a real-world example of its violation.**
+- **Guarantee:** If a process reads a particular version of a data item, any **future read** by that same process must return that same version or a **more recent (never older) version**.
+- **Violation Example:** A user checks their email inbox on their office computer and sees 5 unread emails. They then open the email app on their phone and it shows only 3 unread emails. The phone's view has "gone back in time," violating Monotonic Reads.
+- *Explanation:* Tests the definition and provides a concrete scenario.
+**003. The **Monotonic Writes (MW)** model is crucial for operations that have dependencies. Explain its guarantee and why it is necessary for a software installation process.**
+- **Guarantee:** All write operations performed by a single process are **propagated to all replicas in the same order** they were issued by that process.
+- **Necessity for Software Installation:** Installing software often requires steps in a specific order (e.g., install framework A **then** install application B that depends on A). If a package manager's writes were propagated out of order to different mirrors, a user might fetch and attempt to install application B *before* framework A is available on their local mirror, causing the installation to fail.
+- *Explanation:* Tests the model's definition and a practical use case highlighting its importance.
+**004. What does **Read Your Writes (RYW)** consistency guarantee for a mobile user? How does the diagram (b) in the notes show a violation of this?**
+- **Guarantee:** After a process performs a write, any **subsequent read** by the same process will always reflect that write (or a later one). The user always sees their own updates.
+- **Violation in Diagram (b):** Process P1 writes value `x1` at local store L1. Later, when P1 reads from a different store L2, it gets value `x2`, which is a version created *without* incorporating its own write `x1`. P1 does **not** see its own write, violating RYW.
+- *Explanation:* Tests the definition and the ability to interpret a violation from the provided diagrams.
+**005. In the context of **replica management**, what is the difference between a **permanent replica**, a **server-initiated replica**, and a **client-initiated replica (cache)**?**
+- **Permanent Replica:** Part of the **initial, fixed set** of replicas that form the core of the distributed data store (e.g., the origin servers for a website).
+- **Server-Initiated Replica:** Created **dynamically by the system** (the data owner) to improve performance, typically placed near clusters of demanding clients (e.g., a CDN edge server copying a popular video).
+- **Client-Initiated Replica (Cache):** Created at the **request of a client** to store data locally for fast, repeated access (e.g., a web browser cache, or a mobile app's local database).
+- *Explanation:* Tests the classification of replicas based on who creates them and why.
+**006. Describe the simple algorithm used for **server-initiated replication**. What are the roles of the **Replication Threshold (R)** and **Deletion Threshold (D)**?**
+- **Algorithm:** Servers monitor access counts for files. When the access count for a file `F` from a specific region (aggregated via a nearby server) exceeds the **Replication Threshold (R)**, a new replica of `F` is created in that region.
+- **Replication Threshold (R):** The access count level that triggers the **creation** of a new replica.
+- **Deletion Threshold (D):** A lower access count level. If accesses for a replicated file fall below **D**, the replica is **removed** to free up resources.
+- *Explanation:* Tests the dynamic, access-driven logic behind server-initiated replication.
+**007. In the **primary-backup protocol with remote writes**, why does the client experience high write latency? Describe the blocking steps that cause this.**
+- The client must wait for **multiple network round-trips** to complete:
+    1.  Client sends write request to the **primary** server.
+    2.  Primary performs the write locally.
+    3.  Primary forwards the update to all **backup** servers.
+    4.  Primary **blocks, waiting for acknowledgements** from all backups.
+    5.  Only after all backups acknowledge, the primary sends an acknowledgement back to the client, which can then continue.
+- This sequential, blocking nature causes high latency.
+- *Explanation:* Tests the understanding of the protocol's mechanics and its performance implication.
+**008. What is the key advantage of the **primary-backup protocol with local writes** over the remote-write variant? What typical use case does it enable?**
+- **Key Advantage:** **Very low write latency** for the client holding the primary, because writes are performed **locally** without waiting for network communication.
+- **Typical Use Case:** **Mobile disconnected operation**. A user can "check out" a file (become its primary), work on it offline (performing many local writes), and later propagate the changes back to the backup servers when reconnected.
+- *Explanation:* Tests the benefit and a primary application of the local-write variant.
+**009. Under the local-write primary-backup protocol, what consistency issue can arise for other clients trying to read the data item while the primary is held by a mobile user?**
+- Other clients may read from **stale backup replicas** that have not yet received the updates from the mobile primary. They will **not see the latest writes** performed by the mobile user until those writes are asynchronously propagated back. This can violate client-centric models like **Monotonic Reads** for those other clients if they had previously seen a more recent version.
+- *Explanation:* Tests the trade-off of the local-write approach: performance for the primary holder vs. consistency for others.
+**010. A system uses server-initiated replication for a popular news article. The Replication Threshold R is 1000 requests/hour from a region, and the Deletion Threshold D is 200 requests/hour. A server in Europe has been serving 1500 requests/hour for the article from Asian users. What action should the system take, and why?**
+- The system should **create a server-initiated replica of the article on a server in Asia**.
+- **Why:** The access count (1500 requests/hour) from the Asian region **exceeds the Replication Threshold R (1000)**. This indicates high demand from that geographic area, justifying the creation of a local replica to reduce latency for Asian users and offload traffic from the European server.
+- *Explanation:* Applies the server-initiated replication algorithm to a scenario.
+**011. For a distributed document editing application, which **client-centric consistency model** is most critical to prevent a user from seeing their own changes "disappear" when they switch devices? Justify your answer.**
+- **Read Your Writes (RYW)** consistency is most critical.
+- **Justification:** When a user edits a document on their laptop (a write) and then opens it on their phone (a read), RYW guarantees the phone will show the changes made on the laptop. Without RYW, the phone might display a stale, cached version, making it appear as if the user's own changes have disappeared.
+- *Explanation:* Tests the application of a client-centric model to a specific user experience problem.
+**012. In the "Check of Understanding" scenario comparing remote-write and local-write protocols, the answer mentions a violation of "Monotonic Reads for the Berlin user." Explain how this violation could occur.**
+- The Berlin user might have previously read a moderately recent version of the document from a server in Paris (let's call it version `v5`). Later, while the Tokyo user is the primary and making edits (creating versions `v6`, `v7`, etc.), the Berlin user refreshes. If his request is routed to a backup server that is *still on version `v4`* (because Tokyo's updates haven't propagated yet), he would see version `v4`. This is **older than the version `v5` he previously saw**, violating the **Monotonic Reads** guarantee that his view of the data should never go backwards in time.
+- *Explanation:* Tests deeper analysis of the consistency trade-off in the provided scenario.*
 ### **14. Fault Tolerance**
 **001. In the context of distributed systems, the Atomicity property of ACID ensures that:**
 - Either all operations of a transaction are completed successfully or none are applied.
@@ -1011,7 +1214,6 @@ class BookResource(Resource):
 - In the **bully algorithm**, node 4 sends **ELECTION** messages to all nodes with higher IDs (5,6,7).
 - Node 7, being alive, will respond with an **OK** message to node 4.
 - Upon receiving an **OK** from a higher-ID node, node 4 **stops its election attempt**. Node 7 remains coordinator. The false assumption causes a brief flurry of messages but no change in leadership.
-
 **(ii) Is the bully algorithm adequate for a dynamic P2P system?**
 - **No.** The bully algorithm assumes a **static, known group** of processes. In a dynamic P2P system where nodes regularly join/leave (churn):
     - The assumption of known, ordered IDs is hard to maintain.
@@ -1042,7 +1244,66 @@ class BookResource(Resource):
     3.  General A, upon receiving the ack, sends an **ack-for-the-ack** "Ack2".
     4.  This continues for a predetermined number of rounds `k`.
 - With each round, the probability that *both* know the other knows the plan increases, but it never reaches 100%. They must decide to attack if they have completed `k` rounds, accepting a small probability of miscoordination. This illustrates the fundamental difficulty of achieving **perfect consensus** over an unreliable link.
-
+**011. Distinguish between the terms **Fault**, **Error**, and **Failure** in the context of fault tolerance. Provide a simple example.**
+- **Fault:** The **cause** of an error (e.g., a programming mistake by a developer, a hardware flaw).
+- **Error:** A **deviation from the correct system state** caused by a fault (e.g., an incorrect variable value in memory due to the bug).
+- **Failure:** The **observable event** where the system **does not meet its specification** (e.g., the program crashes or returns a wrong result to the user).
+- **Example:** A developer (fault) writes a bug that divides by zero under a certain condition (error). When a user triggers that condition, the application crashes (failure).
+- *Explanation:* Tests the precise, layered terminology that is crucial for discussing FT.
+**012. What is the difference between **Availability** and **Reliability**? Provide an example of a system that is highly available but not highly reliable.**
+- **Availability:** The **probability the system is operational at a given instant in time**. Focuses on **minimising downtime**.
+- **Reliability:** The **probability the system operates continuously without failure over a specified time interval**. Focuses on **maximising time between failures**.
+- **Example:** A web service that automatically restarts in 1ms after crashing every hour. It has 99.9999% availability (downtime is tiny) but is **unreliable** because it fails frequently (every hour).
+- *Explanation:* Tests a key distinction, with the classic example from the notes.
+**013. A system has a Mean Time To Failure (MTTF) of 500 hours and a Mean Time To Repair (MTTR) of 5 hours. Calculate its **Mean Time Between Failures (MTBF)** and its **Availability (A)**.**
+- **MTBF = MTTF + MTTR = 500 + 5 = 505 hours.**
+- **Availability A = MTTF / MTBF = 500 / 505 ≈ 0.9901, or 99.01%.**
+- *Explanation:* Tests the application of the fundamental quantitative metrics.
+**014. Classify the following as an **Omission Failure** or a **Commission (Byzantine) Failure**:**
+    a) A server crashes and stops responding to requests.
+    b) A malicious server receives a request for a user's balance and returns an incorrect, fabricated amount.
+    c) A router drops a packet due to congestion.
+    d) A faulty sensor sends a plausible but incorrect temperature reading.
+- **a) Omission Failure** (Fail-stop crash).
+- **b) Commission (Byzantine) Failure** (Sends arbitrary, incorrect data).
+- **c) Omission Failure** (Fails to deliver a message).
+- **d) Commission (Byzantine) Failure** (Sends incorrect but plausible data – a lie).
+- *Explanation:* Tests the classification of failures, a core part of the failure model.
+**015. What are the three main types of **redundancy** used to mask faults? Provide a brief example of each in a distributed system context.**
+1.  **Information Redundancy:** Adding extra bits for error detection/correction. *Example:* Using a **checksum or CRC** on network packets to detect corruption.
+2.  **Time Redundancy:** Performing an action again. *Example:* **TCP retransmission** of a lost packet.
+3.  **Physical Redundancy:** Adding extra hardware or software components. *Example:* Running **multiple replica servers**; if one fails, another takes over.
+- *Explanation:* Tests the core techniques for achieving fault tolerance.
+**016. In the context of **process groups** for fault tolerance, what does it mean for a system to be **k-fault tolerant**? How does the required group size differ for **crash failures** versus **Byzantine failures**?**
+- **k-fault tolerant:** The system can survive **k component failures** and still meet its specification.
+- **Group Size:**
+    - For **Crash (Fail-stop) Failures:** Need **k + 1** processes. With `k` failures, at least 1 correct process remains.
+    - For **Byzantine (Arbitrary) Failures:** Need at least **2k + 1** processes. This ensures that among the non-faulty processes (`k+1`), they have a majority and can out-vote any consistent lie from the `k` faulty processes.
+- *Explanation:* Tests the fundamental sizing rules derived from the Byzantine Generals problem.
+**017. Describe the key idea behind the **flooding-based consensus** algorithm for crash failures. What extra mechanism is needed when a process crashes during a round?**
+- **Key Idea:** Processes exchange lists of proposed commands in rounds. Each process merges received lists and uses a **deterministic function** (same for all) to select the next command. This ensures all non-faulty processes execute the same sequence.
+- **Mechanism for Mid-Round Crash:** Processes must **wait an extra round** if they detect a crash. This ensures all surviving processes have received the same set of proposals from the crashed process (or know it sent none) before making a decision, maintaining consistency.
+- *Explanation:* Tests understanding of a basic consensus algorithm and its handling of partial failures.
+**018. In the **Raft consensus algorithm**, what is the role of the **leader**, and how does it ensure that all servers maintain the same log of committed operations?**
+- **Leader Role:** The leader is the **only server that accepts client commands** and is responsible for **replicating them** to follower servers.
+- **Ensuring Consistency:** The leader appends the command to its log, sends it to all followers, and waits for **acknowledgements from a majority**. Once a majority acknowledges, the leader **commits** the entry (applies it to its state machine) and notifies followers to do the same. This **majority agreement** guarantees that all servers will eventually have the same sequence of committed entries, even if a leader fails.
+- *Explanation:* Tests the core operation of the widely-used Raft algorithm.
+**019. The **Two Generals Problem** demonstrates a fundamental impossibility. What is that impossibility, and what is its practical implication for designing reliable distributed systems?**
+- **Impossibility:** It is **impossible to achieve perfect, deterministic reliability** over an **unreliable communication channel** where messages can be lost. There will always be residual uncertainty about whether the last critical message (or acknowledgement) was received.
+- **Practical Implication:** System designers must use **timeouts, retransmissions, and probabilistic guarantees** (e.g., TCP) rather than seeking absolute certainty. They accept a small, non-zero probability of failure or inconsistency.
+- *Explanation:* Tests the profound lesson of this classic thought experiment.
+**020. Using the example from the notes, explain why a system of **3 processes cannot tolerate 1 Byzantine failure**, but a system of **4 processes can**.**
+- **With 3 processes (1 faulty):** The faulty process (`P_f`) can send value `A` to `P1` and value `B` to `P2`. The two loyal processes (`P1` and `P2`) now have conflicting views (`A` and `B`). They cannot determine who is lying, as there is no majority (2 out of 3) for a single value. Consensus fails.
+- **With 4 processes (1 faulty):** The loyal processes (`P1`, `P2`, `P3`) can all exchange messages. Even if `P_f` tells different lies, the three loyal processes can compare notes. Since there are **3 loyal processes**, they will agree on the **majority value** among themselves (at least 2 out of 3 will have the same value from `P_f` or will agree on a default). This allows them to reach consensus.
+- *Explanation:* Tests the intuitive understanding behind the `3f+1` bound with a concrete scenario.
+**021. What is the purpose of defining a **system model** (assumptions about network, node, and timing behaviour) when discussing fault tolerance and consensus?**
+- The system model **defines the boundaries of what is possible**. It makes explicit the assumptions under which an algorithm is designed to work (e.g., "synchronous network with bounded delay," "nodes only crash"). **Impossibility results** (like the Two Generals Problem) and **solvability conditions** (like `3f+1` for Byzantine consensus) are only valid within a specific model. Changing the model (e.g., from synchronous to asynchronous) can make a previously solvable problem unsolvable.
+- *Explanation:* Tests the importance of the underlying assumptions in distributed algorithms.
+**022. In the "Check of Understanding" blockchain scenario, the answer states honest validators need >2/3 of the stake. Link this directly to the **Byzantine Generals `3f+1` bound**.**
+- The `3f+1` bound states that to tolerate `f` Byzantine failures, you need **`3f + 1` total participants**.
+- Honest participants are the **non-faulty** ones. Their number is `(3f + 1) - f = 2f + 1`.
+- Therefore, the **fraction** of honest participants is `(2f + 1) / (3f + 1)`. For any `f > 0`, this fraction is **greater than 2/3** (e.g., for `f=1`, it's 3/4; as `f→∞`, it approaches 2/3 from above). Thus, the honest majority must always control **> 2/3** of the total weight (stake).
+- *Explanation:* Provides the mathematical derivation linking the abstract bound to the concrete blockchain requirement.
 ### **15. Cloud Computing**
 **001. What is the definition of federated learning?**
 - **Federated learning** is a machine learning technique where a **predictive model is trained across multiple decentralised edge devices or servers** holding local data samples, without exchanging the data itself.
@@ -1066,12 +1327,104 @@ class BookResource(Resource):
     5.  **Data Replication:** Files are split into large blocks (e.g., 64-128MB) and each block is **replicated** (default 3x) across different racks/nodes for **fault tolerance**.
     6.  **Streaming Data Access:** High throughput is prioritized over low latency.
 - **HDFS Example:** A client writes a file. The **NameNode** allocates blocks. The client writes data directly to a pipeline of **DataNodes**, which replicate each block. The NameNode updates the metadata. Reads are directed by the NameNode to the nearest DataNode holding the block.
-
-
+**004. Cloud computing is often described as the fourth phase in the evolution of distributed computing. What are the four phases, and what is the key characteristic of the cloud phase?**
+1.  **Linking Machines:** The Internet (TCP/IP).
+2.  **Linking Documents:** The World Wide Web (HTTP, HTML).
+3.  **Linking Applications:** Web Services & SOA (REST, SOAP).
+4.  **Linking Everything as a Utility:** **Cloud Computing**. The key characteristic is delivering computing resources (processing, storage, networking) as an **on-demand, elastic, pay-per-use utility**, similar to electricity.
+- *Explanation:* Tests the historical context and defining utility model of cloud computing.
+**005. What is the core technological enabler that makes the **elasticity** and **multi-tenancy** of cloud computing feasible?**
+- **Virtualisation.** It abstracts physical hardware to create multiple, isolated virtual machines (VMs) or containers. This allows a single physical server to run many tenants' workloads securely (multi-tenancy) and enables resources to be provisioned, migrated, and scaled dynamically (elasticity) with minimal overhead.
+- *Explanation:* Tests the understanding of the fundamental technology underpinning cloud.
+**006. Match the cloud service model on the left with the correct description of the consumer's responsibility on the right.**
+    1. Infrastructure as a Service (IaaS)
+    2. Platform as a Service (PaaS)
+    3. Software as a Service (SaaS)
+    A. Manages applications and data only.
+    B. Manages applications, data, runtime, middleware, and OS.
+    C. Manages applications, data, runtime, middleware, OS, and virtualised network/storage.
+- **1 -> C** (IaaS: Consumer manages everything from the OS up).
+- **2 -> B** (PaaS: Consumer manages application and data; provider manages runtime, OS, etc.).
+- **3 -> A** (SaaS: Consumer only manages their own data and configuration).
+- *Explanation:* Tests the core responsibility split in the cloud service stack.
+**007. A company wants to migrate its existing, complex Java application which has specific library dependencies and requires a customised middleware configuration to the cloud. Which cloud service model—**IaaS** or **PaaS**—would be most appropriate, and why?**
+- **IaaS (Infrastructure as a Service)** would be most appropriate.
+- **Why:** The application has **specific, complex dependencies and custom middleware**. PaaS environments are often opinionated, offering a fixed set of runtimes and middleware. IaaS provides raw virtual machines, giving the company full control to install its specific Java version, libraries, and middleware, replicating its on-premises environment without modification.
+- *Explanation:* Applies the service model decision to a scenario involving legacy/complex apps.
+**008. What is the primary function of a **Virtual Infrastructure Manager (VIM)** like OpenStack in a cloud data centre?**
+- To provide **orchestration and lifecycle management** for the pool of virtualised resources (compute, storage, network). It automates tasks like scheduling VMs onto physical hosts, provisioning from templates, managing virtual networks, monitoring health, and handling recovery from failures, presenting a unified API/dashboard to administrators and users.
+- *Explanation:* Tests the role of the management layer in a cloud stack.
+**009. Compare **Virtual Machines (VMs)** and **Containers** in terms of their architectural layer and typical use case in cloud-native development.**
+- **Architectural Layer:** A **VM** virtualises the **entire hardware stack**, requiring a full guest Operating System. A **Container** virtualises at the **Operating System level**, sharing the host OS kernel and running isolated user-space instances.
+- **Use Case:** **VMs** are used for running full, isolated legacy systems or mixed-OS workloads. **Containers** are the standard for **cloud-native, microservices-based applications** due to their lightweight nature, fast startup, and efficiency, often orchestrated by platforms like Kubernetes.
+- *Explanation:* Tests the key distinction between the two virtualisation technologies central to modern clouds.
+**010. What is **Kubernetes**, and what problem does it solve in a container-based cloud environment?**
+- **Kubernetes** is a **container orchestration platform**.
+- **Problem it Solves:** When deploying a microservices application composed of hundreds of containers, manually managing their placement, scaling, networking, and recovery is impossible. Kubernetes **automates** these operations: it schedules containers onto nodes, scales them based on load, manages service discovery, load balancing, and automatically restarts failed containers.
+- *Explanation:* Tests the understanding of the need for and role of container orchestration.
+**011. A financial services company wants to move its customer-facing web application to the cloud but must keep sensitive customer transaction data in its own data centre for regulatory reasons. Which cloud deployment model should it use, and what is a key technology that enables this model?**
+- It should use a **Hybrid Cloud** deployment model.
+- **Key Enabling Technology:** **Secure, high-bandwidth network connectivity** (like a dedicated leased line or VPN) between the company's private data centre (holding the sensitive data) and the public cloud provider (running the web front-end). This allows the application logic to run in the scalable public cloud while securely accessing the private data.
+- *Explanation:* Tests the application of deployment models to a compliance and architecture scenario.
+**012. In the "Check of Understanding" startup scenario, using a **PaaS** for backend logic and **SaaS** for the database and ML API is recommended. What is the primary **business benefit** of this approach for a startup?**
+- **Dramatically reduced operational overhead and faster time-to-market.** The startup's small team can focus entirely on developing their unique application logic (PaaS) and integrating pre-built services (SaaS), without needing expertise in or spending time on infrastructure provisioning, database administration, or machine learning model training and hosting. This allows them to innovate and scale quickly with minimal initial investment.
+- *Explanation:* Tests the business rationale behind choosing higher-level cloud service models.
+**013. What is **cloud bursting**, and under which cloud deployment model is it typically implemented?**
+- **Cloud bursting** is an application deployment model where an application runs in a **private cloud** or data centre but **"bursts"** into a **public cloud** when the demand for computing capacity spikes (e.g., during a sale or event).
+- **Deployment Model:** This is a key use case of the **Hybrid Cloud** model, which combines private and public cloud resources.
+- *Explanation:* Tests a specific dynamic scaling pattern enabled by hybrid cloud.
+**014. The conceptual cloud architecture diagram shows a stack from Hardware to Applications. What is the role of the **Virtualisation & Management** layer in this stack?**
+- It sits above the **Hardware** layer and is responsible for **abstracting the physical resources** (CPU, memory, storage, network) into flexible, shareable pools. The **Management** component (the VIM) then provides the APIs and automation to provision, monitor, and manage these virtualised resources, enabling the **Infrastructure as a Service** model.
+- *Explanation:* Tests understanding of the layered architectural diagram from the notes.
+**015. Why are modern cloud data centres built using massive numbers of **commodity (off-the-shelf) servers** rather than a smaller number of high-end, specialised servers?**
+- For reasons of **cost, scalability, and fault tolerance**.
+    - **Cost:** Commodity servers are much cheaper per unit of compute.
+    - **Scalability:** It's easier and more flexible to scale out by adding more standard units.
+    - **Fault Tolerance:** The software is designed to expect hardware failures. Losing a single cheap server among thousands has minimal impact, and its workload can be automatically migrated to others. This is more cost-effective than building ultra-reliable single servers.
+- *Explanation:* Tests the economic and architectural principles behind warehouse-scale computing.
 ### **16. Distributed Systems Topics and Trends Pt.1**
 **001. In an edge-server system, servers can be used to...**
 - Optimise content distribution, optimise application distribution, optimise network traffic, support Quality of Service.
 - Edge servers, placed at the boundary between core networks and access networks, serve several key purposes: **caching content** closer to users (optimising distribution), hosting parts of applications (optimising app distribution), reducing load on core network links (optimising traffic), and enabling low-latency services (supporting QoS).
+**002. What are the two fundamental capabilities required to transform a traditional physical appliance (like a fridge) into an **Internet of Things (IoT)** device?**
+1.  **Computational Intelligence:** The ability to **process sensor data locally** to interpret the environment and make basic decisions (e.g., recognising food items, tracking inventory).
+2.  **Network Connectivity:** The ability to **send and receive data over a network** (e.g., Wi-Fi, cellular) to enable remote monitoring, control, and interaction with cloud services (e.g., sending alerts, placing orders).
+- *Explanation:* Tests the core dual-component definition of an IoT device from the "fridge example."
+**003. The classic "cloud-only" model faces three major challenges when applied to large-scale IoT deployments. Name these three challenges.**
+1.  **Latency:** The round-trip delay to a distant cloud data centre is too high for applications requiring **real-time or near-real-time responses** (e.g., autonomous vehicles, industrial control).
+2.  **Bandwidth/Congestion:** Transmitting **vast volumes of raw sensor data** from billions of devices to the cloud would **overwhelm network links**, causing congestion and high costs.
+3.  **Data Volume:** Storing and processing all raw IoT data centrally in the cloud is **inefficient and expensive**; much of the data may be irrelevant noise.
+- *Explanation:* Tests the fundamental problems that motivate the shift to edge computing.
+**004. What is **Edge Computing**, and what primary problem does it address in the context of IoT?**
+- **Edge Computing** is a distributed computing paradigm that moves **data processing, storage, and applications closer to the source of the data** (the IoT devices) – to the "edge" of the network, rather than in a centralised cloud data centre.
+- **Primary Problem Addressed:** It solves the **latency** problem by enabling real-time processing and decision-making locally. It also alleviates **bandwidth congestion** by processing data locally and sending only valuable summaries or alerts to the cloud.
+- *Explanation:* Tests the definition and primary purpose of edge computing.
+**005. In the autonomous vehicle example, why is a **hybrid edge-cloud architecture** necessary? Specify one task best performed at the edge and one best performed in the cloud.**
+- A hybrid architecture is necessary because the vehicle requires both **ultra-low latency responses** and **massive compute/storage resources** that no single layer can provide alone.
+- **Task at the Edge:** **Real-time sensor fusion and obstacle avoidance.** Processing camera and LiDAR data *immediately* to avoid a collision cannot wait for a cloud round-trip.
+- **Task in the Cloud:** **Training and updating the vehicle's deep learning models.** This requires massive datasets and computational power that is available in cloud data centres, and is not time-critical.
+- *Explanation:* Tests the application of the edge-cloud continuum to a canonical use case.
+**006. The "revisited cloud computing stack" diagram adds new layers below IaaS. What is the role of the **Edge Computing Layer** in this extended stack?**
+- The Edge Computing Layer provides **localised compute, storage, and networking resources** close to IoT devices. Its role is to perform **initial data processing**: monitoring, analysis, filtering/reduction, and caching. It acts as a buffer and pre-processor, transforming high-volume, raw sensor data into manageable, valuable information before sending it upstream to the cloud for deeper analysis.
+- *Explanation:* Tests understanding of the edge's position and function in the modern computing hierarchy.
+**007. The vision for **edge-driven exascale computing** suggests a change in data flow. Instead of sending all raw data to the supercomputer, what does the edge do, and why is this more efficient?**
+- The edge acts as an **intelligent filter and pre-processor**. It analyses the raw data locally and transmits only **critical information, anomalies, or highly refined data summaries** to the exascale supercomputer.
+- **Efficiency:** This transforms what would be an **I/O-bound problem** (limited by the bandwidth of sending all data) into a **compute-bound problem** for the supercomputer. It maximises the utilisation of the supercomputer's immense processing power on meaningful computations rather than wasting its time and network resources on sifting through noise.
+- *Explanation:* Tests the forward-looking concept of symbiotic edge and high-performance computing.
+**008. The progression from Disruptive Applications -> Supporting Infrastructure -> Intelligent Distributed Systems describes an evolution. What is the ultimate goal of an **Intelligent Distributed System**?**
+- The ultimate goal is to create a **seamless, adaptive, and efficient computing fabric** that intelligently distributes workloads across the entire cloud-edge continuum. The system itself manages resources, data flow, and processing locations autonomously to meet application demands for low latency, high bandwidth, and massive scale, appearing as a single, coherent intelligent entity.
+- *Explanation:* Tests the high-level vision that concludes the section.
+**009. In the "Check of Understanding" smart traffic management scenario, the edge server's task includes **filtering/aggregating data**. Give a concrete example of what this means and why it's critical.**
+- **Concrete Example:** Instead of sending 24/7 high-definition video from every camera to the cloud, the edge server runs computer vision algorithms to extract **semantic information**: e.g., it outputs a simple data stream like `{intersection_id: 5, timestamp: ..., vehicle_count: 42, avg_speed: 30mph, incident_detected: false}`.
+- **Why Critical:** This reduces the **data volume** sent to the cloud by **orders of magnitude**, saving bandwidth costs and cloud storage. It allows the cloud to focus on city-wide analytics using lightweight summary data, rather than being overwhelmed by petabytes of raw video.
+- *Explanation:* Tests the ability to detail a key edge computing function within a scenario.
+**010. Which of the following is a characteristic of the **IoT layer** in the revisited cloud stack, as opposed to the Edge layer?**
+    A) It performs data aggregation and filtering.
+    B) It consists of physical sensors and actuators with minimal local processing.
+    C) It hosts long-term data storage and complex machine learning model training.
+    D) It manages virtualised resource pools.
+- **B) It consists of physical sensors and actuators with minimal local processing.**
+- *Explanation:* **A** and **D** are functions of the Edge and IaaS layers respectively. **C** is a cloud function. **B** correctly identifies the IoT layer as the "things" themselves.
 ### **17. Distributed Systems Topics and Trends Pt.2**
 **001. Edge computing is a distributed, open IT architecture that features decentralised processing power. Illustrate through an example how edge computing enables mobile computing and Internet of Things (IoT) technologies.**
 - **Example: Smart City Traffic Management.**
@@ -1122,6 +1475,49 @@ class BookResource(Resource):
     - **False.** The **reduce phase** typically starts only after **all mappers have finished** (unless speculative execution or optimizations like *slow-start reducers* are used, but it's not "as soon as").
 (v) "A reducer is applied to all values associated with the same key."
     - **True.** This is the core guarantee: all values for a given key are sent to the same reducer.
+**007. The **Edge-Cloud Continuum** is a key trend. What does this concept mean, and what new challenge does it introduce for system architects?**
+- **Concept:** It means the rigid boundary between centralized "cloud" and dispersed "edge" is blurring into a **spectrum or continuum of compute resources**, from massive data centers to regional hubs to on-device processing (e.g., sensors, phones).
+- **New Challenge:** **Distributed orchestration.** System architects must design platforms that can seamlessly **deploy, manage, and migrate** application components across this highly heterogeneous landscape, deciding dynamically where to place workloads to optimize for latency, bandwidth, cost, and energy.
+- *Explanation:* Tests the definition and the primary technical implication of this trend.
+**008. The relationship between **Artificial Intelligence (AI)** and Distributed Systems is described as two-way. Explain the two directions: "AI for Systems" and "Systems for AI".**
+- **AI for Systems:** Using AI techniques (like **Large Language Models - LLMs** or **agentic AI**) to **automate and optimize the distributed system itself**. Examples include AI-driven resource scheduling, anomaly detection, automatic scaling policies, and self-healing fault recovery.
+- **Systems for AI:** Designing new **distributed system architectures** specifically to support the massive computational and data demands of **training and running large AI models**. This includes specialized hardware (TPUs), high-bandwidth interconnects, and frameworks for distributed training (e.g., TensorFlow Distributed).
+- *Explanation:* Tests understanding of the symbiotic relationship defining future intelligent systems.
+**009. **WebAssembly (WASM)** is highlighted as an emerging solution for serverless and edge computing. What two key properties of WASM make it particularly suitable for the edge-cloud continuum?**
+1.  **Fast Startup / Low Latency:** WASM binaries have a very **short cold-start time** compared to traditional containerized runtimes, which is critical for event-driven functions and responsive edge services.
+2.  **Portability and Lightweight Footprint:** WASM provides a **secure, standardized binary format** that runs consistently across different hardware and OS platforms. Its modules are typically **small**, making them efficient to distribute and deploy across the continuum from cloud to constrained edge devices.
+- *Explanation:* Tests the specific technical advantages of WASM in the context of modern trends.
+**010. **Conflict-free Replicated Data Types (CRDTs)** are mentioned as an advancement beyond traditional consensus for ensuring consistency. What is the key guarantee provided by CRDTs, and what type of application are they ideal for?**
+- **Key Guarantee:** CRDTs guarantee **eventual consistency** *without* requiring **coordination or consensus** during updates. Operations can be applied to any replica concurrently and independently; the data structure's mathematical properties ensure all replicas will **automatically converge to the same state**.
+- **Ideal Application:** **Real-time collaborative applications** (like Google Docs, Figma) and **mobile apps with offline operation**, where low latency, high availability, and tolerance to network partitions are more important than strong, immediate consistency.
+- *Explanation:* Tests the core innovation and application domain of CRDTs.
+**011. What is a **Trusted Execution Environment (TEE)**, and how does it address security challenges in large-scale, multi-tenant cloud systems?**
+- A **TEE** is a secure area of a main processor that guarantees **confidentiality and integrity** for code and data loaded inside it, even from the privileged OS or hypervisor.
+- **Addressing Cloud Security:** It enables **Confidential Computing**. Sensitive workloads (e.g., processing financial or medical data) can run in a TEE on a shared cloud server. The data remains encrypted in memory and is only decrypted within the TEE, protecting it from other tenants, the cloud provider, and even insiders with physical access.
+- *Explanation:* Tests a key security technology for modern distributed systems.
+**012. The sustainability trend highlights the massive energy footprint of distributed computing. Beyond hardware efficiency, name **two software or protocol-level strategies** mentioned for improving energy efficiency in distributed systems.**
+1.  **Energy-aware network protocols** that optimize data transmission to reduce power consumption.
+2.  **Energy-conscious application design**, where software is written to minimize computational waste and leverage low-power states when possible.
+- *Additionally:* **Virtualisation techniques** like VM consolidation to turn off idle servers.
+- *Explanation:* Tests awareness of solutions beyond just buying better hardware.
+**013. In the "Check of Understanding" collaborative editor scenario, the answer recommends CRDTs. What is the primary **trade-off** made when choosing CRDTs over a traditional primary-backup with remote writes protocol?**
+- The trade-off is **consistency model vs. performance/availability**. CRDTs sacrifice **strong consistency** (immediate, global agreement on order) for **high availability and low latency**. They provide eventual consistency. The traditional primary-backup protocol provides strong consistency (sequential) but introduces higher write latency (waiting for replication) and becomes unavailable during network partitions or primary failure.
+- *Explanation:* Tests the understanding of the CAP theorem trade-off inherent in choosing CRDTs.
+**014. The module summary organizes Distributed Systems into four parts. According to this structure, under which part would you classify the study of **Byzantine Fault Tolerance** and the **Raft consensus algorithm**? Justify your choice.**
+- **Part 3 – Distributed Systems Support (Coordination & Resilience).**
+- **Justification:** Byzantine Fault Tolerance and Raft are fundamentally concerned with **enabling coordination** (agreeing on a single value/order) and **providing resilience** (tolerating process failures) in a distributed system. They are core support mechanisms that higher-level applications (in Part 4 - Use Cases) rely upon.
+- *Explanation:* Tests the ability to categorize core concepts within the module's conceptual framework.
+**015. The trend towards **Intelligent Distributed Systems** suggests using AI for system management. Describe one concrete example of how **agentic AI** could be used to improve fault tolerance in a cloud data centre.**
+- **Example: Autonomous Failure Diagnosis and Recovery.** An **agentic AI system** could continuously monitor thousands of servers and microservices. Upon detecting an anomaly (e.g., a database node slowing down), it could autonomously:
+    1.  **Diagnose** the root cause by analyzing logs and metrics (e.g., identify a failing disk).
+    2.  **Take Action** by provisioning a new instance from a template, migrating data, and updating the load balancer—all without human intervention.
+    3.  **Learn** from the event to improve future detection and response.
+- This moves fault tolerance from manual, reactive ops to automated, proactive resilience.
+- *Explanation:* Applies the "AI for Systems" concept to a specific FT scenario.
+**016. The evolution of distributed computing is scaling in two dimensions: **compute power (exascale)** and **user/data scale (internet scale)**. How do the primary technical challenges differ between building a system for these two different scales?**
+- **Exascale (Compute):** Challenges are **tight coupling and coordination**. The focus is on **low-latency, high-bandwidth interconnects** (e.g., InfiniBand) and sophisticated **parallel programming models** (MPI) to keep millions of cores working efficiently on a single, massive problem (like a climate simulation).
+- **Internet Scale (Users/Data):** Challenges are **loose coupling and fault tolerance**. The focus is on **stateless designs, eventual consistency, replication, and geo-distribution** to handle billions of independent requests, tolerate constant partial failures, and serve users globally with low latency.
+- *Explanation:* Tests the understanding that scale in different dimensions requires different architectural priorities.
 ### **Miscellaneous / Core Concepts**
 **001. Provide an example of when a DS would be placed in a system.**
 - A DS would be placed in a system when **scalability or reliability** becomes a critical need. Example: Placing a **load balancer** and a **cluster of web servers** in front of a single database to handle high traffic for an e-commerce website.
@@ -1157,3 +1553,7 @@ class BookResource(Resource):
     1.  **Presentation Tier:** The client application/Java program in the lab.
     2.  **Application/Logic Tier:** The `mariadb.azure.com` MySQL server (processing queries).
     3.  **Data Tier:** The `storage.azure.com` server (persistent storage). The logic tier (server) acts as a client to the data tier.
+# s
+Next. Content:
+
+Questions:
