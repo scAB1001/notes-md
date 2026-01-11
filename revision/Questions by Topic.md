@@ -93,6 +93,47 @@
 - **Communication delay:** Introduces **latency**, making synchronous operations inefficient. Engineers must use **asynchronous communication** and design for eventual consistency.
 - **No global time:** Makes ordering events hard. Requires **logical clocks** (Lamport/Vector) for causal ordering and protocols like **NTP** for approximate physical clock synchronisation.
 - *Combined,* these properties make guaranteeing **strong consistency**, **precise coordination**, and **simple programming models** extremely challenging at large scale.
+**037. According to the definitions provided, which of the following is a *decentralised* system and why?**
+    A. A corporate email system hosted on a cluster of servers in a single data centre.
+    B. A federated machine learning system where hospitals train a model on local patient data without sharing the data itself.
+    C. A video streaming service that uses edge servers to cache popular content closer to users.
+- **B. A federated machine learning system...**
+- *Explanation:* This is **decentralised** because the distribution is *necessary* due to **organisational and privacy constraints** (data cannot leave the hospital). The training is fundamentally distributed across administrative domains. **A** is a *distributed* system for performance/reliability (sufficiently spread). **C** is a *distributed* system for performance (sufficiently spread via replication).
+**038. What is the primary role of middleware in achieving distribution transparency?**
+- Middleware acts as a **software layer** that provides a **uniform programming model** to applications, **masking the heterogeneity** of underlying hardware, networks, and operating systems, and **hiding the distribution** of components.
+- *Explanation:* As shown in the architecture diagram, middleware sits between the OS and applications. It provides common services (e.g., communication, naming) so that applications don't have to deal directly with the complexities of distribution, thereby enabling transparency.
+**039. When scaling a system geographically, why does techniques like broadcasting for service discovery, which works in a LAN, fail in a WAN?**
+- **Broadcasting** in a WAN is **inefficient and often impossible** because it generates excessive, wasteful network traffic across expensive, limited-bandwidth links. Furthermore, routers are typically configured to **block broadcast packets** from propagating between different network segments to prevent flooding.
+- *Explanation:* This is a key **scalability issue**. WANs require scalable alternatives like **hierarchical** or **decentralised directory services** (e.g., DNS) for discovery.
+**040. The "8 Fallacies of Distributed Computing" highlight incorrect assumptions. Explain how the fallacy **"Latency is zero"** impacts the design of a distributed application, and name one **scaling technique** used to mitigate this.**
+- **Impact:** Assuming zero latency leads to designs using excessive **synchronous, blocking calls** over the network. This causes poor performance and unresponsive applications, as processes spend most of their time waiting for network replies.
+- **Mitigating Technique:** **Hiding Communication Latencies**. This is done by using **asynchronous communication** (e.g., callbacks, promises) or by **moving computation to the client** (e.g., sending JavaScript code to a browser) to avoid blocking.
+- *Explanation:* This directly links a core pitfall to a specific scaling solution from the notes.
+**041. Describe the **integrative view** and the **expansive view** of distributed systems. Provide a real-world example that illustrates each view.**
+- **Integrative View:** Connects **existing, autonomous systems** into a larger, unified system. *Example:* The **Internet** itself, which integrates countless independent networks (ISPs, corporate nets) using standard protocols (TCP/IP).
+- **Expansive View:** **Extends a single system** by adding more computers to increase its capacity or reach. *Example:* **Scaling a web application** by adding more servers behind a load balancer to handle more users.
+- *Explanation:* This tests understanding of the two philosophical perspectives on distribution, which underpin the distributed vs. decentralised distinction.
+**042. A key challenge of **replication** as a scaling technique is maintaining consistency. Why does strict consistency (where all replicas are instantly identical) conflict with the goals of scalability and performance?**
+- Maintaining strict consistency requires **global synchronisation** on every update. This means every write operation must block until all replicas are updated, which **increases latency** significantly due to network delays. This coordination overhead also consumes bandwidth and processing power, creating a **bottleneck** that prevents the system from scaling to a large number of replicas or geographic spread.
+- *Explanation:* This gets to the heart of the scalability trade-off: you often must relax consistency (e.g., to eventual consistency) to achieve performance and scale.
+**043. Explain, using the DNS as an example, how **partitioning** (distribution) and **replication** work together to create a scalable system.**
+- **Partitioning in DNS:** The namespace is **hierarchically partitioned** into zones (e.g., `.com`, `ac.uk`). Authority for each zone is **delegated** to different name servers. This distributes the management and query load.
+- **Replication in DNS:** Each zone is typically served by **multiple replica name servers**. This provides **fault tolerance** (if one fails) and **improves performance/load balancing**.
+- **Together:** Partitioning prevents any single point of control or failure for the entire system. Replication within each partition ensures the availability and performance of that partition. Client caching of responses adds another layer of effective replication.
+- *Explanation:* This question synthesises two core scaling techniques using the prime example from the notes.
+**044. What does **federated learning** exemplify about the reasons for building a decentralised system?**
+- It exemplifies that distribution can be **necessary due to external constraints**, not just desirable for performance. In federated learning, the data (e.g., patient records) **cannot be centralised** due to **privacy regulations, legal boundaries, or organizational policy**. Therefore, the computation (model training) is **necessarily brought to the data** across multiple locations.
+- *Explanation:* This tests understanding of the "necessarily spread" criterion for decentralised systems, using a modern, relevant example from the notes.
+**045. The diagram of centralised, decentralised, and distributed systems shows a spectrum. Positioning a system on this spectrum involves a trade-off. What is typically traded off when moving from a centralised design toward a distributed/decentralised one?**
+- The trade-off is between **control, simplicity, and strong consistency** (advantages of centralisation) versus **scalability, fault tolerance, and autonomy** (advantages of distribution).
+- *Explanation:* Centralised systems are simpler to design, manage, and keep consistent. Distributed systems give these up to achieve growth, reliability, and to meet physical or trust-based constraints.
+**046. Which of the following is NOT a goal of a distributed system, but rather a *technique* or *property* used to achieve its goals?**
+    A. Transparency
+    B. Scalability
+    C. Replication
+    D. Openness
+- **C. Replication**
+- *Explanation:* **Replication** is a *scaling technique* used to achieve the goals of **performance, reliability, and availability**. **Transparency**, **Scalability**, and **Openness** are primary goals/design objectives of a DS itself.
 ### **2. Types of Distributed Systems**
 **001. What is High Performance Computing (HPC)?**
 - Use of (super)computers and parallel processing techniques.
@@ -146,6 +187,70 @@
     - **After Commit:** Ensures the email is only sent for **durable, confirmed orders**. If a crash occurs after commit but before email sending, a recovery process can re-send the email. This is **safer** and simpler to reason about.
     - **Before/During Commit:** Risks sending an email for an order that later fails to commit (violating atomicity) or is rolled back. This leads to incorrect user communication and greater **system complexity** to handle retractions or compensate.
 - **Justification:** Post-commit generation cleanly separates the **durable business transaction** from the **notification side-effect**, simplifying failure recovery and ensuring data consistency.
+**016. What was the fundamental flaw in the **Distributed Shared Memory (DSM)** approach that led to its decline as a mainstream HPDCS model?**
+- It tried to mimic the **shared memory programming model** of a multiprocessor across a network, but the **performance penalty** of page faults over the network was too high. The **latency** of fetching remote memory pages via the network was orders of magnitude worse than local RAM access, making it unable to compete with true **shared-memory multiprocessors** on performance.
+- *Explanation:* This tests understanding of why a specific architectural style failed, highlighting the critical impact of **network latency**.
+**017. In a typical **cluster computing** setup, what are the distinct roles of the **master node** and the **compute nodes**?**
+- **Master Node:** Acts as the **job scheduler and resource manager**. It receives user jobs, manages a **batch queue**, allocates tasks to compute nodes, monitors their health, and provides the user interface/access point to the cluster. It runs the cluster **middleware**.
+- **Compute Nodes:** Are **worker machines** that execute the actual computational tasks assigned by the master. They are typically **homogeneous, commodity machines** interconnected by a high-speed network.
+- *Explanation:* This drills down into the specific architecture of clusters, a foundational HPDCS type.
+**018. The evolution from Cluster -> Grid -> Cloud computing represents a shift in key characteristics. Match the characteristic on the left with the system type on the right that best exemplifies it.**
+    1. Single administrative domain, homogeneous hardware.
+    2. Federation of heterogeneous resources across multiple organisations.
+    3. Resources provided as an on-demand, pay-per-use utility.
+    A. Cloud Computing
+    B. Grid Computing
+    C. Cluster Computing
+- **1 -> C (Cluster Computing)**
+- **2 -> B (Grid Computing)**
+- **3 -> A (Cloud Computing)**
+- *Explanation:* This is a concise way to test the defining traits of each HPDCS type from the comparison table/notes.
+**019. Which of the following is a defining characteristic of **Cloud Computing** that distinguishes it from Grid Computing?**
+    A. It uses virtualised resources.
+    B. It spans multiple administrative domains.
+    C. It operates on a pay-per-use economic model.
+    D. It provides high-performance computing.
+- **C. It operates on a pay-per-use economic model.**
+- *Explanation:* **A** is true but also applies to modern grids. **B** is a defining characteristic of *Grid* computing. **D** is a goal of HPDCS in general. The **utility/economic model** is a core differentiator for cloud.
+**020. In the cloud computing stack (Hardware, Infrastructure, Platform, Application), what is the key responsibility of the **Platform** layer, and what service model does it provide?**
+- The **Platform** layer provides a higher-level **runtime environment, development tools, databases, and APIs** that allow developers to build, deploy, and manage applications without worrying about the underlying infrastructure (OS, servers, storage). This is delivered as **Platform-as-a-Service (PaaS)**.
+- *Example:* Google App Engine, Microsoft Azure App Service.
+- *Explanation:* Tests understanding of the specific layers of the cloud stack and their corresponding service models (IaaS, PaaS, SaaS).
+**021. In the context of **Enterprise Application Integration (EAI)**, what is the primary function of a **Transaction Processing (TP) Monitor**?**
+- The TP Monitor acts as **middleware** that **coordinates** the execution of a transaction that spans multiple, potentially distributed, servers. It ensures the **ACID properties** (especially Atomicity and Isolation) are maintained across all participants, typically using protocols like **two-phase commit**.
+- *Explanation:* This defines a key component of distributed information systems, linking transactions to middleware.
+**022. Using the **coupling dimensions** (Space and Time), classify the following communication paradigms: (i) Synchronous Remote Procedure Call (RPC), (ii) Persistent Message Queuing, (iii) Publish-Subscribe with immediate delivery.**
+- **(i) Synchronous RPC:** **Spatially Tight** (client must know server's endpoint) and **Temporally Tight** (both must be active, caller blocks).
+- **(ii) Persistent Message Queuing:** **Spatially Tight** (producer knows the specific queue) and **Temporally Loose** (messages are stored; consumer can process later).
+- **(iii) Pub/Sub with immediate delivery:** **Spatially Loose** (communicate via topics) and **Temporally Tight** (subscriber must be running to receive the immediate broadcast).
+- *Explanation:* Applies the core coupling framework from the notes to concrete examples.
+**023. What is the key advantage of moving from a **tightly-coupled** system design (e.g., direct RPC) to a **loosely-coupled** one (e.g., message queues)?**
+- The key advantage is **improved scalability and fault tolerance**. Loosely-coupled systems allow components to be **added, removed, or fail independently** without cascading failures. They also enable **asynchronous processing**, which helps absorb load spikes and hides latency.
+- *Explanation:* Tests the understanding of the trade-off and the rationale behind the architectural shift towards loose coupling.
+**024. A **Disruption-Tolerant Network (DTN)** is designed for environments with no continuous connectivity. Describe its core routing strategy and provide a real-world example of its use.**
+- **Core Strategy:** **Store-Carry-Forward.** A node receives a message, stores it locally, physically **carries** it (by moving), and **forwards** it to another node when a communication opportunity arises. This repeats until the message reaches its destination.
+- **Example:** **Wildlife tracking networks.** A sensor on an animal collects data. When the animal comes near a stationary gateway node (e.g., at a watering hole), the sensor forwards its stored data. The gateway later relays it via a satellite link.
+- *Explanation:* Tests a key concept from mobile/pervasive computing with a practical scenario.
+**025. What is the primary reason **in-network processing** is essential in wireless sensor networks, as opposed to sending all raw data to a central server?**
+- To **conserve the limited energy** of battery-powered sensor nodes. Transmitting raw data over a wireless radio is a **major power drain**. By processing and **aggregating data locally** (e.g., computing an average, detecting an event), sensors can drastically reduce the volume of data that needs to be transmitted, thereby **extending network lifetime**.
+- *Explanation:* This gets to the heart of the design constraint for sensor networks and justifies their unique architecture.
+**026. Google Spanner achieves global **external consistency**. What technological innovation enables this, and how does it differ from traditional logical clocks?**
+- The innovation is **TrueTime**. It is a **globally synchronized physical clock API** that exposes **bounded clock uncertainty**. Unlike **logical clocks** (e.g., Lamport timestamps) that only track causal *order*, TrueTime provides **tightly synchronized absolute time** using a combination of **GPS receivers and atomic clocks** in Google's data centers. This allows Spanner to assign globally meaningful commit timestamps.
+- *Explanation:* Tests understanding of a cutting-edge case study that combines time synchronization with database consistency.
+**027. A research consortium spanning three universities wants to run a climate simulation that requires more compute power than any single member has. They agree to share their existing clusters. This is best described as an example of:**
+    A. Cluster Computing
+    B. Grid Computing
+    C. Cloud Computing
+    D. Utility Computing
+- **B. Grid Computing**
+- *Explanation:* The scenario involves **federating resources from multiple independent administrative domains** (the universities) into a **Virtual Organization (VO)** for a common goal. This is the essence of Grid computing. It is not a single managed cluster (A), a paid utility service (C/D), though cloud could also be used, the described *sharing* model is classic Grid.
+**028. Which of the following is a **core requirement of Ubiquitous Computing Systems (UCS)**, as distinct from just being "distributed"?**
+    A. Use of middleware.
+    B. Context awareness.
+    C. Transactional support.
+    D. Replication for fault tolerance.
+- **B. Context awareness.**
+- *Explanation:* While A, C, and D are common in many distributed systems, **context awareness** (the system's ability to understand and react to the user's situation) is a defining requirement for systems that are "pervasive" and "unobtrusive."
 ### **3. Architectures**
 **001. What is the process perspective?**
 - The **process perspective** examines a DS in terms of the **types of processes** (e.g., clients, servers, peers) that execute, their **roles, lifecycles, and relationships** (e.g., how they are created, communicate, and synchronise).
