@@ -78,6 +78,21 @@
     1.  **Performance:** Devices have different CPU power, memory, and battery life.
     2.  **Platform:** Different hardware architectures (e.g., ARM vs. x86).
     3.  **Operating System:** Different OSs and versions (e.g., iOS, Android, various versions).
+**033. Both Alice and her husband Bob make use of the family car, which is considered as a ubiquitous computing system. The settings of the car’s passenger’s seat and mirrors is fully personalised, and subsequently the car makes the appropriate adjustments. What ubiquitous computing system requirement does such pervasiveness support? Simply provide its name.**
+- **Interaction.**
+- This scenario satisfies the **Interaction** requirement of ubiquitous computing. The system interacts in a highly **unobtrusive** and **implicit** manner, reacting to the user's presence automatically without requiring an explicit command.
+**034. Consider a system that supports a client server business application. A powerful computer running the Linux operating system is used to host the server process. Users access the service through low-cost desktop computers running the Windows operating system. Identify the classes of heterogeneity that may occur in this scenario.**
+- **Hardware** (powerful vs. low-cost computers), **Operating System** (Linux vs. Windows), and **Network** (potentially different network stacks, firewalls). **Performance** heterogeneity is also implied by the hardware difference.
+- *Explanation:* Heterogeneity refers to differences across the system's components. Here, key differences exist in the **hardware platform**, the **OS platform**, and likely the local network environments.
+**035. The Internet, the World Wide Web and a cellular phone mobile network are examples of distributed systems. Which one is truly transparent and why?**
+- **The World Wide Web.**
+- The Web provides a high degree of **distribution transparency**. Users access resources via **URLs** without any knowledge of the physical server location, the OS it runs on, or the replication behind a **CDN**. The Internet (the TCP/IP infrastructure) and cellular networks expose more of their distributed nature (e.g., IP addresses, signal strength, handovers) to the user/application.
+**036. Discuss briefly the implications of these properties on the engineering of large-scale, widely distributed systems: Concurrent execution of components, Independent failure modes, Communication delay, No global time.**
+- **Concurrent execution:** Requires **synchronisation mechanisms** (e.g., locks, transactions) to avoid race conditions and ensure consistency.
+- **Independent failure modes (Partial Failure):** Systems must be designed for **fault tolerance**; failures must be detected, masked, or recovered from without total collapse.
+- **Communication delay:** Introduces **latency**, making synchronous operations inefficient. Engineers must use **asynchronous communication** and design for eventual consistency.
+- **No global time:** Makes ordering events hard. Requires **logical clocks** (Lamport/Vector) for causal ordering and protocols like **NTP** for approximate physical clock synchronisation.
+- *Combined,* these properties make guaranteeing **strong consistency**, **precise coordination**, and **simple programming models** extremely challenging at large scale.
 ### **2. Types of Distributed Systems**
 **001. What is High Performance Computing (HPC)?**
 - Use of (super)computers and parallel processing techniques.
@@ -120,6 +135,18 @@
 **013. You are designing a ubiquitous computing system for a car where the settings of the driver’s seat, steering wheel, and mirrors are fully personalised. If Bob takes a seat, the system will recognise that it is dealing with Bob and subsequently makes the appropriate adjustments. The same happens when Alice uses the car. Which core requirement does this satisfy?**
 - Interaction.
 - This scenario satisfies the **Interaction** requirement of ubiquitous computing. The system interacts in a highly **unobtrusive** and **implicit** manner. The user's simple act of sitting down is interpreted as an input, and the system reacts automatically without the user having to issue an explicit command.
+**001. Consider distributed transaction processing. Explain through an example the ”all-or-nothing” characteristic property.**
+- The "all-or-nothing" property is **Atomicity** from ACID.
+- *Example:* A bank transfer transaction involves two operations: 1) Debit £100 from Account A. 2) Credit £100 to Account B.
+- **All:** If both operations succeed, the transaction **commits**, and both updates become permanent.
+- **Nothing:** If the debit succeeds but the credit fails (e.g., network error), the transaction **aborts**. The system must **roll back** the debit, restoring Account A to its original balance. The system state is as if the transaction never started.
+**002. Customers interact with a transaction processing system over a Web interface but confirmation are also sent by email, such as "Please collect from your local branch". Should the email message be generated before, during, or after the process of committing the order transaction? What are the advantages and disadvantages of such an approach? Justify your design decision in terms of system complexity and durability over a system crash.**
+- The email should be generated **after** the transaction successfully commits.
+- **Reasoning (Durability & Complexity):**
+    - **After Commit:** Ensures the email is only sent for **durable, confirmed orders**. If a crash occurs after commit but before email sending, a recovery process can re-send the email. This is **safer** and simpler to reason about.
+    - **Before/During Commit:** Risks sending an email for an order that later fails to commit (violating atomicity) or is rolled back. This leads to incorrect user communication and greater **system complexity** to handle retractions or compensate.
+- **Justification:** Post-commit generation cleanly separates the **durable business transaction** from the **notification side-effect**, simplifying failure recovery and ensuring data consistency.
+
 ### **3. Architectures**
 **001. What is the process perspective?**
 - The **process perspective** examines a DS in terms of the **types of processes** (e.g., clients, servers, peers) that execute, their **roles, lifecycles, and relationships** (e.g., how they are created, communicate, and synchronise).
