@@ -135,18 +135,17 @@
 **013. You are designing a ubiquitous computing system for a car where the settings of the driver’s seat, steering wheel, and mirrors are fully personalised. If Bob takes a seat, the system will recognise that it is dealing with Bob and subsequently makes the appropriate adjustments. The same happens when Alice uses the car. Which core requirement does this satisfy?**
 - Interaction.
 - This scenario satisfies the **Interaction** requirement of ubiquitous computing. The system interacts in a highly **unobtrusive** and **implicit** manner. The user's simple act of sitting down is interpreted as an input, and the system reacts automatically without the user having to issue an explicit command.
-**001. Consider distributed transaction processing. Explain through an example the ”all-or-nothing” characteristic property.**
+**014. Consider distributed transaction processing. Explain through an example the ”all-or-nothing” characteristic property.**
 - The "all-or-nothing" property is **Atomicity** from ACID.
 - *Example:* A bank transfer transaction involves two operations: 1) Debit £100 from Account A. 2) Credit £100 to Account B.
 - **All:** If both operations succeed, the transaction **commits**, and both updates become permanent.
 - **Nothing:** If the debit succeeds but the credit fails (e.g., network error), the transaction **aborts**. The system must **roll back** the debit, restoring Account A to its original balance. The system state is as if the transaction never started.
-**002. Customers interact with a transaction processing system over a Web interface but confirmation are also sent by email, such as "Please collect from your local branch". Should the email message be generated before, during, or after the process of committing the order transaction? What are the advantages and disadvantages of such an approach? Justify your design decision in terms of system complexity and durability over a system crash.**
+**015. Customers interact with a transaction processing system over a Web interface but confirmation are also sent by email, such as "Please collect from your local branch". Should the email message be generated before, during, or after the process of committing the order transaction? What are the advantages and disadvantages of such an approach? Justify your design decision in terms of system complexity and durability over a system crash.**
 - The email should be generated **after** the transaction successfully commits.
 - **Reasoning (Durability & Complexity):**
     - **After Commit:** Ensures the email is only sent for **durable, confirmed orders**. If a crash occurs after commit but before email sending, a recovery process can re-send the email. This is **safer** and simpler to reason about.
     - **Before/During Commit:** Risks sending an email for an order that later fails to commit (violating atomicity) or is rolled back. This leads to incorrect user communication and greater **system complexity** to handle retractions or compensate.
 - **Justification:** Post-commit generation cleanly separates the **durable business transaction** from the **notification side-effect**, simplifying failure recovery and ensuring data consistency.
-
 ### **3. Architectures**
 **001. What is the process perspective?**
 - The **process perspective** examines a DS in terms of the **types of processes** (e.g., clients, servers, peers) that execute, their **roles, lifecycles, and relationships** (e.g., how they are created, communicate, and synchronise).
@@ -159,6 +158,9 @@
 **005. Which of the following is an example of a distributed system?**
 - A client-server architecture.
 - The client-server model is the foundational architectural style for most distributed systems. It explicitly separates the user interface/client from the data processing/server, which are typically located on different networked machines, fulfilling the definition of a distributed system.
+**006. Consider an online gaming application A that makes use of a library LOS to interface to an operating system. At the same time, the application uses a specialised rendering library LRend that has been implemented by also making use of LOS. What kind of architectural style is this? Simply provide its name.**
+- **Layered architecture.**
+- The system is structured into **hierarchical layers**. The application (A) is the top layer, which uses services from LRend (middle layer), which in turn uses services from LOS (lower layer). LOS provides foundational OS services to both upper layers.
 ### **4. Communication**
 **001. Which protocol is commonly used for reliable communication in distributed systems?**
 - TCP.
@@ -201,14 +203,67 @@
 **012. You are initiating an MPI program with the command `mpirun -np 4 ./myprog`. What does the call to `MPI_Init` do?**
 - Enable the 4 independent programs subsequently to communicate with each other.
 - `MPI_Init` initialises the MPI execution environment. For the command `mpirun -np 4`, it sets up the necessary data structures and communication channels so that the**04 separate processes** (instances of `./myprog`) can identify each other and exchange messages using MPI primitives like `MPI_Send` and `MPI_Recv`.
+**013. When implementing a distributed system design, determine which transport layer protocol is most appropriate for the following applications:**
+**(i) Real-time streaming**
+- **UDP.** Low overhead and no retransmission delays are critical for timeliness; packet loss is preferable to late data.
+**(ii) File transfer that is used across the Internet**
+- **TCP.** Reliability and in-order delivery are essential for file integrity.
+**(iii) A clock synchronising service for all computers in a local network**
+- **UDP.** Used by protocols like **NTP**. It's lightweight, and timestamps in packets account for delay; occasional loss is acceptable.
+**(iv) A local file sharing application in which clients need to automatically locate the server and cannot rely on the name service to be present.**
+- **UDP.** Used for **broadcast** or **multicast** discovery protocols (e.g., SMB browsing). TCP requires a known endpoint to connect to.
+**014. You are required to develop a cloud application that uses publish-subscribe to communicate between entities developed in different languages. Producers should be written in C++ and consumers should be in Java. Distributed components communicate with one another using AMQP. Explain how to develop such application.**
+1.  **Choose an AMQP Broker:** Deploy a message broker like **RabbitMQ** or **Apache ActiveMQ**.
+2.  **Define the Exchange & Topics:** On the broker, configure a **topic exchange**. Define a logical topic naming structure (e.g., `sensor.temperature.floor1`).
+3.  **Develop C++ Producers:** Use a **C++ AMQP client library** (e.g., rabbitmq-c). Write code to connect to the broker, declare the exchange, and **publish** messages to specific topics. Data should be serialized into a broker-agnostic format (e.g., **JSON**, **Protocol Buffers**).
+4.  **Develop Java Consumers:** Use a **Java AMQP client library** (e.g., amqp-client). Write code to connect to the broker, declare a temporary queue, **bind** that queue to the exchange with a topic pattern, and **subscribe** to start consuming messages. Deserialize the messages from the wire format.
+5.  **Key:** The **AMQP protocol** and the **broker** provide the interoperability layer. The common wire format ensures language-agnostic data exchange, achieving **loose coupling**.
+**015. Consider a message queue system. In order to automatically start a process to fetch messages from an input queue, a daemon is often used that monitors the input queue. Propose a simple, alternative implementation that does not make use of a daemon.**
+- Use a **callback** or **event-driven** mechanism integrated with the message broker.
+- **Implementation:** The consumer process registers itself with the broker (e.g., using AMQP's `basic.consume`). Instead of polling, the consumer provides a **callback function**. When a message arrives in the queue, the broker **actively pushes** the message to the consumer and invokes the callback. The consumer process is always running but blocks idly until the broker delivers a message.
+**016. In 221 B.C., Emperor Qin unified several formerly warring states... How does this statement relate to SOAs and Web Services?**
+- It is an analogy for the **standardisation** required in **SOAs** and **Web Services**.
+- **Standard "cart wheel" distance (wheel gauge):** Analogous to **standard communication protocols** (HTTP, SOAP, AMQP) that ensure components can "travel" on the same network.
+- **Common written language:** Analogous to **standard data formats** (XML with WSDL/XML Schema for SOAP, JSON for REST) that allow components to understand each other's messages regardless of implementation.
+- **Strong defenses (Great Wall):** Analogous to **standard security protocols** (HTTPS, WS-Security, OAuth) that protect the system.
+- **Result:** Just as standards unified China, **technical standards** enable **interoperability**, **composability**, and **scalability** in SOA by allowing diverse services to work together seamlessly.
+
 ### **5. Service Oriented Architectures**
 *(No specific questions from the provided list directly correspond to this topic header. Questions about "what is a service," architecture models, and differences are conceptual and covered indirectly in other sections like Web Services and Microservices).*
 ### **6. Web Services and REST**
 **001. In a resource-based architecture, resources are addressed by...**
 - URIs.
 - Resource-based architectures, most notably **REST**, use **Uniform Resource Identifiers (URIs)** (or URLs) as the global, unique identifier for every resource (e.g., `https://api.example.com/users/123`). All operations are performed on these URIs using a uniform interface (HTTP methods).
+**002. A large infrastructure as a service provider wants to allow users to provision new server capacity from a variety of different interface technologies. Which Web technology should the service provider use to build an interface that users can leverage? Simply choose the letter(s) corresponding to the correct answer(s).**
+- **A. The company should provide an HTTP REST API.**
+- *Explanation:* A **REST API** is the standard for cloud provider interfaces (e.g., AWS, Azure, OpenStack). It uses **HTTP**, a universal protocol, allowing access from any language/tool (CLI, SDKs, UI). **B (XML RPC)** is outdated. **C (CLI)** and **D (Proprietary API)** are specific implementations that would typically be built *on top of* the core REST API, not the primary interface.
+**003. Consider Amazon Simple Storage Service (S3). A resource is identified by `http://BucketName.s3.amazonaws.com/ObjectName`. Fill in the gaps:**
+- Amazon S3 supports only 2 resources: **Bucket** and **Object**.
+- An object is placed into a **Bucket**.
+- An ObjectName is referred to by means of a **Key**.
+- To create an object, an application would send a **PUT** request with the **value/data** of the object.
+- A **PUT** request modifies a resource by transferring a new state. *(Note: POST is for uploads, but PUT can create/replace)*.
+- In principle, the protocol that is used with the service is **HTTP**.
+
 ### **7. Programming RESTful Web Services**
-*(This topic is about implementation specifics (Flask, Jersey). The provided list contains conceptual questions, not coding examples).*
+**001. Using a programming language of your choice (Java, C++, Python), create a data packet format to hold the following object data... Provide an illustration of the serialised form of your data packet and state any assumptions that you make.**
+- *Assumption:* Using **JSON** for language-agnostic, human-readable serialisation over HTTP.
+- *Python Example (using `json` module):*
+    ```python
+    import json
+    data = {
+        "customer_name": "Jeff Lebowski",
+        "customer_age": 42,
+        "address": "71 Mulholland Drive, Fargo, Old County, UK"
+    }
+    serialized_packet = json.dumps(data)
+    ```
+- **Illustration of Serialised Form (the actual string):**
+    ```
+    {"customer_name": "Jeff Lebowski", "customer_age": 42, "address": "71 Mulholland Drive, Fargo, Old County, UK"}
+    ```
+- *Key Points:* The packet is a string. JSON handles basic data types (string, number). For complex systems, **Protocol Buffers** or **Avro** might be used for efficiency.
+
 ### **8. Microservices, Nanoservices and Serverless**
 **001. Which of the following best describes serverless computing?**
 - A cloud computing model supporting function as a service where the provider dynamically manages the allocation of machine resources.
@@ -243,6 +298,28 @@
 **011. In serverless architectures, what is the role of a service like AWS Lambda?**
 - To automatically manage the infrastructure required to run code.
 - AWS Lambda is the execution environment. Its primary role is to abstract away all server management: it automatically runs your code on a highly available, scalable compute infrastructure in response to events.
+**012. Flixnet... requires re-engineering their core application... Which solution should Flixnet adopt, serverless computing or containers? Consider: scalability, cost, maintenance, time of deployment.**
+- **Containers** (e.g., Docker/Kubernetes) are the better choice.
+- **Reasoning:**
+    - **Scalability:** Both scale well, but containers offer more **predictable, fine-grained control** over scaling stateful, long-running processes (like video transcoding).
+    - **Cost:** For a **constant, high-volume** workload, containers on reserved VMs are more **cost-effective** than the per-invocation model of serverless.
+    - **Maintenance:** Containers require more ops overhead (orchestration, patching). However, for a core application with thousands of changing files, the **operational control** and ability to define the exact environment is crucial.
+    - **Deployment Time:** Containers have a longer startup than a warm function but are more suitable for **stateful, complex applications** with many dependencies. Serverless suits event-driven, stateless glue code.
+- **Conclusion:** The need for **control over the environment, stateful processing, and predictable performance/cost** points to containers.
+**013. How does serverless computing fit into the distributed Web paradigm? Explain.**
+- Serverless (specifically **FaaS**) represents the **extreme of distribution and decomposition**.
+- It fits by:
+    1.  **Decomposing Monoliths:** A web app backend is broken into **distributed functions**, each handling a specific API endpoint or event.
+    2.  **Event-Driven Communication:** Functions are triggered by **HTTP events** (API Gateway), **queue messages**, or **database events**, forming a **loosely-coupled**, reactive distributed system.
+    3.  **Managed Distribution:** The cloud provider handles the ultimate distribution concerns: **placement, scaling, and fault-tolerance** of the function execution environments across its data centres, making distribution **completely transparent** to the developer.
+**014. A company has decided to leverage the web conferencing services provided by a cloud provider and to pay for those services as they are used. The cloud provider manages the infrastructure and any application upgrades. What type of cloud delivery model is this an example of?**
+- **Software as a Service (SaaS).**
+- The user is consuming a **complete application** (web conferencing) over the internet. The provider manages **everything** (infrastructure, platform, software). The pay-as-you-go model is typical of SaaS.
+**015. Which statement best describes the relationship between application, server, and client in a multi-tenancy cloud environment?**
+- **(ii) Single instance of software running on a server and serving multiple clients.**
+- **Multi-tenancy** is a core SaaS characteristic where a **single, shared instance** of the application (and its underlying resources) serves **multiple client organisations** ("tenants"), with mechanisms to keep their data and configuration isolated.
+
+
 ### **9. Naming Pt.1**
 **001. What is the primary purpose of a naming service in a distributed system?**
 - To resolve names to addresses.
@@ -259,6 +336,24 @@
 **005. In a structured peer-to-peer system where data items are stored, the system is seen to implement...**
 - a distributed hash table.
 - Structured P2P systems (like Chord, Pastry) organise nodes in a deterministic overlay network (e.g., a ring) and use a **consistent hashing** function to assign keys to nodes. This creates a **Distributed Hash Table (DHT)** abstraction, providing a lookup service: `get(key)` returns the data or location of the node responsible for that key.
+**006. From a local machine mycomputer.myuni.uk, you would like to access the URL `www.universityofleeds.vevox.com/discussion.html`... Draw a diagram showing the recursive name resolution process...**
+*(Answer describes the process; a diagram would show hierarchical steps).*
+1.  **Client -> Local DNS:** Query: "`www.universityofleeds.vevox.com`?"
+2.  **Local DNS -> Root (R):** Query (if not cached).
+3.  **Root -> Local DNS:** Referral to **`.com`** TLD servers.
+4.  **Local DNS -> .com TLD:** Query.
+5.  **.com TLD -> Local DNS:** Referral to **`vevox.com`** authoritative servers.
+6.  **Local DNS -> vevox.com NS:** Query.
+7.  **vevox.com NS -> Local DNS:** Referral to **`universityofleeds.vevox.com`** authoritative servers (or directly returns the A record if it's authoritative for the subdomain).
+8.  **Local DNS -> universityofleeds.vevox.com NS:** Query for `www`.
+9.  **universityofleeds.vevox.com NS -> Local DNS:** Returns the **A record** (IP address).
+10. **Local DNS -> Client:** Returns the IP address.
+- *Note:* This is **recursive resolution** from the client's perspective; the local DNS performs **iterative queries** on the client's behalf.
+**007. Illustrate the use of the flat naming home-based approach in the context of this mobile phone scenario.**
+1.  **Home Location (UK):** Your mobile phone is **registered with a home location register (HLR)** in the UK. The HLR stores your **permanent "home" address** (your UK phone number and home network info).
+2.  **Movement to Spain:** When you enter Spain, your phone connects to a local network (Visitor Location Register - VLR). The VLR in Spain **contacts your HLR in the UK** to authenticate you and get your profile. The HLR updates its record to point to the VLR in Spain.
+3.  **Call from France:** When your friend in France calls your UK number, their network queries the **international routing system**. This system ultimately contacts your **HLR in the UK**. The HLR, which has the **forwarding pointer** to the VLR in Spain, provides the current location. The call is then routed to Spain.
+
 ### **10. Naming Pt.2**
 **001. The DNS name space is organised...**
 - hierarchically into a tree of domains, which are divided into non-overlapping zones.
@@ -297,6 +392,39 @@
 **008. Which of the following is a key feature of NTP?**
 - It uses a hierarchical system of time sources.
 - NTP uses a hierarchical, stratified architecture. Stratum 1 servers are connected to atomic clocks, Stratum 2 servers sync with Stratum 1, and so on. This design provides scalability, redundancy, and distributes the load.
+**009. Consider a network consisting of 5 computers, A (coordinator), B, C, D, and E. At 12:09 the coordinator decides to synchronise the clock of all computers... Apply the Berkeley clock synchronisation algorithm...**
+- **Stages:**
+    1.  **Coordinator (A, 12:09) polls others:** Requests time from B, C, D, E.
+    2.  **Times received:** B(11:59), C(12:13), D(12:00), E(12:09). Coordinator's own time is 12:09.
+    3.  **Compute average:** Convert to minutes past a reference (e.g., 00:00).
+        - A: 12:09 = 729 min
+        - B: 11:59 = 719 min
+        - C: 12:13 = 733 min
+        - D: 12:00 = 720 min
+        - E: 12:09 = 729 min
+        - **Average** = (729+719+733+720+729)/5 = 3630/5 = **726 minutes** (12:06).
+    4.  **Compute offsets:** Offset for each = Average - Local Time.
+        - A: 726 - 729 = **-3 min** (must slow down by 3 min)
+        - B: 726 - 719 = **+7 min**
+        - C: 726 - 733 = **-7 min**
+        - D: 726 - 720 = **+6 min**
+        - E: 726 - 729 = **-3 min**
+    5.  **Coordinator sends adjustments:** Sends each node the amount to adjust (the offset).
+- **Outcome:** All nodes adjust their clocks to converge towards the computed average of **12:06**. No node is set to an absolute UTC time; they are synchronised **relative to each other**.
+**010. A client attempts to synchronise with a time server using Cristian’s algorithm... (i) Which time should it use? (ii) To what time should it set it? (iii) Can ±10 ms be met?**
+- **(i) Which time?** Use the measurement with the **shortest round-trip time (RTT)**, as it has the least uncertainty. **110 ms**.
+- **(ii) Calculate:** `Adjusted Time = Server Timestamp + (RTT/2)`.
+    - Server time: 09:35:12.371
+    - RTT/2 = 110ms / 2 = **55ms**.
+    - **Adjusted Time = 09:35:12.371 + 55ms = 09:35:12.426**.
+- **(iii) Can requirement be met?** **Possibly, but not guaranteed.** Cristian's algorithm assumes the delay is symmetric. Asymmetry in network travel times can introduce error greater than ±10 ms. For such a tight bound, a more sophisticated protocol like **NTP** with multiple samples and statistical filtering is needed.
+**011. The clock on the car needs to constantly synchronise with a UTC server using Cristian’s algorithm. Suppose the clock on the car reads 13:48:56. The server’s clock reads 13:49:02 when they synchronise. Assume the Round Trip Time (RTT) is 2 seconds. What is the time at the client after synchronization?**
+- **Calculation:**
+    - Server Timestamp (`T_server`) = 13:49:02.
+    - Estimated One-Way Delay = RTT/2 = 2s / 2 = **1 second**.
+    - **Adjusted Client Time = T_server + Delay**
+    - = 13:49:02 + 1 second = **13:49:03**.
+- *Note:* The client's original time (13:48:56) is irrelevant for the calculation; it's used to compute the offset to apply.
 ### **12. Consistency and Replication Pt.1**
 **001. Which of the following is a common challenge in maintaining consistency in distributed systems?**
 - Network latency.
@@ -310,6 +438,17 @@
 **004. Caching is a special form of replication, but caching and replication lead to consistency problems. True or false?**
 - True.
 - This statement is **true**. Both caching (temporary local copy) and replication (persistent multiple copies) are techniques for duplicating data. The fundamental problem with any duplication is **maintaining consistency**: ensuring that an update to one copy is propagated to all others. If not managed carefully, this leads to clients reading stale data.
+**005. Consider a simple interaction... using a causal consistency model... What would R(x)? return to process P3? What would R(y)? return to process P4? Explain.**
+- *(Without the specific figure, the general principle is tested.)*
+- **For Causal Consistency:** A read must return a value that reflects all **causally related writes** that happened before it. A write is causally related if it was done by the same process earlier, or if the process read a value that included the effect of that write.
+- **Answering for P3:** R(x)? must return a value that is **at least as recent as the latest write to x that P3 is causally aware of** (e.g., through its own previous writes or reads).
+- **Answering for P4:** Similarly, R(y)? must respect causal order. If P4 performed a write to y after reading from another process, it must see its own write.
+- *Key:* Trace the **happens-before** relationships in the diagram to determine the permissible values.
+**006. Think about a simple interaction of the car by means of a data store consistency model... "a write operation by a process on a data item x following a previous read operation on x by the same process is guaranteed to take place on the same or a more recent value of x that was read." Does the data store consistency hold in such case?**
+- The described model is **Read-Your-Writes (RYW)** consistency, a **client-centric** model.
+- **To evaluate:** Check the sequence for a specific process (e.g., L1 or L2). For every `W(x)` operation, look at the most recent `R(x)` by the *same* process before it. The value written must be based on the value read or a newer one. If the figure shows a process writing a value *older* than what it last read (which shouldn't happen in a correct program), the model would be violated. The answer depends on the provided figure.
+
+
 ### **13. Consistency and Replication Pt.2**
 *(All key questions for this topic are covered in Pt.1. The list does not contain specific questions on the sub-headings like Monotonic Reads or specific protocols).*
 ### **14. Fault Tolerance**
@@ -331,16 +470,133 @@
 **006. Which of the following is a key challenge addressed by the Byzantine Generals Problem?**
 - Ensuring all non-faulty nodes agree on the same value despite the presence of faulty nodes.
 - The core challenge is maintaining system correctness and consistency when participants cannot be fully trusted, requiring protocols that can tolerate a certain number of arbitrarily failing components.
+**007. Consider a Byzantine fault tolerance system... (i) What are the two possible problems? (ii) Show that n ≥ 3f + 1 must hold...**
+- **(i) Two problems from Byzantine failure:**
+    1.  **A faulty server may send *different, incorrect* values to different clients/replicas.**
+    2.  **A faulty server may send *no* value (act as a crash failure).**
+- **(ii) Proof sketch for n ≥ 3f + 1:**
+    - Assume `n` total servers, `f` of which are faulty (malicious).
+    - After receiving replies, the client sees `n-f` responses from non-faulty servers. The faulty servers could have sent arbitrary values.
+    - To decide the correct value, the client must see a **majority** of *identical* values among the `n-f` good replies.
+    - However, the faulty servers can **all lie consistently** to try to form a false majority. The worst case is when the `f` faulty replies are identical, and they try to outvote the `n-f` good replies.
+    - To ensure a correct majority exists: `(n - f) > f`. This simplifies to `n > 2f`.
+    - But we also need to tolerate `f` crash failures *on top of* the Byzantine case? The tighter bound considers that the `f` faulty nodes can also *omit* replies. The client only sees `n-f` replies, and all `f` faulty nodes could be silent. The remaining `n-2f` must outnumber the `f` that could lie within the received set. The classic result is `n > 3f` or `n ≥ 3f + 1`.
+**008. Many distributed algorithms require one process to act as coordinator... Consider a group of 8 nodes labelled 0..7... Initially node 7 is the coordinator and node 4 is the first to notice it crashed.**
+**(i) What happens if node 7 has actually not crashed?**
+- In the **bully algorithm**, node 4 sends **ELECTION** messages to all nodes with higher IDs (5,6,7).
+- Node 7, being alive, will respond with an **OK** message to node 4.
+- Upon receiving an **OK** from a higher-ID node, node 4 **stops its election attempt**. Node 7 remains coordinator. The false assumption causes a brief flurry of messages but no change in leadership.
+
+**(ii) Is the bully algorithm adequate for a dynamic P2P system?**
+- **No.** The bully algorithm assumes a **static, known group** of processes. In a dynamic P2P system where nodes regularly join/leave (churn):
+    - The assumption of known, ordered IDs is hard to maintain.
+    - Frequent elections would be triggered by normal departures, causing excessive overhead.
+    - The algorithm doesn't handle new nodes joining the election process cleanly.
+- **P2P systems** typically use **leader election** based on **Distributed Hash Table (DHT)** rings (e.g., in Raft/Paxos variants) or are designed to be **leaderless**.
+**009. Consider a group of 6 nodes labelled 0..5. Initially node 5 is the coordinator but it crashes. Node 2 is the first node to notice... Describe the election using: (i) the bully algorithm; (ii) the ring algorithm.**
+- **(i) Bully Algorithm:**
+    1.  Node 2 sends **ELECTION** messages to nodes with higher IDs: 3, 4, 5.
+    2.  Nodes 3 and 4 are alive. They respond with **OK** to node 2 and each starts its own election.
+        - Node 3 sends ELECTION to 4,5. Node 4 responds OK, Node 5 is dead.
+        - Node 4 sends ELECTION to 5. No response (Node 5 dead).
+    3.  Node 4, receiving no OK from anyone higher, declares itself coordinator. It sends **COORDINATOR** message to all lower nodes (0,1,2,3).
+- **(ii) Ring Algorithm:**
+    - *Assumption:* Logical ring order is 0->1->2->3->4->5->0.
+    1.  Node 2 creates an **ELECTION** message `[2]` and sends it to its neighbour (3).
+    2.  Node 3 forwards it, appending its ID: `[2,3]` -> Node 4.
+    3.  Node 4 forwards: `[2,3,4]` -> Node 5 (dead). Node 4 times out and skips 5, sends to Node 0: `[2,3,4]`.
+    4.  Node 0 forwards: `[2,3,4,0]` -> Node 1.
+    5.  Node 1 forwards: `[2,3,4,0,1]` -> Node 2.
+    6.  Node 2 receives its own message. It sees the list `[2,3,4,0,1]`. The highest ID is **4**.
+    7.  Node 2 sends a **COORDINATOR(4)** message around the ring to inform everyone that node 4 is the new coordinator.
+**010. Consider the Byzantine Generals Problem. Two generals... How can they devise a scheme...?**
+- This is the **Two Generals' Problem**, which is **provably unsolvable** in a deterministic way over an unreliable network.
+- A **probabilistic scheme** can be used:
+    1.  General A sends a message "Attack at dawn" to General B.
+    2.  General B, upon receiving it, sends an **acknowledgment** "Ack, Attack at dawn" back.
+    3.  General A, upon receiving the ack, sends an **ack-for-the-ack** "Ack2".
+    4.  This continues for a predetermined number of rounds `k`.
+- With each round, the probability that *both* know the other knows the plan increases, but it never reaches 100%. They must decide to attack if they have completed `k` rounds, accepting a small probability of miscoordination. This illustrates the fundamental difficulty of achieving **perfect consensus** over an unreliable link.
+
 ### **15. Cloud Computing**
 **001. What is the definition of federated learning?**
 - **Federated learning** is a machine learning technique where a **predictive model is trained across multiple decentralised edge devices or servers** holding local data samples, without exchanging the data itself.
 - The training is **brought to the data** (at the edge) to preserve privacy and comply with data governance, instead of centralising all data for HPC training.
+**002. Propose a cloud computing-based solution for monitoring critical processes in a factory (LPS)...**
+- **Solution:** A **hybrid cloud-edge IoT platform**.
+- **Deployment:**
+    1.  **Sensors & Edge:** Deploy **IoT sensors** (temperature, gas, humidity) on the factory floor. Use **edge gateways** (e.g., Raspberry Pi with Azure IoT Edge/AWS Greengrass) to pre-process data (filter, aggregate) and run real-time anomaly detection.
+    2.  **Cloud Platform:** Use a public cloud (e.g., AWS, Azure, GCP).
+        - **IaaS/PaaS:** Use VMs or Kubernetes (**IaaS/PaaS**) to host the core application platform.
+        - **Data Pipeline:** Use cloud **message queues** (e.g., AWS Kinesis/Azure Event Hubs) to ingest data from edge.
+        - **Storage & Processing:** Store time-series data in a cloud **database** (e.g., TimescaleDB on cloud VMs, or AWS Timestream). Use **serverless functions** (FaaS) for event-driven alerts (e.g., SMS/email on threshold breach).
+        - **Analytics & Dashboards:** Use cloud analytics services (e.g., AWS QuickSight) for dashboards showing real-time and historical trends.
+    3.  **Justification:** The **edge** handles low-latency, real-time safety checks. The **cloud** provides scalable storage, complex analytics, historical compliance reporting, and global management. **Hybrid model** ensures resilience even if cloud connectivity is lost.
+**003. What are the main characteristics of a distributed file system in a large-scale cloud system? Illustrate using GFS or HDFS.**
+- **Key Characteristics:**
+    1.  **Designed for Commodity Hardware:** Assumes and tolerates frequent component failures.
+    2.  **Optimized for Large Files:** Manages multi-GB files efficiently, not many small files.
+    3.  **Write-Once, Read-Many (WORM) Access Model:** Simplifies coherency; appends are primary.
+    4.  **Centralized Master/Slave Architecture:** A single **master (NameNode in HDFS)** manages metadata (filenames, block locations). Many **chunk servers (DataNodes)** store actual data blocks.
+    5.  **Data Replication:** Files are split into large blocks (e.g., 64-128MB) and each block is **replicated** (default 3x) across different racks/nodes for **fault tolerance**.
+    6.  **Streaming Data Access:** High throughput is prioritized over low latency.
+- **HDFS Example:** A client writes a file. The **NameNode** allocates blocks. The client writes data directly to a pipeline of **DataNodes**, which replicate each block. The NameNode updates the metadata. Reads are directed by the NameNode to the nearest DataNode holding the block.
+
+
 ### **16. Distributed Systems Topics and Trends Pt.1**
 **001. In an edge-server system, servers can be used to...**
 - Optimise content distribution, optimise application distribution, optimise network traffic, support Quality of Service.
 - Edge servers, placed at the boundary between core networks and access networks, serve several key purposes: **caching content** closer to users (optimising distribution), hosting parts of applications (optimising app distribution), reducing load on core network links (optimising traffic), and enabling low-latency services (supporting QoS).
 ### **17. Distributed Systems Topics and Trends Pt.2**
-*(No specific questions from the list correspond uniquely to this "trends" topic).*
+**001. Edge computing is a distributed, open IT architecture that features decentralised processing power. Illustrate through an example how edge computing enables mobile computing and Internet of Things (IoT) technologies.**
+- **Example: Smart City Traffic Management.**
+    1.  **IoT Sensors:** Cameras and induction loops at intersections generate vast video and vehicle count data.
+    2.  **Edge Computing:** An **edge server** at each intersection runs **computer vision algorithms** in real-time to detect traffic congestion, accidents, or count vehicles.
+    3.  **Enabled Benefits:**
+        - **Low Latency:** Traffic light control algorithms can react **immediately** to local conditions (e.g., extend green light for an ambulance detected), impossible if sending raw video to a distant cloud.
+        - **Bandwidth Reduction:** Only **processed metadata** (e.g., "congestion level: high") is sent to the central cloud, not terabytes of raw video.
+        - **Reliability:** The intersection operates autonomously even if cloud connection is lost.
+    4.  **Cloud Role:** The central cloud aggregates metadata from all intersections for city-wide traffic flow optimization and long-term analytics.
+**002. You have been asked to work on a project called Orientation and Mobility... Discuss how to deploy such solution...**
+- **Deployment Strategy:** A **Mobile Edge Computing (MEC)** or **Device-Edge-Cloud** solution.
+- **Architecture:**
+    1.  **Device (Headset):** Runs lightweight **object detection model** (highly optimized, e.g., TensorFlow Lite). Performs **initial, low-latency detection**. Streams processed data (bounding box labels, confidence scores) and optionally compressed video to...
+    2.  **Edge Device (Smartphone/Wearable Hub):** The user's smartphone acts as a personal edge. It runs a more sophisticated **scene understanding model**, fuses data from other sensors (GPS, IMU), and generates the specific, contextual voice message ("Obstacle: postbox, 2m ahead").
+    3.  **Cloud:** Used for **model training/updates**, storing user travel patterns for route optimization, and aggregating anonymous data to improve city accessibility maps.
+- **Justification:** Processing on the headset alone is limited. Offloading to the **personal smartphone edge** provides more compute without the latency of the cloud, ensuring **real-time, safe navigation**. The cloud handles non-real-time heavy lifting.
+**003. Consider a distributed system in a smart factory with mobile robots supported by Edge Computing. (i) Explain briefly how Edge Computing can support this. (ii) Discuss the implications of the concurrent execution of components property.**
+- **(i) Edge Computing Support:** An **edge server** in the factory acts as a local coordination hub. It runs the **fleet management software**, calculates optimal paths in real-time, processes data from on-robot sensors (LIDAR, cameras) for collision avoidance, and provides a local database of the factory floor plan. This ensures **ultra-low latency** for coordination and avoids reliance on a potentially slow or unreliable cloud connection.
+- **(ii) Implications of Concurrency:** Multiple robots (components) execute **concurrently**. This leads to:
+    - **Race Conditions:** Two robots might try to claim the same path segment.
+    - **Need for Coordination:** Requires **distributed locking** or **transactional protocols** for shared resources (charging stations, inventory bins).
+    - **Consistency Challenges:** Each robot's local map view must be kept **consistent** with the global edge server view and other robots' perceptions.
+    - **Deadlock Potential:** Improper coordination can lead to deadlock (e.g., two robots waiting for each other to move).
+- **Engineering Solution:** Use a **centralized coordinator on the edge server** for path planning (simplifies concurrency) while allowing robots distributed, reactive obstacle avoidance.
+**004. Consider the issue of scalability in distributed systems... (i) What is the level of interaction complexity? (ii) Formula? (iii) How many interactions for 20 components?**
+- **(i) Level of interaction complexity:** **Quadratic (O(n²))** in the number of components.
+- **(ii) Formula:** If each of `N` components interacts with `k` others, the total number of *directed* interactions is up to `N * k`. If `k = N-1` (all-to-all), it's `N(N-1)`. If each interacts with *approximately half*, `k ≈ N/2`, so interactions ≈ `N * (N/2) = N²/2`.
+- **(iii) Calculation for N=20, k≈10:** Interactions ≈ `20 * 10 = 200`. This illustrates the **scalability problem**: communication overhead grows rapidly with system size.
+**005. Describe how you would solve the average house value per postcode problem using MapReduce.**
+- **Map Stage (Processes each housing record):**
+    - **Input:** (line_of_text).
+    - **Map Function:** Parse the record to extract `postcode` and `value`.
+    - **Emit:** `(postcode, value)`.
+- **Shuffle/Sort Stage:** The MapReduce framework **groups all values** by the same `postcode` key.
+- **Reduce Stage (Processes each postcode group):**
+    - **Input:** `(postcode, [value1, value2, ...])` – a list of all house values for that postcode.
+    - **Reduce Function:** Calculate `sum = sum([value1, value2, ...])`, `count = length of list`. Emit `(postcode, sum/count)`.
+- **Output:** A list of `(postcode, average_value)` pairs.
+**006. Comment on the student's statements about MapReduce.**
+(i) "Each mapper must generate the same number of key/value pairs as its input had."
+    - **False.** A mapper can emit **zero, one, or many** key/value pairs for a single input record (e.g., splitting text into words).
+(ii) "The number of output jobs you get at the end of the job is m."
+    - **False/Unclear.** The final output is determined by the number of **reducer tasks (`r`)**, not mappers (`m`). There are `r` output files (from the reducers).
+(iii) "There will be m × r distinct copy operations in the sort/shuffle phase."
+    - **False.** In the shuffle, each mapper sends *each* of its output key/value pairs to *the specific reducer* responsible for that key's partition. It's not a full `m x r` mesh.
+(iv) "The earliest point at which the reduce method... can be called is as soon as a mapper has emitted at least one record."
+    - **False.** The **reduce phase** typically starts only after **all mappers have finished** (unless speculative execution or optimizations like *slow-start reducers* are used, but it's not "as soon as").
+(v) "A reducer is applied to all values associated with the same key."
+    - **True.** This is the core guarantee: all values for a given key are sent to the same reducer.
 ### **Miscellaneous / Core Concepts**
 **001. Provide an example of when a DS would be placed in a system.**
 - A DS would be placed in a system when **scalability or reliability** becomes a critical need. Example: Placing a **load balancer** and a **cluster of web servers** in front of a single database to handle high traffic for an e-commerce website.
