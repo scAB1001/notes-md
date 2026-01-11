@@ -7,133 +7,178 @@
 - They are introduced for **performance** (parallel processing), **reliability** (fault tolerance through replication), **resource sharing** (data, hardware, software), and inherent **geographical distribution** of applications or organisations.
 **004. What are the requirements of a DS?**
 - Key requirements include **distribution transparency**, **openness**, **scalability**, **reliability**, **security**, and efficient **communication** and **coordination** between components.
-**005. What is the basic definition of a DS?**
+**005. What is a distributed system?**
+- A network of independent computers that appear to the users as a single coherent system.
+- A distributed system is a collection of autonomous nodes that communicate via message passing. The key is that these nodes collaborate to present themselves as a unified whole to the end user, hiding the underlying complexity of distribution.
+**006. Which of the following is a key characteristic of distributed systems?**
+- Scalability.
+- Scalability—the ability to effectively handle growth in the number of users, data volume, or geographic spread—is a fundamental goal and defining challenge of distributed systems. Centralized systems are inherently limited in this regard.
+**007. What is the primary advantage of using a distributed system?**
+- Improved performance and reliability.
+- By distributing computation and storage across multiple machines, a system can process tasks in parallel (improving performance) and continue operating if some components fail (improving reliability).
+**008. Provide an example of when a DS would be placed in a system.**
+- A DS would be placed in a system when **scalability or reliability** becomes a critical need. Example: Placing a **load balancer** and a **cluster of web servers** in front of a single database to handle high traffic for an e-commerce website.
+**009. What is the basic definition of a DS?**
 - A **distributed** system is a networked computer system in which processes and resources are **sufficiently** spread across multiple computers.
 - The spread is **"sufficient"** for practical benefits like performance or availability, but the system could theoretically be centralised.
-**006. What is the nodal definition of a DS?**
+**010. What is the nodal definition of a DS?**
 - A collection of **autonomous computing elements (nodes)** that appears to its users as a **single coherent system**.
 - **Nodes** (hardware/software) collaborate. Their **autonomy** means each has its own clock, making **synchronisation a challenge** in the absence of a global clock.
-**007. What is the network definition of a DS?**
+**011. What is the network definition of a DS?**
 - A system in which components located at **networked computers** communicate and coordinate their actions only by **passing messages**.
 - The system operates uniformly regardless of *where, when, or how* the user interacts with it, hiding distribution details (**transparency**).
-**008. What is the definition of an autonomous node in a DS?**
+**012. What is the definition of an autonomous node in a DS?**
 - An **autonomous node** is an independent hardware device or software process that collaborates within the system. Its key autonomy is having **its own local clock**, leading to the need for clock synchronisation protocols, as there is no perfect **global clock**.
-**009. Explain why a node in a DS does not have a global clock?**
+**013. Explain why a node in a DS does not have a global clock?**
 - A node does not have a **global clock** because **perfect physical clock synchronisation across a network is impossible** due to **clock drift** and **message propagation delays**. Each node maintains its own time source.
-**010. What is the definition of a centralised system?**
+**014. Define the architecture of a DS.**
+- The **architecture** of a DS defines its logical organisation: the **components** (clients, servers, peers), their **functions**, the **interaction patterns** between them (e.g., client-server, peer-to-peer), and how they are physically mapped onto machines.
+**015. Which of the following is a key characteristic of DS?**
+- **Scalability**.
+- The ability to effectively handle increases in **users, data volume, and geographical span** is a fundamental goal and differentiating characteristic of distributed systems.
+**016. What is the definition of a centralised system?**
 - A **centralised system** is one where all major processing, data storage, and control functions are performed by a **single, central computer or server**. Users interact with this central point.
-**011. Why might we use a centralised system? Give an example scenario.**
+**017. Why might we use a centralised system? Give an example scenario.**
 - We use it for **simplicity, control, and security**. Example: A small company's **payroll system** running on a single, secured server where all data and logic are centrally managed and audited.
-**012. What is the definition of a decentralised system?**
+**018. What is the definition of a decentralised system?**
 - A **decentralised** system is a networked computer system in which processes and resources are **necessarily** spread across multiple computers.
 - The distribution is **fundamental** to its operation, often due to organisational, trust, or physical constraints.
-**013. Why might we use a decentralised system? Give an example scenario.**
+**019. Why might we use a decentralised system? Give an example scenario.**
 - We use it when **inherent distribution, lack of central trust, or administrative boundaries** exist. Example: A **blockchain** (e.g., Bitcoin), where no single entity is trusted, so transaction validation is **necessarily distributed** across a peer-to-peer network.
-**014. What’s the difference between a distributed and decentralised system?**
+**020. What’s the difference between a distributed and decentralised system?**
 - A **distributed** system is spread *sufficiently* for practical gains. A **decentralised** system is spread *necessarily* due to its core design principles (e.g., trust, geography). All decentralised systems are distributed, but not all distributed systems are fully decentralised.
-**015. Explain what is meant by the term 'distribution transparency' and provide examples.**
+**021. What is the role of middleware in a DS? Give an example.**
+- The role of middleware is to **enable communication and coordination** between different components. **Middleware acts as the glue**.
+- Example: An **RPC framework** (like gRPC) that allows a client written in Java to seamlessly call a function on a server written in Python, handling all network communication and data marshalling.
+**022. In a distributed system, what is the role of middleware?**
+- To enable communication and coordination between different components. Middleware acts a glue.
+- Middleware is the software layer that sits between the operating system and applications, providing common services such as communication, naming, and security. It abstracts the heterogeneity of the underlying infrastructure, acting as the "glue" that allows diverse components to work together seamlessly.
+**023. Define middleware.**
+- **Middleware** is a software layer that sits **between the operating system and applications**. It provides common services (communication, naming, security) to allow diverse and distributed components to interoperate, hiding the underlying heterogeneity.
+**024. Explain what is meant by the term 'distribution transparency' and provide examples.**
 - **Distribution transparency** is the design goal of **hiding from users and applications** the fact that processes and resources are physically distributed across a network.
 - Examples: A user accessing a file via a **network path** (e.g., `\\server\share\file`) without knowing its physical disk location, or a website visitor not knowing which of hundreds of **CDN servers** is delivering the content.
-**016. Define the architecture of a DS.**
-- The **architecture** of a DS defines its logical organisation: the **components** (clients, servers, peers), their **functions**, the **interaction patterns** between them (e.g., client-server, peer-to-peer), and how they are physically mapped onto machines.
-**017. What is the definition of distribution transparency?**
-- **Distribution transparency** is the phenomenon by which a DS attempts to **hide the fact** that its processes and resources are physically distributed across multiple computers, possibly separated by large distances.
-**018. How does a DS achieve distribution transparency?**
-- A DS achieves distribution transparency primarily through **middleware**. The middleware presents a **uniform interface** to applications, while internally handling all the complexities of distribution, such as location, migration, and failure.
-**019. Describe some common challenges of a DS.**
+**025. Describe the integrative view of a DS.**
+- The **integrative view** sees a DS as **connecting existing networked computer systems into a larger, unified system**. It focuses on federation and interoperability of pre-existing autonomous systems.
+**026. Describe the expansive view of a DS.**
+- The **expansive view** sees a DS as an **existing networked computer system that is extended with additional computers**. It focuses on scaling out a single system's capacity and reach.
+**027. What is the definition of federated learning?**
+- **Federated learning** is a machine learning technique where a **predictive model is trained across multiple decentralised edge devices or servers** holding local data samples, without exchanging the data itself.
+- The training is **brought to the data** (at the edge) to preserve privacy and comply with data governance, instead of centralising all data for HPC training.
+**028. Describe some common challenges of a DS.**
 - Common challenges include designing the **architecture** and **communication** facilities, enabling **coordination** and **naming**, managing **consistency and replication**, providing **fault tolerance**, and ensuring **security**.
-**020. Define access transparency of a DS. Provide an example.**
+**029. What is the definition of distribution transparency?**
+- **Distribution transparency** is the phenomenon by which a DS attempts to **hide the fact** that its processes and resources are physically distributed across multiple computers, possibly separated by large distances.
+**030. How does a DS achieve distribution transparency?**
+- A DS achieves distribution transparency primarily through **middleware**. The middleware presents a **uniform interface** to applications, while internally handling all the complexities of distribution, such as location, migration, and failure.
+**031. What is the process perspective?**
+- The **process perspective** examines a DS in terms of the **types of processes** (e.g., clients, servers, peers) that execute, their **roles, lifecycles, and relationships** (e.g., how they are created, communicate, and synchronise).
+**032. What is the communication perspective?**
+- The **communication perspective** examines the **facilities and paradigms** for data exchange between processes (e.g., **RPC, message passing, pub/sub**), focusing on protocols, reliability, and the **abstraction** provided to programmers.
+**033. Define access transparency of a DS. Provide an example.**
 - **Access transparency** hides differences in **data representation and how an object is accessed**. Example: A Windows client using the same file open call (`fopen`) to read a file from a Linux server, unaware of different underlying file systems.
-**021. Define location transparency of a DS. Provide an example.**
+**034. Define location transparency of a DS. Provide an example.**
 - **Location transparency** hides **where an object is physically located**. Example: A **URL** like `https://example.com/data` gives no clue about the geographic location or specific server hosting the data.
-**022. Define migration transparency of a DS. Provide an example.**
+**035. Define migration transparency of a DS. Provide an example.**
 - **Migration transparency** hides that an **object may move to another location**. Example: A **mobile user's cellular connection** being seamlessly handed off between towers without dropping the call.
-**023. Define relocation transparency of a DS. Provide an example.**
+**036. Define relocation transparency of a DS. Provide an example.**
 - **Relocation transparency** hides that an **object may be moved while in use**. Example: **Live migration of a virtual machine** between physical servers in a data centre without disconnecting the users or applications running on it.
-**024. Define replication transparency of a DS. Provide an example.**
+**037. Define replication transparency of a DS. Provide an example.**
 - **Replication transparency** hides that **multiple copies (replicas) of an object exist**. Example: Reading a popular webpage; the user doesn't know which of many globally distributed **CDN edge servers** is actually serving the content.
-**025. Define concurrency transparency of a DS. Provide an example.**
+**038. Define concurrency transparency of a DS. Provide an example.**
 - **Concurrency transparency** hides that an **object may be shared by several independent users**. Example: Multiple users **collaboratively editing a shared online document**; the system manages merges and locks without users explicitly coordinating.
-**026. Define failure transparency of a DS. Provide an example.**
+**039. Define failure transparency of a DS. Provide an example.**
 - **Failure transparency** hides the **failure and recovery of an object**. Example: If a database replica fails, the system **automatically redirects queries** to a working replica without the application throwing an error to the user.
-**027. What is meant by the terms 'resource sharing'? Give an example.**
+**040. What is meant by the terms 'resource sharing'? Give an example.**
 - **Resource sharing** means that **hardware, software, and data** can be accessed and used by multiple users or applications in the DS. Example: **Cloud storage** (like Dropbox), where a single storage infrastructure is shared by millions of users to store and synchronise files.
-**028. What is meant by 'openness' in a DS? Give an example.**
+**041. What is meant by 'openness' in a DS? Give an example.**
 - **Openness** means a DS is built from **components with well-defined, standardised interfaces**, allowing them to be easily replaced, extended, or to interoperate with components from other systems.
 - Example: **Web services** using **HTTP** and **RESTful APIs**; any client that understands these standards can interact with the service, regardless of its implementation language or platform.
-**029. Explain what the terms 'Interoperability, composability, and extensibility' refer to in an open DS.**
+**042. Explain what the terms 'Interoperability, composability, and extensibility' refer to in an open DS.**
 - In an open DS:
     - **Interoperability**: The ability for **components from different vendors/systems to work together** using common standards.
     - **Composability**: The ability to **easily assemble (compose) systems from smaller, reusable service components**.
     - **Extensibility**: The ease with which a system can be **modified or have new functionality added** without major restructuring, often by adding new components that adhere to the published interfaces.
-**030. Which of the following is a key characteristic of DS?**
-- **Scalability**.
-- The ability to effectively handle increases in **users, data volume, and geographical span** is a fundamental goal and differentiating characteristic of distributed systems.
-**031. Essentially everyone, when they first build a distributed application, makes eight assumptions as discussed in the lecture. All prove to be false in the long run and cause big trouble and painful learning experiences. There is argument for a 9th fallacy. Which one is it?**
+**043. Essentially everyone, when they first build a distributed application, makes eight assumptions as discussed in the lecture. All prove to be false in the long run and cause big trouble and painful learning experiences. There is argument for a 9th fallacy. Which one is it?**
 - All clocks are synchronised.
 - The original "**8 Fallacies of Distributed Computing**" by Peter Deutsch are well-known pitfalls. The commonly cited 9th fallacy, "**All clocks are synchronised**," highlights the mistaken assumption of a single, global time source, which ignores clock drift and the fundamental challenge of time synchronisation in distributed systems.
-**032. An ad hoc network is created between a group of friends playing a multiplayer game over wireless links on a collection of mobile devices including smartphones and tablets. Identify the classes of heterogeneity that may occur in this scenario.**
+**044. An ad hoc network is created between a group of friends playing a multiplayer game over wireless links on a collection of mobile devices including smartphones and tablets. Identify the classes of heterogeneity that may occur in this scenario.**
 - Performance, platform and operating system.
 - The three main aspects of heterogeneity are:
     1.  **Performance:** Devices have different CPU power, memory, and battery life.
     2.  **Platform:** Different hardware architectures (e.g., ARM vs. x86).
     3.  **Operating System:** Different OSs and versions (e.g., iOS, Android, various versions).
-**033. Both Alice and her husband Bob make use of the family car, which is considered as a ubiquitous computing system. The settings of the car’s passenger’s seat and mirrors is fully personalised, and subsequently the car makes the appropriate adjustments. What ubiquitous computing system requirement does such pervasiveness support? Simply provide its name.**
+**045. Both Alice and her husband Bob make use of the family car, which is considered as a ubiquitous computing system. The settings of the car’s passenger’s seat and mirrors is fully personalised, and subsequently the car makes the appropriate adjustments. What ubiquitous computing system requirement does such pervasiveness support? Simply provide its name.**
 - **Interaction.**
 - This scenario satisfies the **Interaction** requirement of ubiquitous computing. The system interacts in a highly **unobtrusive** and **implicit** manner, reacting to the user's presence automatically without requiring an explicit command.
-**034. Consider a system that supports a client server business application. A powerful computer running the Linux operating system is used to host the server process. Users access the service through low-cost desktop computers running the Windows operating system. Identify the classes of heterogeneity that may occur in this scenario.**
+**046. Consider a system that supports a client server business application. A powerful computer running the Linux operating system is used to host the server process. Users access the service through low-cost desktop computers running the Windows operating system. Identify the classes of heterogeneity that may occur in this scenario.**
 - **Hardware** (powerful vs. low-cost computers), **Operating System** (Linux vs. Windows), and **Network** (potentially different network stacks, firewalls). **Performance** heterogeneity is also implied by the hardware difference.
 - *Explanation:* Heterogeneity refers to differences across the system's components. Here, key differences exist in the **hardware platform**, the **OS platform**, and likely the local network environments.
-**035. The Internet, the World Wide Web and a cellular phone mobile network are examples of distributed systems. Which one is truly transparent and why?**
+**047. The Internet, the World Wide Web and a cellular phone mobile network are examples of distributed systems. Which one is truly transparent and why?**
 - **The World Wide Web.**
 - The Web provides a high degree of **distribution transparency**. Users access resources via **URLs** without any knowledge of the physical server location, the OS it runs on, or the replication behind a **CDN**. The Internet (the TCP/IP infrastructure) and cellular networks expose more of their distributed nature (e.g., IP addresses, signal strength, handovers) to the user/application.
-**036. Discuss briefly the implications of these properties on the engineering of large-scale, widely distributed systems: Concurrent execution of components, Independent failure modes, Communication delay, No global time.**
+**048. Discuss briefly the implications of these properties on the engineering of large-scale, widely distributed systems: Concurrent execution of components, Independent failure modes, Communication delay, No global time.**
 - **Concurrent execution:** Requires **synchronisation mechanisms** (e.g., locks, transactions) to avoid race conditions and ensure consistency.
-- **Independent failure modes (Partial Failure):** Systems must be designed for **fault tolerance**; failures must be detected, masked, or recovered from without total collapse.
+- **Independent failure modes (Partial Failure):** Systems must be designed for **fault tolerance**; failures must be detected, masked, or tolerated without total collapse.
 - **Communication delay:** Introduces **latency**, making synchronous operations inefficient. Engineers must use **asynchronous communication** and design for eventual consistency.
 - **No global time:** Makes ordering events hard. Requires **logical clocks** (Lamport/Vector) for causal ordering and protocols like **NTP** for approximate physical clock synchronisation.
 - *Combined,* these properties make guaranteeing **strong consistency**, **precise coordination**, and **simple programming models** extremely challenging at large scale.
-**037. According to the definitions provided, which of the following is a *decentralised* system and why?**
+**049. According to the definitions provided, which of the following is a *decentralised* system and why?**
     A. A corporate email system hosted on a cluster of servers in a single data centre.
     B. A federated machine learning system where hospitals train a model on local patient data without sharing the data itself.
     C. A video streaming service that uses edge servers to cache popular content closer to users.
 - **B. A federated machine learning system...**
 - *Explanation:* This is **decentralised** because the distribution is *necessary* due to **organisational and privacy constraints** (data cannot leave the hospital). The training is fundamentally distributed across administrative domains. **A** is a *distributed* system for performance/reliability (sufficiently spread). **C** is a *distributed* system for performance (sufficiently spread via replication).
-**038. What is the primary role of middleware in achieving distribution transparency?**
+**050. What is the primary role of middleware in achieving distribution transparency?**
 - Middleware acts as a **software layer** that provides a **uniform programming model** to applications, **masking the heterogeneity** of underlying hardware, networks, and operating systems, and **hiding the distribution** of components.
 - *Explanation:* As shown in the architecture diagram, middleware sits between the OS and applications. It provides common services (e.g., communication, naming) so that applications don't have to deal directly with the complexities of distribution, thereby enabling transparency.
-**039. When scaling a system geographically, why does techniques like broadcasting for service discovery, which works in a LAN, fail in a WAN?**
+**051. When scaling a system geographically, why does techniques like broadcasting for service discovery, which works in a LAN, fail in a WAN?**
 - **Broadcasting** in a WAN is **inefficient and often impossible** because it generates excessive, wasteful network traffic across expensive, limited-bandwidth links. Furthermore, routers are typically configured to **block broadcast packets** from propagating between different network segments to prevent flooding.
 - *Explanation:* This is a key **scalability issue**. WANs require scalable alternatives like **hierarchical** or **decentralised directory services** (e.g., DNS) for discovery.
-**040. The "8 Fallacies of Distributed Computing" highlight incorrect assumptions. Explain how the fallacy **"Latency is zero"** impacts the design of a distributed application, and name one **scaling technique** used to mitigate this.**
+**052. The "8 Fallacies of Distributed Computing" highlight incorrect assumptions. Explain how the fallacy **"Latency is zero"** impacts the design of a distributed application, and name one **scaling technique** used to mitigate this.**
 - **Impact:** Assuming zero latency leads to designs using excessive **synchronous, blocking calls** over the network. This causes poor performance and unresponsive applications, as processes spend most of their time waiting for network replies.
 - **Mitigating Technique:** **Hiding Communication Latencies**. This is done by using **asynchronous communication** (e.g., callbacks, promises) or by **moving computation to the client** (e.g., sending JavaScript code to a browser) to avoid blocking.
 - *Explanation:* This directly links a core pitfall to a specific scaling solution from the notes.
-**041. Describe the **integrative view** and the **expansive view** of distributed systems. Provide a real-world example that illustrates each view.**
+**053. Describe the **integrative view** and the **expansive view** of distributed systems. Provide a real-world example that illustrates each view.**
 - **Integrative View:** Connects **existing, autonomous systems** into a larger, unified system. *Example:* The **Internet** itself, which integrates countless independent networks (ISPs, corporate nets) using standard protocols (TCP/IP).
 - **Expansive View:** **Extends a single system** by adding more computers to increase its capacity or reach. *Example:* **Scaling a web application** by adding more servers behind a load balancer to handle more users.
 - *Explanation:* This tests understanding of the two philosophical perspectives on distribution, which underpin the distributed vs. decentralised distinction.
-**042. A key challenge of **replication** as a scaling technique is maintaining consistency. Why does strict consistency (where all replicas are instantly identical) conflict with the goals of scalability and performance?**
+**054. A key challenge of **replication** as a scaling technique is maintaining consistency. Why does strict consistency (where all replicas are instantly identical) conflict with the goals of scalability and performance?**
 - Maintaining strict consistency requires **global synchronisation** on every update. This means every write operation must block until all replicas are updated, which **increases latency** significantly due to network delays. This coordination overhead also consumes bandwidth and processing power, creating a **bottleneck** that prevents the system from scaling to a large number of replicas or geographic spread.
 - *Explanation:* This gets to the heart of the scalability trade-off: you often must relax consistency (e.g., to eventual consistency) to achieve performance and scale.
-**043. Explain, using the DNS as an example, how **partitioning** (distribution) and **replication** work together to create a scalable system.**
+**055. Explain, using the DNS as an example, how **partitioning** (distribution) and **replication** work together to create a scalable system.**
 - **Partitioning in DNS:** The namespace is **hierarchically partitioned** into zones (e.g., `.com`, `ac.uk`). Authority for each zone is **delegated** to different name servers. This distributes the management and query load.
 - **Replication in DNS:** Each zone is typically served by **multiple replica name servers**. This provides **fault tolerance** (if one fails) and **improves performance/load balancing**.
 - **Together:** Partitioning prevents any single point of control or failure for the entire system. Replication within each partition ensures the availability and performance of that partition. Client caching of responses adds another layer of effective replication.
 - *Explanation:* This question synthesises two core scaling techniques using the prime example from the notes.
-**044. What does **federated learning** exemplify about the reasons for building a decentralised system?**
+**056. What does **federated learning** exemplify about the reasons for building a decentralised system?**
 - It exemplifies that distribution can be **necessary due to external constraints**, not just desirable for performance. In federated learning, the data (e.g., patient records) **cannot be centralised** due to **privacy regulations, legal boundaries, or organizational policy**. Therefore, the computation (model training) is **necessarily brought to the data** across multiple locations.
 - *Explanation:* This tests understanding of the "necessarily spread" criterion for decentralised systems, using a modern, relevant example from the notes.
-**045. The diagram of centralised, decentralised, and distributed systems shows a spectrum. Positioning a system on this spectrum involves a trade-off. What is typically traded off when moving from a centralised design toward a distributed/decentralised one?**
+**057. The diagram of centralised, decentralised, and distributed systems shows a spectrum. Positioning a system on this spectrum involves a trade-off. What is typically traded off when moving from a centralised design toward a distributed/decentralised one?**
 - The trade-off is between **control, simplicity, and strong consistency** (advantages of centralisation) versus **scalability, fault tolerance, and autonomy** (advantages of distribution).
 - *Explanation:* Centralised systems are simpler to design, manage, and keep consistent. Distributed systems give these up to achieve growth, reliability, and to meet physical or trust-based constraints.
-**046. Which of the following is NOT a goal of a distributed system, but rather a *technique* or *property* used to achieve its goals?**
+**058. Which of the following is NOT a goal of a distributed system, but rather a *technique* or *property* used to achieve its goals?**
     A. Transparency
     B. Scalability
     C. Replication
     D. Openness
 - **C. Replication**
 - *Explanation:* **Replication** is a *scaling technique* used to achieve the goals of **performance, reliability, and availability**. **Transparency**, **Scalability**, and **Openness** are primary goals/design objectives of a DS itself.
+**059. In the statement "Standard interfaces and protocols ensure that the *?* of messages and the *?* of communication are preserved when a message is passed between two dissimilar computer systems", what are the two missing words?**
+- Content / semantics.
+- The correct pair is **content** and **semantics**. Standardised **protocols** (rules for exchange) and **interfaces** (how to call) ensure the raw **content** of the message is not corrupted during transfer and, crucially, that its meaning (**semantics**) is correctly interpreted by the receiver, despite differences in underlying hardware or software.
+**060. A client binds to a distributed object. The proxy (the object’s interface implementation) is loaded into the client address’ space and an object’s method is invoked. The client realises that the result returned by the object is different from the one returned the day before. Is this possible?**
+- Yes.
+- **Yes, this is possible.** The principle of **encapsulation** in distributed objects means the client only depends on the **public interface**. The server-side **implementation** of the method can be changed, upgraded, or even switched to a different algorithm without altering the interface. The client's proxy remains the same, but the underlying logic producing the result can differ.
+**061. What is the missing word? In a client/server architecture, a client with most resources installed locally rather than distributed over the network is known as a ??? client**
+- Fat client.
+- A **fat client** (or thick client) is one that implements the majority of the application's business logic and functionality locally. It relies less on the server, which may act primarily as a data backend. This contrasts with a **thin client**, which does minimal processing and relies heavily on the server.
+**062. You are accessing from a computer in Bragg 2.05 Lab a remote database located on Microsoft Azure cloud (using JDBC). The MySQL server resides on a host called mariadb.azure.com, which stores additional data on a server called storage.azure.com. Which client/server architecture model is this?**
+- 3-Tier.
+- This is a classic **3-tier architecture**:
+    1.  **Presentation Tier:** The client application/Java program in the lab.
+    2.  **Application/Logic Tier:** The `mariadb.azure.com` MySQL server (processing queries).
+    3.  **Data Tier:** The `storage.azure.com` server (persistent storage). The logic tier (server) acts as a client to the data tier.
 ### **2. Types of Distributed Systems**
 **001. What is High Performance Computing (HPC)?**
 - Use of (super)computers and parallel processing techniques.
@@ -1518,42 +1563,3 @@ class BookResource(Resource):
 - **Exascale (Compute):** Challenges are **tight coupling and coordination**. The focus is on **low-latency, high-bandwidth interconnects** (e.g., InfiniBand) and sophisticated **parallel programming models** (MPI) to keep millions of cores working efficiently on a single, massive problem (like a climate simulation).
 - **Internet Scale (Users/Data):** Challenges are **loose coupling and fault tolerance**. The focus is on **stateless designs, eventual consistency, replication, and geo-distribution** to handle billions of independent requests, tolerate constant partial failures, and serve users globally with low latency.
 - *Explanation:* Tests the understanding that scale in different dimensions requires different architectural priorities.
-### **Miscellaneous / Core Concepts**
-**001. Provide an example of when a DS would be placed in a system.**
-- A DS would be placed in a system when **scalability or reliability** becomes a critical need. Example: Placing a **load balancer** and a **cluster of web servers** in front of a single database to handle high traffic for an e-commerce website.
-**002. What is the role of middleware in a DS? Give an example.**
-- The role of middleware is to **enable communication and coordination** between different components. **Middleware acts as the glue**.
-- Example: An **RPC framework** (like gRPC) that allows a client written in Java to seamlessly call a function on a server written in Python, handling all network communication and data marshalling.
-**003. Define middleware.**
-- **Middleware** is a software layer that sits **between the operating system and applications**. It provides common services (communication, naming, security) to allow diverse and distributed components to interoperate, hiding the underlying heterogeneity.
-**004. What is a distributed system?**
-- A network of independent computers that appear to the users as a single coherent system.
-- A distributed system is a collection of autonomous nodes that communicate via message passing. The key is that these nodes collaborate to present themselves as a unified whole to the end user, hiding the underlying complexity of distribution.
-**005. Which of the following is a key characteristic of distributed systems?**
-- Scalability.
-- Scalability—the ability to effectively handle growth in the number of users, data volume, or geographic spread—is a fundamental goal and defining challenge of distributed systems. Centralized systems are inherently limited in this regard.
-**006. In a distributed system, what is the role of middleware?**
-- To enable communication and coordination between different components. Middleware acts a glue.
-- Middleware is the software layer that sits between the operating system and applications, providing common services such as communication, naming, and security. It abstracts the heterogeneity of the underlying infrastructure, acting as the "glue" that allows diverse components to work together seamlessly.
-**007. What is the primary advantage of using a distributed system?**
-- Improved performance and reliability.
-- By distributing computation and storage across multiple machines, a system can process tasks in parallel (improving performance) and continue operating if some components fail (improving reliability).
-**008. A client binds to a distributed object. The proxy (the object’s interface implementation) is loaded into the client address’ space and an object’s method is invoked. The client realises that the result returned by the object is different from the one returned the day before. Is this possible?**
-- Yes.
-- **Yes, this is possible.** The principle of **encapsulation** in distributed objects means the client only depends on the **public interface**. The server-side **implementation** of the method can be changed, upgraded, or even switched to a different algorithm without altering the interface. The client's proxy remains the same, but the underlying logic producing the result can differ.
-**009. In the statement "Standard interfaces and protocols ensure that the *?* of messages and the *?* of communication are preserved when a message is passed between two dissimilar computer systems", what are the two missing words?**
-- Content / semantics.
-- The correct pair is **content** and **semantics**. Standardised **protocols** (rules for exchange) and **interfaces** (how to call) ensure the raw **content** of the message is not corrupted during transfer and, crucially, that its meaning (**semantics**) is correctly interpreted by the receiver, despite differences in underlying hardware or software.
-**010. What is the missing word? In a client/server architecture, a client with most resources installed locally rather than distributed over the network is known as a ??? client**
-- Fat client.
-- A **fat client** (or thick client) is one that implements the majority of the application's business logic and functionality locally. It relies less on the server, which may act primarily as a data backend. This contrasts with a **thin client**, which does minimal processing and relies heavily on the server.
-**011. You are accessing from a computer in Bragg 2.05 Lab a remote database located on Microsoft Azure cloud (using JDBC). The MySQL server resides on a host called mariadb.azure.com, which stores additional data on a server called storage.azure.com. Which client/server architecture model is this?**
-- 3-Tier.
-- This is a classic **3-tier architecture**:
-    1.  **Presentation Tier:** The client application/Java program in the lab.
-    2.  **Application/Logic Tier:** The `mariadb.azure.com` MySQL server (processing queries).
-    3.  **Data Tier:** The `storage.azure.com` server (persistent storage). The logic tier (server) acts as a client to the data tier.
-# s
-Next. Content:
-
-Questions:
