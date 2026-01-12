@@ -151,6 +151,7 @@ C. **Type: Recovery.** It provides a mechanism to _restore_ assets (funds) to th
 - **Emergent Properties:** The flaw is an **emergent system property**. While individual components (e.g., encryption module, UI code) were securely built, the _unpredictable interaction_ between these components, the mobile OS, the banking backend, and user behaviour created a new, unforeseen vulnerability. Security is a property of the _whole system in operation_, not just the sum of its securely built parts.
 - **Link to PEBKAC:** The core reason is **"Humans make mistakes" (PEBKAC)**. While developers may follow practices, they are human and can make errors in design logic, configuration, or in understanding complex component interactions. Furthermore, _users_ (**"Between Keyboard and Chair"**) can behave in unexpected ways that expose emergent flaws. Rigorous design does not eliminate human error from the development _or_ usage lifecycle.
 # 01. Threat Modelling pt. 1
+## Outline
    - Intro
 	- Advanced Persistent Threats
     - Security Engineering
@@ -169,189 +170,302 @@ C. **Type: Recovery.** It provides a mechanism to _restore_ assets (funds) to th
     - 6. Elevation of privilege - Gaining special status.
     - STRIDE Per Element
 - Specifying Security Requirements
+## Practice Qs
+### Question 1: Threat Modelling Fundamentals
+This question concerns the foundational steps of threat modelling and the STRIDE classification.
 
+**(a)** You are tasked with performing a **threat modelling** exercise for a new online banking portal. The first step is **System Characterisation**. List **three** distinct types of information or models you would need to define or create to complete this step effectively.
+**[3 marks]**
 
-# 1. System Characterisation
-### 2. Asset and Access Point Identification
-### 3. Threat Identification
-#### Threat Enumeration
-#### Attack Trees
-## The STRIDE Threat Model Classification
-##
-# 1. Spoofing - masquerade e.g., unauthorised access.
-### 2. Tampering - violates data integrity.
-### 3. Repudiation - Deny performing action.
-### 4. Info disclosure - violate confidentiality.
-### 5. Denial of Service
-### 6. Elevation of privilege - Gaining special status.
-### STRIDE Per Element
-## Specifying Security Requirements
+**(b)** For the same banking portal, an **asset** is identified as "Customer Payment Instruction Data". **Identify** two plausible **access points** through which an attacker might attempt to reach this asset.
+**[4 marks]**
 
+**(c)** The STRIDE model is used to classify threats. For each of the following banking portal incidents, **state** the single most applicable STRIDE threat category (Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege). Justify your choice in five words or fewer.
+(i) An attacker uses a phishing site to steal user login credentials.
+(ii) A flaw in the transaction API allows a user to mark any transaction as "failed", reversing the payment without logging the action.
+(iii) An attacker floods the login page with random requests, preventing legitimate customers from accessing their accounts.
+**[6 marks]**
+
+**(d)** An **Advanced Persistent Threat (APT)** actor targets the bank. Describe **two** key characteristics, from the provided definition, that distinguish an APT from a typical **black hat** hacker. Your answer should not mention specific attack methods like malware.
+**[4 marks]**
+
+**(e)** From the **Threat Identification** step, the following threat profile is drafted:
+**Threat:** Unauthorised funds transfer.
+**Attack Goal:** Initiate a transfer from a victim's account to one controlled by the attacker.
+**Adversary Type:** External attacker with no prior access.
+Construct a simple **attack tree** for this threat. Your tree must have the **root node** ("Transfer funds unauthorised") and at least **two** distinct first-level child nodes, each representing a high-level method (e.g., "Compromise user credentials", "Exploit application flaw"). You do not need to develop sub-nodes.
+**[8 marks]**
+
+---
+#### Model Solution
+**(a)** _(1 mark per valid item)_
+1. **Data Flow Diagrams (DFDs)** to show how data moves between system components.
+2. **Usage Scenarios** to understand how legitimate users interact with the system.
+3. **System Assumptions and Dependencies** (e.g., relies on specific third-party APIs, assumes internal network is secure).
+
+**(b)** _(2 marks per valid access point)_
+1. The public-facing **customer login webpage** (a network access point).
+2. The backend **database API** used by the web server (a component interaction access point).
+
+**(c)** _(2 marks per item: 1 for category, 1 for valid justification)_
+(i) **Spoofing.** _Masquerade as legitimate site._
+(ii) **Repudiation.** _User can deny transaction._
+(iii) **Denial of Service.** _Prevents access to service._
+
+**(d)** _(2 marks per characteristic)_
+1. **Targeted and Prolonged:** APT campaigns are focused on a specific organisation and occur over a long duration (months/years), unlike broad, opportunistic attacks.
+2. **High Capability/Resources:** APTs are typically **highly skilled** and backed by significant resources (e.g., **state actors**), enabling complex, multi-faceted attacks.
+
+**(e)** _(2 marks for correct root, 3 marks per valid first-level child node)_
+- **Root:** Transfer Funds Unauthorised
+    - **Child 1:** Compromise User Credentials (e.g., via phishing, keylogger).
+    - **Child 2:** Exploit Application Logic Flaw (e.g., bypass transaction validation).
+
+---
+### Question 2: STRIDE Analysis & Requirements
+This question applies the STRIDE model to derive security requirements.
+
+**(a)** A cloud file storage service allows users to upload, share, and collaborate on documents. For the data "in transit" between a user's device and the cloud server, **identify** the two STRIDE threat categories that most directly threaten the **confidentiality** and **integrity** of that data. For each, provide a **one-sentence** description of a specific attack that falls into that category.
+**[6 marks]**
+
+**(b)** The service's audit log, which records file access, is itself a critical **asset**. **State** which STRIDE threat category is most relevant if a user wishes to **repudiate** having accessed a file. Propose **one** security mechanism that would mitigate this specific threat.
+**[4 marks]**
+
+**(c)** Using Bellovin’s Threat Matrix (Attacker Capability vs. System Penetrability), **deduce** the likely scenario for a system rated as **High Penetrability** being attacked by an adversary with **Low Capability**. Explain what this implies for the system's **threat profile**.
+**[5 marks]**
+
+**(d)** For the cloud storage service, a threat is identified: "An attacker exhausts disk space with junk files, preventing legitimate storage."
+(i) **Classify** this threat using the STRIDE model.
+(ii) Following the template, specify a corresponding **security requirement**.
+(iii) **Identify** one plausible **security mechanism** to meet this requirement.
+**[6 marks]**
+
+**(e)** During **Threat Identification**, designers must estimate "the strength of the attacker." **Explain** why this estimation is a critical input for both **prioritising** threats and making cost-effective decisions about **security mechanisms**.
+**[4 marks]**
+
+---
+#### Model Solution
+**(a)** _(3 marks per category: 1 for ID, 2 for attack description)_
+- **Threat to Confidentiality: Information Disclosure.**
+  _Attack:_ A **Man-in-the-Middle (MitM)** attacker intercepts and reads unencrypted file data during upload.
+- **Threat to Integrity: Tampering.**
+  _Attack:_ A MitM attacker alters the contents of a file while it is in transit to the server.
+
+**(b)** _(2 marks for category, 2 for mechanism)_
+- **STRIDE Category: Repudiation.**
+- **Mitigation Mechanism:** Implement **cryptographically secure, append-only audit logs** where each entry is digitally signed or hashed with the previous entry, making log **tampering** detectable.
+
+**(c)** _(5 marks for correct deduction and implication)_
+- **Scenario:** A **"Script Kiddie"** (low capability) using widely available automated tools can successfully exploit the system (high penetrability).
+- **Implication:** The system's **threat profile** must consider even low-skill, high-volume attacks as **high risk**. Threats from **low-capability** adversaries cannot be ignored and require immediate, robust preventative controls.
+
+**(d)** _(2 marks per item)_
+(i) **Denial of Service.**
+(ii) **REQUIREMENT:** The service must implement quotas and monitoring to prevent any single user or process from exhausting shared storage resources.
+(iii) **MECHANISM:** Implement **user storage quotas** and **automated monitoring/alerting** for rapid disk space consumption.
+
+**(e)** _(4 marks for coherent explanation)_
+Estimating attacker strength (**capability**) allows designers to **prioritise** defending against the most likely and dangerous adversaries (e.g., an APT vs. a script kiddie). This ensures limited security budgets are spent on **mechanisms** proportionate to the threat (e.g., not deploying expensive anti-APT controls if the primary threat is low-capacity). It directs resources cost-effectively to where they are most needed.
+
+---
+### Question 3: Attack Trees & System Analysis
+This question involves constructing attack trees and analysing a system characterisation.
+
+**(a)** During the **Asset and Access Point Identification** step for a smart home thermostat, the **asset** "User's weekly schedule and temperature preferences" is listed. **Identify** two **access points** an attacker might use to target this asset, considering both digital and physical vectors.
+**[4 marks]**
+
+**(b)** The primary threat to the thermostat is "Unauthorised Control of Heating System." Construct an **attack tree** for this threat. The root node is "Control Thermostat Unauthorised." You must include at least **three** distinct first-level child nodes, each representing a different high-level attack vector (e.g., "Compromise User Account", "Compromise Device Locally").
+**[9 marks]**
+
+**(c)** For the threat "Tampering with firmware update files," **map** this to the relevant STRIDE category. Then, **identify** which core **security property** (Confidentiality, Integrity, Availability) is primarily violated. Justify the property choice in one sentence.
+**[4 marks]**
+
+**(d)** A **threat profile** classifies the risk of "Spoofing of control signals from the mobile app" as **High**.
+Translate this into a **security requirement**. Then, **propose** one specific **security mechanism** that would satisfy this requirement.
+**[4 marks]**
+
+**(e)** **Explain** why **threat modelling** is considered a cost-effective part of the **security engineering** process. Your answer must reference the idea of avoiding future, similar mistakes.
+**[4 marks]**
+
+---
+#### Model Solution
+**(a)** _(2 marks per access point)_
+1. The thermostat's **Wi-Fi/Network interface** (digital).
+2. The thermostat's **physical serial/USB debugging port** (physical).
+
+**(b)** _(3 marks for correct root, 2 marks per valid first-level child node)_
+- **Root:** Control Thermostat Unauthorised.
+    - **Child 1:** Spoof/MitM Mobile App Communications.
+    - **Child 2:** Exploit Vulnerability in Web/Cloud API.
+    - **Child 3:** Physically Access and Tamper with Device.
+
+**(c)** _(2 marks for STRIDE, 2 for property & justification)_
+- **STRIDE Category: Tampering.**
+- **Security Property: Integrity.**
+  _Justification:_ Tampering with firmware corrupts the legitimate software, violating the **trustworthiness and correctness** of the system code.
+
+**(d)** _(2 marks for requirement, 2 for mechanism)_
+- **REQUIREMENT:** All control communications between the mobile app and the thermostat must be authenticated and integrity-protected.
+- **MECHANISM:** Implement **mutual TLS (mTLS)** authentication for the app-to-cloud and cloud-to-thermostat connections.
+
+**(e)** _(4 marks for explanation)_
+**Threat modelling** is cost-effective because it identifies **threats** and **vulnerabilities** during the design phase, where fixes are cheapest. By understanding **attack trees** and **adversary capabilities** early, designers can build in appropriate **security mechanisms** from the start. This avoids the far greater cost of fixing **security problems** post-deployment or responding to **breaches** caused by threats that could have been foreseen and mitigated. It systematically learns from potential mistakes before they are made.
 # 02. Threat Modelling pt. 2
 ## STRIDE Model Goals
 ##
-# 1. Assets
-### 2. Attackers
-### 3. Software
-## Trust Boundaries
-### Entry & Exit Points
-### Importance
-## Attack Trees
-##### Attack Tree Example ->
-### ### Risk Assessment: DREAD
-#### Issues With DREAD as a scoring system
-### Common Vulnerability Scoring System (CVSS)
-### Mitigation
 
+## Outline
+
+## Practice Qs
 # 03. Managing Vulnerabilities
-## Exploits
-### Responsible Disclosure
-##
-# 0Day Attacks
-## The Vulnerability Cycle
-### Discussion/Analysis
-### QA Techniques
-#### The ‘Many Eyeballs’ Fallacy
-#### Static Analysis Tools
-#### Limitations of Static Analysis
-##### Testing != Security Testing
-### Whittaker’s Fault Model
-##### Diagram
-#### Testing
-#### Using Threat Models
-#### ‘Secure From Day One’
-### Run-time Fault Injection
-
+## Outline
+- Exploits
+    - Responsible Disclosure
+- 0Day Attacks
+- The Vulnerability Cycle
+    - Discussion/Analysis
+    - QA Techniques
+        - The ‘Many Eyeballs’ Fallacy
+        - Static Analysis Tools
+        - Limitations of Static Analysis
+            - Testing != Security Testing
+    - Whittaker’s Fault Model
+            - Diagram
+        - Testing
+        - Using Threat Models
+        - ‘Secure From Day One’
+    - Run-time Fault Injection
+## Practice Qs
 # 04. Security Policy Models
-#### Example
-## Security Policy
-### Policy Language
-## Policy Models
-#### Access Control
-### BELL-LaPADULA (BLP) Model
-#### Property: SImple Security
-#### Formal BLP
-#### Lattices
-#### Reference Monitor
-### BIBA Model
-### Chinese Wall Model
-#### Property: SImple Security
-#### Star property
-### Resurrecting Duckling Model
-### Other
-
+## Outline
+- Security Policy
+    - Policy Language
+- Policy Models
+        - Access Control
+    - BELL-LaPADULA (BLP) Model
+        - Property: SImple Security
+        - Formal BLP
+        - Lattices
+        - Reference Monitor
+    - BIBA Model
+    - Chinese Wall Model
+        - Property: SImple Security
+        - Star property
+    - Resurrecting Duckling Model
+    - Other
+## Practice Qs
 # 05. Command Injection and Input Validation
-## Input Validation
-### Tust Boundaries and Choke Points
-### Phishing via Homograph Attacks
-### Malicious URLs e.g., Directory Traversal
-
+## Outline
+- Input Validation
+    - Tust Boundaries and Choke Points
+    - Phishing via Homograph Attacks
+    - Malicious URLs e.g., Directory Traversal
+## Practice Qs
 # 06. Web App Vulnerabilities
-## Web Attacks
-### GET and POST Requests
-### Sessions
-#### ### Session ID Dangers
-## Attacking the Connection
-### HTTPS issues
-#### DROWN (Decrypting RSA with Obsolete and Weakened eNcryption)
-### Lack of HSTS (HTTPS Strict Transport Security)
-### Miuse of TLS Certificates
-### Open Redirects
-### URL Jumping
-### Malicious XML Payloads
-## Cross-site Scripting (XSS)
-### Reflected XSS
-### Stored XSS
-### HTML Injection
-#### Frame attack
-## Cross-site Request Frogery XSRF/CSRF
-#### Example
-#### To Avoid This
-### Validation: Client or Server?
-#### When to validate?
-#### Comparison with older OWASP Top 10s
-
+## Outline
+- Web Attacks
+    - GET and POST Requests
+    - Sessions
+        - Session ID Dangers
+- Attacking the Connection
+    - HTTPS issues
+        - DROWN (Decrypting RSA with Obsolete and Weakened eNcryption)
+    - Lack of HSTS (HTTPS Strict Transport Security)
+    - Miuse of TLS Certificates
+    - Open Redirects
+    - URL Jumping
+    - Malicious XML Payloads
+- Cross-site Scripting (XSS)
+    - Reflected XSS
+    - Stored XSS
+    - HTML Injection
+        - Frame attack
+- Cross-site Request Frogery XSRF/CSRF
+        - Example
+        - To Avoid This
+    - Validation: Client or Server?
+        - When to validate?
+        - Comparison with older OWASP Top 10s
+## Practice Qs
 # 07. User Authentication
-## Entropy
-#### Example
-### Key Sweeper
-### Password Hashing
-#### Hash Cracking Algorithm
-# Loop through file data
-	# Generate combinations of the current word
-		# Create a hash for each word using the combination and salt
-			# If the hashes are the same, that word is the password.
-				return word  # the password
-### Physical Tokens & 2FA
-### Biometrics
-#### The Revocation Problem
-
+## Outline
+- Entropy
+        - Example
+    - Key Sweeper
+    - Password Hashing
+        - Hash Cracking Algorithm
+    - Physical Tokens & 2FA
+    - Biometrics
+        - The Revocation Problem
+## Practice Qs
 # 08. DNS, ARP & Application Protocols
-## Address Resolution
-### DNS Resolvers
-##### DNS Uncached Response
-#### DNS Caching
-##### DNS Cached Response
-### DNS Cache Poisoning (Spoofing)
-#### Defence
-### DNS Hijacking
-### ARP
-### ARP Poisoning (Spoofing)
-## Remote Access
-### Banner Grabbing Attack
-### Sniffing a telnet session
-# Output
-#### Fix: Secure SHell (SSH)
-### Fix: Secure SHell (SSH)
-#### Man In The Middle Attacks
-#### Sending emails: SMTP
-#### Receiving emails
-#### SSH mitigation
-##### `ssh -f -N -L 5678:localhost:110 mailhost`
-#### Better Approaches
-### STRIPTLS Attack
-
+## Outline
+- Address Resolution
+    - DNS Resolvers
+            - DNS Uncached Response
+        - DNS Caching
+            - DNS Cached Response
+    - DNS Cache Poisoning (Spoofing)
+        - Defence
+    - DNS Hijacking
+    - ARP
+    - ARP Poisoning (Spoofing)
+- Remote Access
+    - Banner Grabbing Attack
+    - Sniffing a telnet session
+        - Fix: Secure SHell (SSH)
+    - Fix: Secure SHell (SSH)
+        - Man In The Middle Attacks
+        - Sending emails: SMTP
+        - Receiving emails
+        - SSH mitigation
+        - Better Approaches
+    - STRIPTLS Attack
+## Practice Qs
 # 09. Execution Monitoring (EM)
-## OS-Based Software Security
-#### Example
-### Which policies are enforceable?
-## Characterising EM Mechanisms
-### Example 1: Mutual Exclusion of Semaphore Locks in Memory
-#### Representing the states
-### Example 2: Simple Running Program
-### Defining Enforceable Policies
-### Takeaway
-
+## Outline
+- OS-Based Software Security
+        - Example
+    - Which policies are enforceable?
+- Characterising EM Mechanisms
+    - Example 1: Mutual Exclusion of Semaphore Locks in Memory
+        - Representing the states
+    - Example 2: Simple Running Program
+    - Defining Enforceable Policies
+    - Takeaway
+## Practice Qs
 # 10. Example Safety
-
+## Outline
+## Practice Qs
 # 11. Firewalls
-## Definition
-### Example
-| Rule # |     Source     |   Destination   | Protocol | Port |     Action     |
-#### Challenges
-## Model and Notation
-### Mail Server Firewall Example
-##### Initial Rules
-#### Problems
-#### Fixed Rules
-#### Model and Notation (continued)
-## Firewall Decision Diagram (FDD)
-### Example
-### Results: Rules
-#### Theorem of FDDs
-## Reducing The Number of Rules
-### Isomorphic Nodes
-#### Reduced FDD Definition
-### Algorithm 1: Reduced FDD
-#### Steps (Repeat until satisfied)
-### Algorithm 2: FDD Marking (ordering)
-#### What does this marked version look like?
-#### Steps (Recursive)
-### Algorithm 2.5: Minimal Load Marked FDD
-#### Steps (repeat)
-### Algorithm 3: Firewall Generation
-#### Steps#
-#### Example
-#### Matching and Resolving Predicates
-### Algorithm 4: Firewall Compaction
-### Algorithm 5: Firewall Simplification
+## Outline
+- Definition
+    - Example
+        - Challenges
+- Model and Notation
+    - Mail Server Firewall Example
+            - Initial Rules
+        - Problems
+        - Fixed Rules
+        - Model and Notation (continued)
+- Firewall Decision Diagram (FDD)
+    - Example
+    - Results: Rules
+        - Theorem of FDDs
+- Reducing The Number of Rules
+    - Isomorphic Nodes
+        - Reduced FDD Definition
+    - Algorithm 1: Reduced FDD
+        - Steps (Repeat until satisfied)
+    - Algorithm 2: FDD Marking (ordering)
+        - What does this marked version look like?
+        - Steps (Recursive)
+    - Algorithm 2.5: Minimal Load Marked FDD
+        - Steps (repeat)
+    - Algorithm 3: Firewall Generation
+        - Steps#
+        - Example
+        - Matching and Resolving Predicates
+    - Algorithm 4: Firewall Compaction
+    - Algorithm 5: Firewall Simplification
+## Practice Qs
