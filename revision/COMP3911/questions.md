@@ -496,7 +496,7 @@ This principle ensures **security mechanisms** are traceable to specific, identi
         - ‘Secure From Day One’
     - Run-time Fault Injection
 ## Practice Qs
-### Practice Question 1: Vulnerability Lifecycle & Disclosures
+### Question 1: Vulnerability Lifecycle & Disclosures
 This question covers the vulnerability lifecycle, responsible disclosure, and scoring systems.
 
 **(a)** A security researcher discovers a critical buffer overflow in a widely used web server software. They email full exploit details to the vendor but also immediately publish a blog post with proof-of-concept code.
@@ -540,7 +540,7 @@ This question covers the vulnerability lifecycle, responsible disclosure, and sc
 2. **Structured Recognition & Trust:** Offers a clear, safe, and legal channel for engagement, granting researchers **acknowledgement** (e.g., hall of fame) and building a trusted relationship with the company's security team.
 
 ---
-### Practice Question 2: QA Techniques & Static Analysis
+### Question 2: QA Techniques & Static Analysis
 This question focuses on quality assurance techniques for finding vulnerabilities and their limitations.
 
 **(a)** A development team implements **peer code review** for security.
@@ -588,7 +588,7 @@ This question focuses on quality assurance techniques for finding vulnerabilitie
 (ii) Simulating **insufficient memory (out-of-memory errors)** or **network disconnection** during a critical transaction.
 
 ---
-### Practice Question 3: Secure Development & Fault Models
+### Question 3: Secure Development & Fault Models
 This question integrates threat modelling into the development lifecycle and applies fault models.
 
 **(a)** The principle **"Secure From Day One"** advocates integrating security early.
@@ -655,7 +655,7 @@ It tests if **security controls** fail gracefully or catastrophically under stre
     - Resurrecting Duckling Model
     - Other
 ## Practice Qs
-### Practice Question 1: Policy, Mechanism, & Middleware
+### Question 1: Policy, Mechanism, & Middleware
 This question tests understanding of the core concepts of security policies and their implementation.
 
 **(a)** For a system designed to prevent data exfiltration via USB drives, define the **Policy**, **Mechanism**, and **Middleware** components in this context.
@@ -704,7 +704,7 @@ This question tests understanding of the core concepts of security policies and 
 (ii) A **death** event: explicit reset, power cycle, or timeout of the secure session.
 
 ---
-### Practice Question 2: Bell-LaPadula (BLP) Model & Lattices
+### Question 2: Bell-LaPadula (BLP) Model & Lattices
 This question applies the formal properties and lattice structures of the BLP model.
 
 **(a)** In the **Bell-LaPadula (BLP)** model:
@@ -757,7 +757,7 @@ Show your reasoning.
 The **Lowest Upper Bound (LUB)** property would be violated. The pair \(A\) and \(C\) would have no **join** in the set, as their natural LUB \((\text{TopSecret}, \{\text{Crypto, Nuclear}\})\) is missing. Not all pairs would have a LUB, so the structure is no longer a **lattice**.
 
 ---
-### Practice Question 3: Chinese Wall & Model Selection
+### Question 3: Chinese Wall & Model Selection
 This question focuses on the Chinese Wall model and selecting appropriate policy models.
 
 **(a)** The **Chinese Wall (CW)** model is designed to prevent conflicts of interest.
@@ -805,7 +805,7 @@ This question focuses on the Chinese Wall model and selecting appropriate policy
     - Phishing via Homograph Attacks
     - Malicious URLs e.g., Directory Traversal
 ## Practice Qs
-### Practice Question 1: Input Validation & SQL Injection
+### Question 1: Input Validation & SQL Injection
 This question covers core principles of input validation and SQL injection prevention.
 
 **(a)** A developer proposes to prevent SQL injection by "filtering out all single quotes (') from user input before using it in a query."
@@ -852,7 +852,7 @@ Filtering quotes is inadequate because SQL injection can be performed without th
 (ii) **Punycode** encoding in browsers can be used to display the **internationalised domain name (IDN)** in its encoded ASCII form (e.g., `xn--80ak6aa92e.com`), making spoofing obvious.
 
 ---
-### Practice Question 2: Advanced Injection & Data Flow
+### Question 2: Advanced Injection & Data Flow
 This question deals with more complex injection scenarios and secure data handling.
 
 **(a)** A malicious URL is crafted as: `https://goodsite.com@evilsite.com/phishing`.
@@ -893,7 +893,7 @@ This question deals with more complex injection scenarios and secure data handli
 **Input validation** at **choke points** is a critical layer, but it can have flaws (e.g., logic errors, missed edge cases). **Defence-in-depth** means also using **prepared statements** (for SQL), **canonicalisation** (for paths), and **principle of least privilege** (for OS commands). If validation fails, other layers should still prevent exploitation.
 
 ---
-### Practice Question 3: Practical Defences & Case Study
+### Question 3: Practical Defences & Case Study
 This question applies the concepts to a practical scenario and evaluates defences.
 
 **(a)** A content management system (CMS) has a plugin that allows image uploads. The plugin code uses:
@@ -961,7 +961,7 @@ The principle **"reluctance to trust"** mandates treating all external input as 
         - When to validate?
         - Comparison with older OWASP Top 10s
 ## Practice Qs
-### Practice Question 1: Session Management & HTTPS
+### Question 1: Session Management & HTTPS
 This question covers web session security and transport layer protections.
 
 **(a)** HTTP is stateless, so web applications use **sessions**.
@@ -1013,7 +1013,7 @@ This question covers web session security and transport layer protections.
 (ii) **Validate and whitelist** allowable redirect URLs on the server-side, or use a mapping of internal tokens to approved URLs (avoid direct user input).
 
 ---
-### Practice Question 2: XSS & HTML Injection
+### Question 2: XSS & HTML Injection
 This question focuses on Cross-Site Scripting attacks and their prevention.
 
 **(a)** **Cross-Site Scripting (XSS)** is a major web vulnerability.
@@ -1065,7 +1065,7 @@ This question focuses on Cross-Site Scripting attacks and their prevention.
 (ii) If the Markdown parser itself has a vulnerability (e.g., allowing unsanitised HTML passthrough), or if it supports **dangerous features** like `javascript:` links, XSS may still be possible.
 
 ---
-### Practice Question 3: CSRF, XML, & OWASP Trends
+### Question 3: CSRF, XML, & OWASP Trends
 This question covers CSRF, XML attacks, and evolving web vulnerability landscapes.
 
 **(a)** **Cross-Site Request Forgery (CSRF/XSRF)** exploits the browser's automatic sending of session credentials.
@@ -1127,7 +1127,7 @@ An attacker tricks a logged-in user to visit a page containing:
     - Biometrics
         - The Revocation Problem
 ## Practice Qs
-### Practice Question 1: Entropy & Password Strength
+### Question 1: Entropy & Password Strength
 This question tests the calculation and interpretation of password entropy.
 
 **(a)** **Entropy** is a measure of uncertainty or randomness in a secret.
@@ -1170,7 +1170,7 @@ The 6-character password is stronger by approximately **14.91 bits**.
 (ii) Use a **wireless keyboard that employs strong encryption** (e.g., AES) for the keystroke signal, or use a **wired keyboard** for sensitive input.
 
 ---
-### Practice Question 2: Password Hashing & Salting
+### Question 2: Password Hashing & Salting
 This question focuses on secure password storage and attacks against hashes.
 
 **(a)** It is standard practice to store a **hash** of a password, not the password itself.
@@ -1228,7 +1228,7 @@ for user in stolen_file:
 A **global salt** (even if long and unique) still allows an attacker to precompute a single **rainbow table** for that salt, or to attack all hashes in the database in a **single pass** after computing hashes once. **Per-user salts** force a **separate attack per user**, providing **defence in depth**.
 
 ---
-### Practice Question 3: Multi-Factor & Biometric Authentication
+### Question 3: Multi-Factor & Biometric Authentication
 This question evaluates authentication factors and the unique challenges of biometrics.
 
 **(a)** Authentication can be based on **something you know**, **something you have**, or **something you are**.
@@ -1304,7 +1304,7 @@ C. **Hardware security key (e.g., YubiKey)**
         - Better Approaches
     - STRIPTLS Attack
 ## Practice Qs
-### Practice Question 1: DNS & ARP Spoofing
+### Question 1: DNS & ARP Spoofing
 This question covers DNS and ARP resolution attacks and their defences.
 
 **(a)** **DNS** and **ARP** are both resolution protocols.
@@ -1354,7 +1354,7 @@ This question covers DNS and ARP resolution attacks and their defences.
 **DNS hijacking** involves compromising the **DNS resolver itself** (e.g., via malware or registrar attack) to control responses. **DNS cache poisoning** involves **forging a response** to a legitimate resolver without directly compromising it.
 
 ---
-### Practice Question 2: Remote Access & Protocol Security
+### Question 2: Remote Access & Protocol Security
 This question examines insecure legacy protocols, attacks like banner grabbing, and the role of SSH.
 
 **(a)** **Banner grabbing** is an information-gathering technique.
@@ -1405,7 +1405,7 @@ This question examines insecure legacy protocols, attacks like banner grabbing, 
 (ii) **Dedicated secure ports** (e.g., 993) are more resilient. STARTTLS is vulnerable to **downgrade attacks** (like STRIPTLS) where the MITM strips the STARTTLS command. A dedicated port *implicitly* expects TLS, making such interception more obvious or impossible if the port is blocked without TLS.
 
 ---
-### Practice Question 3: SSH, MITM, & Protocol Evolution
+### Question 3: SSH, MITM, & Protocol Evolution
 This question delves into SSH mechanics, MITM risks, and the evolution of secure application protocols.
 
 **(a)** **SSH** uses a combination of cryptographic techniques.
@@ -1468,7 +1468,7 @@ B. The encryption of the session data.
     - Defining Enforceable Policies
     - Takeaway
 ## Practice Qs
-### Practice Question 1: Foundational Concepts & Enforceability
+### Question 1: Foundational Concepts & Enforceability
 This question establishes the core definitions and examines which policies are enforceable.
 
 **(a)** In the context of **Execution Monitoring (EM)**, a **security policy** defines acceptable system behaviour.
@@ -1510,7 +1510,7 @@ The statement means that the policy **P** holds for the entire set of executions
 (ii) **Not enforceable** by a standard EM mechanism. An EM mechanism observes **single execution sequences** and can abort based on a violating prefix within that sequence. An average response time is a **global, statistical property** across many requests over time, which cannot be determined or enforced by monitoring a single, finite execution in isolation.
 
 ---
-### Practice Question 2: Safety, Liveness & State Analysis
+### Question 2: Safety, Liveness & State Analysis
 This question uses the mutual exclusion example to analyse safety/liveness and state transitions.
 
 **(a)** For the **mutual exclusion** policy:
@@ -1565,7 +1565,7 @@ C. `< (1,0), (1,0) >`
 An abort-based EM mechanism is **not useful** for ensuring "successful termination" (a liveness property). It can only **prevent** bad things (safety violations) from happening within the finite execution observed. It cannot **force** the program to progress to a termination state. However, it could be argued it is useful in a negative sense: it can abort if it detects an infinite loop or deadlock (if detectable via a finite prefix), but this is not general enforcement of liveness.
 
 ---
-### Practice Question 3: Policy Analysis & EM Limitations
+### Question 3: Policy Analysis & EM Limitations
 This question involves analysing different policies for their classification and enforceability.
 
 **(a)** For each of the following proposed security policies, **classify** it as primarily a **Safety (S)**, **Liveness (L)**, or **Neither/Other (N)** property. **Justify** each classification in one sentence.
@@ -1608,7 +1608,7 @@ This question involves analysing different policies for their classification and
 A **property** is a predicate that is **definitively true or false for each individual execution sequence**. A policy like "average response time < 100ms" is **not a property** because its truth value cannot be assigned to a single execution—it depends on the **aggregate of many executions** over time. Therefore, it is a policy that is **not** a formal property and is not enforceable by monitoring single executions.
 
 ---
-### Practice Question 4: EM Mechanisms & the Prefix Property
+### Question 4: EM Mechanisms & the Prefix Property
 This question explores the technical limits of EM based on the concept of execution prefixes and the classes of enforceable policies.
 
 **(a)** An **Execution Monitoring (EM) mechanism** observes a target system's execution sequence.
@@ -1649,7 +1649,7 @@ This question explores the technical limits of EM based on the concept of execut
 A **scheduler-integrated monitor** that, upon detecting that a process has been in the "requesting" state for an *unreasonably long* time (suggesting potential starvation), could **intervene** by **temporarily elevating the priority** of that process or **forcing a resource grant**, rather than just aborting. This extends the EM mechanism's capability from pure prevention to active remediation.
 
 ---
-### Practice Question 5: Formal Modelling & Policy Satisfaction
+### Question 5: Formal Modelling & Policy Satisfaction
 This question involves working with the formal notation of executions, policies, and target systems.
 
 **(a)** Let \( E \) be the set of all possible finite and infinite execution sequences of a system. Let \( T \) be a specific target system. Let \( P \) be a policy.
@@ -1725,3 +1725,286 @@ For monitoring, we need a clear rule to abort. 1. A policy must first be a well-
     - Algorithm 4: Firewall Compaction
     - Algorithm 5: Firewall Simplification
 ## Practice Qs
+### Question 1: Firewall Rules & Core Problems
+This question tests understanding of basic firewall concepts, rule analysis, and the three core problems.
+
+**(a)** A firewall processes packets as 5-tuples: (Interface, Source IP, Destination IP, Destination Port, Protocol). It uses the following rules in order:
+1. `(I=0) ∧ (S=any) ∧ (D=Web_Server) ∧ (N=443) ∧ (P=TCP) → accept`
+2. `(I=0) ∧ (S∈Blacklist) ∧ (D=any) ∧ (N=any) ∧ (P=any) → discard`
+3. `(I=1) ∧ (S=any) ∧ (D=any) ∧ (N=any) ∧ (P=any) → accept`
+4. `(I=any) ∧ (S=any) ∧ (D=any) ∧ (N=any) ∧ (P=any) → accept`
+
+(i) A packet arrives from a **Blacklist** IP to the **Web_Server** on port **443**. **Deduce** its fate (accept/discard) and explain which rule determines this.
+(ii) **Identify** which of the three core firewall problems (Consistency, Completeness, Compactness) is demonstrated by this interaction between rules 1 and 2.
+**[6 marks]**
+
+**(b)** **Define** the following terms in the context of a firewall rule list:
+(i) Two rules **overlap**.
+(ii) Two rules **conflict**.
+(iii) A rule is **redundant**.
+**[6 marks]**
+
+**(c)** For the rule list in part (a):
+(i) **Identify** a **completeness** problem. Describe a *type of packet* that the default rule (4) would handle, but which should likely be denied for security reasons.
+(ii) Propose a **new rule** to fix this problem and state where it should be inserted.
+**[6 marks]**
+
+**(d)** Rule 3 in the list accepts all outgoing traffic from the private network (I=1).
+(i) **Explain** why rule 3 is **redundant** in the presence of rule 4.
+(ii) **State** the impact of this redundancy on firewall **performance**.
+**[4 marks]**
+
+**(e)** The number of possible orderings for N firewall rules is N! (factorial). **Explain** why this combinatorial explosion makes designing a correct, efficient rule list by manual trial-and-error practically impossible for large N.
+**[3 marks]**
+
+---
+#### Model Solution
+**(a)** _(4 marks for i, 2 for ii)_
+(i) **Accepted.** The packet matches rule 1's predicate (I=0, D=Web_Server, N=443, P=TCP) *and* rule 2's predicate (I=0, S∈Blacklist). Because rule 1 is first and has decision `accept`, the packet is accepted.
+(ii) **Consistency Problem.** Rules 1 and 2 **conflict** (they overlap on this packet and have different decisions). The order is critical and may lead to an unintended security policy (allowing malicious traffic).
+
+**(b)** _(2 marks per definition)_
+(i) **Overlap:** There exists at least one packet that matches the predicates of both rules.
+(ii) **Conflict:** The rules overlap **and** have different decisions (`accept` vs `discard`).
+(iii) **Redundant:** Removing the rule does **not change the decision** of the firewall for any possible packet.
+
+**(c)** _(3 marks per part)_
+(i) **Completeness Problem:** The default rule accepts *any* packet not caught earlier. For example, a packet `(I=0, S=any, D=Web_Server, N=80, P=TCP)` (HTTP to web server) would be accepted by rule 4. This is problematic if the web server should only serve HTTPS (port 443), as HTTP traffic could be malicious or indicative of misconfiguration.
+(ii) **New Rule:** `(I=0) ∧ (S=any) ∧ (D=Web_Server) ∧ (N=80) ∧ (P=TCP) → discard`. Insert it **immediately after rule 1** to take precedence over the default rule.
+
+**(d)** _(2 marks per part)_
+(i) Any packet matching rule 3 (I=1) **also** matches rule 4 (I=any). Since both rules have the same decision (`accept`), rule 3 has no effect; packets from I=1 will be accepted by rule 4 if rule 3 is removed.
+(ii) It causes **unnecessary processing** (low-level performance overhead) as the firewall checks rule 3 before reaching rule 4. It also increases the **size** of the rule set, which is critical for hardware (TCAM) firewalls with limited space and higher power consumption per rule.
+
+**(e)** _(3 marks for explanation)_
+The search space for the correct order grows **factorially** with N. For N=10, there are 3.6 million orderings; for N=20, ≈2.4×10¹⁸. Manually evaluating even a tiny fraction for correctness, consistency, and completeness is infeasible. This necessitates **structured design methods** (like FDDs) and automated analysis tools.
+
+---
+### Question 2: Firewall Decision Diagrams (FDDs)
+This question covers the structure, properties, and interpretation of FDDs.
+
+**(a)** A **Firewall Decision Diagram (FDD)** is defined over packet fields \(F_1 ... F_n\).
+(i) **State** the two possible labels for a **terminal node**.
+(ii) For a **non-terminal node** labelled with field \(F_i\), what must be true about the sets \(I(e)\) labelling its outgoing edges \(e\)? Provide **two** conditions.
+**[5 marks]**
+
+**(b)** Consider the following FDD fragment for fields \(F_1, F_2\) with domains {1..10}:
+*   Root node `v1` labelled \(F_1\).
+*   From `v1`, edge labelled {1,2,3} points to node `v2` (labelled \(F_2\)).
+*   From `v1`, edge labelled {4,5,6,7,8,9,10} points to terminal node `d` (discard).
+*   From `v2`, edge labelled {1,2} points to terminal node `a` (accept).
+*   From `v2`, edge labelled {3,4,5,6,7,8,9,10} points to terminal node `d`.
+(i) For a packet \((F_1=2, F_2=4)\), **trace** the path through the FDD and state the final decision.
+(ii) **List** the **decision path** for the packet that results in `accept`.
+**[8 marks]**
+
+**(c)** The **Theorem of FDDs** states: for any FDD \(f\),
+1. \(f\).accept \(\cap\) \(f\).discard = \(\emptyset\).
+2. \(f\).accept \(\cup\) \(f\).discard = \(\Sigma\).
+**Explain** what each part of this theorem guarantees about the firewall policy represented by the FDD. Use the terms **consistency** and **completeness**.
+**[4 marks]**
+
+**(d)** **Explain** the relationship between an FDD and a firewall rule list. Specifically, how does the **number of decision paths** in an FDD relate to the **number of rules** in an equivalent firewall?
+**[3 marks]**
+
+**(e)** In the FDD from part (b), are the two terminal nodes `a` and `d` **isomorphic**? Justify your answer using the definition of isomorphic nodes.
+**[5 marks]**
+
+---
+#### Model Solution
+**(a)** _(2 marks for i, 3 for ii - 1.5 per condition)_
+(i) `accept` or `discard`.
+(ii) 1. **Consistency:** For any two distinct edges \(e, e'\), \(I(e) \cap I(e') = \emptyset\) (no overlapping values).
+2. **Completeness:** \(\bigcup_{e \in E(v)} I(e) = D(F_i)\) (the union of all edge labels covers the entire domain of field \(F_i\)).
+
+**(b)** _(4 marks for i, 4 for ii)_
+(i) Packet (F1=2, F2=4).
+- At `v1` (F1): 2 ∈ {1,2,3} → follow edge to `v2`.
+- At `v2` (F2): 4 ∈ {3,4,5,6,7,8,9,10} → follow edge to terminal node `d`.
+**Decision: discard.**
+(ii) **Decision path for `accept`:** \(\langle v_1, e_1, v_2, e_2, a \rangle\) where:
+- \(v_1\) is F1 node.
+- \(e_1\) is edge with \(I(e_1) = \{1,2,3\}\).
+- \(v_2\) is F2 node.
+- \(e_2\) is edge with \(I(e_2) = \{1,2\}\).
+- \(a\) is accept terminal node.
+The corresponding condition is \(F_1 \in \{1,2,3\} \land F_2 \in \{1,2\} \rightarrow \text{accept}\).
+
+**(c)** _(2 marks per part)_
+1. Guarantees **Consistency:** No packet can be classified as both `accept` and `discard`. The sets of packets leading to each decision are **disjoint**.
+2. Guarantees **Completeness:** Every possible packet in \(\Sigma\) (the universe of all packets) is classified as either `accept` or `discard`. There are no "holes" or unclassified packets.
+
+**(d)** _(3 marks for explanation)_
+Each **decision path** from the root to a terminal node in an FDD corresponds to **exactly one firewall rule**. The predicate of the rule is the conjunction of the field constraints defined by the edges on the path. Therefore, the **number of rules** in an equivalent firewall equals the **number of decision paths** in the FDD.
+
+**(e)** _(5 marks for correct justification)_
+**No.** According to the definition, two terminal nodes are isomorphic **iff** they have **identical labels**. Node `a` is labelled `accept`, and node `d` is labelled `discard`. These labels are **not identical**, therefore the nodes are **not isomorphic**.
+
+---
+### Question 3: FDD Reduction & Isomorphism
+This question focuses on Algorithm 1 for reducing an FDD by removing single-edge nodes and merging isomorphic nodes.
+
+**(a)** **Isomorphic nodes** are central to FDD reduction.
+(i) **State** the condition for two **terminal nodes** to be isomorphic.
+(ii) **State** the condition for two **non-terminal nodes** (labelled with fields) to be isomorphic.
+**[4 marks]**
+
+**(b)** An FDD is **reduced** iff it satisfies three conditions.
+**List** these three conditions.
+**[3 marks]**
+
+**(c)** Consider the following FDD fragment:
+- Node \(u\) (labelled \(F_1\)) has a **single outgoing edge** labelled {1,2,3} pointing to node \(w\) (labelled \(F_2\)).
+- Node \(w\) has two outgoing edges: {1}→`accept` and {2,3}→`discard`.
+Apply **Algorithm 1, Step 1** to this fragment.
+(i) **Describe** the transformation.
+(ii) Draw or describe the resulting structure **after** the step.
+**[5 marks]**
+
+**(d)** Consider a different FDD fragment:
+- Node \(x\) (labelled \(F_2\)) has edges: {1,2}→`accept`, {3,4}→`accept`, {5}→`discard`.
+- Node \(y\) (labelled \(F_2\)) has edges: {1,2}→`accept`, {3,4}→`accept`, {5}→`discard`.
+Nodes \(x\) and \(y\) are isomorphic.
+(i) **Apply** **Algorithm 1, Step 2** (merging isomorphic nodes). Describe the action.
+(ii) What is the impact of this step on the total **number of nodes** and **number of decision paths** in the FDD?
+**[6 marks]**
+
+**(e)** **Explain** the purpose of **Algorithm 1, Step 3**, which merges multiple edges between the same pair of nodes. How does this step contribute to producing a **reduced FDD**?
+**[4 marks]**
+
+---
+#### Model Solution
+**(a)** _(2 marks per part)_
+(i) Two terminal nodes are isomorphic **iff** they have the **same label** (both `accept` or both `discard`).
+(ii) Two non-terminal nodes \(v\) and \(v'\) are isomorphic **iff** 1. They are labelled with the **same field** \(F(v)=F(v')\), and 2. There is a **one-to-one correspondence** between their outgoing edges such that corresponding edges have **identical labels** \(I(e)\) and point to **isomorphic** child nodes.
+
+**(b)** _(1 mark per condition)_
+1. No node has only **one outgoing edge**.
+2. No **two nodes** are isomorphic.
+3. No **two edges** connect the same pair of nodes.
+
+**(c)** _(3 marks for i, 2 for ii)_
+(i) Step 1 removes node \(u\) and its single outgoing edge. The parent(s) of \(u\) will now have their edges pointing directly to \(w\) instead.
+(ii) **Result:** The parent(s) of \(u\) now have an edge labelled {1,2,3} pointing directly to node \(w\) (F2). Node \(u\) and its edge are deleted.
+
+**(d)** _(4 marks for i, 2 for ii)_
+(i) Step 2 removes node \(y\) and all its outgoing edges. Any edge(s) that previously pointed to \(y\) are **redirected** to point to \(x\) instead.
+(ii) **Impact:** The **number of nodes** decreases by 1 (and associated edges are removed/redirected). The **number of decision paths** remains **unchanged** because the logical mapping from packets to decisions is preserved; the structure is simply consolidated.
+
+**(e)** _(4 marks for explanation)_
+Step 3 merges two edges \(e\) and \(e'\) between the same nodes \(v\) and \(v'\) into a **single edge** \(e''\) with label \(I(e'') = I(e) \cup I(e')\). This contributes to a **reduced FDD** by eliminating redundant structural complexity (multiple edges representing disjoint subsets of the same field's domain). It ensures the **"no two edges between the same pair of nodes"** condition is met, simplifying the graph without changing its semantic function.
+
+---
+### Question 4: FDD Marking & Load Calculation
+This question covers Algorithm 2 (Marking) and the calculation of load for generating efficient simple rules.
+
+**(a)** A **marked FDD** is identical to a base FDD except for one addition.
+(i) **What** is added to exactly one outgoing edge of each non-terminal node?
+(ii) **State** the purpose of creating a marked FDD in the structured firewall design process.
+**[4 marks]**
+
+**(b)** The **load** of a non-empty set of integers \(S\), \(load(S)\), is defined.
+(i) **Define** \(load(S)\).
+(ii) **Calculate** \(load(\{1, 3, 4, 5, 7, 8, 9\})\).
+**[4 marks]**
+
+**(c)** The load of an **edge** \(e\) in a marked FDD is:
+\[
+load(e) = \begin{cases}
+1 & \text{if } e \text{ is marked "all"} \\
+load(I(e)) & \text{otherwise}
+\end{cases}
+\]
+The load of a **node** \(v\) is defined recursively.
+(i) What is \(load(v)\) if \(v\) is a **terminal node**?
+(ii) If \(v\) is a non-terminal node with \(k\) outgoing edges \(e_1...e_k\) pointing to nodes \(v_1...v_k\), state the formula for \(load(v)\).
+**[4 marks]**
+
+**(d)** Consider a non-terminal node \(v\) (field \(F\)) with two outgoing edges:
+- Edge \(e_1\): label {1,2,3}, points to node \(v_1\) where \(load(v_1)=2\).
+- Edge \(e_2\): marked "all", points to node \(v_2\) where \(load(v_2)=1\).
+Assume \(D(F) = \{1,2,3,4,5\}\).
+(i) **Calculate** \(load(e_1)\) and \(load(e_2)\).
+(ii) **Calculate** \(load(v)\). Show your working.
+**[6 marks]**
+
+**(e)** **Algorithm 2.5** aims to find a marked FDD with **minimum load**.
+(i) **Explain** why minimizing the load of the **root node** is the objective.
+(ii) **Describe** the high-level strategy of the algorithm: how does it decide which edge of a node to mark as "all"?
+**[7 marks]**
+
+---
+#### Model Solution
+**(a)** _(2 marks per part)_
+(i) A mark of **"all"**.
+(ii) To **order the traversal** of edges during firewall rule generation (Algorithm 3). The "all" edge is traversed last, which minimizes the number of resulting **simple rules** derived from the FDD.
+
+**(b)** _(2 marks per part)_
+(i) \(load(S)\) is the **minimum number of non-overlapping integer intervals** whose union equals \(S\).
+(ii) \(S = \{1, 3, 4, 5, 7, 8, 9\}\). Intervals: [1,1], [3,5], [7,9]. **\(load(S) = 3\)**.
+
+**(c)** _(2 marks per part)_
+(i) \(load(v) = 1\) for a terminal node.
+(ii) \(load(v) = \sum_{i=1}^{k} (load(e_i) \times load(v_i))\).
+
+**(d)** _(3 marks per part)_
+(i) - \(load(e_1) = load(\{1,2,3\})\). {1,2,3} is a single interval [1,3], so \(load(e_1)=1\).
+- \(load(e_2) = 1\) (because it is marked "all").
+(ii) \(load(v) = (load(e_1) \times load(v_1)) + (load(e_2) \times load(v_2)) = (1 \times 2) + (1 \times 1) = 2 + 1 = 3\).
+
+**(e)** _(4 marks for i, 3 for ii)_
+(i) The load of the **root node** is defined as the **load of the entire marked FDD**. Since the number of generated **simple rules** is equal to this load, minimizing the root's load directly minimizes the firewall's rule count.
+(ii) The algorithm works **bottom-up**. For each non-terminal node, it calculates the load for each possible choice of which outgoing edge to mark "all". It then **marks the edge whose selection results in the smallest load for that node**. This greedy/local choice, applied recursively, aims to produce the globally minimal load FDD.
+
+---
+### Question 5: Rule Generation & Firewall Compaction
+This question covers generating rules from a marked FDD (Algorithm 3) and the concept of rule redundancy (Algorithm 4).
+
+**(a)** **Algorithm 3** generates firewall rules from a marked FDD via a depth-first traversal.
+(i) **State** the traversal rule regarding the edge marked **"all"** at each node.
+(ii) Each produced rule corresponds to one ______? (Complete the sentence).
+**[4 marks]**
+
+**(b)** From a marked FDD, a decision path is:
+\(\langle v_1(F_1), e_1(\{2,3\}), v_2(F_2), e_2(\text{"all"}), v_3(\text{discard}) \rangle\).
+Domains: \(D(F_1)=\{1..10\}, D(F_2)=\{1..10\}\).
+**Write** the firewall rule \(r\) generated from this path. Use the format: \(F_1 \in S_1 \land F_2 \in S_2 \rightarrow \text{decision}\).
+**[4 marks]**
+
+**(c)** For a generated rule \(r\), we define \(r.mp\) (matching predicate) and \(r.rp\) (resolving predicate).
+(i) **Explain** the purpose of the **resolving predicate** \(r.rp\) in the context of detecting redundant rules.
+(ii) In the rule from part (b), would \(r.rp\) be **different** from \(r.mp\)? Justify your answer.
+**[6 marks]**
+
+**(d)** **Algorithm 4** (Firewall Compaction) removes redundant rules.
+(i) **Define** a **redundant rule** in terms of its \(r.mp\) and the \(r.rp\) of rules preceding it in the list.
+(ii) **Explain** why removing redundant rules is important for firewall implementations using **TCAM**.
+**[6 marks]**
+
+**(e)** Consider two consecutive rules in a generated firewall:
+\(r_i: F_1 \in [1,5] \land F_2 \in [1,10] \rightarrow \text{accept}\)
+\(r_{i+1}: F_1 \in [6,10] \land F_2 \in [1,10] \rightarrow \text{accept}\)
+Could these two rules be **combined** into a single, simpler rule without changing firewall semantics? If yes, give the combined rule.
+**[5 marks]**
+
+---
+#### Model Solution
+**(a)** _(2 marks per part)_
+(i) At each non-terminal node, **all non-"all" edges are traversed first**, then the edge marked "all" is traversed last.
+(ii) Each produced rule corresponds to one **decision path** from the root to a terminal node.
+
+**(b)** _(4 marks for correct rule)_
+\(r: F_1 \in \{2,3\} \land F_2 \in \{1,2,3,4,5,6,7,8,9,10\} \rightarrow \text{discard}\).
+*(Or \(F_2 \in [1,10]\))*.
+
+**(c)** _(3 marks per part)_
+(i) The **resolving predicate** \(r.rp\) defines the **set of packets for which rule \(r\) is the *first* matching rule**. It is \(r.mp\) **minus** the union of the matching predicates of all preceding rules. It identifies the rule's *actual effect*.
+(ii) **Yes, \(r.rp\) would be different.** Because \(e_2\) is marked "all", \(S_2\) in \(r.mp\) is the full domain \(D(F_2)\). However, \(r.rp\) would exclude any packets matched by rules generated from paths that took non-"all" edges from \(v_2\). This typically makes \(r.rp\)'s condition for \(F_2\) a **subset** of the full domain.
+
+**(d)** _(3 marks per part)_
+(i) A rule \(r_i\) is redundant if its **resolving predicate \(r_i.rp\) is empty**, meaning no packet has \(r_i\) as its first match. Equivalently, if \(r_i.mp\) is **completely covered** by the union of \(r_j.mp\) for all \(j < i\).
+(ii) **TCAM** (Ternary Content Addressable Memory) stores rules in hardware for fast matching. It has **limited size** and **high power consumption** proportional to the number of rules. Removing redundant rules **saves space** and **reduces power**, directly improving performance and cost.
+
+**(e)** _(5 marks: 1 for yes, 4 for combined rule)_
+**Yes.** The rules are contiguous and have the same decision. They can be combined by taking the union of their predicates for \(F_1\).
+**Combined Rule:** \(F_1 \in [1,10] \land F_2 \in [1,10] \rightarrow \text{accept}\).
