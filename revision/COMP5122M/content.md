@@ -120,3 +120,104 @@
     *   **Accuracy** (incorrect/implausible values).
     *   **Consistency** (format, units across sources).
 **Tool**: Python package `vizdataquality` to automate profiling tasks in Jupyter.
+# Lecture 3: Data Science Roadmap & Exploratory Data Analysis (EDA)
+
+## 3.1 Data Science Roadmap
+1.  **Frame Problem**: Define the objective and scope (e.g., predict Titanic survival).
+2.  **Understand Data**: Perform **data profiling** and **cleaning**.
+3.  **Extract Features**: Engineer or select relevant variables.
+4.  **Model and Analyse**: Apply **machine learning** algorithms.
+5.  **Present/Deploy**: Communicate results and deploy solution.
+
+## 3.2 Exploratory Data Analysis (EDA)
+> **EDA** is an attitude of flexibility aimed at discovering both expected and unexpected patterns in data. It is the "unboxing" of data.
+
+**Goal**: Develop hypotheses, understand data structure, and inform modelling choices using **visualisations** and **summary statistics**.
+
+**Example Context**: Titanic dataset (891 passengers, 12 features) for survival prediction.
+
+## 3.3 Key Python Libraries for EDA
+*   **Matplotlib**: Core plotting library. Powerful but has non-intuitive syntax.
+*   **Pandas**: Data manipulation. Provides high-level plotting wrappers around matplotlib.
+*   **NumPy**: Foundation for numerical computation (arrays, matrices).
+*   **Scikit-learn**: Machine learning library (algorithms, utilities, built-in datasets like **Iris**).
+
+## 3.4 Iris Dataset Example
+A built-in dataset for **classification** (predicting iris species).
+```python
+from sklearn.datasets import load_iris
+iris = load_iris()
+X = iris.data  # Feature matrix (150 samples, 4 features)
+y = iris.target  # Target vector (species: 0=setosa, 1=versicolor, 2=virginica)
+```
+**Key Steps**: Load data, inspect `shape`, `feature_names`, `target_names`, convert to Pandas DataFrame, use `.describe()` for summary statistics (mean, std, min, max, percentiles).
+
+## 3.5 Summary Statistics & Central Tendency
+*   **Central Tendency**: `mean` (average), `median` (middle value), `mode` (most frequent).
+*   **Variability**: `variance` (average squared deviation from mean), `standard deviation` (sqrt of variance), `quantiles` (e.g., 25th percentile = Q1, 75th percentile = Q3).
+*   **Robust Statistics**: Median and **interquartile range (IQR = Q3 - Q1)** are less sensitive to **outliers** than mean and standard deviation.
+*   **Outlier Handling**: Can filter using percentiles (e.g., remove data outside IQR) but context is critical (e.g., fraud detection requires keeping outliers).
+
+## 3.6 Key Visualisation Techniques
+
+### Pie Chart
+*   **Use Case**: Showing proportion of a whole for a **categorical variable**.
+*   **Data Type**: **Nominal** or **Ordinal**.
+*   **Example**: Breakdown of Iris species counts in the dataset.
+*   **Code**: `df.groupby('species').sum().plot(kind='pie')`
+
+### Bar Chart
+*   **Use Case**: Comparing quantities across **discrete categories**.
+*   **Data Type**: **Categorical** (Nominal/Ordinal) on one axis, **quantitative** on the other.
+*   **Example**: Average sepal width per Iris species.
+*   **Code**: `df.groupby('species').mean().plot(kind='bar')`
+
+### Histogram
+*   **Use Case**: Visualising the **distribution** of a single **continuous variable**.
+*   **Data Type**: **Quantitative** (Continuous or Discrete).
+*   **Example**: Distribution of petal lengths across all flowers.
+*   **Code**: `df['petal length (cm)'].plot(kind='hist')`
+
+### Box Plot
+*   **Use Case**: Summarising distribution and identifying **outliers**. Shows median, IQR (box), and whiskers (typically 1.5*IQR).
+*   **Data Type**: **Quantitative**.
+*   **Example**: Comparing sepal length distributions across species.
+*   **Code**: `df.pivot('ind', 'species')['sepal length (cm)'].plot(kind='box')`
+
+### Scatter Plot
+*   **Use Case**: Visualising relationship between **two continuous variables**.
+*   **Data Type**: **Quantitative** vs. **Quantitative**.
+*   **Enhancements**: Use `color`, `size`, `marker`, `alpha` (transparency) to encode additional dimensions (e.g., species).
+*   **Example**: Sepal length vs. sepal width, colored by species.
+*   **Code**: `df.plot(kind='scatter', x='sepal length (cm)', y='sepal width (cm)')`
+
+### Scatter Plot with Logarithmic Axes
+*   **Use Case**: Data spanning **orders of magnitude**. Reveals patterns obscured on a linear scale.
+*   **Data Type**: **Positive quantitative** data with wide range.
+*   **Example**: Crime rate vs. median home value (inverse relationship becomes clear on log scale).
+*   **Method**: Plot `log(data)` or set `ax.set_xscale('log')`.
+
+### Scatter Matrix (Pairs Plot)
+*   **Use Case**: Simultaneously visualising pairwise relationships between **multiple numeric features**.
+*   **Data Type**: **Quantitative**.
+*   **Output**: Grid of scatterplots and histograms.
+*   **Example**: Quick assessment of all feature relationships in the Iris dataset.
+
+### Heatmap
+*   **Use Case**: Visualising **density** or **intensity** in a 2D space, especially useful for large datasets where scatterplots become cluttered.
+*   **Data Type**: **Quantitative** density derived from two quantitative variables.
+*   **Example**: Density of data points in petal length vs. petal width space.
+
+### Time Series Plot
+*   **Use Case**: Analysing data points indexed in **time order** to identify trends, cycles, and anomalies.
+*   **Data Type**: **Quantitative** values over **time**.
+*   **Considerations**: Periodicity, overall trend, noise, spikes.
+*   **Transformations**: Log scale, **Fourier transform** for frequency analysis.
+*   **Example**: Atmospheric CO2 levels over years, showing yearly cycles and upward trend.
+
+## 3.7 Profiling Studies & Best Practices
+*   **Core Insight**: Profiling is often **ad-hoc and superficial**. A **structured workflow** (e.g., the 6-step guide) improves rigour.
+*   **Six-Step Workflow**: 1) Initial look, 2) Find special values, 3) Check missing data, 4) Inspect individual variables, 5) Check variable relationships, 6) Final characterisation.
+*   **Data Quality Dimensions**: Assess **Completeness** (missingness), **Accuracy** (valid, plausible values), **Consistency** (formats, units).
+*   **Visualisation for Profiling**: Underutilised for quality checks. Should be used more comprehensively.
+*   **Tool Support**: Python packages like `vizdataquality` can automate and formalise the profiling process.
