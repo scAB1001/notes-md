@@ -47,7 +47,7 @@ Four main types of controls:
 # 01. Threat Modelling pt. 1
 Threat modelling is the *process* of *identifying* the *possible threats* to a system. 
 It allows us to understand the capabilities of attackers and their threats which will endanger the security policies in place. This approach is cost-effective as it avoids mistakes/future threats that are alike.
-##### Bellovin’s Threat Matrix → ![[bellovin-threat-matrix.png]]
+*Bellovin’s Threat Matrix* → ![[bellovin-threat-matrix.png\|400]]
 #### Advanced Persistent Threats
 - Highly skilled attackers
 - Targeted and prolonged cyber-attack campaigns
@@ -155,7 +155,7 @@ So, diagramming mainly helps us to learn, in a systematic way, **where** we shou
 	- OR is *implicit*
 	- AND must be shown *explicitly*
 ##### Attack Tree Example ->
-![[attack-tree-ex.png]]
+![[attack-tree-ex.png\|400]]
 ### ### Risk Assessment: DREAD
 For each threat, estimate
 - **Damage** **potential**.
@@ -177,7 +177,7 @@ For each threat, estimate
 Ideally, every threat is mitigated either by design or implementation of the system.
 - Corollary: every security feature should address at least one threat from the threat model!
 - Rank unmitigated threats by risk and prioritise.
-![[attack-tree-paths-ex.png]]There are **four** attack paths because 1.1 and 1.2 must both be true.
+![[attack-tree-paths-ex.png\|400]]There are **four** attack paths because 1.1 and 1.2 must both be true.
 1. 1.1 AND 1.2.1
 2. 1.1 AND 1.2.2
 3. 1.3.1
@@ -196,7 +196,7 @@ A *Bug Bounty Program* is a structured environment where researchers investigate
 ### 0Day Attacks
 Those who are more morally questionable, use the vulnerability to attack the system. *Exploits* that are *actively* in use *before* any responsible disclosure has taken place are called *0day attacks*.
 ## The Vulnerability Cycle
-![[the-vulnerability-cycle.png]]
+![[the-vulnerability-cycle.png\|400]]
 1. Vulnerability discovered and disclosed
 2. Vulnerability used in an attack becoes an exploit and the search for fix begins.
 3. The exploit has caught the attention of the media, bad publicity ensues.
@@ -242,10 +242,10 @@ Often designed for C as the language is notorious for its exploits.
 - Flaw database must be maintained
 - Source code required
 ##### Testing != Security Testing
-![[testing-ne-security-testing.png]]
+![[testing-ne-security-testing.png\|400]]
 ### Whittaker’s Fault Model
 ##### Diagram
-![[whittaker-fault-model.png]]
+![[whittaker-fault-model.png\|400]]
 #### Testing
 When you are left final bugs, how can you prove that the piece of software is now secure?
 - Attack environmental dependencies
@@ -339,7 +339,7 @@ Given an appropriate set of security labels and the auxiliary functions:
 - **meet()**, which returns Greatest Lower Bound (GLB)
 
 This relation forms a lattice structure for data flow.
-![[img-lattice-security-model.png]]
+![[img-lattice-security-model.png\|400]]
 This is useful because it allows us to identify the minimum clearances need to allow data flow within a system.
 
 **Given two labels, *(Secret, {Crypto, Foregin})* and *(Top Secret, {Crypto})*, get the LUB and GLB.**
@@ -389,7 +389,7 @@ To transition between them:
 ## Input Validation
 Use prepared statements instead of filtering input data. Parameterised and reusable SQL queries are better for the developer.
 ### Tust Boundaries and Choke Points
-![[choke-points-ex.png]]
+![[choke-points-ex.png\|400]]
 Testing at choke points validates data throughout the structure flow.
 ### Phishing via Homograph Attacks
 Letters used from different but seemingly identical alphabets can be used to hide false websites.
@@ -583,11 +583,11 @@ This will allow you to create a new hash by modifying the revocable factor. Like
 ### DNS Resolvers
 DNS resolvers ==provide clients with the IP address== that is associated with a *domain name*, translating human-readable website addresses like www.cloudflare.com into machine-readable IP addresses. When a user attempts to navigate to a website, their operating system sends a request to a DNS resolver. The DNS resolver responds with the IP address, and the web browser takes this address and loads the website.
 ##### DNS Uncached Response
-![[dns-uncached.png]]
+![[dns-uncached.png\|400]]
 #### DNS Caching
 A DNS resolver will ==save responses to IP address queries== for the duration of the designated *time to live (TTL)* associated with that IP address. In this way, the resolver can respond to future queries much more quickly, without needing to communicate with the many servers involved in the typical DNS resolution process.
 ##### DNS Cached Response
-![[dns-cached.png]]
+![[dns-cached.png\|400]]
 ### DNS Cache Poisoning (Spoofing)
 The process of fooling DNS software into giving an **attacker-selected address** as the IP address for a given domain (DNS).
 
@@ -669,7 +669,7 @@ Emails are a common vector for malware.
 SSH provides tunnelling to insecure protocols over an encrypted channel.
 Nowadays, all protocols have TLS support.
 ##### `ssh -f -N -L 5678:localhost:110 mailhost`
-![[tunnelling-ex.png]]
+![[tunnelling-ex.png\|400]]
 #### Better Approaches
 Alternative ports for TLS-based services:
 - SMTPS on port 587 not 25
@@ -770,7 +770,7 @@ s0: file_close  s1: file_open  s2: file_read
 s3: file_write  s4: file_sent  sn: file_delete
 ```
 In our specification (SPEC), we have the policy: **No file send after file read**.
-![[example-safety-em-state-machine.png]]
+![[example-safety-em-state-machine.png\|400]]
 All states are such that: `s0, s1, s2, s3, s4, sn`  $\in E$.
 Legal states: `s0, s1, s2, s3, sn` $\subseteq E$.
 Illegal states: `s4` $\subset E$.
@@ -804,7 +804,7 @@ A firewall is a security guard placed at the point of entry between a private ne
 - Our rule is a $\braket{\text{predicate}} { \rightarrow } \braket{\text{decision}}$.
 - The predicate is a boolean expression over $d_1 ... d_n$, decision $\in \{a,d\}$.
 ### Mail Server Firewall Example
-![[firewall-rule-ex.png]]
+![[firewall-rule-ex.png\|400]]
 
 | Name | Meaning                                                                  |
 | :--: | ------------------------------------------------------------------------ |
@@ -902,7 +902,7 @@ The FDD ==maps each packet to a decision== by ==testing the packet== down the de
 2. Inspect the first field, look at the value and apply it to the FDD, choose which branch to follow.
 3. Repeat for each field until all are accepted/discarded.
 ### Example
-![[fdd-example-firewalls.png]]
+![[fdd-example-firewalls.png\|400]]
 - Packet comes in, $F_1$ has value 9, $F_2$ has value 5.
 - Third edge satisfies because $9 \in \{1,2,3,4,9,10\}$.
 - First edge satisfies because $5 \in \{1,2,3,4,5\}$.
@@ -955,7 +955,7 @@ Most firewalls require simple rules and the ==number of simple rules from marked
 #### What does this marked version look like?
 A marked version $f'$ of FDD $f$ is identical except that ==exactly one outgoing edge of each non-terminal node== is marked *"all"*, alongside the pre-existing edge values.
 FDDs $f$ and $f'$ are equivalent because the labels of those marked edge do not change.
-![[marked-fdd-algo2.png]]
+![[marked-fdd-algo2.png\|400]]
 We must introduce the concept of a load of a non-empty set of integers $S$, denoted by $load(S)$.
 This represents the minimal number of non-overlapping integer intervals that cover $S$.
 Let $S = \{1,2,3,5,8,9,10\} \therefore load(S)=3$ and the intervals are: [1,3], [5,5], [8,10].
@@ -971,7 +971,7 @@ $$ load(v) = \begin{cases}
 \Sigma^{k}_{i=1}{load(e_i)*load(v_i)} & \; \text{if } v \text{ is non-terminal; } v \text{ has } k \text{ outgoing edges, } \\ 
 & \; \ e_1...e_k \text{ that point to nodes } v_1...v_k
 \end{cases} $$
-![[marked-fdd-algo2.png]]
+![[marked-fdd-algo2.png\|400]]
 If $v$ is non-terminal AND if that vertex has $k$ edges AND those edges point to $m$ distinct nodes, then the $load(v)$ is the sum of the product of the load of the edge AND the vertex it points to.
 
 F2 has 2 edges and 1 distinct node per edge. The load of the vertex is the sum of each load edge multiplied by the load of the vertex it points to.
@@ -1004,7 +1004,7 @@ D(F_i) & \; \text{otherwise}
 \end{cases}$$
 #### Example
 Return interval of that edge else the node itself e.g., label or terminal.
-![[marked-fdd-algo2.png]]
+![[marked-fdd-algo2.png\|400]]
 $$\begin{align}
 r_1=F_1 \in[5,8] \land F_2\in [3,4] \cup[6,8] \rightarrow \fcolorbox{green}{black}{a} \\
 r_2=F_1 \in[5,8] \land F_2 \in[1,10] \rightarrow \fcolorbox{red}{black}{d} \\
