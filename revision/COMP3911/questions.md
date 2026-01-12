@@ -311,12 +311,172 @@ Translate this into a **security requirement**. Then, **propose** one specific *
 **(e)** _(4 marks for explanation)_
 **Threat modelling** is cost-effective because it identifies **threats** and **vulnerabilities** during the design phase, where fixes are cheapest. By understanding **attack trees** and **adversary capabilities** early, designers can build in appropriate **security mechanisms** from the start. This avoids the far greater cost of fixing **security problems** post-deployment or responding to **breaches** caused by threats that could have been foreseen and mitigated. It systematically learns from potential mistakes before they are made.
 # 02. Threat Modelling pt. 2
-## STRIDE Model Goals
-##
-
 ## Outline
-
+- STRIDE Model Goals
+    - 1. Assets
+    - 2. Attackers
+    - 3. Software
+- Trust Boundaries
+    - Entry & Exit Points
+    - Importance
+- Attack Trees
+    - Risk Assessment: DREAD
+        - Issues With DREAD as a scoring system
+    - Common Vulnerability Scoring System (CVSS)
+    - Mitigation
 ## Practice Qs
+### Question 1: Trust Boundaries & Attack Surface
+This question concerns the identification of trust boundaries and attack surfaces within a system diagram.
+
+**(a)** A web application is structured as follows: An **Internet User** (untrusted) connects to a **Public Web Server**. This server queries a backend **Database Server** located on a separate, protected network segment. The database server only accepts connections from the web server's IP address.
+(i) **Identify** the **principals** in this system.
+(ii) **Draw** the implied **trust boundaries**. You may describe them textually (e.g., "TB1: Internet", "TB2: Web Server Zone", "TB3: Database Zone").
+**[5 marks]**
+
+**(b)** For the system in part (a), **identify** two distinct **entry points** where data or control crosses a **trust boundary**. For each, state which boundary is crossed.
+**[4 marks]**
+
+**(c)** **Explain** why a **software-focused** approach (using system diagrams and STRIDE) is generally considered more effective for threat modelling than an **attacker-focused** approach. Limit your answer to two key reasons.
+**[4 marks]**
+
+**(d)** The threat "SQL Injection leading to data theft" is identified for the web application. This threat exploits an entry point where user input crosses a trust boundary.
+(i) **State** the most relevant STRIDE category for this threat.
+(ii) **Identify** the **asset** type (tangible or intangible) that is primarily at risk.
+(iii) Propose **one** design or implementation **mitigation** that directly addresses this threat at the identified entry point.
+**[6 marks]**
+
+**(e)** An **attack tree** is created for the threat "Compromise Database Server." The root node has three child nodes with an OR relationship: A. "Exploit Web Server to gain foothold," B. "Direct Network Attack on DB port," C. "Physical Access to DB Server."
+Given the system description in part (a), which child node (**A, B, or C**) represents the attack path with the *highest* **Exploitability** score in a **DREAD** assessment for an external attacker? Justify your choice in one sentence.
+**[6 marks]**
+
+---
+#### Model Solution
+**(a)** _(3 marks for principals, 2 for boundaries)_
+(i) **Principals:** Internet User, Public Web Server, Database Server.
+(ii) **Trust Boundaries:** TB1 (Internet/User), TB2 (Web Server & its network), TB3 (Database Server & its protected segment).
+
+**(b)** _(2 marks per entry point with boundary)_
+1. **Entry Point:** The HTTP request from the Internet User to the Public Web Server. _Crosses TB1 → TB2._
+2. **Entry Point:** The SQL query from the Web Server to the Database Server. _Crosses TB2 → TB3._
+
+**(c)** _(2 marks per reason)_
+1. It is **structured** and systematic (using diagrams), reducing reliance on subjective, biased lists of attacker profiles.
+2. It directly maps **threats** (via STRIDE) to **software components** and **data flows**, making it easier to derive specific **security requirements** and **mitigations**.
+
+**(d)** _(2 marks per item)_
+(i) **Information Disclosure.**
+(ii) **Tangible Asset** (the confidential data stored in the database).
+(iii) **Mitigation:** Implement **parameterised queries** (prepared statements) in the web server code to separate user input from SQL commands.
+
+**(e)** _(2 marks for correct node, 4 for justification)_
+- **Node A: "Exploit Web Server to gain foothold."**
+- **Justification:** The web server is the only component with a direct **entry point** from the untrusted Internet (TB1), making it the most exposed and likely initial target for an external attacker, hence highest **Exploitability**.
+
+---
+### Question 2: Attack Trees & Risk Prioritisation
+This question involves constructing and analysing attack trees using Boolean logic and simple risk assessment.
+
+**(a)** Consider the attack tree fragment below for the threat "Steal Physical Access Card".
+```
+Root: Steal Card
+├─ 1. Take from Owner
+│  ├─ 1.1 Distract Owner (AND)
+│  └─ 1.2 Remove from Bag
+└─ 2. Take from Storage
+   ├─ 2.1 Pick Lock
+   └─ 2.2 Copy Master Key
+```
+(i) How many distinct **attack paths** exist to achieve the root threat?
+(ii) **Justify** your answer by explaining the Boolean relationships shown.
+**[5 marks]**
+
+**(b)** Using the **DREAD** model, a threat is scored: Damage=3, Reproducibility=2, Exploitability=3, Affected Users=1, Discoverability=3.
+(i) Calculate the **risk rating** *R* (using a simple average).
+(ii) **State** which DREAD dimension is often criticised as being unhelpfully subjective or assumed to be maximal, and explain why.
+**[5 marks]**
+
+**(c)** **Compare** the **DREAD** and **CVSS** scoring systems. **State** one key advantage CVSS has over DREAD in terms of objectivity or granularity.
+**[3 marks]**
+
+**(d)** The following conditions are nodes in an attack tree for "Unauthorised Admin Access":
+1. Bribe existing admin.
+2. Crack weak admin password.
+3. Exploit zero-day in admin panel.
+A risk assessment must **prioritise** mitigation. **Order** these three conditions (1, 2, 3) from *highest* to *lowest* **Exploitability** for a typical external attacker. Justify your ordering in one sentence per condition.
+**[6 marks]**
+
+**(e)** Referring to the attack tree diagram and mitigation principle in the content (with nodes 1.1, 1.2, 1.3), **explain** the logic behind the claim that mitigating condition **1.1** first is the most effective way to reduce the number of **attack paths**. Your answer should reference the Boolean **AND** relationship.
+**[6 marks]**
+
+---
+#### Model Solution
+**(a)** _(3 marks for count, 2 for justification)_
+(i) **3 attack paths.**
+(ii) **Justification:** Path 1 requires **1.1 AND 1.2** (one path). Path 2 has options 2.1 **OR** 2.2 (two paths). Total = 1 + 2 = 3 paths.
+
+**(b)** _(3 marks for calculation, 2 for critique)_
+(i) \( R = (3+2+3+1+3)/5 = 12/5 = 2.4 \)
+(ii) **Discoverability.** It is criticised because it is highly subjective and the prudent assumption for risk assessment is that a vulnerability, if it exists, *will* eventually be discovered (i.e., treat it as 100% or max score).
+
+**(c)** _(3 marks for valid advantage)_
+**CVSS** provides a more **objective** and **granular** scoring system with defined metrics and formulae, reducing reliance on subjective opinion compared to **DREAD**.
+
+**(d)** _(2 marks per ordered item with justification)_
+1. **2. Crack weak admin password.** _Highest exploitability; can be automated with low skill._
+2. **3. Exploit zero-day in admin panel.** _Moderate exploitability; requires skill/knowledge of the specific flaw._
+3. **1. Bribe existing admin.** _Lowest exploitability for external attacker; requires insider threat, not a technical exploit._
+
+**(e)** _(6 marks for coherent explanation)_
+Node 1.1 is part of an **AND** condition with node 1.2. Mitigating 1.1 makes the entire **AND** branch (1.1 & 1.2) impossible, regardless of the state of sub-nodes 1.2.1 or 1.2.2. This eliminates *two* attack paths at once (1.1+1.2.1 and 1.1+1.2.2). Mitigating a node in an **OR** branch (like 1.3.1) only eliminates one specific path, leaving the alternative (1.3.2) viable. Therefore, targeting the mandatory condition in an **AND** relationship provides the greatest reduction in total **attack paths**.
+
+---
+### Question 3: STRIDE Perspectives & Mitigation
+This question evaluates different perspectives in threat modelling and the application of mitigation strategies.
+
+**(a)** When considering **threats** from an **assets** perspective, both tangible and intangible assets are considered.
+(i) For an online auction website, give **one example** of a **tangible asset** and one of an **intangible asset**.
+(ii) For the intangible asset example, **identify** a STRIDE threat category that could specifically harm it.
+**[5 marks]**
+
+**(b)** A **trust boundary** exists between a mobile banking app (running on a user's phone) and the bank's cloud API.
+(i) **Identify** the **principals** on either side of this boundary.
+(ii) **State** one **entry point** at this boundary.
+(iii) For that entry point, name **one** STRIDE threat that is particularly relevant.
+**[6 marks]**
+
+**(c)** A principle of **mitigation** states: "every security feature should address at least one threat from the threat model." **Explain** why following this principle is important for avoiding security **anti-patterns**, such as adding unnecessary complexity without improving security.
+**[4 marks]**
+
+**(d)** An **attack tree** for "Execute Arbitrary Code on Server" has a root with two main branches: A. "Remote Exploit" (OR: A.1 "Buffer Overflow", A.2 "SQL Injection to RCE") and B. "Local Privilege Escalation" (requires B.1 "Gain User Shell" AND B.2 "Exploit Kernel Flaw").
+**Calculate** the total number of **attack paths** in this tree. Show your working.
+**[5 marks]**
+
+**(e)** You must choose to mitigate **one** of the following conditions from the tree in part (d): A.1, A.2, or B.1.
+Based **only** on the goal of reducing the total number of possible **attack paths**, **state** which condition you would mitigate and **justify** your answer with reference to the Boolean structure of the tree.
+**[5 marks]**
+
+---
+#### Model Solution
+**(a)** _(3 marks for examples, 2 for STRIDE category)_
+(i) **Tangible Asset:** User payment information (credit card details). **Intangible Asset:** The website's **reputation** for fairness and security.
+(ii) **STRIDE Threat to Reputation:** **Denial of Service** (making site unavailable damages trust) or **Information Disclosure** (a data breach destroys reputation).
+
+**(b)** _(2 marks per item)_
+(i) **Principals:** Mobile App (User Device), Bank Cloud API.
+(ii) **Entry Point:** The HTTPS request/response channel for the login API.
+(iii) **Relevant STRIDE Threat:** **Spoofing** (of the app by a fake API or of the API by a fake app/MitM).
+
+**(c)** _(4 marks for explanation)_
+This principle ensures **security mechanisms** are traceable to specific, identified **threats**. It prevents "security theatre" – adding features (like complex logging that isn't monitored) that don't mitigate actual risks. It forces justification, ensuring each control reduces the **attack surface** or mitigates a documented **vulnerability**, thereby avoiding wasted effort and **complexity** that does not improve security.
+
+**(d)** _(5 marks for correct calculation with working)_
+- Branch A (OR): 2 paths (A.1, A.2).
+- Branch B (AND): 1 path (B.1 & B.2).
+- Total Attack Paths = 2 + 1 = **3 paths**.
+
+**(e)** _(2 marks for choice, 3 for justification)_
+- **Mitigate Condition B.1 ("Gain User Shell").**
+- **Justification:** B.1 is part of an **AND** condition in branch B. Mitigating it eliminates the *entire* branch B (1 path). Mitigating A.1 or A.2 (in an **OR** branch) would only eliminate 1 of the 2 paths in branch A, leaving the other path open. Eliminating a *necessary* condition in an **AND** branch removes more attack paths overall.
 # 03. Managing Vulnerabilities
 ## Outline
 - Exploits
@@ -336,6 +496,147 @@ Translate this into a **security requirement**. Then, **propose** one specific *
         - ‘Secure From Day One’
     - Run-time Fault Injection
 ## Practice Qs
+### Practice Question 1: Vulnerability Lifecycle & Disclosures
+This question covers the vulnerability lifecycle, responsible disclosure, and scoring systems.
+
+**(a)** A security researcher discovers a critical buffer overflow in a widely used web server software. They email full exploit details to the vendor but also immediately publish a blog post with proof-of-concept code.
+(i) **State** whether this action constitutes **responsible disclosure**.
+(ii) **Justify** your answer by explaining the key principle of responsible disclosure that was violated.
+**[4 marks]**
+
+**(b)** Referring to the **Vulnerability Cycle** diagram:
+(i) **Identify** the stage at which a **CVE** identifier would most likely be assigned.
+(ii) **Explain** the purpose of the **CWE** classification system and how it differs from the purpose of CVE.
+**[6 marks]**
+
+**(c)** An exploit is being actively used in attacks, but the software vendor is unaware of the underlying vulnerability. **State** the specific term for this type of exploit. **Explain** why this situation represents the highest level of threat to organisations using the software.
+**[5 marks]**
+
+**(d)** **Compare** the **CVSS** and **CWSS** scoring systems. **State** one key difference in their primary focus or use case.
+**[3 marks]**
+
+**(e)** A company runs a **Bug Bounty Program**. **Explain** two distinct incentives this provides to security researchers compared to a scenario with no formal programme.
+**[7 marks]**
+
+---
+#### Model Solution
+**(a)** _(2 marks per part)_
+(i) **No.**
+(ii) The researcher violated the principle of allowing the vendor a **silence period** to develop and distribute a patch before public **disclosure**, which maximises risk to users.
+
+**(b)** _(3 marks per part)_
+(i) Stage 1: "Vulnerability discovered and disclosed" (or early in Stage 4 during diagnosis).
+(ii) **CWE** classifies vulnerability *types* (e.g., CWE-120: Buffer Overflow) for awareness and prevention. **CVE** uniquely identifies a specific *instance* of a vulnerability in a product (e.g., CVE-2024-12345 in Product X v1.2).
+
+**(c)** _(2 marks for term, 3 for explanation)_
+- **Term: 0day (Zero-day) attack.**
+- **Explanation:** It is the highest threat because no patch or mitigation exists, and defenders have **zero days** of advance warning. Attackers have a window of uncontested access until the vendor independently discovers the flaw or the exploit is reverse-engineered.
+
+**(d)** _(3 marks for valid difference)_
+**CVSS** scores the severity of a specific **vulnerability instance** (CVE). **CWSS** scores the severity of a **weakness type** (CWE) in a broader context, potentially considering factors like business impact.
+
+**(e)** _(3.5 marks per incentive)_
+1. **Financial Reward:** Provides a direct, legal **incentive** (bounty) for researchers to report findings, channelling their effort towards **responsible disclosure** rather than criminal exploitation or silence.
+2. **Structured Recognition & Trust:** Offers a clear, safe, and legal channel for engagement, granting researchers **acknowledgement** (e.g., hall of fame) and building a trusted relationship with the company's security team.
+
+---
+### Practice Question 2: QA Techniques & Static Analysis
+This question focuses on quality assurance techniques for finding vulnerabilities and their limitations.
+
+**(a)** A development team implements **peer code review** for security.
+(i) **Identify** one psychological effect that can improve code quality during such reviews.
+(ii) **State** one major limitation of relying solely on the **"Many Eyeballs"** fallacy for finding security bugs in open-source software.
+**[5 marks]**
+
+**(b)** **Static analysis tools** are used to scan source code.
+(i) **Describe** the key difference between *pattern-matching* tools (e.g., Flawfinder) and *data flow analysis* tools (e.g., Splint).
+(ii) **State** one inherent **limitation** common to all static analysis tools regarding the detection of vulnerabilities.
+**[6 marks]**
+
+**(c)** The **CWE** list includes **CWE-120** ("Buffer copy without checking size of input"). A static analysis tool reports a potential instance of this in a codebase.
+(i) **Classify** this finding using the standard categories for analysis tool errors.
+(ii) **Explain** the risk of **"flaw fatigue"** in this context and how it can undermine security.
+**[6 marks]**
+
+**(d)** **Explain** why thorough functional **Testing** is not equivalent to **Security Testing**. Refer to the provided diagram's concept of overlapping but distinct problem sets.
+**[4 marks]**
+
+**(e)** A tool like **Holodeck** is used for **run-time fault injection**.
+(i) **State** the primary goal of this technique.
+(ii) Provide **two** examples of faults it might simulate to stress-test an application.
+**[4 marks]**
+
+---
+#### Model Solution
+**(a)** _(3 marks for i, 2 for ii)_
+(i) The **Hawthorne Effect** – developers write more carefully knowing their work will be reviewed.
+(ii) It assumes all reviewers have the **"right kind of eyeballs"** – i.e., the specific security expertise needed to recognise subtle **vulnerabilities**, which is often not the case.
+
+**(b)** _(3 marks per part)_
+(i) **Pattern-matching** tools search for known dangerous code patterns (strings, functions). **Data flow analysis** tools parse code, track variable values, and identify paths where untrusted input could reach a vulnerable function.
+(ii) They cannot detect vulnerabilities that depend on **run-time state** or complex external interactions (false negatives) and often produce **false positives**.
+
+**(c)** _(3 marks per part)_
+(i) It is a potential **true positive** (a real flaw) or a **false positive** (benign code flagged incorrectly).
+(ii) **Flaw fatigue** occurs when tools generate many **false positives**. Developers start to ignore all warnings, causing real **vulnerabilities** (true positives) to be overlooked, thus negating the tool's security benefit.
+
+**(d)** _(4 marks for explanation)_
+**Testing** aims to find bugs where the software doesn't do what it *should* do. **Security Testing** aims to find **vulnerabilities** where the software does what it *should not* do (allowing unauthorised actions). The diagram shows these as overlapping but distinct sets; passing functional tests does not guarantee absence of security flaws.
+
+**(e)** _(2 marks for goal, 1 mark per example)_
+(i) To **stress-test** the system's resilience and error handling by forcing it into unexpected, erroneous states.
+(ii) Simulating **insufficient memory (out-of-memory errors)** or **network disconnection** during a critical transaction.
+
+---
+### Practice Question 3: Secure Development & Fault Models
+This question integrates threat modelling into the development lifecycle and applies fault models.
+
+**(a)** The principle **"Secure From Day One"** advocates integrating security early.
+(i) **State** at which project stage the **threat model** should first be created.
+(ii) **List** two standard security design principles that should drive the design process according to this approach.
+**[5 marks]**
+
+**(b)** **Whittaker's Fault Model** categorises attack targets.
+For each of the following test activities, **identify** the fault model category it belongs to (Attack Environmental Dependencies, Attack User Interfaces, Attack the Design, Attack the Implementation):
+(i) Feeding a 10MB string into a username field.
+(ii) Deleting a required configuration file at runtime.
+(iii) Using a debugger to call an internal admin function bypassing the UI.
+**[6 marks]**
+
+**(c)** A **threat model** is used to drive security testing.
+(i) **State** which aspect of the threat model (e.g., from STRIDE) informs *what* types of tests to perform.
+(ii) **State** which aspect (e.g., from DREAD) can be used to *prioritise* the order of test execution.
+**[4 marks]**
+
+**(d)** Consider a threat modelled as **Spoofing** of a client application, with a **DREAD** score indicating high risk.
+Outline a **test plan** to validate the system's resistance to this threat. Your plan should include two specific test actions.
+**[6 marks]**
+
+**(e)** **Run-time fault injection** tools like Holodeck simulate environmental failures. **Explain** why this technique is particularly valuable for testing the **reliability** of a system's **security controls** (e.g., access control logic). Use an example in your explanation.
+**[4 marks]**
+
+---
+#### Model Solution
+**(a)** _(2 marks for i, 3 for ii - 1.5 per principle)_
+(i) During the initial **planning** stage.
+(ii) **Minimal privilege** (granting only necessary access) and **reluctance to trust** (validating all inputs, not trusting external entities).
+
+**(b)** _(2 marks per correct classification)_
+(i) **Attack User Interfaces.** (Input overrun).
+(ii) **Attack Environmental Dependencies.** (Missing config file).
+(iii) **Attack the Implementation.** (Exploiting test/internal APIs).
+
+**(c)** _(2 marks per part)_
+(i) The **STRIDE** classification informs the *type* of test (e.g., a **Tampering** threat requires integrity validation tests).
+(ii) The **DREAD** risk rating (or **CVSS** score) informs the *priority* of testing.
+
+**(d)** _(3 marks per test action)_
+**Test Plan for Spoofing:**
+1. **Action:** Intercept and modify network packets to change the client identity field using a tool like Wireshark/Proxy.
+2. **Action:** Create a custom, malicious client that mimics the legitimate app's protocol but uses forged credentials.
+
+**(e)** _(4 marks for explanation with example)_
+It tests if **security controls** fail gracefully or catastrophically under stress. For example, if **access control** logic crashes or fails open when a simulated **disk full** error occurs during a log write, an attacker could trigger this state to bypass authentication. **Fault injection** uncovers such **implementation** flaws in error handling that pure functional testing misses.
 # 04. Security Policy Models
 ## Outline
 - Security Policy

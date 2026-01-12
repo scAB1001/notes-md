@@ -156,7 +156,7 @@ So, diagramming mainly helps us to learn, in a systematic way, **where** we shou
 	- AND must be shown *explicitly*
 ##### Attack Tree Example ->
 ![[attack-tree-ex.png\|400]]
-### ### Risk Assessment: DREAD
+### Risk Assessment: DREAD
 For each threat, estimate
 - **Damage** **potential**.
 - **Reproducibility** (how often an attempt at exploiting a vulnerability actually works)
