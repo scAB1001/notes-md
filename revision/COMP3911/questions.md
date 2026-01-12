@@ -415,7 +415,7 @@ A risk assessment must **prioritise** mitigation. **Order** these three conditio
 (ii) **Justification:** Path 1 requires **1.1 AND 1.2** (one path). Path 2 has options 2.1 **OR** 2.2 (two paths). Total = 1 + 2 = 3 paths.
 
 **(b)** _(3 marks for calculation, 2 for critique)_
-(i) \( R = (3+2+3+1+3)/5 = 12/5 = 2.4 \)
+(i) $R = (3+2+3+1+3)/5 = 12/5 = 2.4$
 (ii) **Discoverability.** It is criticised because it is highly subjective and the prudent assumption for risk assessment is that a vulnerability, if it exists, *will* eventually be discovered (i.e., treat it as 100% or max score).
 
 **(c)** _(3 marks for valid advantage)_
@@ -708,7 +708,7 @@ This question tests understanding of the core concepts of security policies and 
 This question applies the formal properties and lattice structures of the BLP model.
 
 **(a)** In the **Bell-LaPadula (BLP)** model:
-(i) **State** the **Simple Security Property** (no-read-up rule) using the notation \(L(s)\) and \(L(o)\).
+(i) **State** the **Simple Security Property** (no-read-up rule) using the notation $L(s)$ and $L(o)$.
 (ii) **State** the ***-Property** (no-write-down rule).
 **[4 marks]**
 
@@ -718,43 +718,43 @@ This question applies the formal properties and lattice structures of the BLP mo
 **[5 marks]**
 
 **(c)** Given the security labels:
-\(A = (\text{Secret}, \{\text{Crypto}\})\)
-\(B = (\text{TopSecret}, \{\text{Crypto, Nuclear}\})\)
-\(C = (\text{TopSecret}, \{\text{Nuclear}\})\)
+$A = (\text{Secret}, \{\text{Crypto}\})$
+$B = (\text{TopSecret}, \{\text{Crypto, Nuclear}\})$
+$C = (\text{TopSecret}, \{\text{Nuclear}\})$
 Assume the classification levels are: Public < Confidential < Secret < TopSecret.
-(i) Does \(B ≽ A\) hold? **Justify** your answer.
-(ii) Does \(C ≽ A\) hold? **Justify** your answer.
+(i) Does $B ≽ A$ hold? **Justify** your answer.
+(ii) Does $C ≽ A$ hold? **Justify** your answer.
 **[6 marks]**
 
-**(d)** For the labels \(A\) and \(B\) from part (c), compute:
-(i) The **join** (Lowest Upper Bound, LUB) of \(A\) and \(C\).
-(ii) The **meet** (Greatest Lower Bound, GLB) of \(B\) and \(C\).
+**(d)** For the labels $A$ and $B$ from part (c), compute:
+(i) The **join** (Lowest Upper Bound, LUB) of $A$ and $C$.
+(ii) The **meet** (Greatest Lower Bound, GLB) of $B$ and $C$.
 Show your reasoning.
 **[6 marks]**
 
-**(e)** If the label \((\text{TopSecret}, \{\text{Crypto, Nuclear}\})\) were removed from the lattice structure containing \(A, B, C\), **explain** which mathematical property of a lattice would be violated and why.
+**(e)** If the label $(\text{TopSecret}, \{\text{Crypto, Nuclear}\})$ were removed from the lattice structure containing $A, B, C$, **explain** which mathematical property of a lattice would be violated and why.
 **[4 marks]**
 
 ---
 #### Model Solution
 **(a)** _(2 marks per property)_
-(i) **Simple Security:** Subject \(s\) can read object \(o\) only if \(L(o) ≤ L(s)\).
-(ii) ***-Property:** Subject \(s\) can write to object \(o\) only if \(L(s) ≤ L(o)\).
+(i) **Simple Security:** Subject $s$ can read object $o$ only if $L(o) ≤ L(s)$.
+(ii) ***-Property:** Subject $s$ can write to object $o$ only if $L(s) ≤ L(o)$.
 
 **(b)** _(3 marks for definition, 2 for explanation)_
-(i) **Transitivity:** If \(x ≽ y\) and \(y ≽ z\), then \(x ≽ z\).
-(ii) It ensures that clearance and data flow are **consistent**. If a subject can read data at level \(y\), and that data can be read from level \(z\), then the subject can also read from \(z\), preventing indirect **information leakage** through intermediate objects.
+(i) **Transitivity:** If $x ≽ y$ and $y ≽ z$, then $x ≽ z$.
+(ii) It ensures that clearance and data flow are **consistent**. If a subject can read data at level $y$, and that data can be read from level $z$, then the subject can also read from $z$, preventing indirect **information leakage** through intermediate objects.
 
 **(c)** _(3 marks per comparison)_
-(i) **Yes.** \(B ≽ A\) because TopSecret ≥ Secret (level) *and* \(\{\text{Crypto}\} ⊆ \{\text{Crypto, Nuclear}\}\) (categories).
-(ii) **No.** \(C ≽ A\) fails because \(\{\text{Crypto}\} ⊈ \{\text{Nuclear}\}\) (missing Crypto category).
+(i) **Yes.** $B ≽ A$ because TopSecret ≥ Secret (level) *and* $\{\text{Crypto}\} ⊆ \{\text{Crypto, Nuclear}\}$ (categories).
+(ii) **No.** $C ≽ A$ fails because $\{\text{Crypto}\} ⊈ \{\text{Nuclear}\}$ (missing Crypto category).
 
 **(d)** _(3 marks per computation)_
-(i) **join(A, C):** \((\text{TopSecret}, \{\text{Crypto, Nuclear}\})\). Level: max(Secret, TopSecret)=TopSecret. Categories: union({Crypto},{Nuclear})={Crypto,Nuclear}.
-(ii) **meet(B, C):** \((\text{TopSecret}, \{\text{Nuclear}\})\). Level: min(TopSecret,TopSecret)=TopSecret. Categories: intersection({Crypto,Nuclear},{Nuclear})={Nuclear}.
+(i) **join(A, C):** $(\text{TopSecret}, \{\text{Crypto, Nuclear}\})$. Level: max(Secret, TopSecret)=TopSecret. Categories: union({Crypto},{Nuclear})={Crypto,Nuclear}.
+(ii) **meet(B, C):** $(\text{TopSecret}, \{\text{Nuclear}\})$. Level: min(TopSecret,TopSecret)=TopSecret. Categories: intersection({Crypto,Nuclear},{Nuclear})={Nuclear}.
 
 **(e)** _(4 marks for explanation)_
-The **Lowest Upper Bound (LUB)** property would be violated. The pair \(A\) and \(C\) would have no **join** in the set, as their natural LUB \((\text{TopSecret}, \{\text{Crypto, Nuclear}\})\) is missing. Not all pairs would have a LUB, so the structure is no longer a **lattice**.
+The **Lowest Upper Bound (LUB)** property would be violated. The pair $A$ and $C$ would have no **join** in the set, as their natural LUB $(\text{TopSecret}, \{\text{Crypto, Nuclear}\})$ is missing. Not all pairs would have a LUB, so the structure is no longer a **lattice**.
 
 ---
 ### Question 3: Chinese Wall & Model Selection
@@ -778,7 +778,7 @@ This question focuses on the Chinese Wall model and selecting appropriate policy
 
 **(d)** Consider a **Reference Monitor** implementing a BLP-like policy. It uses an `exec(s, o, a)` predicate.
 (i) **State** the three arguments to the `exec` predicate.
-(ii) For the action \(a = \text{read}\), write the **boolean condition** that `exec` must evaluate, using the BLP **Simple Security Property**.
+(ii) For the action $a = \text{read}$, write the **boolean condition** that `exec` must evaluate, using the BLP **Simple Security Property**.
 **[6 marks]**
 
 ---
@@ -796,8 +796,8 @@ This question focuses on the Chinese Wall model and selecting appropriate policy
 2. **Biba.** It enforces **integrity** by preventing **write-up** (low-integrity subjects modifying high-integrity objects), protecting the senior consultants' plans from unauthorised modification.
 
 **(d)** _(3 marks per part)_
-(i) **Subject \(s\), Object \(o\), Action \(a\).**
-(ii) `exec(s, o, read) = true` **iff** \(L(o) ≤ L(s)\) (and any discretionary permissions hold).
+(i) **Subject $s$, Object $o$, Action $a$.**
+(ii) `exec(s, o, read) = true` **iff** $L(o) ≤ L(s)$ (and any discretionary permissions hold).
 # 05. Command Injection and Input Validation
 ## Outline
 - Input Validation
@@ -1131,13 +1131,13 @@ An attacker tricks a logged-in user to visit a page containing:
 This question tests the calculation and interpretation of password entropy.
 
 **(a)** **Entropy** is a measure of uncertainty or randomness in a secret.
-(i) **State** the formula for calculating the entropy \( H \) (in bits) of a secret chosen uniformly from a set of \( N \) possibilities, where the secret is \( L \) independent selections from that set.
+(i) **State** the formula for calculating the entropy $H$ (in bits) of a secret chosen uniformly from a set of $N$ possibilities, where the secret is $L$ independent selections from that set.
 (ii) A user creates a password by randomly choosing 6 lowercase letters (a-z). **Calculate** the entropy of this password. Show your working.
 **[6 marks]**
 
 **(b)** A system requires passwords with at least 50 bits of entropy. A user proposes using an 8-character password where each character is randomly chosen from the 95 printable ASCII characters.
 (i) **Calculate** the entropy of this 8-character password.
-(ii) **Determine** if it meets the 50-bit requirement. If not, calculate the **minimum length** \( L \) (to the nearest whole character) needed using the same character set.
+(ii) **Determine** if it meets the 50-bit requirement. If not, calculate the **minimum length** $L$ (to the nearest whole character) needed using the same character set.
 **[8 marks]**
 
 **(c)** **Compare** the entropy of a **4-digit numeric PIN** (0-9) to a **6-character lowercase alphabetic** password (a-z). Show the calculation for each and state which is stronger and by approximately how many bits.
@@ -1151,18 +1151,18 @@ This question tests the calculation and interpretation of password entropy.
 ---
 #### Model Solution
 **(a)** _(3 marks for formula, 3 for calculation)_
-(i) \( H = L \cdot \log_2 N \) bits.
-(ii) \( N = 26 \) (lowercase letters), \( L = 6 \).
-\( H = 6 \cdot \log_2 26 = 6 \cdot \frac{\log_{10} 26}{\log_{10} 2} \approx 6 \cdot 4.700 \approx \textbf{28.20 bits} \).
+(i) $H = L \cdot \log_2 N$ bits.
+(ii) $N = 26$ (lowercase letters), $L = 6$.
+$H = 6 \cdot \log_2 26 = 6 \cdot \frac{\log_{10} 26}{\log_{10} 2} \approx 6 \cdot 4.700 \approx \textbf{28.20 bits}$.
 
 **(b)** _(4 marks per part)_
-(i) \( N = 95 \), \( L = 8 \).
-\( H = 8 \cdot \log_2 95 = 8 \cdot \frac{\log_{10} 95}{\log_{10} 2} \approx 8 \cdot 6.570 \approx \textbf{52.56 bits} \).
-(ii) **Yes**, 52.56 bits > 50 bits. Minimum length: \( L_{min} = \lceil \frac{50}{\log_2 95} \rceil = \lceil \frac{50}{6.570} \rceil = \lceil 7.61 \rceil = \textbf{8 characters} \).
+(i) $N = 95$, $L = 8$.
+$H = 8 \cdot \log_2 95 = 8 \cdot \frac{\log_{10} 95}{\log_{10} 2} \approx 8 \cdot 6.570 \approx \textbf{52.56 bits}$.
+(ii) **Yes**, 52.56 bits > 50 bits. Minimum length: $L_{min} = \lceil \frac{50}{\log_2 95} \rceil = \lceil \frac{50}{6.570} \rceil = \lceil 7.61 \rceil = \textbf{8 characters}$.
 
 **(c)** _(3 marks per calculation, 1 for comparison)_
-- **PIN:** \( N=10, L=4 \). \( H = 4 \cdot \log_2 10 \approx 4 \cdot 3.322 = \textbf{13.29 bits} \).
-- **6-char lowercase:** \( N=26, L=6 \). \( H = 6 \cdot \log_2 26 \approx 6 \cdot 4.700 = \textbf{28.20 bits} \).
+- **PIN:** $N=10, L=4$. $H = 4 \cdot \log_2 10 \approx 4 \cdot 3.322 = \textbf{13.29 bits}$.
+- **6-char lowercase:** $N=26, L=6$. $H = 6 \cdot \log_2 26 \approx 6 \cdot 4.700 = \textbf{28.20 bits}$.
 The 6-character password is stronger by approximately **14.91 bits**.
 
 **(d)** _(3 marks for i, 2 for ii)_
@@ -1483,7 +1483,7 @@ This question establishes the core definitions and examines which policies are e
 
 **(c)** Let **E** be the set of all possible execution sequences of a target system. A security policy **P** is a predicate over **E**.
 **Explain** the logical statement:
-\( P(E(T)) = \forall e \in E(T): P'(e) \)
+$P(E(T)) = \forall e \in E(T): P'(e)$
 and what it implies about **P** being a **property** of the system.
 **[6 marks]**
 
@@ -1495,7 +1495,7 @@ and what it implies about **P** being a **property** of the system.
 ---
 #### Model Solution
 **(a)** _(3 marks for i, 2 for ii)_
-(i) System **T** satisfies policy **P** if and only if **all** its possible execution sequences \( E(T) \) are in the set defined as acceptable by **P**. Formally, \( P(E(T)) = \text{True} \).
+(i) System **T** satisfies policy **P** if and only if **all** its possible execution sequences $E(T)$ are in the set defined as acceptable by **P**. Formally, $P(E(T)) = \text{True}$.
 (ii) The policy must be a **property** that can be decided (as violated or not) by observing only the **finite prefix** of an execution up to the violation point. It must be a **safety** or **co-safety** property.
 
 **(b)** _(3 marks per part)_
@@ -1503,7 +1503,7 @@ and what it implies about **P** being a **property** of the system.
 (ii) It is enforceable because a monitor can observe the sequence of events (`read_file`, `send_email`). The violation (sending after reading) is detectable at the finite point when the `send_email` action occurs after a `read_file`, allowing the monitor to **abort** the execution.
 
 **(c)** _(6 marks for explanation)_
-The statement means that the policy **P** holds for the entire set of executions \( E(T) \) of system **T** **if and only if** for **every single execution sequence** \( e \) in that set, a more specific predicate \( P' \) holds true for that individual execution. If this condition is met, then **P** is a **property** of the system because its truth depends solely on the characteristics of **every possible execution**, not on external factors or probabilities.
+The statement means that the policy **P** holds for the entire set of executions $E(T)$ of system **T** **if and only if** for **every single execution sequence** $e$ in that set, a more specific predicate $P'$ holds true for that individual execution. If this condition is met, then **P** is a **property** of the system because its truth depends solely on the characteristics of **every possible execution**, not on external factors or probabilities.
 
 **(d)** _(4 marks per part)_
 (i) It is not a **property** because it is a **quantitative, aggregate measure** over many executions, not a definitive true/false predicate on **individual execution sequences**. A single execution cannot violate or satisfy an "average".
@@ -1652,44 +1652,44 @@ A **scheduler-integrated monitor** that, upon detecting that a process has been 
 ### Question 5: Formal Modelling & Policy Satisfaction
 This question involves working with the formal notation of executions, policies, and target systems.
 
-**(a)** Let \( E \) be the set of all possible finite and infinite execution sequences of a system. Let \( T \) be a specific target system. Let \( P \) be a policy.
-(i) **Interpret** the formal statement: \( E(T) \subseteq E \).
-(ii) **Interpret** the formal statement: \( P(E(T)) = \text{True} \).
+**(a)** Let $E$ be the set of all possible finite and infinite execution sequences of a system. Let $T$ be a specific target system. Let $P$ be a policy.
+(i) **Interpret** the formal statement: $E(T) \subseteq E$.
+(ii) **Interpret** the formal statement: $P(E(T)) = \text{True}$.
 **[6 marks]**
 
-**(b)** Consider a simple system with actions {A, B, C}. Its complete set of possible executions \( E \) includes sequences like `A B C`, `A A B`, `C B A`, etc. A target system \( T_1 \) can only produce executions starting with 'A'. A policy \( P_1 \) states: "Action B must never occur."
-(i) Is \( P_1 \) a **property** of \( T_1 \)?
-(ii) **Justify** your answer by referencing the definitions of \( E(T_1) \) and \( P_1 \).
+**(b)** Consider a simple system with actions {A, B, C}. Its complete set of possible executions $E$ includes sequences like `A B C`, `A A B`, `C B A`, etc. A target system $T_1$ can only produce executions starting with 'A'. A policy $P_1$ states: "Action B must never occur."
+(i) Is $P_1$ a **property** of $T_1$?
+(ii) **Justify** your answer by referencing the definitions of $E(T_1)$ and $P_1$.
 **[7 marks]**
 
-**(c)** A policy \( P_2 \) states: "Action C must occur at least once."
-(i) **Classify** \( P_2 \) as a **safety** or **liveness** property. Justify.
-(ii) A target system \( T_2 \) has \( E(T_2) = \{ \text{A B}, \text{A A B}, \text{A A A B}, ... \} \) (infinite sequences ending in B, no C). Does \( T_2 \) **satisfy** \( P_2 \)? Explain why or why not.
+**(c)** A policy $P_2$ states: "Action C must occur at least once."
+(i) **Classify** $P_2$ as a **safety** or **liveness** property. Justify.
+(ii) A target system $T_2$ has $E(T_2) = \{ \text{A B}, \text{A A B}, \text{A A A B}, ... \}$ (infinite sequences ending in B, no C). Does $T_2$ **satisfy** $P_2$? Explain why or why not.
 **[8 marks]**
 
 **(d)** The notes conclude: "Policies are properties that can be enforced via monitoring."
 **Explain** the logical flow of this conclusion, connecting the concepts of:
-1. Policy as a predicate on executions (\(P(E)\)).
-2. The need for the policy to be a **property** (\(P'(e)\) for all \(e\) in \(E(T)\)).
+1. Policy as a predicate on executions ($P(E)$).
+2. The need for the policy to be a **property** ($P'(e)$ for all $e$ in $E(T)$).
 3. The **enforceability** requirement (detectable violation in a finite prefix).
 **[4 marks]**
 
 ---
 #### Model Solution
 **(a)** _(3 marks per interpretation)_
-(i) The set of all execution sequences that the specific target system \( T \) can actually produce is a **subset** of the universal set of all sequences the abstract system model could possibly produce.
-(ii) Applying the predicate (policy) \( P \) to the set \( E(T) \) yields True. This means **every single execution sequence** that \( T \) can produce is deemed acceptable by the policy \( P \). Therefore, the system \( T \) **satisfies** the policy \( P \).
+(i) The set of all execution sequences that the specific target system $T$ can actually produce is a **subset** of the universal set of all sequences the abstract system model could possibly produce.
+(ii) Applying the predicate (policy) $P$ to the set $E(T)$ yields True. This means **every single execution sequence** that $T$ can produce is deemed acceptable by the policy $P$. Therefore, the system $T$ **satisfies** the policy $P$.
 
 **(b)** _(3 marks for i, 4 for justification)_
-(i) **Yes**, \( P_1 \) is a property of \( T_1 \).
-(ii) \( E(T_1) \) contains only executions starting with 'A' and, by the system definition, may or may not include B. However, policy \( P_1 \) rules out any execution containing B. For \( P_1 \) to be a property of \( T_1 \), **every** execution in \( E(T_1) \) must satisfy \( P_1 \). If \( T_1 \) is defined such that it *can* produce an execution with a B (e.g., `A B C`), then \( P_1(E(T_1)) \) would be False, and it would not be a property. The question suggests \( T_1 \)'s behaviour is constrained. If \( T_1 \) **cannot** produce any execution with B, then all executions in \( E(T_1) \) satisfy "B never occurs", making \( P_1 \) a property of \( T_1 \).
+(i) **Yes**, $P_1$ is a property of $T_1$.
+(ii) $E(T_1)$ contains only executions starting with 'A' and, by the system definition, may or may not include B. However, policy $P_1$ rules out any execution containing B. For $P_1$ to be a property of $T_1$, **every** execution in $E(T_1)$ must satisfy $P_1$. If $T_1$ is defined such that it *can* produce an execution with a B (e.g., `A B C`), then $P_1(E(T_1))$ would be False, and it would not be a property. The question suggests $T_1$'s behaviour is constrained. If $T_1$ **cannot** produce any execution with B, then all executions in $E(T_1)$ satisfy "B never occurs", making $P_1$ a property of $T_1$.
 
 **(c)** _(4 marks per part)_
 (i) **Liveness property.** It states that a "good thing" (action C) must **eventually happen**. A violation (C never occurs) cannot be determined from any finite prefix, as C might still happen in the future.
-(ii) **No**, \( T_2 \) does **not** satisfy \( P_2 \). The set \( E(T_2) \) contains only infinite sequences that **never** contain action C. Therefore, **for every execution** \( e \) in \( E(T_2) \), the predicate "C occurs at least once" is false. Hence, \( P_2(E(T_2)) = \text{False} \).
+(ii) **No**, $T_2$ does **not** satisfy $P_2$. The set $E(T_2)$ contains only infinite sequences that **never** contain action C. Therefore, **for every execution** $e$ in $E(T_2)$, the predicate "C occurs at least once" is false. Hence, $P_2(E(T_2)) = \text{False}$.
 
 **(d)** _(4 marks for logical flow)_
-For monitoring, we need a clear rule to abort. 1. A policy must first be a well-defined predicate \(P\) on sets of executions. 2. To be meaningful for a specific system \(T\), it must be a **property** of \(T\)—i.e., it must hold consistently for *all* of \(T\)'s possible executions (\(P'(e)\) true for all \(e\) in \(E(T)\)). 3. For runtime enforcement, a violation must be **decidable upon observation**; this is only possible if the property is a **safety** (or similar) property, where a violating finite prefix exists. Therefore, enforceable policies are exactly those that are **properties** of the system and belong to the class of **safety properties** (or co-safety properties) monitorable via finite prefixes.
+For monitoring, we need a clear rule to abort. 1. A policy must first be a well-defined predicate $P$ on sets of executions. 2. To be meaningful for a specific system $T$, it must be a **property** of $T$—i.e., it must hold consistently for *all* of $T$'s possible executions ($P'(e)$ true for all $e$ in $E(T)$). 3. For runtime enforcement, a violation must be **decidable upon observation**; this is only possible if the property is a **safety** (or similar) property, where a violating finite prefix exists. Therefore, enforceable policies are exactly those that are **properties** of the system and belong to the class of **safety properties** (or co-safety properties) monitorable via finite prefixes.
 # 10. Example Safety
 ## Outline
 ## Practice Qs
@@ -1783,24 +1783,24 @@ The search space for the correct order grows **factorially** with N. For N=10, t
 ### Question 2: Firewall Decision Diagrams (FDDs)
 This question covers the structure, properties, and interpretation of FDDs.
 
-**(a)** A **Firewall Decision Diagram (FDD)** is defined over packet fields \(F_1 ... F_n\).
+**(a)** A **Firewall Decision Diagram (FDD)** is defined over packet fields $F_1 ... F_n$.
 (i) **State** the two possible labels for a **terminal node**.
-(ii) For a **non-terminal node** labelled with field \(F_i\), what must be true about the sets \(I(e)\) labelling its outgoing edges \(e\)? Provide **two** conditions.
+(ii) For a **non-terminal node** labelled with field $F_i$, what must be true about the sets $I(e)$ labelling its outgoing edges $e$? Provide **two** conditions.
 **[5 marks]**
 
-**(b)** Consider the following FDD fragment for fields \(F_1, F_2\) with domains {1..10}:
-*   Root node `v1` labelled \(F_1\).
-*   From `v1`, edge labelled {1,2,3} points to node `v2` (labelled \(F_2\)).
+**(b)** Consider the following FDD fragment for fields $F_1, F_2$ with domains {1..10}:
+*   Root node `v1` labelled $F_1$.
+*   From `v1`, edge labelled {1,2,3} points to node `v2` (labelled $F_2$).
 *   From `v1`, edge labelled {4,5,6,7,8,9,10} points to terminal node `d` (discard).
 *   From `v2`, edge labelled {1,2} points to terminal node `a` (accept).
 *   From `v2`, edge labelled {3,4,5,6,7,8,9,10} points to terminal node `d`.
-(i) For a packet \((F_1=2, F_2=4)\), **trace** the path through the FDD and state the final decision.
+(i) For a packet $(F_1=2, F_2=4)$, **trace** the path through the FDD and state the final decision.
 (ii) **List** the **decision path** for the packet that results in `accept`.
 **[8 marks]**
 
-**(c)** The **Theorem of FDDs** states: for any FDD \(f\),
-1. \(f\).accept \(\cap\) \(f\).discard = \(\emptyset\).
-2. \(f\).accept \(\cup\) \(f\).discard = \(\Sigma\).
+**(c)** The **Theorem of FDDs** states: for any FDD $f$,
+1. $f$.accept $\cap$ $f$.discard = $\emptyset$.
+2. $f$.accept $\cup$ $f$.discard = $\Sigma$.
 **Explain** what each part of this theorem guarantees about the firewall policy represented by the FDD. Use the terms **consistency** and **completeness**.
 **[4 marks]**
 
@@ -1814,25 +1814,25 @@ This question covers the structure, properties, and interpretation of FDDs.
 #### Model Solution
 **(a)** _(2 marks for i, 3 for ii - 1.5 per condition)_
 (i) `accept` or `discard`.
-(ii) 1. **Consistency:** For any two distinct edges \(e, e'\), \(I(e) \cap I(e') = \emptyset\) (no overlapping values).
-2. **Completeness:** \(\bigcup_{e \in E(v)} I(e) = D(F_i)\) (the union of all edge labels covers the entire domain of field \(F_i\)).
+(ii) 1. **Consistency:** For any two distinct edges $e, e'$, $I(e) \cap I(e') = \emptyset$ (no overlapping values).
+2. **Completeness:** $\bigcup_{e \in E(v)} I(e) = D(F_i)$ (the union of all edge labels covers the entire domain of field $F_i$).
 
 **(b)** _(4 marks for i, 4 for ii)_
 (i) Packet (F1=2, F2=4).
 - At `v1` (F1): 2 ∈ {1,2,3} → follow edge to `v2`.
 - At `v2` (F2): 4 ∈ {3,4,5,6,7,8,9,10} → follow edge to terminal node `d`.
 **Decision: discard.**
-(ii) **Decision path for `accept`:** \(\langle v_1, e_1, v_2, e_2, a \rangle\) where:
-- \(v_1\) is F1 node.
-- \(e_1\) is edge with \(I(e_1) = \{1,2,3\}\).
-- \(v_2\) is F2 node.
-- \(e_2\) is edge with \(I(e_2) = \{1,2\}\).
-- \(a\) is accept terminal node.
-The corresponding condition is \(F_1 \in \{1,2,3\} \land F_2 \in \{1,2\} \rightarrow \text{accept}\).
+(ii) **Decision path for `accept`:** $\langle v_1, e_1, v_2, e_2, a \rangle$ where:
+- $v_1$ is F1 node.
+- $e_1$ is edge with $I(e_1) = \{1,2,3\}$.
+- $v_2$ is F2 node.
+- $e_2$ is edge with $I(e_2) = \{1,2\}$.
+- $a$ is accept terminal node.
+The corresponding condition is $F_1 \in \{1,2,3\} \land F_2 \in \{1,2\} \rightarrow \text{accept}$.
 
 **(c)** _(2 marks per part)_
 1. Guarantees **Consistency:** No packet can be classified as both `accept` and `discard`. The sets of packets leading to each decision are **disjoint**.
-2. Guarantees **Completeness:** Every possible packet in \(\Sigma\) (the universe of all packets) is classified as either `accept` or `discard`. There are no "holes" or unclassified packets.
+2. Guarantees **Completeness:** Every possible packet in $\Sigma$ (the universe of all packets) is classified as either `accept` or `discard`. There are no "holes" or unclassified packets.
 
 **(d)** _(3 marks for explanation)_
 Each **decision path** from the root to a terminal node in an FDD corresponds to **exactly one firewall rule**. The predicate of the rule is the conjunction of the field constraints defined by the edges on the path. Therefore, the **number of rules** in an equivalent firewall equals the **number of decision paths** in the FDD.
@@ -1854,17 +1854,17 @@ This question focuses on Algorithm 1 for reducing an FDD by removing single-edge
 **[3 marks]**
 
 **(c)** Consider the following FDD fragment:
-- Node \(u\) (labelled \(F_1\)) has a **single outgoing edge** labelled {1,2,3} pointing to node \(w\) (labelled \(F_2\)).
-- Node \(w\) has two outgoing edges: {1}→`accept` and {2,3}→`discard`.
+- Node $u$ (labelled $F_1$) has a **single outgoing edge** labelled {1,2,3} pointing to node $w$ (labelled $F_2$).
+- Node $w$ has two outgoing edges: {1}→`accept` and {2,3}→`discard`.
 Apply **Algorithm 1, Step 1** to this fragment.
 (i) **Describe** the transformation.
 (ii) Draw or describe the resulting structure **after** the step.
 **[5 marks]**
 
 **(d)** Consider a different FDD fragment:
-- Node \(x\) (labelled \(F_2\)) has edges: {1,2}→`accept`, {3,4}→`accept`, {5}→`discard`.
-- Node \(y\) (labelled \(F_2\)) has edges: {1,2}→`accept`, {3,4}→`accept`, {5}→`discard`.
-Nodes \(x\) and \(y\) are isomorphic.
+- Node $x$ (labelled $F_2$) has edges: {1,2}→`accept`, {3,4}→`accept`, {5}→`discard`.
+- Node $y$ (labelled $F_2$) has edges: {1,2}→`accept`, {3,4}→`accept`, {5}→`discard`.
+Nodes $x$ and $y$ are isomorphic.
 (i) **Apply** **Algorithm 1, Step 2** (merging isomorphic nodes). Describe the action.
 (ii) What is the impact of this step on the total **number of nodes** and **number of decision paths** in the FDD?
 **[6 marks]**
@@ -1876,7 +1876,7 @@ Nodes \(x\) and \(y\) are isomorphic.
 #### Model Solution
 **(a)** _(2 marks per part)_
 (i) Two terminal nodes are isomorphic **iff** they have the **same label** (both `accept` or both `discard`).
-(ii) Two non-terminal nodes \(v\) and \(v'\) are isomorphic **iff** 1. They are labelled with the **same field** \(F(v)=F(v')\), and 2. There is a **one-to-one correspondence** between their outgoing edges such that corresponding edges have **identical labels** \(I(e)\) and point to **isomorphic** child nodes.
+(ii) Two non-terminal nodes $v$ and $v'$ are isomorphic **iff** 1. They are labelled with the **same field** $F(v)=F(v')$, and 2. There is a **one-to-one correspondence** between their outgoing edges such that corresponding edges have **identical labels** $I(e)$ and point to **isomorphic** child nodes.
 
 **(b)** _(1 mark per condition)_
 1. No node has only **one outgoing edge**.
@@ -1884,15 +1884,15 @@ Nodes \(x\) and \(y\) are isomorphic.
 3. No **two edges** connect the same pair of nodes.
 
 **(c)** _(3 marks for i, 2 for ii)_
-(i) Step 1 removes node \(u\) and its single outgoing edge. The parent(s) of \(u\) will now have their edges pointing directly to \(w\) instead.
-(ii) **Result:** The parent(s) of \(u\) now have an edge labelled {1,2,3} pointing directly to node \(w\) (F2). Node \(u\) and its edge are deleted.
+(i) Step 1 removes node $u$ and its single outgoing edge. The parent(s) of $u$ will now have their edges pointing directly to $w$ instead.
+(ii) **Result:** The parent(s) of $u$ now have an edge labelled {1,2,3} pointing directly to node $w$ (F2). Node $u$ and its edge are deleted.
 
 **(d)** _(4 marks for i, 2 for ii)_
-(i) Step 2 removes node \(y\) and all its outgoing edges. Any edge(s) that previously pointed to \(y\) are **redirected** to point to \(x\) instead.
+(i) Step 2 removes node $y$ and all its outgoing edges. Any edge(s) that previously pointed to $y$ are **redirected** to point to $x$ instead.
 (ii) **Impact:** The **number of nodes** decreases by 1 (and associated edges are removed/redirected). The **number of decision paths** remains **unchanged** because the logical mapping from packets to decisions is preserved; the structure is simply consolidated.
 
 **(e)** _(4 marks for explanation)_
-Step 3 merges two edges \(e\) and \(e'\) between the same nodes \(v\) and \(v'\) into a **single edge** \(e''\) with label \(I(e'') = I(e) \cup I(e')\). This contributes to a **reduced FDD** by eliminating redundant structural complexity (multiple edges representing disjoint subsets of the same field's domain). It ensures the **"no two edges between the same pair of nodes"** condition is met, simplifying the graph without changing its semantic function.
+Step 3 merges two edges $e$ and $e'$ between the same nodes $v$ and $v'$ into a **single edge** $e''$ with label $I(e'') = I(e) \cup I(e')$. This contributes to a **reduced FDD** by eliminating redundant structural complexity (multiple edges representing disjoint subsets of the same field's domain). It ensures the **"no two edges between the same pair of nodes"** condition is met, simplifying the graph without changing its semantic function.
 
 ---
 ### Question 4: FDD Marking & Load Calculation
@@ -1903,29 +1903,29 @@ This question covers Algorithm 2 (Marking) and the calculation of load for gener
 (ii) **State** the purpose of creating a marked FDD in the structured firewall design process.
 **[4 marks]**
 
-**(b)** The **load** of a non-empty set of integers \(S\), \(load(S)\), is defined.
-(i) **Define** \(load(S)\).
-(ii) **Calculate** \(load(\{1, 3, 4, 5, 7, 8, 9\})\).
+**(b)** The **load** of a non-empty set of integers $S$, $load(S)$, is defined.
+(i) **Define** $load(S)$.
+(ii) **Calculate** $load(\{1, 3, 4, 5, 7, 8, 9\})$.
 **[4 marks]**
 
-**(c)** The load of an **edge** \(e\) in a marked FDD is:
+**(c)** The load of an **edge** $e$ in a marked FDD is:
 \[
 load(e) = \begin{cases}
 1 & \text{if } e \text{ is marked "all"} \\
 load(I(e)) & \text{otherwise}
 \end{cases}
 \]
-The load of a **node** \(v\) is defined recursively.
-(i) What is \(load(v)\) if \(v\) is a **terminal node**?
-(ii) If \(v\) is a non-terminal node with \(k\) outgoing edges \(e_1...e_k\) pointing to nodes \(v_1...v_k\), state the formula for \(load(v)\).
+The load of a **node** $v$ is defined recursively.
+(i) What is $load(v)$ if $v$ is a **terminal node**?
+(ii) If $v$ is a non-terminal node with $k$ outgoing edges $e_1...e_k$ pointing to nodes $v_1...v_k$, state the formula for $load(v)$.
 **[4 marks]**
 
-**(d)** Consider a non-terminal node \(v\) (field \(F\)) with two outgoing edges:
-- Edge \(e_1\): label {1,2,3}, points to node \(v_1\) where \(load(v_1)=2\).
-- Edge \(e_2\): marked "all", points to node \(v_2\) where \(load(v_2)=1\).
-Assume \(D(F) = \{1,2,3,4,5\}\).
-(i) **Calculate** \(load(e_1)\) and \(load(e_2)\).
-(ii) **Calculate** \(load(v)\). Show your working.
+**(d)** Consider a non-terminal node $v$ (field $F$) with two outgoing edges:
+- Edge $e_1$: label {1,2,3}, points to node $v_1$ where $load(v_1)=2$.
+- Edge $e_2$: marked "all", points to node $v_2$ where $load(v_2)=1$.
+Assume $D(F) = \{1,2,3,4,5\}$.
+(i) **Calculate** $load(e_1)$ and $load(e_2)$.
+(ii) **Calculate** $load(v)$. Show your working.
 **[6 marks]**
 
 **(e)** **Algorithm 2.5** aims to find a marked FDD with **minimum load**.
@@ -1940,17 +1940,17 @@ Assume \(D(F) = \{1,2,3,4,5\}\).
 (ii) To **order the traversal** of edges during firewall rule generation (Algorithm 3). The "all" edge is traversed last, which minimizes the number of resulting **simple rules** derived from the FDD.
 
 **(b)** _(2 marks per part)_
-(i) \(load(S)\) is the **minimum number of non-overlapping integer intervals** whose union equals \(S\).
-(ii) \(S = \{1, 3, 4, 5, 7, 8, 9\}\). Intervals: [1,1], [3,5], [7,9]. **\(load(S) = 3\)**.
+(i) $load(S)$ is the **minimum number of non-overlapping integer intervals** whose union equals $S$.
+(ii) $S = \{1, 3, 4, 5, 7, 8, 9\}$. Intervals: [1,1], [3,5], [7,9]. **$load(S) = 3$**.
 
 **(c)** _(2 marks per part)_
-(i) \(load(v) = 1\) for a terminal node.
-(ii) \(load(v) = \sum_{i=1}^{k} (load(e_i) \times load(v_i))\).
+(i) $load(v) = 1$ for a terminal node.
+(ii) $load(v) = \sum_{i=1}^{k} (load(e_i) \times load(v_i))$.
 
 **(d)** _(3 marks per part)_
-(i) - \(load(e_1) = load(\{1,2,3\})\). {1,2,3} is a single interval [1,3], so \(load(e_1)=1\).
-- \(load(e_2) = 1\) (because it is marked "all").
-(ii) \(load(v) = (load(e_1) \times load(v_1)) + (load(e_2) \times load(v_2)) = (1 \times 2) + (1 \times 1) = 2 + 1 = 3\).
+(i) - $load(e_1) = load(\{1,2,3\})$. {1,2,3} is a single interval [1,3], so $load(e_1)=1$.
+- $load(e_2) = 1$ (because it is marked "all").
+(ii) $load(v) = (load(e_1) \times load(v_1)) + (load(e_2) \times load(v_2)) = (1 \times 2) + (1 \times 1) = 2 + 1 = 3$.
 
 **(e)** _(4 marks for i, 3 for ii)_
 (i) The load of the **root node** is defined as the **load of the entire marked FDD**. Since the number of generated **simple rules** is equal to this load, minimizing the root's load directly minimizes the firewall's rule count.
@@ -1966,24 +1966,24 @@ This question covers generating rules from a marked FDD (Algorithm 3) and the co
 **[4 marks]**
 
 **(b)** From a marked FDD, a decision path is:
-\(\langle v_1(F_1), e_1(\{2,3\}), v_2(F_2), e_2(\text{"all"}), v_3(\text{discard}) \rangle\).
-Domains: \(D(F_1)=\{1..10\}, D(F_2)=\{1..10\}\).
-**Write** the firewall rule \(r\) generated from this path. Use the format: \(F_1 \in S_1 \land F_2 \in S_2 \rightarrow \text{decision}\).
+$\langle v_1(F_1), e_1(\{2,3\}), v_2(F_2), e_2(\text{"all"}), v_3(\text{discard}) \rangle$.
+Domains: $D(F_1)=\{1..10\}, D(F_2)=\{1..10\}$.
+**Write** the firewall rule $r$ generated from this path. Use the format: $F_1 \in S_1 \land F_2 \in S_2 \rightarrow \text{decision}$.
 **[4 marks]**
 
-**(c)** For a generated rule \(r\), we define \(r.mp\) (matching predicate) and \(r.rp\) (resolving predicate).
-(i) **Explain** the purpose of the **resolving predicate** \(r.rp\) in the context of detecting redundant rules.
-(ii) In the rule from part (b), would \(r.rp\) be **different** from \(r.mp\)? Justify your answer.
+**(c)** For a generated rule $r$, we define $r.mp$ (matching predicate) and $r.rp$ (resolving predicate).
+(i) **Explain** the purpose of the **resolving predicate** $r.rp$ in the context of detecting redundant rules.
+(ii) In the rule from part (b), would $r.rp$ be **different** from $r.mp$? Justify your answer.
 **[6 marks]**
 
 **(d)** **Algorithm 4** (Firewall Compaction) removes redundant rules.
-(i) **Define** a **redundant rule** in terms of its \(r.mp\) and the \(r.rp\) of rules preceding it in the list.
+(i) **Define** a **redundant rule** in terms of its $r.mp$ and the $r.rp$ of rules preceding it in the list.
 (ii) **Explain** why removing redundant rules is important for firewall implementations using **TCAM**.
 **[6 marks]**
 
 **(e)** Consider two consecutive rules in a generated firewall:
-\(r_i: F_1 \in [1,5] \land F_2 \in [1,10] \rightarrow \text{accept}\)
-\(r_{i+1}: F_1 \in [6,10] \land F_2 \in [1,10] \rightarrow \text{accept}\)
+$r_i: F_1 \in [1,5] \land F_2 \in [1,10] \rightarrow \text{accept}$
+$r_{i+1}: F_1 \in [6,10] \land F_2 \in [1,10] \rightarrow \text{accept}$
 Could these two rules be **combined** into a single, simpler rule without changing firewall semantics? If yes, give the combined rule.
 **[5 marks]**
 
@@ -1994,17 +1994,20 @@ Could these two rules be **combined** into a single, simpler rule without changi
 (ii) Each produced rule corresponds to one **decision path** from the root to a terminal node.
 
 **(b)** _(4 marks for correct rule)_
-\(r: F_1 \in \{2,3\} \land F_2 \in \{1,2,3,4,5,6,7,8,9,10\} \rightarrow \text{discard}\).
-*(Or \(F_2 \in [1,10]\))*.
+$r: F_1 \in \{2,3\} \land F_2 \in \{1,2,3,4,5,6,7,8,9,10\} \rightarrow \text{discard}$.
+*(Or $F_2 \in [1,10]$)*.
 
 **(c)** _(3 marks per part)_
-(i) The **resolving predicate** \(r.rp\) defines the **set of packets for which rule \(r\) is the *first* matching rule**. It is \(r.mp\) **minus** the union of the matching predicates of all preceding rules. It identifies the rule's *actual effect*.
-(ii) **Yes, \(r.rp\) would be different.** Because \(e_2\) is marked "all", \(S_2\) in \(r.mp\) is the full domain \(D(F_2)\). However, \(r.rp\) would exclude any packets matched by rules generated from paths that took non-"all" edges from \(v_2\). This typically makes \(r.rp\)'s condition for \(F_2\) a **subset** of the full domain.
+(i) The **resolving predicate** $r.rp$ defines the **set of packets for which rule $r$ is the *first* matching rule**. It is $r.mp$ **minus** the union of the matching predicates of all preceding rules. It identifies the rule's *actual effect*.
+(ii) **Yes, $r.rp$ would be different.** Because $e_2$ is marked "all", $S_2$ in $r.mp$ is the full domain $D(F_2)$. However, $r.rp$ would exclude any packets matched by rules generated from paths that took non-"all" edges from $v_2$. This typically makes $r.rp$'s condition for $F_2$ a **subset** of the full domain.
 
 **(d)** _(3 marks per part)_
-(i) A rule \(r_i\) is redundant if its **resolving predicate \(r_i.rp\) is empty**, meaning no packet has \(r_i\) as its first match. Equivalently, if \(r_i.mp\) is **completely covered** by the union of \(r_j.mp\) for all \(j < i\).
+(i) A rule $r_i$ is redundant if its **resolving predicate $r_i.rp$ is empty**, meaning no packet has $r_i$ as its first match. Equivalently, if $r_i.mp$ is **completely covered** by the union of $r_j.mp$ for all $j < i$.
 (ii) **TCAM** (Ternary Content Addressable Memory) stores rules in hardware for fast matching. It has **limited size** and **high power consumption** proportional to the number of rules. Removing redundant rules **saves space** and **reduces power**, directly improving performance and cost.
 
 **(e)** _(5 marks: 1 for yes, 4 for combined rule)_
-**Yes.** The rules are contiguous and have the same decision. They can be combined by taking the union of their predicates for \(F_1\).
-**Combined Rule:** \(F_1 \in [1,10] \land F_2 \in [1,10] \rightarrow \text{accept}\).
+**Yes.** The rules are contiguous and have the same decision. They can be combined by taking the union of their predicates for $F_1$.
+**Combined Rule:** $F_1 \in [1,10] \land F_2 \in [1,10] \rightarrow \text{accept}$.
+# Previous Material
+[2024/25](file:///home/andreas/Downloads/COMP3911/exam/main-comp3911.pdf)
+[2023/24](file:///home/andreas/Downloads/COMP3911/exam/comp3911-exam-q-2324.pdf)[file:///home/andreas/Downloads/COMP3911/exam/sample-questions.pdf](sample)

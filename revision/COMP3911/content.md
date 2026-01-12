@@ -423,7 +423,7 @@ Elevation of privilege.
 - A *session* is represented by a persistent token (the **session ID**), stored by the client as a *cookie*.
 - Thee persistent tokens can be for both authenticated and unauthenticated users.
 - These sessions also have an associated state, i.e., they can be stored locally or cached on the server.
-#### ### Session ID Dangers
+#### Session ID Dangers
 This can be predicted by the attacker and they allow them to impersonate the user.
 If the browser doesn't support cookies, the web app might add the session id to the URL, exposing it entirely.
 To avoid this:
