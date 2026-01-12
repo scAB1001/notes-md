@@ -961,6 +961,161 @@ The principle **"reluctance to trust"** mandates treating all external input as 
         - When to validate?
         - Comparison with older OWASP Top 10s
 ## Practice Qs
+### Practice Question 1: Session Management & HTTPS
+This question covers web session security and transport layer protections.
+
+**(a)** HTTP is stateless, so web applications use **sessions**.
+(i) **Describe** the purpose of a **session ID**.
+(ii) **State** two security best practices for generating and handling session IDs to prevent impersonation attacks.
+**[6 marks]**
+
+**(b)** A developer stores the session ID in the URL (e.g., `?sessionid=abc123`) to support browsers that block cookies.
+(i) **Identify** the major security risk this introduces.
+(ii) **Propose** a more secure alternative approach for session management without relying solely on cookies.
+**[5 marks]**
+
+**(c)** The **DROWN attack** exploits support for the obsolete SSLv2 protocol.
+(i) **Explain** the core condition that makes a server vulnerable to DROWN.
+(ii) **State** one specific configuration action to prevent this vulnerability.
+**[4 marks]**
+
+**(d)** **HSTS (HTTP Strict Transport Security)** is a security policy mechanism.
+(i) **State** the primary security benefit of HSTS.
+(ii) **Identify** one remaining limitation or weakness of HSTS that could still allow an initial Man-in-the-Middle (MitM) attack.
+**[5 marks]**
+
+**(e)** An application has an **open redirect** vulnerability where the parameter `redirect_url` in a GET request is used unchecked in a `Location:` header.
+(i) **Describe** how an attacker could exploit this for a phishing attack.
+(ii) **State** the correct defensive measure to fix this vulnerability.
+**[5 marks]**
+
+---
+#### Model Solution
+**(a)** _(2 marks for i, 4 for ii - 2 marks per practice)_
+(i) A **session ID** is a token that uniquely identifies a user's interaction sequence with the server, allowing state to be maintained across stateless HTTP requests.
+(ii) 1. Generate IDs using a **cryptographically secure PRNG** (Pseudo Random Number Generator).
+2. Enforce **HTTPS-only** and set the **Secure** cookie flag to prevent transmission over plain HTTP.
+
+**(b)** _(3 marks for i, 2 for ii)_
+(i) **Session ID exposure** in browser history, logs, Referer headers, and via shoulder surfing—leading to **session hijacking**.
+(ii) Use **browser-local storage** (e.g., `sessionStorage`) with tokens transmitted in a custom HTTP header (e.g., `X-Session-Token`), combined with **same-origin** protections.
+
+**(c)** _(2 marks per part)_
+(i) A server is vulnerable if its **private RSA key** is used on *any* server that still supports the **SSLv2** protocol, even if the target server itself does not.
+(ii) **Disable SSLv2** (and SSLv3) on *all* servers that share the same private key, and ensure TLS 1.2+ is the minimum supported version.
+
+**(d)** _(3 marks for i, 2 for ii)_
+(i) It forces browsers to use **HTTPS** for all connections to the domain, preventing **downgrade attacks** and cookie hijacking over HTTP.
+(ii) The **first visit** to a site is not protected by HSTS if the initial request is made via HTTP, allowing a **MitM** to strip or intercept the HSTS header.
+
+**(e)** _(3 marks for i, 2 for ii)_
+(i) An attacker crafts a link like `https://victim-site.com/logout?redirect_url=https://evil-phishing-site.com`. The victim is logged out and then automatically redirected to a convincing phishing page, potentially leaking credentials.
+(ii) **Validate and whitelist** allowable redirect URLs on the server-side, or use a mapping of internal tokens to approved URLs (avoid direct user input).
+
+---
+### Practice Question 2: XSS & HTML Injection
+This question focuses on Cross-Site Scripting attacks and their prevention.
+
+**(a)** **Cross-Site Scripting (XSS)** is a major web vulnerability.
+(i) **Distinguish** between **Reflected XSS** and **Stored XSS** in terms of how the malicious script is delivered to the victim.
+(ii) For **Stored XSS**, explain why it is often considered more severe.
+**[6 marks]**
+
+**(b)** A comment form on a blog accepts user input and displays it without sanitisation. An attacker submits a comment containing: `<span onmouseover="alert('XSS')">Hover here</span>`.
+(i) **Classify** this XSS attack type.
+(ii) **Describe** two specific server-side defences that would prevent this attack from succeeding.
+**[6 marks]**
+
+**(c)** The **`HttpOnly`** cookie flag is recommended for session cookies.
+(i) **Explain** what protection the `HttpOnly` flag provides.
+(ii) **State** whether this flag alone is sufficient to prevent **session hijacking** via XSS. Justify your answer.
+**[5 marks]**
+
+**(d)** **HTML Injection** can be used to perform a **frame attack**.
+(i) **Describe** how an attacker could use injected HTML to create a fraudulent login form.
+(ii) **State** one client-side and one server-side defence against such frame-based phishing.
+**[5 marks]**
+
+**(e)** A web application uses **Markdown** instead of raw HTML for user-generated content.
+(i) **Explain** why this is a good security practice against XSS.
+(ii) **Identify** one potential security risk that remains even when using a Markdown parser.
+**[3 marks]**
+
+---
+#### Model Solution
+**(a)** _(3 marks per part)_
+(i) **Reflected XSS:** The malicious script is part of the victim's request (e.g., in a URL parameter) and is immediately included in the server's response. **Stored XSS:** The script is permanently stored on the server (e.g., in a database) and served to multiple victims in later page views.
+(ii) **Stored XSS** is more severe because it *persists*, can affect *many users* without targeted phishing, and may remain undetected for a long time.
+
+**(b)** _(2 marks for i, 4 for ii - 2 marks per defence)_
+(i) **Stored XSS** (the script is saved in the blog comment database).
+(ii) 1. **Output Encoding:** Convert special characters (`<`, `>`, `&`, `"`) to HTML entities (`&lt;`, `&gt;`, `&amp;`, `&quot;`) before rendering.
+2. **Input Validation/Rejection:** Disallow raw HTML input entirely; accept only plain text or a safe subset like Markdown.
+
+**(c)** _(3 marks for i, 2 for ii)_
+(i) It prevents client-side **JavaScript** from accessing the cookie via `document.cookie`, mitigating cookie theft via **XSS**.
+(ii) **No.** While it prevents script-based theft, **session hijacking** can still occur via network eavesdropping (if not HTTPS) or **MITM** attacks. It is a **defence-in-depth** measure, not a complete solution.
+
+**(d)** _(3 marks for i, 2 for ii - 1 mark per defence)_
+(i) Inject an `<iframe>` pointing to a malicious server that displays a fake login form. When the user submits credentials, they are sent to the attacker.
+(ii) **Client-side:** Use the **`X-Frame-Options: DENY`** or **`Content-Security-Policy frame-ancestors`** header to prevent framing. **Server-side:** Strict **output encoding** to prevent HTML/script injection in the first place.
+
+**(e)** _(2 marks for i, 1 for ii)_
+(i) Markdown parsers typically **strip or escape** raw HTML and JavaScript, preventing direct script injection from user input.
+(ii) If the Markdown parser itself has a vulnerability (e.g., allowing unsanitised HTML passthrough), or if it supports **dangerous features** like `javascript:` links, XSS may still be possible.
+
+---
+### Practice Question 3: CSRF, XML, & OWASP Trends
+This question covers CSRF, XML attacks, and evolving web vulnerability landscapes.
+
+**(a)** **Cross-Site Request Forgery (CSRF/XSRF)** exploits the browser's automatic sending of session credentials.
+(i) **Describe** the core mechanism of a CSRF attack.
+(ii) **Explain** how using a **synchroniser token (nonce)** pattern prevents CSRF.
+**[7 marks]**
+
+**(b)** A banking site uses a form for money transfers:
+`<form action="/transfer" method="POST"><input name="amount"><input name="toAccount">...</form>`
+An attacker tricks a logged-in user to visit a page containing:
+`<img src="https://bank.com/transfer?amount=1000&toAccount=ATTACKER" width="0" height="0">`
+(i) **Explain** why this attack might fail if the bank uses a **nonce** stored in a *hidden form field*.
+(ii) **State** an alternative, more robust location to store the nonce that would still prevent this attack.
+**[5 marks]**
+
+**(c)** The **Billion Laughs** attack is a type of **XML External Entity (XXE)** attack.
+(i) **Describe** its impact (e.g., Denial of Service, Information Disclosure).
+(ii) **State** the fundamental parsing flaw it exploits and one configuration fix to prevent it.
+**[5 marks]**
+
+**(d)** **Client-side validation** is often implemented in JavaScript for form fields.
+(i) **Explain** why client-side validation is **not** a security control.
+(ii) **State** the correct principle regarding **where** input validation for security must always occur.
+**[4 marks]**
+
+**(e)** According to OWASP Top 10 trends, "Injection and auth issues are less significant" while "Cryptographic failure and use of vulnerable components has become more significant."
+**Provide** one plausible reason for each of these shifts in the threat landscape.
+**[4 marks]**
+
+---
+#### Model Solution
+**(a)** _(4 marks for i, 3 for ii)_
+(i) The attacker tricks a victim's browser into making an **authenticated request** (using the victim's stored session cookies) to a target web application, causing an unintended state-changing action (e.g., funds transfer) without the victim's consent.
+(ii) The server generates a unique, unpredictable **nonce** for each session/form, embeds it in the page (e.g., hidden field), and validates it upon request submission. An attacker cannot forge a valid request because they cannot predict or read the nonce.
+
+**(b)** _(3 marks for i, 2 for ii)_
+(i) The attack uses a **GET** request (via `<img>` src). If the bank expects the nonce in a **hidden form field** submitted via **POST**, the GET request will lack the required token and be rejected.
+(ii) Store the nonce in a **custom HTTP header** (e.g., `X-CSRF-Token`). This is more robust because browsers enforce the **Same-Origin Policy**, preventing attackers from setting custom headers in cross-site requests.
+
+**(c)** _(2 marks for i, 3 for ii - 2 for flaw, 1 for fix)_
+(i) **Denial of Service (DoS)** by exhausting server memory/CPU through exponential entity expansion.
+(ii) **Flaw:** The XML parser **eagerly evaluates** and expands all entity references during parsing, allocating massive amounts of memory. **Fix:** Disable **external entity processing** (DTD) in the XML parser configuration.
+
+**(d)** _(2 marks per part)_
+(i) Client-side validation can be **bypassed** by disabling JavaScript, using tools like Burp Suite, or crafting raw HTTP requests. It only improves **user experience**.
+(ii) Validation for security **must always be performed on the server-side**, as it is the only trusted environment.
+
+**(e)** _(2 marks per reason)_
+1. **Injection/Auth less significant:** Widespread adoption of **frameworks** with built-in protections (ORM, parameterised queries), better security education, and standard libraries has reduced these classic flaws.
+2. **Crypto/Vulnerable Components more significant:** Increased use of **third-party libraries** (npm, pip) and complex cloud configurations introduces supply chain risks and misconfigurations that are harder to manage.
 # 07. User Authentication
 ## Outline
 - Entropy
@@ -972,6 +1127,159 @@ The principle **"reluctance to trust"** mandates treating all external input as 
     - Biometrics
         - The Revocation Problem
 ## Practice Qs
+### Practice Question 1: Entropy & Password Strength
+This question tests the calculation and interpretation of password entropy.
+
+**(a)** **Entropy** is a measure of uncertainty or randomness in a secret.
+(i) **State** the formula for calculating the entropy \( H \) (in bits) of a secret chosen uniformly from a set of \( N \) possibilities, where the secret is \( L \) independent selections from that set.
+(ii) A user creates a password by randomly choosing 6 lowercase letters (a-z). **Calculate** the entropy of this password. Show your working.
+**[6 marks]**
+
+**(b)** A system requires passwords with at least 50 bits of entropy. A user proposes using an 8-character password where each character is randomly chosen from the 95 printable ASCII characters.
+(i) **Calculate** the entropy of this 8-character password.
+(ii) **Determine** if it meets the 50-bit requirement. If not, calculate the **minimum length** \( L \) (to the nearest whole character) needed using the same character set.
+**[8 marks]**
+
+**(c)** **Compare** the entropy of a **4-digit numeric PIN** (0-9) to a **6-character lowercase alphabetic** password (a-z). Show the calculation for each and state which is stronger and by approximately how many bits.
+**[6 marks]**
+
+**(d)** The **Key Sweeper** device is a malicious USB charger that sniffs wireless keyboard keystrokes.
+(i) **Identify** the type of attack this enables (e.g., MITM, Eavesdropping).
+(ii) **State** one effective mitigation a user could employ to protect against such an attack, assuming they must use a wireless keyboard.
+**[5 marks]**
+
+---
+#### Model Solution
+**(a)** _(3 marks for formula, 3 for calculation)_
+(i) \( H = L \cdot \log_2 N \) bits.
+(ii) \( N = 26 \) (lowercase letters), \( L = 6 \).
+\( H = 6 \cdot \log_2 26 = 6 \cdot \frac{\log_{10} 26}{\log_{10} 2} \approx 6 \cdot 4.700 \approx \textbf{28.20 bits} \).
+
+**(b)** _(4 marks per part)_
+(i) \( N = 95 \), \( L = 8 \).
+\( H = 8 \cdot \log_2 95 = 8 \cdot \frac{\log_{10} 95}{\log_{10} 2} \approx 8 \cdot 6.570 \approx \textbf{52.56 bits} \).
+(ii) **Yes**, 52.56 bits > 50 bits. Minimum length: \( L_{min} = \lceil \frac{50}{\log_2 95} \rceil = \lceil \frac{50}{6.570} \rceil = \lceil 7.61 \rceil = \textbf{8 characters} \).
+
+**(c)** _(3 marks per calculation, 1 for comparison)_
+- **PIN:** \( N=10, L=4 \). \( H = 4 \cdot \log_2 10 \approx 4 \cdot 3.322 = \textbf{13.29 bits} \).
+- **6-char lowercase:** \( N=26, L=6 \). \( H = 6 \cdot \log_2 26 \approx 6 \cdot 4.700 = \textbf{28.20 bits} \).
+The 6-character password is stronger by approximately **14.91 bits**.
+
+**(d)** _(3 marks for i, 2 for ii)_
+(i) **Eavesdropping** (specifically, a **wireless sniffing** attack).
+(ii) Use a **wireless keyboard that employs strong encryption** (e.g., AES) for the keystroke signal, or use a **wired keyboard** for sensitive input.
+
+---
+### Practice Question 2: Password Hashing & Salting
+This question focuses on secure password storage and attacks against hashes.
+
+**(a)** It is standard practice to store a **hash** of a password, not the password itself.
+(i) **Explain** the fundamental security reason for this.
+(ii) **Identify** one major weakness of using a fast, unsalted hash function (e.g., MD5, SHA-1) for password storage.
+**[5 marks]**
+
+**(b)** **Salting** is used to defend against precomputed hash attacks (rainbow tables).
+(i) **Define** what a **salt** is in this context.
+(ii) **Explain** how salting makes a **rainbow table** attack impractical for an attacker who has stolen a password database.
+**[6 marks]**
+
+**(c)** Given the following **hash cracking algorithm** pseudocode that uses a salt:
+```
+for user in stolen_file:
+    pass_hash = user.hash
+    pass_salt = user.salt
+    for word in word_list:
+        variations = generate_variations(word)
+        for variation in variations:
+            tmp_hash = hash(variation + pass_salt)
+            if tmp_hash == pass_hash: return variation
+```
+(i) **Name** the type of attack this algorithm performs (e.g., brute-force, dictionary).
+(ii) **State** how using a **unique salt per user** (as shown) affects the **computational cost** for an attacker cracking *multiple* users' passwords from the same database, compared to a single global salt.
+**[6 marks]**
+
+**(d)** To further slow down cracking, a **key stretching** technique like PBKDF2 or bcrypt is used.
+(i) **Describe** what key stretching does.
+(ii) **Explain** how it increases security against the attack in part (c).
+**[5 marks]**
+
+**(e)** A system uses `hash(password + salt)` where `+` denotes string concatenation. An attacker argues that a **long, globally unique salt** stored separately is just as good as per-user salts. **Explain** why this is **false** from a security perspective.
+**[3 marks]**
+
+---
+#### Model Solution
+**(a)** _(3 marks for i, 2 for ii)_
+(i) To ensure that if the credential database is compromised, the actual plaintext passwords are not directly exposed, protecting users who reuse passwords elsewhere.
+(ii) Fast hashes allow rapid **offline brute-force** or **dictionary attacks** against stolen hashes, as an attacker can compute billions of hashes per second.
+
+**(b)** _(3 marks per part)_
+(i) A **salt** is a random, unique value generated for each password and stored alongside its hash.
+(ii) A rainbow table is precomputed for unsalted hashes. A unique salt **perturbs** the hash input, meaning the attacker must recompute tables *for each salt value*, making precomputation infeasible.
+
+**(c)** _(3 marks per part)_
+(i) **Dictionary attack** (with variations/mangling rules).
+(ii) With **unique salts**, the attacker must run the entire **word list * variations** loop **separately for each user**, multiplying the total work by the number of users. With a **global salt**, the word list loop is run once and results compared to all hashes.
+
+**(d)** _(3 marks for i, 2 for ii)_
+(i) It applies the hash function **iteratively many times** (e.g., 100,000 rounds), deliberately slowing down the hash computation.
+(ii) It dramatically increases the **time** (and thus **computational cost**) to compute `tmp_hash` for each candidate password in the attack loop, making large-scale dictionary/brute-force attacks impractical.
+
+**(e)** _(3 marks for explanation)_
+A **global salt** (even if long and unique) still allows an attacker to precompute a single **rainbow table** for that salt, or to attack all hashes in the database in a **single pass** after computing hashes once. **Per-user salts** force a **separate attack per user**, providing **defence in depth**.
+
+---
+### Practice Question 3: Multi-Factor & Biometric Authentication
+This question evaluates authentication factors and the unique challenges of biometrics.
+
+**(a)** Authentication can be based on **something you know**, **something you have**, or **something you are**.
+(i) **Classify** each of the following into one of these three categories:
+A. **Password**
+B. **Fingerprint scan**
+C. **Hardware security key (e.g., YubiKey)**
+(ii) **Two-Factor Authentication (2FA)** requires two *different* categories. Give an example of a valid 2FA combination using the items above.
+**[6 marks]**
+
+**(b)** **Biometric** authentication is convenient but has limitations.
+(i) **Explain** the **revocation problem** associated with biometric credentials.
+(ii) **Describe** the proposed solution that involves combining a biometric with a **revocable factor**, as mentioned in the content.
+**[7 marks]**
+
+**(c)** A company implements 2FA using SMS one-time codes sent to a user's mobile phone.
+(i) **Identify** the category of the second factor (SMS code).
+(ii) **State** one security weakness of using SMS for 2FA.
+**[4 marks]**
+
+**(d)** Passwords are considered "cheap and convenient but weak."
+(i) **State** one reason why passwords are **weak** from an **entropy** perspective for typical user choices.
+(ii) **State** one reason why adding a **physical token** (2FA) significantly improves security even if the password is weak.
+**[5 marks]**
+
+**(e)** A system stores a hash of `hash(biometric_template + user_salt)`.
+(i) **Explain** the purpose of the `user_salt` in this construction.
+(ii) If the database is compromised, can the `user_salt` be changed to "revoke" the biometric credential? Justify your answer.
+**[3 marks]**
+
+---
+#### Model Solution
+**(a)** _(4 marks for i - 1 each, 2 for ii)_
+(i) A: **Something you know.** B: **Something you are.** C: **Something you have.**
+(ii) **Valid 2FA:** Password (know) + Hardware security key (have). *Or* Password (know) + Fingerprint (are).
+
+**(b)** _(4 marks for i, 3 for ii)_
+(i) The **revocation problem** is that biometric traits (e.g., fingerprints) are **immutable** and **finite**. If a biometric template is compromised, you cannot issue a new fingerprint like a new password; the original biometric is permanently weakened for authentication.
+(ii) Combine the **biometric template** with a **revocable factor** (e.g., a random number or token), hash the **composite**, and store the hash. To revoke, change the revocable factor and recompute the hash, effectively creating a new credential without changing the biometric.
+
+**(c)** _(2 marks per part)_
+(i) **Something you have** (possession of the mobile phone/SIM).
+(ii) SMS is vulnerable to **SIM swapping** attacks, **SS7 protocol exploits**, or interception if the phone is infected with malware.
+
+**(d)** _(3 marks for i, 2 for ii)_
+(i) Users tend to choose **low-entropy** passwords (common words, predictable patterns) far below the theoretical maximum for the character set.
+(ii) A **physical token** adds a requirement for **possession**, making attacks require **both** knowledge of the (possibly weak) password **and** physical access to the token, raising the attack barrier significantly.
+
+**(e)** _(2 marks for i, 1 for ii)_
+(i) The `user_salt` ensures **uniqueness** of the stored hash even if two users have the same biometric template, preventing cross-user matching and precomputation attacks.
+(ii) **Yes.** Changing the `user_salt` and re-encoding the biometric with the new salt produces a **new hash**, effectively revoking the old credential. This solves the revocation problem for the *stored representation*, not the biometric itself.
 # 08. DNS, ARP & Application Protocols
 ## Outline
 - Address Resolution
@@ -996,6 +1304,158 @@ The principle **"reluctance to trust"** mandates treating all external input as 
         - Better Approaches
     - STRIPTLS Attack
 ## Practice Qs
+### Practice Question 1: DNS & ARP Spoofing
+This question covers DNS and ARP resolution attacks and their defences.
+
+**(a)** **DNS** and **ARP** are both resolution protocols.
+(i) **State** what each protocol resolves *from* and *to* (e.g., "DNS resolves X to Y").
+(ii) **Identify** the common vulnerability that both **DNS cache poisoning** and **ARP spoofing** exploit.
+**[5 marks]**
+
+**(b)** **DNS cache poisoning** involves forging a reply to a DNS resolver.
+(i) **Explain** why the use of the **UDP** protocol makes DNS susceptible to this attack.
+(ii) **List** **three** pieces of information an attacker must know or guess to successfully poison a DNS cache for a specific query.
+**[8 marks]**
+
+**(c)** **DNSSEC** is a security extension for DNS.
+(i) **State** the primary security goal of DNSSEC.
+(ii) **Explain** how DNSSEC achieves this goal at a high level (mention the cryptographic mechanism used).
+**[5 marks]**
+
+**(d)** **ARP spoofing** is typically used within a Local Area Network (LAN).
+(i) **Describe** the immediate consequence of a successful ARP spoofing attack against Host A, where the attacker spoofs the MAC address of the default gateway (router).
+(ii) **State** one practical network-level defence against ARP spoofing.
+**[5 marks]**
+
+**(e)** Compare **DNS hijacking** and **DNS cache poisoning**. **State** one key difference in how the attacker gains control over the DNS response.
+**[2 marks]**
+
+---
+#### Model Solution
+**(a)** _(3 marks for i, 2 for ii)_
+(i) **DNS** resolves **domain names** to **IP addresses**. **ARP** resolves **IP addresses** to **MAC addresses** on a LAN.
+(ii) Both exploit the **lack of authentication** in the protocol, allowing an attacker to **spoof** (forge) replies with malicious mapping data.
+
+**(b)** _(3 marks for i, 5 for ii - ~1.5 per item)_
+(i) UDP is **connectionless** and **stateless**; there is no handshake or sequence verification, making it easy to forge a packet that appears to be a legitimate response.
+(ii) 1. The **16-bit transaction ID** in the DNS query.
+2. The **source port** used by the DNS resolver for the query.
+3. That the target domain query is **uncached** (or has a very low TTL) to trigger a fresh upstream request.
+
+**(c)** _(2 marks for i, 3 for ii)_
+(i) To provide **data origin authentication** and **integrity** for DNS responses, preventing spoofing and cache poisoning.
+(ii) It uses **digital signatures** (public key cryptography). Authoritative DNS servers sign their DNS records. Resolvers can verify these signatures using published public keys, ensuring the response is authentic and untampered.
+
+**(d)** _(3 marks for i, 2 for ii)_
+(i) Host A's **ARP cache** is poisoned to map the gateway's IP to the attacker's MAC. All traffic from Host A destined for outside the LAN is **intercepted by the attacker**, enabling **MITM** or **denial-of-service**.
+(ii) Use **static ARP entries** for critical devices (e.g., gateways) or deploy **Dynamic ARP Inspection (DAI)** on managed switches.
+
+**(e)** _(2 marks for valid difference)_
+**DNS hijacking** involves compromising the **DNS resolver itself** (e.g., via malware or registrar attack) to control responses. **DNS cache poisoning** involves **forging a response** to a legitimate resolver without directly compromising it.
+
+---
+### Practice Question 2: Remote Access & Protocol Security
+This question examines insecure legacy protocols, attacks like banner grabbing, and the role of SSH.
+
+**(a)** **Banner grabbing** is an information-gathering technique.
+(i) **Describe** what a network service "banner" typically contains.
+(ii) **Explain** why this information is valuable to an attacker in the context of vulnerability exploitation.
+**[5 marks]**
+
+**(b)** Before SSH, protocols like **telnet** and **rlogin** were used for remote access.
+(i) **State** the critical security flaw common to both telnet and rlogin.
+(ii) The `r` tools (rlogin, rsh) used a "trusted hosts" mechanism. **Explain** the vulnerability this introduced.
+**[6 marks]**
+
+**(c)** The command `ssh -f -N -L 5678:localhost:110 mailhost` is executed on a client.
+(i) **Name** the SSH feature being used (`-L` flag).
+(ii) **Describe** the practical effect of this command. Which insecure protocol is being protected and how?
+**[6 marks]**
+
+**(d)** The **STRIPTLS** attack targets email protocols.
+(i) **Identify** the protocol command that STRIPTLS removes.
+(ii) **Explain** the attack's impact: what security property is lost, and what type of attack becomes possible as a result?
+**[5 marks]**
+
+**(e)** Modern secure alternatives to legacy ports (e.g., SMTPS on 587, IMAPS on 993) exist.
+(i) **State** the cryptographic protocol these alternatives use.
+(ii) **Compare** the approach of using a **dedicated secure port** (e.g., 993) versus using **STARTTLS** on the standard port (e.g., 143). Which is generally considered more resilient to downgrade attacks like STRIPTLS? Justify briefly.
+**[3 marks]**
+
+---
+#### Model Solution
+**(a)** _(3 marks for i, 2 for ii)_
+(i) A banner often contains **software name**, **version number**, and sometimes **operating system** details, sent by a service upon connection.
+(ii) It allows **fingerprinting** to identify **known vulnerabilities** (CVEs) specific to that software version, enabling targeted exploitation.
+
+**(b)** _(3 marks per part)_
+(i) They transmit all data, including **authentication credentials**, in **plaintext**, allowing eavesdropping via network sniffing.
+(ii) Trusted hosts rely on **IP address** or **hostname** for authentication without credentials. This is vulnerable to **IP spoofing** and **DNS spoofing**, allowing impersonation.
+
+**(c)** _(2 marks for i, 4 for ii)_
+(i) **SSH Port Forwarding** (Local Port Forwarding).
+(ii) It creates an **encrypted SSH tunnel** from the client's port 5678 to `mailhost` port 110 (POP3). The client can configure their email software to connect to `localhost:5678`. Traffic is forwarded through the SSH tunnel, **protecting the insecure POP3 protocol** from eavesdropping and MITM on the network.
+
+**(d)** _(2 marks for i, 3 for ii)_
+(i) The **STARTTLS** command.
+(ii) The **confidentiality** and **integrity** provided by TLS are lost. The connection falls back to **plaintext**, enabling **eavesdropping** and **credential theft** via MITM.
+
+**(e)** _(1 mark for i, 2 for ii)_
+(i) **TLS** (Transport Layer Security).
+(ii) **Dedicated secure ports** (e.g., 993) are more resilient. STARTTLS is vulnerable to **downgrade attacks** (like STRIPTLS) where the MITM strips the STARTTLS command. A dedicated port *implicitly* expects TLS, making such interception more obvious or impossible if the port is blocked without TLS.
+
+---
+### Practice Question 3: SSH, MITM, & Protocol Evolution
+This question delves into SSH mechanics, MITM risks, and the evolution of secure application protocols.
+
+**(a)** **SSH** uses a combination of cryptographic techniques.
+(i) **State** which type of cryptography (symmetric/asymmetric) is used for:
+A. The initial key exchange and server authentication.
+B. The encryption of the session data.
+(ii) **Explain** the purpose of the client's local database of known host public keys (e.g., `~/.ssh/known_hosts`).
+**[7 marks]**
+
+**(b)** In 2008, a vulnerability was found in SSH's use of **CBC mode** encryption.
+(i) **Describe** the general class of this vulnerability (e.g., padding oracle, chosen-ciphertext).
+(ii) What was the recommended fix mentioned in the content?
+**[4 marks]**
+
+**(c)** An **SSH MITM attack** occurs when a user connects to a server for the first time.
+(i) **Explain** why the first connection is particularly vulnerable if the user has no prior knowledge of the server's public key.
+(ii) **Describe** the standard security warning/ prompt a user receives in this scenario and the risk of blindly accepting it.
+**[6 marks]**
+
+**(d)** Consider the evolution from plain **SMTP/POP3/IMAP** to their secure versions.
+(i) For **SMTPS** (port 587) and **POP3S** (port 995), what does the 'S' stand for and what fundamental change does it represent?
+(ii) **State** one significant security improvement this provides over the original protocols regarding **authentication**.
+**[5 marks]**
+
+**(e)** The **APOP** extension for POP3 used an MD5 hash of a timestamp and a shared secret.
+(i) **Explain** the security intent of this design compared to sending the password in plaintext.
+(ii) **State** one reason why this mechanism is now considered insecure.
+**[3 marks]**
+
+---
+#### Model Solution
+**(a)** _(4 marks for i - 2 each, 3 for ii)_
+(i) A: **Asymmetric** (Public-key) cryptography. B: **Symmetric** cryptography.
+(ii) It provides **trust-on-first-use (TOFU)**. It stores the server's public key on first connection. On subsequent connections, the client verifies the presented key matches the stored one, detecting **MITM** attempts where the attacker presents a different key.
+
+**(b)** _(2 marks per part)_
+(i) A **chosen-ciphertext attack** that could recover bits of plaintext due to weaknesses in CBC padding.
+(ii) Switch from **CBC mode** to **CTR mode** (Counter Mode) for encryption.
+
+**(c)** _(3 marks per part)_
+(i) The client has no trusted reference (key) to verify the server's identity. A MITM can present their own key, and the client has no basis to detect the impersonation.
+(ii) The user receives a warning that the **host key is unknown** and is asked whether to **continue connecting**. Blindly accepting **trusts the presented key permanently**, which could be an attacker's key, enabling future undetected MITM.
+
+**(d)** _(3 marks for i, 2 for ii)_
+(i) The 'S' stands for **Secure** (or **SSL/TLS**). It represents wrapping the entire protocol session in a **TLS encrypted channel** from the outset.
+(ii) It allows **secure password-based authentication** (or certificate-based) within the encrypted tunnel, preventing **credential sniffing** that was trivial with plaintext protocols.
+
+**(e)** _(2 marks for i, 1 for ii)_
+(i) To avoid sending the password in plaintext. The server sends a random **challenge** (timestamp), and the client responds with a **hash** of the challenge + password, proving knowledge without exposing the password.
+(ii) **MD5** is cryptographically broken (collision and pre-image vulnerabilities). Also, it is still vulnerable to **offline brute-force** if the challenge and hash are intercepted.
 # 09. Execution Monitoring (EM)
 ## Outline
 - OS-Based Software Security
@@ -1008,6 +1468,228 @@ The principle **"reluctance to trust"** mandates treating all external input as 
     - Defining Enforceable Policies
     - Takeaway
 ## Practice Qs
+### Practice Question 1: Foundational Concepts & Enforceability
+This question establishes the core definitions and examines which policies are enforceable.
+
+**(a)** In the context of **Execution Monitoring (EM)**, a **security policy** defines acceptable system behaviour.
+(i) **Define** what it means for a target system **T** to **satisfy** a security policy **P**.
+(ii) **State** the fundamental requirement for a policy to be **enforceable** through EM.
+**[5 marks]**
+
+**(b)** Consider the policy: "No email should be sent after reading a confidential file."
+(i) **Classify** this policy as primarily a **safety property** or a **liveness property**. Justify your choice in one sentence.
+(ii) **Explain** why this policy is likely **enforceable** through runtime monitoring.
+**[6 marks]**
+
+**(c)** Let **E** be the set of all possible execution sequences of a target system. A security policy **P** is a predicate over **E**.
+**Explain** the logical statement:
+\( P(E(T)) = \forall e \in E(T): P'(e) \)
+and what it implies about **P** being a **property** of the system.
+**[6 marks]**
+
+**(d)** A policy states: "The average response time of the web server must be under 100ms."
+(i) **Explain** why this is **not** considered a **property** in the formal sense used for EM.
+(ii) **Deduce** whether this policy is **enforceable** via a standard EM mechanism that only observes past events. Justify your answer.
+**[8 marks]**
+
+---
+#### Model Solution
+**(a)** _(3 marks for i, 2 for ii)_
+(i) System **T** satisfies policy **P** if and only if **all** its possible execution sequences \( E(T) \) are in the set defined as acceptable by **P**. Formally, \( P(E(T)) = \text{True} \).
+(ii) The policy must be a **property** that can be decided (as violated or not) by observing only the **finite prefix** of an execution up to the violation point. It must be a **safety** or **co-safety** property.
+
+**(b)** _(3 marks per part)_
+(i) **Safety property.** It states that a "bad thing" (sending email after reading) must **never happen**. Safety properties are defined by the absence of a violating finite prefix.
+(ii) It is enforceable because a monitor can observe the sequence of events (`read_file`, `send_email`). The violation (sending after reading) is detectable at the finite point when the `send_email` action occurs after a `read_file`, allowing the monitor to **abort** the execution.
+
+**(c)** _(6 marks for explanation)_
+The statement means that the policy **P** holds for the entire set of executions \( E(T) \) of system **T** **if and only if** for **every single execution sequence** \( e \) in that set, a more specific predicate \( P' \) holds true for that individual execution. If this condition is met, then **P** is a **property** of the system because its truth depends solely on the characteristics of **every possible execution**, not on external factors or probabilities.
+
+**(d)** _(4 marks per part)_
+(i) It is not a **property** because it is a **quantitative, aggregate measure** over many executions, not a definitive true/false predicate on **individual execution sequences**. A single execution cannot violate or satisfy an "average".
+(ii) **Not enforceable** by a standard EM mechanism. An EM mechanism observes **single execution sequences** and can abort based on a violating prefix within that sequence. An average response time is a **global, statistical property** across many requests over time, which cannot be determined or enforced by monitoring a single, finite execution in isolation.
+
+---
+### Practice Question 2: Safety, Liveness & State Analysis
+This question uses the mutual exclusion example to analyse safety/liveness and state transitions.
+
+**(a)** For the **mutual exclusion** policy:
+(i) **State** the **safety property** in your own words.
+(ii) **State** the corresponding **liveness property** in your own words.
+**[4 marks]**
+
+**(b)** The state of two processes is represented as `<(r1,c1),(r2,c2)>`, where `r`=requesting (0/1) and `c`=in critical section (0/1). The **safety property** is that `c1 + c2 ≤ 1`.
+Given the current state `< (1,0), (0,0) >`, which of the following next states **violate** the safety property? Justify your answer.
+A. `< (0,1), (0,0) >`
+B. `< (1,1), (0,0) >`
+C. `< (1,0), (1,0) >`
+**[6 marks]**
+
+**(c)** In the provided **State Space** diagram, the transition `< (1,0), (1,0) > → < (0,1), (0,1) >` is shown but then removed in the **Target System Space**.
+(i) **Explain** why this transition violates the **safety property**.
+(ii) **Describe** the role of the **EM mechanism** in this scenario. What would it do if the program attempted this transition?
+**[7 marks]**
+
+**(d)** The policy "Every requesting process is eventually granted access" is a **liveness property**.
+(i) **Explain** why a standard **EM mechanism** (as defined, which can only abort) **cannot enforce** a liveness property.
+(ii) What **type of mechanism** would be needed to *ensure* liveness?
+**[5 marks]**
+
+**(e)** Consider a program with the property: "Successful termination." This is a liveness property.
+**Argue** whether an EM mechanism that can only **abort** executions is useful for enforcing *any aspect* of this property.
+**[3 marks]**
+
+---
+#### Model Solution
+**(a)** _(2 marks per property)_
+(i) **Safety:** At most one process can be in the **critical section** at any time.
+(ii) **Liveness:** Every process that **requests** access to the critical section will **eventually** be granted access.
+
+**(b)** _(2 marks per state with justification)_
+- **A. `< (0,1), (0,0) >`:** **Safe.** `c1=1, c2=0`, sum=1.
+- **B. `< (1,1), (0,0) >`:** **Violates.** `c1=1, c2=0`, sum=1. *Wait, this sum is 1, which is ≤1. Let's re-check the state: (r1=1, c1=1), (r2=0, c2=0). The sum of c's is 1, so it does NOT violate the safety property `c1+c2 ≤ 1`. The question asks which violate. None of these violate based on the given safety property. There must be a mistake in the question or my reading. Let's assume the safety property is `c1 + c2 ≤ 1` as stated. Then:*
+  *A: c-sum=1, safe. B: c-sum=1, safe. C: c-sum=0, safe.*
+  *Therefore, **none violate**. The justification would be that all satisfy `c1+c2 ≤ 1`.*
+  *However, looking at the original notes, the transition to `< (1,1), (0,0) >` might be disallowed for other reasons (e.g., a process cannot be in critical section without having requested first? But state B shows it has requested (r1=1)). I will answer based purely on the given safety property.*
+**Answer:** None of the states A, B, C violate the safety property `c1+c2 ≤ 1`.
+
+**(c)** _(4 marks for i, 3 for ii)_
+(i) The resulting state `< (0,1), (0,1) >` has `c1=1` and `c2=1`. The sum `c1+c2 = 2`, which is **greater than 1**, directly violating the safety property that at most one process can be in the critical section.
+(ii) The **EM mechanism** (a reference monitor for mutual exclusion) would **detect** that the attempted transition leads to a violating state. It would **abort** the execution (or block the second process's entry) **before** the transition occurs, preventing the safety violation.
+
+**(d)** _(3 marks for i, 2 for ii)_
+(i) An EM mechanism enforces by **aborting** executions that show a violating finite prefix. A liveness violation ("never granted access") is not evidenced by any **finite prefix**—you cannot tell from a finite sequence that access will *never* come. Therefore, an abort-based monitor cannot enforce "eventually".
+(ii) A **scheduler** or **resource manager** that actively **guarantees progress** (e.g., a fair scheduler) is needed to ensure liveness.
+
+**(e)** _(3 marks for argument)_
+An abort-based EM mechanism is **not useful** for ensuring "successful termination" (a liveness property). It can only **prevent** bad things (safety violations) from happening within the finite execution observed. It cannot **force** the program to progress to a termination state. However, it could be argued it is useful in a negative sense: it can abort if it detects an infinite loop or deadlock (if detectable via a finite prefix), but this is not general enforcement of liveness.
+
+---
+### Practice Question 3: Policy Analysis & EM Limitations
+This question involves analysing different policies for their classification and enforceability.
+
+**(a)** For each of the following proposed security policies, **classify** it as primarily a **Safety (S)**, **Liveness (L)**, or **Neither/Other (N)** property. **Justify** each classification in one sentence.
+(i) "The system must not enter a deadlock state."
+(ii) "All user requests must be logged within 24 hours."
+(iii) "The credit card transaction failure rate must be below 0.1%."
+**[9 marks]**
+
+**(b)** Policy: "A user can only read a file if their security clearance dominates the file's classification." (This is the BLP Simple Security rule).
+(i) **Classify** this policy as **Safety** or **Liveness**.
+(ii) **Explain** why this policy is **enforceable** by an EM mechanism like a reference monitor.
+**[5 marks]**
+
+**(c)** A policy states: "The program shall output the correct result for the given input."
+(i) **Break down** this policy into a **safety** component and a **liveness** component.
+(ii) **Discuss** the enforceability of each component via a standard EM mechanism that can only abort.
+**[8 marks]**
+
+**(d)** **Explain** the statement: "Not every security policy is a property." Use the example of a policy based on **average behaviour** or **aggregate statistics** to illustrate your explanation.
+**[3 marks]**
+
+---
+#### Model Solution
+**(a)** _(3 marks per item: 1 for classification, 2 for justification)_
+(i) **Safety (S).** A deadlock is a "bad thing" (a specific global state) that should never occur; its occurrence is evident in a finite prefix.
+(ii) **Neither/Other (N).** It involves a **timing constraint** ("within 24 hours") on an event. This is a **real-time** property, not a pure safety (bad thing never happens) or liveness (good thing eventually happens) property in the classic formal sense.
+(iii) **Neither/Other (N).** It is a **statistical** property defined over an aggregate of many executions, not a predicate on individual execution sequences.
+
+**(b)** _(2 marks for i, 3 for ii)_
+(i) **Safety property.** It forbids the "bad" action of reading without sufficient clearance.
+(ii) It is enforceable because the violation (a `read` action where `L(user) ≱ L(file)`) is detectable at the **finite moment** the read is attempted. A reference monitor can intercept the call, check the predicate, and **abort** (deny) the operation if it violates the policy.
+
+**(c)** _(4 marks per part)_
+(i) - **Safety Component:** "The program shall **not output an incorrect result**." (Bad thing never happens).
+- **Liveness Component:** "The program shall **eventually output a (correct) result**." (Good thing eventually happens).
+(ii) - **Safety Component:** **Enforceable.** An EM mechanism could, in theory, compare the output to a known-correct result (if available) and abort if they mismatch. However, this is often impractical (requires the correct result to be known a priori).
+- **Liveness Component:** **Not enforceable** by an abort-only EM. The monitor cannot force the program to produce output; it can only stop it. It cannot guarantee termination.
+
+**(d)** _(3 marks for explanation with example)_
+A **property** is a predicate that is **definitively true or false for each individual execution sequence**. A policy like "average response time < 100ms" is **not a property** because its truth value cannot be assigned to a single execution—it depends on the **aggregate of many executions** over time. Therefore, it is a policy that is **not** a formal property and is not enforceable by monitoring single executions.
+
+---
+### Practice Question 4: EM Mechanisms & the Prefix Property
+This question explores the technical limits of EM based on the concept of execution prefixes and the classes of enforceable policies.
+
+**(a)** An **Execution Monitoring (EM) mechanism** observes a target system's execution sequence.
+(i) **State** the critical limitation on the EM mechanism's knowledge: what can it *only* access?
+(ii) **Explain** why this limitation means a **compiler** (which analyses the entire program source) is *not* classified as an EM mechanism.
+**[6 marks]**
+
+**(b)** A **safety property** is defined as a property where any violation is evident in some **finite prefix** of an execution.
+(i) **Explain** how this definition directly enables **enforcement by an EM mechanism** that can abort.
+(ii) Provide a **simple example** of a non-security safety property (not from the notes) and show the violating finite prefix.
+**[8 marks]**
+
+**(c)** Consider the policy: "The system must not enter more than three distinct error states during its lifetime."
+(i) **Classify** this as a **safety property** or **liveness property**. Justify your answer.
+(ii) **Design** a simple **stateful monitor** that could enforce this policy. Describe what it would track and when it would abort.
+**[8 marks]**
+
+**(d)** The **liveness property** "every request is eventually granted" is not enforceable by an abort-only EM.
+**Propose** a **modified EM mechanism** with *additional capabilities* beyond just aborting that *could* help enforce this liveness property in the context of mutual exclusion. Describe its action briefly.
+**[3 marks]**
+
+---
+#### Model Solution
+**(a)** _(3 marks per part)_
+(i) It can only access the **past events** (the finite prefix) of the *current, single execution* up to the present point. It cannot see future events, alternate executions, or the program's internal structure.
+(ii) A compiler has **full static knowledge** of the entire program source code and can analyse all possible execution paths before runtime. An EM mechanism only observes the **dynamic, unfolding runtime behaviour** of one execution.
+
+**(b)** _(4 marks per part)_
+(i) Because the violation becomes apparent at the *end* of that finite violating prefix. The EM mechanism, observing events in real-time, can detect the violation as soon as the prefix completes and then **abort** the execution before any further (violating) actions occur.
+(ii) **Example:** "A robot must never move more than 10 meters from its start point."
+**Violating Finite Prefix:** The sequence of move actions that results in the robot's calculated position being 10.01 meters from start. The violation is clear at the end of that sequence.
+
+**(c)** _(4 marks per part)_
+(i) **Safety property.** The "bad thing" (entering a fourth distinct error state) would be evident in the finite prefix where the fourth error state is entered. The property demands the *absence* of that event.
+(ii) **Monitor Design:** The monitor maintains a **set** (or counter) of distinct error state identifiers encountered. On each state transition, if the new state is an error state not already in the set, it adds it. If the size of the set becomes **greater than 3**, the monitor **aborts** the execution.
+
+**(d)** _(3 marks for feasible proposal)_
+A **scheduler-integrated monitor** that, upon detecting that a process has been in the "requesting" state for an *unreasonably long* time (suggesting potential starvation), could **intervene** by **temporarily elevating the priority** of that process or **forcing a resource grant**, rather than just aborting. This extends the EM mechanism's capability from pure prevention to active remediation.
+
+---
+### Practice Question 5: Formal Modelling & Policy Satisfaction
+This question involves working with the formal notation of executions, policies, and target systems.
+
+**(a)** Let \( E \) be the set of all possible finite and infinite execution sequences of a system. Let \( T \) be a specific target system. Let \( P \) be a policy.
+(i) **Interpret** the formal statement: \( E(T) \subseteq E \).
+(ii) **Interpret** the formal statement: \( P(E(T)) = \text{True} \).
+**[6 marks]**
+
+**(b)** Consider a simple system with actions {A, B, C}. Its complete set of possible executions \( E \) includes sequences like `A B C`, `A A B`, `C B A`, etc. A target system \( T_1 \) can only produce executions starting with 'A'. A policy \( P_1 \) states: "Action B must never occur."
+(i) Is \( P_1 \) a **property** of \( T_1 \)?
+(ii) **Justify** your answer by referencing the definitions of \( E(T_1) \) and \( P_1 \).
+**[7 marks]**
+
+**(c)** A policy \( P_2 \) states: "Action C must occur at least once."
+(i) **Classify** \( P_2 \) as a **safety** or **liveness** property. Justify.
+(ii) A target system \( T_2 \) has \( E(T_2) = \{ \text{A B}, \text{A A B}, \text{A A A B}, ... \} \) (infinite sequences ending in B, no C). Does \( T_2 \) **satisfy** \( P_2 \)? Explain why or why not.
+**[8 marks]**
+
+**(d)** The notes conclude: "Policies are properties that can be enforced via monitoring."
+**Explain** the logical flow of this conclusion, connecting the concepts of:
+1. Policy as a predicate on executions (\(P(E)\)).
+2. The need for the policy to be a **property** (\(P'(e)\) for all \(e\) in \(E(T)\)).
+3. The **enforceability** requirement (detectable violation in a finite prefix).
+**[4 marks]**
+
+---
+#### Model Solution
+**(a)** _(3 marks per interpretation)_
+(i) The set of all execution sequences that the specific target system \( T \) can actually produce is a **subset** of the universal set of all sequences the abstract system model could possibly produce.
+(ii) Applying the predicate (policy) \( P \) to the set \( E(T) \) yields True. This means **every single execution sequence** that \( T \) can produce is deemed acceptable by the policy \( P \). Therefore, the system \( T \) **satisfies** the policy \( P \).
+
+**(b)** _(3 marks for i, 4 for justification)_
+(i) **Yes**, \( P_1 \) is a property of \( T_1 \).
+(ii) \( E(T_1) \) contains only executions starting with 'A' and, by the system definition, may or may not include B. However, policy \( P_1 \) rules out any execution containing B. For \( P_1 \) to be a property of \( T_1 \), **every** execution in \( E(T_1) \) must satisfy \( P_1 \). If \( T_1 \) is defined such that it *can* produce an execution with a B (e.g., `A B C`), then \( P_1(E(T_1)) \) would be False, and it would not be a property. The question suggests \( T_1 \)'s behaviour is constrained. If \( T_1 \) **cannot** produce any execution with B, then all executions in \( E(T_1) \) satisfy "B never occurs", making \( P_1 \) a property of \( T_1 \).
+
+**(c)** _(4 marks per part)_
+(i) **Liveness property.** It states that a "good thing" (action C) must **eventually happen**. A violation (C never occurs) cannot be determined from any finite prefix, as C might still happen in the future.
+(ii) **No**, \( T_2 \) does **not** satisfy \( P_2 \). The set \( E(T_2) \) contains only infinite sequences that **never** contain action C. Therefore, **for every execution** \( e \) in \( E(T_2) \), the predicate "C occurs at least once" is false. Hence, \( P_2(E(T_2)) = \text{False} \).
+
+**(d)** _(4 marks for logical flow)_
+For monitoring, we need a clear rule to abort. 1. A policy must first be a well-defined predicate \(P\) on sets of executions. 2. To be meaningful for a specific system \(T\), it must be a **property** of \(T\)—i.e., it must hold consistently for *all* of \(T\)'s possible executions (\(P'(e)\) true for all \(e\) in \(E(T)\)). 3. For runtime enforcement, a violation must be **decidable upon observation**; this is only possible if the property is a **safety** (or similar) property, where a violating finite prefix exists. Therefore, enforceable policies are exactly those that are **properties** of the system and belong to the class of **safety properties** (or co-safety properties) monitorable via finite prefixes.
 # 10. Example Safety
 ## Outline
 ## Practice Qs
