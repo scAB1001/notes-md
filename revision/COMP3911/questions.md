@@ -655,6 +655,149 @@ It tests if **security controls** fail gracefully or catastrophically under stre
     - Resurrecting Duckling Model
     - Other
 ## Practice Qs
+### Practice Question 1: Policy, Mechanism, & Middleware
+This question tests understanding of the core concepts of security policies and their implementation.
+
+**(a)** For a system designed to prevent data exfiltration via USB drives, define the **Policy**, **Mechanism**, and **Middleware** components in this context.
+(i) **Policy:** A one-sentence high-level goal.
+(ii) **Mechanism:** The specific technical control.
+(iii) **Middleware:** The software component that enforces the mechanism.
+**[6 marks]**
+
+**(b)** **Compare** **high-level** and **low-level** policy languages. **State** one key characteristic of each and explain which is more suitable for expressing a rule like "patients can only read their own medical records."
+**[6 marks]**
+
+**(c)** A **security model** is described as a "guide" when defining policies.
+(i) **Explain** why using an existing model (like BLP) is preferable to designing a policy from scratch.
+(ii) **State** the primary risk of choosing an *incorrect* model for a given security goal (e.g., using a confidentiality model for an integrity problem).
+**[5 marks]**
+
+**(d)** Consider a simple policy: "A user can delete a file only if they are the owner."
+**Identify** whether this policy is more likely to be enforced via **Mandatory Access Control (MAC)** or **Discretionary Access Control (DAC)**. Justify your choice in one sentence.
+**[4 marks]**
+
+**(e)** The **Resurrecting Duckling Model** describes a transient security policy.
+(i) **Name** the two key states in this model.
+(ii) Describe the event that causes the transition from the **imprinted** state back to the **imprintable** state.
+**[4 marks]**
+
+---
+#### Model Solution
+**(a)** _(2 marks per component)_
+(i) **Policy:** Prevent unauthorised copying of data to removable media.
+(ii) **Mechanism:** Disable USB mass storage driver at the OS kernel level.
+(iii) **Middleware:** A Group Policy Object (GPO) or mobile device management (MDM) agent that configures and applies the driver disable setting.
+
+**(b)** _(3 marks per language part)_
+- **High-level:** Abstract, mechanism-independent (e.g., "subject can read object if label dominates"). Suitable for initial specification.
+- **Low-level:** Concrete, uses system-specific commands/options (e.g., SQL `GRANT SELECT ON table TO user`). More suitable for the medical record rule as it maps directly to **database access control** implementation.
+
+**(c)** _(3 marks for i, 2 for ii)_
+(i) It reuses proven solutions to common problems (**confidentiality**, **integrity**), reducing design errors and saving time.
+(ii) It fails to enforce the intended security property. A confidentiality model (BLP) won't prevent unauthorised modification, leaving **integrity** vulnerabilities.
+
+**(d)** _(4 marks for correct identification & justification)_
+**Discretionary Access Control (DAC).** Justification: The policy decision is based on **ownership**, a user-centric attribute, rather than system-wide mandatory labels.
+
+**(e)** _(2 marks per part)_
+(i) **Imprintable** and **Imprinted**.
+(ii) A **death** event: explicit reset, power cycle, or timeout of the secure session.
+
+---
+### Practice Question 2: Bell-LaPadula (BLP) Model & Lattices
+This question applies the formal properties and lattice structures of the BLP model.
+
+**(a)** In the **Bell-LaPadula (BLP)** model:
+(i) **State** the **Simple Security Property** (no-read-up rule) using the notation \(L(s)\) and \(L(o)\).
+(ii) **State** the ***-Property** (no-write-down rule).
+**[4 marks]**
+
+**(b)** The **dominates** relation (≽) in BLP is a **partial order**.
+(i) **Define** the mathematical property of **transitivity** for this relation.
+(ii) **Explain** why transitivity is essential for consistent enforcement of security levels in BLP.
+**[5 marks]**
+
+**(c)** Given the security labels:
+\(A = (\text{Secret}, \{\text{Crypto}\})\)
+\(B = (\text{TopSecret}, \{\text{Crypto, Nuclear}\})\)
+\(C = (\text{TopSecret}, \{\text{Nuclear}\})\)
+Assume the classification levels are: Public < Confidential < Secret < TopSecret.
+(i) Does \(B ≽ A\) hold? **Justify** your answer.
+(ii) Does \(C ≽ A\) hold? **Justify** your answer.
+**[6 marks]**
+
+**(d)** For the labels \(A\) and \(B\) from part (c), compute:
+(i) The **join** (Lowest Upper Bound, LUB) of \(A\) and \(C\).
+(ii) The **meet** (Greatest Lower Bound, GLB) of \(B\) and \(C\).
+Show your reasoning.
+**[6 marks]**
+
+**(e)** If the label \((\text{TopSecret}, \{\text{Crypto, Nuclear}\})\) were removed from the lattice structure containing \(A, B, C\), **explain** which mathematical property of a lattice would be violated and why.
+**[4 marks]**
+
+---
+#### Model Solution
+**(a)** _(2 marks per property)_
+(i) **Simple Security:** Subject \(s\) can read object \(o\) only if \(L(o) ≤ L(s)\).
+(ii) ***-Property:** Subject \(s\) can write to object \(o\) only if \(L(s) ≤ L(o)\).
+
+**(b)** _(3 marks for definition, 2 for explanation)_
+(i) **Transitivity:** If \(x ≽ y\) and \(y ≽ z\), then \(x ≽ z\).
+(ii) It ensures that clearance and data flow are **consistent**. If a subject can read data at level \(y\), and that data can be read from level \(z\), then the subject can also read from \(z\), preventing indirect **information leakage** through intermediate objects.
+
+**(c)** _(3 marks per comparison)_
+(i) **Yes.** \(B ≽ A\) because TopSecret ≥ Secret (level) *and* \(\{\text{Crypto}\} ⊆ \{\text{Crypto, Nuclear}\}\) (categories).
+(ii) **No.** \(C ≽ A\) fails because \(\{\text{Crypto}\} ⊈ \{\text{Nuclear}\}\) (missing Crypto category).
+
+**(d)** _(3 marks per computation)_
+(i) **join(A, C):** \((\text{TopSecret}, \{\text{Crypto, Nuclear}\})\). Level: max(Secret, TopSecret)=TopSecret. Categories: union({Crypto},{Nuclear})={Crypto,Nuclear}.
+(ii) **meet(B, C):** \((\text{TopSecret}, \{\text{Nuclear}\})\). Level: min(TopSecret,TopSecret)=TopSecret. Categories: intersection({Crypto,Nuclear},{Nuclear})={Nuclear}.
+
+**(e)** _(4 marks for explanation)_
+The **Lowest Upper Bound (LUB)** property would be violated. The pair \(A\) and \(C\) would have no **join** in the set, as their natural LUB \((\text{TopSecret}, \{\text{Crypto, Nuclear}\})\) is missing. Not all pairs would have a LUB, so the structure is no longer a **lattice**.
+
+---
+### Practice Question 3: Chinese Wall & Model Selection
+This question focuses on the Chinese Wall model and selecting appropriate policy models.
+
+**(a)** The **Chinese Wall (CW)** model is designed to prevent conflicts of interest.
+(i) **Define** a **Conflict Class** in this model.
+(ii) **State** the **Simple Security Property** for the CW model.
+**[5 marks]**
+
+**(b)** A consultant at firm "SecureAudit" has previously accessed documents from the financial company "BankAlpha". The firm now has a new client, "BankBeta", which is a direct competitor of BankAlpha. Both banks are in the same **Conflict Class**.
+(i) According to the CW **Simple Security Property**, can the consultant access documents from BankBeta? **Justify** your answer.
+(ii) **Explain** the purpose of the **sanitisation** process in the CW model and how it could potentially allow future access.
+**[8 marks]**
+
+**(c)** You are tasked with designing access control for:
+1. A military database where classified documents must not be readable by lower clearance personnel, and no data must be written to a lower classification.
+2. A hospital system where junior doctors must not be able to modify treatment plans created by senior consultants.
+**Select** the most appropriate **security model** (**BLP** or **Biba**) for each system (1 & 2). Justify each choice in one sentence.
+**[6 marks]**
+
+**(d)** Consider a **Reference Monitor** implementing a BLP-like policy. It uses an `exec(s, o, a)` predicate.
+(i) **State** the three arguments to the `exec` predicate.
+(ii) For the action \(a = \text{read}\), write the **boolean condition** that `exec` must evaluate, using the BLP **Simple Security Property**.
+**[6 marks]**
+
+---
+#### Model Solution
+**(a)** _(3 marks for i, 2 for ii)_
+(i) A **Conflict Class** is a set of **company groups** that are in competition (e.g., {BankA, BankB, BankC}).
+(ii) A subject can access an object only if the object belongs to a company the subject has **never accessed before**, or belongs to the *same* company the subject has already accessed within that conflict class.
+
+**(b)** _(4 marks per part)_
+(i) **No.** The consultant has already accessed BankAlpha. Since BankBeta is in the same **Conflict Class**, the **Simple Security Property** prohibits access to a different company within that class.
+(ii) **Sanitisation** is the process of removing sensitive, conflict-causing details from an object by a **trusted party**. A sanitised object is considered free of conflict, allowing subjects to access it regardless of their prior access history, thus bypassing the wall for that object.
+
+**(c)** _(3 marks per selection with justification)_
+1. **BLP.** It enforces **multi-level security** and prevents **read-up** and **write-down**, which matches the military **confidentiality** requirements.
+2. **Biba.** It enforces **integrity** by preventing **write-up** (low-integrity subjects modifying high-integrity objects), protecting the senior consultants' plans from unauthorised modification.
+
+**(d)** _(3 marks per part)_
+(i) **Subject \(s\), Object \(o\), Action \(a\).**
+(ii) `exec(s, o, read) = true` **iff** \(L(o) ≤ L(s)\) (and any discretionary permissions hold).
 # 05. Command Injection and Input Validation
 ## Outline
 - Input Validation
@@ -662,6 +805,136 @@ It tests if **security controls** fail gracefully or catastrophically under stre
     - Phishing via Homograph Attacks
     - Malicious URLs e.g., Directory Traversal
 ## Practice Qs
+### Practice Question 1: Input Validation & SQL Injection
+This question covers core principles of input validation and SQL injection prevention.
+
+**(a)** A developer proposes to prevent SQL injection by "filtering out all single quotes (') from user input before using it in a query."
+**Explain** why this is an inadequate and insecure approach to **input validation**. Provide a specific example of a bypass.
+**[5 marks]**
+
+**(b)** **Compare** the security of using **prepared statements (parameterised queries)** versus **input filtering** for preventing SQL injection. **State** one key security advantage of prepared statements.
+**[4 marks]**
+
+**(c)** The concept of a **choke point** is used in input validation.
+(i) **Define** what a choke point is in the context of data flow.
+(ii) **Explain** why validating data *only* at choke points is more efficient and secure than validating at every component.
+**[6 marks]**
+
+**(d)** Consider a web application that allows users to view their own profile by requesting `https://example.com/profile?userid=alice`.
+An attacker crafts the URL: `https://example.com/profile?userid=../../../etc/passwd`.
+(i) **Name** this type of attack.
+(ii) **Describe** the security mechanism (mentioned in the content) that can prevent it, and briefly explain how it works.
+**[6 marks]**
+
+**(e)** A **homograph attack** is used for phishing.
+(i) **Explain** how homograph attacks exploit visual similarity in URLs.
+(ii) **State** one technical method (not user education) a browser or service could use to help mitigate this threat.
+**[4 marks]**
+
+---
+#### Model Solution
+**(a)** _(5 marks for explanation with example)_
+Filtering quotes is inadequate because SQL injection can be performed without them (e.g., **numeric injection**). It also fails if the database uses different quote characters or if the input is **encoded** (e.g., URL-encoded, Unicode). Example bypass: Input `1 OR 1=1--` (no quotes needed) could always evaluate to true.
+
+**(b)** _(4 marks for comparison and advantage)_
+**Input filtering** attempts to sanitise data, which is error-prone and may be bypassed. **Prepared statements** separate **code** (SQL structure) from **data** (user input), treating input as literal data only. Key advantage: It structurally eliminates the possibility of the input being interpreted as executable SQL code.
+
+**(c)** _(3 marks per part)_
+(i) A **choke point** is a single, well-defined location in the **data flow** where all data of a certain type must pass through for validation.
+(ii) It is more **efficient** (validation code is not duplicated) and more **secure** (ensures consistent policy enforcement). If validation is scattered, missing a single component creates a **vulnerability**.
+
+**(d)** _(3 marks per part)_
+(i) **Directory Traversal** (or Path Traversal) attack.
+(ii) **Canonicalisation.** The system converts the user input (`../../../etc/passwd`) into its **canonical** (absolute, normalized) path and then checks if it starts with the intended base directory (`/var/www/`). If not, access is denied.
+
+**(e)** _(2 marks per part)_
+(i) They use characters from different alphabets (e.g., Cyrillic 'а' vs Latin 'a') that look identical to create URLs that visually spoof legitimate domains (e.g., `examp1e.com`).
+(ii) **Punycode** encoding in browsers can be used to display the **internationalised domain name (IDN)** in its encoded ASCII form (e.g., `xn--80ak6aa92e.com`), making spoofing obvious.
+
+---
+### Practice Question 2: Advanced Injection & Data Flow
+This question deals with more complex injection scenarios and secure data handling.
+
+**(a)** A malicious URL is crafted as: `https://goodsite.com@evilsite.com/phishing`.
+(i) **Explain** how the `@` symbol is interpreted in this URL and what the user's browser will actually connect to.
+(ii) **State** the name of the attack technique that uses this `@` symbol obfuscation.
+**[6 marks]**
+
+**(b)** **Canonicalisation** is recommended to prevent path traversal.
+(i) **Describe** what canonicalisation does to a file path string.
+(ii) A Java snippet uses `file.getCanonicalPath().startsWith(BASE_DIR)`. **Explain** the purpose of the `startsWith` check after canonicalisation.
+**[6 marks]**
+
+**(c)** A web form takes a "username" and passes it to an OS command to create a user directory: `system("mkdir /home/" + username)`.
+(i) **Identify** the vulnerability class.
+(ii) Provide an example **malicious input** for `username` that would cause the command to delete a critical system file (assume the web server process has sufficient privileges).
+(iii) **State** the fundamental programming practice that should be used instead of concatenating input into OS commands.
+**[9 marks]**
+
+**(d)** **Explain** why **input validation** should be considered a **defence-in-depth** measure rather than the *sole* security control for preventing injection attacks. Refer to the concept of **choke points**.
+**[4 marks]**
+
+---
+#### Model Solution
+**(a)** _(3 marks per part)_
+(i) The `@` symbol in a URL separates **userinfo** from the **host**. The browser will attempt to connect to `evilsite.com`, with `goodsite.com` treated as a (usually ignored) username. The user may only see `goodsite.com` displayed.
+(ii) **URL obfuscation** or **authority spoofing**.
+
+**(b)** _(3 marks per part)_
+(i) It converts a path with relative references (`.` , `..`), symbolic links, and alternate formats into a **unique, absolute, standardised** form.
+(ii) After converting to the canonical path, the `startsWith` check ensures the resolved path is **within** the intended base directory (`BASE_DIR`), preventing directory traversal outside the allowed area.
+
+**(c)** _(3 marks per part)_
+(i) **OS Command Injection.**
+(ii) Input: `; rm -rf /etc/passwd #` (or `$(rm -rf /etc/passwd)`). The semicolon ends the `mkdir` command and starts a new malicious one.
+(iii) Use **safe APIs** that avoid the shell (e.g., `mkdir()` system call with explicit parameters) or **rigorous whitelist input validation**.
+
+**(d)** _(4 marks for explanation)_
+**Input validation** at **choke points** is a critical layer, but it can have flaws (e.g., logic errors, missed edge cases). **Defence-in-depth** means also using **prepared statements** (for SQL), **canonicalisation** (for paths), and **principle of least privilege** (for OS commands). If validation fails, other layers should still prevent exploitation.
+
+---
+### Practice Question 3: Practical Defences & Case Study
+This question applies the concepts to a practical scenario and evaluates defences.
+
+**(a)** A content management system (CMS) has a plugin that allows image uploads. The plugin code uses:
+`$filepath = "/uploads/" . $_GET['year'] . "/" . $_GET['filename'];`
+`include($filepath);`
+(i) **Identify** **two** distinct vulnerabilities present in this code snippet.
+(ii) For each vulnerability, **suggest** a specific fix or secure coding practice.
+**[8 marks]**
+
+**(b)** A banking website uses a **parameterised query** as follows:
+`cursor.execute("SELECT * FROM accounts WHERE owner = ? AND active = 1", (username,))`
+(i) **Explain** why this is secure against SQL injection for the `username` parameter.
+(ii) **State** whether this approach also automatically protects against a **second-order SQL injection** attack, where malicious input is first stored in the database and later used in a query. Justify your answer.
+**[7 marks]**
+
+**(c)** A system administrator writes a script to back up user-submitted filenames. The script runs: `zip /backups/$USERNAME.zip /data/$USERNAME/*`.
+(i) **Describe** a potential **command injection** vulnerability if `$USERNAME` is not validated.
+(ii) The admin decides to **whitelist** valid characters for usernames. **List** three characters that should *definitely* be on this whitelist and **one** that should *definitely* be banned.
+**[5 marks]**
+
+**(d)** **Explain** the relationship between **input validation** and the security principle of **"reluctance to trust"** (or "never trust user input"). How does implementing proper validation operationalise this principle?
+**[5 marks]**
+
+---
+#### Model Solution
+**(a)** _(4 marks per vulnerability+fix)_
+(i) **Vulnerability 1: Directory Traversal** via `$_GET['year']` or `$_GET['filename']`.
+**Fix:** Apply **canonicalisation** and path validation as described.
+(ii) **Vulnerability 2: Local File Inclusion (LFI)** via `include($filepath)` with user-controlled path.
+**Fix:** Avoid using user input directly in `include()`; use a whitelist of allowed files or a secure mapping system.
+
+**(b)** _(4 marks for i, 3 for ii)_
+(i) The `?` placeholder ensures the **username** value is bound as a **data parameter**, not part of the SQL string. The database driver handles escaping, preventing the input from altering the query structure.
+(ii) **No.** Second-order injection occurs when data retrieved *from* the database is later used unsafely. Parameterisation protects the *current* query, but if the stored data is later concatenated into a new query without parameterisation, it could still cause injection.
+
+**(c)** _(3 marks for i, 2 for ii - 1.5 for whitelist, 0.5 for ban)_
+(i) If `$USERNAME` contains shell metacharacters (e.g., `; rm -rf /`), they will be interpreted by the shell, leading to arbitrary command execution.
+(ii) **Whitelist:** Alphanumeric characters `[a-zA-Z0-9]` and hyphen `-`. **Ban:** Semicolon `;` (or any shell metacharacter like `&`, `|`, `$`, `` ` ``).
+
+**(d)** _(5 marks for explanation)_
+The principle **"reluctance to trust"** mandates treating all external input as potentially malicious. **Input validation** operationalises this by *actively checking and constraining* that input against strict rules (whitelists, type, length, format) before use. It transforms the principle from a passive guideline into an active, enforceable **security control** at **choke points**, reducing the **attack surface**.
 # 06. Web App Vulnerabilities
 ## Outline
 - Web Attacks
