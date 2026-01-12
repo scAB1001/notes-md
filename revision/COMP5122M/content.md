@@ -221,3 +221,69 @@ y = iris.target  # Target vector (species: 0=setosa, 1=versicolor, 2=virginica)
 *   **Data Quality Dimensions**: Assess **Completeness** (missingness), **Accuracy** (valid, plausible values), **Consistency** (formats, units).
 *   **Visualisation for Profiling**: Underutilised for quality checks. Should be used more comprehensively.
 *   **Tool Support**: Python packages like `vizdataquality` can automate and formalise the profiling process.
+# Lecture 4: Machine Learning Overview
+
+## 4.1 Core Definitions & Relationships
+
+> **Data Mining (Knowledge Discovery in Data - KDD)** is the process of uncovering patterns and valuable information from large datasets.
+
+> **Artificial Intelligence (AI)** is the broader field of creating systems that perform tasks requiring human-like intelligence (e.g., learning, reasoning). It has two main approaches:
+> *   **Top-down (Knowledge-driven)**: Starts with symbolic rules and logic (e.g., Expert Systems).
+> *   **Bottom-up (Data-driven)**: Starts from data to build decision mechanisms mathematically (e.g., Machine Learning).
+
+> **Machine Learning (ML)** is a subset of AI focused on programming computers to **optimise a performance criterion using example data or past experience**. It combines **Statistics** (inference from a sample) and **Computer Science** (efficient algorithms for optimisation and model evaluation).
+
+## 4.2 When to Use Machine Learning
+Use ML when:
+1.  **Human expertise does not exist** (e.g., navigating on Mars).
+2.  **Humans cannot explain their expertise** (e.g., speech recognition).
+3.  **The solution changes over time** (e.g., network routing).
+4.  **The solution needs personalisation** (e.g., user biometrics).
+
+**Core Principle**: Learning **general models** from **specific example data**. Data is abundant; knowledge (models) is valuable.
+
+## 4.3 Data Mining vs. Machine Learning
+*   **Data Mining**: Discovers **existing patterns** in data (descriptive).
+*   **Machine Learning**: **Learns from past data** to build models for **predicting future outcomes** (predictive). ML is a primary tool used within the KDD process.
+
+## 4.4 Supervised Learning
+**Situation**: When you have a dataset of **input/output pairs (labeled data)** and want to predict an output for new inputs.
+**Goal**: Learn a **mapping function** from inputs to outputs.
+**Training**: Model learns from a **training set** of example pairs.
+
+### Classification
+**Situation**: The output is a **categorical label** (class) from a predefined list.
+*   **Binary Classification**: Two possible classes (e.g., spam/not spam, low-risk/high-risk credit).
+*   **Multiclass Classification**: More than two classes (e.g., language of a website, digit recognition).
+**Example**: Credit scoring. **Inputs**: Income, savings. **Output**: "low-risk" or "high-risk". A **discriminant** function (e.g., `IF income > θ1 AND savings > θ2`) can be learned.
+
+### Regression
+**Situation**: The output is a **continuous quantitative value**.
+**Goal**: Predict a number.
+**Example**: Predicting the steering angle for a self-driving car (**Robot Arm Kinematics**), forecasting house prices, estimating patient recovery time.
+
+![[supervised-unsupervised-tree 1.png]]
+
+## 4.5 Unsupervised Learning
+**Situation**: When you have **input data without corresponding labels** (unlabeled data). The goal is to find inherent structure or patterns.
+**No supervision**: The algorithm is only given input data.
+
+### Dimensionality Reduction
+**Situation**: You have high-dimensional data (many features) and want a **lower-dimensional representation** that preserves essential information. Used for **visualisation** (reducing to 2D/3D), noise reduction, or data compression.
+**Primary Method**: **Principal Component Analysis (PCA)**.
+**Example**: Visualising a multi-feature dataset (like Iris) in 2D to see if natural groupings exist.
+
+### Clustering
+**Situation**: You want to **partition data into distinct groups** where points in the same group are similar and points in different groups are dissimilar.
+**Goal**: Discover inherent groupings.
+**Examples**:
+*   **Customer Segmentation (CRM)**: Group customers by purchasing behavior.
+*   **Image Compression**: **Color quantization** by grouping similar pixel colors.
+*   **Biology**: Grouping genes with similar expression patterns.
+
+![[cluster-ex.png]]
+
+## 4.6 Reinforcement Learning
+**Situation**: An **agent learns to make decisions by performing actions in an environment to maximise cumulative reward**. It receives **delayed feedback** (reward or penalty), not direct supervision.
+**Key Challenge**: **Credit Assignment Problem** – determining which actions led to the received rewards.
+**Examples**: Game playing (AlphaGo), robot navigation in a maze, autonomous driving systems.
