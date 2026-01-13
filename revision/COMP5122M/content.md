@@ -705,3 +705,72 @@ $$
 *   Not suitable for **temporal data** (where time ordering matters; use time-series splits instead).
 
 **Common Choice**: **k=5** or **k=10**.
+# Lecture 9: Dimensionality Reduction
+
+## 9.1 Understanding Dimensionality
+> **Dimensionality** of a dataset is the number of independent attributes (features) needed to represent each observation. Mathematically, it is equivalent to the **rank** of the data matrix (the maximum number of linearly independent columns).
+
+**Situation**: Real-world data often has many features (high $d$), but many features may be **redundant** or correlated, meaning the *intrinsic* dimensionality is lower than $d$. Identifying this is key for simplification and analysis.
+
+**Example**: A table with `Height`, `Weight (lbs)`, `Weight (kg)`, `Age`. The two weight columns are linearly dependent (`Weight (kg) ≈ 0.454 * Weight (lbs)`). The **rank** is 3, not 4, because one feature adds no new independent information.
+
+**Key Insight**: If features are perfectly linearly related, the data matrix rank is less than the number of columns. This **redundancy** wastes storage and can confuse some algorithms. Dimensionality reduction aims to find a **lower-rank approximation** that captures the essential information.
+
+## 9.2 The Challenge of High Dimensions
+**Situation**: Visualizing and analyzing data becomes difficult when $d > 2$ or $3$. While we can use color, size, or animation for a 4th or 5th dimension, this approach quickly fails.
+
+**Common Need**: To visualize **clusters** or relationships, we often need to **project** data down to 2 or 3 dimensions.
+*   **Naive Approach**: Simply pick the 2 features with the highest variance. This can work but may miss important patterns captured by combinations of features.
+*   **Better Approach**: Use techniques like **Principal Component Analysis (PCA)**, which finds the **best** lower-dimensional projection to preserve variance or structure.
+
+## 9.3 Singular Value Decomposition (SVD) - Conceptual Foundation
+
+> **Singular Value Decomposition (SVD)** is a fundamental matrix factorization technique. For any $m \times n$ real matrix $X$, SVD factorizes it into three matrices: $X = U \Sigma V^T$, where $U$ and $V$ are orthogonal matrices (with orthonormal columns/rows), and $\Sigma$ is a diagonal matrix of **singular values** in descending order.
+
+**Intuition**: SVD automatically discovers the **underlying structure** and **redundancies** in your data. It re-expresses the data in a new coordinate system (the columns of $V$, called **principal components**) where the first axis points in the direction of greatest variance, the second in the next greatest orthogonal direction, and so on.
+
+![[svd.png]]
+
+### 9.3.1 The Components of SVD
+1.  **$U$ (Left Singular Vectors)**: An $m \times m$ orthogonal matrix. Its columns form an **orthonormal basis** for the column space of $X$. In a data context (where rows are samples), $U\Sigma$ represents the coordinates of your data in the new PCA space.
+2.  **$\Sigma$ (Singular Values)**: An $m \times n$ diagonal matrix. Its diagonal entries $\sigma_1 \geq \sigma_2 \geq ... \geq \sigma_r > 0$ are the **singular values**, where $r$ is the rank of $X$. They indicate the "importance" or "magnitude" of each corresponding principal component. A singular value of **zero** means that dimension is perfectly redundant.
+    $$
+    \Sigma = \begin{bmatrix}
+    \sigma_1 & 0 & \dots & 0 \\
+    0 & \sigma_2 & \dots & 0 \\
+    \vdots & \vdots & \ddots & \vdots \\
+    0 & 0 & \dots & \sigma_r \\
+    \end{bmatrix}
+    $$
+3.  **$V^T$ (Right Singular Vectors, Transposed)**: An $n \times n$ orthogonal matrix. Its **rows** (columns of $V$) are the **principal components** (PCs). They form an orthonormal basis for the row space of $X$ and define the new axes. $V^T$ is the **transformation matrix** that maps the original data ($X$) into the new space ($U\Sigma$).
+
+**Orthonormal Set Property**: The columns of $U$ and $V$ are **unit vectors** (length 1) and **orthogonal** (perpendicular, dot product = 0). This means $U^T U = I$ and $V^T V = I$.
+
+## 9.4 Low-Rank Approximation via SVD
+**Situation**: We have noisy, high-dimensional data that is *approximately* low-rank. We want a simpler representation that removes noise and redundancy.
+
+**Process**: Since singular values are ordered by importance, we can create a **rank-$k$ approximation** $X_k$ of the original matrix $X$ by keeping only the first $k$ columns of $U$, the first $k$ singular values in $\Sigma$, and the first $k$ rows of $V^T$:
+$$
+X \approx X_k = U_k \Sigma_k V_k^T
+$$
+where $U_k$ is $m \times k$, $\Sigma_k$ is $k \times k$, and $V_k^T$ is $k \times n$.
+
+![[rank3-data.png]]
+
+**Interpretation**:
+*   **Rank-1 Approximation ($k=1$)**: Represents all data points as lying along a single line (the first principal component). All variation is attributed to one latent factor. For the rectangle example, it found a rough relationship like `Area ≈ 3*(Width + Height)`.
+*   **Rank-3 Approximation ($k=3$)**: For the noisy rectangle data (true rank ~4), a rank-3 approximation captures almost all the systematic variation while filtering out the noise in the 4th, least important dimension.
+*   **Choosing $k$**: Look at the **singular value spectrum**. A large drop indicates that subsequent components contribute little information. You choose $k$ to retain, say, 95% or 99% of the total variance (calculated from squared singular values).
+
+**Why it's Powerful**: SVD provides the **optimal** low-rank approximation in terms of the Frobenius norm (a measure of matrix difference). It automatically finds the best lower-dimensional subspace to project your data onto.
+
+## 9.5 SVD vs. Manual Decomposition
+**Manual Decomposition (Example)**: For the noiseless rectangle data, we could manually see that `Perimeter = 2*Width + 2*Length` and create a 3D to 4D transformation matrix. This is **exact** but requires human insight.
+
+![[trunc-data-and-matrix.png]]
+
+**SVD Decomposition**: Does this automatically and more generally. It doesn't necessarily yield human-interpretable features like "width" and "length" in the reduced space ($U\Sigma$). Instead, it yields abstract **principal components** that are linear combinations of original features. For the noiseless case, SVD would yield a singular value of **0** for the redundant dimension, clearly identifying it.
+
+![[svd-applied.png]]
+
+**Key Difference**: SVD's output ($U$, $\Sigma$, $V^T$) is mathematically unique (up to sign) and optimal. The reduced data $U\Sigma$ is in a rotated, scaled coordinate system aligned with directions of maximum variance, not the original feature axes.
