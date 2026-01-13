@@ -629,3 +629,79 @@ $$
 
 **Advantage**: Can model **piecewise constant** functions and complex, nonlinear relationships.
 **Disadvantage**: Prone to the same **overfitting** issues as classification trees, requiring the same regularization techniques (pruning, random forests).
+# Lecture 8: Model Evaluation
+
+## 8.1 Making Predictions & Baseline Evaluation
+**Situation**: After training a model (e.g., k-NN on Iris), we need to **predict** on new, unseen data and **evaluate** how trustworthy the model is.
+**Process**:
+1.  Use `.predict()` on the model with new feature data.
+2.  For **initial evaluation**, compare predictions on the **test set** (data not used in training) to the true labels.
+**Key Metric (Initial)**: **Accuracy**.
+    $$ \text{Accuracy} = \frac{\text{Number of Correct Predictions}}{\text{Total Number of Predictions}} $$
+**Limitation**: Accuracy can be **misleading for imbalanced datasets** (e.g., a model that always predicts the majority class will have high accuracy but is useless).
+
+## 8.2 The Confusion Matrix
+**Situation**: A **detailed breakdown** of prediction errors, essential for **binary** and **multiclass classification**, especially with **imbalanced classes**.
+
+**Structure (Binary Case)**:
+| | Predicted: NO | Predicted: YES |
+| :--- | :--- | :--- |
+| **Actual: NO** | True Negative (TN) | False Positive (FP) |
+| **Actual: YES** | False Negative (FN) | True Positive (TP) |
+
+![[confusison-matrix.png]]
+
+### Key Derived Metrics
+> **Precision** answers: "**Of all instances predicted as positive, how many are actually positive?**" It focuses on **minimizing False Positives (FP)**.
+> $$
+> \text{Precision} = \frac{TP}{TP + FP}
+> $$
+> **Use when**: The cost of a **false alarm (FP)** is high (e.g., spam detection, fraud alert).
+
+> **Recall (Sensitivity, True Positive Rate - TPR)** answers: "**Of all actual positive instances, how many did we correctly identify?**" It focuses on **minimizing False Negatives (FN)**.
+> $$
+> \text{Recall} = \frac{TP}{TP + FN}
+> $$
+> **Use when**: Missing a positive case (FN) is costly (e.g., disease screening, search engine results).
+
+> **Specificity (True Negative Rate - TNR)** answers: "**Of all actual negative instances, how many did we correctly identify?**"
+> $$
+> \text{Specificity} = \frac{TN}{TN + FP}
+> $$
+> **Use when**: Correctly identifying negatives is critical.
+
+### The Precision-Recall Trade-off
+**Situation**: It is typically impossible to maximize **both** precision and recall simultaneously. Increasing one often decreases the other (e.g., a more conservative classifier has higher precision but lower recall).
+
+### The F1 Score
+**Situation**: Provides a **single metric** that balances both precision and recall, using their **harmonic mean**. Useful when you need a single number to compare models and when there is an **imbalanced class distribution**.
+$$
+F1 = \frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} = \frac{2}{\frac{1}{\text{Precision}} + \frac{1}{\text{Recall}}}
+$$
+*   **High F1** indicates both high precision and high recall.
+*   **Use when**: You want to find a **balance** between precision and recall and the class distribution is uneven.
+
+## 8.3 Cross-Validation
+**Situation**: A **robust technique** for model evaluation and selection that provides a better estimate of generalization performance than a single train/test split. It maximizes data usage for both training and validation.
+
+### k-Fold Cross-Validation
+**Process**:
+1.  Randomly split the data into **k** equal-sized **folds**.
+2.  For each fold *i*:
+    *   Use fold *i* as the **validation set**.
+    *   Use the remaining **k-1** folds as the **training set**.
+    *   Train the model and evaluate it on the validation set.
+3.  The final performance metric is the **average** of the *k* validation scores.
+
+![[cross-validation.png]]
+
+**Advantages**:
+*   **Reduces variance** in performance estimation compared to a single split.
+*   **Uses data more efficiently** (every data point is used for both training and validation).
+*   Helps detect **overfitting** (if training score is much higher than validation scores).
+
+**Disadvantages**:
+*   **Computationally expensive** (trains the model *k* times).
+*   Not suitable for **temporal data** (where time ordering matters; use time-series splits instead).
+
+**Common Choice**: **k=5** or **k=10**.
