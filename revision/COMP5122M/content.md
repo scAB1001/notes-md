@@ -391,3 +391,120 @@ plt.ylabel("Cluster distance")
 *   **Computational Cost**: Generally more expensive than k-means for large N.
 *   **No Predictions**: The `fit_predict` method must be used on the entire dataset; the model cannot assign new points to existing clusters.
 *   **Shape Assumptions**: Like k-means, it often uses Euclidean distance and linkage criteria that favor convex clusters, so it can also fail on complex shapes.
+# Lecture 6: Classification, k-NN, & Decision Trees
+
+## 6.1 Classification Problem Definition
+
+> **Classification** is a **supervised learning** task where the goal is to predict a **categorical label (class)** for a given input, based on a model learned from a dataset of **input-output pairs (labeled data)**.
+
+**Example Context: Iris Species Classification**
+*   **Inputs (Features)**: Sepal length/width, petal length/width (continuous measurements).
+*   **Output (Label/Class)**: Species of iris: *setosa*, *versicolor*, or *virginica*.
+*   **Problem Type**: **Three-class classification**.
+*   **Goal**: Build a model from known data (training set) to predict the species of new iris flowers.
+
+## 6.2 Training and Testing Data
+**Situation**: To evaluate a model's ability to **generalize** to unseen data, we must split our labeled dataset.
+*   **Training Set**: Used to **build/train** the machine learning model (e.g., 75% of data).
+*   **Test Set (Hold-out Set)**: Used to **assess** the model's performance on new data (e.g., 25% of data).
+**Crucial Step**: **Shuffle** the data before splitting to ensure the test set contains examples from all classes, preventing bias.
+
+**Python (scikit-learn)**:
+```python
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42, stratify=y)
+```
+
+## 6.3 k-Nearest Neighbors (k-NN) Classifier
+
+> **k-Nearest Neighbors (k-NN)** is a **lazy**, instance-based learning algorithm that classifies a new data point based on the **majority class** among its **k closest training examples** in the feature space.
+
+**Situation**: Useful for simple, interpretable classification, especially when the decision boundary is irregular. It makes **no assumptions** about the data distribution. Can be sensitive to the **curse of dimensionality**.
+
+### Algorithm Steps:
+1.  **Choose k**: The number of nearest neighbors (typically odd for binary classification).
+2.  **Calculate Distance**: Compute distance (e.g., **Euclidean**) from the query point to all training points.
+3.  **Identify Neighbors**: Select the **k** training points with the smallest distances.
+4.  **Vote for Label**: Assign the most common class among the **k neighbors**.
+
+![[iris-knn-1.png]]
+![[iris-knn-2.png]]
+
+**Advantages**:
+*   **Simple** to understand and implement.
+*   **No training phase** (stores the training data).
+*   Naturally handles **multi-class** problems.
+*   Can model **complex decision boundaries** if k is small.
+
+**Disadvantages**:
+*   **Computationally expensive at prediction time** (must compute distances to all training points).
+*   **Sensitive to irrelevant features** and the **scale** of features (requires scaling).
+*   **Performance degrades with high dimensionality** (curse of dimensionality).
+*   **Choice of k is critical**: Small k leads to **high variance/noise sensitivity**; large k leads to **high bias/oversmoothing**.
+
+## 6.4 Decision Tree Classifier
+
+> A **Decision Tree** is a supervised learning model that predicts a target label by learning simple **decision rules** inferred from the data features. It splits the data into subsets based on feature values, forming a tree-like structure.
+
+**Situation**: Useful when you need an **interpretable, white-box model**. Handles both numerical and categorical data. Prone to **overfitting** if not regularized.
+
+### Building a Tree: The Algorithm
+1.  **Start**: All data at the **root node**.
+2.  **Find Best Split**: For each feature, find the **split value** that best separates the data into purer child nodes. The "best" split minimizes **impurity**.
+3.  **Split**: Create child nodes based on the rule (e.g., `petal_width < 0.8 cm`).
+4.  **Repeat**: Recursively apply steps 2-3 to each child node until a **stopping criterion** is met (node is pure, node is unsplittable, max depth reached).
+
+![[iris-decision-tree.png]]
+
+### Impurity Measures: Entropy & Gini
+To quantify the "goodness" of a split, we measure the **impurity** of a node.
+
+> **Entropy** is an impurity measure based on information theory. For a node with class proportions $p_c$, it is defined as: $$S = -\sum_{c} p_c \log_2 p_c$$
+> **Low entropy** means the node is pure (predictable). **High entropy** means the node is mixed (unpredictable).
+
+> **Gini Impurity** is another common measure: $G = 1 - \sum_c p_c^2$. It measures the probability of misclassifying a randomly chosen element.
+
+**Choosing the Best Split**: We select the feature and split value that result in the **maximum reduction in impurity** (or **minimum weighted impurity**) across the child nodes.
+$$
+\text{Loss (Weighted Impurity)} = \frac{N_{left} \cdot S_{left} + N_{right} \cdot S_{right}}{N_{left} + N_{right}}
+$$
+The split with the **lowest loss** is chosen.
+
+![[entropy-ex.png]]
+For example, S for the top node is:
+$−0.31 \cdot log_2(0.31) − 0.33 \cdot log_2(0.33) − 0.36 \cdot log_2(0.36) = (0.52 + 0.53 + 0.53) = 1.58$
+### Visualizing Decision Trees & Boundaries
+*   **Tree Structure**: Can be visualized to understand the decision rules (using `plot_tree`).
+*   **Decision Boundary**: Creates **axis-aligned, rectangular partitions** of the feature space, leading to a **nonlinear, piecewise-constant** boundary.
+
+![[decision-tree-vis.png]]
+![[iris-decision-scatter-scikit.png]]
+
+### Overfitting in Decision Trees
+**Situation**: A tree that grows too deep will create complex rules to fit the **training data perfectly**, including its noise. This model will have **high variance** and perform poorly on new data (low generalization).
+
+**Signs of Overfitting**:
+*   100% accuracy on training set.
+*   Very deep tree with many nodes.
+*   Rules that seem overly specific (e.g., `petal_length < 4.800001`).
+
+**Mitigation Strategies (Regularization)**:
+*   **Limit tree depth** (`max_depth`).
+*   **Set a minimum number of samples** required to split a node (`min_samples_split`).
+*   **Set a minimum number of samples** in a leaf node (`min_samples_leaf`).
+*   **Use pruning** (remove nodes that provide little power).
+
+### Advantages & Disadvantages of Decision Trees
+
+**Advantages**:
+*   **Simple to understand and interpret** (white box model).
+*   **Requires little data preparation** (handles mixed data, robust to outliers).
+*   **Nonparametric** (makes no assumptions about data distribution).
+*   Can model **nonlinear relationships**.
+
+**Disadvantages**:
+*   **Prone to overfitting**, especially with deep trees. **Requires careful tuning** (pruning, depth limits).
+*   **Unstable**: Small variations in data can lead to a completely different tree.
+*   **Biased towards features with more levels**.
+*   Not ideal for **extrapolation** (predicting outside the range of training data).
+*   The **axis-aligned splits** can be inefficient for modeling some relationships compared to models that can create oblique splits.
