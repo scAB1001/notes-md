@@ -508,3 +508,124 @@ $−0.31 \cdot log_2(0.31) − 0.33 \cdot log_2(0.33) − 0.36 \cdot log_2(0.36)
 *   **Biased towards features with more levels**.
 *   Not ideal for **extrapolation** (predicting outside the range of training data).
 *   The **axis-aligned splits** can be inefficient for modeling some relationships compared to models that can create oblique splits.
+# Lecture 7: Regression, Overfitting, and Random Forests
+
+## 7.1 Regression Definition
+
+> **Regression** is a **supervised learning** task where the goal is to predict the value of one or more **continuous target variables** $t$ given a $D$-dimensional vector of input variables $x$. The model learns a mapping from inputs to a real-valued output.
+
+**Situation**: Used when the target is a quantity (e.g., price, temperature, coordinate). Contrast with **classification**, where the target is categorical.
+**Example**: Predicting house prices from size/location (**regression**) vs. predicting if a house will sell (yes/no) (**classification**).
+
+## 7.2 Linear Regression & Model Fitting
+The simplest model is **linear regression**: $y = mx + b$, where $y$ is the prediction, $m$ is the slope, $b$ is the intercept.
+
+### Least Squares Fitting
+**Situation**: The standard method for fitting a linear model. It finds parameters ($m$, $b$) that minimize the **sum of squared errors (SSE)** between predictions and true values.
+**Penalty/Loss Function**:
+$$
+L = \sum_{i} (y_i - (mx_i + b))^2
+$$
+**Advantages**:
+*   Has a **closed-form solution** (can be solved analytically).
+*   Optimal if errors are **normally distributed**.
+**Disadvantage**: **Highly sensitive to outliers** because errors are squared, giving large deviations disproportionate influence.
+
+### L1 Regression (Absolute Error)
+**Situation**: An alternative more **robust to outliers**. Minimizes the sum of absolute errors.
+**Penalty Function**:
+$$
+L = \sum_{i} |y_i - (mx_i + b)|
+$$
+**Advantages**:
+*   More **robust**; outliers have less influence.
+**Disadvantages**:
+*   **No closed-form solution**; computationally more complex.
+*   Penalizes small deviations more harshly relative to least squares.
+
+## 7.3 Nonlinear Curve Fitting & Polynomial Regression
+**Situation**: When the relationship between input and output is not linear. We can fit more complex functions (e.g., exponential decay, logistic growth, polynomials).
+
+**Polynomial Regression Model**:
+$$
+y(x, w) = w_0 + w_1x + w_2x^2 + ... + w_Mx^M = \sum_{j=0}^{M} w_j x^j
+$$
+*   **Linear in parameters** $w$ (a **linear model**), but **nonlinear in $x$**.
+*   $M$ is the **polynomial order** (model complexity).
+
+### Error Function & Root-Mean-Square Error (RMSE)
+We minimize the **sum-of-squares error**:
+$$
+E(w) = \frac{1}{2} \sum_{n=1}^{N} \{ y(x_n, w) - t_n \}^2
+$$
+To compare models across different dataset sizes, use the **Root-Mean-Square Error (RMSE)**:
+$$
+E_{RMS} = \sqrt{ \frac{E(w^*)}{N} }
+$$
+
+## 7.4 Overfitting in Model Selection
+**Situation**: A critical problem where a model learns the **noise** or random fluctuations in the **training data** to such an extent that it performs poorly on new, unseen data (**fails to generalize**).
+
+**Key Symptom**: **Low training error, but high test error**. The model has **high variance**.
+
+![[regression-interp-orders-of-m.png]]
+
+**Illustration with Polynomial Order $M$**:
+*   **$M=0$ or $M=1$ (Underfitting)**: Model is too simple (**high bias**). Poor fit to both training and test data.
+*   **$M=3$**: A good balance. Captures the underlying trend `sin(2πx)` without fitting the noise.
+*   **$M=9$ (Overfitting)**: Model is too complex. Training error is zero (fits all points exactly), but test error is very high. The curve **oscillates wildly**.
+
+### How to Prevent Overfitting in Regression
+1.  **Use a Simpler Model**: Reduce polynomial order $M$ (reduce model capacity).
+2.  **Get More Data**: As shown, increasing $N$ (data points) reduces overfitting for a fixed $M=9$ model.
+3.  **Regularization**: Add a penalty term to the loss function that discourages large coefficient values (e.g., Ridge/Lasso regression).
+
+## 7.5 Overfitting in Decision Trees & Prevention
+**Situation**: A **fully grown** decision tree (splitting until nodes are pure) will **always overfit** the training data. It creates overly complex, **high-variance** rules.
+
+**Example**: Using only sepal data for iris classification leads to erratic, complex decision boundaries and poor test accuracy (~70%).
+
+### Strategies to Restrict Tree Complexity (Prevent Overfitting)
+**Approach 1: Prevent Growth (Pre-pruning)**. Set constraints *during* tree building:
+*   `max_depth`: Maximum depth of the tree.
+*   `min_samples_split`: Minimum number of samples required to split a node.
+*   `min_samples_leaf`: Minimum number of samples required in a leaf node.
+*   `max_features`: Number of features to consider for the best split.
+
+**Approach 2: Pruning (Post-pruning)**. Grow the tree fully, then *remove* branches that provide little predictive power.
+*   **Method**: Use a **validation set**. If replacing a subtree with a leaf node (predicting the majority class) does not increase validation error, prune it.
+
+## 7.6 Random Forests
+
+> A **Random Forest** is an **ensemble learning** method that constructs a multitude of decision trees during training and outputs the **mode** (for classification) or **mean** (for regression) of the predictions of the individual trees. It reduces overfitting by averaging multiple **high-variance** models.
+
+**Core Idea**: **Bootstrap Aggregating (Bagging)** + **Random Feature Subsets**.
+1.  **Bagging (Bootstrap Aggregating)**: Create many **bootstrap samples** (random samples with replacement) from the training data. Train a separate decision tree on each sample.
+2.  **Random Feature Selection**: At each split in a tree, only consider a **random subset of $m$ features** (typically $m = \sqrt{p}$ for classification). This **decorrelates** the trees.
+
+**Prediction**: For a new point, collect predictions from all trees and take the **majority vote** (classification) or **average** (regression).
+
+![[random-forest-9-models.png]]
+
+### Advantages of Random Forests
+*   **Reduces Overfitting**: By averaging many trees, it reduces the **high variance** of a single decision tree.
+*   **Versatile**: Handles both **classification and regression**.
+*   **Robust**: Less sensitive to outliers and irrelevant features than single trees.
+*   **Automatic Feature Selection**: The random feature subsetting naturally evaluates feature importance.
+*   **Requires Less Tuning**: Often works well with default parameters.
+*   **Nonlinear**: Can capture complex interactions without explicit feature engineering.
+
+### Disadvantages of Random Forests
+*   **Less Interpretable**: A "black box" compared to a single decision tree.
+*   **Computationally Expensive**: Training many trees is slower than training one tree.
+*   **Memory Intensive**: Requires storing all the individual trees.
+
+## 7.7 Decision Trees for Regression
+**Situation**: Decision trees can also be used for **regression** tasks. Instead of predicting a class at a leaf node, they predict a **continuous value** (typically the **mean** of the target values of the training samples in that leaf).
+
+**Process**:
+*   **Splitting Criterion**: Minimize the **variance** (or MSE) within the child nodes, not entropy/Gini impurity.
+*   **Prediction**: The output for a region is the average target value of training points in that region.
+
+**Advantage**: Can model **piecewise constant** functions and complex, nonlinear relationships.
+**Disadvantage**: Prone to the same **overfitting** issues as classification trees, requiring the same regularization techniques (pruning, random forests).
