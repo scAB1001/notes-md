@@ -287,3 +287,107 @@ Use ML when:
 **Situation**: An **agent learns to make decisions by performing actions in an environment to maximise cumulative reward**. It receives **delayed feedback** (reward or penalty), not direct supervision.
 **Key Challenge**: **Credit Assignment Problem** – determining which actions led to the received rewards.
 **Examples**: Game playing (AlphaGo), robot navigation in a maze, autonomous driving systems.
+# Lecture 5: Clustering & Similarity
+
+## 5.1 Data Similarity & Distance Metrics
+**Situation**: When you need to quantify how alike (or different) two data points are. This is foundational for **clustering**, **recommendation systems**, and **nearest-neighbor algorithms**.
+**Core Idea**: Objects represented as **feature vectors**. Similarity is inversely related to **distance** in the feature space.
+
+### Euclidean Distance
+**Situation**: The most common distance metric, used when data is **continuous** and features are on **comparable scales**. It measures the "straight-line" distance.
+**Formula**: For points $p = (p_1, p_2, ..., p_n)$ and $q = (q_1, q_2, ..., q_n)$:
+$$
+d(p, q) = \sqrt{(p_1 - q_1)^2 + (p_2 - q_2)^2 + ... + (p_n - q_n)^2}
+$$
+**Example**: Measuring distance between two customers based on their (scaled) annual spending and age.
+![[euclidian-dist.png]]
+
+## 5.2 k-Means Clustering
+**Situation**: When you need to partition data into a **predefined number (k)** of **spherical or convex clusters** of roughly equal size. It is **scalable** to large datasets.
+
+### Algorithm Steps:
+1.  **Initialization**: Randomly select **k** data points as initial **cluster centers** (centroids).
+2.  **Assignment Step**: Assign each data point to the **closest centroid** (using Euclidean distance).
+3.  **Update Step**: Recompute each centroid as the **mean** of all points assigned to it.
+4.  **Iteration**: Repeat steps 2 & 3 until **convergence** (assignments no longer change).
+
+![[k-means-cluster-ex.png]]
+
+**Python Implementation**:
+```python
+from sklearn.cluster import KMeans
+kmeans = KMeans(n_clusters=3)
+kmeans.fit(X)
+labels = kmeans.labels_          # Cluster assignments for training data
+new_labels = kmeans.predict(X_new) # Assign new points to clusters
+```
+
+### Evaluation & Loss Functions
+*   **Inertia (Within-Cluster Sum of Squares)**: Sum of squared distances of each point to its assigned centroid. **k-Means minimizes inertia**.
+*   **Distortion**: Weighted average of squared distances (weighted by cluster size). More formal probabilistic interpretation.
+**Choosing Best Run**: Run k-means multiple times (due to random initialization) and select the result with the **lowest inertia**.
+
+![[inertia-vs-distortion.png]]
+
+### Limitations of k-Means (Failure Cases)
+Use k-means with caution or avoid when:
+1.  **Clusters have different densities or sizes**.
+    ![[k-means-fail-1.png]]
+2.  **Clusters are non-spherical or elongated** (it assumes isotropic shapes).
+    ![[k-means-fail-2.png]]
+3.  **Clusters have complex, non-convex shapes**.
+    ![[k-means-fail-3.png]]
+**Underlying Assumption**: k-means assumes clusters are defined by **centers** and **convex**. It performs **hard assignment** (each point belongs to exactly one cluster).
+
+### Vector Quantization View
+**Situation**: k-means can be seen as a **compression** or **decomposition** technique. It represents each data point by its nearest cluster center (**codebook vector**). Useful for **image compression** (color quantization) and **feature engineering**.
+
+## 5.3 Agglomerative Hierarchical Clustering
+**Situation**: When you do **not know the number of clusters** in advance, or you want to explore a **hierarchy** of clusterings (from fine to coarse). Also useful when you need a **visual representation (dendrogram)** of the clustering process.
+
+### Algorithm:
+1.  **Start**: Each point is its own cluster.
+2.  **Merge**: Iteratively merge the **two most similar clusters**.
+3.  **Stop**: When a stopping criterion is met (e.g., desired number of clusters, or a distance threshold).
+**Linkage Criteria** (Defines "most similar clusters"):
+*   **Ward** (default in sklearn): Minimizes variance of the clusters being merged. Tends to create **clusters of equal size**.
+*   **Average**: Merges clusters with the smallest **average distance** between all points.
+*   **Complete**: Merges clusters with the smallest **maximum distance** between points.
+*   **Single**: Merges clusters with the smallest **minimum distance** between points (can lead to "chaining").
+
+![[agglomerative-1.png]]
+![[agglomerative-2.png]]
+
+**Python Implementation**:
+```python
+from sklearn.cluster import AgglomerativeClustering
+agg = AgglomerativeClustering(n_clusters=3)
+labels = agg.fit_predict(X)  # Note: Cannot predict on new data
+```
+
+## 5.4 Dendrograms
+**Situation**: The primary tool for **visualizing and interpreting hierarchical clustering** results, especially with multi-dimensional data. Allows you to decide the number of clusters *after* analysis.
+
+**Interpretation**:
+*   **Leaves**: Individual data points.
+*   **Branches/Nodes**: Represent the merging of clusters.
+*   **Y-axis (Height)**: The **distance** at which clusters were merged. Longer branches indicate merges between **dissimilar** clusters.
+*   **Cutting the Dendrogram**: Drawing a horizontal line across the tree. The number of vertical lines it intersects = **number of clusters**. Choose a cut where branches are long (indicating distinct clusters).
+
+![[dendogram.png]]
+
+**Python Implementation**:
+```python
+from scipy.cluster.hierarchy import dendrogram, linkage, ward
+# Compute linkage matrix
+linkage_matrix = ward(X)  # or linkage(X, method='ward')
+# Plot
+dendrogram(linkage_matrix)
+plt.xlabel("Sample index")
+plt.ylabel("Cluster distance")
+```
+
+### Limitations of Agglomerative Clustering
+*   **Computational Cost**: Generally more expensive than k-means for large N.
+*   **No Predictions**: The `fit_predict` method must be used on the entire dataset; the model cannot assign new points to existing clusters.
+*   **Shape Assumptions**: Like k-means, it often uses Euclidean distance and linkage criteria that favor convex clusters, so it can also fail on complex shapes.
