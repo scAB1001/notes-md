@@ -774,3 +774,93 @@ where $U_k$ is $m \times k$, $\Sigma_k$ is $k \times k$, and $V_k^T$ is $k \time
 ![[svd-applied.png]]
 
 **Key Difference**: SVD's output ($U$, $\Sigma$, $V^T$) is mathematically unique (up to sign) and optimal. The reduced data $U\Sigma$ is in a rotated, scaled coordinate system aligned with directions of maximum variance, not the original feature axes.
+# Lecture 10: Principal Component Analysis (PCA)
+
+## 10.1 PCA: Definition and Goal
+> **Principal Component Analysis (PCA)** is a linear dimensionality reduction technique that transforms data into a new coordinate system such that the greatest variance by any projection of the data comes to lie on the first coordinate (called the **first principal component**), the second greatest variance on the second coordinate, and so on. It is achieved by performing **Singular Value Decomposition (SVD)** on the **mean-centered** data matrix.
+
+**Core Idea**: PCA finds the **best lower-dimensional linear subspace** (like a line or plane) onto which to project high-dimensional data, aiming to **preserve as much of the data's variance** (i.e., spread) as possible. This allows for visualization, noise reduction, and more efficient computation.
+
+**Two Equivalent Goals**:
+1.  **Maximize Captured Variance**: Find the directions (axes) that retain the maximum spread of the data points.
+2.  **Minimize Projection Error**: Find the directions that minimize the squared distance between the original data points and their projections onto the lower-dimensional subspace.
+
+These goals are **dual**: maximizing the variance of the projections is equivalent to minimizing the reconstruction error (the length of the "springs" connecting points to the projection line).
+
+## 10.2 The PCA Procedure
+**Step 1: Center the Data**.
+This is **crucial**. For each feature (column), subtract the column's mean from every value. This translates the data so its mean is at the origin. Without centering, the first principal component would be biased towards the direction of the mean, not the direction of maximum variance.
+$$
+X_{\text{centered}} = X - \bar{X}
+$$
+
+**Step 2: Perform SVD on the Centered Matrix**.
+Compute the SVD: $X_{\text{centered}} = U \Sigma V^T$.
+*   **$V^T$ (Rows are Principal Directions)**: The **rows** of $V^T$ (or columns of $V$) are the **principal directions** (axes). The first row is the direction of the **1st Principal Component (PC1)**, the second row is **PC2**, etc. They are orthonormal vectors in the original feature space.
+*   **$U\Sigma$ (Columns are Principal Components)**: The **columns** of $U\Sigma$ (or equivalently, $X_{\text{centered}} V$) contain the **principal component scores** for each data point. Column 1 holds the score for PC1 for all observations, Column 2 for PC2, etc. This is the transformed, lower-dimensional data.
+
+**Step 3: Choose the Number of Components $k$**.
+Examine the **singular values** ($\sigma_i$, the diagonal entries of $\Sigma$). The variance captured by the $i$-th PC is $\sigma_i^2 / N$. To decide $k$:
+*   **Scree Plot**: Plot the variance (or singular values) associated with each PC in descending order. Look for an "elbow" point where the curve bends; components after this add little explanatory power.
+*   **Cumulative Variance**: Choose $k$ such that the retained PCs explain a sufficiently high proportion (e.g., 95%) of the total variance:
+    $$
+    \frac{\sum_{i=1}^{k} \sigma_i^2}{\sum_{i=1}^{r} \sigma_i^2} \geq 0.95
+    $$
+
+**Step 4: Project the Data (Dimensionality Reduction)**.
+To reduce to $k$ dimensions, keep only the first $k$ columns of $U\Sigma$ (the scores). This $N \times k$ matrix is your reduced-dimension data. You can also compute it as:
+$$
+X_{\text{reduced}} = X_{\text{centered}} \cdot V_k
+$$
+where $V_k$ contains the first $k$ columns of $V$ (the top $k$ principal directions).
+
+## 10.3 Geometric Interpretation & Visualization
+Consider 2D data (e.g., Child Mortality vs. Fertility Rate).
+*   **PC1 Direction**: The line through the origin that best fits the "cloud" of data points, minimizing the perpendicular distances (red lines). It is the direction of **maximum variance**.
+*   **PC2 Direction**: Orthogonal to PC1, capturing the next largest remaining variance. It often represents deviations from the main trend.
+*   **Rank-1 Approximation**: Projecting all points onto the PC1 line. This gives each country a single **PC1 score** (its position along the line). The approximation for a point is found by mapping its PC1 score back along the PC1 direction (plus the mean).
+
+![[mortality-fertility-vis-pc.png]]
+
+**Key Insight**: PCA provides a **new coordinate system**. In the 2D example, instead of describing a country by (Mortality, Fertility), we describe it by (PC1_Score, PC2_Score). Often, PC1_Score alone (a 1D summary) captures the dominant global pattern (e.g., overall development level), while PC2_Score captures more specific, orthogonal variations.
+
+## 10.4 PCA vs. Linear Regression
+It's vital to distinguish PCA from fitting a regression line.
+
+| Aspect | **Linear Regression** | **Principal Component Analysis (PCA)** |
+| :--- | :--- | :--- |
+| **Goal** | Predict a **target variable** $Y$ from a **feature** $X$. Minimizes error **in $Y$ direction** (vertical distances). | **Describe the data** itself. No distinction between features/targets. Minimizes **perpendicular distances** to the line. |
+| **Asymmetry** | Direction matters. Regressing $Y$ on $X$ gives a different line than regressing $X$ on $Y$. | Symmetric. Treats all variables equally. |
+| **Lines** | For 2D data, you get two different regression lines. | You get a **single line** that is a compromise between the two regression lines. |
+| **Output** | A predictive model for a specific variable. | A new set of orthogonal axes (PCs) for the entire dataset. |
+
+![[mortality-fertility-vis-svd.png]]
+
+**Simple Analogy**: If you hammer nails (data points) into a board, linear regression is like fitting a ruler to predict nail height from horizontal position. PCA is like finding the best single tight string to which all nails are closest *perpendicularly*.
+
+## 10.5 When to Use PCA
+**Use PCA for Exploratory Data Analysis (EDA) when**:
+1.  You want to **visualize high-dimensional data** in 2D/3D to identify clusters, outliers, or trends.
+2.  You suspect the data is **inherently low-rank** (many features are linear combinations of a few latent factors).
+3.  You need to **reduce noise** or compress data before applying other algorithms (a preprocessing step).
+4.  You want to **decorrelate features** (PCs are orthogonal by construction).
+
+**Do NOT use PCA as a default preprocessing step if**:
+1.  You are in the final modelling stage for a **supervised task** (prediction). Feature selection or regularization (like Lasso) might be more appropriate as PCA can obscure interpretability.
+2.  The **meaning of individual features** is critically important for your analysis.
+3.  The relationships in your data are **highly nonlinear** (consider t-SNE or UMAP instead).
+
+## 10.6 Advantages and Disadvantages of PCA
+**Advantages**:
+*   **Dimensionality Reduction**: Effectively reduces the number of variables, combating the **curse of dimensionality**.
+*   **Noise Reduction**: By discarding low-variance components (often associated with noise), it can improve model performance.
+*   **Decorrelates Features**: Output PCs are orthogonal, removing multicollinearity.
+*   **Visualization**: Enables plotting of high-dimensional data.
+*   **Unsupervised**: Requires no labels.
+
+**Disadvantages**:
+*   **Linear Assumption**: PCA only captures **linear relationships**. It fails for complex nonlinear manifolds.
+*   **Interpretability**: Principal components are linear combinations of all original features, making them often hard to interpret.
+*   **Scale Sensitivity**: Results are influenced by the scale of variables. **Features must be standardized** (centered and scaled to unit variance) if they are on different units, otherwise high-variance features dominate PC1.
+*   **Variance ≠ Importance**: Directions of maximum variance may not be the most important for a specific predictive task.
+*   **Outlier Sensitivity**: Since it maximizes variance, outliers can disproportionately influence the principal directions.
