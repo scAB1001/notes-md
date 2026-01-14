@@ -443,7 +443,7 @@ A tree that grows too deep will create complex rules to fit the **training data 
 **Situation**: Used when the target is a quantity (e.g., price, temperature, coordinate). Contrast with **classification**, where the target is categorical.
 **Example**: Predicting house prices from size/location (**regression**) vs. predicting if a house will sell (yes/no) (**classification**).
 ## 7.2 Linear Regression & Model Fitting
-The simplest model is **linear regression**: $y = mx + b$, where $y$ is the prediction, $m$ is the slope, $b$ is the intercept.
+E.g. **linear regression**: $y = mx + b$, where $y$ is the prediction, $m$ is the slope, $b$ is the intercept.
 ### Least Squares Fitting
 **Situation**: The standard method for fitting a linear model. It finds parameters ($m$, $b$) that minimize the **sum of squared errors (SSE)** between predictions and true values.
 **Penalty/Loss Function**:$$L = \sum_{i} (y_i - (mx_i + b))^2$$**Advantages**:
