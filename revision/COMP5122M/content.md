@@ -394,9 +394,13 @@ To quantify the "goodness" of a split, we measure the **impurity** of a node.
 $$S = -\sum_{c} p_c \log_2 p_c$$
 >**Low entropy**: the node is pure (predictable). **High entropy**: node is mixed (unpredictable).
 
+A node where all data are part of the same class has zero entropy: $−1 log_2 1 = 0$
+A node where data are evenly split between two classes has entropy 1.
+A node where data are evenly split into $C$ classes has entropy $log2C$.
+
 > **Gini Impurity** is another common measure: $G = 1 - \sum_c p_c^2$. It measures the probability of misclassifying a randomly chosen element.
 
-**Choosing the Best Split**: We select the feature and split value that result in the **maximum reduction in impurity** (or **minimum weighted impurity**) across the child nodes.$$\text{Loss (Weighted Impurity)} = \frac{N_{left} \cdot S_{left} + N_{right} \cdot S_{right}}{N_{left} + N_{right}}$$The split with the **lowest loss** is chosen.
+**Choosing the Best Split**: We select the feature and split value that result in the **minimum weighted impurity** across the child nodes.$$\text{Loss (Weighted Impurity)} = \frac{N_{left} \cdot S_{left} + N_{right} \cdot S_{right}}{N_{left} + N_{right}}$$The split with the **lowest loss** is chosen.
 ![[entropy-ex.png|400]]
 For example, S for the top node is:
 $−0.31 \cdot log_2(0.31) − 0.33 \cdot log_2(0.33) − 0.36 \cdot log_2(0.36) = (0.52 + 0.53 + 0.53) = 1.58$
@@ -408,7 +412,7 @@ $−0.31 \cdot log_2(0.31) − 0.33 \cdot log_2(0.33) − 0.36 \cdot log_2(0.36)
 | ------------------------------- | ------------------------------------------ |
 | ![[decision-tree-vis.png\|400]] | ![[iris-decision-scatter-scikit.png\|400]] |
 ### Overfitting in Decision Trees
-**Situation**: A tree that grows too deep will create complex rules to fit the **training data perfectly**, including its noise. This model will have **high variance** and perform poorly on new data (low generalization).
+A tree that grows too deep will create complex rules to fit the **training data perfectly**, including its noise. This model will have **high variance** and perform poorly on new data (low generalization).
 
 **Signs of Overfitting**:
 * 100% accuracy on training set.
