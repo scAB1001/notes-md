@@ -387,7 +387,7 @@ Useful for simple, interpretable classification, especially when the decision bo
 2.  **Find Best Split**: For each feature, find the **split value** that best separates the data into purer child nodes. The "best" split minimizes **impurity**.
 3.  **Split**: Create child nodes based on the rule (e.g., `petal_width < 0.8 cm`).
 4.  **Repeat**: Recursively apply steps 2-3 to each child node until a **stopping criterion** is met (node is pure, node is unsplittable, max depth reached).
-![[iris-decision-tree.png|300]]
+![[iris-decision-tree.png|240]]
 ### Impurity Measures: Entropy & Gini
 To quantify the "goodness" of a split, we measure the **impurity** of a node.
 >**Entropy** is an impurity measure based on information theory. For a node with class proportions $p_c$, it is defined as: 
@@ -421,13 +421,11 @@ $−0.31 \cdot log_2(0.31) − 0.33 \cdot log_2(0.33) − 0.36 \cdot log_2(0.36)
 * **Set a minimum number of samples** in a leaf node (`min_samples_leaf`).
 * **Use pruning** (remove nodes that provide little power).
 ### Advantages & Disadvantages of Decision Trees
-
 **Advantages**:
 * **Simple to understand and interpret** (white box model).
 * **Requires little data preparation** (handles mixed data, robust to outliers).
 * **Nonparametric** (makes no assumptions about data distribution).
 * Can model **nonlinear relationships**.
-
 **Disadvantages**:
 * **Prone to overfitting**, especially with deep trees. **Requires careful tuning** (pruning, depth limits).
 * **Unstable**: Small variations in data can lead to a completely different tree.
