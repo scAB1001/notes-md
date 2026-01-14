@@ -17,10 +17,10 @@
 1.  **Data Collection & Preparation**: **Collecting, Curating, Cleaning**. The most time-consuming phase.
 2.  **Analysis & Modelling**: **Visualize, Analyze, Model (Machine Learning)**.
 3.  **Critical Questions Before Modelling**:
-    *   Does the **past represent the future**? (Assumption for predictive models).
-    *   What is the **goal** of the model?
-    *   How will it be **used**?
-    *   What data is **needed** vs. **available**?
+    * Does the **past represent the future**? (Assumption for predictive models).
+    * What is the **goal** of the model?
+    * How will it be **used**?
+    * What data is **needed** vs. **available**?
 ## 5. Example Applications
 * **IMDb**: Structured, crowdsourced data enabling questions on actor careers, film success factors (**correlation** between budget/ratings), and societal trends (e.g., age disparity between actors/actresses).
 * **Gapminder**: Uses **GDP per capita** (a **metric** for national wealth) to analyse relationships with health outcomes like life expectancy, demonstrating **exploratory data analysis**.
@@ -246,7 +246,7 @@ Use ML when:
 **Examples**: Game playing (AlphaGo), robot navigation in a maze, autonomous driving systems.
 # Lecture 5: Clustering & Similarity
 ## 5.1 Data Similarity & Distance Metrics
-**Situation**: When you need to quantify how alike (or different) two data points are. This is foundational for **clustering**, **recommendation systems**, and **nearest-neighbor algorithms**.
+**Situation**: When you need to quantify how alike (or different) two data points are. This is foundational for **clustering**, **recommendation systems**, and **nearest-neighbour algorithms**.
 **Core Idea**: Objects represented as **feature vectors**. Similarity ${\propto}^{-1}$ **distance** in the feature space.
 ### Euclidean Distance
 **Situation**: The most common distance metric, used when data is **continuous** and features are on **comparable scales**. It measures the "straight-line" distance.
@@ -354,15 +354,15 @@ from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, 
 													random_state=42, stratify=y)
 ```
-## 6.3 k-Nearest Neighbors (k-NN) Classifier
+## 6.3 k-Nearest neighbours (k-NN) Classifier
 > **k-NN** is a **lazy**, instance-based learning algorithm that classifies a new data point based on the **majority class** among its **k closest training examples** in the feature space.
 
 Useful for simple, interpretable classification, especially when the decision boundary is irregular. It makes **no assumptions** about the data distribution. Can be sensitive to the **curse of dimensionality**.
 ### Algorithm Steps:
-1.  **Choose k**: The number of nearest neighbors (typically odd for binary classification).
+1.  **Choose k**: The number of nearest neighbours (typically odd for binary classification).
 2.  **Calculate Distance**: Compute distance (e.g., **Euclidean**) from the query point to all training points.
-3.  **Identify Neighbors**: Select the **k** training points with the smallest distances.
-4.  **Vote for Label**: Assign the most common class among the **k neighbors**.
+3.  **Identify neighbours**: Select the **k** training points with the smallest distances.
+4.  **Vote for Label**: Assign the most common class among the **k neighbours**.
 
 | step 1                   | step 2                     | step 3              |
 | ------------------------ | -------------------------- | ------------------- |
@@ -370,14 +370,14 @@ Useful for simple, interpretable classification, especially when the decision bo
 **Advantages**:
 * **Simple** to understand and implement.
 * **No training phase** (stores the training data).
-*   Naturally handles **multi-class** problems.
-*   Can model **complex decision boundaries** if k is small.
+* Naturally handles **multi-class** problems.
+* Can model **complex decision boundaries** if k is small.
 
 **Disadvantages**:
 * **Computationally expensive at prediction time** (compute distances to all training points).
 * **Sensitive to irrelevant features** and the **scale** of features (requires scaling).
 * **Performance degrades with high dimensionality** (curse of dimensionality).
-* **Choice of k is critical**: Small k leads to **high variance/noise sensitivity**; large k leads to **high bias/oversmoothing**.
+* **Choice of k is critical**: Small k->**high variance/noise sensitivity**; large k->**high bias/oversmoothing**.
 ## 6.4 Decision Tree Classifier
 > A **Decision Tree** is a supervised learning model that predicts a target label by learning simple **decision rules** inferred from the data features. It splits the data into subsets based on feature values, forming a tree-like structure.
 
@@ -411,9 +411,9 @@ $−0.31 \cdot log_2(0.31) − 0.33 \cdot log_2(0.33) − 0.36 \cdot log_2(0.36)
 **Situation**: A tree that grows too deep will create complex rules to fit the **training data perfectly**, including its noise. This model will have **high variance** and perform poorly on new data (low generalization).
 
 **Signs of Overfitting**:
-*   100% accuracy on training set.
-*   Very deep tree with many nodes.
-*   Rules that seem overly specific (e.g., `petal_length < 4.800001`).
+* 100% accuracy on training set.
+* Very deep tree with many nodes.
+* Rules that seem overly specific (e.g., `petal_length < 4.800001`).
 
 **Mitigation Strategies (Regularization)**:
 * **Limit tree depth** (`max_depth`).
@@ -426,14 +426,14 @@ $−0.31 \cdot log_2(0.31) − 0.33 \cdot log_2(0.33) − 0.36 \cdot log_2(0.36)
 * **Simple to understand and interpret** (white box model).
 * **Requires little data preparation** (handles mixed data, robust to outliers).
 * **Nonparametric** (makes no assumptions about data distribution).
-*   Can model **nonlinear relationships**.
+* Can model **nonlinear relationships**.
 
 **Disadvantages**:
 * **Prone to overfitting**, especially with deep trees. **Requires careful tuning** (pruning, depth limits).
 * **Unstable**: Small variations in data can lead to a completely different tree.
 * **Biased towards features with more levels**.
-*   Not ideal for **extrapolation** (predicting outside the range of training data).
-*   The **axis-aligned splits** can be inefficient for modeling some relationships compared to models that can create oblique splits.
+* Not ideal for **extrapolation** (predicting outside the range of training data).
+* The **axis-aligned splits** can be inefficient for modeling some relationships compared to models that can create oblique splits.
 # Lecture 7: Regression, Overfitting, and Random Forests
 ## 7.1 Regression Definition
 > **Regression** is a **supervised learning** task where the goal is to predict the value of one or more **continuous target variables** $t$ given a $D$-dimensional vector of input variables $x$. The model learns a mapping from inputs to a real-valued output.
@@ -445,22 +445,22 @@ The simplest model is **linear regression**: $y = mx + b$, where $y$ is the pred
 ### Least Squares Fitting
 **Situation**: The standard method for fitting a linear model. It finds parameters ($m$, $b$) that minimize the **sum of squared errors (SSE)** between predictions and true values.
 **Penalty/Loss Function**:$$L = \sum_{i} (y_i - (mx_i + b))^2$$**Advantages**:
-*   Has a **closed-form solution** (can be solved analytically).
-*   Optimal if errors are **normally distributed**.
+* Has a **closed-form solution** (can be solved analytically).
+* Optimal if errors are **normally distributed**.
 **Disadvantage**: **Highly sensitive to outliers** because errors are squared, giving large deviations disproportionate influence.
 ### L1 Regression (Absolute Error)
 **Situation**: An alternative more **robust to outliers**. Minimizes the sum of absolute errors.
 **Penalty Function**:$$L = \sum_{i} |y_i - (mx_i + b)|$$**Advantages**:
-*   More **robust**; outliers have less influence.
+* More **robust**; outliers have less influence.
 **Disadvantages**:
 * **No closed-form solution**; computationally more complex.
-*   Penalizes small deviations more harshly relative to least squares.
+* Penalizes small deviations more harshly relative to least squares.
 ## 7.3 Nonlinear Curve Fitting & Polynomial Regression
 **Situation**: When the relationship between input and output is not linear. We can fit more complex functions (e.g., exponential decay, logistic growth, polynomials).
 
 **Polynomial Regression Model**:$$y(x, w) = w_0 + w_1x + w_2x^2 + ... + w_Mx^M = \sum_{j=0}^{M} w_j x^j$$
 * **Linear in parameters** $w$ (a **linear model**), but **nonlinear in $x$**.
-*   $M$ is the **polynomial order** (model complexity).
+* $M$ is the **polynomial order** (model complexity).
 ### Error Function & Root-Mean-Square Error (RMSE)
 We minimize the **sum-of-squares error**:$$E(w) = \frac{1}{2} \sum_{n=1}^{N} \{ y(x_n, w) - t_n \}^2$$To compare models across different dataset sizes, use the **Root-Mean-Square Error (RMSE)**:
 $$E_{RMS} = \sqrt{ \frac{E(w^*)}{N} }$$
@@ -483,10 +483,10 @@ A critical problem where a model learns the **noise** or random fluctuations in 
 **Example**: Using only sepal data for iris classification leads to erratic, complex decision boundaries and poor test accuracy (~70%).
 ### Strategies to Restrict Tree Complexity (Prevent Overfitting)
 **Approach 1: Prevent Growth (Pre-pruning)**. Set constraints *during* tree building:
-*   `max_depth`: Maximum depth of the tree.
-*   `min_samples_split`: Minimum number of samples required to split a node.
-*   `min_samples_leaf`: Minimum number of samples required in a leaf node.
-*   `max_features`: Number of features to consider for the best split.
+* `max_depth`: Maximum depth of the tree.
+* `min_samples_split`: Minimum number of samples required to split a node.
+* `min_samples_leaf`: Minimum number of samples required in a leaf node.
+* `max_features`: Number of features to consider for the best split.
 
 **Approach 2: Pruning (Post-pruning)**. Grow the tree fully, then *remove* branches that provide little predictive power.
 * **Method**: Use a **validation set**. If replacing a subtree with a leaf node (predicting the majority class) does not increase validation error, prune it.
@@ -561,18 +561,18 @@ $$F1 = \frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} + \t
 **Process**:
 1.  Randomly split the data into **k** equal-sized **folds**.
 2.  For each fold *i*:
-    *   Use fold *i* as the **validation set**.
-    *   Use the remaining **k-1** folds as the **training set**.
-    *   Train the model and evaluate it on the validation set.
+    * Use fold *i* as the **validation set**.
+    * Use the remaining **k-1** folds as the **training set**.
+    * Train the model and evaluate it on the validation set.
 3.  The final performance metric is the **average** of the *k* validation scores.
 ![[cross-validation.png|340]]
 **Advantages**:
 * **Reduces variance** in performance estimation compared to a single split.
 * **Uses data more efficiently** (every data point is used for both training and validation).
-*   Helps detect **overfitting** (if training score is much higher than validation scores).
+* Helps detect **overfitting** (if training score is much higher than validation scores).
 **Disadvantages**:
 * **Computationally expensive** (trains the model *k* times).
-*   Not suitable for **temporal data** (where time ordering matters; use time-series splits instead).
+* Not suitable for **temporal data** (where time ordering matters; use time-series splits instead).
 
 **Common Choice**: **k=5** or **k=10**.
 # Lecture 9: Dimensionality Reduction
@@ -667,10 +667,10 @@ It's vital to distinguish PCA from fitting a regression line.
 
 | Aspect        | Linear Regression                                                                                                    | Principal Component Analysis (PCA)                                                                                        |
 | :------------ | :------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------ |
-| **Goal**      | Predict a **target variable** $Y$ from a **feature** $X$. Minimizes error **in $Y$ direction** (vertical distances). | **Describe the data** itself. No distinction between features/targets. Minimizes **perpendicular distances** to the line. |
+| **Goal**    | Predict a **target variable** $Y$ from a **feature** $X$. Minimizes error **in $Y$ direction** (vertical distances). | **Describe the data** itself. No distinction between features/targets. Minimizes **perpendicular distances** to the line. |
 | **Asymmetry** | Direction matters. Regressing $Y$ on $X$ gives a different line than regressing $X$ on $Y$.                          | Symmetric. Treats all variables equally.                                                                                  |
-| **Lines**     | For 2D data, you get two different regression lines.                                                                 | You get a **single line** that is a compromise between the two regression lines.                                          |
-| **Output**    | A predictive model for a specific variable.                                                                          | A new set of orthogonal axes (PCs) for the entire dataset.                                                                |
+| **Lines**   | For 2D data, you get two different regression lines.                                                                 | You get a **single line** that is a compromise between the two regression lines.                                          |
+| **Output**  | A predictive model for a specific variable.                                                                          | A new set of orthogonal axes (PCs) for the entire dataset.                                                                |
 ![[mortality-fertility-vis-svd.png|300]]
 **Simple Analogy**: If you hammer nails (data points) into a board, linear regression is like fitting a ruler to predict nail height from horizontal position. PCA is like finding the best single tight string to which all nails are closest *perpendicularly*.
 ## 10.5 When to Use PCA
