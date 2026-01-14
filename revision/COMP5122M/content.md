@@ -561,7 +561,7 @@ $$F1 = \frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} + \t
 A **robust technique** for model evaluation and selection that provides a better estimate of generalization performance than a single train/test split. It maximizes data usage for both training and validation.
 ### k-Fold Cross-Validation
 **Process**:
-1.  Randomly split the data into **k** equal-sized **folds**.
+1.  Randomly split the data into **k** equal-sized **folds**. (Common Choice: **k=5** or **k=10**).
 2.  For each fold *i*:
     * Use fold *i* as the **validation set**.
     * Use the remaining **k-1** folds as the **training set**.
@@ -575,8 +575,6 @@ A **robust technique** for model evaluation and selection that provides a better
 **Disadvantages**:
 * **Computationally expensive** (trains the model *k* times).
 * Not suitable for **temporal data** (where time ordering matters; use time-series splits instead).
-
-**Common Choice**: **k=5** or **k=10**.
 # Lecture 9: Dimensionality Reduction
 ## 9.1 Understanding Dimensionality
 > **Dimensionality** of a dataset is the number of independent attributes (features) needed to represent each observation. Mathematically, it is equivalent to the **rank** of the data matrix (the maximum number of linearly independent columns).
@@ -640,11 +638,10 @@ where $U_k$ is $m \times k$, $\Sigma_k$ is $k \times k$, and $V_k^T$ is $k \time
 These goals are **dual**: maximizing the variance of the projections is equivalent to minimizing the reconstruction error (the length of the "springs" connecting points to the projection line).
 ## 10.2 The PCA Procedure
 **Step 1: Center the Data**.
-This is **crucial**. For each feature (column), subtract the column's mean from every value. This translates the data so its mean is at the origin. Without centering, the first principal component would be biased towards the direction of the mean, not the direction of maximum variance.$$X_{\text{centered}} = X - \bar{X}$$
-**Step 2: Perform SVD on the Centered Matrix**.
+This is **crucial**. For each feature (column), subtract the column's mean from every value. This translates the data so its mean is at the origin. Without centering, the first principal component would be biased towards the direction of the mean, not the direction of maximum variance.$$X_{\text{centered}} = X - \bar{X}$$**Step 2: Perform SVD on the Centered Matrix**.
 Compute the SVD: $X_{\text{centered}} = U \Sigma V^T$.
 * **$V^T$ (Rows are Principal Directions)**: The **rows** of $V^T$ (or columns of $V$) are the **principal directions** (axes). The first row is the direction of the **1st Principal Component (PC1)**, the second row is **PC2**, etc. They are orthonormal vectors in the original feature space.
-* **$U\Sigma$ (Columns are Principal Components)**: The **columns** of $U\Sigma$ (or equivalently, $X_{\text{centered}} V$) contain the **principal component scores** for each data point. Column 1 holds the score for PC1 for all observations, Column 2 for PC2, etc. This is the transformed, lower-dimensional data.
+* **$U\Sigma$ (Columns are Principal Components)**: The **columns** of $U\Sigma$ (or equivalently, $X_{\text{centered}} V$) contain the **principal component scores** for each data point. Column 1 holds the score for PC1 for all observations, Column 2 for PC2, etc. This is the transformed, lower-dim data.
 
 **Step 3: Choose the Number of Components $k$**.
 Examine the **singular values** ($\sigma_i$, the diagonal entries of $\Sigma$). The variance captured by the $i$-th PC is $\sigma_i^2 / N$. To decide $k$:
@@ -677,13 +674,13 @@ It's vital to distinguish PCA from fitting a regression line.
 **Simple Analogy**: If you hammer nails (data points) into a board, linear regression is like fitting a ruler to predict nail height from horizontal position. PCA is like finding the best single tight string to which all nails are closest *perpendicularly*.
 ## 10.5 When to Use PCA
 **Use PCA for Exploratory Data Analysis (EDA) when**:
-1.  You want to **visualize high-dimensional data** in 2D/3D to identify clusters, outliers, or trends.
+1.  Aim to **visualize high-dimensional data** in 2D/3D to identify clusters, outliers, or trends.
 2.  You suspect the data is **inherently low-rank** (many features are linear combinations of a few latent factors).
 3.  You need to **reduce noise** or compress data before applying other algorithms (a preprocessing step).
 4.  You want to **decorrelate features** (PCs are orthogonal by construction).
 
 **Do NOT use PCA as a default preprocessing step if**:
-1.  You are in the final modelling stage for a **supervised task** (prediction). Feature selection or regularization (like Lasso) might be more appropriate as PCA can obscure interpretability.
+1.  You are in the final modelling stage for a **supervised task** (prediction). Feature selection or regularization (like Lasso) is more appropriate as PCA can obscure interpretability.
 2.  The **meaning of individual features** is critically important for your analysis.
 3.  The relationships in your data are **highly nonlinear** (consider t-SNE or UMAP instead).
 ## 10.6 Advantages and Disadvantages of PCA
@@ -717,7 +714,7 @@ It's vital to distinguish PCA from fitting a regression line.
 
 * **Historical Precedent**: Technology often creates new ethical challenges (e.g., photography leading to a "right to be let alone").
 * **Data-Specific Risks**:
-    * **Harm to Subjects**: Breaches of **privacy**, lack of **consent**, insecure handling.
+	* **Harm to Subjects**: Breaches of **privacy**, lack of **consent**, insecure handling.
     * **Usage Issues**: **Bias** in tools/interpretations, "**black box**" opacity, loss of human control.
     * **Societal Externalities**: Shaping preferences, sustainability costs, altering interpersonal relations, automation's impact on work.
 
@@ -737,8 +734,10 @@ The UK General Data Protection Regulation (UK-GDPR) and Data Protection Act 2018
 > A **Data Controller** determines the **purposes and means** of processing personal data.
 > A **Data Processor** processes personal data **on behalf of** the controller.
 > A **Data Subject** is the individual whom the personal data is about.
-*(A single entity can be both a controller and a processor for different data flows.)*
+   *(A single entity can be both a controller and a processor for different data flows.)*
+
 > **Personal Data** is any information relating to an identified or **identifiable** living individual. Identifiability can be direct or through linkage with other information.
+
 > **Special Category Data** is personal data revealing **sensitive** aspects (e.g., racial/ethnic origin, political opinions, health data, biometric data). Processing this requires a higher legal justification.
 
 **Example (E4)**: A dataset of house sale prices and exact addresses in Leeds **could be** personal data. While about houses, linkage with other public records (e.g., electoral register) could identify the individuals who lived there.
@@ -763,36 +762,36 @@ Subjects have rights including: to be **informed**, to **access** their data, to
 
 **Challenges in Practice**:
 * **Implied Consent**: Often not sufficient for non-obvious data uses.
-* **Terms & Conditions**: Lengthy, complex documents are a poor mechanism for **informed** consent.
+* **T&Cs**: Lengthy, complex documents are a poor mechanism for **informed** consent.
 * **Context & Drift**: Consent given for one purpose (e.g., improving service) does not cover unrelated future uses (e.g., psychological experiments).
 ### 3. Anonymisation & Data Linkage
 A primary method to protect privacy when using data.
-**Challenge**: **Data linkage** (combining datasets) can **re-identify** individuals even from anonymised data.
+**Data linkage** (combining datasets of anonymised data) can **re-identify** individuals.
 * **Direct Identifiers**: Name, address, NHS number – must be removed.
 * **Indirect Identifiers**: Postcode, age, rare disease – in combination, can identify individuals. Risk must be assessed and mitigated.
 ## 11.6 Case Studies in Ethical Failure
 ### Target's Pregnancy Prediction (2012)
-* **What**: Data scientists analyzed shopping patterns to identify pregnant customers and send targeted coupons.
+* Data scientists analyzed shopping patterns to identify pregnant customers and send targeted coupons.
 * **Ethical Issue**: Violation of **privacy** and lack of **meaningful consent**. Customers did not know their data was being used for this sensitive inference. It caused distress (e.g., revealing a teen's pregnancy to her father).
 ### Facebook Emotional Contagion Experiment (2014)
-* **What**: Researchers manipulated news feeds of 689,000 users to study "emotional contagion."
+* Researchers manipulated news feeds of 689,000 users to study "emotional contagion."
 * **Ethical Issues**:
     1.  **Lack of Informed Consent**: Burying permission in Terms of Service is inadequate. Users did not consent to **psychological manipulation**.
     2.  **Potential for Harm**: The study could have negatively impacted vulnerable users' mental health.
     3.  **Broader Societal Risk**: This capability for manipulation has been linked to influencing elections (e.g., Cambridge Analytica), threatening **democratic autonomy**.
 ### COMPAS Recidivism Algorithm
-* **What**: An algorithm used in US courts to predict a defendant's likelihood of reoffending.
-* **Ethical Issue**: **Bias**. The algorithm, trained on historically biased policing and sentencing data, unfairly labelled Black defendants as higher risk than white defendants with similar profiles.
+* An algorithm used in US courts to predict a defendant's likelihood of reoffending.
+* **Ethical Issue**: **Bias**. Trained on historically biased policing and sentencing data, unfairly labelled Black defendants as higher risk than white defendants with similar profiles.
 * **Types of Bias Illustrated**:
     * **Historical Bias**: The training data reflected past societal injustices.
     * **Proxy Discrimination**: Even if 'race' was not a direct feature, the algorithm used correlated proxies (e.g., postcode, income).
     * **Lack of Transparency & Accountability**: The "black box" nature made it hard to diagnose, challenge, or assign responsibility for unfair outcomes.
 ## 11.7 The Problem of Bias in Data Science
-**Bias** leads to **unfair treatment** of individuals or groups. It can be introduced at multiple stages:
-1.  **Data Collection Bias**: Non-representative samples (e.g., health data mostly from white males).
+**Bias** leads to **unfair treatment** of individuals or groups. It comes in multiple stages:
+1.  **Data Collection Bias**: Non-representative samples (e.g., health data from white males).
 2.  **Historical Bias**: Data reflects past prejudices and inequalities.
 3.  **Algorithmic Bias**: The model's design or objective function creates unfair outcomes.
-4.  **Interpretation Bias**: Analysts' own preconceptions affect how results are understood and used.
+4.  **Interpretation Bias**: Analyst preconceptions affect how results are understood and used.
 
 **Why it's a Profound Ethical Problem**: Automated systems can **amplify and institutionalize** human biases at scale, making them harder to detect and correct, while obscuring **accountability**.
 ## 11.8 Moral Responsibility of the Data Scientist
@@ -806,4 +805,5 @@ A primary method to protect privacy when using data.
 **Conclusion for Practice**: The ethical data scientist must proactively ask:
 1.  **Consent & Purpose**: Has the subject consented to *this* use of their data?
 2.  **Responsible Execution**: Can I achieve this aim without causing unfair harm or undermining the original consent?
+
 If the answer to either is unclear or "no," you have an ethical obligation to **reconsider, mitigate risks, or refrain from the analysis**.
