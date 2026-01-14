@@ -543,19 +543,20 @@ A **detailed breakdown** of prediction errors, essential for **binary** and **mu
 >**Precision** answers: "**Of all instances predicted as positive, how many are actually positive?**" It focuses on **minimizing False Positives (FP)**.
 $$\text{Precision} = \frac{TP}{TP + FP}$$
 > **Use when**: The cost of a **false alarm (FP)** is high (e.g., spam detection, fraud alert).
+
 > **Recall (Sensitivity, True Positive Rate - TPR)** answers: "**Of all actual positive instances, how many did we correctly identify?**" It focuses on **minimizing False Negatives (FN)**.
 $$\text{Recall} = \frac{TP}{TP + FN}$$
 > **Use when**: Missing a positive case (FN) is costly (e.g., disease screening, search engine results).
+
 > **Specificity (True Negative Rate - TNR)** answers: "**Of all actual negative instances, how many did we correctly identify?**"
 $$\text{Specificity} = \frac{TN}{TN + FP}$$
 > **Use when**: Correctly identifying negatives is critical.
 ### The Precision-Recall Trade-off
-It is typically impossible to maximize **both** precision and recall simultaneously. Increasing one often decreases the other (e.g., a more conservative classifier has higher precision but lower recall).
+You cant maximize **both** precision and recall simultaneously. Increasing one often decreases the other (e.g., a more conservative classifier has higher precision but lower recall).
 ### The F1 Score
 Provides a **single metric** that balances both precision and recall, using their **harmonic mean**. Useful when you need a single number to compare models and when there is an **imbalanced class distribution**.
 $$F1 = \frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} = \frac{2}{\frac{1}{\text{Precision}} + \frac{1}{\text{Recall}}}$$
 * **High F1** indicates both high precision and high recall.
-* **Use when**: You want to find a **balance** between precision and recall and the class distribution is uneven.
 ## 8.3 Cross-Validation
 A **robust technique** for model evaluation and selection that provides a better estimate of generalization performance than a single train/test split. It maximizes data usage for both training and validation.
 ### k-Fold Cross-Validation
