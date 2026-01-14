@@ -212,28 +212,28 @@ Use ML when:
 * **Data Mining**: Discovers **existing patterns** in data (descriptive).
 * **Machine Learning**: **Learns from past data** to build models for **predicting future outcomes** (predictive). ML is a primary tool used within the KDD process.
 ## 4.4 Supervised Learning
-**Situation**: When you have a dataset of **input/output pairs (labeled data)** and want to predict an output for new inputs.
+When you have a dataset of **input/output pairs (labeled data)** and want to predict an output for new inputs.
 **Goal**: Learn a **mapping function** from inputs to outputs.
 **Training**: Model learns from a **training set** of example pairs.
 ### Classification
-**Situation**: The output is a **categorical label** (class) from a predefined list.
+The output is a **categorical label** (class) from a predefined list.
 * **Binary Classification**: Two possible classes (e.g., spam/not spam, low-risk/high-risk credit).
 * **Multiclass Classification**: More than two classes (e.g., language of a website, digit recognition).
 **Example**: Credit scoring. **Inputs**: Income, savings. **Output**: "low-risk" or "high-risk". A **discriminant** function (e.g., `IF income > θ1 AND savings > θ2`) can be learned.
 ### Regression
-**Situation**: The output is a **continuous quantitative value**.
+The output is a **continuous quantitative value**.
 **Goal**: Predict a number.
 **Example**: Predicting the steering angle for a self-driving car (**Robot Arm Kinematics**), forecasting house prices, estimating patient recovery time.
 ![[supervised-unsupervised-tree 1.png|400]]
 ## 4.5 Unsupervised Learning
-**Situation**: When you have **input data without corresponding labels** (unlabeled data). The goal is to find inherent structure or patterns.
+When you have **input data without corresponding labels** (unlabeled data). The goal is to find inherent structure or patterns.
 **No supervision**: The algorithm is only given input data.
 ### Dimensionality Reduction
-**Situation**: You have high-dimensional data (many features) and want a **lower-dimensional representation** that preserves essential information. Used for **visualisation** (reducing to 2D/3D), noise reduction, or data compression.
+You have high-dimensional data (many features) and want a **lower-dimensional representation** that preserves essential information. Used for **visualisation** (reducing to 2D/3D), noise reduction, or data compression.
 **Primary Method**: **Principal Component Analysis (PCA)**.
 **Example**: Visualising a multi-feature dataset (like Iris) in 2D to see if natural groupings exist.
 ### Clustering
-**Situation**: You want to **partition data into distinct groups** where points in the same group are similar and points in different groups are dissimilar.
+You want to **partition data into distinct groups** where points in the same group are similar and points in different groups are dissimilar.
 **Goal**: Discover inherent groupings.
 **Examples**:
 * **Customer Segmentation (CRM)**: Group customers by purchasing behavior.
@@ -241,15 +241,15 @@ Use ML when:
 * **Biology**: Grouping genes with similar expression patterns.
 ![[cluster-ex.png|400]]
 ## 4.6 Reinforcement Learning
-**Situation**: An **agent learns to make decisions by performing actions in an environment to maximise cumulative reward**. It receives **delayed feedback** (reward or penalty), not direct supervision.
+An **agent learns to make decisions by performing actions in an environment to maximise cumulative reward**. It receives **delayed feedback** (reward or penalty), not direct supervision.
 **Key Challenge**: **Credit Assignment Problem** – determining which actions led to the received rewards.
 **Examples**: Game playing (AlphaGo), robot navigation in a maze, autonomous driving systems.
 # Lecture 5: Clustering & Similarity
 ## 5.1 Data Similarity & Distance Metrics
-**Situation**: When you need to quantify how alike (or different) two data points are. This is foundational for **clustering**, **recommendation systems**, and **nearest-neighbour algorithms**.
+When you need to quantify how alike (or different) two data points are. This is foundational for **clustering**, **recommendation systems**, and **nearest-neighbour algorithms**.
 **Core Idea**: Objects represented as **feature vectors**. Similarity ${\propto}^{-1}$ **distance** in the feature space.
 ### Euclidean Distance
-**Situation**: The most common distance metric, used when data is **continuous** and features are on **comparable scales**. It measures the "straight-line" distance.
+The most common distance metric, used when data is **continuous** and features are on **comparable scales**. It measures the "straight-line" distance.
 **Formula**: For points $p = (p_1, p_2, ..., p_n)$ and $q = (q_1, q_2, ..., q_n)$:
 $$
 d(p, q) = \sqrt{(p_1 - q_1)^2 + (p_2 - q_2)^2 + ... + (p_n - q_n)^2}
@@ -257,7 +257,7 @@ $$
 **Example**: Measuring distance between two customers based on their (scaled) annual spending and age.
 ![[euclidian-dist.png|400]]
 ## 5.2 k-Means Clustering
-**Situation**: When you need to partition data into a **predefined number (k)** of **spherical or convex clusters** of roughly equal size. It is **scalable** to large datasets.
+When you need to partition data into a **predefined number (k)** of **spherical or convex clusters** of roughly equal size. It is **scalable** to large datasets.
 ### Algorithm Steps:
 1.  **Initialization**: Randomly select **k** data points as initial **cluster centers** (centroids).
 2.  **Assignment Step**: Assign each data point to the **closest centroid** (using Euclidean distance).
@@ -289,9 +289,9 @@ Use k-means with caution or avoid when:
 ![[k-means-fail-3.png|400]]
 **Underlying Assumption**: k-means assumes clusters are defined by **centers** and **convex**. It performs **hard assignment** (each point belongs to exactly one cluster).
 ### Vector Quantization View
-**Situation**: k-means can be seen as a **compression** or **decomposition** technique. It represents each data point by its nearest cluster center (**codebook vector**). Useful for **image compression** (color quantization) and **feature engineering**.
+k-means can be seen as a **compression** or **decomposition** technique. It represents each data point by its nearest cluster center (**codebook vector**). Useful for **image compression** (color quantization) and **feature engineering**.
 ## 5.3 Agglomerative Hierarchical Clustering
-**Situation**: When you do **not know the number of clusters** in advance, or you want to explore a **hierarchy** of clusterings (from fine to coarse). Also useful when you need a **visual representation (dendrogram)** of the clustering process.
+When you do **not know the number of clusters** in advance, or you want to explore a **hierarchy** of clusterings (from fine to coarse). Also useful when you need a **visual representation (dendrogram)** of the clustering process.
 ### Algorithm:
 1.  **Start**: Each point is its own cluster.
 2.  **Merge**: Iteratively merge the **two most similar clusters**.
@@ -381,7 +381,7 @@ Useful for simple, interpretable classification, especially when the decision bo
 ## 6.4 Decision Tree Classifier
 > A **Decision Tree** is a supervised learning model that predicts a target label by learning simple **decision rules** inferred from the data features. It splits the data into subsets based on feature values, forming a tree-like structure.
 
-**Situation**: Useful when you need an **interpretable, white-box model**. Handles both numerical and categorical data. Prone to **overfitting** if not regularized.
+Useful when you need an **interpretable, white-box model**. Handles both numerical and categorical data. Prone to **overfitting** if not regularized.
 ### Building a Tree: The Algorithm
 1.  **Start**: All data at the **root node**.
 2.  **Find Best Split**: For each feature, find the **split value** that best separates the data into purer child nodes. The "best" split minimizes **impurity**.
@@ -440,28 +440,27 @@ A tree that grows too deep will create complex rules to fit the **training data 
 ## 7.1 Regression Definition
 > **Regression** is a **supervised learning** task where the goal is to predict the value of one or more **continuous target variables** $t$ given a $D$-dimensional vector of input variables $x$. The model learns a mapping from inputs to a real-valued output.
 
-**Situation**: Used when the target is a quantity (e.g., price, temperature, coordinate). Contrast with **classification**, where the target is categorical.
+Used when the target is a quantity (e.g., price, temperature, coordinate). Contrast with **classification**, where the target is categorical.
 **Example**: Predicting house prices from size/location (**regression**) vs. predicting if a house will sell (yes/no) (**classification**).
 ## 7.2 Linear Regression & Model Fitting
 E.g. **linear regression**: $y = mx + b$, where $y$ is the prediction, $m$ is the slope, $b$ is the intercept.
 ### Least Squares Fitting
-**Situation**: The standard method for fitting a linear model. It finds parameters ($m$, $b$) that minimize the **sum of squared errors (SSE)** between predictions and true values.
+The standard method for fitting a linear model. It finds parameters ($m$, $b$) that minimize the **sum of squared errors (SSE)** between predictions and true values.
 **Penalty/Loss Function**:$$L = \sum_{i} (y_i - (mx_i + b))^2$$**Advantages**:
 * Has a **closed-form solution** (can be solved analytically).
 * Optimal if errors are **normally distributed**.
 **Disadvantage**: **Highly sensitive to outliers** because errors are squared, giving large deviations disproportionate influence.
 ### L1 Regression (Absolute Error)
-**Situation**: An alternative more **robust to outliers**. Minimizes the sum of absolute errors.
+An alternative more **robust to outliers**. Minimizes the sum of absolute errors.
 **Penalty Function**:$$L = \sum_{i} |y_i - (mx_i + b)|$$**Advantages**:
 * More **robust**; outliers have less influence.
 **Disadvantages**:
 * **No closed-form solution**; computationally more complex.
 * Penalizes small deviations more harshly relative to least squares.
 ## 7.3 Nonlinear Curve Fitting & Polynomial Regression
-**Situation**: When the relationship between input and output is not linear. We can fit more complex functions (e.g., exponential decay, logistic growth, polynomials).
+When the relationship between input and output is not linear. We can fit more complex functions (e.g., exponential decay, logistic growth, polynomials).
 
-**Polynomial Regression Model**:$$y(x, w) = w_0 + w_1x + w_2x^2 + ... + w_Mx^M = \sum_{j=0}^{M} w_j x^j$$
-* **Linear in parameters** $w$ (a **linear model**), but **nonlinear in $x$**.
+**Polynomial Regression Model**:$$y(x, w) = w_0 + w_1x + w_2x^2 + ... + w_Mx^M = \sum_{j=0}^{M} w_j x^j$$* **Linear in parameters** $w$ (a **linear model**), but **nonlinear in $x$**.
 * $M$ is the **polynomial order** (model complexity).
 ### Error Function & Root-Mean-Square Error (RMSE)
 We minimize the **sum-of-squares error**:$$E(w) = \frac{1}{2} \sum_{n=1}^{N} \{ y(x_n, w) - t_n \}^2$$To compare models across different dataset sizes, use the **Root-Mean-Square Error (RMSE)**:
@@ -480,7 +479,7 @@ A critical problem where a model learns the **noise** or random fluctuations in 
 2.  **Get More Data**: As shown, increasing $N$ (data points) reduces overfitting for a fixed $M=9$ model.
 3.  **Regularization**: Add a penalty term to the loss function that discourages large coefficient values (e.g., Ridge/Lasso regression).
 ## 7.5 Overfitting in Decision Trees & Prevention
-**Situation**: A **fully grown** decision tree (splitting until nodes are pure) will **always overfit** the training data. It creates overly complex, **high-variance** rules.
+A **fully grown** decision tree (splitting until nodes are pure) will **always overfit** the training data. It creates overly complex, **high-variance** rules.
 
 **Example**: Using only sepal data for iris classification leads to erratic, complex decision boundaries and poor test accuracy (~70%).
 ### Strategies to Restrict Tree Complexity (Prevent Overfitting)
@@ -492,8 +491,8 @@ A critical problem where a model learns the **noise** or random fluctuations in 
 
 **Approach 2: Pruning (Post-pruning)**. Grow the tree fully, then *remove* branches that provide little predictive power.
 * **Method**: Use a **validation set**. If replacing a subtree with a leaf node (predicting the majority class) does not increase validation error, prune it.
-## 7.6 Random Forests
-> A **Random Forest** is an **ensemble learning** method that constructs a multitude of decision trees during training and outputs the **mode** (for classification) or **mean** (for regression) of the predictions of the individual trees. It reduces overfitting by averaging multiple **high-variance** models.
+## 7.6 Random Forests (RF)
+> A **Random Forest** is an **ensemble learning** method that constructs a multitude of decision trees during training and outputs the **mode** (for classification) or **mean** (for regression) of the predictions of individual trees, reducing overfitting by averaging multiple **high-variance** models.
 
 **Core Idea**: **Bootstrap Aggregating (Bagging)** + **Random Feature Subsets**.
 1.  **Bagging (Bootstrap Aggregating)**: Create many **bootstrap samples** (random samples with replacement) from the training data. Train a separate decision tree on each sample.
@@ -513,7 +512,7 @@ A critical problem where a model learns the **noise** or random fluctuations in 
 * **Computationally Expensive**: Training many trees is slower than training one tree.
 * **Memory Intensive**: Requires storing all the individual trees.
 ## 7.7 Decision Trees for Regression
-**Situation**: Decision trees can also be used for **regression** tasks. Instead of predicting a class at a leaf node, they predict a **continuous value** (typically the **mean** of the target values of the training samples in that leaf).
+Decision trees can also be used for **regression** tasks. Instead of predicting a class at a leaf node, they predict a **continuous value** (typically the **mean** of the target values of the training samples in that leaf).
 
 **Process**:
 * **Splitting Criterion**: Minimize the **variance** (or MSE) within the child nodes, not entropy/Gini impurity.
@@ -523,7 +522,7 @@ A critical problem where a model learns the **noise** or random fluctuations in 
 **Disadvantage**: Prone to the same **overfitting** issues as classification trees, requiring the same regularization techniques (pruning, random forests).
 # Lecture 8: Model Evaluation
 ## 8.1 Making Predictions & Baseline Evaluation
-**Situation**: After training a model (e.g., k-NN on Iris), we need to **predict** on new, unseen data and **evaluate** how trustworthy the model is.
+After training a model (e.g., k-NN on Iris), we need to **predict** on new, unseen data and **evaluate** how trustworthy the model is.
 **Process**:
 1.  Use `.predict()` on the model with new feature data.
 2.  For **initial evaluation**, compare predictions on the **test set** (data not used in training) to the true labels.
@@ -531,7 +530,7 @@ A critical problem where a model learns the **noise** or random fluctuations in 
 $$ \text{Accuracy} = \frac{\text{Number of Correct Predictions}}{\text{Total Number of Predictions}} $$
 **Limitation**: Accuracy can be **misleading for imbalanced datasets** (e.g., a model that always predicts the majority class will have high accuracy but is useless).
 ## 8.2 The Confusion Matrix
-**Situation**: A **detailed breakdown** of prediction errors, essential for **binary** and **multiclass classification**, especially with **imbalanced classes**.
+A **detailed breakdown** of prediction errors, essential for **binary** and **multiclass classification**, especially with **imbalanced classes**.
 
 **Structure (Binary Case)**:
 
@@ -551,14 +550,14 @@ $$\text{Recall} = \frac{TP}{TP + FN}$$
 $$\text{Specificity} = \frac{TN}{TN + FP}$$
 > **Use when**: Correctly identifying negatives is critical.
 ### The Precision-Recall Trade-off
-**Situation**: It is typically impossible to maximize **both** precision and recall simultaneously. Increasing one often decreases the other (e.g., a more conservative classifier has higher precision but lower recall).
+It is typically impossible to maximize **both** precision and recall simultaneously. Increasing one often decreases the other (e.g., a more conservative classifier has higher precision but lower recall).
 ### The F1 Score
-**Situation**: Provides a **single metric** that balances both precision and recall, using their **harmonic mean**. Useful when you need a single number to compare models and when there is an **imbalanced class distribution**.
+Provides a **single metric** that balances both precision and recall, using their **harmonic mean**. Useful when you need a single number to compare models and when there is an **imbalanced class distribution**.
 $$F1 = \frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} = \frac{2}{\frac{1}{\text{Precision}} + \frac{1}{\text{Recall}}}$$
 * **High F1** indicates both high precision and high recall.
 * **Use when**: You want to find a **balance** between precision and recall and the class distribution is uneven.
 ## 8.3 Cross-Validation
-**Situation**: A **robust technique** for model evaluation and selection that provides a better estimate of generalization performance than a single train/test split. It maximizes data usage for both training and validation.
+A **robust technique** for model evaluation and selection that provides a better estimate of generalization performance than a single train/test split. It maximizes data usage for both training and validation.
 ### k-Fold Cross-Validation
 **Process**:
 1.  Randomly split the data into **k** equal-sized **folds**.
@@ -581,13 +580,13 @@ $$F1 = \frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} + \t
 ## 9.1 Understanding Dimensionality
 > **Dimensionality** of a dataset is the number of independent attributes (features) needed to represent each observation. Mathematically, it is equivalent to the **rank** of the data matrix (the maximum number of linearly independent columns).
 
-**Situation**: Real-world data often has many features (high $d$), but many features may be **redundant** or correlated, meaning the *intrinsic* dimensionality is lower than $d$. Identifying this is key for simplification and analysis.
+Real-world data often has many features (high $d$), but many features may be **redundant** or correlated, meaning the *intrinsic* dimensionality is lower than $d$. Identifying this is key for simplification and analysis.
 
 **Example**: A table with `Height`, `Weight (lbs)`, `Weight (kg)`, `Age`. The two weight columns are linearly dependent (`Weight (kg) ≈ 0.454 * Weight (lbs)`). The **rank** is 3, not 4, because one feature adds no new independent information.
 
 **Key Insight**: If features are perfectly linearly related, the data matrix rank is less than the number of columns. This **redundancy** wastes storage and can confuse some algorithms. Dimensionality reduction aims to find a **lower-rank approximation** that captures the essential information.
 ## 9.2 The Challenge of High Dimensions
-**Situation**: Visualizing and analyzing data becomes difficult when $d > 2$ or $3$. While we can use color, size, or animation for a 4th or 5th dimension, this approach quickly fails.
+Visualizing and analyzing data becomes difficult when $d > 2$ or $3$. While we can use color, size, or animation for a 4th or 5th dimension, this approach quickly fails.
 
 **Common Need**: To visualize **clusters** or relationships, we often need to **project** data down to 2 or 3 dimensions.
 * **Naive Approach**: Simply pick the 2 features with the highest variance. This can work but may miss important patterns captured by combinations of features.
@@ -610,7 +609,7 @@ $$\Sigma = \begin{bmatrix}
 
 **Orthonormal Set Property**: The columns of $U$ and $V$ are **unit vectors** (length 1) and **orthogonal** (perpendicular, dot product = 0). This means $U^T U = I$ and $V^T V = I$.
 ## 9.4 Low-Rank Approximation via SVD
-**Situation**: We have noisy, high-dimensional data that is *approximately* low-rank. We want a simpler representation that removes noise and redundancy.
+We have noisy, high-dimensional data that is *approximately* low-rank. We want a simpler representation that removes noise and redundancy.
 
 **Process**: Since singular values are ordered by importance, we can create a **rank-$k$ approximation** $X_k$ of the original matrix $X$ by keeping only the first $k$ columns of $U$, the first $k$ singular values in $\Sigma$, and the first $k$ rows of $V^T$:$$X \approx X_k = U_k \Sigma_k V_k^T$$
 where $U_k$ is $m \times k$, $\Sigma_k$ is $k \times k$, and $V_k^T$ is $k \times n$.
@@ -766,7 +765,7 @@ Subjects have rights including: to be **informed**, to **access** their data, to
 * **Terms & Conditions**: Lengthy, complex documents are a poor mechanism for **informed** consent.
 * **Context & Drift**: Consent given for one purpose (e.g., improving service) does not cover unrelated future uses (e.g., psychological experiments).
 ### 3. Anonymisation & Data Linkage
-**Situation**: A primary method to protect privacy when using data.
+A primary method to protect privacy when using data.
 **Challenge**: **Data linkage** (combining datasets) can **re-identify** individuals even from anonymised data.
 * **Direct Identifiers**: Name, address, NHS number – must be removed.
 * **Indirect Identifiers**: Postcode, age, rare disease – in combination, can identify individuals. Risk must be assessed and mitigated.
