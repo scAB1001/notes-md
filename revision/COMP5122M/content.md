@@ -155,7 +155,7 @@ y = iris.target  # Target vector (species: 0=setosa, 1=versicolor, 2=virginica)
 *   **Example**: Distribution of petal lengths across all flowers.
 *   **Code**: `df['petal length (cm)'].plot(kind='hist')`
 ### Box Plot
-*   **Use Case**: Summarising distribution and identifying **outliers**. Shows median, IQR (box), and whiskers (typically 1.5*IQR).
+*   **Use Case**: Summarising distribution and identifying **outliers**. Shows median, IQR (box), and whiskers (typically 1.5\*IQR).
 *   **Data Type**: **Quantitative**.
 *   **Example**: Comparing sepal length distributions across species.
 *   **Code**: `df.pivot('ind', 'species')['sepal length (cm)'].plot(kind='box')`
@@ -278,11 +278,11 @@ new_labels = kmeans.predict(X_new) # Assign new points to clusters
 ### Limitations of k-Means (Failure Cases)
 Use k-means with caution or avoid when:
 1.  **Clusters have different densities or sizes**.
-    ![[k-means-fail-1.png|400]]
+![[k-means-fail-1.png|400]]
 2.  **Clusters are non-spherical or elongated** (it assumes isotropic shapes).
-    ![[k-means-fail-2.png|400]]
+![[k-means-fail-2.png|400]]
 3.  **Clusters have complex, non-convex shapes**.
-    ![[k-means-fail-3.png|400]]
+![[k-means-fail-3.png|400]]
 **Underlying Assumption**: k-means assumes clusters are defined by **centers** and **convex**. It performs **hard assignment** (each point belongs to exactly one cluster).
 ### Vector Quantization View
 **Situation**: k-means can be seen as a **compression** or **decomposition** technique. It represents each data point by its nearest cluster center (**codebook vector**). Useful for **image compression** (color quantization) and **feature engineering**.
@@ -357,8 +357,10 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random
 2.  **Calculate Distance**: Compute distance (e.g., **Euclidean**) from the query point to all training points.
 3.  **Identify Neighbors**: Select the **k** training points with the smallest distances.
 4.  **Vote for Label**: Assign the most common class among the **k neighbors**.
-![[iris-knn-1.png|400]]
-![[iris-knn-2.png|400]]
+
+| iris knn init            | steps 1,2&3              |
+| ------------------------ | ------------------------ |
+| ![[iris-knn-1.png\|390]] | ![[iris-knn-2.png\|380]] |
 **Advantages**:
 *   **Simple** to understand and implement.
 *   **No training phase** (stores the training data).
@@ -397,8 +399,10 @@ $−0.31 \cdot log_2(0.31) − 0.33 \cdot log_2(0.33) − 0.36 \cdot log_2(0.36)
 ### Visualizing Decision Trees & Boundaries
 *   **Tree Structure**: Can be visualized to understand the decision rules (using `plot_tree`).
 *   **Decision Boundary**: Creates **axis-aligned, rectangular partitions** of the feature space, leading to a **nonlinear, piecewise-constant** boundary.
-![[decision-tree-vis.png|400]]
-![[iris-decision-scatter-scikit.png|400]]
+
+|                                 |                                            |
+| ------------------------------- | ------------------------------------------ |
+| ![[decision-tree-vis.png\|400]] | ![[iris-decision-scatter-scikit.png\|400]] |
 ### Overfitting in Decision Trees
 **Situation**: A tree that grows too deep will create complex rules to fit the **training data perfectly**, including its noise. This model will have **high variance** and perform poorly on new data (low generalization).
 
