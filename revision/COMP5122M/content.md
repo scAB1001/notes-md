@@ -247,7 +247,7 @@ Use ML when:
 # Lecture 5: Clustering & Similarity
 ## 5.1 Data Similarity & Distance Metrics
 **Situation**: When you need to quantify how alike (or different) two data points are. This is foundational for **clustering**, **recommendation systems**, and **nearest-neighbor algorithms**.
-**Core Idea**: Objects represented as **feature vectors**. Similarity is inversely related to **distance** in the feature space.
+**Core Idea**: Objects represented as **feature vectors**. Similarity ${\propto}^{-1}$ **distance** in the feature space.
 ### Euclidean Distance
 **Situation**: The most common distance metric, used when data is **continuous** and features are on **comparable scales**. It measures the "straight-line" distance.
 **Formula**: For points $p = (p_1, p_2, ..., p_n)$ and $q = (q_1, q_2, ..., q_n)$:
