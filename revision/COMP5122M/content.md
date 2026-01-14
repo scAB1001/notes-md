@@ -43,7 +43,7 @@
 ## 2.1 What is Data?
 > A **datum** is a single measurement of something on a scale understandable to both recorder and reader.
 
-**Objective Example**: Using the **Titanic dataset** (891 rows, 12 columns) to predict passenger survival based on personal characteristics (age, ticket class, gender). This is a **classification** task.
+**Example**: Using the **Titanic dataset** (891 rows, 12 columns) to predict passenger survival based on personal characteristics (age, ticket class, gender). This is a **classification** task.
 ## 2.2 Data Sources
 *   **Internal Sources**: Data already collected within an organization (e.g., business operations data, experimental data).
 *   **Existing External Sources**: Ready-to-use data from outside (e.g., government databases, stock market feeds, Yelp reviews). Accessed via **APIs** (often paid), **RSS feeds**, or downloads.
