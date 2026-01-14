@@ -364,7 +364,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random
 
 | iris knn init            | steps 1,2&3              |
 | ------------------------ | ------------------------ |
-| ![[iris-knn-1.png\|390]] | ![[iris-knn-2.png\|380]] |
+| ![[iris-knn-1.png\|290]] | ![[iris-knn-2.png\|280]] |
 **Advantages**:
 * **Simple** to understand and implement.
 * **No training phase** (stores the training data).
@@ -372,7 +372,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random
 *   Can model **complex decision boundaries** if k is small.
 
 **Disadvantages**:
-* **Computationally expensive at prediction time** (must compute distances to all training points).
+* **Computationally expensive at prediction time** (compute distances to all training points).
 * **Sensitive to irrelevant features** and the **scale** of features (requires scaling).
 * **Performance degrades with high dimensionality** (curse of dimensionality).
 * **Choice of k is critical**: Small k leads to **high variance/noise sensitivity**; large k leads to **high bias/oversmoothing**.
@@ -385,18 +385,17 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random
 2.  **Find Best Split**: For each feature, find the **split value** that best separates the data into purer child nodes. The "best" split minimizes **impurity**.
 3.  **Split**: Create child nodes based on the rule (e.g., `petal_width < 0.8 cm`).
 4.  **Repeat**: Recursively apply steps 2-3 to each child node until a **stopping criterion** is met (node is pure, node is unsplittable, max depth reached).
-![[iris-decision-tree.png|400]]
+![[iris-decision-tree.png|300]]
 ### Impurity Measures: Entropy & Gini
 To quantify the "goodness" of a split, we measure the **impurity** of a node.
-> **Entropy** is an impurity measure based on information theory. For a node with class proportions $p_c$, it is defined as: $$S = -\sum_{c} p_c \log_2 p_c$$
-> **Low entropy** means the node is pure (predictable). **High entropy** means the node is mixed (unpredictable).
+>**Entropy** is an impurity measure based on information theory. For a node with class proportions $p_c$, it is defined as: 
+$$S = -\sum_{c} p_c \log_2 p_c$$
+>**Low entropy**: the node is pure (predictable). **High entropy**: node is mixed (unpredictable).
+
 > **Gini Impurity** is another common measure: $G = 1 - \sum_c p_c^2$. It measures the probability of misclassifying a randomly chosen element.
 
 **Choosing the Best Split**: We select the feature and split value that result in the **maximum reduction in impurity** (or **minimum weighted impurity**) across the child nodes.
-$$
-\text{Loss (Weighted Impurity)} = \frac{N_{left} \cdot S_{left} + N_{right} \cdot S_{right}}{N_{left} + N_{right}}
-$$
-The split with the **lowest loss** is chosen.
+$$\text{Loss (Weighted Impurity)} = \frac{N_{left} \cdot S_{left} + N_{right} \cdot S_{right}}{N_{left} + N_{right}}$$The split with the **lowest loss** is chosen.
 ![[entropy-ex.png|400]]
 For example, S for the top node is:
 $−0.31 \cdot log_2(0.31) − 0.33 \cdot log_2(0.33) − 0.36 \cdot log_2(0.36) = (0.52 + 0.53 + 0.53) = 1.58$
@@ -444,21 +443,13 @@ $−0.31 \cdot log_2(0.31) − 0.33 \cdot log_2(0.33) − 0.36 \cdot log_2(0.36)
 The simplest model is **linear regression**: $y = mx + b$, where $y$ is the prediction, $m$ is the slope, $b$ is the intercept.
 ### Least Squares Fitting
 **Situation**: The standard method for fitting a linear model. It finds parameters ($m$, $b$) that minimize the **sum of squared errors (SSE)** between predictions and true values.
-**Penalty/Loss Function**:
-$$
-L = \sum_{i} (y_i - (mx_i + b))^2
-$$
-**Advantages**:
+**Penalty/Loss Function**:$$L = \sum_{i} (y_i - (mx_i + b))^2$$**Advantages**:
 *   Has a **closed-form solution** (can be solved analytically).
 *   Optimal if errors are **normally distributed**.
 **Disadvantage**: **Highly sensitive to outliers** because errors are squared, giving large deviations disproportionate influence.
 ### L1 Regression (Absolute Error)
 **Situation**: An alternative more **robust to outliers**. Minimizes the sum of absolute errors.
-**Penalty Function**:
-$$
-L = \sum_{i} |y_i - (mx_i + b)|
-$$
-**Advantages**:
+**Penalty Function**:$$L = \sum_{i} |y_i - (mx_i + b)|$$**Advantages**:
 *   More **robust**; outliers have less influence.
 **Disadvantages**:
 * **No closed-form solution**; computationally more complex.
@@ -466,21 +457,12 @@ $$
 ## 7.3 Nonlinear Curve Fitting & Polynomial Regression
 **Situation**: When the relationship between input and output is not linear. We can fit more complex functions (e.g., exponential decay, logistic growth, polynomials).
 
-**Polynomial Regression Model**:
-$$
-y(x, w) = w_0 + w_1x + w_2x^2 + ... + w_Mx^M = \sum_{j=0}^{M} w_j x^j
-$$
+**Polynomial Regression Model**:$$y(x, w) = w_0 + w_1x + w_2x^2 + ... + w_Mx^M = \sum_{j=0}^{M} w_j x^j$$
 * **Linear in parameters** $w$ (a **linear model**), but **nonlinear in $x$**.
 *   $M$ is the **polynomial order** (model complexity).
 ### Error Function & Root-Mean-Square Error (RMSE)
-We minimize the **sum-of-squares error**:
-$$
-E(w) = \frac{1}{2} \sum_{n=1}^{N} \{ y(x_n, w) - t_n \}^2
-$$
-To compare models across different dataset sizes, use the **Root-Mean-Square Error (RMSE)**:
-$$
-E_{RMS} = \sqrt{ \frac{E(w^*)}{N} }
-$$
+We minimize the **sum-of-squares error**:$$E(w) = \frac{1}{2} \sum_{n=1}^{N} \{ y(x_n, w) - t_n \}^2$$To compare models across different dataset sizes, use the **Root-Mean-Square Error (RMSE)**:
+$$E_{RMS} = \sqrt{ \frac{E(w^*)}{N} }$$
 ## 7.4 Overfitting in Model Selection
 **Situation**: A critical problem where a model learns the **noise** or random fluctuations in the **training data** to such an extent that it performs poorly on new, unseen data (**fails to generalize**).
 
@@ -543,40 +525,33 @@ $$
 1.  Use `.predict()` on the model with new feature data.
 2.  For **initial evaluation**, compare predictions on the **test set** (data not used in training) to the true labels.
 **Key Metric (Initial)**: **Accuracy**.
-    $$ \text{Accuracy} = \frac{\text{Number of Correct Predictions}}{\text{Total Number of Predictions}} $$
+$$ \text{Accuracy} = \frac{\text{Number of Correct Predictions}}{\text{Total Number of Predictions}} $$
 **Limitation**: Accuracy can be **misleading for imbalanced datasets** (e.g., a model that always predicts the majority class will have high accuracy but is useless).
 ## 8.2 The Confusion Matrix
 **Situation**: A **detailed breakdown** of prediction errors, essential for **binary** and **multiclass classification**, especially with **imbalanced classes**.
 
 **Structure (Binary Case)**:
-| | Predicted: NO | Predicted: YES |
-| :--- | :--- | :--- |
-| **Actual: NO** | True Negative (TN) | False Positive (FP) |
-| **Actual: YES** | False Negative (FN) | True Positive (TP) |
-![[confusison-matrix.png|400]]
+
+|                 | Predicted: NO       | Predicted: YES      |
+| --------------- | ------------------- | ------------------- |
+| **Actual: NO**  | True Negative (TN)  | False Positive (FP) |
+| **Actual: YES** | False Negative (FN) | True Positive (TP)  |
+![[confusison-matrix.png|340]]
 ### Key Derived Metrics
-> **Precision** answers: "**Of all instances predicted as positive, how many are actually positive?**" It focuses on **minimizing False Positives (FP)**.
-> $$
-> \text{Precision} = \frac{TP}{TP + FP}
-> $$
+>**Precision** answers: "**Of all instances predicted as positive, how many are actually positive?**" It focuses on **minimizing False Positives (FP)**.
+$$> \text{Precision} = \frac{TP}{TP + FP}$$
 > **Use when**: The cost of a **false alarm (FP)** is high (e.g., spam detection, fraud alert).
 > **Recall (Sensitivity, True Positive Rate - TPR)** answers: "**Of all actual positive instances, how many did we correctly identify?**" It focuses on **minimizing False Negatives (FN)**.
-> $$
-> \text{Recall} = \frac{TP}{TP + FN}
-> $$
+$$\text{Recall} = \frac{TP}{TP + FN}$$
 > **Use when**: Missing a positive case (FN) is costly (e.g., disease screening, search engine results).
 > **Specificity (True Negative Rate - TNR)** answers: "**Of all actual negative instances, how many did we correctly identify?**"
-> $$
-> \text{Specificity} = \frac{TN}{TN + FP}
-> $$
+$$\text{Specificity} = \frac{TN}{TN + FP}$$
 > **Use when**: Correctly identifying negatives is critical.
 ### The Precision-Recall Trade-off
 **Situation**: It is typically impossible to maximize **both** precision and recall simultaneously. Increasing one often decreases the other (e.g., a more conservative classifier has higher precision but lower recall).
 ### The F1 Score
 **Situation**: Provides a **single metric** that balances both precision and recall, using their **harmonic mean**. Useful when you need a single number to compare models and when there is an **imbalanced class distribution**.
-$$
-F1 = \frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} = \frac{2}{\frac{1}{\text{Precision}} + \frac{1}{\text{Recall}}}
-$$
+$$F1 = \frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} = \frac{2}{\frac{1}{\text{Precision}} + \frac{1}{\text{Recall}}}$$
 * **High F1** indicates both high precision and high recall.
 * **Use when**: You want to find a **balance** between precision and recall and the class distribution is uneven.
 ## 8.3 Cross-Validation
@@ -589,7 +564,7 @@ $$
     *   Use the remaining **k-1** folds as the **training set**.
     *   Train the model and evaluate it on the validation set.
 3.  The final performance metric is the **average** of the *k* validation scores.
-![[cross-validation.png|400]]
+![[cross-validation.png|340]]
 **Advantages**:
 * **Reduces variance** in performance estimation compared to a single split.
 * **Uses data more efficiently** (every data point is used for both training and validation).
@@ -623,26 +598,21 @@ $$
 ### 9.3.1 The Components of SVD
 1.  **$U$ (Left Singular Vectors)**: An $m \times m$ orthogonal matrix. Its columns form an **orthonormal basis** for the column space of $X$. In a data context (where rows are samples), $U\Sigma$ represents the coordinates of your data in the new PCA space.
 2.  **$\Sigma$ (Singular Values)**: An $m \times n$ diagonal matrix. Its diagonal entries $\sigma_1 \geq \sigma_2 \geq ... \geq \sigma_r > 0$ are the **singular values**, where $r$ is the rank of $X$. They indicate the "importance" or "magnitude" of each corresponding principal component. A singular value of **zero** means that dimension is perfectly redundant.
-    $$
-    \Sigma = \begin{bmatrix}
-    \sigma_1 & 0 & \dots & 0 \\
-    0 & \sigma_2 & \dots & 0 \\
-    \vdots & \vdots & \ddots & \vdots \\
-    0 & 0 & \dots & \sigma_r \\
-    \end{bmatrix}
-    $$
+$$\Sigma = \begin{bmatrix}
+\sigma_1 & 0 & \dots & 0 \\
+0 & \sigma_2 & \dots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \dots & \sigma_r \\
+\end{bmatrix}$$
 3.  **$V^T$ (Right Singular Vectors, Transposed)**: An $n \times n$ orthogonal matrix. Its **rows** (columns of $V$) are the **principal components** (PCs). They form an orthonormal basis for the row space of $X$ and define the new axes. $V^T$ is the **transformation matrix** that maps the original data ($X$) into the new space ($U\Sigma$).
 
 **Orthonormal Set Property**: The columns of $U$ and $V$ are **unit vectors** (length 1) and **orthogonal** (perpendicular, dot product = 0). This means $U^T U = I$ and $V^T V = I$.
 ## 9.4 Low-Rank Approximation via SVD
 **Situation**: We have noisy, high-dimensional data that is *approximately* low-rank. We want a simpler representation that removes noise and redundancy.
 
-**Process**: Since singular values are ordered by importance, we can create a **rank-$k$ approximation** $X_k$ of the original matrix $X$ by keeping only the first $k$ columns of $U$, the first $k$ singular values in $\Sigma$, and the first $k$ rows of $V^T$:
-$$
-X \approx X_k = U_k \Sigma_k V_k^T
-$$
+**Process**: Since singular values are ordered by importance, we can create a **rank-$k$ approximation** $X_k$ of the original matrix $X$ by keeping only the first $k$ columns of $U$, the first $k$ singular values in $\Sigma$, and the first $k$ rows of $V^T$:$$X \approx X_k = U_k \Sigma_k V_k^T$$
 where $U_k$ is $m \times k$, $\Sigma_k$ is $k \times k$, and $V_k^T$ is $k \times n$.
-![[rank3-data.png|400]]
+![[rank3-data.png|440]]
 **Interpretation**:
 * **Rank-1 Approximation ($k=1$)**: Represents all data points as lying along a single line (the first principal component). All variation is attributed to one latent factor. For the rectangle example, it found a rough relationship like `Area ≈ 3*(Width + Height)`.
 * **Rank-3 Approximation ($k=3$)**: For the noisy rectangle data (true rank ~4), a rank-3 approximation captures almost all the systematic variation while filtering out the noise in the 4th, least important dimension.
@@ -657,7 +627,7 @@ where $U_k$ is $m \times k$, $\Sigma_k$ is $k \times k$, and $V_k^T$ is $k \time
 **Key Difference**: SVD's output ($U$, $\Sigma$, $V^T$) is mathematically unique (up to sign) and optimal. The reduced data $U\Sigma$ is in a rotated, scaled coordinate system aligned with directions of maximum variance, not the original feature axes.
 # Lecture 10: Principal Component Analysis (PCA)
 ## 10.1 PCA: Definition and Goal
-> **Principal Component Analysis (PCA)** is a linear dimensionality reduction technique that transforms data into a new coordinate system such that the greatest variance by any projection of the data comes to lie on the first coordinate (called the **first principal component**), the second greatest variance on the second coordinate, and so on. It is achieved by performing **Singular Value Decomposition (SVD)** on the **mean-centered** data matrix.
+> **Principal Component Analysis (PCA)** is a linear dimensionality reduction technique that transforms data into a new coordinate system such that the greatest variance by any projection of the data comes to lie on the first coordinate (the **first principal component**), the second greatest variance on the second coordinate, and so on. It is achieved by performing **Singular Value Decomposition (SVD)** on the **mean-centered** data matrix.
 
 **Core Idea**: PCA finds the **best lower-dimensional linear subspace** (like a line or plane) onto which to project high-dimensional data, aiming to **preserve as much of the data's variance** (i.e., spread) as possible. This allows for visualization, noise reduction, and more efficient computation.
 
@@ -668,11 +638,7 @@ where $U_k$ is $m \times k$, $\Sigma_k$ is $k \times k$, and $V_k^T$ is $k \time
 These goals are **dual**: maximizing the variance of the projections is equivalent to minimizing the reconstruction error (the length of the "springs" connecting points to the projection line).
 ## 10.2 The PCA Procedure
 **Step 1: Center the Data**.
-This is **crucial**. For each feature (column), subtract the column's mean from every value. This translates the data so its mean is at the origin. Without centering, the first principal component would be biased towards the direction of the mean, not the direction of maximum variance.
-$$
-X_{\text{centered}} = X - \bar{X}
-$$
-
+This is **crucial**. For each feature (column), subtract the column's mean from every value. This translates the data so its mean is at the origin. Without centering, the first principal component would be biased towards the direction of the mean, not the direction of maximum variance.$$X_{\text{centered}} = X - \bar{X}$$
 **Step 2: Perform SVD on the Centered Matrix**.
 Compute the SVD: $X_{\text{centered}} = U \Sigma V^T$.
 * **$V^T$ (Rows are Principal Directions)**: The **rows** of $V^T$ (or columns of $V$) are the **principal directions** (axes). The first row is the direction of the **1st Principal Component (PC1)**, the second row is **PC2**, etc. They are orthonormal vectors in the original feature space.
@@ -682,10 +648,7 @@ Compute the SVD: $X_{\text{centered}} = U \Sigma V^T$.
 Examine the **singular values** ($\sigma_i$, the diagonal entries of $\Sigma$). The variance captured by the $i$-th PC is $\sigma_i^2 / N$. To decide $k$:
 * **Scree Plot**: Plot the variance (or singular values) associated with each PC in descending order. Look for an "elbow" point where the curve bends; components after this add little explanatory power.
 * **Cumulative Variance**: Choose $k$ such that the retained PCs explain a sufficiently high proportion (e.g., 95%) of the total variance:
-    $$
-    \frac{\sum_{i=1}^{k} \sigma_i^2}{\sum_{i=1}^{r} \sigma_i^2} \geq 0.95
-    $$
-
+$$\frac{\sum_{i=1}^{k} \sigma_i^2}{\sum_{i=1}^{r} \sigma_i^2} \geq 0.95$$
 **Step 4: Project the Data (Dimensionality Reduction)**.
 To reduce to $k$ dimensions, keep only the first $k$ columns of $U\Sigma$ (the scores). This $N \times k$ matrix is your reduced-dimension data. You can also compute it as:
 $$
@@ -697,7 +660,7 @@ Consider 2D data (e.g., Child Mortality vs. Fertility Rate).
 * **PC1 Direction**: The line through the origin that best fits the "cloud" of data points, minimizing the perpendicular distances (red lines). It is the direction of **maximum variance**.
 * **PC2 Direction**: Orthogonal to PC1, capturing the next largest remaining variance. It often represents deviations from the main trend.
 * **Rank-1 Approximation**: Projecting all points onto the PC1 line. This gives each country a single **PC1 score** (its position along the line). The approximation for a point is found by mapping its PC1 score back along the PC1 direction (plus the mean).
-![[mortality-fertility-vis-pc.png|400]]
+![[mortality-fertility-vis-pc.png|300]]
 **Key Insight**: PCA provides a **new coordinate system**. In the 2D example, instead of describing a country by (Mortality, Fertility), we describe it by (PC1_Score, PC2_Score). Often, PC1_Score alone (a 1D summary) captures the dominant global pattern (e.g., overall development level), while PC2_Score captures more specific, orthogonal variations.
 ## 10.4 PCA vs. Linear Regression
 It's vital to distinguish PCA from fitting a regression line.
@@ -708,7 +671,7 @@ It's vital to distinguish PCA from fitting a regression line.
 | **Asymmetry** | Direction matters. Regressing $Y$ on $X$ gives a different line than regressing $X$ on $Y$. | Symmetric. Treats all variables equally. |
 | **Lines** | For 2D data, you get two different regression lines. | You get a **single line** that is a compromise between the two regression lines. |
 | **Output** | A predictive model for a specific variable. | A new set of orthogonal axes (PCs) for the entire dataset. |
-![[mortality-fertility-vis-svd.png|400]]
+![[mortality-fertility-vis-svd.png|300]]
 **Simple Analogy**: If you hammer nails (data points) into a board, linear regression is like fitting a ruler to predict nail height from horizontal position. PCA is like finding the best single tight string to which all nails are closest *perpendicularly*.
 ## 10.5 When to Use PCA
 **Use PCA for Exploratory Data Analysis (EDA) when**:
