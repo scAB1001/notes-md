@@ -41,7 +41,7 @@
 *   **Future Direction**: Evolution towards **evidence-based methodology** via **Science about Data Science**, using meta-analysis of computational research to improve methods.
 # Lecture 2: Data Understanding & Profiling
 ## 2.1 What is Data?
-> A **datum** is a single measurement of something on a scale understandable to both recorder and reader. **Data** are multiple such measurements.
+> A **datum** is a single measurement of something on a scale understandable to both recorder and reader.
 
 **Objective Example**: Using the **Titanic dataset** (891 rows, 12 columns) to predict passenger survival based on personal characteristics (age, ticket class, gender). This is a **classification** task.
 ## 2.2 Data Sources
