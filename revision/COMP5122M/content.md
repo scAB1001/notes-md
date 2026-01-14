@@ -732,12 +732,12 @@ It's vital to distinguish PCA from fitting a regression line.
 ## 11.4 Data Protection Law: UK-GDPR & DPA 2018
 The UK General Data Protection Regulation (UK-GDPR) and Data Protection Act 2018 establish the legal framework for handling personal data.
 ### Key Roles and Definitions
+> **Personal Data** is any information relating to an identified or **identifiable** living individual. Identifiability can be direct or through linkage with other information.
+
 > A **Data Controller** determines the **purposes and means** of processing personal data.
 > A **Data Processor** processes personal data **on behalf of** the controller.
 > A **Data Subject** is the individual whom the personal data is about.
    *(A single entity can be both a controller and a processor for different data flows.)*
-
-> **Personal Data** is any information relating to an identified or **identifiable** living individual. Identifiability can be direct or through linkage with other information.
 
 > **Special Category Data** is personal data revealing **sensitive** aspects (e.g., racial/ethnic origin, political opinions, health data, biometric data). Processing this requires a higher legal justification.
 
