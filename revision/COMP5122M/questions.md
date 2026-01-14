@@ -1,17 +1,16 @@
-# Lecture 1: Introduction to Data Science
-## Question 1 (20 marks)
-# Lecture 2: Data Understanding & Profiling
-# Lecture 3: Data Science Roadmap & Exploratory Data Analysis (EDA)
-# Lecture 4: Machine Learning Overview
-# Lecture 5: Clustering & Similarity
-# Lecture 6: Classification, k-NN, & Decision Trees
-# Lecture 7: Regression, Overfitting, and Random Forests
-# Lecture 8: Model Evaluation
-# Lecture 9: Dimensionality Reduction
-# Lecture 10: Principal Component Analysis (PCA)
-# Lecture 11: Ethics and Data Governance
-
 # Test
+## Outline
+- Lecture 1: Introduction to Data Science
+- Lecture 2: Data Understanding & Profiling
+- Lecture 3: Data Science Roadmap & Exploratory Data Analysis (EDA)
+- Lecture 4: Machine Learning Overview
+- Lecture 5: Clustering & Similarity
+- Lecture 6: Classification, k-NN, & Decision Trees
+- Lecture 7: Regression, Overfitting, and Random Forests
+- Lecture 8: Model Evaluation
+- Lecture 9: Dimensionality Reduction
+- Lecture 10: Principal Component Analysis (PCA)
+- Lecture 11: Ethics and Data Governance
 ## MCQ
 Question 1
 What is the purpose of a confusion matrix in classification problems?
@@ -435,20 +434,8 @@ b) %80
 c) %50
 d) %90
 e) %70
-## Other
-## Outline
-- Lecture 1: Introduction to Data Science
-- Lecture 2: Data Understanding & Profiling
-- Lecture 3: Data Science Roadmap & Exploratory Data Analysis (EDA)
-- Lecture 4: Machine Learning Overview
-- Lecture 5: Clustering & Similarity
-- Lecture 6: Classification, k-NN, & Decision Trees
-- Lecture 7: Regression, Overfitting, and Random Forests
-- Lecture 8: Model Evaluation
-- Lecture 9: Dimensionality Reduction
-- Lecture 10: Principal Component Analysis (PCA)
-- Lecture 11: Ethics and Data Governance
-### Section 1 Practice Questions: Introduction & Data Understanding (Lectures 1-2)
+## Section Specific
+### Section 1: Introduction & Data Understanding (Lectures 1-2)
 #### Question 1.1 (1 mark)
 Which of the following best defines **datafication**?
 a) The process of cleaning and structuring raw data.
@@ -528,20 +515,8 @@ c)  The **F1 Score** would be a more appropriate metric.
     *   **Precision** is important because we want to minimize **false positives** (legitimate transactions flagged as fraud, which annoys customers).
     *   **Recall** is critically important because we want to catch as many **true positives** (actual fraud) as possible.
     The F1 score balances these two competing concerns, providing a single measure that is robust to **class imbalance**. Alternatively, the **Area Under the Precision-Recall Curve (PR-AUC)** is specifically designed for imbalanced classification.
-# Lecture 1: Introduction to Data Science
-## Question 1 (20 marks)
-# Lecture 2: Data Understanding & Profiling
-# Lecture 3: Data Science Roadmap & Exploratory Data Analysis (EDA)
-# Lecture 4: Machine Learning Overview
-# Lecture 5: Clustering & Similarity
-# Lecture 6: Classification, k-NN, & Decision Trees
-# Lecture 7: Regression, Overfitting, and Random Forests
-# Lecture 8: Model Evaluation
-# Lecture 9: Dimensionality Reduction
-# Lecture 10: Principal Component Analysis (PCA)
-# Lecture 11: Ethics and Data Governance
 
-### Section 2 Practice Questions: EDA, Visualization & k-NN (Lectures 3 & 6)
+### Section 2: EDA, Visualization & k-NN (Lectures 3 & 6)
 #### Question 2.1 (2 marks)
 Which of the following statements about **Exploratory Data Analysis (EDA)** are correct? Select **two**.
 a) Its primary goal is to train and finalize the predictive model.
@@ -609,20 +584,8 @@ e) Its performance degrades with **irrelevant features**.
 #### Model Solution for 2.6:
 **b) It has **high computational cost at prediction time**.**, **d) It is **sensitive to the scale of the features**.**, and **e) Its performance degrades with **irrelevant features**.**
 *   **Explanation**: k-NN must compute the distance from a new point to *every* point in the training set to make a prediction, which is computationally expensive for large datasets (**b**). As a distance-based algorithm, it requires features to be on comparable scales (**d**) and suffers from the **curse of dimensionality**, where performance drops as the number of irrelevant or noisy features increases (**e**). Interpretability (**a**) is often considered an *advantage* for small k.
-# Lecture 1: Introduction to Data Science
-## Question 1 (20 marks)
-# Lecture 2: Data Understanding & Profiling
-# Lecture 3: Data Science Roadmap & Exploratory Data Analysis (EDA)
-# Lecture 4: Machine Learning Overview
-# Lecture 5: Clustering & Similarity
-# Lecture 6: Classification, k-NN, & Decision Trees
-# Lecture 7: Regression, Overfitting, and Random Forests
-# Lecture 8: Model Evaluation
-# Lecture 9: Dimensionality Reduction
-# Lecture 10: Principal Component Analysis (PCA)
-# Lecture 11: Ethics and Data Governance
 
-### Section 3 Practice Questions: Decision Trees & Random Forests (Lectures 6 & 7)
+### Section 3: Decision Trees & Random Forests (Lectures 6 & 7)
 #### Question 3.1 (2 marks)
 In the context of building a **Decision Tree** for classification, which of the following statements about **Entropy** are correct? Select **two**.
 a) A node where all data points belong to the same class has an entropy of 1.
@@ -691,20 +654,8 @@ d) A random value from the distribution in that node.
 #### Model Solution for 3.6:
 **b) The **mean** (or median) of the target values of the training samples in that node.**
 *   **Explanation**: In **regression trees**, the splitting criterion minimizes the **variance** (or MSE) within child nodes. The prediction for a new point is simply the average target value of all training points that reside in the same leaf node, resulting in a **piecewise constant** prediction function.
-# Lecture 1: Introduction to Data Science
-## Question 1 (20 marks)
-# Lecture 2: Data Understanding & Profiling
-# Lecture 3: Data Science Roadmap & Exploratory Data Analysis (EDA)
-# Lecture 4: Machine Learning Overview
-# Lecture 5: Clustering & Similarity
-# Lecture 6: Classification, k-NN, & Decision Trees
-# Lecture 7: Regression, Overfitting, and Random Forests
-# Lecture 8: Model Evaluation
-# Lecture 9: Dimensionality Reduction
-# Lecture 10: Principal Component Analysis (PCA)
-# Lecture 11: Ethics and Data Governance
 
-### Section 4 Practice Questions: Clustering & Similarity (Lecture 5)
+### Section 4: Clustering & Similarity (Lecture 5)
 #### Question 4.1 (1 mark)
 The **k-Means** clustering algorithm is most appropriate for which of the following scenarios?
 a) Grouping news articles into an unknown number of topics based on text similarity.
@@ -772,20 +723,8 @@ d) A and D
 #### Model Solution for 4.6:
 **a) A and B**
 *   **Explanation**: **Single Linkage** uses the *minimum* distance between points in two clusters. Initially, each point is its own cluster. The smallest distance in the entire matrix is 2 (between A and B). Therefore, clusters containing A and B are merged first.
-# Lecture 1: Introduction to Data Science
-## Question 1 (20 marks)
-# Lecture 2: Data Understanding & Profiling
-# Lecture 3: Data Science Roadmap & Exploratory Data Analysis (EDA)
-# Lecture 4: Machine Learning Overview
-# Lecture 5: Clustering & Similarity
-# Lecture 6: Classification, k-NN, & Decision Trees
-# Lecture 7: Regression, Overfitting, and Random Forests
-# Lecture 8: Model Evaluation
-# Lecture 9: Dimensionality Reduction
-# Lecture 10: Principal Component Analysis (PCA)
-# Lecture 11: Ethics and Data Governance
 
-### Section 5 Practice Questions: Regression, Overfitting & Model Evaluation (Lectures 7 & 8)
+### Section 5: Regression, Overfitting & Model Evaluation (Lectures 7 & 8)
 #### Question 5.1 (1 mark)
 You are fitting a **polynomial regression** model of the form $y = w_0 + w_1x + w_2x^2 + ... + w_Mx^M$. As you increase the polynomial degree $M$ from 1 to 9, you observe the training error drops to nearly zero, but the test error increases sharply. This is a classic sign of:
 a) **Underfitting**
@@ -856,20 +795,7 @@ Calculate the **Precision** and **Recall** of the model.
 **Recall** = TP / (TP + FN) = 80 / (80 + 10) = **80 / 90 ≈ 0.889 (or 88.9%)**
 
 *   **Explanation**: **Precision** answers: "Of all predicted positives, how many were correct?" **Recall** answers: "Of all actual positives, how many did we find?"
-# Lecture 1: Introduction to Data Science
-## Question 1 (20 marks)
-# Lecture 2: Data Understanding & Profiling
-# Lecture 3: Data Science Roadmap & Exploratory Data Analysis (EDA)
-# Lecture 4: Machine Learning Overview
-# Lecture 5: Clustering & Similarity
-# Lecture 6: Classification, k-NN, & Decision Trees
-# Lecture 7: Regression, Overfitting, and Random Forests
-# Lecture 8: Model Evaluation
-# Lecture 9: Dimensionality Reduction
-# Lecture 10: Principal Component Analysis (PCA)
-# Lecture 11: Ethics and Data Governance
-
-### Section 6 Practice Questions: Dimensionality Reduction & PCA (Lectures 9 & 10)
+### Section 6: Dimensionality Reduction & PCA (Lectures 9 & 10)
 #### Question 6.1 (1 mark)
 What is the primary goal of **Principal Component Analysis (PCA)**?
 a) To classify data into distinct groups.
@@ -937,20 +863,8 @@ d) All of the above.
 #### Model Solution for 6.6:
 **d) All of the above.**
 *   **Explanation**: For centered data $X$: (a) The columns of $V$ are the eigenvectors (PC directions). (b) $U$ contains the coordinates of the data in the orthonormal basis defined by $V$. (c) $U \Sigma$ scales these coordinates by the importance (singular values) of each PC, yielding the final PC scores. Therefore, all statements are correct.
-# Lecture 1: Introduction to Data Science
-## Question 1 (20 marks)
-# Lecture 2: Data Understanding & Profiling
-# Lecture 3: Data Science Roadmap & Exploratory Data Analysis (EDA)
-# Lecture 4: Machine Learning Overview
-# Lecture 5: Clustering & Similarity
-# Lecture 6: Classification, k-NN, & Decision Trees
-# Lecture 7: Regression, Overfitting, and Random Forests
-# Lecture 8: Model Evaluation
-# Lecture 9: Dimensionality Reduction
-# Lecture 10: Principal Component Analysis (PCA)
-# Lecture 11: Ethics and Data Governance
 
-### Section 7 Practice Questions: Ethics & Data Governance (Lecture 11)
+### Section 7: Ethics & Data Governance (Lecture 11)
 #### Question 7.1 (2 marks)
 According to UK-GDPR, what is the key distinction between a **Data Controller** and a **Data Processor**?
 a) The Controller collects the data, the Processor analyzes it.
@@ -1010,7 +924,7 @@ d) **Fairness**
 #### Model Solution for 7.6:
 **b) **Informed Consent****
 *   **Explanation**: The core ethical failure was that users were subjects of a psychological experiment without their knowledge or agreement. Burying the possibility of such research in the general Terms of Service does not constitute **valid consent**, which must be specific, **informed**, and unambiguous. This violates the ethical and legal requirement for **autonomy** and respect for persons.
-### **Final Composite & Scenario-Based Questions (Integrating Multiple Topics)**
+### Final: Composite & Scenario-Based Questions (Multiple Topics)
 #### Question C.1 (10 marks - Major Scenario)
 *Scenario:* "Books&Beans", a subscription book and coffee box service, wants to improve customer retention. They have a customer database with: `customer_id`, `signup_date`, `total_boxes_purchased`, `avg_rating`, `days_since_last_order`, `marketing_emails_opened`, `preferred_genre` (Fantasy, Romance, etc.), and `churned` (1 if cancelled, 0 if active). The `churned` column was added 6 months ago when they started tracking this.
 
