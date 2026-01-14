@@ -1,4 +1,3 @@
-
 # 00. Intro
 ## Outline
 - Security Goals & Properties
