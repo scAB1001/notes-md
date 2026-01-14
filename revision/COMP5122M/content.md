@@ -2,17 +2,17 @@
 ## 1. Core Definition & Scope
 > **Data Science** is a multidisciplinary field using principles, algorithms, and processes to extract **nonobvious and useful patterns** from **large data sets**. It encompasses the full **data lifecycle**: capture, cleaning, analysis, modelling, and presentation.
 
-*   **Machine Learning (ML)** is a subset focused on algorithmic pattern extraction.
-*   **Data Mining** typically analyses structured data for discovery.
-*   **Data Science** includes **unstructured data** (e.g., social media), **big-data technologies**, and **data ethics**.
+* **Machine Learning (ML)** is a subset focused on algorithmic pattern extraction.
+* **Data Mining** typically analyses structured data for discovery.
+* **Data Science** includes **unstructured data** (e.g., social media), **big-data technologies**, and **data ethics**.
 ## 2. Datafication
 > **Datafication** is the process of taking all aspects of life and turning them into **quantifiable data**. Once datafied, information can be repurposed into new forms of value.
 
 **Example**: A **fitness tracker** datafies sleep, movement, and heart rate. The resulting data allows a user to derive **actionable insights**, such as linking poor sleep quality to late-night screen time, which would be difficult to notice otherwise.
 ## 3. Key Skills of a Data Scientist
-*   **Technical**: Computer Science, Mathematics, Statistics, Machine Learning.
-*   **Domain Expertise**: Understanding the specific field (e.g., healthcare, film).
-*   **Soft Skills**: Communication, Presentation, **Data Visualisation**.
+* **Technical**: Computer Science, Mathematics, Statistics, Machine Learning.
+* **Domain Expertise**: Understanding the specific field (e.g., healthcare, film).
+* **Soft Skills**: Communication, Presentation, **Data Visualisation**.
 ## 4. Core Process & Workflow
 1.  **Data Collection & Preparation**: **Collecting, Curating, Cleaning**. The most time-consuming phase.
 2.  **Analysis & Modelling**: **Visualize, Analyze, Model (Machine Learning)**.
@@ -22,60 +22,60 @@
     *   How will it be **used**?
     *   What data is **needed** vs. **available**?
 ## 5. Example Applications
-*   **IMDb**: Structured, crowdsourced data enabling questions on actor careers, film success factors (**correlation** between budget/ratings), and societal trends (e.g., age disparity between actors/actresses).
-*   **Gapminder**: Uses **GDP per capita** (a **metric** for national wealth) to analyse relationships with health outcomes like life expectancy, demonstrating **exploratory data analysis**.
+* **IMDb**: Structured, crowdsourced data enabling questions on actor careers, film success factors (**correlation** between budget/ratings), and societal trends (e.g., age disparity between actors/actresses).
+* **Gapminder**: Uses **GDP per capita** (a **metric** for national wealth) to analyse relationships with health outcomes like life expectancy, demonstrating **exploratory data analysis**.
 ## 6. Historical Context & Greater Data Science (GDS)
-*   **50-Year Foundation**: Roots in statistics (Tukey, Cleveland) advocating for a broader **data analysis** science beyond theory.
-*   **Lesser Data Science (LDS)**: Current, narrow commercial focus on **big-data** tools and scalability.
-*   **Greater Data Science (GDS)**: Donoho's proposed rigorous framework with six divisions:
+* **50-Year Foundation**: Roots in statistics (Tukey, Cleveland) advocating for a broader **data analysis** science beyond theory.
+* **Lesser Data Science (LDS)**: Current, narrow commercial focus on **big-data** tools and scalability.
+* **Greater Data Science (GDS)**: Donoho's proposed rigorous framework with six divisions:
     1.  Data Exploration & Preparation.
     2.  Data Representation & Transformation.
     3.  Computing with Data.
     4.  Data Modelling (includes both **statistical inference** and **predictive modelling**).
     5.  Data Visualisation & Presentation.
     6.  **Science about Data Science**: Empirical study of data analysis methods themselves.
-*   **Common Task Framework (CTF)**: Key driver of ML progress; uses public **benchmarks**, shared data, and objective scoring to compare algorithms.
+* **Common Task Framework (CTF)**: Key driver of ML progress; uses public **benchmarks**, shared data, and objective scoring to compare algorithms.
 ## 7. Core Objectives & Values
-*   **Primary Goal**: Derive **actionable insights**, not just numbers. Requires asking the **right questions**.
-*   **Statistical Reasoning Values**: Understanding the **application domain**, appreciating the **small** (details matter), quest for **significance**, hunger for **exploration**.
-*   **Future Direction**: Evolution towards **evidence-based methodology** via **Science about Data Science**, using meta-analysis of computational research to improve methods.
+* **Primary Goal**: Derive **actionable insights**, not just numbers. Requires asking the **right questions**.
+* **Statistical Reasoning Values**: Understanding the **application domain**, appreciating the **small** (details matter), quest for **significance**, hunger for **exploration**.
+* **Future Direction**: Evolution towards **evidence-based methodology** via **Science about Data Science**, using meta-analysis of computational research to improve methods.
 # Lecture 2: Data Understanding & Profiling
 ## 2.1 What is Data?
 > A **datum** is a single measurement of something on a scale understandable to both recorder and reader.
 
 **Example**: Using the **Titanic dataset** (891 rows, 12 columns) to predict passenger survival based on personal characteristics (age, ticket class, gender). This is a **classification** task.
 ## 2.2 Data Sources
-*   **Internal Sources**: Data already collected within an organization (e.g., business operations data, experimental data).
-*   **Existing External Sources**: Ready-to-use data from outside (e.g., government databases, stock market feeds, Yelp reviews). Accessed via **APIs** (often paid), **RSS feeds**, or downloads.
-*   **External Sources Requiring Collection**: Data requiring extraction effort (e.g., printed data, website data). **Web scraping** (extracting data from HTML) is a common method.
+* **Internal Sources**: Data already collected within an organization (e.g., business operations data, experimental data).
+* **Existing External Sources**: Ready-to-use data from outside (e.g., government databases, stock market feeds, Yelp reviews). Accessed via **APIs** (often paid), **RSS feeds**, or downloads.
+* **External Sources Requiring Collection**: Data requiring extraction effort (e.g., printed data, website data). **Web scraping** (extracting data from HTML) is a common method.
 ## 2.3 Web Scraping Considerations
-*   **Why**: Lack of API, cost avoidance, data availability.
-*   **Ethical/Legal Concerns**: Violating **Terms of Service**, privacy issues, bypassing paid services. Essential to consider before publishing analysis or products.
+* **Why**: Lack of API, cost avoidance, data availability.
+* **Ethical/Legal Concerns**: Violating **Terms of Service**, privacy issues, bypassing paid services. Essential to consider before publishing analysis or products.
 ## 2.4 Key Data Properties
-*   **Structure**: The "shape" of a data file (e.g., tabular, **non-rectangular**). Tabular data is standard, with rows as records and columns as fields/variables.
-*   **Granularity**: The level of detail (e.g., individual people vs. aggregated groups).
-*   **Scope**: How complete the data is relative to the research question. **Poor scope** leads to inability to answer the question or need for filtering.
-*   **Temporality**: How data is situated in time. Considerations: collection date, **periodicity** (e.g., diurnal patterns), and the meaning of time fields (event time vs. entry time).
-*   **Faithfulness**: How well data captures reality. Check for: unrealistic values (future dates, negative counts), violated dependencies (age vs. birthday), data entry errors, default values, duplication, and timezone inconsistencies.
+* **Structure**: The "shape" of a data file (e.g., tabular, **non-rectangular**). Tabular data is standard, with rows as records and columns as fields/variables.
+* **Granularity**: The level of detail (e.g., individual people vs. aggregated groups).
+* **Scope**: How complete the data is relative to the research question. **Poor scope** leads to inability to answer the question or need for filtering.
+* **Temporality**: How data is situated in time. Considerations: collection date, **periodicity** (e.g., diurnal patterns), and the meaning of time fields (event time vs. entry time).
+* **Faithfulness**: How well data captures reality. Check for: unrealistic values (future dates, negative counts), violated dependencies (age vs. birthday), data entry errors, default values, duplication, and timezone inconsistencies.
 ## 2.5 Data Types & Values
 **Atomic Types**: Numeric (integers, floats), Boolean, Strings.
 **Compound Types**:
-*   **Date/Time**: Structured temporal data.
-*   **Lists**: Sequences of values.
-*   **Dictionaries**: Collections of **key-value pairs** (e.g., `{"First": "Kevin", "Last": "Rader", "Classes": ["CS-109A", "STAT139"]}`).
+* **Date/Time**: Structured temporal data.
+* **Lists**: Sequences of values.
+* **Dictionaries**: Collections of **key-value pairs** (e.g., `{"First": "Kevin", "Last": "Rader", "Classes": ["CS-109A", "STAT139"]}`).
 ## 2.6 Handling Missing Data
-*   **Deletion**: Dropping records with missing values. Risk: introduces **bias** if missingness is not random.
-*   **Keep as NaN**: Represent missingness explicitly.
-*   **Imputation**: Inferring missing values.
-    *   **Average Imputation**: Replace with mean/median (often within a subgroup).
-    *   **Hot Deck Imputation**: Replace with a random value from similar records.
-    *   **Regression Imputation**: Replace with a value predicted by a model.
-    *   **Multiple Imputation**: Create multiple datasets with different imputed values to account for uncertainty.
-    *   **Essential**: Understand **why data is missing** (Missing Completely at Random - MCAR, Missing at Random - MAR, Missing Not at Random - MNAR).
+* **Deletion**: Dropping records with missing values. Risk: introduces **bias** if missingness is not random.
+* **Keep as NaN**: Represent missingness explicitly.
+* **Imputation**: Inferring missing values.
+    * **Average Imputation**: Replace with mean/median (often within a subgroup).
+    * **Hot Deck Imputation**: Replace with a random value from similar records.
+    * **Regression Imputation**: Replace with a value predicted by a model.
+    * **Multiple Imputation**: Create multiple datasets with different imputed values to account for uncertainty.
+    * **Essential**: Understand **why data is missing** (Missing Completely at Random - MCAR, Missing at Random - MAR, Missing Not at Random - MNAR).
 ## 2.7 Data Storage Formats
-*   **Tabular Data**: Two-dimensional tables (rows=records, columns=variables) -> CSV, Excel.
-*   **Structured Data**: Records as dictionaries with consistent keys. Formats: JSON, XML.
-*   **Semi-structured Data**: Records lack uniform structure; some data not in key-value pairs.
+* **Tabular Data**: Two-dimensional tables (rows=records, columns=variables) -> CSV, Excel.
+* **Structured Data**: Records as dictionaries with consistent keys. Formats: JSON, XML.
+* **Semi-structured Data**: Records lack uniform structure; some data not in key-value pairs.
 ## 2.8 Common Issues & Data Cleaning
 **Generic Profiling Questions**: Dataset size, completeness, representativeness, presence of outliers/artificial data, uniqueness of identifiers.
 **Joining Data**: Use **primary keys** (unique column(s) identifying a record) and **foreign keys** (columns referencing a primary key in another table). `pd.merge` in Pandas performs joins.
@@ -83,12 +83,12 @@
 **Tidy Data Principle**: Each file is a dataset, each column a single **variable**, each row a single **observation**.
 ## 2.9 Hierarchy of Data Categories
 ![[data-types.png|400]]
-*   **Quantitative** (intervals have meaning):
-    *   **Continuous**: Measurable to arbitrary precision (e.g., Price, Temperature).
-    *   **Discrete**: Finite, countable values (e.g., Number of siblings).
-*   **Qualitative (Categorical)**:
-    *   **Ordinal**: Categories with ordered levels, but differences not consistent (e.g., Education level, Shirt size (S,M,L), Yelp star rating).
-    *   **Nominal**: Categories with no inherent order (e.g., Political affiliation, Race/Ethnicity).
+* **Quantitative** (intervals have meaning):
+    * **Continuous**: Measurable to arbitrary precision (e.g., Price, Temperature).
+    * **Discrete**: Finite, countable values (e.g., Number of siblings).
+* **Qualitative (Categorical)**:
+    * **Ordinal**: Categories with ordered levels, but differences not consistent (e.g., Education level, Shirt size (S,M,L), Yelp star rating).
+    * **Nominal**: Categories with no inherent order (e.g., Political affiliation, Race/Ethnicity).
 **Complex Examples**: GPA (treated as continuous), Income bracket (ordinal), CO2 level (continuous).
 ## 2.10 Practical Guide to Data Profiling
 **Goal**: Move from *ad-hoc* to **rigorous, reproducible** data investigation, which consumes 50-90% of project time.
@@ -100,11 +100,11 @@
 5.  **Check combinations of variables** (correlations, business rules).
 6.  **Characterise the cleaned data** (final profiling).
 **Core Aspects**:
-*   **Data Characterisation**: Understanding what the data *is* (structure, distributions).
-*   **Data Quality Investigation**: Assessing **fitness for purpose** via:
-    *   **Completeness** (missing data).
-    *   **Accuracy** (incorrect/implausible values).
-    *   **Consistency** (format, units across sources).
+* **Data Characterisation**: Understanding what the data *is* (structure, distributions).
+* **Data Quality Investigation**: Assessing **fitness for purpose** via:
+    * **Completeness** (missing data).
+    * **Accuracy** (incorrect/implausible values).
+    * **Consistency** (format, units across sources).
 **Tool**: Python package `vizdataquality` to automate profiling tasks in Jupyter.
 # Lecture 3: Data Science Roadmap & Exploratory Data Analysis (EDA)
 ## 3.1 Data Science Roadmap
@@ -120,10 +120,10 @@
 
 **Example Context**: Titanic dataset (891 passengers, 12 features) for survival prediction.
 ## 3.3 Key Python Libraries for EDA
-*   **Matplotlib**: Core plotting library. Powerful but has non-intuitive syntax.
-*   **Pandas**: Data manipulation. Provides high-level plotting wrappers around matplotlib.
-*   **NumPy**: Foundation for numerical computation (arrays, matrices).
-*   **Scikit-learn**: Machine learning library (algorithms, utilities, built-in datasets like **Iris**).
+* **Matplotlib**: Core plotting library. Powerful but has non-intuitive syntax.
+* **Pandas**: Data manipulation. Provides high-level plotting wrappers around matplotlib.
+* **NumPy**: Foundation for numerical computation (arrays, matrices).
+* **Scikit-learn**: Machine learning library (algorithms, utilities, built-in datasets like **Iris**).
 ## 3.4 Iris Dataset Example
 A built-in dataset for **classification** (predicting iris species).
 ```python
@@ -134,70 +134,72 @@ y = iris.target  # Target vector (species: 0=setosa, 1=versicolor, 2=virginica)
 ```
 **Key Steps**: Load data, inspect `shape`, `feature_names`, `target_names`, convert to Pandas DataFrame, use `.describe()` for summary statistics (mean, std, min, max, percentiles).
 ## 3.5 Summary Statistics & Central Tendency
-*   **Central Tendency**: `mean` (average), `median` (middle value), `mode` (most frequent).
-*   **Variability**: `variance` (average squared deviation from mean), `standard deviation` (sqrt of variance), `quantiles` (e.g., 25th percentile = Q1, 75th percentile = Q3).
-*   **Robust Statistics**: Median and **interquartile range (IQR = Q3 - Q1)** are less sensitive to **outliers** than mean and standard deviation.
-*   **Outlier Handling**: Can filter using percentiles (e.g., remove data outside IQR) but context is critical (e.g., fraud detection requires keeping outliers).
+* **Central Tendency**: `mean` (average), `median` (middle value), `mode` (most frequent).
+* **Variability**: `variance` (average squared deviation from mean), `standard deviation` (sqrt of variance), `quantiles` (e.g., 25th percentile = Q1, 75th percentile = Q3).
+* **Robust Statistics**: Median and **interquartile range (IQR = Q3 - Q1)** are less sensitive to **outliers** than mean and standard deviation.
+* **Outlier Handling**: Can filter using percentiles (e.g., remove data outside IQR) but context is critical (e.g., fraud detection requires keeping outliers).
 ## 3.6 Key Visualisation Techniques
 ### Pie Chart
-*   **Use Case**: Showing proportion of a whole for a **categorical variable**.
-*   **Data Type**: **Nominal** or **Ordinal**.
-*   **Example**: Breakdown of Iris species counts in the dataset.
-*   **Code**: `df.groupby('species').sum().plot(kind='pie')`
+* **Use Case**: Showing proportion of a whole for a **categorical variable**.
+* **Data Type**: **Nominal** or **Ordinal**.
+* **Example**: Breakdown of Iris species counts in the dataset.
+* **Code**: `df.groupby('species').sum().plot(kind='pie')`
 ### Bar Chart
-*   **Use Case**: Comparing quantities across **discrete categories**.
-*   **Data Type**: **Categorical** (Nominal/Ordinal) on one axis, **quantitative** on the other.
-*   **Example**: Average sepal width per Iris species.
-*   **Code**: `df.groupby('species').mean().plot(kind='bar')`
+* **Use Case**: Comparing quantities across **discrete categories**.
+* **Data Type**: **Categorical** (Nominal/Ordinal) on one axis, **quantitative** on the other.
+* **Example**: Average sepal width per Iris species.
+* **Code**: `df.groupby('species').mean().plot(kind='bar')`
 ### Histogram
-*   **Use Case**: Visualising the **distribution** of a single **continuous variable**.
-*   **Data Type**: **Quantitative** (Continuous or Discrete).
-*   **Example**: Distribution of petal lengths across all flowers.
-*   **Code**: `df['petal length (cm)'].plot(kind='hist')`
+* **Use Case**: Visualising the **distribution** of a single **continuous variable**.
+* **Data Type**: **Quantitative** (Continuous or Discrete).
+* **Example**: Distribution of petal lengths across all flowers.
+* **Code**: `df['petal length (cm)'].plot(kind='hist')`
 ### Box Plot
-*   **Use Case**: Summarising distribution and identifying **outliers**. Shows median, IQR (box), and whiskers (typically 1.5\*IQR).
-*   **Data Type**: **Quantitative**.
-*   **Example**: Comparing sepal length distributions across species.
-*   **Code**: `df.pivot('ind', 'species')['sepal length (cm)'].plot(kind='box')`
+* **Use Case**: Summarising distribution and identifying **outliers**. Shows median, IQR (box), and whiskers (typically 1.5\*IQR).
+* **Data Type**: **Quantitative**.
+* **Example**: Comparing sepal length distributions across species.
+* **Code**: `df.pivot('ind', 'species')['sepal length (cm)'].plot(kind='box')`
 ### Scatter Plot
-*   **Use Case**: Visualising relationship between **two continuous variables**.
-*   **Data Type**: **Quantitative** vs. **Quantitative**.
-*   **Enhancements**: Use `color`, `size`, `marker`, `alpha` (transparency) to encode additional dimensions (e.g., species).
-*   **Example**: Sepal length vs. sepal width, colored by species.
-*   **Code**: `df.plot(kind='scatter', x='sepal length (cm)', y='sepal width (cm)')`
+* **Use Case**: Visualising relationship between **two continuous variables**.
+* **Data Type**: **Quantitative** vs. **Quantitative**.
+* **Enhancements**: Use `color`, `size`, `marker`, `alpha` (transparency) to encode additional dimensions (e.g., species).
+* **Example**: Sepal length vs. sepal width, colored by species.
+* **Code**: `df.plot(kind='scatter', x='sepal length (cm)', y='sepal width (cm)')`
 ### Scatter Plot with Logarithmic Axes
-*   **Use Case**: Data spanning **orders of magnitude**. Reveals patterns obscured on a linear scale.
-*   **Data Type**: **Positive quantitative** data with wide range.
-*   **Example**: Crime rate vs. median home value (inverse relationship becomes clear on log scale).
-*   **Method**: Plot `log(data)` or set `ax.set_xscale('log')`.
+* **Use Case**: Data spanning **orders of magnitude**. Reveals patterns obscured on a linear scale.
+* **Data Type**: **Positive quantitative** data with wide range.
+* **Example**: Crime rate vs. median home value (inverse relationship becomes clear on log scale).
+* **Method**: Plot `log(data)` or set `ax.set_xscale('log')`.
 ### Scatter Matrix (Pairs Plot)
-*   **Use Case**: Simultaneously visualising pairwise relationships between **multiple numeric features**.
-*   **Data Type**: **Quantitative**.
-*   **Output**: Grid of scatterplots and histograms.
-*   **Example**: Quick assessment of all feature relationships in the Iris dataset.
+* **Use Case**: Simultaneously visualising pairwise relationships between **multiple numeric features**.
+* **Data Type**: **Quantitative**.
+* **Output**: Grid of scatterplots and histograms.
+* **Example**: Quick assessment of all feature relationships in the Iris dataset.
 ### Heatmap
-*   **Use Case**: Visualising **density** or **intensity** in a 2D space, especially useful for large datasets where scatterplots become cluttered.
-*   **Data Type**: **Quantitative** density derived from two quantitative variables.
-*   **Example**: Density of data points in petal length vs. petal width space.
+* **Use Case**: Visualising **density** or **intensity** in a 2D space, especially useful for large datasets where scatterplots become cluttered.
+* **Data Type**: **Quantitative** density derived from two quantitative variables.
+* **Example**: Density of data points in petal length vs. petal width space.
 ### Time Series Plot
-*   **Use Case**: Analysing data points indexed in **time order** to identify trends, cycles, and anomalies.
-*   **Data Type**: **Quantitative** values over **time**.
-*   **Considerations**: Periodicity, overall trend, noise, spikes.
-*   **Transformations**: Log scale, **Fourier transform** for frequency analysis.
-*   **Example**: Atmospheric CO2 levels over years, showing yearly cycles and upward trend.
+* **Use Case**: Analysing data points indexed in **time order** to identify trends, cycles, and anomalies.
+* **Data Type**: **Quantitative** values over **time**.
+* **Considerations**: Periodicity, overall trend, noise, spikes.
+* **Transformations**: Log scale, **Fourier transform** for frequency analysis.
+* **Example**: Atmospheric CO2 levels over years, showing yearly cycles and upward trend.
 ## 3.7 Profiling Studies & Best Practices
-*   **Core Insight**: Profiling is often **ad-hoc and superficial**. A **structured workflow** (e.g., the 6-step guide) improves rigour.
-*   **Six-Step Workflow**: 1) Initial look, 2) Find special values, 3) Check missing data, 4) Inspect individual variables, 5) Check variable relationships, 6) Final characterisation.
-*   **Data Quality Dimensions**: Assess **Completeness** (missingness), **Accuracy** (valid, plausible values), **Consistency** (formats, units).
-*   **Visualisation for Profiling**: Underutilised for quality checks. Should be used more comprehensively.
-*   **Tool Support**: Python packages like `vizdataquality` can automate and formalise the profiling process.
+* **Core Insight**: Profiling is often **ad-hoc and superficial**. A **structured workflow** (e.g., the 6-step guide) improves rigour.
+* **Six-Step Workflow**: 1) Initial look, 2) Find special values, 3) Check missing data, 4) Inspect individual variables, 5) Check variable relationships, 6) Final characterisation.
+* **Data Quality Dimensions**: Assess **Completeness** (missingness), **Accuracy** (valid, plausible values), **Consistency** (formats, units).
+* **Visualisation for Profiling**: Underutilised for quality checks. Should be used more comprehensively.
+* **Tool Support**: Python packages like `vizdataquality` can automate and formalise the profiling process.
 # Lecture 4: Machine Learning Overview
 ## 4.1 Core Definitions & Relationships
 > **Data Mining (Knowledge Discovery in Data - KDD)** is the process of uncovering patterns and valuable information from large datasets.
+
 > **Artificial Intelligence (AI)** is the broader field of creating systems that perform tasks requiring human-like intelligence (e.g., learning, reasoning). It has two main approaches:
-> *   **Top-down (Knowledge-driven)**: Starts with symbolic rules and logic (e.g., Expert Systems).
-> *   **Bottom-up (Data-driven)**: Starts from data to build decision mechanisms mathematically (e.g., Machine Learning).
-> **Machine Learning (ML)** is a subset of AI focused on programming computers to **optimise a performance criterion using example data or past experience**. It combines **Statistics** (inference from a sample) and **Computer Science** (efficient algorithms for optimisation and model evaluation).
+> * **Top-down (Knowledge-driven)**: Starts with symbolic rules and logic (e.g., Expert Systems).
+> * **Bottom-up (Data-driven)**: Uses data to build decision mechanisms mathematically (ML).
+
+> **ML is a subset of AI focused on programming computers to **optimise a performance criterion using example data or past experience**. It combines **Statistics** (inference from a sample) and **CS** (efficient algorithms for optimisation and model evaluation).
 ## 4.2 When to Use Machine Learning
 Use ML when:
 1.  **Human expertise does not exist** (e.g., navigating on Mars).
@@ -207,16 +209,16 @@ Use ML when:
 
 **Core Principle**: Learning **general models** from **specific example data**. Data is abundant; knowledge (models) is valuable.
 ## 4.3 Data Mining vs. Machine Learning
-*   **Data Mining**: Discovers **existing patterns** in data (descriptive).
-*   **Machine Learning**: **Learns from past data** to build models for **predicting future outcomes** (predictive). ML is a primary tool used within the KDD process.
+* **Data Mining**: Discovers **existing patterns** in data (descriptive).
+* **Machine Learning**: **Learns from past data** to build models for **predicting future outcomes** (predictive). ML is a primary tool used within the KDD process.
 ## 4.4 Supervised Learning
 **Situation**: When you have a dataset of **input/output pairs (labeled data)** and want to predict an output for new inputs.
 **Goal**: Learn a **mapping function** from inputs to outputs.
 **Training**: Model learns from a **training set** of example pairs.
 ### Classification
 **Situation**: The output is a **categorical label** (class) from a predefined list.
-*   **Binary Classification**: Two possible classes (e.g., spam/not spam, low-risk/high-risk credit).
-*   **Multiclass Classification**: More than two classes (e.g., language of a website, digit recognition).
+* **Binary Classification**: Two possible classes (e.g., spam/not spam, low-risk/high-risk credit).
+* **Multiclass Classification**: More than two classes (e.g., language of a website, digit recognition).
 **Example**: Credit scoring. **Inputs**: Income, savings. **Output**: "low-risk" or "high-risk". A **discriminant** function (e.g., `IF income > θ1 AND savings > θ2`) can be learned.
 ### Regression
 **Situation**: The output is a **continuous quantitative value**.
@@ -234,9 +236,9 @@ Use ML when:
 **Situation**: You want to **partition data into distinct groups** where points in the same group are similar and points in different groups are dissimilar.
 **Goal**: Discover inherent groupings.
 **Examples**:
-*   **Customer Segmentation (CRM)**: Group customers by purchasing behavior.
-*   **Image Compression**: **Color quantization** by grouping similar pixel colors.
-*   **Biology**: Grouping genes with similar expression patterns.
+* **Customer Segmentation (CRM)**: Group customers by purchasing behavior.
+* **Image Compression**: **Color quantization** by grouping similar pixel colors.
+* **Biology**: Grouping genes with similar expression patterns.
 ![[cluster-ex.png|400]]
 ## 4.6 Reinforcement Learning
 **Situation**: An **agent learns to make decisions by performing actions in an environment to maximise cumulative reward**. It receives **delayed feedback** (reward or penalty), not direct supervision.
@@ -271,8 +273,8 @@ labels = kmeans.labels_          # Cluster assignments for training data
 new_labels = kmeans.predict(X_new) # Assign new points to clusters
 ```
 ### Evaluation & Loss Functions
-*   **Inertia (Within-Cluster Sum of Squares)**: Sum of squared distances of each point to its assigned centroid. **k-Means minimizes inertia**.
-*   **Distortion**: Weighted average of squared distances (weighted by cluster size). More formal probabilistic interpretation.
+* **Inertia (Within-Cluster Sum of Squares)**: Sum of squared distances of each point to its assigned centroid. **k-Means minimizes inertia**.
+* **Distortion**: Weighted average of squared distances (weighted by cluster size). More formal probabilistic interpretation.
 **Choosing Best Run**: Run k-means multiple times (due to random initialization) and select the result with the **lowest inertia**.
 ![[inertia-vs-distortion.png|400]]
 ### Limitations of k-Means (Failure Cases)
@@ -293,10 +295,10 @@ Use k-means with caution or avoid when:
 2.  **Merge**: Iteratively merge the **two most similar clusters**.
 3.  **Stop**: When a stopping criterion is met (e.g., desired number of clusters, or a distance threshold).
 **Linkage Criteria** (Defines "most similar clusters"):
-*   **Ward** (default in sklearn): Minimizes variance of the clusters being merged. Tends to create **clusters of equal size**.
-*   **Average**: Merges clusters with the smallest **average distance** between all points.
-*   **Complete**: Merges clusters with the smallest **maximum distance** between points.
-*   **Single**: Merges clusters with the smallest **minimum distance** between points (can lead to "chaining").
+* **Ward** (default in sklearn): Minimizes variance of the clusters being merged. Tends to create **clusters of equal size**.
+* **Average**: Merges clusters with the smallest **average distance** between all points.
+* **Complete**: Merges clusters with the smallest **maximum distance** between points.
+* **Single**: Merges clusters with the smallest **minimum distance** between points (can lead to "chaining").
 ![[agglomerative-1.png|400]]
 ![[agglomerative-2.png|400]]
 **Python Implementation**:
@@ -309,10 +311,10 @@ labels = agg.fit_predict(X)  # Note: Cannot predict on new data
 **Situation**: The primary tool for **visualizing and interpreting hierarchical clustering** results, especially with multi-dimensional data. Allows you to decide the number of clusters *after* analysis.
 
 **Interpretation**:
-*   **Leaves**: Individual data points.
-*   **Branches/Nodes**: Represent the merging of clusters.
-*   **Y-axis (Height)**: The **distance** at which clusters were merged. Longer branches indicate merges between **dissimilar** clusters.
-*   **Cutting the Dendrogram**: Drawing a horizontal line across the tree. The number of vertical lines it intersects = **number of clusters**. Choose a cut where branches are long (indicating distinct clusters).
+* **Leaves**: Individual data points.
+* **Branches/Nodes**: Represent the merging of clusters.
+* **Y-axis (Height)**: The **distance** at which clusters were merged. Longer branches indicate merges between **dissimilar** clusters.
+* **Cutting the Dendrogram**: Drawing a horizontal line across the tree. The number of vertical lines it intersects = **number of clusters**. Choose a cut where branches are long (indicating distinct clusters).
 ![[dendogram.png|400]]
 **Python Implementation**:
 ```python
@@ -325,22 +327,22 @@ plt.xlabel("Sample index")
 plt.ylabel("Cluster distance")
 ```
 ### Limitations of Agglomerative Clustering
-*   **Computational Cost**: Generally more expensive than k-means for large N.
-*   **No Predictions**: The `fit_predict` method must be used on the entire dataset; the model cannot assign new points to existing clusters.
-*   **Shape Assumptions**: Like k-means, it often uses Euclidean distance and linkage criteria that favor convex clusters, so it can also fail on complex shapes.
+* **Computational Cost**: Generally more expensive than k-means for large N.
+* **No Predictions**: The `fit_predict` method must be used on the entire dataset; the model cannot assign new points to existing clusters.
+* **Shape Assumptions**: Like k-means, it often uses Euclidean distance and linkage criteria that favor convex clusters, so it can also fail on complex shapes.
 # Lecture 6: Classification, k-NN, & Decision Trees
 ## 6.1 Classification Problem Definition
 > **Classification** is a **supervised learning** task where the goal is to predict a **categorical label (class)** for a given input, based on a model learned from a dataset of **input-output pairs (labeled data)**.
 
 **Example Context: Iris Species Classification**
-*   **Inputs (Features)**: Sepal length/width, petal length/width (continuous measurements).
-*   **Output (Label/Class)**: Species of iris: *setosa*, *versicolor*, or *virginica*.
-*   **Problem Type**: **Three-class classification**.
-*   **Goal**: Build a model from known data (training set) to predict the species of new iris flowers.
+* **Inputs (Features)**: Sepal length/width, petal length/width (continuous measurements).
+* **Output (Label/Class)**: Species of iris: *setosa*, *versicolor*, or *virginica*.
+* **Problem Type**: **Three-class classification**.
+* **Goal**: Build a model from known data (training set) to predict the species of new iris flowers.
 ## 6.2 Training and Testing Data
 **Situation**: To evaluate a model's ability to **generalize** to unseen data, we must split our labeled dataset.
-*   **Training Set**: Used to **build/train** the machine learning model (e.g., 75% of data).
-*   **Test Set (Hold-out Set)**: Used to **assess** the model's performance on new data (e.g., 25% of data).
+* **Training Set**: Used to **build/train** the machine learning model (e.g., 75% of data).
+* **Test Set (Hold-out Set)**: Used to **assess** the model's performance on new data (e.g., 25% of data).
 **Crucial Step**: **Shuffle** the data before splitting to ensure the test set contains examples from all classes, preventing bias.
 
 **Python (scikit-learn)**:
@@ -362,16 +364,16 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random
 | ------------------------ | ------------------------ |
 | ![[iris-knn-1.png\|390]] | ![[iris-knn-2.png\|380]] |
 **Advantages**:
-*   **Simple** to understand and implement.
-*   **No training phase** (stores the training data).
+* **Simple** to understand and implement.
+* **No training phase** (stores the training data).
 *   Naturally handles **multi-class** problems.
 *   Can model **complex decision boundaries** if k is small.
 
 **Disadvantages**:
-*   **Computationally expensive at prediction time** (must compute distances to all training points).
-*   **Sensitive to irrelevant features** and the **scale** of features (requires scaling).
-*   **Performance degrades with high dimensionality** (curse of dimensionality).
-*   **Choice of k is critical**: Small k leads to **high variance/noise sensitivity**; large k leads to **high bias/oversmoothing**.
+* **Computationally expensive at prediction time** (must compute distances to all training points).
+* **Sensitive to irrelevant features** and the **scale** of features (requires scaling).
+* **Performance degrades with high dimensionality** (curse of dimensionality).
+* **Choice of k is critical**: Small k leads to **high variance/noise sensitivity**; large k leads to **high bias/oversmoothing**.
 ## 6.4 Decision Tree Classifier
 > A **Decision Tree** is a supervised learning model that predicts a target label by learning simple **decision rules** inferred from the data features. It splits the data into subsets based on feature values, forming a tree-like structure.
 
@@ -397,8 +399,8 @@ The split with the **lowest loss** is chosen.
 For example, S for the top node is:
 $−0.31 \cdot log_2(0.31) − 0.33 \cdot log_2(0.33) − 0.36 \cdot log_2(0.36) = (0.52 + 0.53 + 0.53) = 1.58$
 ### Visualizing Decision Trees & Boundaries
-*   **Tree Structure**: Can be visualized to understand the decision rules (using `plot_tree`).
-*   **Decision Boundary**: Creates **axis-aligned, rectangular partitions** of the feature space, leading to a **nonlinear, piecewise-constant** boundary.
+* **Tree Structure**: Can be visualized to understand the decision rules (using `plot_tree`).
+* **Decision Boundary**: Creates **axis-aligned, rectangular partitions** of the feature space, leading to a **nonlinear, piecewise-constant** boundary.
 
 |                                 |                                            |
 | ------------------------------- | ------------------------------------------ |
@@ -412,22 +414,22 @@ $−0.31 \cdot log_2(0.31) − 0.33 \cdot log_2(0.33) − 0.36 \cdot log_2(0.36)
 *   Rules that seem overly specific (e.g., `petal_length < 4.800001`).
 
 **Mitigation Strategies (Regularization)**:
-*   **Limit tree depth** (`max_depth`).
-*   **Set a minimum number of samples** required to split a node (`min_samples_split`).
-*   **Set a minimum number of samples** in a leaf node (`min_samples_leaf`).
-*   **Use pruning** (remove nodes that provide little power).
+* **Limit tree depth** (`max_depth`).
+* **Set a minimum number of samples** required to split a node (`min_samples_split`).
+* **Set a minimum number of samples** in a leaf node (`min_samples_leaf`).
+* **Use pruning** (remove nodes that provide little power).
 ### Advantages & Disadvantages of Decision Trees
 
 **Advantages**:
-*   **Simple to understand and interpret** (white box model).
-*   **Requires little data preparation** (handles mixed data, robust to outliers).
-*   **Nonparametric** (makes no assumptions about data distribution).
+* **Simple to understand and interpret** (white box model).
+* **Requires little data preparation** (handles mixed data, robust to outliers).
+* **Nonparametric** (makes no assumptions about data distribution).
 *   Can model **nonlinear relationships**.
 
 **Disadvantages**:
-*   **Prone to overfitting**, especially with deep trees. **Requires careful tuning** (pruning, depth limits).
-*   **Unstable**: Small variations in data can lead to a completely different tree.
-*   **Biased towards features with more levels**.
+* **Prone to overfitting**, especially with deep trees. **Requires careful tuning** (pruning, depth limits).
+* **Unstable**: Small variations in data can lead to a completely different tree.
+* **Biased towards features with more levels**.
 *   Not ideal for **extrapolation** (predicting outside the range of training data).
 *   The **axis-aligned splits** can be inefficient for modeling some relationships compared to models that can create oblique splits.
 # Lecture 7: Regression, Overfitting, and Random Forests
@@ -457,7 +459,7 @@ $$
 **Advantages**:
 *   More **robust**; outliers have less influence.
 **Disadvantages**:
-*   **No closed-form solution**; computationally more complex.
+* **No closed-form solution**; computationally more complex.
 *   Penalizes small deviations more harshly relative to least squares.
 ## 7.3 Nonlinear Curve Fitting & Polynomial Regression
 **Situation**: When the relationship between input and output is not linear. We can fit more complex functions (e.g., exponential decay, logistic growth, polynomials).
@@ -466,7 +468,7 @@ $$
 $$
 y(x, w) = w_0 + w_1x + w_2x^2 + ... + w_Mx^M = \sum_{j=0}^{M} w_j x^j
 $$
-*   **Linear in parameters** $w$ (a **linear model**), but **nonlinear in $x$**.
+* **Linear in parameters** $w$ (a **linear model**), but **nonlinear in $x$**.
 *   $M$ is the **polynomial order** (model complexity).
 ### Error Function & Root-Mean-Square Error (RMSE)
 We minimize the **sum-of-squares error**:
@@ -483,9 +485,9 @@ $$
 **Key Symptom**: **Low training error, but high test error**. The model has **high variance**.
 ![[regression-interp-orders-of-m.png|400]]
 **Illustration with Polynomial Order $M$**:
-*   **$M=0$ or $M=1$ (Underfitting)**: Model is too simple (**high bias**). Poor fit to both training and test data.
-*   **$M=3$**: A good balance. Captures the underlying trend `sin(2πx)` without fitting the noise.
-*   **$M=9$ (Overfitting)**: Model is too complex. Training error is zero (fits all points exactly), but test error is very high. The curve **oscillates wildly**.
+* **$M=0$ or $M=1$ (Underfitting)**: Model is too simple (**high bias**). Poor fit to both training and test data.
+* **$M=3$**: A good balance. Captures the underlying trend `sin(2πx)` without fitting the noise.
+* **$M=9$ (Overfitting)**: Model is too complex. Training error is zero (fits all points exactly), but test error is very high. The curve **oscillates wildly**.
 ### How to Prevent Overfitting in Regression
 1.  **Use a Simpler Model**: Reduce polynomial order $M$ (reduce model capacity).
 2.  **Get More Data**: As shown, increasing $N$ (data points) reduces overfitting for a fixed $M=9$ model.
@@ -502,7 +504,7 @@ $$
 *   `max_features`: Number of features to consider for the best split.
 
 **Approach 2: Pruning (Post-pruning)**. Grow the tree fully, then *remove* branches that provide little predictive power.
-*   **Method**: Use a **validation set**. If replacing a subtree with a leaf node (predicting the majority class) does not increase validation error, prune it.
+* **Method**: Use a **validation set**. If replacing a subtree with a leaf node (predicting the majority class) does not increase validation error, prune it.
 ## 7.6 Random Forests
 > A **Random Forest** is an **ensemble learning** method that constructs a multitude of decision trees during training and outputs the **mode** (for classification) or **mean** (for regression) of the predictions of the individual trees. It reduces overfitting by averaging multiple **high-variance** models.
 
@@ -513,22 +515,22 @@ $$
 **Prediction**: For a new point, collect predictions from all trees and take the **majority vote** (classification) or **average** (regression).
 ![[random-forest-9-models.png|400]]
 ### Advantages of Random Forests
-*   **Reduces Overfitting**: By averaging many trees, it reduces the **high variance** of a single decision tree.
-*   **Versatile**: Handles both **classification and regression**.
-*   **Robust**: Less sensitive to outliers and irrelevant features than single trees.
-*   **Automatic Feature Selection**: The random feature subsetting naturally evaluates feature importance.
-*   **Requires Less Tuning**: Often works well with default parameters.
-*   **Nonlinear**: Can capture complex interactions without explicit feature engineering.
+* **Reduces Overfitting**: By averaging many trees, it reduces the **high variance** of a single decision tree.
+* **Versatile**: Handles both **classification and regression**.
+* **Robust**: Less sensitive to outliers and irrelevant features than single trees.
+* **Automatic Feature Selection**: The random feature subsetting naturally evaluates feature importance.
+* **Requires Less Tuning**: Often works well with default parameters.
+* **Nonlinear**: Can capture complex interactions without explicit feature engineering.
 ### Disadvantages of Random Forests
-*   **Less Interpretable**: A "black box" compared to a single decision tree.
-*   **Computationally Expensive**: Training many trees is slower than training one tree.
-*   **Memory Intensive**: Requires storing all the individual trees.
+* **Less Interpretable**: A "black box" compared to a single decision tree.
+* **Computationally Expensive**: Training many trees is slower than training one tree.
+* **Memory Intensive**: Requires storing all the individual trees.
 ## 7.7 Decision Trees for Regression
 **Situation**: Decision trees can also be used for **regression** tasks. Instead of predicting a class at a leaf node, they predict a **continuous value** (typically the **mean** of the target values of the training samples in that leaf).
 
 **Process**:
-*   **Splitting Criterion**: Minimize the **variance** (or MSE) within the child nodes, not entropy/Gini impurity.
-*   **Prediction**: The output for a region is the average target value of training points in that region.
+* **Splitting Criterion**: Minimize the **variance** (or MSE) within the child nodes, not entropy/Gini impurity.
+* **Prediction**: The output for a region is the average target value of training points in that region.
 
 **Advantage**: Can model **piecewise constant** functions and complex, nonlinear relationships.
 **Disadvantage**: Prone to the same **overfitting** issues as classification trees, requiring the same regularization techniques (pruning, random forests).
@@ -573,8 +575,8 @@ $$
 $$
 F1 = \frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} = \frac{2}{\frac{1}{\text{Precision}} + \frac{1}{\text{Recall}}}
 $$
-*   **High F1** indicates both high precision and high recall.
-*   **Use when**: You want to find a **balance** between precision and recall and the class distribution is uneven.
+* **High F1** indicates both high precision and high recall.
+* **Use when**: You want to find a **balance** between precision and recall and the class distribution is uneven.
 ## 8.3 Cross-Validation
 **Situation**: A **robust technique** for model evaluation and selection that provides a better estimate of generalization performance than a single train/test split. It maximizes data usage for both training and validation.
 ### k-Fold Cross-Validation
@@ -587,12 +589,12 @@ $$
 3.  The final performance metric is the **average** of the *k* validation scores.
 ![[cross-validation.png|400]]
 **Advantages**:
-*   **Reduces variance** in performance estimation compared to a single split.
-*   **Uses data more efficiently** (every data point is used for both training and validation).
+* **Reduces variance** in performance estimation compared to a single split.
+* **Uses data more efficiently** (every data point is used for both training and validation).
 *   Helps detect **overfitting** (if training score is much higher than validation scores).
 
 **Disadvantages**:
-*   **Computationally expensive** (trains the model *k* times).
+* **Computationally expensive** (trains the model *k* times).
 *   Not suitable for **temporal data** (where time ordering matters; use time-series splits instead).
 
 **Common Choice**: **k=5** or **k=10**.
@@ -609,8 +611,8 @@ $$
 **Situation**: Visualizing and analyzing data becomes difficult when $d > 2$ or $3$. While we can use color, size, or animation for a 4th or 5th dimension, this approach quickly fails.
 
 **Common Need**: To visualize **clusters** or relationships, we often need to **project** data down to 2 or 3 dimensions.
-*   **Naive Approach**: Simply pick the 2 features with the highest variance. This can work but may miss important patterns captured by combinations of features.
-*   **Better Approach**: Use techniques like **Principal Component Analysis (PCA)**, which finds the **best** lower-dimensional projection to preserve variance or structure.
+* **Naive Approach**: Simply pick the 2 features with the highest variance. This can work but may miss important patterns captured by combinations of features.
+* **Better Approach**: Use techniques like **Principal Component Analysis (PCA)**, which finds the **best** lower-dimensional projection to preserve variance or structure.
 ## 9.3 Singular Value Decomposition (SVD) - Conceptual Foundation
 > **Singular Value Decomposition (SVD)** is a fundamental matrix factorization technique. For any $m \times n$ real matrix $X$, SVD factorizes it into three matrices: $X = U \Sigma V^T$, where $U$ and $V$ are orthogonal matrices (with orthonormal columns/rows), and $\Sigma$ is a diagonal matrix of **singular values** in descending order.
 
@@ -640,9 +642,9 @@ $$
 where $U_k$ is $m \times k$, $\Sigma_k$ is $k \times k$, and $V_k^T$ is $k \times n$.
 ![[rank3-data.png|400]]
 **Interpretation**:
-*   **Rank-1 Approximation ($k=1$)**: Represents all data points as lying along a single line (the first principal component). All variation is attributed to one latent factor. For the rectangle example, it found a rough relationship like `Area ≈ 3*(Width + Height)`.
-*   **Rank-3 Approximation ($k=3$)**: For the noisy rectangle data (true rank ~4), a rank-3 approximation captures almost all the systematic variation while filtering out the noise in the 4th, least important dimension.
-*   **Choosing $k$**: Look at the **singular value spectrum**. A large drop indicates that subsequent components contribute little information. You choose $k$ to retain, say, 95% or 99% of the total variance (calculated from squared singular values).
+* **Rank-1 Approximation ($k=1$)**: Represents all data points as lying along a single line (the first principal component). All variation is attributed to one latent factor. For the rectangle example, it found a rough relationship like `Area ≈ 3*(Width + Height)`.
+* **Rank-3 Approximation ($k=3$)**: For the noisy rectangle data (true rank ~4), a rank-3 approximation captures almost all the systematic variation while filtering out the noise in the 4th, least important dimension.
+* **Choosing $k$**: Look at the **singular value spectrum**. A large drop indicates that subsequent components contribute little information. You choose $k$ to retain, say, 95% or 99% of the total variance (calculated from squared singular values).
 
 **Why it's Powerful**: SVD provides the **optimal** low-rank approximation in terms of the Frobenius norm (a measure of matrix difference). It automatically finds the best lower-dimensional subspace to project your data onto.
 ## 9.5 SVD vs. Manual Decomposition
@@ -671,13 +673,13 @@ $$
 
 **Step 2: Perform SVD on the Centered Matrix**.
 Compute the SVD: $X_{\text{centered}} = U \Sigma V^T$.
-*   **$V^T$ (Rows are Principal Directions)**: The **rows** of $V^T$ (or columns of $V$) are the **principal directions** (axes). The first row is the direction of the **1st Principal Component (PC1)**, the second row is **PC2**, etc. They are orthonormal vectors in the original feature space.
-*   **$U\Sigma$ (Columns are Principal Components)**: The **columns** of $U\Sigma$ (or equivalently, $X_{\text{centered}} V$) contain the **principal component scores** for each data point. Column 1 holds the score for PC1 for all observations, Column 2 for PC2, etc. This is the transformed, lower-dimensional data.
+* **$V^T$ (Rows are Principal Directions)**: The **rows** of $V^T$ (or columns of $V$) are the **principal directions** (axes). The first row is the direction of the **1st Principal Component (PC1)**, the second row is **PC2**, etc. They are orthonormal vectors in the original feature space.
+* **$U\Sigma$ (Columns are Principal Components)**: The **columns** of $U\Sigma$ (or equivalently, $X_{\text{centered}} V$) contain the **principal component scores** for each data point. Column 1 holds the score for PC1 for all observations, Column 2 for PC2, etc. This is the transformed, lower-dimensional data.
 
 **Step 3: Choose the Number of Components $k$**.
 Examine the **singular values** ($\sigma_i$, the diagonal entries of $\Sigma$). The variance captured by the $i$-th PC is $\sigma_i^2 / N$. To decide $k$:
-*   **Scree Plot**: Plot the variance (or singular values) associated with each PC in descending order. Look for an "elbow" point where the curve bends; components after this add little explanatory power.
-*   **Cumulative Variance**: Choose $k$ such that the retained PCs explain a sufficiently high proportion (e.g., 95%) of the total variance:
+* **Scree Plot**: Plot the variance (or singular values) associated with each PC in descending order. Look for an "elbow" point where the curve bends; components after this add little explanatory power.
+* **Cumulative Variance**: Choose $k$ such that the retained PCs explain a sufficiently high proportion (e.g., 95%) of the total variance:
     $$
     \frac{\sum_{i=1}^{k} \sigma_i^2}{\sum_{i=1}^{r} \sigma_i^2} \geq 0.95
     $$
@@ -690,9 +692,9 @@ $$
 where $V_k$ contains the first $k$ columns of $V$ (the top $k$ principal directions).
 ## 10.3 Geometric Interpretation & Visualization
 Consider 2D data (e.g., Child Mortality vs. Fertility Rate).
-*   **PC1 Direction**: The line through the origin that best fits the "cloud" of data points, minimizing the perpendicular distances (red lines). It is the direction of **maximum variance**.
-*   **PC2 Direction**: Orthogonal to PC1, capturing the next largest remaining variance. It often represents deviations from the main trend.
-*   **Rank-1 Approximation**: Projecting all points onto the PC1 line. This gives each country a single **PC1 score** (its position along the line). The approximation for a point is found by mapping its PC1 score back along the PC1 direction (plus the mean).
+* **PC1 Direction**: The line through the origin that best fits the "cloud" of data points, minimizing the perpendicular distances (red lines). It is the direction of **maximum variance**.
+* **PC2 Direction**: Orthogonal to PC1, capturing the next largest remaining variance. It often represents deviations from the main trend.
+* **Rank-1 Approximation**: Projecting all points onto the PC1 line. This gives each country a single **PC1 score** (its position along the line). The approximation for a point is found by mapping its PC1 score back along the PC1 direction (plus the mean).
 ![[mortality-fertility-vis-pc.png|400]]
 **Key Insight**: PCA provides a **new coordinate system**. In the 2D example, instead of describing a country by (Mortality, Fertility), we describe it by (PC1_Score, PC2_Score). Often, PC1_Score alone (a 1D summary) captures the dominant global pattern (e.g., overall development level), while PC2_Score captures more specific, orthogonal variations.
 ## 10.4 PCA vs. Linear Regression
@@ -719,18 +721,18 @@ It's vital to distinguish PCA from fitting a regression line.
 3.  The relationships in your data are **highly nonlinear** (consider t-SNE or UMAP instead).
 ## 10.6 Advantages and Disadvantages of PCA
 **Advantages**:
-*   **Dimensionality Reduction**: Effectively reduces the number of variables, combating the **curse of dimensionality**.
-*   **Noise Reduction**: By discarding low-variance components (often associated with noise), it can improve model performance.
-*   **Decorrelates Features**: Output PCs are orthogonal, removing multicollinearity.
-*   **Visualization**: Enables plotting of high-dimensional data.
-*   **Unsupervised**: Requires no labels.
+* **Dimensionality Reduction**: Effectively reduces the number of variables, combating the **curse of dimensionality**.
+* **Noise Reduction**: By discarding low-variance components (often associated with noise), it can improve model performance.
+* **Decorrelates Features**: Output PCs are orthogonal, removing multicollinearity.
+* **Visualization**: Enables plotting of high-dimensional data.
+* **Unsupervised**: Requires no labels.
 
 **Disadvantages**:
-*   **Linear Assumption**: PCA only captures **linear relationships**. It fails for complex nonlinear manifolds.
-*   **Interpretability**: Principal components are linear combinations of all original features, making them often hard to interpret.
-*   **Scale Sensitivity**: Results are influenced by the scale of variables. **Features must be standardized** (centered and scaled to unit variance) if they are on different units, otherwise high-variance features dominate PC1.
-*   **Variance ≠ Importance**: Directions of maximum variance may not be the most important for a specific predictive task.
-*   **Outlier Sensitivity**: Since it maximizes variance, outliers can disproportionately influence the principal directions.
+* **Linear Assumption**: PCA only captures **linear relationships**. It fails for complex nonlinear manifolds.
+* **Interpretability**: Principal components are linear combinations of all original features, making them often hard to interpret.
+* **Scale Sensitivity**: Results are influenced by the scale of variables. **Features must be standardized** (centered and scaled to unit variance) if they are on different units, otherwise high-variance features dominate PC1.
+* **Variance ≠ Importance**: Directions of maximum variance may not be the most important for a specific predictive task.
+* **Outlier Sensitivity**: Since it maximizes variance, outliers can disproportionately influence the principal directions.
 # Lecture 11: Ethics and Data Governance
 ## 11.1 What is Ethics?
 > **Ethics** is a systematic way of deciding what we **should and should not do**, by evaluating our actions and choices, assessing the reasons behind our judgments, and aiming to act accordingly. It seeks to uphold people's **moral rights** (distinct from legal rights) and **wellbeing** (welfare, happiness, quality of life).
@@ -746,17 +748,17 @@ It's vital to distinguish PCA from fitting a regression line.
 ## 11.2 Why Data Science Raises Ethical Issues
 **Core Reason**: Data science involves **extracting knowledge about people** from data. With knowledge comes the **power to affect them**, often in ways that are **unpredictable** due to data linkage and unforeseen uses.
 
-*   **Historical Precedent**: Technology often creates new ethical challenges (e.g., photography leading to a "right to be let alone").
-*   **Data-Specific Risks**:
-    *   **Harm to Subjects**: Breaches of **privacy**, lack of **consent**, insecure handling.
-    *   **Usage Issues**: **Bias** in tools/interpretations, "**black box**" opacity, loss of human control.
-    *   **Societal Externalities**: Shaping preferences, sustainability costs, altering interpersonal relations, automation's impact on work.
+* **Historical Precedent**: Technology often creates new ethical challenges (e.g., photography leading to a "right to be let alone").
+* **Data-Specific Risks**:
+    * **Harm to Subjects**: Breaches of **privacy**, lack of **consent**, insecure handling.
+    * **Usage Issues**: **Bias** in tools/interpretations, "**black box**" opacity, loss of human control.
+    * **Societal Externalities**: Shaping preferences, sustainability costs, altering interpersonal relations, automation's impact on work.
 
 **The Rebecca Schaeffer Case (1989)**: A stalker used motor vehicle records to find an actress's address, leading to her murder. This illustrates how **seemingly benign data can be linked to cause grave harm**, prompting legal change (Driver’s Privacy Protection Act).
 ## 11.3 The Relationship Between Ethics and Law
 **Ethics and law are related but distinct**.
-*   **Ethics** determines **moral** rights and obligations based on impacts on others.
-*   **Law (ideally)** provides enforceable rules to restrict harmful behaviour, protect rights, and implement a society's ethical viewpoint.
+* **Ethics** determines **moral** rights and obligations based on impacts on others.
+* **Law (ideally)** provides enforceable rules to restrict harmful behaviour, protect rights, and implement a society's ethical viewpoint.
 
 **Why "Just Follow the Law" is Insufficient**:
 1.  Laws can be **unethical, incomplete, or lag behind technology**.
@@ -793,31 +795,31 @@ Subjects have rights including: to be **informed**, to **access** their data, to
 > **Valid Consent** must be: **Informed** (the subject understands the use), **Autonomous** (freely given, not coerced), and **Ongoing** (can be withdrawn).
 
 **Challenges in Practice**:
-*   **Implied Consent**: Often not sufficient for non-obvious data uses.
-*   **Terms & Conditions**: Lengthy, complex documents are a poor mechanism for **informed** consent.
-*   **Context & Drift**: Consent given for one purpose (e.g., improving service) does not cover unrelated future uses (e.g., psychological experiments).
+* **Implied Consent**: Often not sufficient for non-obvious data uses.
+* **Terms & Conditions**: Lengthy, complex documents are a poor mechanism for **informed** consent.
+* **Context & Drift**: Consent given for one purpose (e.g., improving service) does not cover unrelated future uses (e.g., psychological experiments).
 ### 3. Anonymisation & Data Linkage
 **Situation**: A primary method to protect privacy when using data.
 **Challenge**: **Data linkage** (combining datasets) can **re-identify** individuals even from anonymised data.
-*   **Direct Identifiers**: Name, address, NHS number – must be removed.
-*   **Indirect Identifiers**: Postcode, age, rare disease – in combination, can identify individuals. Risk must be assessed and mitigated.
+* **Direct Identifiers**: Name, address, NHS number – must be removed.
+* **Indirect Identifiers**: Postcode, age, rare disease – in combination, can identify individuals. Risk must be assessed and mitigated.
 ## 11.6 Case Studies in Ethical Failure
 ### Target's Pregnancy Prediction (2012)
-*   **What**: Data scientists analyzed shopping patterns to identify pregnant customers and send targeted coupons.
-*   **Ethical Issue**: Violation of **privacy** and lack of **meaningful consent**. Customers did not know their data was being used for this sensitive inference. It caused distress (e.g., revealing a teen's pregnancy to her father).
+* **What**: Data scientists analyzed shopping patterns to identify pregnant customers and send targeted coupons.
+* **Ethical Issue**: Violation of **privacy** and lack of **meaningful consent**. Customers did not know their data was being used for this sensitive inference. It caused distress (e.g., revealing a teen's pregnancy to her father).
 ### Facebook Emotional Contagion Experiment (2014)
-*   **What**: Researchers manipulated news feeds of 689,000 users to study "emotional contagion."
-*   **Ethical Issues**:
+* **What**: Researchers manipulated news feeds of 689,000 users to study "emotional contagion."
+* **Ethical Issues**:
     1.  **Lack of Informed Consent**: Burying permission in Terms of Service is inadequate. Users did not consent to **psychological manipulation**.
     2.  **Potential for Harm**: The study could have negatively impacted vulnerable users' mental health.
     3.  **Broader Societal Risk**: This capability for manipulation has been linked to influencing elections (e.g., Cambridge Analytica), threatening **democratic autonomy**.
 ### COMPAS Recidivism Algorithm
-*   **What**: An algorithm used in US courts to predict a defendant's likelihood of reoffending.
-*   **Ethical Issue**: **Bias**. The algorithm, trained on historically biased policing and sentencing data, unfairly labelled Black defendants as higher risk than white defendants with similar profiles.
-*   **Types of Bias Illustrated**:
-    *   **Historical Bias**: The training data reflected past societal injustices.
-    *   **Proxy Discrimination**: Even if 'race' was not a direct feature, the algorithm used correlated proxies (e.g., postcode, income).
-    *   **Lack of Transparency & Accountability**: The "black box" nature made it hard to diagnose, challenge, or assign responsibility for unfair outcomes.
+* **What**: An algorithm used in US courts to predict a defendant's likelihood of reoffending.
+* **Ethical Issue**: **Bias**. The algorithm, trained on historically biased policing and sentencing data, unfairly labelled Black defendants as higher risk than white defendants with similar profiles.
+* **Types of Bias Illustrated**:
+    * **Historical Bias**: The training data reflected past societal injustices.
+    * **Proxy Discrimination**: Even if 'race' was not a direct feature, the algorithm used correlated proxies (e.g., postcode, income).
+    * **Lack of Transparency & Accountability**: The "black box" nature made it hard to diagnose, challenge, or assign responsibility for unfair outcomes.
 ## 11.7 The Problem of Bias in Data Science
 **Bias** leads to **unfair treatment** of individuals or groups. It can be introduced at multiple stages:
 1.  **Data Collection Bias**: Non-representative samples (e.g., health data mostly from white males).
@@ -830,9 +832,9 @@ Subjects have rights including: to be **informed**, to **access** their data, to
 **Central Question**: Are you responsible only for the technical accuracy of your analysis, or also for its **social consequences**?
 
 **Arguments for Extended Responsibility**:
-*   **Foreseeability**: Many harmful uses (discrimination, manipulation) are foreseeable outcomes of certain types of analysis.
-*   **Professional Duty**: As an expert, you have a **duty of care** to consider how your work will be deployed, similar to engineers or doctors.
-*   **The "Neutral Tool" Fallacy**: Algorithms encode the values and priorities of their creators; they are not neutral.
+* **Foreseeability**: Many harmful uses (discrimination, manipulation) are foreseeable outcomes of certain types of analysis.
+* **Professional Duty**: As an expert, you have a **duty of care** to consider how your work will be deployed, similar to engineers or doctors.
+* **The "Neutral Tool" Fallacy**: Algorithms encode the values and priorities of their creators; they are not neutral.
 
 **Conclusion for Practice**: The ethical data scientist must proactively ask:
 1.  **Consent & Purpose**: Has the subject consented to *this* use of their data?
