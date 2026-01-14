@@ -343,7 +343,7 @@ plt.ylabel("Cluster distance")
 * **Problem Type**: **Three-class classification**.
 * **Goal**: Build a model from known data (training set) to predict the species of new iris flowers.
 ## 6.2 Training and Testing Data
-**Situation**: To evaluate a model's ability to **generalize** to unseen data, we must split our labeled dataset.
+To evaluate a model's ability to **generalize** to unseen data, we must split our labeled dataset.
 * **Training Set**: Used to **build/train** the machine learning model (e.g., 75% of data).
 * **Test Set (Hold-out Set)**: Used to **assess** the model's performance on new data (e.g., 25% of data).
 **Crucial Step**: **Shuffle** the data before splitting to ensure the test set contains examples from all classes, preventing bias.
@@ -351,12 +351,13 @@ plt.ylabel("Cluster distance")
 **Python (scikit-learn)**:
 ```python
 from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42, stratify=y)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, 
+													random_state=42, stratify=y)
 ```
 ## 6.3 k-Nearest Neighbors (k-NN) Classifier
-> **k-Nearest Neighbors (k-NN)** is a **lazy**, instance-based learning algorithm that classifies a new data point based on the **majority class** among its **k closest training examples** in the feature space.
+> **k-NN** is a **lazy**, instance-based learning algorithm that classifies a new data point based on the **majority class** among its **k closest training examples** in the feature space.
 
-**Situation**: Useful for simple, interpretable classification, especially when the decision boundary is irregular. It makes **no assumptions** about the data distribution. Can be sensitive to the **curse of dimensionality**.
+Useful for simple, interpretable classification, especially when the decision boundary is irregular. It makes **no assumptions** about the data distribution. Can be sensitive to the **curse of dimensionality**.
 ### Algorithm Steps:
 1.  **Choose k**: The number of nearest neighbors (typically odd for binary classification).
 2.  **Calculate Distance**: Compute distance (e.g., **Euclidean**) from the query point to all training points.
@@ -389,14 +390,13 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random
 ![[iris-decision-tree.png|300]]
 ### Impurity Measures: Entropy & Gini
 To quantify the "goodness" of a split, we measure the **impurity** of a node.
->**Entropy** is an impurity measure based on information theory. For a node with class proportions $p_c$, it is defined as: $$S = -\sum_{c} p_c \log_2 p_c$$
-
+>**Entropy** is an impurity measure based on information theory. For a node with class proportions $p_c$, it is defined as: 
+$$S = -\sum_{c} p_c \log_2 p_c$$
 >**Low entropy**: the node is pure (predictable). **High entropy**: node is mixed (unpredictable).
 
 > **Gini Impurity** is another common measure: $G = 1 - \sum_c p_c^2$. It measures the probability of misclassifying a randomly chosen element.
 
-**Choosing the Best Split**: We select the feature and split value that result in the **maximum reduction in impurity** (or **minimum weighted impurity**) across the child nodes.
-$$\text{Loss (Weighted Impurity)} = \frac{N_{left} \cdot S_{left} + N_{right} \cdot S_{right}}{N_{left} + N_{right}}$$The split with the **lowest loss** is chosen.
+**Choosing the Best Split**: We select the feature and split value that result in the **maximum reduction in impurity** (or **minimum weighted impurity**) across the child nodes.$$\text{Loss (Weighted Impurity)} = \frac{N_{left} \cdot S_{left} + N_{right} \cdot S_{right}}{N_{left} + N_{right}}$$The split with the **lowest loss** is chosen.
 ![[entropy-ex.png|400]]
 For example, S for the top node is:
 $−0.31 \cdot log_2(0.31) − 0.33 \cdot log_2(0.33) − 0.36 \cdot log_2(0.36) = (0.52 + 0.53 + 0.53) = 1.58$
@@ -465,7 +465,7 @@ The simplest model is **linear regression**: $y = mx + b$, where $y$ is the pred
 We minimize the **sum-of-squares error**:$$E(w) = \frac{1}{2} \sum_{n=1}^{N} \{ y(x_n, w) - t_n \}^2$$To compare models across different dataset sizes, use the **Root-Mean-Square Error (RMSE)**:
 $$E_{RMS} = \sqrt{ \frac{E(w^*)}{N} }$$
 ## 7.4 Overfitting in Model Selection
-**Situation**: A critical problem where a model learns the **noise** or random fluctuations in the **training data** to such an extent that it performs poorly on new, unseen data (**fails to generalize**).
+A critical problem where a model learns the **noise** or random fluctuations in the **training data** to such an extent that it performs poorly on new, unseen data (**fails to generalize**).
 
 **Key Symptom**: **Low training error, but high test error**. The model has **high variance**.
 ![[regression-interp-orders-of-m.png|400]]
@@ -540,7 +540,7 @@ $$ \text{Accuracy} = \frac{\text{Number of Correct Predictions}}{\text{Total Num
 ![[confusison-matrix.png|340]]
 ### Key Derived Metrics
 >**Precision** answers: "**Of all instances predicted as positive, how many are actually positive?**" It focuses on **minimizing False Positives (FP)**.
-$$> \text{Precision} = \frac{TP}{TP + FP}$$
+$$\text{Precision} = \frac{TP}{TP + FP}$$
 > **Use when**: The cost of a **false alarm (FP)** is high (e.g., spam detection, fraud alert).
 > **Recall (Sensitivity, True Positive Rate - TPR)** answers: "**Of all actual positive instances, how many did we correctly identify?**" It focuses on **minimizing False Negatives (FN)**.
 $$\text{Recall} = \frac{TP}{TP + FN}$$
@@ -570,7 +570,6 @@ $$F1 = \frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} + \t
 * **Reduces variance** in performance estimation compared to a single split.
 * **Uses data more efficiently** (every data point is used for both training and validation).
 *   Helps detect **overfitting** (if training score is much higher than validation scores).
-
 **Disadvantages**:
 * **Computationally expensive** (trains the model *k* times).
 *   Not suitable for **temporal data** (where time ordering matters; use time-series splits instead).
@@ -666,12 +665,12 @@ Consider 2D data (e.g., Child Mortality vs. Fertility Rate).
 ## 10.4 PCA vs. Linear Regression
 It's vital to distinguish PCA from fitting a regression line.
 
-| Aspect | **Linear Regression** | **Principal Component Analysis (PCA)** |
-| :--- | :--- | :--- |
-| **Goal** | Predict a **target variable** $Y$ from a **feature** $X$. Minimizes error **in $Y$ direction** (vertical distances). | **Describe the data** itself. No distinction between features/targets. Minimizes **perpendicular distances** to the line. |
-| **Asymmetry** | Direction matters. Regressing $Y$ on $X$ gives a different line than regressing $X$ on $Y$. | Symmetric. Treats all variables equally. |
-| **Lines** | For 2D data, you get two different regression lines. | You get a **single line** that is a compromise between the two regression lines. |
-| **Output** | A predictive model for a specific variable. | A new set of orthogonal axes (PCs) for the entire dataset. |
+| Aspect        | Linear Regression                                                                                                    | Principal Component Analysis (PCA)                                                                                        |
+| :------------ | :------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------ |
+| **Goal**      | Predict a **target variable** $Y$ from a **feature** $X$. Minimizes error **in $Y$ direction** (vertical distances). | **Describe the data** itself. No distinction between features/targets. Minimizes **perpendicular distances** to the line. |
+| **Asymmetry** | Direction matters. Regressing $Y$ on $X$ gives a different line than regressing $X$ on $Y$.                          | Symmetric. Treats all variables equally.                                                                                  |
+| **Lines**     | For 2D data, you get two different regression lines.                                                                 | You get a **single line** that is a compromise between the two regression lines.                                          |
+| **Output**    | A predictive model for a specific variable.                                                                          | A new set of orthogonal axes (PCs) for the entire dataset.                                                                |
 ![[mortality-fertility-vis-svd.png|300]]
 **Simple Analogy**: If you hammer nails (data points) into a board, linear regression is like fitting a ruler to predict nail height from horizontal position. PCA is like finding the best single tight string to which all nails are closest *perpendicularly*.
 ## 10.5 When to Use PCA
