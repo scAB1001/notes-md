@@ -317,8 +317,8 @@ The primary tool for **visualizing and interpreting hierarchical clustering** re
 * **Leaves**: Individual data points.
 * **Branches/Nodes**: Represent the merging of clusters.
 * **Y-axis (Height)**: The **distance** at which clusters were merged. Longer branches indicate merges between **dissimilar** clusters.
-* **Cutting the Dendrogram**: Drawing a horizontal line across the tree. The number of vertical lines it intersects = **number of clusters**. Choose a cut where branches are long (indicating distinct clusters).
-![[dendogram.png|400]]
+* **Cutting the Dendrogram**: Drawing a horizontal line across the tree. The number of vertical lines it intersects = **number of clusters**. Cuts across long branches show **distinct** clusters.
+![[dendogram.png|440]]
 **Python Implementation**:
 ```python
 from scipy.cluster.hierarchy import dendrogram, linkage, ward
@@ -389,8 +389,8 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random
 ![[iris-decision-tree.png|300]]
 ### Impurity Measures: Entropy & Gini
 To quantify the "goodness" of a split, we measure the **impurity** of a node.
->**Entropy** is an impurity measure based on information theory. For a node with class proportions $p_c$, it is defined as: 
-$$S = -\sum_{c} p_c \log_2 p_c$$
+>**Entropy** is an impurity measure based on information theory. For a node with class proportions $p_c$, it is defined as: $$S = -\sum_{c} p_c \log_2 p_c$$
+
 >**Low entropy**: the node is pure (predictable). **High entropy**: node is mixed (unpredictable).
 
 > **Gini Impurity** is another common measure: $G = 1 - \sum_c p_c^2$. It measures the probability of misclassifying a randomly chosen element.
