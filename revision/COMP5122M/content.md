@@ -612,6 +612,7 @@ We have noisy, high-dimensional data that is *approximately* low-rank. We want a
 
 **Process**: Since singular values are ordered by importance, we can create a **rank-$k$ approximation** $X_k$ of the original matrix $X$ by keeping only the first $k$ columns of $U$, the first $k$ singular values in $\Sigma$, and the first $k$ rows of $V^T$:$$X \approx X_k = U_k \Sigma_k V_k^T$$
 where $U_k$ is $m \times k$, $\Sigma_k$ is $k \times k$, and $V_k^T$ is $k \times n$.
+![[mortality-fertility-vis.png|]]
 ![[rank3-data.png|440]]
 **Interpretation**:
 * **Rank-1 Approximation ($k=1$)**: Represents all data points as lying along a single line (the first principal component). All variation is attributed to one latent factor. For the rectangle example, it found a rough relationship like `Area ≈ 3*(Width + Height)`.
