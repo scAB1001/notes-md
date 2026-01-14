@@ -309,8 +309,9 @@ from sklearn.cluster import AgglomerativeClustering
 agg = AgglomerativeClustering(n_clusters=3)
 labels = agg.fit_predict(X)  # Note: Cannot predict on new data
 ```
+![[hierarchical-clustering.png|300]]
 ## 5.4 Dendrograms
-**Situation**: The primary tool for **visualizing and interpreting hierarchical clustering** results, especially with multi-dimensional data. Allows you to decide the number of clusters *after* analysis.
+The primary tool for **visualizing and interpreting hierarchical clustering** results, especially with multi-dimensional data. Allows you to decide the number of clusters *after* analysis.
 
 **Interpretation**:
 * **Leaves**: Individual data points.
