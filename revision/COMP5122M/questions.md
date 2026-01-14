@@ -333,3 +333,104 @@ a) Cross-validation
 b) Random forest
 c) Grid search
 d) Support vector machine
+
+Question 46
+Suppose you are developing a music streaming platform where artists can upload their music and listeners can stream the music collection uploaded on the platform. You can assume that a sound analysis algorithm extracts different features from each uploaded song such as tempo, sound level, pitch, and instrument, and there is a list of possible genres defined which are currently entered manually by the artists for each song. The system you will develop should be able to automatically predict the genre of a song when an artist uploads their music. What is the task described as predicting the genre of a song an example of? Select one correct answer.
+a) Dimensionality Reduction
+b) Regression
+c) Classification
+d) Clustering
+e) Reinforcement Learning
+
+Question 47
+Which of the following statements are correct regarding the task described in Q1? Select two correct answers.
+It is an Unsupervised Learning task.
+PCA can be used directly to predict the genre of a song.
+It is a Supervised Learning task.
+The task requires labeled training data.
+K-Means Clustering can be used for this task.
+Select up to 5 options
+
+Question 48
+Working for the same platform described in Q1, you are also asked to develop a recommendation system
+which recommends to a user the playlists created by another user who listens to the most similar music to the
+user. Which specific machine learning algorithm is appropriate for this, and how can we use this algorithm
+for this task? Explain. (Note that deep learning algorithms are out of the scope of this course)
+
+Question 49
+Suppose you are developing a face recognition system for a company with 40 employees. You collect 10
+different images of each person and for each image, you have information about who is in the photo. You
+can assume that a computer vision algorithm extracts five different numeric features from each of these
+images. This system will identify the employee by taking a photo of their face when they enter the building.
+Which machine learning algorithm that we have learned about in class is not appropriate for the task
+described?
+a) Decision Tree
+b) Naive Bayes
+c) K-Nearest Neighbours
+d) Random Forests
+e) K-Means Clustering
+
+Question 50
+Which of the following statements are correct regarding the task described in Q4? Select three correct answers. Select up to 5 options
+a) It is a Supervised Learning task.
+b) It is an Unsupervised Learning task.
+c) The task requires labeled training data.
+d) The visual features extracted from the image are the labels for each image.
+e) The employee identity is the label for each image.
+
+Question 51
+Suppose you are developing a self-driving autonomous vehicle system. You collect video data recordings
+that show the road ahead and the kinematic data of the angle of the wheel. This system will learn to
+automatically adjust the angle of the wheel according to the visual features extracted from the video data
+for each time frame.  What is the task described as predicting the degree of the wheel task to adjust it an example of? Select one correct answer.
+a) Clustering
+b) Reinforcement Learning
+c) Regression
+d) Classification
+e) Dimensionality Reduction
+
+Question 52
+Which of the following can be said for the initial step of the agglomerative clustering algorithm? Select one correct answer.
+a) Each data point is determined as a cluster center.
+b) The median value of the data points is calculated and a cluster center with these values is assigned.
+c) Randomly determined values are assigned as cluster centers.
+d) A randomly determined number of K cluster centers are assigned at the beginning.
+e) The data point closest to the middle value of the data points is selected and determined as the cluster center.
+
+Question 53
+Given the training dataset below and a test instance with attributes (M, 0.80), which of the following
+ship types would a 1-Nearest Neighbour classifier predict, using Euclidean distance? Select one correct answer.
+Training dataset:
+Instance 1: (L, 1.00) - Cargo Ship
+Instance 2: (L, 0.10) - Cargo Ship
+Instance 3: (M, 0.15) - Cruise Ship
+Instance 4: (M, 0.45) - Tanker Ship
+Instance 5: (H, 0.30) - Tanker Ship
+Instance 6: (H, 0.45) - Container Ship
+Instance 7: (M, 0.11) - Cruise Ship
+a) Cruise Ship
+b) No ship type can be predicted
+c) Container Ship
+d) Tanker Ship
+e) Cargo ship
+
+Question 54
+Imagine you are given a high dimensional dataset with thousands of features but limited training examples. What challenges might this pose for building a machine learning model, and what strategies could you apply to address them? Name two strategies and explain how they would address the challenges.
+
+Question 55
+Age: [22.0, 38.0, 26.0, 35.0, 35.0]
+Survived: [0, 1, 1, 1, 0]
+Female: [0, 1, 1, 1, 0]
+Table: The first 5 rows of the Titanic dataset
+Suppose we want to build a classifier to predict whether a person survived the sinking of the Titanic. The
+first 5 rows of our dataset are given above in Table.
+For a given classifier, suppose the first 10 predictions of our classifier and 10 true observations (ground
+truth) are as follows:
+Prediction: [1,1,1,1,1,0,1,1,1,1]
+Label: [0,1,1,1,0,0,0,1,1,1]
+What is the accuracy of our classifier on these 10 predictions? Select one correct answer.
+a) %60
+b) %80
+c) %50
+d) %90
+e) %70
