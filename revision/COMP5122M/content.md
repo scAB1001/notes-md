@@ -364,9 +364,9 @@ Useful for simple, interpretable classification, especially when the decision bo
 3.  **Identify Neighbors**: Select the **k** training points with the smallest distances.
 4.  **Vote for Label**: Assign the most common class among the **k neighbors**.
 
-| iris knn init            | steps 1,2&3              |
-| ------------------------ | ------------------------ |
-| ![[iris-knn-1.png\|290]] | ![[iris-knn-2.png\|280]] |
+| step 1                   | step 2                     | step 3              |
+| ------------------------ | -------------------------- | ------------------- |
+| ![[iris-knn-1.png\|290]] | ![[iris-knn-2 1.png\|300]] | ![[iris-knn-3.png]] |
 **Advantages**:
 * **Simple** to understand and implement.
 * **No training phase** (stores the training data).
