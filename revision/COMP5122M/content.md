@@ -272,7 +272,9 @@ kmeans.fit(X)
 labels = kmeans.labels_          # Cluster assignments for training data
 new_labels = kmeans.predict(X_new) # Assign new points to clusters
 ```
-### Evaluation & Loss Functions
+### Loss Functions: Inertia and Distortion
+Each time you run K-Means, you get a different output, depending on where centers started.
+To evaluate different clustering results, we need a loss function.
 * **Inertia (Within-Cluster Sum of Squares)**: Sum of squared distances of each point to its assigned centroid. **k-Means minimizes inertia**.
 * **Distortion**: Weighted average of squared distances (weighted by cluster size). More formal probabilistic interpretation.
 **Choosing Best Run**: Run k-means multiple times (due to random initialization) and select the result with the **lowest inertia**.
