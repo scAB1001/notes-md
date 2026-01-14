@@ -73,7 +73,7 @@
     *   **Multiple Imputation**: Create multiple datasets with different imputed values to account for uncertainty.
     *   **Essential**: Understand **why data is missing** (Missing Completely at Random - MCAR, Missing at Random - MAR, Missing Not at Random - MNAR).
 ## 2.7 Data Storage Formats
-*   **Tabular Data**: Two-dimensional tables (rows=records, columns=variables). Formats: CSV, Excel.
+*   **Tabular Data**: Two-dimensional tables (rows=records, columns=variables) -> CSV, Excel.
 *   **Structured Data**: Records as dictionaries with consistent keys. Formats: JSON, XML.
 *   **Semi-structured Data**: Records lack uniform structure; some data not in key-value pairs.
 ## 2.8 Common Issues & Data Cleaning
