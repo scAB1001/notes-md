@@ -301,8 +301,8 @@ Use k-means with caution or avoid when:
 * **Average**: Merges clusters with the smallest **average distance** between all points.
 * **Complete**: Merges clusters with the smallest **maximum distance** between points.
 * **Single**: Merges clusters with the smallest **minimum distance** between points (can lead to "chaining").
-![[agglomerative-1.png|400]]
-![[agglomerative-2.png|400]]
+![[agglomerative-1.png|700]]
+![[agglomerative-2.png|700]]
 **Python Implementation**:
 ```python
 from sklearn.cluster import AgglomerativeClustering
