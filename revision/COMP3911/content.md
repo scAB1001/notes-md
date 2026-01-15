@@ -194,7 +194,7 @@ Developers know that there will be vulnerabilities and potential exploits. After
 Those with goodwill practise *responsible disclosure*, whereby they *inform* the software *vendor* of their find, receive their award and agree to *stay silence* for a given time.
 A *Bug Bounty Program* is a structured environment where researchers investigated vulnerabilities.
 ### 0Day Attacks
-Those who are more morally questionable, use the vulnerability to attack the system. *Exploits*that are *actively* in use *before* any responsible disclosure has taken place are called *0day attacks*.
+Those who are more morally questionable, use the vulnerability to attack the system. *Exploits* that are *actively* in use *before* any responsible disclosure has taken place are called *0day attacks*.
 ## The Vulnerability Cycle
 ![[the-vulnerability-cycle.png\|400]]
 1. Vulnerability discovered and disclosed
@@ -445,7 +445,7 @@ A server is vulnerable to DROWN if:
 - Its private key is used on _any other server_ that allows SSLv2 connections, even for another protocol. Many companies reuse the same certificate and key on their web and email servers. In this case, if the email server supports SSLv2 and the web server does not, an attacker can take advantage of the email server to break TLS connections to the web server.
 ### Lack of HSTS (HTTPS Strict Transport Security)
 - HSTS forces use of HTTPS for all connections but still allows initial insecure requests via HTTP - risk of MITM attack.
-### Miuse of TLS Certificates
+#### Miuse of TLS Certificates
 ### Open Redirects
 Unvalidated redirects and forwards are possible when a web application accepts untrusted input that could cause the web application to redirect the request to a URL contained within untrusted input. By modifying untrusted URL input to a malicious site, an attacker may successfully launch a phishing scam and steal user credentials.
 
@@ -469,7 +469,7 @@ There are two main type of XSS:
 2. Stored XSS (rare)
 ### Reflected XSS
 Occurs when an app receive data in an HTTP request and includes that data within the immediate response in an unsafe way. 
-- The emphasis is on server-side validationg of potentially dangerous client input.
+- The emphasis is on server-side validation of potentially dangerous client input.
 ```HTML
 <url>https://bad.com/msg=hello%20world</url>
 <p>hello world</p>
@@ -484,7 +484,7 @@ If a form uses POST, then the *value* field is used instead of the URL. This is 
 ### Stored XSS
 - Relies on an injected script (JS) being stored on a vulnerable server- usually in the db.
 - Targets are often forums, blogs with comments, sites that allow reviews etc.
-- There is no social engineering needed as the code is delivered through normal brrowsing activity.
+- There is no social engineering needed as the code is delivered through normal browsing activity.
 - Is more dangerous as malicious code can persist for a long time and affect many people.
 
 To avoid:
@@ -495,10 +495,9 @@ To avoid:
 When an app does not properly handle user input, an attacker can supply valid HTML code e.g., via a parameter value, and inject their own content into the page.
 #### Frame attack
 An attacker could inject a *frame* that points back to a server they control.
-This woud dispay a message saying the user has been logged out and must re-supply credentials.
-This is achievable within a form too.
+This woud dispay a message saying the user has been logged out and must re-supply credentials. This is achievable within a form too.
 ## Cross-site Request Frogery XSRF/CSRF
-Here, the client trusts the server, exploiting the fact that your broswer ssens and authentication token to a server; tricks you/your browser into authenticating a request you never intended to make.
+Here, the client trusts the server, exploiting the fact that your broswer sends an authentication token to a server; tricks you/your browser into authenticating a request you never intended to make.
 #### Example
 1. You receive an email telling you that there is suspicious activity on your banking app.
 2. The email asks you to first log in to the app on your browser and then visit the following link:
@@ -543,7 +542,7 @@ Looks like a phone charger but sniffs keystrokes for certain Microsoft wireless 
 ### Password Hashing
 - Store the hash of a password, not the password itself.
 - Hash functions are fast by design so brute-forcing would be efficient.
-	- Avoid this by hashing them same password multiple times to slow down the method.
+	- Avoid this by hashing the same password multiple times to slow down the method.
 - Attacker could precompute a mapping of hashes onto passwords.
 	- Avoid by using a random salt
 #### Hash Cracking Algorithm
@@ -606,7 +605,7 @@ Attackers must also know the following:
 - The 16-bit request/transaction ID number
 - The destination authoritative nameserver
 #### Defence
-DNS mapps domain names to IP addresses using UDP protocols with no verifcation checks. *DNSSEC (DNS Security Extensions)* adds a critical security layer by using digital signatures to authenticate data, preventing attacks like DNS spoofing or cache poisoning by ensuring responses come from the correct source and haven't been tampered with. 
+DNS maps domain names to IP addresses using UDP protocols with no verifcation checks. *DNSSEC (DNS Security Extensions)* adds a critical security layer by using digital signatures to authenticate data, preventing attacks like DNS spoofing or cache poisoning by ensuring responses come from the correct source and haven't been tampered with. 
 ### DNS Hijacking
 If attackers gain physical access or hack a DNS Resolver, they can affects responses via the registrar.
 ### ARP 
