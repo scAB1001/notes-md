@@ -970,15 +970,18 @@ $$ load(v) = \begin{cases}
 & \; \ e_1...e_k \text{ that point to nodes } v_1...v_k
 \end{cases} $$
 ![[marked-fdd-algo2.png\|400]]
-If $v$ is non-terminal AND if that vertex has $k$ edges AND those edges point to $m$ distinct nodes, then the $load(v)$ is the sum of the product of the load of the edge AND the vertex it points to.
+If $v$ is non-terminal AND if that vertex has $k$ edges pointing to $m$ distinct nodes, the $load(v)$ is the sum of the product of the load of the edge + the vertex it points to.
 
 F2 has 2 edges and 1 distinct node per edge. The load of the vertex is the sum of each load edge multiplied by the load of the vertex it points to.
 
 - Load of vertex a = 1, load of vertex d = 1. 
-- Load of edge F2->a = 2 ([3,4] and [6,8]), load of edge F2->d = 1 (marked "all")
+- Load of edge $F2\rightarrow a = 2$ ([3,4] and [6,8])
+- Load of edge $F2\rightarrow d = 1$ (marked "all")
 $$\text{load}(F2) = (\text{load}(F2\rightarrow a) \cdot \text{load}(v_a)) + (\text{load}(F2\rightarrow d) \cdot \text{load}(v_d)) = 2\cdot1 + 1\cdot1 = 3 
 $$
-If the edge F2->a were marked as "all" instead, the load of F2 would be 4.
+If the edge F2->a were marked as "all" instead of F2->B, the load of F2 would be 4.
+$$\text{load}(F1) = (\text{load}(F1\rightarrow F2) \cdot \text{load}(F2)) + (\text{load}(F1\rightarrow d) \cdot \text{load}(v_d)) = 1\cdot3 + 1\cdot1 = 4 
+$$
 ### Algorithm 2.5: Minimal Load Marked FDD
 - Ultimately, we want to find the FDD of minimum load or the *M-FDD*.
 - The smaller the load, the fewer *simple* rules.
