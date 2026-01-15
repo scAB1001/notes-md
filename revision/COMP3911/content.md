@@ -98,7 +98,7 @@ E.g., user denies making an online transaction and the system lacks sufficient e
 ### 4. Info disclosure - violate confidentiality.
 E.g., Servers revealing directory structures, detailed messages exposing software/protocol versions.
 ### 5. Denial of Service
-E.g., Mirai botnet: Consisted of large number of IoT devices such as IP cameras.
+E.g., *Mirai botnet*: Consisted of large number of IoT devices such as IP cameras.
 Instructed to send a large number of traffic to Dyn (DNS provider) servers. Prevent the system from providing the designated service.
 ### 6. Elevation of privilege - Gaining special status.
 E.g., Flaw in OS (buffer overflow). Ultimately, get admin privileges.
@@ -111,11 +111,11 @@ Certain threats are more prevalent than others and should be focused.
 ## Specifying Security Requirements
 These threats are translated into requirements and prioritsed (cannot handle all of them).
 E.g., 
-	**THREAT**: DoS attack on system
-	**HOW**: Flood Network Interface or Disk Space
-	**RISK**: High
-	**REQUIREMENT**: DoS should not be allowed.
-	**MECHANISMS**: Use firewall to drop certain packets and restrict resources used by anonymous users.
+**THREAT**: DoS attack on system
+**HOW**: Flood Network Interface or Disk Space
+**RISK**: High
+**REQUIREMENT**: DoS should not be allowed.
+**MECHANISMS**: Use firewall to drop certain packets and restrict resources used by anonymous users.
 # 02. Threat Modelling pt. 2
 ## STRIDE Model Goals
 Threat modelling can be considered from three different perspectives:
@@ -636,7 +636,8 @@ dsniff -m
 john
 Leeds123
 ls -l
-exit```
+exit
+```
 ARP spoofing can be used to intercept these credentials.
 #### Fix: Secure SHell (SSH)
 Nowadays we use SSH to cryptographically login and transfer files remotely as well a secure connection tunelling.
@@ -1015,9 +1016,6 @@ Let's explain these:
 2. This path avoids the first "all", going from F1 to F2 and then from F2 to discard. So F1 has the edge values to F2 AND F2 has the edge values to discard which are marked "all", so the full domain range 1-10.
 3. This path cannot avoid the "all"s and goes from F1 directly to discard. This is not allowed because we must include the label state as well. So F1 has the domain range to discard AND F2 also has the domain range to discard.
 #### Matching and Resolving Predicates
-$$\begin{cases}
-
-$$
 $$\begin{align}
 r_1=F_1 \in[5,8] \land F_2\in [3,4] \cup[6,8] \rightarrow \fcolorbox{green}{black}{a} \\
 r_1.mp=F_1 \in[5,8] \land F_2\in [3,4] \cup[6,8] \ \ \ \ \ \  \ \ \ \ \ \\
@@ -1032,7 +1030,6 @@ r_3.mp=F_1 \in[1,10] \land F_2 \in [1,10]  \ \ \ \ \ \  \ \ \ \ \ \\
 r_3.rp=F_1 \in[1,4] \cup [9,10] \land F_2 \in [1,10]  \ \ \ \ \ \  \ \ \ \ \
 \end{align}$$
 1. Rule 1 has identical regular, matching and resolving predicate rules because none of the edges are marked with "all".
-
 ### Algorithm 4: Firewall Compaction
 Discover redundant rules.
 Take the first rule of each firewall..
