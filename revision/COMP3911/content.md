@@ -1023,14 +1023,15 @@ r_1.rp=F_1 \in[5,8] \land F_2\in [3,4] \cup[6,8] \ \ \ \ \ \  \ \ \ \ \ \\
 \\
 r_2=F_1 \in[5,8] \land F_2 \in[1,10] \rightarrow \fcolorbox{red}{black}{d} \\
 r_2.mp=F_1 \in[5,8] \land F_2 \in[1,10]  \ \ \ \ \ \  \ \ \ \ \ \\
-r_2.rp=F_1 \in[5,8] \land F_2 \in[1,10] \cup [5,5] \cup [9,10]  \ \ \ \ \ \  \ \ \ \ \ \\
+r_2.rp=F_1 \in[5,8] \land F_2 \in \{[1,2],[5,5],[9,10]\}  \ \ \ \ \ \  \ \ \ \ \ \\
 \\
 r_3=F_1 \in[1,10] \land F_2 \in [1,10] \rightarrow \fcolorbox{red}{black}{d} \\
 r_3.mp=F_1 \in[1,10] \land F_2 \in [1,10]  \ \ \ \ \ \  \ \ \ \ \ \\
-r_3.rp=F_1 \in[1,4] \cup [9,10] \land F_2 \in [1,10]  \ \ \ \ \ \  \ \ \ \ \
+r_3.rp=F_1 \in[1,4] \cup [9,10] \land F_2 \in [1,10]  \ \ \ \ \ \  \ \ \ \ \ \\
 \end{align}$$
 1. Rule 1 has identical regular, matching and resolving predicate rules because none of the edges are marked with "all".
 ### Algorithm 4: Firewall Compaction
 Discover redundant rules.
-Take the first rule of each firewall..
+Take the first rule of each firewall.
 ### Algorithm 5: Firewall Simplification
+Merges adjacent rules with the same decision if their predicates can be combined into a single interval (e.g., `F1 ∈ [1,5]` and `F1 ∈ [6,10]` → `F1 ∈ [1,10]`).
