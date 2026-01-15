@@ -194,7 +194,7 @@ Developers know that there will be vulnerabilities and potential exploits. After
 Those with goodwill practise *responsible disclosure*, whereby they *inform* the software *vendor* of their find, receive their award and agree to *stay silence* for a given time.
 A *Bug Bounty Program* is a structured environment where researchers investigated vulnerabilities.
 ### 0Day Attacks
-Those who are more morally questionable, use the vulnerability to attack the system. *Exploits* that are *actively* in use *before* any responsible disclosure has taken place are called *0day attacks*.
+Those who are more morally questionable, use the vulnerability to attack the system. *Exploits*that are *actively* in use *before* any responsible disclosure has taken place are called *0day attacks*.
 ## The Vulnerability Cycle
 ![[the-vulnerability-cycle.png\|400]]
 1. Vulnerability discovered and disclosed
