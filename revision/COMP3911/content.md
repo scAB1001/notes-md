@@ -917,12 +917,12 @@ For any FDD $f$, we have:
 ## Reducing The Number of Rules
 It takes longer for the firewall program to arrive at a decision if it must complete many rules per packet. This FDD can be further reduced. To compress the graph we use the concept of *isomorphism* and *isomorphic nodes*.
 ### Isomorphic Nodes
-Two nodes $v$ and $v'$ in an FDD are isomorphic *iff*:
+Two nodes $v$ and $v'$ in a FDD are isomorphic *iff*:
 - both are terminal nodes with identical labels
 - both are non-terminal nodes and there is a 1-to-1 correspondence between the outgoing edges of $v$ and $v'$, such that every pair of corresponding edges have identical labels pointing to the same node.
 
 **Terminal nodes**
-- All the accept ==terminal nodes are isomorphic to each other== because they have the same label (F2).
+- All accept ==terminal nodes are isomorphic to each other== as they have the same label (F2).
 - All the discard nodes are also isomorphic to each other because they also share F2.
 
 **Label nodes**
@@ -931,7 +931,7 @@ Two nodes $v$ and $v'$ in an FDD are isomorphic *iff*:
 	- Each branch to those terminal nodes shares the same edge values.
 	- This is not true for the left-most and right-most F2 label.
 #### Reduced FDD Definition
-An FDD is *reduced* *iff*:
+a FDD is *reduced* *iff*:
 - No node in FDD has only one outgoing edge (must terminate).
 - No two nodes in FDD are isomorphic to each other.
 - No two node have more than one edge between them
@@ -954,7 +954,7 @@ Most firewalls require simple rules and the ==number of simple rules from marked
 A marked version $f'$ of FDD $f$ is identical except that ==exactly one outgoing edge of each non-terminal node== is marked *"all"*, alongside the pre-existing edge values.
 FDDs $f$ and $f'$ are equivalent because the labels of those marked edge do not change.
 ![[marked-fdd-algo2.png\|400]]
-We must introduce the concept of a load of a non-empty set of integers $S$, denoted by $load(S)$.
+Introduce the concept of a load of a non-empty set of integers $S$, denoted by $load(S)$.
 This represents the minimal number of non-overlapping integer intervals that cover $S$.
 Let $S = \{1,2,3,5,8,9,10\} \therefore load(S)=3$ and the intervals are: [1,3], [5,5], [8,10].
 The load of an edge $e$ in a marked FDD is:
