@@ -1908,12 +1908,12 @@ This question covers Algorithm 2 (Marking) and the calculation of load for gener
 **[4 marks]**
 
 **(c)** The load of an **edge** $e$ in a marked FDD is:
-\[
+$$
 load(e) = \begin{cases}
 1 & \text{if } e \text{ is marked "all"} \\
 load(I(e)) & \text{otherwise}
 \end{cases}
-\]
+$$
 The load of a **node** $v$ is defined recursively.
 (i) What is $load(v)$ if $v$ is a **terminal node**?
 (ii) If $v$ is a non-terminal node with $k$ outgoing edges $e_1...e_k$ pointing to nodes $v_1...v_k$, state the formula for $load(v)$.

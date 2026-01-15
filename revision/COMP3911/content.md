@@ -1029,9 +1029,52 @@ r_3=F_1 \in[1,10] \land F_2 \in [1,10] \rightarrow \fcolorbox{red}{black}{d} \\
 r_3.mp=F_1 \in[1,10] \land F_2 \in [1,10]  \ \ \ \ \ \  \ \ \ \ \ \\
 r_3.rp=F_1 \in[1,4] \cup [9,10] \land F_2 \in [1,10]  \ \ \ \ \ \  \ \ \ \ \ \\
 \end{align}$$
-1. Rule 1 has identical regular, matching and resolving predicate rules because none of the edges are marked with "all".
-### Algorithm 4: Firewall Compaction
-Discover redundant rules.
-Take the first rule of each firewall.
-### Algorithm 5: Firewall Simplification
-Merges adjacent rules with the same decision if their predicates can be combined into a single interval (e.g., `F1 ∈ [1,5]` and `F1 ∈ [6,10]` → `F1 ∈ [1,10]`).
+Perfect. Here is the concise step-by-step procedure for calculating `.mp` and `.rp` values.
+### Step-by-Step: Calculating `.mp` & `.rp`
+
+#### **Step 1: Obtain Rules from Marked FDD (Algorithm 3)**
+For each **decision path** in depth-first traversal (non-"all" edges first):
+1. For field $F_i$:
+   - If $F_i$ **appears** on path with edge $e_j$:  $$ S_i = I(e_j) $$
+   - If $F_i$ **does not appear**:  $$ S_i = D(F_i) $$
+   - **Exception:** If edge is **marked "all"**, treat as if $F_i$ **does not appear** ($S_i = D(F_i)$).
+1. Rule `.mp` is:  $$F_1 \in S_1 \land F_2 \in S_2 \land ... \land F_n \in S_n \rightarrow \text{decision}$$
+**Example from our FDD:**
+- Path 1 (F1→F2→a): $S_1=[5,8], S_2=([3,4]\cup[6,8])$  
+  → $r_1.mp = F_1\in[5,8] \land F_2\in([3,4]\cup[6,8])$
+#### **Step 2: Initialize `.rp` for First Rule**
+$$
+r_1.rp = r_1.mp
+$$
+*(No preceding rules to subtract.)*
+#### **Step 3: Calculate `.rp` for Subsequent Rules**
+For rule $r_k$ where $k > 1$:
+**Step 3.1:** Compute union of **all preceding** `.mp` sets: $$U_k = \bigcup_{j=1}^{k-1} r_j.mp$$
+*(This is the set of packets matched by any earlier rule.)*
+
+**Step 3.2:** Subtract this union from $r_k.mp$:$$r_k.rp = r_k.mp \setminus U_k$$
+Where $\setminus$ is **set difference on packet tuples**, not field-by-field.
+
+**Step 3.3: Practical Method (Field-by-field when possible):**
+- If preceding rules have **same decision** as $r_k$, they don't affect `.rp` (same outcome).
+- If preceding rules have **different decision**, identify **field constraints** that uniquely define the **remaining region**.
+- **Key insight:** A preceding rule with wildcard in field $F_j$ removes **all packets** matching its other constraints, **regardless** of $F_j$.
+
+**Example for $r_3$:**
+- $r_3.mp = F_1\in[1,10] \land F_2\in[1,10]$
+- $U_3 = (F_1\in[5,8] \land F_2\in[1,10])$ (from r₂, which contains r₁)
+- Subtract: Remove all packets with $F_1\in[5,8]$, **keeping** $F_2\in[1,10]$ for remaining $F_1$
+- Result:  $$r_3.rp = F_1\in([1,4]\cup[9,10]) \land F_2\in[1,10]$$
+#### **Step 4: Check for Redundancy (Algorithm 4 Input)**
+If $r_k.rp = \emptyset$ (empty set), rule $r_k$ is **redundant** and can be removed.
+
+**Test:** $r_k.rp$ is empty if $r_k.mp \subseteq U_k$  
+(i.e., every packet matching $r_k$ is already matched by an earlier rule).
+### **Quick-Reference Rules**
+
+| Step | Task | Formula/Method |
+|------|------|----------------|
+| 1 | Get `.mp` from FDD path | $S_i = \begin{cases} I(e_j) & \text{if } F_i \text{ on path, edge not "all"} \\ D(F_i) & \text{otherwise} \end{cases}$ |
+| 2 | First rule `.rp` | $r_1.rp = r_1.mp$ |
+| 3 | Subsequent `.rp` | $r_k.rp = r_k.mp \setminus \bigcup_{j<k} r_j.mp$ |
+| 4 | Redundancy check | If $r_k.rp = \emptyset$, remove $r_k$ |
