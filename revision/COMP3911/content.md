@@ -641,11 +641,10 @@ ARP spoofing can be used to intercept these credentials.
 #### Fix: Secure SHell (SSH)
 Nowadays we use SSH to cryptographically login and transfer files remotely as well a secure connection tunelling.
 Traffic is encrypted with a symmetric cypher, negotiated between client and server.
-Public kye cryptography is used for client authentication and symmetric key exchange.
+Public key cryptography is used for client authentication and symmetric key exchange.
 ### Fix: Secure SHell (SSH)
 Every host has its own SSH Key Pair.
-When a client connects, the server provides its public key. This allows the client to confirm the server's identity by checking against a local db of stored public keys or by verifying a cert.
-This public key is used to encrypt and authenticate data to be sent to the server.
+When a client connects, the server provides its public key. This allows the client to confirm the server's identity by checking against a local db of stored public keys or by verifying a cert. This public key is used to encrypt and authenticate data to be sent to the server.
 
 In 2008, there was CBC mode vulnerability whereby an attacker could recover 14 bits of plaintext from arbitrary blocks of ciphertext with a probability of $2^{14}$. This was later fixed by using CTR mode not CBC.
 #### Man In The Middle Attacks
@@ -709,7 +708,6 @@ So executions of the target system are a proper subset of all executions:$$ E(T)
 Every specification/property is the intersection of a safety property (bad thing shouldn't happen) and a liveness (good thing must happen) property.
 **Safety property**: At most one process can access the critical section.
 **Liveness property**: Every requesting process is eventually granted access to the critical section.
-
 #### Representing the states
 Let r = 0,1 (not requesting, requesting)
 Let c = 0,1 (not accessing, accessing)
@@ -804,7 +802,7 @@ A firewall is a security guard placed at the point of entry between a private ne
 - Our rule is a $\braket{\text{predicate}} { \rightarrow } \braket{\text{decision}}$.
 - The predicate is a boolean expression over $d_1 ... d_n$, decision $\in \{a,d\}$.
 ### Mail Server Firewall Example
-![[firewall-rule-ex.png\|400]]
+![[firewall-rule-ex.png\|500]]
 
 | Name | Meaning                                                                  |
 | :--: | ------------------------------------------------------------------------ |
@@ -818,7 +816,7 @@ $r_1: (I=0) \land (S=\text{any}) \land (D=\text{Mail Server}) \land (N=25) \land
  > Allow incoming SMTP packets from any internet host to proceed to the mail server.
 
 $r_2: (I=0) \land (S=\text{Malicious Hosts}) \land (D=\text{any}) \land (N=any) \land (P=\text{any}) \rightarrow \fcolorbox{red}{black}{discard}$.
- > Discard packets from known malicious internet hosts regardless of destination, port or protocol.
+ > Discard packets from malicious internet hosts regardless of destination, port or protocol.
 
 $r_3: (I=1) \land (S=\text{any}) \land (D=\text{any}) \land (N=any) \land (P=\text{any}) \rightarrow \fcolorbox{green}{black}{accept}$.
  > Allow all outgoing packets from private network.
@@ -849,7 +847,7 @@ In the initial rules, $r_3$ is redundant because all the packets that match $r_3
 *Solution*: Remove rule 3.
 #### Fixed Rules
 $r_1: (I=0) \land (S=\text{Malicious Hosts}) \land (D=\text{any}) \land (N=any) \land (P=\text{any}) \rightarrow \fcolorbox{red}{black}{discard}$.
- > Discard packets from known malicious internet hosts regardless of destination, port or protocol.
+ > Discard packets from malicious internet hosts regardless of destination, port or protocol.
 
 $r_2: (I=0) \land (S=\text{any}) \land (D=\text{Mail Server}) \land (N=25) \land (P=\text{TCP}) \rightarrow \fcolorbox{green}{black}{accept}$.
  > Allow incoming SMTP packets from any internet host to proceed to the mail server.
