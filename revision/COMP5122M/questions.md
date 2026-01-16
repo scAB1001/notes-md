@@ -722,7 +722,6 @@ d) A and D
 #### Model Solution for 4.6:
 **a) A and B**
 *   **Explanation**: **Single Linkage** uses the *minimum* distance between points in two clusters. Initially, each point is its own cluster. The smallest distance in the entire matrix is 2 (between A and B). Therefore, clusters containing A and B are merged first.
-
 ### Section 5: Regression, Overfitting & Model Evaluation (Lectures 7 & 8)
 #### Question 5.1 (1 mark)
 You are fitting a **polynomial regression** model of the form $y = w_0 + w_1x + w_2x^2 + ... + w_Mx^M$. As you increase the polynomial degree $M$ from 1 to 9, you observe the training error drops to nearly zero, but the test error increases sharply. This is a classic sign of:
