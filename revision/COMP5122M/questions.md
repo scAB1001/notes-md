@@ -827,7 +827,7 @@ b) **Variance Calculation**:
     *   Variance from PC2: $(20.1)^2 = 404.01$
     *   **Total variance** for the first two: $2043.04 + 404.01 = 2447.05$
     *   To estimate *total* variance, sum squares of all singular values. The first few dominate. A rough estimate using the first 6: $2043.04 + 404.01 + 72.25 + 4.41 + 0.81 + 0.09 \approx 2524.6$.
-    *   **Percentage** = $(2447.05 / 2524.6) * 100 \approx **96.9%**.
+    *   **Percentage** = $(2447.05 / 2524.6) * 100 \approx 96.9$%.
     *   **Conclusion**: The first two PCs capture **approximately 97%** of the total variance, indicating the data is essentially 2D.
 #### Question 6.4 (1 mark)
 How does a **Scree Plot** aid in the PCA process?
