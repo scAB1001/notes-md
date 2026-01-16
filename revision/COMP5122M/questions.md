@@ -584,7 +584,6 @@ e) Its performance degrades with **irrelevant features**.
 #### Model Solution for 2.6:
 **b) It has **high computational cost at prediction time**.**, **d) It is **sensitive to the scale of the features**.**, and **e) Its performance degrades with **irrelevant features**.**
 *   **Explanation**: k-NN must compute the distance from a new point to *every* point in the training set to make a prediction, which is computationally expensive for large datasets (**b**). As a distance-based algorithm, it requires features to be on comparable scales (**d**) and suffers from the **curse of dimensionality**, where performance drops as the number of irrelevant or noisy features increases (**e**). Interpretability (**a**) is often considered an *advantage* for small k.
-
 ### Section 3: Decision Trees & Random Forests (Lectures 6 & 7)
 #### Question 3.1 (2 marks)
 In the context of building a **Decision Tree** for classification, which of the following statements about **Entropy** are correct? Select **two**.
