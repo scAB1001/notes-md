@@ -836,7 +836,7 @@ b) It plots the cumulative variance explained against the number of principal co
 c) It plots the individual **variance explained** (or singular values) of each principal component in descending order.
 d) It shows the correlation between original features and principal components.
 #### Model Solution for 6.4:
-**c) It plots the individual **variance explained** (or singular values) of each principal component in descending order.**
+**c) It plots the individual variance explained (or singular values) of each principal component in descending order.**
 *   **Explanation**: The **Scree Plot** helps choose the number of components $k$ to retain. One looks for an **"elbow"** – a point where the explained variance drops sharply and levels off. Components after the elbow contribute little variance and are likely noise.
 #### Question 6.5 (5 marks - Open Ended)
 You have a dataset of customer profiles with 50 features, including age, annual spend on 20 different product categories, and 30 survey response scores. You want to segment customers for targeted marketing.
@@ -861,7 +861,6 @@ d) All of the above.
 #### Model Solution for 6.6:
 **d) All of the above.**
 *   **Explanation**: For centered data $X$: (a) The columns of $V$ are the eigenvectors (PC directions). (b) $U$ contains the coordinates of the data in the orthonormal basis defined by $V$. (c) $U \Sigma$ scales these coordinates by the importance (singular values) of each PC, yielding the final PC scores. Therefore, all statements are correct.
-
 ### Section 7: Ethics & Data Governance (Lecture 11)
 #### Question 7.1 (2 marks)
 According to UK-GDPR, what is the key distinction between a **Data Controller** and a **Data Processor**?
