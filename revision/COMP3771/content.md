@@ -369,3 +369,109 @@ Core to **Intelligent Tutoring Systems (ITS)** like SQL-Tutor.
 
 **Model Answer**:
 The system should interpret the early abandonment as a **negative implicit signal**. The update strategy would be to **decrease the weight** for the "Horror" genre in the user's interest vector. Additionally, it could increase weights for the genre of the film they switched *to*, treating that as a positive signal. The decrease for Horror should be significant but not absolute (e.g., reduce by 0.3), as the user might have stopped for reasons unrelated to genre (e.g., interruption).
+# Topic 2: User Model Representation & Building (Continued)
+## 2.4 Building the User Model: Interests in Detail
+
+> Building a model of user **interests** is a core task for recommender systems and adaptive information filters. It involves translating raw user **measurements** into **metrics**, and finally into a structured **user model value**.
+
+### The Click-Through Rate (CTR) Method
+
+A fundamental **implicit feedback** technique for inferring interest.
+
+| **Measurement** → **Metric** → **User Model Value** |
+| :--- |
+| ![[Fig2-click-through.jpg\|500]] |
+
+**Process**:
+1.  **Measurement**: Count `#Seen` (impressions) and `#Clicks` on an item.
+2.  **Metric Calculation**: Compute **Click-Through Rate (CTR)**.
+    $$CTR = \frac{\#Clicks}{\#Seen}$$
+3.  **Interpretation for User Model**: A high CTR for a specific item or category is interpreted as **interest/engagement**. A very low CTR may indicate **disinterest**. This binary or scaled value is stored in the user's interest profile.
+
+**Situation for Use**: Extremely common in **online advertising**, **news recommenders**, and **e-commerce** to gauge immediate response to presented items. It is a direct, real-time engagement signal.
+
+**Limitation**: **Position Bias**—items placed in prominent positions (top of list) get more clicks regardless of interest, potentially skewing the metric. Requires normalisation techniques to account for bias.
+
+### Building Keyword-Based Interest Models
+Used when interests are represented as a **weighted vector of keywords**.
+
+**Process Flow**: `User -> Browsing Agent -> Positive Feedback (Clicks/Likes) -> Keyword Extraction & Weighting -> Interest Vector`
+
+**Core Technique: TF-IDF (Term Frequency-Inverse Document Frequency)**
+This algorithm extracts and weights keywords from documents the user has interacted with (e.g., clicked articles). It identifies terms that are **frequent in the user's positive documents** but **relatively rare across all documents**, making them good discriminators of personal interest.
+
+| **TF-IDF Example Calculation** |
+| :--- |
+| ![[Fig3-TFIDF.jpg\|500]] |
+
+**Formulas**:
+- **Term Frequency (TF)**: How important a term is *within a single user document*.
+  $$tf(t,d) = \frac{f_d(t)}{\max_{w \in d} f_d(w)}$$
+  where $f_d(t)$ is the raw count of term $t$ in document $d$.
+- **Inverse Document Frequency (IDF)**: How important a term is *across the entire collection* (rarity).
+  $$idf(t, D) = \ln \left( \frac{|D|}{|\{d \in D : t \in d\}|} \right)$$
+  where $|D|$ is the total number of documents in the corpus.
+- **TF-IDF Score**:
+  $$tfidf(t,d,D) = tf(t,d) \cdot idf(t, D)$$
+
+**User Model Construction**: The system aggregates TF-IDF vectors from all documents the user has positively interacted with, creating a **composite keyword vector** that represents their interest profile. This profile can then be compared to new documents using cosine similarity for recommendation.
+
+### Building Graph-Based & Concept-Based Interest Models
+These methods move beyond keywords to **semantic representations**.
+
+| Method | Process | Output | Advantage |
+| :--- | :--- | :--- | :--- |
+| **Graph-Based** | `Positive Examples -> Semantic Tagging -> Graph Overlay` | A **graph-based profile** where the user is linked to nodes (concepts) in a semantic network (e.g., ontology). | Captures **relationships** between interests; enables **inference** (if interested in "AI", maybe interested in "Machine Learning"). |
+| **Concept-Based (i)** | `Positive Examples -> Semantic Tagging -> Graph Overlay -> Concept Frequency` | **Top Concepts**: A ranked list of high-level concepts from the ontology. | Reduces **dimensionality** and **noise** compared to keywords; more generalisable. |
+| **Concept-Based (ii)** | `Positive Examples -> Clustering -> Top Extraction` | **Top Concepts**: Identified by clustering positive items and extracting common thematic labels. | Discovers latent **topical themes** without a pre-defined ontology. |
+
+**Key Insight from Research**: User interests are **dynamic** and influenced by both **long-term genuine preference** and **short-term public trends** (e.g., news cycles). Effective models (like the **Bayesian framework** in the Google News paper) should separate and combine these factors.
+
+### Critical Preprocessing: Isolating Interest from Engagement
+Raw behavioural counts (e.g., 10 clicks on Sports, 2 on Politics) conflate:
+1.  **Interest Profile**: The *relative distribution* of attention (e.g., prefers Sports to Politics).
+2.  **Engagement Level**: The *total amount* of activity (e.g., high vs. low usage).
+
+**Solution (Two-Step Normalisation for Clustering)**:
+1.  **Apply TF-IDF** to raw user-category counts. This down-weights ubiquitous categories and boosts distinctive ones.
+2.  **Apply L2 Normalisation** to the resulting TF-IDF vector.
+    $$\mathbf{v}_u^{\text{(norm)}} = \frac{\mathbf{v}_u}{||\mathbf{v}_u||_2}$$
+    This projects the vector onto a unit sphere, **preserving its direction (interest distribution)** while **removing its magnitude (engagement level)**.
+
+**Result**: Users with similar interest patterns but different activity levels (e.g., a sports fanatic and a casual sports fan) will have very similar normalised vectors, allowing clustering algorithms to group them based on **true interest alignment**.
+
+---
+#### **Exam Practice Question 2.5**
+**A news website uses a simple keyword-based user interest model built from TF-IDF on clicked articles. Describe one specific limitation of this approach for modelling interests in *breaking news* stories about a new, unforeseen event (e.g., a sudden natural disaster).**
+**[4 marks]**
+
+**Model Answer**:
+A key limitation is the **vocabulary mismatch and cold-start problem for new terms**. TF-IDF relies on terms extracted from *previously clicked* articles. A breaking news event involves **new named entities and keywords** (e.g., "Hurricane X", "location Y") that have never appeared in the user's historical click data. Therefore, the user's existing TF-IDF vector will have zero weight for these new terms, making it impossible for a pure keyword-matching system to identify the story as potentially relevant, even if the user is highly interested in the general topic of "disasters". This highlights the need for **concept-based or trend-aware models** that can map new terms to known interest categories.
+
+---
+## 2.5 Representing Goals & Tasks
+
+Goal and task modelling drives proactive, context-sensitive adaptation.
+
+| Goals and Tasks Hierarchy Example          |
+| :----------------------------------------- |
+| ![[Fig1-goals-and-tasks-example.jpg\|500]] |
+**Process**:
+1.  **Define a Goal Catalogue**: A pre-defined hierarchy of possible user goals/tasks within the system's domain.
+2.  **Goal/Task Recognition**: The system infers the user's current goal from their actions (e.g., sequence of menu selections, search queries). This is often probabilistic.
+3.  **Overlay Representation**: The user model contains an **overlay** on the goal hierarchy, marking the inferred current goal(s) and their **confidence probabilities**.
+4.  **Adaptation Trigger**: Adaptation rules are fired based on the active goal node. For example, if the goal is identified as `Submit Assignment`, the system can adapt by showing links to the submission portal and relevant style guides.
+
+**Challenge**: **Goal recognition is inherently uncertain and error-prone**. Systems must handle ambiguity and allow for **mixed-initiative correction** (e.g., "Are you trying to book a flight?").
+
+---
+#### **Exam Practice Question 2.6**
+**The research on Google News found that a user's news reading interests change over time, and the predictive power of their click history decays. Describe the two-component Bayesian framework proposed to address this and how it improves recommendations.**
+**[5 marks]**
+
+**Model Answer**:
+The framework decomposes a user's observed behaviour into two latent components:
+1.  **Genuine Interest**: A **relatively stable** long-term personal preference, inferred from the user's historical clicks after *factoring out* temporary trends.
+2.  **News Trend Influence**: A **short-term, location-based** effect representing what the general public is currently clicking on in the user's country.
+
+Using **Bayes' theorem**, the system isolates the genuine interest from trend-inflated clicks. For prediction, it **combines** the estimated genuine interest with the *current* public trend. This improves recommendations because it simultaneously respects the user's core preferences while ensuring recommendations are **timely and relevant to the current news cycle**, leading to the observed 30.9% increase in CTR.
