@@ -475,3 +475,25 @@ The framework decomposes a user's observed behaviour into two latent components:
 2.  **News Trend Influence**: A **short-term, location-based** effect representing what the general public is currently clicking on in the user's country.
 
 Using **Bayes' theorem**, the system isolates the genuine interest from trend-inflated clicks. For prediction, it **combines** the estimated genuine interest with the *current* public trend. This improves recommendations because it simultaneously respects the user's core preferences while ensuring recommendations are **timely and relevant to the current news cycle**, leading to the observed 30.9% increase in CTR.
+
+
+|       | u1  | u2  | u3    | u4  | u5  | u6  |
+| ----- | --- | --- | ----- | --- | --- | --- |
+| item1 | 5   | 1   | 5     | 4   | 0   | 3   |
+| item2 | 3   | 3   | 1     | 1   | 5   | 1   |
+| item3 | 0   | 1   | **0** | 2   | 1   | 4   |
+| item4 | 1   | 1   | 4     | 1   | 1   | 2   |
+| item5 | 3   | 2   | 5     | 0   | 0   | 3   |
+| item6 | 4   | 3   | **0** | 0   | 4   | 0   |
+| item7 | 0   | 1   | 5     | 1   | 1   | 1   |
+
+|                    | u1    | u2    |    u3     | u4    | u5    | u6    |
+| ------------------ | ----- | ----- | :-------: | ----- | ----- | ----- |
+| item1              | 5     | 1     |   ==5==   | 4     | 0     | 3     |
+| item2              | 3     | 3     |   ==1==   | 1     | 5     | 1     |
+| ==item3==          | ==0== | ==1== | ==**?**== | ==2== | ==1== | ==4== |
+| item4              | 1     | 1     |   ==4==   | 1     | 1     | 2     |
+| item5              | 3     | 2     |   ==5==   | 0     | 0     | 3     |
+| item6              | 4     | 3     | ==**0**== | 0     | 4     | 0     |
+| item7              | 0     | 1     |   ==5==   | 1     | 1     | 1     |
+| similarity measure | 0.63  | 0.56  |           | 0.71  | 0.22  | 0.93  |
