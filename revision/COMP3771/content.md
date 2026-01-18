@@ -168,3 +168,111 @@ Adaptivity introduces key **usability threats** that must be designed against:
 **Model Answer**:
 1.  **Diminished Controllability**: The user may feel they have lost control over their own communications if the system incorrectly screens out an important call (e.g., a job interview callback) based on its autonomous decision.
 2.  **Infringement of Privacy**: The system's need to **continuously monitor** the user's activity (via sensors) to infer availability constitutes a significant **privacy invasion**, as it creates a log of the user's presence and actions in their own home.
+# Topic 1: General Schema of User-Adaptive Systems (Practical Applications)
+
+## 1.4 Applied Analysis & System Design
+
+This section reinforces the **general schema** through practical case studies and design exercises, highlighting how theoretical components map to real-world systems and their associated challenges.
+
+### Case Study 1: LILSYS (Call Screening System)
+
+![[generic-adaptive-architecture.png|500]]
+*(Focus on components for LILSYS: Sensors gather data, model decides on call handling, system adapts by ringing/blocking)*
+
+> **Main Purpose**: To act as an **intelligent secretary**, screening incoming phone calls based on the user's **current context and inferred availability**, minimizing disruptive interruptions.
+
+**Information Collected (User Data Gathering):**
+*   **Implicit/Sensor Data**: Physical environment sensors (movement in room, door open/closed), user activity (keyboard/mouse activity, phone off-hook).
+*   **Explicit/Stored Data**: Calendar entries (meetings).
+*   **Explicit User Input**: Manual "on/off" or "inactive" switches.
+
+**Concerns & Challenges:**
+1.  **Privacy & Ethics**: The system performs **continuous, pervasive monitoring** of the user's presence and actions in their private space. This creates a detailed behavioural log, raising significant **surveillance concerns**.
+2.  **Reliability & Latency**: Sensor data can be noisy (movement doesn't equal availability), and processing delays could cause a call to be wrongly blocked or allowed.
+3.  **Transparency & Controllability**: The user may not understand why a specific call was blocked, leading to frustration and a **loss of control** over their own communications.
+
+**Contemporary Similar Systems**: Modern smartphone **"Focus" or "Do Not Disturb" modes** that use calendar, location, and device usage activity to automatically filter notifications and calls.
+
+### Case Study 2: AGENTSALON (Conversational Matchmaking System)
+
+![[generic-adaptive-architecture.png|500]]
+*(Focus on components for AGENTSALON: User input/stored data informs model, which decides on social matches, system adapts by suggesting conversations)*
+
+> **Main Purpose**: To act as a **social facilitator** at events, recommending **who to talk to** and **what to talk about** based on shared interests and profiles, enhancing networking efficiency.
+
+**Adaptation Offered (Adaptive Component):**
+*   Recommends another attendee to initiate a conversation with.
+*   Suggests a relevant, common topic to discuss.
+
+**Concerns & Challenges:**
+1.  **Appropriateness & Social Nuance**: The algorithm may suggest matches that are professionally or socially inappropriate, lacking human understanding of subtle social dynamics.
+2.  **Obtrusiveness & Naturalness**: Pushy suggestions could feel unnatural and awkward, undermining the organic flow of social interaction.
+3.  **Data Reliability & Privacy**: Relies on accurate, up-to-date user profiles (which may be embellished) and involves sharing personal interest data, raising **privacy concerns**.
+
+**Contemporary Similar Systems**: **Conference networking apps** (e.g., Grip, Brella), **professional networking platforms** (LinkedIn suggestions), and **dating apps** (match algorithms).
+
+### Comparative Analysis: LILSYS vs. AGENTSALON
+
+**Three Key Similarities:**
+1.  **Both Mediate Human Interaction**: They adaptively filter or facilitate communication between people.
+2.  **Both Require Sensitive Data Processing**: They rely on personal data (context/activity or interests) to function, creating **privacy challenges**.
+3.  **Both Aim to Increase User Efficiency**: LILSYS saves time/attention; AGENTSALON saves social discovery effort.
+
+**Three Key Differences:**
+1.  **Adaptation Goal**: LILSYS **discourages/delays** interaction (calls); AGENTSALON **encourages/initiates** interaction (conversations).
+2.  **Focus of Adaptation**: LILSYS adapts **others' behaviour** (the caller's ability to reach the user). AGENTSALON adapts **the user's own behaviour** (who they talk to and about what).
+3.  **Primary Data Source**: LILSYS heavily uses **implicit sensor data** about the real-world context. AGENTSALON primarily uses **explicit user profiles** and stated interests.
+
+---
+#### **Exam Practice Question 1.5**
+**A modern "Smart Meeting Room" system uses sensors to detect room occupancy and calendar data to automatically project the correct meeting materials when the host enters. Comparing it to *LILSYS*, identify one shared usability threat and one key architectural difference.**
+**[4 marks]**
+
+**Model Answer**:
+**Shared Usability Threat**: **Diminished Predictability/Controllability**. Both systems act automatically. If the Smart Room projects the wrong materials, users may not know why (predictability) and may struggle to manually override it quickly (controllability), similar to LILSYS blocking an important call.
+**Architectural Difference**: The **Domain Model**. LILSYS's domain model is about "caller importance" and "user availability states." The Smart Room's domain model is about "meeting entities," "presentation files," and "display devices." The adaptation logic uses this different domain knowledge to drive different actions (blocking vs. projecting).
+
+---
+## 1.5 System Design Exercise: Module Recommender
+
+**Scenario**: Designing a University of Leeds module recommender to help students choose optional modules.
+
+**Architecture Following the General Schema:**
+
+![[generic-adaptive-architecture.png|500]]
+*(Annotate the generic diagram for this specific case)*
+
+1.  **User Data Gathering (What & How)**:
+    *   **Explicit**: Student's **degree programme**, **past module grades**, **stated interests** (from a form).
+    *   **Implicit**: **Browsing history** on module catalogue pages (dwell time, clicks).
+    *   **From Institutional Systems**: **Enrolment records**, **prerequisite maps**.
+
+2.  **User Model Acquisition (Processing)**:
+    *   A **stereotype** could be assigned initially based on programme and grades (e.g., "High-Achieving CS Student").
+    *   An **overlay model** is built: compares student's **transcript** (known topics) against the **module learning outcomes** in the domain model to identify knowledge gaps/advancements.
+    *   A **preference vector** is updated from browsing behaviour, weighting interests towards modules viewed for long periods.
+
+3.  **User Model (Contents)**:
+    *   Stereotype label (for cold-start).
+    *   Vector of **mastered topics** (from past grades).
+    *   Vector of **interest strengths** in various topics (e.g., AI: 0.9, Security: 0.4).
+    *   **Constraints**: Mandatory programme requirements, prerequisite chains, timetable slots.
+
+4.  **User Model Application (Decision Logic)**:
+    *   **Filtering**: Rule-based system removes modules that violate constraints (wrong year, missing prerequisites).
+    *   **Scoring/Ranking**: Content-based filtering scores remaining modules by similarity between module topic vector and user's interest vector. Collaborative filtering could score modules popular among students in the same stereotype.
+    *   **Diversification**: Ensures the shortlist isn't all in one very specific area.
+
+5.  **Adaptive Component (Presentation)**:
+    *   A personalised web page titled "Recommended For You".
+    *   Modules presented in ranked order, with a brief **explanation** ("Matches your interest in AI and complements your strong grades in programming").
+    *   Option to **explore** or **tune** preferences (mixed-initiative adaptation).
+
+---
+#### **Exam Practice Question 1.6**
+**For the Module Recommender, one proposed data source is the implicit analysis of module catalogue browsing. Justify why this is useful, and describe a specific challenge in interpreting this data for modelling.**
+**[4 marks]**
+
+**Model Answer**:
+**Justification**: Browsing data is **unobtrusive** and captures **real, evolving curiosity** that a student may not explicitly state. It can reveal emerging interests (e.g., spending time on Robotics pages despite no prior background) and helps overcome the **cold-start problem** for students who don't fill out interest forms thoroughly.
+**Interpretation Challenge**: **Ambiguity of Intent**. A long dwell time on a module page might indicate **genuine interest**, but it could also indicate **confusion** (the description is hard to understand), **distraction**, or the student is **researching it for a friend**. Using this signal as a strong positive preference could lead to an **inaccurate user model** and poor recommendations.
