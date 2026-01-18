@@ -1,6 +1,35 @@
 # Test
 ## Outline
-- Lecture 1: Introduction to
+**Topic 1: General architecture of user-adaptive systems**
+- introduction
+- main components, role and importance
+- examples
+- application in real contexts
+**Topic 2: User model representation and building**
+- user model representation
+- user model building
+- explicit and implicit models
+- cold start, stereotypes
+**Topic 3: Recommender systems**
+- recommender systems types
+- content-based filtering
+- knowledge-based recommenders
+- collaborative filtering
+- hybrid recommender systems
+- adapting recommendations to groups
+- recommender systems evaluation
+**Topic 4: Adaptive content presentation**
+- static approaches for content adaptation
+- dynamic approaches for content adaptation
+**Topic 5: Evaluation of user-adaptive systems**
+- layered evaluation
+- usability threats
+**Topic 6: Responsible personalisation**
+- responsible personalisation principles
+- privacy
+- transparency
+- explanation
+- trust
 ## MCQ
 Question 1
 What is the purpose of a confusion matrix in classification problems?
