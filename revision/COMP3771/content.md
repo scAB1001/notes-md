@@ -276,3 +276,96 @@ This section reinforces the **general schema** through practical case studies an
 **Model Answer**:
 **Justification**: Browsing data is **unobtrusive** and captures **real, evolving curiosity** that a student may not explicitly state. It can reveal emerging interests (e.g., spending time on Robotics pages despite no prior background) and helps overcome the **cold-start problem** for students who don't fill out interest forms thoroughly.
 **Interpretation Challenge**: **Ambiguity of Intent**. A long dwell time on a module page might indicate **genuine interest**, but it could also indicate **confusion** (the description is hard to understand), **distraction**, or the student is **researching it for a friend**. Using this signal as a strong positive preference could lead to an **inaccurate user model** and poor recommendations.
+# Topic 2: User Model Representation & Building (Continued)
+## 2.2 User Model Representation (Detailed)
+
+> The **User Model** is a structured data representation of the system's beliefs about various aspects of the user. The choice of *what* to model and *how* to represent it depends on the system's adaptive goals.
+
+### What Can Be Modelled?
+| Aspect | Description | Example | Relevance for Adaptation |
+| :--- | :--- | :--- | :--- |
+| **Background** | Stable, domain-adjacent experience or demographics. | Profession, native language, years of experience. | Coarse-grained adaptation (e.g., medical system adapting terminology for student vs. doctor). |
+| **Individual Traits** | Stable psychological characteristics. | Learning style (visual/verbal), cognitive style, personality (Big Five). | Personalising interaction *style* or content *presentation format*. |
+| **Context** | Dynamic situation of user & environment. | Location, time, device, social setting, affective state (mood). | Ensures adaptations are **relevant to the immediate situation** (e.g., mobile tourist guide). |
+| **Interests** | Topics or items the user prefers. | Preference for "AI news" over "sports". | Core to **recommender systems** and **content filtering**. |
+| **Knowledge/Skills** | User's understanding of domain concepts. | Understanding of SQL JOINs vs. basic SELECT. | Core to **adaptive learning systems** (Intelligent Tutoring Systems). |
+| **Goals & Tasks** | User's current objective or activity. | Goal: "Book a flight to Berlin." Task: "Compare hotel prices." | Drives **goal-oriented adaptation** (e.g., a help system suggesting relevant functions). |
+
+**Critical Principle**: Model **only what is needed** for the intended adaptation. Adding unnecessary parameters increases complexity and privacy risk without benefit.
+
+### Detailed Representation Methods by Aspect
+
+#### 1. Representing Interests
+Used primarily in **information filtering** and **recommender systems**.
+
+| Representation Method | Description | Pros | Cons | Example |
+| :--- | :--- | :--- | :--- | :--- |
+| **Keyword-Level (Vector Model)** | User profile is a **weighted list of keywords** extracted from content they interact with. | Simple; captures user's own vocabulary; good for niche interests. | No semantic relationships; "vocabulary mismatch" with content. | `{business:0.7, travel:0.5, environment:0.3}` |
+| **Overlay on Fixed List** | Profile is a vector over a **system-defined list** of topics/categories. | Direct mapping to content tags; easy to implement. | Inflexible; no relationships between topics. | Interests over `[Tech, Sports, Politics]` = `[0.9, 0.1, 0.4]` |
+| **Concept-Level (Semantic Overlay)** | Profile is an **overlay on a domain ontology or concept graph**. | Enables **semantic reasoning** (e.g., recommending "global warming" articles if interested in "environment"); supports richer relationships. | Depends on **quality & completeness** of the ontology; complex to build and maintain. | User node linked to "Computer Science" concept in an ACM taxonomy graph, inheriting interest in sub-concepts like "AI". |
+
+**Situation for Use**: A simple news aggregator might use a **fixed list overlay**. A research paper recommender like Google Scholar should use a **concept-level model** (e.g., based on ACM classification) to understand that a user interested in "machine learning" might also appreciate papers on "neural networks."
+
+#### 2. Representing Knowledge/Skills
+Core to **Intelligent Tutoring Systems (ITS)** like SQL-Tutor.
+
+| Representation Method | Description | Pros | Cons | Example |
+| :--- | :--- | :--- | :--- | :--- |
+| **Scalar Model** | Single value on a scale (e.g., novice to expert). | Extremely simple. | **Low granularity & precision**; boundaries are fuzzy; cannot drive fine-grained adaptation. | `knowledge_physics = "intermediate"` |
+| **Overlay Model** | Represents knowledge as a **subset of an expert domain model**. Each domain concept has a user state (e.g., known, unknown, struggling). | Direct link to instructional content; enables **fine-grained adaptation** targeting specific gaps. | Requires a well-structured, complete **domain model**. | In SQL-Tutor, the domain model is a graph of SQL concepts; the user model marks `SELECT` as `mastered` and `JOIN` as `needs_practice`. |
+| **Bug Model / Perturbation Model** | Extends overlay model to include specific **misconceptions or incorrect rules**. | Powerful for diagnosing and remediating deep errors. | Very complex to build; requires extensive cognitive task analysis. | A math ITS models not just that a student got division wrong, but that they hold the specific bug "ignore remainder". |
+	**Situation for Use**: Most practical AES use the **Overlay Model** as it balances expressive power with implementability. The Bug Model is reserved for domains where specific, common misconceptions are well-documented (e.g., physics, algebra).
+
+#### 3. Representing Context
+![[user-vs-env-context.png|500]]
+*User vs. Environment Context Dimensions*
+
+**Situation Analysis - Tourist Guide App**:
+*   **User Context (Essential)**: **Location** (to suggest nearby places), **Temporal Context** (visit duration, time of day), **Social Context** (alone, family, wheelchair user).
+*   **Environment Context (Essential)**: **Weather** (suggest indoor activities if raining), **Traffic Conditions**.
+*   **Acquisition Challenge**: Requires **sensor data** (GPS), **APIs** (weather), and potentially **explicit input** (group size, accessibility needs).
+
+#### 4. Representing Goals & Tasks
+*   **Method**: Typically a **pre-defined goal catalog or hierarchy**. The system performs **goal/task recognition** to place the user's current activity within this structure.
+*   **Representation**: Often an **overlay** on the goal hierarchy, combined with a **probability** if recognition is uncertain.
+*   **Challenge**: **Goal recognition is difficult**. It must be inferred from ambiguous user actions.
+*   **Example**: A student's goal hierarchy: `Degree > Pass Year 3 > Complete Module X > Submit Assignment 2`. The system infers current goal as `Submit Assignment 2 (P=0.8)` based on opened files and browsing history, triggering adaptations like showing relevant library links.
+
+---
+#### **Exam Practice Question 2.3**
+**An Intelligent Tutoring System for Python programming uses an *overlay model* to represent student knowledge. Describe how this model is initially built for a new student and how it is subsequently updated based on the student solving a problem incorrectly.**
+**[5 marks]**
+
+**Model Answer**:
+**Initial Build (Cold-Start)**: The student is typically assigned a **stereotype** (e.g., "Complete Beginner") or takes a **pre-test**. Their overlay model is initialized by marking all concepts in the domain model (e.g., variables, loops, functions) as "unknown" or with a prior probability based on the stereotype/pre-test results.
+**Update Process**: When the student fails a problem on "while loops", the system analyses their solution against the domain model. It identifies which specific concepts were misapplied. The overlay model is then updated to **reduce the mastery value or probability** for the "while loop" concept and potentially for prerequisite concepts (e.g., "boolean expressions") that the error suggests are weak. This **fine-grained update** allows the system to select the next problem targeting these specific gaps.
+
+---
+## 2.3 Building the User Model: Acquisition & Update
+
+> **User Model Acquisition** is the process of **constructing** and **maintaining** the user model from the collected data. It involves inference, update rules, and consistency checks.
+
+### Key Acquisition Techniques
+1.  **Stereotype Reasoning**: **If-Then rules** assign users to pre-defined stereotypes based on **trigger conditions**. The stereotype provides a full set of default attribute values.
+    *   `IF (occupation="student" AND course="Computer Science") THEN assign stereotype CS_Student (P=0.8)`.
+2.  **Machine Learning/Data Mining**: Algorithms (e.g., classification, clustering) automatically infer patterns from user data to assign attributes or predict missing values.
+3.  **Plan & Goal Recognition**: Inferring high-level goals from sequences of low-level actions (e.g., inferring "writing a report" from opening Word, searching the web, citing sources).
+4.  **Bayesian Networks**: Probabilistic graphical models that represent dependencies between user attributes and evidence, allowing for **probabilistic inference** under uncertainty.
+
+### The Cold-Start Problem Revisited
+*   **User Cold-Start**: Solved by **stereotypes** (fast initialisation) and **explicit initial profiling**.
+*   **Item Cold-Start**: **Content-based filtering** solves this by using item attributes (metadata) which are available from the start. **Knowledge-based recommenders** also avoid it, as they don't rely on usage data.
+
+| Acquisition Challenge | Mitigation Strategy |
+| :--- | :--- |
+| **Sparse Data** | Use **hybrid models** (combine multiple data sources), **stereotypes**. |
+| **Noisy/Unreliable Data** | Use **probabilistic models** (Bayesian nets), **confidence measures**, require **corroborating evidence**. |
+| **Changing User State** (concept drift) | Implement **forgetting mechanisms** (decay older evidence), allow **manual profile editing**. |
+
+---
+#### **Exam Practice Question 2.4**
+**A streaming service uses a simple vector model to represent user interests in movie genres. Describe a specific strategy for updating this model *implicitly* when a user watches only the first 15 minutes of a "Horror" film before switching it off.**
+**[3 marks]**
+
+**Model Answer**:
+The system should interpret the early abandonment as a **negative implicit signal**. The update strategy would be to **decrease the weight** for the "Horror" genre in the user's interest vector. Additionally, it could increase weights for the genre of the film they switched *to*, treating that as a positive signal. The decrease for Horror should be significant but not absolute (e.g., reduce by 0.3), as the user might have stopped for reasons unrelated to genre (e.g., interruption).
