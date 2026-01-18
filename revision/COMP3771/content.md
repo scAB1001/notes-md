@@ -90,7 +90,7 @@ The **Domain Model** would contain entities like **Article**, **Topic** (e.g., P
 3.  **User Model (Data Repository)**: The **structured belief** about the user. A persistent store.
 4.  **User Model Application (Computer Process)**: The **decision engine**. Uses the user model to decide on and generate adaptations.
 5.  **Adaptive Component (Adapting to User)**: The **output effector**. The changed interface/content presented to the user.
-
+![[generic-adaptive-architecture.png]]
 ### Importance of Each Component
 - **User Model is the most critical component**. It is the system's **knowledge** of the user. If it is **inaccurate or poorly constructed**, all subsequent adaptations will be flawed, regardless of the sophistication of the application logic. It is the **central link** between observation (acquisition) and action (application).
 
@@ -102,12 +102,17 @@ The **Domain Model** would contain entities like **Article**, **Topic** (e.g., P
 | **BBC iPlayer**             | Program views, clicks, search history.   | Vector of inferred genre/topic preferences.                                                        | Ranks/promotes programs in catalogue based on preference similarity.                | "Recommended for you" rows.                         |
 | **Amazon**                  | Purchases, clicks, ratings, browsing.    | **Collaborative Filtering**: User-Item rating matrix. **Content-Based**: Item feature preferences. | Computes item scores via CF (users like you) and CBF (items like those you bought). | "Today's Recommendations", "Customers also bought". |
 
-|     |     |     |     |
-| --- | --- | --- | --- |
-|     |     |     |     |
+| Smart Menus (MS Office)                           | SQL-Tutor and BBC iPlayer                                |
+| ------------------------------------------------- | -------------------------------------------------------- |
+| ![[generic-adaptive-arch-smart-menu-ex.png\|400]] | ![[generic-adaptive-arch-smart-sql-tutor-ex.png\|400]]   |
+|                                                   | ![[generic-adaptive-arch-smart-bbc-iplayer-ex.png\|400]] |
 
 ---
 #### **Exam Practice Question 1.3**
+
+| Amazon                                              | Example                                               |
+| --------------------------------------------------- | ----------------------------------------------------- |
+| ![[generic-adaptive-arch-smart-amazon-ex.png\|400]] | ![[generic-adaptive-arch-smart-amazon-ex-2.png\|400]] |
 **Using the *Amazon* example from the schema diagram, describe what happens in the "User Model Acquisition" step when a user clicks on a product but does not buy it. What is a potential challenge in interpreting this data?**
 **[4 marks]**
 
