@@ -1006,3 +1006,262 @@ Involves a smaller group of participants performing tasks with the system, follo
 - **Precision@3** = (Number of relevant in top 3) / 3 = **1/3 ≈ 0.33**.
 - **Recall@3** = (Number of relevant in top 3) / (Total number of relevant items) = **1/3 ≈ 0.33**.
 *(Note: Recall uses the total relevant set size, which is 3 in this case.)*
+## 3.9 Machine Learning-Based Recommender Systems
+
+> **ML-based Recommender Systems** use advanced machine learning models to learn complex patterns from multi-dimensional data (user, item, context, sequence) to generate highly personalised, scalable, and adaptive recommendations.
+
+### 3.9.1 Core Components & Pipeline
+The development and deployment of an ML-based recommender follows a structured pipeline.
+
+| **ML-Based Recommender System Architecture** |
+| :--- |
+| ![[ml-based-recommender-arch-steps.png\|500]] |
+
+#### 1. Data Collection & Storage
+Gathers diverse data needed for modelling.
+- **User Data**: Demographics, preferences.
+- **Item Data**: Features, categories, metadata.
+- **Interaction Data**: Historical clicks, ratings, purchases (the user-item matrix).
+- **Contextual Data**: Time, location, device, weather (critical for real-time adaptation).
+- **Storage**: Data lakes, SQL/NoSQL databases.
+
+**Example - MoveApp (Physical Activity Recommender)**:
+- **Context Data**: Time of day, current weather (from API), user's location (GPS), today's step count (accelerometer).
+- **User Profile**: Explicit goals (e.g., "Walk 10,000 steps/day").
+- **Micro-profile**: Current mood, motivation (via in-app feedback).
+- **Feedback**: User responses to suggestions ("too intense", "I'm at work").
+
+#### 2. Data Preprocessing
+Prepares raw data for model consumption.
+- **Cleaning**: Handle missing values, remove outliers.
+- **Normalization/Scaling**: Ensure features (e.g., step count, time) are on comparable scales.
+- **Feature Engineering**: Create informative features (e.g., "is_weekend", "steps_remaining_today").
+- **Encoding**: Convert categorical data (e.g., weather type) to numerical form (one-hot encoding).
+- **Dimensionality Reduction**: Use PCA or autoencoders if feature space is too large.
+
+**Example - MoveApp Preprocessing**: Weather categories (`rain`, `sunny`) are one-hot encoded. Step count is normalized relative to user's goal. Time is converted to cyclical features (sine/cosine of hour) to represent 24-hour periodicity.
+
+#### 3. Model Selection & 4. Training/Optimization
+Choosing and training the ML model.
+
+| Model Category | Example Algorithms | Characteristics & Use Case |
+| :--- | :--- | :--- |
+| **Traditional ML** | **Random Forest (RF)**, Decision Trees, SVM, Bayesian Networks. | **Interpretable**, handles tabular data well, good for **feature importance analysis**. Use when explainability is key. |
+| **Deep Learning** | **Neural Networks**, Autoencoders. | Captures **complex non-linear patterns** in high-dimensional data (e.g., raw text, images). |
+| **Temporal/Sequential DL** | **Recurrent Neural Networks (RNNs)**, LSTMs, Transformers. | Models **user behaviour sequences** (e.g., watch history). Essential for "next-in-sequence" recommendations. |
+
+**Example - MoveApp Model Selection**:
+- **Chosen Algorithm**: **Random Forest**.
+- **Justification**:
+    1.  **Handles mixed data types** (categorical weather, numerical steps).
+    2.  Provides **feature importance** (to understand what factors—weather, time—drive recommendations).
+    3.  **Robust to overfitting** via ensemble of trees.
+    4.  **Fast training & inference**, suitable for a mobile app.
+- **Training & Optimization**:
+    - **Metric**: Classification **Accuracy** (predicting if user will accept/reject an activity).
+    - **Hyperparameter Tuning**: Used **Randomized Search** with **5-fold cross-validation**.
+    - **Optimal Parameters**: `max_depth=6`.
+    - **Result**: Train accuracy = 0.764, Test accuracy = 0.663.
+
+#### 5. Recommendation Generation
+The trained model is used to score and rank items for a user.
+- **Prediction**: The model outputs a score (e.g., probability of engagement) for each candidate item.
+- **Ranking**: Items sorted by predicted score.
+- **Filtering**: Apply business rules (e.g., remove already purchased items, enforce diversity).
+
+#### 6. Deployment & Serving
+Putting the model into production.
+- **Deployment Platforms**: TensorFlow Serving, AWS SageMaker, custom REST API.
+- **Real-Time Serving**: Use low-latency databases (Redis) for feature lookup and model scoring.
+- **Scalability**: Use distributed systems (Apache Spark) for batch recommendations or model training.
+
+**Example - MoveApp Deployment (7-Step Cascade)**:
+The system is not a single model but a **cascade of filters and recommenders**:
+1.  **User Profile Filter**: Remove activities mismatching explicit goals (e.g., no running if knee injury).
+2.  **Weather/Daylight Filter**: Remove outdoor activities if raining/dark.
+3.  **Micro-Profile Filter**: Adjust for current mood/motivation.
+4.  **Content-Based Recommendation**: Score remaining activities based on similarity to past enjoyed activities (using 24 metadata attributes).
+5.  **Context-Based Post-Filter**: Re-rank based on immediate context (e.g., location near a park).
+6.  **Adaptive Progression**: Gradually increase suggested activity duration/intensity.
+7.  **Just-in-Time Intervention**: Deliver the recommendation at an opportune moment.
+
+#### 7. User Interface & Feedback Loop
+- **UI**: Presents recommendations in the app/website.
+- **Feedback Collection**: **Implicit** (did they start the activity? for how long?) and **Explicit** (star ratings, "too intense" feedback).
+- **Continuous Learning**: The system **retrains periodically** (e.g., daily) with new feedback data to adapt to changing user preferences and contexts.
+
+**Example - MoveApp Feedback Loop (A/B Testing)**:
+- **Experimental Design**: **Randomized Controlled Trial**.
+    - **Group A (Experimental)**: Received the full 7-step cascade algorithm.
+    - **Group B (Control)**: Received only steps 1-2, 6-7 + **random suggestions** instead of personalised steps 3-5.
+- **Results**: Group A showed **significantly higher star ratings**, **greater motivation**, **larger increase in physical activity**, and **lower dropout rates**. This proved the value of the personalised ML components.
+
+---
+#### **Exam Practice Question 3.7**
+**The MoveApp team chose a *Random Forest* model. For a different recommender system that must predict the *next movie a user will watch* based on their *sequential viewing history*, why would a Random Forest be a *poor* choice compared to a model like an LSTM?**
+**[4 marks]**
+
+**Model Answer**:
+**Random Forest** is a poor choice because it **cannot inherently model temporal sequences or long-term dependencies**. It treats each data point (e.g., a user-movie interaction) as independent and identically distributed (i.i.d.), ignoring the **order** of movies watched. An **LSTM (Long Short-Term Memory)**, a type of Recurrent Neural Network, is specifically designed to process **sequential data**. It maintains a hidden state that captures context from previous items in the sequence, allowing it to learn patterns like "users who watched Action A then Comedy B often watch Drama C next." This makes LSTMs far more suitable for next-in-sequence prediction tasks.
+
+---
+### 3.9.2 Industry Case Studies
+
+#### Amazon: From Item-Item CF to Deep Learning
+**Evolution**:
+1.  **Foundational Algorithm (c. 1998)**: **Item-to-Item Collaborative Filtering**. Solved **scalability** by pre-computing item similarities offline. Corrected early statistical bias related to heavy buyers.
+2.  **Modern Prime Video (c. 2016)**: **Deep Learning Autoencoders**. Initially failed because they reconstructed the *entire* user history, ignoring **temporal dynamics** (users want recent content). The breakthrough was the **Temporal Autoencoder**, trained to predict what a user would watch in the **next 1-2 weeks**. This **doubled performance** over item-item CF.
+
+**Key Insight**: Success requires adapting the ML model to the **domain's fundamental characteristics**—for video, **relevance decays rapidly with time**.
+
+#### Netflix & YouTube: Deep Hybrid Systems
+- **Netflix**: Uses a **hybrid of CF and Deep Learning**. Models consider viewing history, time of day, device, and even **video artwork** to predict engagement.
+- **YouTube**: Employs **deep candidate generation models** (using user and video embeddings) followed by a **separate ranking model** that weighs predicted watch time, user satisfaction, and diversity. Heavily uses **sequence models** for "next video" recommendation.
+
+### 3.9.3 Reinforcement Learning for Real-Time Recommendation
+**Concept**: Treats recommendation as a **sequential decision-making problem**. The system (agent) recommends an item (action) to the user (environment), receives feedback (reward—e.g., click, purchase), and updates its strategy (policy) to maximise long-term cumulative reward (e.g., total engagement).
+
+| E-commerce Recommender using RL     |
+| :--- |
+| ![[ecommerce-recommender.png\|500]] |
+
+**Example - Real-Time E-commerce**:
+- **State (s_t)**: User's current session history, profile, context.
+- **Action (a_t)**: Which product to recommend next.
+- **Reward (r_t)**: Immediate feedback (click, add to cart, purchase).
+- **Policy (π)**: The RL model that learns to map states to actions that maximise expected future purchases.
+
+**Advantage**: Optimises for **long-term user value** rather than just immediate click-through. Can strategically explore new items to learn user preferences.
+# Topic 4: Adaptive Content Presentation
+
+> **Adaptive Content Presentation** tailors not just *what* information a user sees (selection), but also *how* that information is structured and presented (presentation) based on their user model. It is a two-step process: **Content Selection** followed by **Content Presentation**.
+
+### Link to Recommender Systems
+- **Content Selection** is analogous to a **recommender system's filtering/ranking** stage.
+- **Content Presentation** is the **adaptive generation of the UI/content layout** that delivers those selected items.
+
+## 4.1 Static & Semi-Automatic Approaches
+
+These methods use **pre-authored content components** assembled dynamically.
+
+### 1. Page-Based Approach
+The simplest method. The system selects from a set of **complete, pre-defined pages**.
+
+| **Page-Based Adaptation** |
+| :--- |
+| ![[page-based-adaptation.png\|500]] |
+
+**Methodology**:
+1.  Authors create multiple versions of a page for different user states (e.g., "Beginner Page", "Expert Page").
+2.  The user model (e.g., `knowledge_level`) is evaluated.
+3.  The system selects and serves the appropriate pre-built page.
+
+**Example - KBS Hyperbook**: An adaptive educational system that selects different **pre-authored project pages, learning trails, and goal descriptions** based on the student's knowledge and learning goals.
+
+**Advantages**:
+- **Versatile & Simple**: Easy to implement and control.
+- **High-Quality Content**: Pages are fully authored/curated.
+
+**Disadvantages**:
+- **Static & Inflexible**: Cannot create novel combinations.
+- **Authoring Bottleneck**: Requires creating and maintaining many page variants, which is **expensive and unscalable**.
+
+### 2. Fragment-Based Approach (Semi-Automatic)
+A more flexible method. Pages are constructed from **smaller, reusable content fragments**.
+
+#### a) Optional Fragments
+- **Methodology**: Each fragment has **applicability conditions** based on the user model. The page is composed by including all fragments whose conditions are true.
+- **Architecture**: `Page = {Fragment | Condition(Fragment, UserModel) = TRUE}`
+
+| **Optional Fragments Example** |
+| :--- |
+| ![[optional-fragments.png\|500]] |
+
+**Example - AVANTI (Web Accessibility System)**: A page for a tourist site includes a basic description fragment for all users. An **optional fragment** with detailed historical context is included **only if** `user_knowledge > beginner`. Another optional fragment with wheelchair access details is included **only if** `user_has_mobility_impairment = TRUE`.
+
+**Advantages**:
+- **Flexible & Reusable**: Fragments can be mixed and matched across many pages.
+- **Easier Authoring**: Creating small fragments is less work than full pages.
+
+**Disadvantages**:
+- **Combinatorial Complexity**: Managing conditions for many fragments is **error-prone**.
+- **Coherence Risk**: Combined fragments may not flow well together stylistically.
+
+#### b) Altering Fragments
+- **Methodology**: The page has a fixed **structure of slots (constituents)**. For each slot, there is a set of alternative fragments. The system selects the most appropriate fragment for each slot.
+- **Architecture**: `Page = [Slot1: Fragment_X, Slot2: Fragment_Y, ...]` where Fragment_X is chosen from a set for Slot1.
+
+| **Altering Fragments Example** |
+| :--- |
+| ![[altering-fragments.png\|500]] |
+
+**Example - AHA! (Adaptive Hypermedia System)**:
+- A page has a **navigation frame** (a constituent) and a **content frame** (another constituent).
+- For the navigation constituent, the system selects a fragment containing links appropriate to the user's knowledge (hiding advanced links for novices).
+- For the content constituent, it selects a text fragment at the right detail level.
+
+**Advantages**:
+- **Better Coherence**: The fixed slot structure ensures a logical page layout.
+- **Controlled Flexibility**: Authors define the slots, maintaining design control.
+
+**Disadvantages**:
+- **Authoring Overhead**: Requires defining the slot structure upfront.
+- **Static Structure**: The slot template itself cannot adapt.
+
+---
+#### **Exam Practice Question 4.1**
+**A university's online module description page uses an *Altering Fragments* approach. It has two constituents: 'Prerequisites' and 'Assessment Details'. Describe two different user model attributes that could drive the selection of different fragment alternatives for these constituents.**
+**[4 marks]**
+
+**Model Answer**:
+1.  **'Prerequisites' Constituent**: Selection driven by **user knowledge level**. For a user model with `knowledge_level = novice`, the system selects a fragment listing *all* prerequisite modules with brief explanations. For `knowledge_level = expert` (e.g., a lecturer), it selects a minimal fragment listing only module codes.
+2.  **'Assessment Details' Constituent**: Selection driven by **user role**. For `role = student`, the fragment details deadlines, submission formats, and marking criteria. For `role = external_examiner`, the fragment focuses on assessment strategy and moderation procedures.
+
+---
+## 4.2 Automatic Approaches (Dynamic Generation)
+
+These methods **generate content on-the-fly** from underlying data/knowledge models, offering maximum flexibility. This is an active research area, increasingly using **Natural Language Generation (NLG)** and **Large Language Models (LLMs)**.
+
+### Key Systems & Techniques
+| System/Technique | Core Idea | Adaptation Mechanism |
+| :--- | :--- | :--- |
+| **ILEX** | Generates **museum object descriptions** in natural language. | Uses a **domain model** (semantic network of artifacts) and a **user model** (interests). Selects concepts based on **structural relevance** in the network and **user interest**. Generates coherent text linking these concepts. |
+| **GEA (Generator of Evaluative Arguments)** | Generates **justifications for recommendations** (e.g., why a house is good for you). | Uses a **hierarchical user preference model** (value tree). Computes how much each attribute (e.g., garden size) contributes to the item's overall utility for the user. Selects attributes whose contribution exceeds a threshold and generates a persuasive argument focusing on them. |
+| **RIA (Responsive Information Architect)** | Generates **multi-dimensional data presentations** (e.g., charts, text summaries). | Formalises selection as an **optimisation problem**. Maximises a *desirability* score based on content features, user features (e.g., expertise), and interaction history. Can produce radically different presentations (a detailed table vs. a simple chart) for the same data based on the user. |
+
+### Modern Examples with LLMs & NLG
+1.  **Recipe Recommender with Justifications (Starke et al.)**:
+    - **Task**: Recommend healthy recipes and **explain why** they are suitable.
+    - **Method**: Uses a **rule-based NLG system** to generate sentences like "This recipe is a good choice because it is **low in sugar** and **high in fibre**, which aligns with your health goals."
+    - **Adaptation**: The justification focuses on the **user's stated health goals** (from the user model).
+
+2.  **Automated Movie Explanations with ChatGPT (Silva et al.)**:
+    - **Task**: Generate **natural language explanations** for movie recommendations.
+    - **Method**: Uses **ChatGPT** prompted with user profile data (liked movies, genres) and movie metadata.
+    - **Adaptation**: The LLM tailors the explanation's focus. For a user who likes directors, it might say "Recommended because it's by the same director as *Movie X* which you rated highly." For a genre-focused user, it highlights genre alignment.
+
+3.  **Personalised Video Narrative Generation (Abrar Mohammed)**:
+    - **Task**: Assemble educational videos from segmented clips.
+    - **Method**: 1) Selects video segments based on concepts linked via a **domain taxonomy**. 2) Generates **linking voiceover text** automatically using NLG to create a coherent narrative.
+    - **Adaptation**: The selection of concepts and the complexity of the linking narrative are adapted to the learner's **knowledge level** in the user model.
+
+### Presentation Techniques: Managing Relevance & Focus
+Once content is selected, it must be presented effectively. A key trade-off is **Focus vs. Context**.
+
+| Technique | Description | Preserves Context? | Conveys Priority? |
+| :--- | :--- | :--- | :--- |
+| **Stretchtext** | Secondary content is hidden behind clickable placeholders/headings. | **Yes** (structure visible). | **Moderate** (indicates there is more). |
+| **Dimming/Fading** | Less relevant content is visually de-emphasised (lower contrast). | **Yes**. | **Strong** (clear visual hierarchy). |
+| **Colouring** | Relevant content is highlighted with a background colour. | **Yes**. | **Very Strong**. |
+| **Sorting** | Lists are ordered by relevance (most relevant first). | **No** (changes order). | **Strong** (position indicates priority). |
+| **Scaling (Fisheye View)** | Font size is proportional to the "Degree of Interest" (relevance). | **Partial** (some context is shrunk). | **Very Strong**. |
+
+**Situation for Use**: **Dimming/Fading** is good for preserving full context while guiding attention. **Sorting** is best for unstructured lists where order doesn't convey intrinsic meaning.
+
+---
+#### **Exam Practice Question 4.2**
+**Comparing *Optional Fragments* and *Altering Fragments* approaches, which one is more likely to guarantee a coherent and well-structured final page? Justify your answer by referring to their underlying methodologies.**
+**[3 marks]**
+
+**Model Answer**:
+**Altering Fragments** is more likely to guarantee coherence. Its methodology is based on a **pre-defined page structure (slots/constituents)** set by the author, which ensures a logical layout and that all necessary page components are present. **Optional Fragments** lacks this structural backbone; it simply includes all fragments that match conditions, which can lead to pages missing key components or having a jumbled, incoherent flow if fragments are not meticulously designed to fit together in any combination.
