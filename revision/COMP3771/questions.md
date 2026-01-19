@@ -31,90 +31,801 @@
 - explanation
 - trust
 ## MCQ
-Question 1
-What is the purpose of a confusion matrix in classification problems?
-a) To determine the importance of each feature in the model
-b) To summarise regression model performance
-c) To calculate the overall accuracy of the model
-d) To visualise the performance of a classification model by showing true vs predicted classifications
-## Section Specific
-### Section 1: Introduction & Data Understanding (Lectures 1-2)
-#### Question 1.1 (1 mark)
-Which of the following best defines **datafication**?
-a) The process of cleaning and structuring raw data.
-b) The practice of using algorithms to predict future trends.
-c) The process of taking aspects of life and turning them into quantifiable data.
-d) The statistical analysis of large datasets to find correlations.
-#### Model Solution for 1.1:
-**c) The process of taking aspects of life and turning them into quantifiable data.**
-*   **Explanation**: This is the core definition from Lecture 1. **Datafication** is the transformation of qualitative, real-world phenomena (e.g., sleep, social interactions) into **data points** that can be tracked and analyzed, creating new forms of value and **actionable insights**.
-#### Question 1.2 (2 marks)
-According to Donoho's "50 Years of Data Science" paper, what is a key distinction between **Lesser Data Science (LDS)** and **Greater Data Science (GDS)**? Select **two** correct answers.
-a) LDS is focused on commercial big-data tools, while GDS proposes a more rigorous, academic framework.
-b) LDS includes the study of data ethics, while GDS does not.
-c) GDS incorporates the **Common Task Framework (CTF)** as a driver of progress, while LDS ignores it.
-d) GDS is solely concerned with predictive modelling, while LDS covers the full data lifecycle.
-e) A core division of GDS is **"Science about Data Science"**, the empirical study of data analysis methods themselves.
-#### Model Solution for 1.2:
-**a) LDS is focused on commercial big-data tools, while GDS proposes a more rigorous, academic framework.** and **e) A core division of GDS is **"Science about Data Science"**, the empirical study of data analysis methods themselves.**
-*   **Explanation**: Donoho critiques the narrow, tool-focused **"Lesser Data Science"** driven by industry. His **"Greater Data Science"** vision is broader and includes six divisions, the last and most forward-looking being the empirical, evidence-based study of data science methodology itself. The CTF is highlighted as important, but not as the defining difference.
-#### Question 1.3 (1 mark)
-A dataset containing customer records has a column for 'Postcode' and a separate column for 'City'. During profiling, you find that for some records, the postcode does not match the city (e.g., a Leeds postcode with 'Manchester' as the city). This is primarily an issue of data:
-a) Granularity
-b) Scope
-c) Temporality
-d) Faithfulness
-#### Model Solution for 1.3:
-**d) Faithfulness**
-*   **Explanation**: **Faithfulness** refers to how well data captures reality, including checking for internal **consistency** and violations of obvious dependencies. A mismatched postcode and city is an example of such an inconsistency, indicating a potential data entry error that reduces the data's faithfulness.
-#### Question 1.4 (3 marks)
-You are exploring a dataset of patient blood test results. The 'Cholesterol' column has 5% missing values. Describe **three** different strategies for handling these missing values, and for each, state one potential **advantage** or **disadvantage**.
-#### Model Solution for 1.4:
-**(1) Deletion:** Remove all rows with a missing cholesterol value.
-*   *Advantage:* Simple and fast to implement.
-*   *Disadvantage:* Can introduce **bias** if the missingness is not random (e.g., if sicker patients are less likely to have results recorded), and reduces dataset size.
+# Topic 1: Exam Practice Questions & Model Answers
 
-**(2) Mean/Median Imputation:** Replace missing values with the **mean** or **median** cholesterol level of all patients.
-*   *Advantage:* Preserves the dataset size and is simple.
-*   *Disadvantage:* Reduces variance and can distort relationships, especially if the missing values have a different underlying distribution.
+### **Question 1.1: General Architecture & Component Roles**
+A city council is developing a **"Smart Park" mobile app**. The app uses GPS to detect when a user enters a park. It then checks the user's profile (e.g., "dog owner", "jogger", "family with young children") and current weather data to send personalised push notifications. For example, it might notify a dog owner about a nearby dog-friendly area, or a family about a children's event starting soon.
 
-**(3) Regression Imputation:** Build a model (e.g., linear regression) using other patient features (age, weight) to **predict** the missing cholesterol values.
-*   *Advantage:* Can be more accurate than simple imputation if other features are predictive.
-*   *Disadvantage:* More complex, risks **overfitting**, and assumes the relationship used for prediction is correct. It also underestimates uncertainty as imputed values are treated as certain.
-#### Question 1.5 (2 marks)
-For each of the following variables, state whether it is best classified as **Continuous, Discrete, Ordinal, or Nominal**.
-i) Shirt size (S, M, L, XL)
-ii) Number of products purchased in a transaction
-iii) Temperature in degrees Celsius
-iv) Political party affiliation (Conservative, Labour, Liberal Democrat)
-#### Model Solution for 1.5:
-i) **Ordinal**. The categories have a clear order (S < M < L < XL), but the intervals between sizes are not necessarily consistent or meaningful.
-ii) **Discrete**. The count of products is a finite, countable number (0, 1, 2, ...).
-iii) **Continuous**. Temperature can be measured to an arbitrary level of precision (e.g., 20.0, 20.01, 20.015°C).
-iv) **Nominal**. Party names are categories with no inherent order or ranking.
-#### Question 1.6 (1 mark - Select Two)
-Which of the following are key focuses during the **data profiling** stage of a project, as outlined in the "Practical Guide to Characterising Data"?
-a) Training the final machine learning model.
-b) Investigating **data quality** (completeness, accuracy, consistency).
-c) Characterising the data (understanding its structure and distributions).
-d) Deploying the model to a production API.
-e) Writing the final project report.
-#### Model Solution for 1.6:
-**b) Investigating **data quality** (completeness, accuracy, consistency).** and **c) Characterising the data (understanding its structure and distributions).**
-*   **Explanation**: The guide's core framework separates **data characterisation** (what the data *is*) from **data quality investigation** (how *fit* it is for purpose). Profiling is the investigative phase before modelling begins.
-#### Question 1.7 (5 marks - Scenario Based)
-*Scenario:* You are a data scientist at a retail bank. The fraud team wants to build a system to identify potentially fraudulent credit card transactions in **real-time**. They provide you with a historical dataset containing millions of transactions, each with features like `transaction_amount`, `merchant_category`, `time_of_day`, `customer_age`, and a binary label (`is_fraud`: 0 or 1).
+**(a) Map the description of the Smart Park app onto the *general architecture* of a user-adaptive system. For each of the four core components (excluding the Domain Model), state what it would be in this specific case.**  
+**[6 marks]**
 
-a)  What type of machine learning task is this? (1 mark)
-b)  The dataset is heavily **imbalanced** (less than 0.1% of transactions are fraud). Why would **accuracy** be a misleading metric to evaluate a model for this task? (2 marks)
-c)  Suggest a more appropriate **evaluation metric** and briefly justify your choice. (2 marks)
-#### Model Solution for 1.7:
-a)  This is a **binary classification** task. The goal is to predict a categorical label (`fraud` or `not fraud`) for each transaction.
+**(b) The system uses the current *weather* (e.g., rainy vs. sunny) as a key factor in deciding what to recommend. According to the framework discussed in lectures, is weather part of the *User Context* or the *Environment Context*? Justify your answer.**  
+**[2 marks]**
 
-b)  **Accuracy** measures the proportion of correct predictions overall. A naïve model that simply predicts "not fraud" for every transaction would be correct over 99.9% of the time, yielding a very high accuracy score. However, this model is useless as it fails to identify **any** of the fraudulent cases (the **positive class** we care about). Therefore, accuracy hides the model's failure on the critical **minority class**.
+**(c) One proposed feature is to let users manually correct their inferred profile (e.g., change from "jogger" to "walker"). Explain which major *usability threat* of adaptive systems this feature directly helps to mitigate.**  
+**[2 marks]**
 
-c)  The **F1 Score** would be a more appropriate metric.
-    *   **Justification**: The F1 Score is the **harmonic mean of Precision and Recall**.
-    *   **Precision** is important because we want to minimize **false positives** (legitimate transactions flagged as fraud, which annoys customers).
-    *   **Recall** is critically important because we want to catch as many **true positives** (actual fraud) as possible.
-    The F1 score balances these two competing concerns, providing a single measure that is robust to **class imbalance**. Alternatively, the **Area Under the Precision-Recall Curve (PR-AUC)** is specifically designed for imbalanced classification.
+---
+### **Model Answer 1.1**
+
+**(a) Mapping to General Architecture:**
+1.  **User Data Gathering**: This component collects **raw input data**. In the Smart Park app, this includes the user's **GPS location** (to detect park entry), their **stored user profile** (e.g., "dog owner"), and the **current weather data** fetched from an API.
+2.  **User Model Acquisition**: This is the **inference engine**. It processes the raw data to create/update the **user model**. Here, it takes the GPS signal and matches it to a park boundary (interpretation), and retrieves the user's stored profile tags. It may also infer temporary states (e.g., "likely exercising" if speed is high).
+3.  **User Model**: This is the **structured internal representation**. For this app, the user model contains the **categorical tags** (dog owner, jogger), potentially with associated **confidence levels**, and may include the **current inferred activity**.
+4.  **User Model Application (Adaptation Model)**: This is the **decision logic**. It uses the user model and external data (weather, event database) to choose an adaptation. Its rules might be: `IF (user_model includes "dog_owner") AND (weather = "dry") THEN recommend "dog park area"`.
+5.  **Adaptive Component**: This is the **output effector**. In this case, it is the **push notification system** that delivers the personalised message to the user's phone screen.
+
+**(b) Weather Context Classification:**
+Weather is part of the **Environment Context**.
+**Justification**: The framework distinguishes between **User Context** (attributes directly pertaining to the user, e.g., their emotional state, current task) and **Environment Context** (attributes of the surrounding physical and social environment). Weather is an **external environmental condition** that affects the appropriateness of recommendations (e.g., suggesting an outdoor event is poor in the rain) but is not an attribute *of* the user themselves.
+
+**(c) Mitigated Usability Threat:**
+This feature mitigates the threat of **Diminished Controllability**.
+**Explanation**: A system that automatically infers a user's profile (e.g., labels them as a "jogger") can make mistakes. If the user cannot correct this, they feel a **loss of agency and control** over the system's behaviour. Allowing **manual profile correction** directly restores user control by letting them rectify erroneous inferences, ensuring the system adapts based on an accurate model that aligns with their self-view.
+
+---
+### **Question 1.2: Case Study Analysis & Comparison**
+Compare and contrast the **LILSYS** call-screening system and a modern **Smart Speaker** (e.g., Amazon Alexa) that adapts its responses based on the user's voice tone and time of day.
+
+**(a) Describe one key *similarity* in the type of *user data* both systems rely on for adaptation.**  
+**[2 marks]**
+
+**(b) Describe one fundamental *difference* in their *primary adaptation goal*.**  
+**[2 marks]**
+
+**(c) The smart speaker uses voice tone analysis to infer if the user is stressed and might then respond with a calmer tone. Identify the *layer* in the layered evaluation framework where you would test whether the tone analysis correctly identifies stress, and name a suitable *evaluation method* for this layer.**  
+**[4 marks]**
+
+---
+### **Model Answer 1.2**
+
+**(a) Similarity in User Data:**
+Both systems rely heavily on **implicitly collected contextual and behavioural data** about the user's **current situation**. LILSYS uses **sensor data** (movement, keyboard activity) to infer availability. The smart speaker uses **vocal prosody** (tone, pitch, speed) and **temporal context** (time of day) to infer emotional state and intent. Neither requires the user to explicitly state their state ("I'm busy" / "I'm stressed").
+
+**(b) Difference in Adaptation Goal:**
+The **primary adaptation goal** of LILSYS is to **discourage or mediate interaction** (from the outside world) by screening calls to prevent interruptions. In contrast, the primary adaptation goal of the smart speaker is to **encourage and facilitate interaction** (with itself) by tailoring its responses to be more effective and engaging for the user. LILSYS adapts to *protect* the user's attention; the smart speaker adapts to *capture* and retain the user's attention.
+
+**(c) Layered Evaluation:**
+- **Layer**: This problem belongs to **Layer 2: Interpretation of the Collected Data**.
+- **Reasoning**: The raw data (audio signal) has been collected. The challenge is whether the system's **interpretation** of that data—mapping specific acoustic features to the internal state label "stressed"—is **valid**.
+- **Evaluation Method**: A suitable method would be a **user study with ground truth validation**. Participants would use the speaker while also self-reporting their stress levels via a validated method (e.g., a simple questionnaire or physiological sensor). The system's inferences would then be compared to the user-reported ground truth to calculate **accuracy metrics** (e.g., precision, recall) for stress detection, diagnosing the validity of the interpretation algorithm.
+# Topic 1.1: Exam Practice Questions & Model Answers
+
+### **Question 1.1.1: Definitions and Drivers**
+A major online newspaper is struggling with declining user engagement. Analytics show that readers often leave the site after viewing only one article, citing "too much irrelevant content."
+
+**(a) Identify *two* distinct **drivers for personalisation** from the provided context that justify implementing a user-adaptive system for this newspaper. Explain how each driver relates to the problem described.**  
+**[4 marks]**
+
+**(b) The newspaper's technical team proposes a simple 'customisable' homepage where users can manually select their favourite topics (e.g., Politics, Sports). State whether this is an example of a **User-Adaptable** or **User-Adaptive** system. Using the **core principle** of personalisation, explain one limitation of this approach compared to a fully adaptive one.**  
+**[4 marks]**
+
+---
+### **Model Answer 1.1.1**
+
+**(a) Drivers for Personalisation:**
+1.  **Information Abundance and Noise**: The site has "too much irrelevant content." This represents **information overload** where the sheer volume and heterogeneity of articles makes it difficult for users to find relevant information. A user-adaptive system can **filter and prioritise** content, cutting through the noise.
+2.  **Diverse User Interests and Goals**: Readers have different preferences (some want Politics, others Sports). The **one-size-fits-all** front page fails because people have **diverse backgrounds and intentions**. Personalisation aims to deliver the **right information to the right person**, matching content to individual user profiles inferred from their behaviour.
+
+**(b) System Type and Limitation:**
+- **Type**: This is a **User-Adaptable (Customisable)** system, as the user **manually modifies** the system's configuration by selecting their preferred topics.
+- **Limitation (Using the Core Principle)**: A key part of the core principle is delivering the right information at the **right time**. A static, user-configured topic list is **inflexible and cannot adapt to changing context or evolving interests**. For example, if a major sports event ends and a user's interest in that topic wanes, the adaptable system will keep showing it, failing to deliver the "right" content for the user's *current* needs. An adaptive system could learn this shift implicitly and adjust the feed dynamically.
+
+---
+### **Question 1.1.2: Applying Principles to Examples**
+Consider the **ECoach** system (personalised university coaching) and the **MoCoMapps** system (personalised travel assistant).
+
+**(a) For *each* system, provide a concrete example of how it implements the principle of delivering the **right information at the right time**. Your example must refer to a specific adaptive feature of the system.**  
+**[4 marks]**
+
+**(b) These systems collect different types of data to function. **ECoach** has access to student information system data (grades, enrolment). **MoCoMapps** primarily uses location from a phone's GPS. For *one* of these systems, identify a potential **privacy concern** arising from this data collection and suggest a **mitigating design practice**.**  
+**[4 marks]**
+
+---
+### **Model Answer 1.1.2**
+
+**(a) Right Information at the Right Time:**
+- **ECoach**: The system delivers **targeted study advice and reminders** shortly before an upcoming assignment deadline or exam ("the right time"), based on the student's calendar and past performance data. The advice is the "right information" as it is tailored to the specific module and the student's identified knowledge gaps.
+- **MoCoMapps**: When the system detects the user is **physically near a point of interest (POI)** such as a tourist attraction ("the right time"), it pushes a notification with relevant details about that POI. The information is "right" because it is filtered by the user's stated interests (e.g., history, food) and is immediately actionable in that location.
+
+**(b) Privacy Concern and Mitigation:**
+**System Chosen: ECoach**
+- **Privacy Concern**: **Inferential Privacy and Lack of Student Control**. Using data from the student information system (SIS) for adaptive coaching could lead to **sensitive inferences** about a student's mental health, academic struggles, or potential for dropping out, without the student's full awareness or consent. This data, used for a purpose (coaching) beyond its original administrative purpose, creates a **transparency and control** deficit.
+- **Mitigating Design Practice**: Implement a **scrutable user model** with clear **opt-in/opt-out controls**. Students should be able to inspect what data ECoach has sourced from the SIS, understand what inferences have been made (e.g., "classified as 'at-risk'"), and have the ability to **correct data or disable specific adaptive features** based on that data. This practice aligns with the principles of **transparency and user controllability**.
+
+---
+### **Question 1.1.3: Learning Objectives and System Categorisation**
+A new "Smart Recipe Manager" app is described. It learns your cooking preferences from the recipes you view and save. Over time, it automatically highlights recipes on food blogs that match your taste and filters out recipes containing ingredients you always skip. It also has a "Surprise Me" button that uses this learned profile to suggest a novel recipe you might like.
+
+**(a) This app's core functionality is best described as which type of personalisation: **User-Adaptable**, **User-Adaptive**, or **Intermediate/Mixed-Initiative**? Justify your answer by referencing *who* controls the key adaptation.**  
+**[2 marks]**
+
+**(b) The development of this app directly addresses two of the module's **Learning Objectives (LOs)**. Identify **LO2** and **LO3** and briefly explain how the app's described features relate to each.**  
+**[4 marks]**
+
+---
+### **Model Answer 1.1.3**
+
+**(a) System Type and Justification:**
+- **Type**: **User-Adaptive**.
+- **Justification**: The key adaptations—**automatically highlighting** matching recipes and **filtering out** disliked ingredients—are performed **autonomously by the system** based on its learned model of user preferences. The user does not manually set rules for highlighting or filtering; the system **modifies its own behaviour** independently. (The "Surprise Me" button is an optional user-initiated action on top of this adaptive backbone).
+
+**(b) Learning Objectives:**
+- **LO2: Identify & apply common user modelling & adaptation techniques**. The app **builds a user model** (a profile of taste and ingredient preferences) through **implicit information collection** (monitoring views and saves). It then **applies** this model using **content-based filtering** (matching recipe features to profile) to perform adaptation (highlighting, filtering).
+- **LO3: Implement recommender system techniques**. The core adaptive feature is a **recommender system**. The "Surprise Me" function is a direct application of a recommendation algorithm (likely a hybrid of content-based and novelty-seeking) that generates a personalised item suggestion for the user.
+# Topic 1.2: Exam Practice Questions & Model Answers
+
+### **Question 1.2.1: Component Identification & Role**
+A university library introduces a "Personalised Research Assistant" on its website. It monitors the abstracts of journal articles a student reads online. It then uses a subject ontology (e.g., the ACM Computing Classification System) to tag those articles with topics. Based on the frequency of these topics, it builds a profile of the student's research interests. Finally, it uses this profile to recommend new, recently published articles in the library's database that align with those interests.
+
+**(a) For this system, identify the components that fulfil the roles of the **User Data Gathering** and the **User Model**. For each, specify the *specific data or structure* involved in this scenario.**  
+**[4 marks]**
+
+**(b) The system relies heavily on the **Domain Model**. Describe what the Domain Model is in this case and explain its **critical importance** for the system's function.**  
+**[3 marks]**
+
+---
+### **Model Answer 1.2.1**
+
+**(a) Component Identification:**
+1.  **User Data Gathering**: This component collects the **raw behavioural data**. In this scenario, it is the system that **monitors and records the abstracts of journal articles the student reads** online.
+2.  **User Model**: This is the **structured internal representation** of the user. Here, it is the built **profile of the student's research interests**, which is most likely a **vector or weighted list of topics** (e.g., {Machine Learning: 0.8, Human-Computer Interaction: 0.5, Databases: 0.2}) derived from the frequency of tags assigned to read articles.
+
+**(b) Domain Model Role and Importance:**
+- **Domain Model**: In this case, the Domain Model is the **subject ontology** (the ACM Computing Classification System). It provides the structured "vocabulary" of the domain, defining **concepts** (e.g., "Machine Learning", "Algorithms"), their **attributes**, and the **relationships** between them (e.g., "is a sub-field of").
+- **Critical Importance**: The Domain Model is **essential for interpretation and interoperability**. It allows the system to map the unstructured text of article abstracts to a consistent set of concepts. This enables it to **understand that two articles using different terminology may be about the same topic**, and to compute meaningful similarity between a user's interest profile and new articles. Without it, the system would be limited to simplistic keyword matching, severely reducing its accuracy and usefulness.
+
+---
+### **Question 1.2.2: Data Flow & Adaptation Logic**
+A fitness tracking app for runners proposes personalised training plans. It gathers data: the user's past run distances and paces (User Data Gathering). It models the user's current fitness level and goals (User Model). It has a knowledge base of training principles and workout types (Domain Model).
+
+**(a) Trace the **data flow and process** for one cycle of adaptation. Begin with the app proposing a 'Bridge to 10K' plan and end with the app updating the plan after the user completes a run. Name the relevant components and the actions they perform in sequence.**  
+**[5 marks]**
+
+**(b) The **Adaptation Model** in this app uses a set of rules. Propose **one** specific example of a rule it might use that combines information from the User Model and the Domain Model to decide on an adaptation.**  
+**[2 marks]**
+
+---
+### **Model Answer 1.2.2**
+
+**(a) Data Flow and Adaptive Cycle:**
+1.  **Adaptation Model & Adaptive Component**: Based on the User Model (fitness level = beginner, goal = 10K) and Domain Model (training principles), the **Adaptation Model** decides to adapt by proposing the 'Bridge to 10K' plan. The **Adaptive Component** presents this plan to the user via the app interface.
+2.  **User Interaction**: The user accepts and begins the plan, completing the first run.
+3.  **User Data Gathering**: The app's sensors and logs **gather raw data** about the completed run (distance: 3km, average pace: 6:30 min/km).
+4.  **User Model Acquisition**: The system **processes the raw data**, comparing the run performance to the plan's target. It infers the run was successful and updates the **User Model** (e.g., increases `fitness_level_estimate` slightly, records completion).
+5.  **Adaptation Model (again)**: The updated User Model is fed back into the **Adaptation Model**. Using its rules and the Domain Model, it decides the user is ready for the next week's plan. It triggers the **Adaptive Component** to update the interface, displaying the next set of workouts.
+
+**(b) Example Adaptation Rule:**
+`IF` (User Model: `most_recent_run_pace` < `target_pace` **AND** User Model: `reported_fatigue` = 'low')  
+`AND` (Domain Model: workout_type 'interval' is recommended for `improving_speed`)  
+`THEN` Adaptation: Schedule an interval training session for the next workout.
+# Topic 1.3: Exam Practice Questions & Model Answers
+
+### **Question 1.3.1: Schema Mapping & Critical Component**
+Consider a language learning app like Duolingo. It tracks user performance on exercises (correct/incorrect answers, time taken). It uses this to estimate proficiency in different language skills (grammar, vocabulary) and to select the next exercise difficulty.
+
+**(a) Map this description onto the **five components of the General Schema**. For each, provide the specific *instance* from the Duolingo scenario.**  
+**[5 marks]**
+
+**(b) The developers are debating whether to spend resources improving the accuracy of the proficiency estimation algorithm or the exercise selection algorithm. Referring to the **relative importance of components**, argue which one they should prioritise and why.**  
+**[3 marks]**
+
+---
+### **Model Answer 1.3.1**
+
+**(a) Schema Mapping:**
+1.  **User Data Gathering**: The system that **tracks raw user performance** on exercises (records correct/incorrect answers and time taken).
+2.  **User Model Acquisition**: The **algorithm that processes** the raw performance data to **infer and update** the estimates of proficiency in grammar, vocabulary, etc. This is the inference engine.
+3.  **User Model**: The **data structure storing the current estimates** of the user's proficiency in each language skill (e.g., `{grammar: 0.7, vocabulary: 0.5}`).
+4.  **User Model Application**: The **logic/algorithm** that uses the proficiency estimates (User Model) and a curriculum plan (Domain Model) to **decide** which specific exercise to present next, at what difficulty.
+5.  **Adaptive Component**: The **app interface** that **presents the selected exercise** to the user.
+
+**(b) Prioritisation Argument:**
+They should prioritise improving the **proficiency estimation algorithm (User Model Acquisition)**.
+**Justification**: The **User Model is the most critical component**. It is the system's "knowledge" of the user. If the proficiency estimates (the User Model) are **inaccurate**, then even a perfect exercise selection algorithm (User Model Application) will make decisions based on faulty premises, leading to poorly adapted exercises (too easy or too hard). Improving the accuracy of the model ensures that *all* subsequent adaptation decisions are founded on correct information. You cannot have good adaptation from a bad model.
+
+---
+### **Question 1.3.2: Interpreting Applied Examples**
+Using the applied examples table:
+
+| System | User Data Gathered | User Model (Acquisition) | Adaptation (Application) | Adaptive Component |
+| :--- | :--- | :--- | :--- | :--- |
+| **SQL-Tutor** | Student's problem-solving steps, errors. | Overlay model of student's knowledge vs. expert domain model. | Selects next practice problem targeting knowledge gaps. | Personalised problem sequence. |
+| **BBC iPlayer** | Program views, clicks, search history. | Vector of inferred genre/topic preferences. | Ranks/promotes programs in catalogue based on preference similarity. | "Recommended for you" rows. |
+
+**(a) **SQL-Tutor** and **BBC iPlayer** both perform **User Model Acquisition**, but they produce different types of models. Contrast the **nature of the user model** each system builds and explain why this difference is appropriate for their respective domains.**  
+**[4 marks]**
+
+**(b) For **BBC iPlayer**, a user watches three episodes of a comedy series in one evening. Describe how this event flows through the **General Schema**, from User Data Gathering to the Adaptive Component, in the context of updating the "Recommended for you" section.**  
+**[4 marks]**
+
+---
+### **Model Answer 1.3.2**
+
+**(a) Contrasting User Models:**
+- **SQL-Tutor** builds a **knowledge overlay model**. This is a **fine-grained, diagnostic model** that maps the student's understanding onto a detailed expert domain model (e.g., specific SQL concepts like SELECT, JOIN, WHERE). It identifies precise gaps and misconceptions.
+- **BBC iPlayer** builds a **preference vector**. This is a **coarser, quantitative model** representing the user's affinity for various genres or topics (e.g., Comedy: 0.9, Drama: 0.4). It captures taste, not knowledge.
+- **Appropriateness**: The difference is domain-driven. **Education** requires diagnosing *capability* to provide corrective, scaffolded instruction. **Media recommendation** requires modelling *taste* to provide engaging, enjoyable content. A knowledge model is unnecessary for picking a TV show, and a simple preference vector is insufficient for targeted tutoring.
+
+**(b) Data Flow for BBC iPlayer:**
+1.  **User Data Gathering**: The system **logs the event**: user U watched three episodes of comedy series S.
+2.  **User Model Acquisition**: The **inference engine processes** this log. It identifies series S's genre (Comedy) and updates the **User Model**—increasing the weight for "Comedy" in the user's preference vector.
+3.  **User Model Application**: The **recommendation algorithm** (e.g., content-based filtering) is re-run. It uses the updated preference vector to re-score all programs in the catalogue, calculating a new similarity score for each.
+4.  **Adaptive Component**: The system **regenerates the "Recommended for you" rows** on the homepage. The new ranking, which now gives higher positions to other comedy programs due to the updated model, is displayed to the user.
+# Topic 1.4: Exam Practice Questions & Model Answers
+
+### **Question 1.4.1: Classifying Adaptive Support**
+A new software plugin for a video editing suite analyses a user's editing history (frequently used effects, typical project length). It then adapts its interface by promoting the relevant effect palettes and suggesting customisable project templates when a new project is started.
+
+**(a) Identify which of the two broad classes of user-adaptivity support (**Supporting System Use** or **Supporting Information Acquisition**) this plugin primarily provides. Justify your answer by linking the described features to the sub-categories of that class.**  
+**[3 marks]**
+
+**(b) The plugin could be extended with an AI "assistant" that watches the user edit and pops up with suggestions like "That clip might look better with a colour correction." State which **major usability threat** this new feature is most likely to introduce and explain why.**  
+**[2 marks]**
+
+---
+### **Model Answer 1.4.1**
+
+**(a) Class of Support:**
+- **Primary Class**: **Supporting System Use**.
+- **Justification**: The plugin's features align with the sub-categories of this class. **Adapting the interface** (promoting relevant effect palettes) and **Helping with system use** (suggesting project templates) are both aimed at making interaction with the video editing software itself more efficient and less cognitively demanding. The adaptation is about *how* the user uses the tool, not about finding external information.
+
+**(b) Usability Threat:**
+- **Threat**: **Obtrusiveness**.
+- **Explanation**: An AI assistant that automatically "pops up" with suggestions **interrupts the user's primary task** (editing). This can break the user's flow, distract them, and be perceived as annoying, especially if the suggestions are frequent or poorly timed. The system's attempt to help becomes a disruptive hindrance.
+
+---
+### **Question 1.4.2: Comparative Analysis - LILSYS vs. AGENTSALON**
+Review the case studies of LILSYS and AGENTSALON.
+
+**(a) The developers of a modern **smart home hub** (e.g., Google Nest) want it to proactively manage household notifications (e.g., from doorbells, appliances) based on who is home and what they are doing. Explain **one** key way in which this system's design challenges are more similar to **LILSYS** than to **AGENTSALON**.**  
+**[2 marks]**
+
+**(b) Both LILSYS and AGENTSALON were designed to reduce user effort. However, they could both potentially lead to a **Diminished Breadth of Experience**. For **one** of the systems, explain concretely how this threat could manifest.**  
+**[3 marks]**
+
+---
+### **Model Answer 1.4.2**
+
+**(a) Similarity to LILSYS:**
+The smart home hub's challenge is more similar to LILSYS because, like LILSYS, it fundamentally **mediates interaction with the real world**. It filters and manages real-world notifications and events (doorbell rings, appliance alerts) based on user context, aiming to shield the user from unwanted interruptions. This is analogous to LILSYS screening real-world phone calls. AGENTSALON, in contrast, mediates access to *information* (news), not physical-world interactions.
+
+**(b) Manifestation of Diminished Breadth of Experience:**
+- **System**: **AGENTSALON**.
+- **Explanation**: AGENTSALON learns a user's stated news interests and tailors the presented stories. This creates a **filter bubble**. If a user initially expresses interest in, say, technology and sports, the system will increasingly show them only those types of stories. Consequently, the user might **miss important news** about politics, science, or culture that falls outside their initially stated profile. Their understanding of the world becomes narrow and specialised, diminishing the breadth of their information diet, all in the name of reducing the effort of searching for relevant news.
+# Topic 1.5: Exam Practice Questions & Model Answers
+
+### **Question 1.5.1: Design from Schema - A Module Recommender**
+**Scenario**: The University of Leeds is (hypothetically) considering developing a module recommender to aid students in choosing optional modules.
+You are part of the design team. Following the general architecture of user-adaptive systems:
+
+**(a) For the **User Model Acquisition** component, describe **two** distinct sources of data it could use and the **type of user model** it would aim to construct from them.**  
+**[4 marks]**
+
+**(b) The **Adaptation Model** needs to combine academic suitability with student interest. Propose a simple **hybrid approach** for this component, naming the two basic recommendation techniques you would combine and the hybridisation method (e.g., weighted, switching).**  
+**[3 marks]**
+
+**(c) One senior academic argues the system is unethical because it could "track students' every click." Identify the **usability threat** they are invoking and suggest **one** design feature to explicitly address this concern in the system's **User Data Gathering** stage.**  
+**[3 marks]**
+
+---
+### **Model Answer 1.5.1**
+
+**(a) User Model Acquisition:**
+1.  **Data Source**: **University Student Information System (SIS)**. This provides explicit data like past module grades and enrolment records.
+   **User Model Constructed**: An **overlay knowledge model** indicating which academic topics/areas the student has already mastered or studied, and their proficiency level.
+2.  **Data Source**: **Implicit browsing logs** from the module catalogue website (clicks, dwell time on module pages).
+   **User Model Constructed**: A **preference vector** of inferred student interests in various subject areas (e.g., AI, Security, Human-Centred Computing), based on the content of the modules they explored.
+
+**(b) Hybrid Adaptation Approach:**
+- **Techniques**: **Content-Based Filtering (CBF)** for academic suitability and **Collaborative Filtering (CF)** for leveraging peer interest patterns.
+- **Hybridisation Method**: **Weighted Hybrid**.  
+- **Explanation**: A final recommendation score would be calculated as:  
+  `Final_Score = (w1 * CBF_Score) + (w2 * CF_Score)`.  
+  The CBF score matches module learning outcomes to the student's knowledge profile (from SIS). The CF score reflects the module's popularity among students with similar academic profiles or interests. Weights (`w1`, `w2`) can be tuned.
+
+**(c) Threat and Mitigating Feature:**
+- **Usability Threat**: **Infringement of Privacy** (specifically, surveillance and lack of transparency).
+- **Design Feature**: Implement an **explicit, granular consent dialogue** at the User Data Gathering stage. When a student first uses the recommender, a clear pop-up would explain *what* data will be collected (e.g., "which modules you view and for how long"), *why* (to suggest relevant modules), and offer **opt-in/opt-out toggles** for different data types (e.g., "Use my browsing history" ON/OFF). This gives control and ensures informed consent.
+
+---
+### **Question 1.5.2: Comparative Analysis in a New Context**
+A museum is planning two new systems:
+- **System A (Gallery Navigator)**: Uses Bluetooth beacons to track visitor location. It then pushes information to their phone about the exhibit they are near, tailoring the detail of the description based on estimated time spent at previous exhibits (inferred engagement level).
+- **System B (Virtual Curator Chatbot)**: An LLM-powered chatbot on the museum website. Users tell it their interests (e.g., "I like modern art and history"). It then generates a personalised tour plan and answers questions in a style adapted to the user's language complexity.
+
+**(a) System A's method of inferring engagement level is most similar to the data collection approach of **LILSYS** or **AGENTSALON**? Justify your choice.**  
+**[2 marks]**
+
+**(b) For System B, identify a concern related to **Reliability & Accuracy** (a challenge seen in LILSYS) that is specifically heightened by its use of an LLM.**  
+**[2 marks]**
+
+**(c) Both systems aim to "tailor information." Classify which of the two broad **Types of User-Adaptivity Support** (Supporting System Use / Supporting Information Acquisition) each system primarily provides.**  
+**[2 marks]**
+
+---
+### **Model Answer 1.5.2**
+
+**(a) Similarity in Data Collection:**
+- **System A is most similar to LILSYS**.
+- **Justification**: Both System A and LILSYS rely primarily on **passive, implicit sensor data** collected without direct user input to infer user state. LILSYS uses motion/keyboard sensors; System A uses Bluetooth beacons to track location and dwell time. AGENTSALON, in contrast, relies primarily on **explicit user profiles** and feedback.
+
+**(b) LLM-Specific Reliability Concern:**
+A primary concern is **Hallucination and Factual Inaccuracy**. The LLM in System B might generate a tour plan that includes **non-existent exhibits**, **incorrect historical facts**, or **illogical navigation routes** through the museum. Unlike a simple rule-based system, the LLM's generative nature makes its outputs **unpredictably and plausibly wrong**, posing a significant reliability threat that could mislead and frustrate users.
+
+**(c) Type of Adaptive Support:**
+- **System A (Gallery Navigator)**: **Supporting Information Acquisition**. It helps users find and understand information about exhibits based on their location and engagement.
+- **System B (Virtual Curator)**: **Supporting Information Acquisition**. It helps users find information (a tour plan) and tailors the presentation of information (answers) based on their stated interests and language level.
+# Topic 2.1: Exam Practice Questions & Model Answers
+
+### **Question 2.1.1: Detailed Component Design**
+Continuing with the University of Leeds **Module Recommender** scenario:
+
+**(a) The **User Model Acquisition** component is tasked with creating the "interest strengths" vector. Describe a **step-by-step process** it could use to convert raw "dwell time on a module page" into a numerical interest strength for a topic (e.g., "Robotics"). Assume the module pages are already tagged with topics from a Domain Model.**  
+**[4 marks]**
+
+**(b) The system uses a **stereotype** (e.g., "High-Achieving CS Student") for cold-start. Explain **one** clear **advantage** and **one** significant **risk** of using stereotypes in this educational context.**  
+**[4 marks]**
+
+**(c) The **Adaptive Component** plans to include an explanation. Generate an example explanation that **combines information** from two different parts of the User Model ("interest strengths" and "mastered topics") for a recommended module in "Computer Vision".**  
+**[2 marks]**
+
+---
+### **Model Answer 2.1.1**
+
+**(a) From Dwell Time to Interest Strength:**
+1.  **Aggregation**: For a given user, sum the total dwell time across all module pages tagged with the topic "Robotics".
+2.  **Normalization**: Divide this sum by the user's total dwell time on *all* module pages. This gives a **proportion of attention** devoted to Robotics topics, controlling for overall browsing activity.
+3.  **Weighting**: Apply a **non-linear scaling** (e.g., a logarithmic function) to this proportion. This prevents a single very long page view from disproportionately skewing the vector and dampens the effect of outliers.
+4.  **Update**: This calculated strength for "Robotics" is then used to update the existing value in the user's interest vector, potentially using a moving average to incorporate new evidence smoothly over time.
+
+**(b) Stereotype Advantage and Risk:**
+- **Advantage**: **Effective Cold-Start Solution**. It provides **immediate, plausible recommendations** to a new student before any personal data (grades, browsing) is available. It leverages the "wisdom of the crowd" by suggesting modules that have been successful for similar students in the past, giving a useful starting point.
+- **Risk**: **Reinforcement of Bias and Limiting Discovery**. The stereotype is based on historical data. If certain modules (e.g., theory-heavy modules) were traditionally popular with "High-Achieving CS Students," the system will recommend them, potentially **steering students away from non-traditional, innovative, or interdisciplinary options** they might personally love. This perpetuates historical trends and limits personal exploration and diversity of student pathways.
+
+**(c) Combined Explanation:**
+"Recommended because it aligns with your **strong interest in AI** (from your browsing history) and builds directly on your **excellent grades in Linear Algebra and Programming**."
+
+---
+### **Question 2.1.2: Evaluating Design Choices**
+The Module Recommender design document includes the following debate:
+- **Proposal X**: Use **Collaborative Filtering (CF)** to rank modules based on what students in the same stereotype enrolled in and rated highly.
+- **Proposal Y**: Rely only on **Content-Based Filtering (CBF)** using the student's interest vector and the module topic vector.
+
+**(a) Proposal X (CF) is susceptible to a common recommender systems problem. Name this problem and explain why it is particularly problematic in the **module recommendation** context.**  
+**[3 marks]**
+
+**(b) Proposal Y (CBF) is strong at transparency but suffers from a key limitation. Identify this limitation and describe how it could negatively affect a student's **breadth of experience**.**  
+**[3 marks]**
+
+**(c) The team decides on a **cascade hybrid**: first use CBF to filter, then use CF to re-rank the shortlist. What is the primary **benefit** of applying CF *second* in this cascade, compared to using it first?**  
+**[2 marks]**
+
+---
+### **Model Answer 2.1.2**
+
+**(a) Problem with Collaborative Filtering:**
+- **Problem**: **Popularity Bias**.
+- **Contextual Explanation**: CF will recommend modules that are **popular within the student's stereotype**. This can create a **feedback loop** where already-popular modules become even more recommended, overshadowing high-quality but niche or new modules. In an educational context, this is problematic because it could **stifle diversity in module uptake**, push students toward "easy" or "famous" modules rather than the best for their development, and make it hard for new or specialised modules to gain traction.
+
+**(b) Limitation of Content-Based Filtering:**
+- **Limitation**: **Overspecialisation / Filter Bubble**.
+- **Effect on Breadth**: A pure CBF system will only recommend modules that are *similar* to those the student has already shown interest in. If a Computer Science student only browses AI and Security modules, the CBF system will **only recommend more AI and Security modules**. This denies the student exposure to potentially valuable **adjacent or interdisciplinary fields** (e.g., Human-Computer Interaction, Bioinformatics) that they might not know to search for but could find fascinating and career-enhancing. Their academic experience becomes narrowed.
+
+**(c) Benefit of Cascade (CBF then CF):**
+The primary benefit is that the CF stage **operates on a pre-filtered, relevant shortlist**. This means the "wisdom of the crowd" (CF) is used to **break ties** and **add serendipity** among modules that are already a good content-based fit. It prevents CF from recommending popular but completely irrelevant modules (e.g., a popular but introductory module to an advanced student), thereby improving the **precision and appropriateness** of the final recommendations.
+# Topic 2.2: Exam Practice Questions & Model Answers
+
+### **Question 2.2.1: Selecting Appropriate Representations**
+A company is developing two distinct adaptive systems:
+
+1.  **System A (Corporate Learning Platform)**: Delivers mandatory compliance training (e.g., data privacy, health & safety) to all employees. It must ensure each employee achieves a passing understanding of each policy.
+2.  **System B (Internal News Hub)**: Aggregates company news, project updates, and industry articles. It aims to keep employees informed about topics relevant to their role and personal interests.
+
+**(a) For representing **employee knowledge** in *System A*, which representation method—**Scalar**, **Overlay**, or **Bug Model**—is most appropriate? Justify your choice by linking the system's goal to the method's characteristics.**  
+**[3 marks]**
+
+**(b) For representing **employee interests** in *System B*, which representation method—**Keyword-Level**, **Overlay on Fixed List**, or **Concept-Level**—would be most effective if the company has a well-defined, stable set of departments and project areas? Justify your choice.**  
+**[3 marks]**
+
+**(c) *System B* also wants to consider the **Context** of "time of day" (e.g., morning vs. late afternoon). According to the context dimensions framework, is this **User Context** or **Environment Context**? Explain your reasoning.**  
+**[2 marks]**
+
+---
+### **Model Answer 2.2.1**
+
+**(a) Knowledge Representation for System A:**
+- **Most Appropriate**: **Overlay Model**.
+- **Justification**: The system's goal is to ensure passing understanding of *each specific policy*. This requires **fine-grained tracking** of knowledge on discrete concepts (e.g., "GDPR Article 5", "Fire Drill Procedure"). The **Scalar Model** is too coarse (a single "compliance knowledge" score). The **Bug Model** is overly complex for this declarative knowledge domain. The **Overlay Model** perfectly matches a domain model of policy concepts, allowing the system to identify *which* specific policies an employee is weak on and target training accordingly.
+
+**(b) Interest Representation for System B:**
+- **Most Effective**: **Overlay on a Fixed List**.
+- **Justification**: The company has a "well-defined, stable set of departments and project areas." This provides a natural, bounded **fixed list of topics** (e.g., [Engineering, Marketing, Sales, Project-X]). A simple vector over this list is **easy to implement**, directly maps to how content can be tagged, and avoids the complexity of building a full ontology (**Concept-Level**) or the noise of free-form keywords. It provides sufficient granularity for role-based personalisation.
+
+**(c) Context Classification for "Time of Day":**
+- **Classification**: **User Context**.
+- **Reasoning**: Time of day is a **temporal attribute of the user's situation**. It influences the user's **cognitive state, routine, and availability** (e.g., more receptive to detailed reports in the morning, preferring brief updates in the afternoon). It is not an attribute of the external physical environment (like weather or lighting), which would be Environment Context.
+
+---
+### **Question 2.2.2: Modelling Challenges & Construction**
+A "Smart Recipe Manager" app aims to adapt recipe suggestions based on a user's **cooking skill**. It must also recognise when a user is performing the **goal** of "cooking a weekday dinner" vs. "planning a weekend feast."
+
+**(a) Propose a method for representing the user's **cooking skill**. Choose between a **Scalar Model** and an **Overlay Model**. Justify your choice by contrasting the two methods in this specific context.**  
+**[4 marks]**
+
+**(b) Describe how the system could perform **goal recognition** to distinguish between "weekday dinner" and "weekend feast." Your answer should mention at least **two** distinct pieces of evidence the system could use and how they would be interpreted.**  
+**[4 marks]**
+
+---
+### **Model Answer 2.2.2**
+
+**(a) Representing Cooking Skill:**
+- **Proposed Method**: **Scalar Model**.
+- **Justification**: Cooking skill, for the purpose of recipe adaptation, is often effectively represented on a broad continuum (e.g., *Beginner*, *Intermediate*, *Advanced*). An **Overlay Model** would require decomposing "cooking" into hundreds of fine-grained concepts (knife skills, sauce making, baking, etc.), which is **excessively complex and difficult to map** to individual recipes. A **Scalar Model**, while less precise, is **simple to derive** (e.g., from self-report or from the complexity of recipes successfully completed) and provides **sufficient granularity** to filter out recipes with advanced techniques for a beginner. The trade-off of **lower precision** is acceptable for this application.
+
+**(b) Goal Recognition Process:**
+The system would use a **probabilistic overlay** on a pre-defined goal catalog. Evidence would include:
+1.  **Temporal Context (Time & Day)**: Cooking activity on a **Tuesday at 6:30 PM** is strong evidence for the "weekday dinner" goal (probability P=0.8). Activity on a **Saturday at 11:00 AM** increases the probability of the "weekend feast" goal, as it suggests meal *planning* or preparing a more elaborate dish.
+2.  **Interaction Patterns with the App**: If the user is **quickly selecting a saved "quick meal" recipe**, this supports "weekday dinner." If they are **browsing extensively, saving multiple recipes, or viewing recipes with long prep times**, this supports "weekend feast."
+   The system would combine these evidence streams (and potentially others like number of servings selected) using a simple probabilistic model (e.g., a Naive Bayes classifier) to infer the most likely current goal and adapt suggestions accordingly (quick vs. elaborate recipes).
+# Topic 2.3: Exam Practice Questions & Model Answers
+
+### **Question 2.3.1: Acquisition Techniques & Cold-Start**
+A new "Campus Buddy" app for university students aims to provide personalised event recommendations (societies, talks, sports). It faces the **user cold-start problem** as soon as a student installs it.
+
+**(a) Propose a **stereotype-based acquisition technique** to give initial recommendations. Define **two** plausible stereotypes, and for each, provide a **trigger condition** based on data available at sign-up (e.g., from the university's student information system).**  
+**[6 marks]**
+
+**(b) After the initial phase, the app switches to using **collaborative filtering (CF)**. Explain why this switch helps overcome a **limitation of the stereotype approach** used during cold-start.**  
+**[2 marks]**
+
+**(c) The app also lists events from brand new student societies. Which **type of recommender technique** (CF, CBF, or KB) would be inherently capable of recommending these new events from day one, and why?**  
+**[2 marks]**
+
+---
+### **Model Answer 2.3.1**
+
+**(a) Stereotype Design:**
+1.  **Stereotype 1: "The Engaged Academic"**
+    - **Trigger Condition**: `IF` (enrolled_course = "Computer Science" OR "Physics" OR "Mathematics") `AND` (year_of_study >= 2).
+    - **Default Profile**: High interest weight for events tagged [Research_Talks, Coding_Workshops, Academic_Societies]; low weight for [Sports_Socials, Arts_Performances].
+2.  **Stereotype 2: "The Social Connector"**
+    - **Trigger Condition**: `IF` (enrolled_course includes "Business" OR "Media") `OR` (university_accommodation = "Halls of Residence").
+    - **Default Profile**: High interest weight for events tagged [Social_Mixers, Sports_Clubs, Volunteering]; moderate weight for [Careers_Fairs].
+
+**(b) Overcoming Stereotype Limitation:**
+- **Stereotype Limitation**: Stereotypes are **over-generalised and static**. They assume all students in a category have identical interests.
+- **CF Advantage**: Collaborative filtering **learns the individual's unique taste** from their actual interactions (attending/ignoring events). It finds *specific* similar users, not a broad category, leading to **more precise and personalised** recommendations as data accumulates, moving beyond the coarse stereotype.
+
+**(c) Recommending New Events (Item Cold-Start):**
+- **Technique**: **Content-Based Filtering (CBF)** or **Knowledge-Based (KB)** techniques.
+- **Reason**: These techniques do not rely on historical user-item interaction data. **CBF** can recommend a new society's event if its **metadata** (tags: "debating", "political") matches a user's interest profile. A **KB** system could recommend it based on the user's stated goal to "improve public speaking." **Collaborative Filtering fails** because a new event has no attendance history.
+
+---
+### **Question 2.3.2: Model Maintenance & Challenges**
+A financial wellness app tracks users' spending categories (e.g., groceries, entertainment) to provide personalised budgeting tips. Users' financial habits and priorities can change over time (e.g., after getting a new job, having a child).
+
+**(a) The app uses a **vector model** of spending priorities. Describe a **forgetting mechanism** the app could implement to handle the **changing user state** ("concept drift") and prevent the model from being overly influenced by old, no-longer-relevant spending patterns.**  
+**[3 marks]**
+
+**(b) The raw spending data from bank feeds can be **noisy** (e.g., a supermarket transaction might be categorised as "groceries" but was actually for garden supplies, a non-essential). Propose **two** complementary strategies to mitigate the impact of noisy data on the user model.**  
+**[4 marks]**
+
+---
+### **Model Answer 2.3.2**
+
+**(a) Forgetting Mechanism:**
+The app could use **exponential decay** on the weights in the spending priority vector. Each spending event's contribution to a category's weight would be multiplied by a **decay factor** (e.g., 0.95) for each subsequent week. For example, a £100 grocery spend from 10 weeks ago would contribute `100 * (0.95^10) ≈ £60` to the current "groceries" weight, while a similar spend from last week would contribute `100 * (0.95^1) ≈ £95`. This automatically **down-weights older evidence**, allowing the model to adapt to recent changes in behaviour.
+
+**(b) Mitigating Noisy Data:**
+1.  **Probabilistic Modelling & Confidence Measures**: Instead of hard categorisation, assign **probabilities** to categories for each transaction (e.g., P(groceries)=0.7, P(gardening)=0.3). Update the user model using these probabilities. Also, maintain a **confidence score** for each inferred priority; require multiple corroborating transactions (high confidence) before making strong adaptive decisions like issuing a warning.
+2.  **Hybrid Data Source & User Correction**: Combine the automated bank feed categorisation with **explicit user input**. Implement a **scrutable model** where users can review and correct categorisations (e.g., "Was this £50 at Tesco for Groceries or Gardening?"). Use these corrections not only to fix that instance but also to **retrain the categorisation algorithm** for future transactions, creating a feedback loop that improves data quality over time.
+# Topic 2.4: Exam Practice Questions & Model Answers
+
+### **Question 2.4.1: From Measurements to Models**
+An e-commerce site uses a panel of 1000 users to test a new recommendation widget. For a specific product, the widget is shown 5000 times (impressions) and receives 250 clicks.
+
+**(a) Calculate the **Click-Through Rate (CTR)** for this product. The product team considers a CTR above 5% as indicating "high interest." Does this product meet that threshold?**  
+**[2 marks]**
+
+**(b) The widget always appears at the very top of the page. Explain the **primary threat to validity** if the team uses this CTR to definitively conclude the product is "interesting," and suggest a **better analysis approach** to assess true interest.**  
+**[4 marks]**
+
+**(c) The site wants to build a long-term interest profile using **TF-IDF**. A user has clicked on 3 product descriptions. For the term "wireless," the raw counts in the three descriptions are 4, 6, and 0. The maximum raw count for any term in those documents is 10. The term "wireless" appears in 150 of the site's 10,000 product descriptions. **Calculate the TF-IDF weight** for "wireless" for this user. Show your working for TF and IDF.**  
+**[6 marks]**
+
+---
+### **Model Answer 2.4.1**
+
+**(a) CTR Calculation and Threshold:**
+- **CTR** = (Number of Clicks) / (Number of Impressions) = 250 / 5000 = **0.05** or **5%**.
+- **Conclusion**: Yes, it **meets the 5% threshold** exactly.
+
+**(b) Threat to Validity and Better Approach:**
+- **Primary Threat**: **Position Bias**. Items at the top of a page receive disproportionately many clicks simply due to their prominent location, regardless of inherent interest. A high CTR may reflect position, not product appeal.
+- **Better Approach**: Conduct an **A/B test** with **randomised positioning**. Randomly assign users to see the product in the top position (Group A) or in a lower, standard position (Group B). Compare the **CTR in Group B** to the baseline. If the CTR remains high even when not at the top, you can more confidently attribute it to interest.
+
+**(c) TF-IDF Calculation:**
+**Step 1: Calculate Term Frequency (TF) for each document.**
+- Formula: $tf(t,d) = f_d(t) / \text{max}_{w \in d} f_d(w)$
+- Doc1: `tf("wireless", d1) = 4 / 10 = 0.4`
+- Doc2: `tf("wireless", d2) = 6 / 10 = 0.6`
+- Doc3: `tf("wireless", d3) = 0 / 10 = 0`
+- **Aggregate TF for user**: Often the average is used. `(0.4 + 0.6 + 0) / 3 = 1.0 / 3 ≈ 0.333`
+
+**Step 2: Calculate Inverse Document Frequency (IDF).**
+- Formula: $idf(t, D) = \ln ( |D| / |\{d \in D : t \in d\}| )$
+- $|D|$ = 10,000 (total products)
+- $|\{d \in D : t \in d\}|$ = 150 (products containing "wireless")
+- $idf("wireless", D) = \ln (10000 / 150) = \ln (66.67) ≈ 4.20$
+
+**Step 3: Calculate TF-IDF.**
+- $tfidf = \text{(Aggregate TF)} \cdot idf = 0.333 \cdot 4.20 ≈ **1.40**$
+
+---
+### **Question 2.4.2: Modelling Techniques and Preprocessing**
+A music streaming service wants to cluster its users into "taste profiles" based on their play counts across 20 genres. The raw data for two users is:
+- **User A (High Engagement)**: [Pop: 100, Rock: 200, Jazz: 50] (Total plays = 350)
+- **User B (Low Engagement)**: [Pop: 10, Rock: 20, Jazz: 5] (Total plays = 35)
+
+**(a) The raw vectors are very different due to engagement level. Describe the **two-step preprocessing procedure** (involving TF-IDF and L2 normalisation) that would transform these vectors to reveal their similar *interest distributions* for clustering.**  
+**[4 marks]**
+
+**(b) After preprocessing, the service wants to build a **graph-based interest model** for a user who listens extensively to "Indie Rock" and "Alternative." What is the key **advantage** of a graph-based model over a simple genre list for recommending new music to this user?**  
+**[2 marks]**
+
+**(c) The research on Google News concluded that interests are dynamic. Propose a **simple update rule** for the user's interest vector that balances **long-term preference** with **recent listening trends**. You may use a mathematical notation or a clear descriptive rule.**  
+**[2 marks]**
+
+---
+### **Model Answer 2.4.2**
+
+**(a) Two-Step Preprocessing:**
+1.  **Apply TF-IDF across the user-genre matrix**. This re-weights raw play counts. The IDF component will down-weight ubiquitous genres (e.g., Pop) and boost distinctive ones (e.g., Classical), helping to distinguish true niche interests from common listening habits.
+2.  **Apply L2 Normalisation** to each user's resulting TF-IDF vector. This is computed as:
+    $\mathbf{v}_{\text{norm}} = \mathbf{v} / ||\mathbf{v}||_2$, where $||\mathbf{v}||_2$ is the Euclidean norm (square root of the sum of squared vector values).
+    This step **removes the magnitude (engagement level)** and preserves only the **direction (relative proportion of interest across genres)**. After this, User A and User B's vectors will be nearly identical, showing they have the same *relative* taste profile (Rock > Pop > Jazz).
+
+**(b) Advantage of Graph-Based Model:**
+The key advantage is **semantic reasoning and serendipitous discovery**. A graph-based model understands that "Indie Rock" is *related to* "Psychedelic Rock," "Post-Punk," and perhaps certain "Folk" artists via defined relationships in a music ontology. It can therefore recommend music that is **semantically related but not lexically identical**, leading to more diverse and accurate discoveries than a model that just looks for other items tagged "Indie Rock."
+
+**(c) Update Rule for Dynamic Interests:**
+A simple rule is **exponential moving average**.
+$\text{Interest}_{\text{new}} = \alpha \cdot \text{Interest}_{\text{current}} + (1 - \alpha) \cdot \text{Interest}_{\text{recent}}$
+Where $\text{Interest}_{\text{current}}$ is the existing long-term vector, $\text{Interest}_{\text{recent}}$ is a vector calculated from the last week of listening, and $\alpha$ is a smoothing factor (e.g., 0.9) that controls the influence of new evidence. This gradually integrates recent trends while retaining a memory of long-term preference.
+# Topic 2.5 & Recommender Systems: Exam Practice Questions & Model Answers
+
+### **Question 2.5.1: Goal Recognition & Adaptation**
+A "Smart Writing Assistant" plugin for word processors is designed to help users with different writing goals, such as "Writing a Research Paper," "Drafting a Business Email," or "Composing a Creative Story."
+
+**(a) The system uses a **goal hierarchy**. Sketch a simple hierarchy for the goals mentioned and add one sub-goal for "Writing a Research Paper."**  
+**[2 marks]**
+
+**(b) Describe **two distinct types of evidence** the system could use to perform **goal recognition** and infer which goal a user is currently pursuing. For each, state how it would support a specific goal.**  
+**[4 marks]**
+
+**(c) If the system infers the goal "Writing a Research Paper" with a confidence of 0.7, what **adaptive action** could it take? Also, identify the **major usability threat** that arises if the system's inference is wrong and it takes this action autonomously.**  
+**[2 marks]**
+
+---
+### **Model Answer 2.5.1**
+
+**(a) Goal Hierarchy:**
+```
+Writing Goals
+├── Writing a Research Paper
+│   └── Citing Sources  // Example sub-goal
+├── Drafting a Business Email
+└── Composing a Creative Story
+```
+
+**(b) Evidence for Goal Recognition:**
+1.  **Document Metadata and Stylistic Features**: The system can analyse the document's **template, title, and initial keywords**. A document titled "Literature_Review.docx" with section headers like "Introduction," "Methodology," and a bibliography section provides strong evidence for the "Research Paper" goal. A document starting with "Dear Team," is evidence for "Business Email."
+2.  **User Interaction Patterns**: Monitoring the user's **search queries within the plugin** (e.g., searching for "APA citation format" vs. "corporate email salutations") and **tools accessed** (e.g., frequent use of a citation manager vs. an emoji picker) provides implicit evidence of their current task and supports the corresponding goal inference.
+
+**(c) Adaptive Action and Usability Threat:**
+- **Adaptive Action**: The system could **automatically activate the citation manager sidebar** and **suggest academic phrasing** or relevant reference sources.
+- **Usability Threat**: **Diminished Controllability / Obtrusiveness**. If the inference is wrong (e.g., the user is actually writing a blog post about research), the autonomous activation of the citation tools would be **intrusive, distracting, and could disrupt the user's workflow**, making them feel the system is working against them rather than assisting them.
+
+---
+### **Question 2.5.2: Dynamic Interest Modelling (Bayesian Framework)**
+Referring to the Google News research and the provided user-item matrix:
+
+**(a) The matrix shows user u3's ratings. If we consider these ratings as **observed behaviour**, explain what the **Bayesian framework** would consider as the two latent components contributing to u3's rating for `item1` (rating=5).**  
+**[2 marks]**
+
+**(b) Using the **similarity measures** provided, calculate the predicted rating for user u3 on item3 using **User-User Collaborative Filtering** with a neighbourhood of k=2. Show your working.**  
+**[4 marks]**
+
+|                    | u1    | u2    |    u3     | u4    | u5    | u6    |
+| ------------------ | ----- | ----- | :-------: | ----- | ----- | ----- |
+| similarity measure | 0.63  | 0.56  |           | 0.71  | 0.22  | 0.93  |
+
+**(c) **Collaborative Filtering** and the **Bayesian framework** both aim to predict preferences. State one key advantage the Bayesian framework has over standard CF in the context of a fast-changing domain like news.**  
+**[2 marks]**
+
+---
+### **Model Answer 2.5.2**
+
+**(a) Latent Components for u3's Rating:**
+The Bayesian framework would decompose the observed rating of 5 for `item1` into:
+1.  **Genuine Interest**: u3's underlying, stable personal preference for the content of `item1`.
+2.  **Trend Influence**: The effect of the current news trend (what the general population is clicking/rating highly at that moment) on u3's decision to rate `item1` a 5. The high rating might be partly because the topic is currently very popular.
+
+**(b) User-User CF Prediction for u3 on item3:**
+1.  **Identify Neighbours (k=2)**: The two highest similarity measures to u3 are **u6 (0.93)** and **u4 (0.71)**.
+2.  **Retrieve Neighbours' Ratings for item3**: u6 rated item3 as **4**. u4 rated item3 as **2**.
+3.  **Calculate Weighted Average Prediction**:
+    $p_{u3,item3} = \frac{(r_{u6} \cdot sim_{u6}) + (r_{u4} \cdot sim_{u4})}{sim_{u6} + sim_{u4}}$
+    $p_{u3,item3} = \frac{(4 \cdot 0.93) + (2 \cdot 0.71)}{0.93 + 0.71} = \frac{3.72 + 1.42}{1.64} = \frac{5.14}{1.64} ≈ **3.13**$
+
+**(c) Advantage of Bayesian Framework over CF:**
+The key advantage is **explicit modelling and adaptation to temporal dynamics**. Standard CF treats all past ratings equally. The Bayesian framework explicitly **separates transient trend effects from long-term interest** and can **down-weight older data** as its predictive power decays. This allows it to remain responsive to shifting trends (crucial for news) while maintaining a stable core profile, whereas CF would be slower to adapt and could recommend outdated trending topics.
+# Topic 3.1: Exam Practice Questions & Model Answers
+
+### **Question 3.1.1: Technique Identification & Characterisation**
+A company is developing three different recommender systems:
+
+1.  **System 1 (MovieStream)**: Suggests films by finding users with similar rating histories and recommending movies those similar users enjoyed.
+2.  **System 2 (GourmetGuide)**: A chatbot that asks "What's your budget? Any dietary restrictions? Favourite cuisine?" then suggests restaurants.
+3.  **System 3 (StyleMatch)**: An online clothing store that recommends items by analysing the visual features (colour, pattern, style) of clothing a user has previously 'favourited' and finding visually similar items.
+
+**(a) Identify the **core recommendation technique** used by each system (CF, CBF, KB, DM, or UT).**  
+**[3 marks]**
+
+**(b) For **System 1 (MovieStream)**, describe its **primary weakness** and suggest **one** way to overcome it without changing the core technique.**  
+**[2 marks]**
+
+**(c) **System 2 (GourmetGuide)** and **System 3 (StyleMatch)** use different types of *background data*. Contrast the nature of the background data each system relies on.**  
+**[2 marks]**
+
+---
+### **Model Answer 3.1.1**
+
+**(a) Technique Identification:**
+- **System 1 (MovieStream)**: **Collaborative Filtering (CF)**. It leverages the "wisdom of the crowd" by finding similar users.
+- **System 2 (GourmetGuide)**: **Knowledge-Based (KB)**. It uses an interactive dialogue to elicit explicit user constraints and needs, then applies domain knowledge (restaurant features) to satisfy them.
+- **System 3 (StyleMatch)**: **Content-Based Filtering (CBF)**. It recommends items based on the similarity of their *attributes/features* (visual characteristics) to those of items the user has liked.
+
+**(b) Weakness and Mitigation for System 1 (CF):**
+- **Primary Weakness**: The **User Cold-Start Problem**. It cannot make good recommendations for a new user who has no rating history, as it cannot find similar users.
+- **Mitigation**: Implement an **initial explicit profiling step**. Before showing CF recommendations, ask the new user to rate a small, diverse set of popular movies. This "seed" data provides an initial vector to find similar users, bootstrapping the CF process.
+
+**(c) Contrast in Background Data:**
+- **System 2 (KB)**: Relies on a **knowledge base of rules and constraints**. This is typically hand-crafted or curated knowledge about the domain, linking user needs (budget, diet) to item properties (price, menu).
+- **System 3 (CBF)**: Relies on a **domain model of item feature vectors**. This is structured data (metadata) about each item's attributes (e.g., colour histogram, pattern classification, style tags). The system does not need rules about *why* features are good, just the features themselves.
+
+---
+### **Question 3.1.2: Analysing the Recommendation Landscape**
+The table below summarises key aspects of core recommendation techniques.
+
+| Technique | Core Idea | Typical Background Data | Classic Weakness |
+| :--- | :--- | :--- | :--- |
+| **Collaborative (CF)** | Wisdom of the crowd. | User-Item Matrix. | Cold-Start (User & Item). |
+| **Content-Based (CBF)** | Similarity of item features. | Item Features, User Profile. | Overspecialisation (Filter Bubble). |
+| **Knowledge-Based (KB)** | Match constraints to items. | Knowledge Base (Rules/Constraints). | Static, requires knowledge engineering. |
+
+**(a) A **Demographic (DM)** recommender suggests news articles to users based on their age and postcode. According to the table's logic, what would be its most likely **Classic Weakness**?**  
+**[1 mark]**
+
+**(b) A music service uses a **Utility-Based (UT)** approach where users manually set importance weights for features like "danceability," "artist familiarity," and "release year." What is the **key trade-off** for the user with this approach compared to an implicit CF system?**  
+**[2 marks]**
+
+**(c) A video platform suffers from the **item cold-start problem** for newly uploaded videos. Referring to the table, which **two** techniques would *not* suffer from this problem for the new videos? For each, briefly explain why.**  
+**[4 marks]**
+
+---
+### **Model Answer 3.1.2**
+
+**(a) Weakness of Demographic Recommender:**
+The most likely classic weakness is **Over-generalisation and Stereotyping**. Demographic segments are coarse, assuming all users of a certain age in a postcode have identical tastes, which leads to inaccurate, non-personalised recommendations.
+
+**(b) Key Trade-off of Utility-Based vs. CF:**
+The key trade-off is **Control and Transparency vs. Effort and Completeness**.
+- **UT (User's Perspective)**: Provides **high control and transparency** (user understands exactly why recommendations are made) but requires **significant upfront and ongoing effort** to define and maintain the utility function. The user must also have the self-knowledge to completely define their preferences.
+- **CF (User's Perspective)**: Requires **no effort** (works implicitly) and can discover unknown preferences, but offers **low control and transparency** (hard to understand why something was recommended).
+
+**(c) Techniques Not Suffering from Item Cold-Start:**
+1.  **Content-Based Filtering (CBF)**: Does not suffer because it relies on the **item's features/metadata** (e.g., video title, description, tags, uploader), which are available as soon as the video is uploaded. It can recommend the new video to users whose profiles match these features.
+2.  **Knowledge-Based (KB)**: Does not suffer because it uses a **knowledge base of constraints and item properties**. If the new video's properties (e.g., category="Educational", length="short") are known, the system can match it to users with relevant constraints (e.g., "I want short educational videos"), regardless of the video having no view history.
+# Topic 3.2: Exam Practice Questions & Model Answers
+
+### **Question 3.2.1: User-User CF Calculation & Analysis**
+
+**Use the following subset of the rating matrix for calculations:**
+
+|       | u1  | u2  | u3  | u4  | u5  | u6  |
+| ----- | --- | --- | --- | --- | --- | --- |
+| item1 | 5   | 1   | 5   | 4   | 0   | 3   |
+| item2 | 3   | 3   | 1   | 1   | 5   | 1   |
+| item4 | 1   | 1   | 4   | 1   | 1   | 2   |
+| item5 | 3   | 2   | 5   | 0   | 0   | 3   |
+
+**(a) Calculate the **Cosine Similarity** between user **u5** and user **u6**. Show your working.**  
+**[5 marks]**
+
+**(b) Using the **similarity results** from part (a) and the following provided similarities for u5—`sim(u5,u1)=0.22`, `sim(u5,u3)=0.45`, `sim(u5,u4)=0.10`—predict u5's rating for **item1** using **User-User CF with k=2**. Show your working.**  
+**[4 marks]**
+
+**(c) Based on your prediction, identify **one** potential issue with the **neighbourhood selection** in this specific case and suggest how it might affect prediction quality.**  
+**[2 marks]**
+
+---
+### **Model Answer 3.2.1**
+
+**(a) Cosine Similarity between u5 and u6:**
+1.  **Identify co-rated items**: u5 and u6 have both rated item2, item4, and item5.
+2.  **Vectors for co-rated items**:
+    - u5: `[item2:5, item4:1, item5:0]`
+    - u6: `[item2:1, item4:2, item5:3]`
+3.  **Dot Product**: $(5*1) + (1*2) + (0*3) = 5 + 2 + 0 = 7$
+4.  **Magnitude of u5**: $\sqrt{5^2 + 1^2 + 0^2} = \sqrt{25 + 1 + 0} = \sqrt{26} \approx 5.099$
+5.  **Magnitude of u6**: $\sqrt{1^2 + 2^2 + 3^2} = \sqrt{1 + 4 + 9} = \sqrt{14} \approx 3.742$
+6.  **Cosine Similarity**: $sim(u5, u6) = \frac{7}{5.099 \times 3.742} = \frac{7}{19.08} \approx 0.367$
+
+**(b) Prediction for u5 on item1 using k=2:**
+1.  **Rank similarities for u5**:
+    - sim(u5,u3) = 0.45
+    - sim(u5,u6) = 0.367 (from part a)
+    - sim(u5,u1) = 0.22
+    - sim(u5,u4) = 0.10
+    **Nearest 2 neighbours: u3 and u6.**
+2.  **Retrieve neighbours' ratings for item1**:
+    - u3 rated item1 as **5**.
+    - u6 rated item1 as **3**.
+3.  **Weighted Sum Prediction**:
+    $p_{u5,item1} = \frac{(5 \cdot 0.45) + (3 \cdot 0.367)}{0.45 + 0.367} = \frac{2.25 + 1.101}{0.817} = \frac{3.351}{0.817} \approx 4.10$
+
+**(c) Neighbourhood Selection Issue:**
+- **Issue**: **Low Absolute Similarity / Sparse Neighbourhood**. The two "best" neighbours (u3 and u6) have relatively low similarity scores (0.45 and 0.37). This indicates u5 is not *very* similar to any other user in the dataset.
+- **Effect on Quality**: Predictions based on weakly similar neighbours are **unreliable and noisy**. The system is essentially making a guess based on users who are only marginally alike, which increases the risk of a poor recommendation.
+
+---
+### **Question 3.2.2: Item-Item CF & Amazon's Method**
+
+**Consider the binary purchase matrix for Amazon's method:**
+
+|       | u1  | u2  | u3 (Target) | u4  | u5  | u6  |
+| ----- | --- | --- | :---------: | --- | --- | --- |
+| item1 | 1   | 0   |    **1**    | 1   | 0   | 0   |
+| item2 | 0   | 1   |    **0**    | 1   | 0   | 0   |
+| item3 | 0   | 1   |    **0**    | 0   | 0   | 1   |
+| item4 | 0   | 1   |    **1**    | 1   | 0   | 0   |
+| item5 | 1   | 0   |    **0**    | 0   | 1   | 1   |
+| item6 | 1   | 1   |    **0**    | 0   | 1   | 0   |
+| item7 | 0   | 0   |    **0**    | 1   | 0   | 0   |
+
+**(a) Following **Amazon's process**, identify the **candidate items** for recommendation to u3. List the steps you take.**  
+**[3 marks]**
+
+**(b) Calculate the **Cosine Similarity** between item4 (which u3 bought) and item2 (a candidate). Use the binary vectors for all users (u1 to u6).**  
+**[3 marks]**
+
+**(c) Explain **why** this item-item approach, with pre-computed similarities, solves the **scalability problem** of user-user CF for a giant like Amazon.**  
+**[2 marks]**
+
+---
+### **Model Answer 3.2.2**
+
+**(a) Amazon's Process - Candidate Items:**
+1.  **Step 1**: Find customers who purchased the same items as u3. u3 purchased **item1** and **item4**.
+    - Customers who bought **item1**: u1, u4.
+    - Customers who bought **item4**: u2, u4.
+    - **Union**: u1, u2, u4.
+2.  **Step 2**: Find other items bought by these customers (u1, u2, u4).
+    - u1 bought: item1, item5, item6.
+    - u2 bought: item2, item3, item4, item6.
+    - u4 bought: item1, item2, item4, item7.
+    - **Candidate items (excluding item1 & item4)**: item2, item3, item5, item6, item7.
+
+**(b) Cosine Similarity between item4 and item2:**
+1.  **Binary Vectors**:
+    - item4: `[u1:0, u2:1, u3:1, u4:1, u5:0, u6:0]`
+    - item2: `[u1:0, u2:1, u3:0, u4:1, u5:0, u6:0]`
+2.  **Dot Product**: $(0*0)+(1*1)+(1*0)+(1*1)+(0*0)+(0*0) = 0+1+0+1+0+0 = 2$
+3.  **Magnitude of item4**: $\sqrt{0^2+1^2+1^2+1^2+0^2+0^2} = \sqrt{3} \approx 1.732$
+4.  **Magnitude of item2**: $\sqrt{0^2+1^2+0^2+1^2+0^2+0^2} = \sqrt{2} \approx 1.414$
+5.  **Cosine Similarity**: $sim(item4, item2) = \frac{2}{1.732 \times 1.414} = \frac{2}{2.449} \approx 0.816$
+
+**(c) Solving the Scalability Problem:**
+In user-user CF, to make a recommendation for a user, you must compare them to **all M users** in the database online, an O(M) operation. In Amazon's item-item approach, the heavy lifting—calculating **similarities between all N items**—is done **offline** in batch (O(N²), but N is items, not users). The online step is just a **fast lookup**: fetch the pre-computed similar-items lists for the few items the user has purchased and aggregate them. This scales because the online computation is **proportional to the user's purchase history**, not the total number of users or items.
