@@ -1265,3 +1265,154 @@ Once content is selected, it must be presented effectively. A key trade-off is *
 
 **Model Answer**:
 **Altering Fragments** is more likely to guarantee coherence. Its methodology is based on a **pre-defined page structure (slots/constituents)** set by the author, which ensures a logical layout and that all necessary page components are present. **Optional Fragments** lacks this structural backbone; it simply includes all fragments that match conditions, which can lead to pages missing key components or having a jumbled, incoherent flow if fragments are not meticulously designed to fit together in any combination.
+# Topic 5: Evaluation of User-Adaptive Systems
+## 5.1 The Layered Evaluation Framework
+
+> **Layered Evaluation** is a **formative evaluation** methodology that **decomposes** an adaptive system into its core functional stages and evaluates each stage **independently**. This isolates faults, provides targeted feedback, and is more informative than a holistic "black box" test.
+
+**Core Philosophy**: "Divide to conquer." Evaluate the **components of the adaptation process** separately to understand *where* and *why* the system succeeds or fails.
+
+### The Six Evaluation Layers
+The framework decomposes the generic adaptive architecture into six sequential layers, each with a distinct **goal**, **evaluation criteria**, and **methods**.
+
+| **Layered Evaluation Diagram** |
+| :--- |
+| *(Imagine a diagram showing the 6 sequential layers from the architecture)* |
+
+#### **Layer 1: Collection of Input Data**
+- **Goal**: Verify the **quality and reliability** of the raw data being gathered.
+- **Key Criteria**:
+    - **Accuracy**: Does the sensor/log correctly capture the user's action? (e.g., was a click registered?).
+    - **Latency**: Is there a delay between action and collection?
+    - **Sampling Rate**: Is data collected frequently enough?
+- **Methods**:
+    - **Data Mining/Log Analysis**: Check for missing or corrupt data streams.
+    - **Simulated Users**: Scripts that generate precise input events to test collection fidelity.
+    - **Cross-Validation**: Compare data from multiple sources (e.g., app logs vs. server logs).
+
+**Example - 3Cixty Tourist App**: Test if the GPS sensor accurately and promptly reports the user's location in Milan, and if Bluetooth beacons trigger correctly at museum entrances.
+
+#### **Layer 2: Interpretation of the Collected Data**
+- **Goal**: Check that **raw data is correctly interpreted** into meaningful user signals.
+- **Key Criteria**:
+    - **Validity**: Does the interpretation match the user's actual intent? (e.g., does "dwell time > 30s" truly mean "interest"?).
+    - **Predictability/Scrutability**: Can a user or expert understand *why* a specific interpretation was made?
+- **Methods**:
+    - **User Tests with Retrospective Think-Aloud**: Have users perform tasks, then ask them *why* they performed an action the system interpreted (e.g., "You spent a long time on that page—why?").
+    - **Heuristic Evaluation**: Experts assess interpretation rules for logical flaws.
+    - **Cross-Validation**: Compare inferred states with user self-reports (ground truth).
+
+**Example - 3Cixty**: If the app infers "user is interested in art" from visiting two galleries, a user test might reveal they were just sheltering from rain, invalidating the interpretation.
+
+#### **Layer 3: Modelling the Current State (The User Model)**
+- **Goal**: Assess the **accuracy and quality** of the inferred user model itself.
+- **Key Criteria**:
+    - **Validity/Predictive Accuracy**: Does the model correctly predict user attributes or future behaviour? (Use metrics like **Precision, Recall, MAE**).
+    - **Comprehensiveness**: Does it model all relevant aspects?
+    - **Scrutability**: Can the user inspect and understand their own model?
+- **Methods**:
+    - **Data Mining/Cross-Validation**: Split historical data; train model on one set, test its predictions on another.
+    - **"User-as-Wizard"**: The user manually corrects their model, revealing discrepancies.
+    - **Focus Groups**: Discuss if the modelled stereotypes feel accurate.
+
+**Example - 3Cixty**: Evaluate if the user's inferred "interest profile" for categories (art, food, history) can predict which type of place they will click on next. Calculate precision/recall.
+
+#### **Layer 4: Deciding Upon Adaptation**
+- **Goal**: Determine if the **adaptation logic** makes appropriate decisions.
+- **Key Criteria**:
+    - **Appropriateness**: Given the user model, was the chosen adaptation the best possible action?
+    - **Acceptance**: Would a user find this decision helpful?
+- **Methods**:
+    - **Heuristic Evaluation/Walkthrough**: Experts step through model states and judge if the triggered adaptation rule is sensible.
+    - **Simulated Users + Cross-Validation**: Use simulated user models to generate many decision scenarios and have experts or algorithms rate the appropriateness of outputs.
+
+**Example - 3Cixty**: Given a user model showing high art interest and current location near the Last Supper, the system decides to recommend a nearby modern art gallery. Experts evaluate if this is appropriate or if a restaurant recommendation would be better given the time of day.
+
+#### **Layer 5: Applying Adaptation Decisions (The Adaptive Interface)**
+- **Goal**: Evaluate the **implementation and presentation** of the adaptation.
+- **Key Criteria**:
+    - **Usability**: Is the adapted interface easy to use?
+    - **Timeliness**: Does the adaptation appear at the right moment?
+    - **Obtrusiveness**: Does it interrupt or distract?
+    - **Breadth of Experience**: Does it create a filter bubble?
+- **Methods**:
+    - **Cognitive Walkthrough**: Experts simulate user problem-solving with the adapted interface.
+    - **User Tests**: Observe users interacting with the live adaptation.
+    - **Heuristic Evaluation**: Use usability heuristics tailored to adaptive systems.
+
+**Example - 3Cixty**: The system applies the decision by popping up a notification for the gallery. User tests assess if the pop-up is annoying (obtrusive) and if the information displayed is clear (usable).
+
+#### **Layer 6: Evaluating the System as a Whole (Summative)**
+- **Goal**: Assess the **overall utility and impact** of the adaptive system.
+- **Focus**: **Benefits vs. Drawbacks (Usability Threats)**.
+- **Typical Benefits (Utility)**:
+    - **Efficiency**: Users complete tasks faster.
+    - **Effectiveness**: Users make better decisions or learn more.
+    - **Satisfaction & Trust**: Improved user experience.
+    - **Business Metrics**: Increased engagement, sales, loyalty.
+- **Usability Threats (Drawbacks)**:
+    - **Diminished Predictability/Controllability**
+    - **Obtrusiveness**
+    - **Privacy Infringement**
+    - **Filter Bubble** (Diminished Breadth of Experience)
+- **Methods**: **A/B Testing**, longitudinal field studies, surveys measuring perceived utility and trust.
+
+---
+#### **Exam Practice Question 5.1**
+**During the formative evaluation of a fitness app's *mood detection* feature, evaluators find the system often misinterstands a user's raised heart rate during a workout as "stress" rather than "exertion." Which *layer* of the layered evaluation framework does this problem belong to? Propose a specific evaluation method to diagnose it.**
+**[4 marks]**
+
+**Model Answer**:
+This is a **Layer 2: Interpretation of the Collected Data** problem. The **raw data** (elevated heart rate) is being **incorrectly interpreted** (as "stress") due to a lack of contextual awareness.
+**Diagnostic Method**: A **user test with retrospective think-aloud**. Recruit participants to use the app during a workout. Afterwards, show them timelines of their heart rate data and the system's inferred mood states. Ask them to describe their actual state (e.g., "Here I was just pushing hard on a hill, not stressed"). This directly compares the system's interpretation with the user's ground truth.
+
+---
+## 5.2 Usability Threats of Adaptive Systems
+
+Adaptivity introduces specific **usability threats** that must be evaluated, especially in Layer 6 and considered across all layers.
+
+| Threat | Definition | Evaluation Question | Layer(s) Most Relevant |
+| :--- | :--- | :--- | :--- |
+| **Diminished Predictability** | User cannot anticipate how the system will behave. | "Can the user understand what the system will do next?" | L4 (Decision), L5 (Application). |
+| **Diminished Controllability** | User feels a loss of agency over the system. | "Can the user override or correct undesired adaptations?" | L5 (Application), L3 (Model - scrutability). |
+| **Obtrusiveness** | Adaptation interrupts the user's primary task. | "Does the adaptation distract or annoy the user?" | L5 (Application - Timeliness). |
+| **Privacy Infringement** | User feels uncomfortable with data collection/use. | "Does the user feel their data is misused or over-collected?" | L1 (Collection), L3 (Model). |
+| **Filter Bubble / Diminished Breadth of Experience** | User is trapped in a narrow niche of content. | "Is the user exposed to sufficiently diverse and novel options?" | L4 (Decision logic), L6 (Overall). |
+
+**Mitigation Strategies**:
+- **Predictability & Controllability**: Provide **scrutable user models** (L3) and **explainable adaptations** (L5).
+- **Obtrusiveness**: Use **subtle, non-modal adaptations** (e.g., highlighting vs. pop-ups).
+- **Privacy**: Implement **transparent data practices** and user controls (L1).
+- **Filter Bubble**: Incorporate **diversity and serendipity metrics** into the adaptation decision logic (L4).
+
+## 5.3 Experimental Methods: A/B Testing
+
+> **A/B Testing** is a **summative, online evaluation method** used primarily for **Layer 6** assessment. It compares two (or more) *versions* of a system with real users to measure causal impact on **Key Performance Indicators (KPIs)**.
+
+| **A/B Testing Process** |
+| :--- |
+| *(Imagine a diagram: Users -> Random Split -> Group A (Control) & Group B (Treatment) -> Measure KPIs -> Statistical Comparison)* |
+
+**Methodology**:
+1.  **Formulate Hypothesis**: "The new hybrid recommender (B) will increase purchase conversion rate compared to the old one (A)."
+2.  **Random Assignment**: Users are randomly assigned to Group A (control, sees old version) or Group B (treatment, sees new version).
+3.  **Run Experiment**: Deploy both versions simultaneously for a set period/user count.
+4.  **Measure KPIs**: Collect data on pre-defined **utility metrics** (e.g., CTR, conversion rate, revenue per user).
+5.  **Statistical Analysis**: Use tests (e.g., **t-test** for means, **chi-squared test** for proportions) to determine if observed differences are **statistically significant** (not due to random chance).
+
+**Metrics for A/B Testing in Adaptive Systems**:
+- **Engagement**: Click-Through Rate (CTR), time spent, return visits.
+- **Conversion**: Purchase rate, sign-up rate.
+- **Business**: Revenue, customer lifetime value.
+- **Satisfaction**: Post-interaction survey scores (e.g., Net Promoter Score).
+
+**When to Use**: For making **data-driven deployment decisions** about new features or algorithms. It provides evidence of **real-world impact**.
+
+---
+#### **Exam Practice Question 5.2**
+**An A/B test for a news app's new personalisation algorithm shows Group B (new algorithm) has a higher average "articles read per session" than Group A. However, a survey reveals Group B users feel they are "seeing the same types of stories." Identify the *usability threat* this suggests and explain why A/B testing on its own might not have detected it.**
+**[4 marks]**
+
+**Model Answer**:
+This suggests the **Filter Bubble / Diminished Breadth of Experience** threat. The new algorithm may be increasing engagement by over-specialising on a narrow set of topics the user already likes.
+**Why A/B Testing Missed It**: A/B testing typically focuses on **aggregate behavioural metrics** (like total articles read). It does not measure the **diversity or novelty of the content** consumed. The threat was only revealed via a **subjective user survey** measuring perception, highlighting the need to combine quantitative A/B tests with qualitative methods to get a full picture of user experience.
