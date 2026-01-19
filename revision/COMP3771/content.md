@@ -497,3 +497,193 @@ Using **Bayes' theorem**, the system isolates the genuine interest from trend-in
 | item6              | 4     | 3     | ==**0**== | 0     | 4     | 0     |
 | item7              | 0     | 1     |   ==5==   | 1     | 1     | 1     |
 | similarity measure | 0.63  | 0.56  |           | 0.71  | 0.22  | 0.93  |
+# Topic 3: Recommender Systems
+## 3.1 Introduction & Core Techniques
+
+> **Recommender Systems** are a primary application of user-adaptivity, designed to address **information overload** by predicting a user's preference for items and presenting a personalised selection.
+
+| **Main Recommendation Techniques** |
+| :--- |
+| ![[recommendation-techniques.png\|500]] |
+
+### Overview of Core Techniques
+| Technique | Core Idea | Background Data | Input Data | Core Algorithm (Simplified) |
+| :--- | :--- | :--- | :--- | :--- |
+| **Collaborative Filtering (CF)** | Leverage the **wisdom of the crowd**. "People similar to you liked X." | User-Item interaction matrix (ratings, purchases). | Target user's interaction history. | Find similar users/items, aggregate their ratings. |
+| **Content-Based Filtering (CBF)** | Leverage **item attributes**. "You liked items with features A, B; here are more with A, B." | **Domain Model**: Item feature vectors. **User Model**: Feature preference vector. | Target user's interaction history (to build profile). | Compute similarity between user profile vector and item feature vectors. |
+| **Knowledge-Based (KB)** | Leverage **explicit knowledge** about user needs and item suitability. | **Knowledge Base**: Rules, constraints, utility functions linking user needs to items. | Explicit user requirements/constraints. | Search/retrieve items that satisfy the stated constraints and utility criteria. |
+| **Demographic (DM)** | Leverage **user demographic categories**. "People in your demographic liked X." | Demographic user profiles (age, occupation, etc.). | Target user's demographic attributes. | Classify user into a demographic segment, recommend items popular in that segment. |
+| **Utility-Based (UT)** | Leverage a **user-specific utility function**. "This item maximises your defined utility." | Utility function for the user over item features. | Target user's utility function (explicitly defined). | Calculate utility score for each candidate item, rank. |
+
+**Key Insight**: Each technique uses a different type of **background knowledge** (social, content, domain knowledge) and suffers from different weaknesses (cold-start, overspecialisation). This motivates **hybrid systems**.
+
+---
+## 3.2 Collaborative Filtering (CF) In-Depth
+
+CF predicts a user's preference for an item based on the preferences of **similar users** (User-User) or the similarity of the item to other items the user liked (Item-Item).
+
+### User-User Collaborative Filtering
+**Methodology**:
+1.  **Represent Data**: Construct a **User-Item Matrix** with ratings.
+2.  **Define Neighbourhood**: For the target user, compute similarity to all other users (e.g., **Cosine Similarity** or **Pearson Correlation**). Select the **k-nearest neighbours**.
+3.  **Make Prediction**: Compute a **weighted average** of the neighbours' ratings for the target item.
+
+**Example Scenario (Movie Recommendations)**:
+We want to predict user **u3**'s rating for **item3**.
+
+|           | u1  | u2  | u3 (Target) | u4  | u5  | u6  |
+| :-------- | :-: | :-: | :---------: | :-: | :-: | :-: |
+| **item1** |  5  |  1  |    **5**    |  4  |  0  |  3  |
+| **item2** |  3  |  3  |    **1**    |  1  |  5  |  1  |
+| **item3** |  0  |  1  |    **?**    |  2  |  1  |  4  |
+| ...       | ... | ... |     ...     | ... | ... | ... |
+
+**Step 1: Calculate Similarities** (e.g., Cosine between rating vectors).
+`sim(u3,u1)=0.63`, `sim(u3,u4)=0.71`, `sim(u3,u6)=0.93`.
+**Step 2: Neighbourhood (k=3)**: u6, u4, u1.
+**Step 3: Prediction (Weighted Sum)**:
+$$p_{u3,item3} = \frac{(4 \cdot 0.93) + (2 \cdot 0.71) + (0 \cdot 0.63)}{0.93+0.71+0.63} \approx 2.26$$
+**Situation for Use**: When the **user base is relatively stable** and you want to leverage diverse taste communities. Prone to scalability issues.
+
+### Item-Item Collaborative Filtering
+**Methodology**:
+1.  **Represent Data**: Same User-Item Matrix.
+2.  **Define Neighbourhood**: For the target item, compute similarity to all other items (based on how users rated them). Select **k-most similar items** that the target user has rated.
+3.  **Make Prediction**: Compute a **weighted average** of the target user's ratings for those similar items.
+
+**Example Continued**:
+Predict **u3**'s rating for **item3** by finding items similar to item3 that u3 has rated.
+`sim(item3,item4)=0.9`, `sim(item3,item5)=0.64`, `sim(item3,item7)=0.85`.
+**Prediction**:
+$$p_{u3,item3} = \frac{(4 \cdot 0.9) + (5 \cdot 0.64) + (5 \cdot 0.85)}{0.9+0.64+0.85} \approx 4.62$$
+
+**Situation for Use**: **Industry standard** (e.g., Amazon). More stable than user-user because item similarities change less frequently. Scales better.
+
+### Amazon's Scalable Item-Item CF (Binary Case)
+For implicit data (bought/not bought).
+
+| | u1 | u2 | u3 (Target) | u4 | u5 | u6 |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **item1** | 1 | 0 | **1** | 1 | 0 | 0 |
+| **item2** | 0 | 1 | **0** | 1 | 0 | 0 |
+| **item4** | 0 | 1 | **1** | 1 | 0 | 0 |
+
+**Process**:
+1.  Find customers who bought the same items as u3 (u1, u2, u4 bought item1 or item4).
+2.  Find other items those customers bought (item2, item3, item5, item6, item7).
+3.  Calculate **item-item similarity** (e.g., cosine) between u3's items (i1, i4) and these candidate items.
+4.  Recommend items with highest similarity (e.g., `sim(i4,i2)=0.82`, `sim(i1,i7)=0.58`).
+
+**Why it Scales**: **Similarities between items are pre-computed offline**. The online step just aggregates pre-calculated lists for the user's purchased items, which is very fast.
+
+### CF: Advantages & Disadvantages
+| Advantages | Disadvantages |
+| :--- | :--- |
+| **Social Wisdom**: Can recommend **serendipitous** items outside user's normal scope. | **Cold-Start**: Fails for **new users** (no ratings) and **new items** (no ratings). |
+| **No Domain Knowledge Needed**: Works purely on interaction data. | **Sparsity**: The user-item matrix is typically very sparse, making similarity computations unreliable. |
+| **Effective & Popular**: Proven in e-commerce, media. | **Popularity Bias**: Tends to recommend already popular items, amplifying the "rich-get-richer" effect. |
+| | **Scalability**: User-User CF requires O(M) comparisons online (M=users). |
+| | **Lack of Transparency**: Hard to explain *why* an item was recommended ("people like you..."). |
+
+---
+#### **Exam Practice Question 3.1**
+**Using the provided rating matrix, calculate the predicted rating for *user5* on *item7* using *Item-Item Collaborative Filtering* with a neighbourhood of k=2. Show your similarity calculations and final prediction.**
+**[6 marks]**
+*(Assume a mini-matrix is provided in the exam. Model answer would show steps: 1) Calculate item7's similarity to other items user5 has rated. 2) Pick top 2. 3) Weighted average.)*
+
+---
+## 3.3 Content-Based Filtering (CBF) In-Depth
+
+> CBF recommends items **similar in content/attributes** to those the user has liked in the past. It is a direct application of the **user model as a feature preference vector**.
+
+| **Content-Based Recommender Architecture** |
+| :--- |
+| ![[Content-based-recommender-system.png\|500]] |
+
+### Methodology
+1.  **Content Representation**: Each item is represented as a **feature vector** (e.g., TF-IDF keywords, ontology concepts, genre tags).
+2.  **User Profile Construction**: The user's profile is an **aggregated feature vector** from items they have liked/consumed. This can be a weighted average.
+3.  **Similarity Computation**: For a candidate item, compute the similarity (e.g., **Cosine Similarity**) between its feature vector and the user's profile vector.
+4.  **Recommendation**: Rank items by similarity score and recommend the top-N.
+
+**Example Scenario (News Recommender)**:
+- **User Profile (U)**: Built from clicked articles: `[politics:0.7, technology:0.9, sports:0.2]`
+- **Article (I) Feature Vector**: `[politics:0.8, technology:0.6, sports:0.1]`
+- **Cosine Similarity**:
+$$sim(U,I) = \frac{(0.7\cdot0.8)+(0.9\cdot0.6)+(0.2\cdot0.1)}{\sqrt{0.7^2+0.9^2+0.2^2} \cdot \sqrt{0.8^2+0.6^2+0.1^2}} \approx 0.98$$
+High similarity leads to recommendation.
+
+### CBF with Keyword, Graph, and Concept Models
+- **Keyword Model**: As above. Simple but suffers from synonymy/polysemy.
+- **Graph/Concept Model**: Items and user profiles are linked to nodes in a **domain ontology** (e.g., ACM Computing Classification for CS papers). Similarity is based on **semantic relatedness** in the graph (e.g., path distance, shared ancestors). Enables deeper reasoning.
+
+### CBF: Advantages & Disadvantages
+| Advantages | Disadvantages |
+| :--- | :--- |
+| **No Cold-Start for Items**: Can recommend new items if their features are known. | **User Cold-Start**: Needs user history to build profile. |
+| **Transparency**: Can explain recommendations ("because you like Technology"). | **Over-Specialisation (Filter Bubble)**: Rarely recommends items outside user's existing profile. |
+| **Independence**: Doesn't need data from other users. | **Limited Serendipity**: Cannot make cross-topic discoveries. |
+| **Domain-Specific Tuning**: Can incorporate domain knowledge via feature engineering. | **Feature Dependency**: Quality depends entirely on **quality and availability of item metadata**. |
+
+**Situation for Use**: **Museum Guides** (Rijksmuseum CHIP project). The system uses a **knowledge graph** of artworks (artist, period, subject). A user's indicated interest in "Rembrandt" and "portraits" (concepts in the graph) allows the system to recommend other portrait paintings from the Dutch Golden Age, even by different artists, by reasoning through the semantic graph.
+
+---
+## 3.4 Knowledge-Based Recommenders
+
+> KB recommenders use **explicit knowledge** about the domain, user needs, and how items satisfy those needs. They are often **interactive** and **constraint-based**.
+
+**Core Idea**: The system engages the user in a **dialogue** to understand their specific requirements (e.g., "I need a laptop for gaming under £1000"), then uses a **knowledge base** of item specifications and rules to filter and rank options.
+
+**Example Scenario (Car Recommender - EntréeC)**:
+1.  **User states need**: "Family car, good safety, under £30k."
+2.  **System retrieves** cars matching constraints.
+3.  **User critiques**: "Less expensive." "More cargo space."
+4.  **System uses knowledge** (e.g., semantic relationships: "Less expensive" is opposite of "More luxurious") to refine search.
+5.  **Output**: A refined list satisfying the evolving utility function.
+
+**How it works**: It often uses **Case-Based Reasoning (CBR)**. The knowledge base is a set of cases (items). The user's requirements are a query. The system finds the most similar cases, and the user's critiques guide the adaptation of the query for subsequent retrieval.
+
+### KB: Advantages & Disadvantages
+| Advantages | Disadvantages |
+| :--- | :--- |
+| **No Cold-Start Problem**: Works immediately for new users and items. | **Knowledge Engineering Bottleneck**: Requires manual creation and maintenance of the knowledge base/rules. |
+| **Handles Complex Needs**: Can reason about **non-product attributes** (delivery time, vendor reputation). | **Static Recommendations**: Unless the knowledge base is updated, suggestions don't improve from usage data. |
+| **Highly Transparent & Controllable**: User understands the process (filtering by their stated constraints). | **User Effort**: Requires explicit input and iterative refinement from the user. |
+
+**Situation for Use**: **High-involvement purchases** (cars, houses, complex financial products) where user needs are specific and items have many technical attributes.
+
+---
+## 3.5 Hybrid Recommender Systems
+
+> **Hybrid systems** combine two or more recommendation techniques to **mitigate the weaknesses** of individual approaches.
+
+### Hybridisation Methods (Burke's Taxonomy)
+| Method | Description | Order-Sensitive? | Example |
+| :--- | :--- | :--- | :--- |
+| **Weighted** | Combine scores from multiple algorithms linearly. | **No** | `final_score = 0.7*CF_score + 0.3*CBF_score` |
+| **Switching** | Use algorithm A in some contexts, B in others. | **Yes** | Use **Knowledge-Based** for new users, switch to **CF** after 10 ratings. |
+| **Mixed** | Present outputs from different algorithms simultaneously in the UI. | **No** | Amazon's "Customers also bought" (CF) and "Related items" (CBF). |
+| **Feature Combination** | Merge features from different sources into a single algorithm. | **No** | Use both user ratings (CF) and item genres (CBF) as input to a neural network. |
+| **Cascade** | One algorithm produces a coarse list, a second refines it. | **Yes** | **KB** retrieves 100 candidates, **CF** re-ranks the top 20. |
+| **Feature Augmentation** | Output of one algorithm is an input feature to another. | **Yes** | A CBF predicted rating is added as a feature in a CF model. |
+| **Meta-level** | Model from one algorithm is input to another. | **Yes** | A CBF-generated user profile is used as the input vector for a CF method. |
+
+**Example - EntréeC (KB/CF Cascade Hybrid)**:
+1.  **First Stage (KB)**: The knowledge-based Entrée system uses **critique-based navigation** to produce a shortlist of restaurants.
+2.  **Second Stage (CF)**: A collaborative filter breaks ties within this shortlist by leveraging past users' **semantic actions** (e.g., "Nicer", "Cheaper") as enriched implicit ratings. This preserves recommendation rationale while adding social wisdom.
+
+### Why Hybridise? Problem-Solution Mapping
+- **Cold-Start (User)**: Combine with **Knowledge-Based** (Switching, Cascade).
+- **Cold-Start (Item)**: Combine with **Content-Based** (Weighted, Feature Combination).
+- **Sparsity**: Combine **CF** with **Demographic** or **Content** (Feature Combination).
+- **Overspecialisation (Filter Bubble)**: Combine **CBF** with **CF** (Mixed, Weighted) to add serendipity.
+- **Transparency**: Combine any with **Knowledge-Based** to provide explanations.
+
+---
+#### **Exam Practice Question 3.2**
+**A music streaming service suffers from the *item cold-start problem* for newly released songs. Describe a *hybridisation method* that could effectively address this, specifying the two base techniques to combine and your justification.**
+**[5 marks]**
+
+**Model Answer**:
+Use a **Weighted Hybrid** of **Content-Based Filtering (CBF)** and **Collaborative Filtering (CF)**.
+**Justification**: New songs have no play history (CF fails), but they have rich metadata (genre, artist, tempo). **CBF** can immediately recommend them to users whose profiles match these features. The **Weighted Hybrid** allows the system to blend the CBF score for new items with CF scores for established items. Over time, as the new song gains plays, the CF component's weight can automatically increase. This ensures new items are recommendable from day one while maintaining overall recommendation quality.
