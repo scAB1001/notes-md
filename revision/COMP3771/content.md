@@ -542,6 +542,83 @@ We want to predict user **u3**'s rating for **item3**.
 **Step 3: Prediction (Weighted Sum)**:
 $$p_{u3,item3} = \frac{(4 \cdot 0.93) + (2 \cdot 0.71) + (0 \cdot 0.63)}{0.93+0.71+0.63} \approx 2.26$$
 **Situation for Use**: When the **user base is relatively stable** and you want to leverage diverse taste communities. Prone to scalability issues.
+#### Problem Setup
+Predict user **u3**'s rating for **item3** using User-User CF with **k=3 nearest neighbours**. We use **Cosine Similarity** to find similar users.
+
+**Rating Matrix (Subset for calculation)**:
+We need the rating vectors for **u3** and the other users **for the items they have both rated**. For similarity, we only consider items where **both users have a rating** (non-zero in this example). We'll calculate `sim(u3, u1)`.
+
+| Item | u1's Rating ($r_{u1}$) | u3's Rating ($r_{u3}$) |
+| :--- | :---: | :---: |
+| item1 | 5 | 5 |
+| item2 | 3 | 1 |
+| item4 | 1 | 4 |
+| item5 | 3 | 5 |
+| item6 | 4 | 0 |
+| item7 | 0 | 5 |
+*Note: `item3` is omitted because u1 hasn't rated it (0). `item6` is included because u3's rating is 0, which is a valid value for the similarity calculation.*
+
+##### Step 1: Calculate Cosine Similarity
+
+**Cosine Similarity Formula**:
+For two vectors **A** and **B**, the cosine similarity is:
+$$sim(A, B) = \cos(\theta) = \frac{A \cdot B}{\|A\| \|B\|} = \frac{\sum_{i=1}^{n} A_i B_i}{\sqrt{\sum_{i=1}^{n} A_i^2} \cdot \sqrt{\sum_{i=1}^{n} B_i^2}}$$
+**Calculation for `sim(u3, u1)`**:
+1.  **Compute the Dot Product (Numerator)**:
+$$\begin{align}
+u3 \cdot u1 = \\
+(5\cdot5) + (1\cdot3) + (4\cdot1) + (5\cdot3) + (0\cdot4) + (5\cdot0) \\ 
+= 25 + 3 + 4 + 15 + 0 + 0 = 47
+\end{align}$$
+
+2.  **Compute the Magnitude (Euclidean Norm) of each vector**:
+    - $\|u3\| = \sqrt{5^2 + 1^2 + 4^2 + 5^2 + 0^2 + 5^2} = \sqrt{25 + 1 + 16 + 25 + 0 + 25} = \sqrt{92} \approx 9.5917$
+    - $\|u1\| = \sqrt{5^2 + 3^2 + 1^2 + 3^2 + 4^2 + 0^2} = \sqrt{25 + 9 + 1 + 9 + 16 + 0} = \sqrt{60} \approx 7.7460$
+
+3.  **Compute Cosine Similarity**:
+$$sim(u3, u1) = \frac{47}{9.5917 \times 7.7460} = \frac{47}{74.302} \approx 0.6325 \approx 0.63$$
+**Repeat for other users** (conceptually):
+- `sim(u3, u4)` and `sim(u3, u6)` are calculated **using the same method**, comparing u3's rating vector to u4's and u6's vectors over their co-rated items.
+- The results given are: `sim(u3, u4)=0.71`, `sim(u3, u6)=0.93`.
+
+##### Step 2: Define Neighbourhood (k=3)
+Rank users by similarity to u3 (descending):
+1.  u6 (0.93)
+2.  u4 (0.71)
+3.  u1 (0.63)
+These are the **3-nearest neighbours**.
+
+##### Step 3: Make Prediction for `item3` via Weighted Sum
+
+We now predict $p_{u3, item3}$. We need the **neighbours' ratings for `item3`** and their similarity weights.
+
+| Neighbour | Rating for `item3` ($r_{u,item3}$) | Similarity to u3 ($w_u$) |
+| :--- | :---: | :---: |
+| u6 | 4 | 0.93 |
+| u4 | 2 | 0.71 |
+| u1 | 0 | 0.63 |
+**Weighted Sum Prediction Formula**:
+$$p_{u,i} = \frac{\sum_{v \in N} (sim(u,v) \cdot r_{v,i})}{\sum_{v \in N} sim(u,v)}$$Where $N$ is the set of k-nearest neighbours.
+
+**Calculation**:
+1.  **Weighted Rating Sum (Numerator)**:
+  $$(r_{u6} \cdot w_{u6}) + (r_{u4} \cdot w_{u4}) + (r_{u1} \cdot w_{u1}) = (4 \cdot 0.93) + (2 \cdot 0.71) + (0 \cdot 0.63)$$
+    $$= 3.72 + 1.42 + 0 = 5.14$$
+2.  **Similarity Sum (Denominator)**:$$0.93 + 0.71 + 0.63 = 2.27$$
+3.  **Final Prediction**:  $$p_{u3, item3} = \frac{5.14}{2.27} \approx 2.2643 \approx 2.26$$
+**Interpretation**: The system predicts u3 would rate `item3` approximately **2.26 out of 5**. This is a **relatively low prediction**, largely influenced by u1's low rating (0), tempered by the higher ratings from more similar users (u4 and u6).
+
+---
+#### **Exam Practice Question 3.7**
+**Using the same rating matrix, calculate the *Cosine Similarity* between user u3 and user u2. Show your working. You may use the following ratings: u3: [item1:5, item2:1, item4:4, item5:5, item6:0, item7:5]; u2: [item1:1, item2:3, item4:1, item5:2, item6:3, item7:1].**
+**[5 marks]**
+
+**Model Answer**:
+1.  **Dot Product**: $(5*1) + (1*3) + (4*1) + (5*2) + (0*3) + (5*1) = 5 + 3 + 4 + 10 + 0 + 5 = 27$
+2.  **Magnitude of u3**: $\sqrt{5^2+1^2+4^2+5^2+0^2+5^2} = \sqrt{25+1+16+25+0+25} = \sqrt{92} \approx 9.592$
+3.  **Magnitude of u2**: $\sqrt{1^2+3^2+1^2+2^2+3^2+1^2} = \sqrt{1+9+1+4+9+1} = \sqrt{25} = 5$
+4.  **Cosine Similarity**: $sim(u3, u2) = \frac{27}{9.592 \times 5} = \frac{27}{47.96} \approx 0.563$
+**Therefore, the similarity is approximately 0.56.**
 
 ### Item-Item Collaborative Filtering
 **Methodology**:
@@ -821,6 +898,7 @@ Assess how close predicted ratings are to actual user ratings.
 | **Root Mean Squared Error (RMSE)** | $$RMSE = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (p_i - r_i)^2}$$ | Penalises **large errors more severely** than MAE. Standard in competitions (e.g., Netflix Prize). |
 
 **Example Calculation**:
+
 | Item | Predicted (p) | Actual (r) | \|p-r\| | (p-r)² |
 | :--- | :---: | :---: | :---: | :---: |
 | i1 | 1 | 2 | 1 | 1 |
