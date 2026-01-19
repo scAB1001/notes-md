@@ -1542,3 +1542,73 @@ An analysis of Facebook, Netflix, YouTube, Spotify, and Amazon revealed:
 **Model Answer**:
 1.  **Feature**: A "Why this song?" button next to each track. **Best Practice (BP3)**: It discloses the **factors/criteria** used for that specific recommendation (e.g., "Because you frequently listen to this artist" or "Similar to your playlist 'Workout Jams'").
 2.  **Feature**: A "Personalisation Settings" page with a "Diversity" slider (from "More Familiar" to "More Discover"). **Best Practice (BP9)**: It provides an opportunity for the user to **adjust the personalisation logic** according to their current goal, giving them participatory control.
+# Module Wrap-Up & Future Directions
+## 7.1 Module Learning Objectives - Summary
+
+You should now be able to:
+
+1.  **LO1 - Design & Evaluate**: Apply HCI methodology to **identify user needs**, draw **requirements**, and **design & evaluate** user-adaptive systems using frameworks like the **General Schema** and **Layered Evaluation**.
+
+2.  **LO2 - Model & Adapt**: Identify and apply common techniques for:
+    - **User Information Collection**: Explicit vs. Implicit methods, their pros/cons.
+    - **User Model Representation**: Keywords, facets, graphs, concepts, matrices.
+    - **User Model Acquisition**: Stereotypes, overlay models, inference from data.
+    - **Adaptation**: Recommender systems, adaptive content presentation.
+
+3.  **LO3 - Implement Recommenders**: Apply **recommender system techniques** (Content-Based, Collaborative Filtering, Knowledge-Based, Hybrid) in a practical context, understanding their algorithms, inputs, and evaluation.
+
+4.  **LO4 - Reason & Foresee**: Reason about the **significance, strengths, weaknesses, and future directions** of personalisation, including ethical and responsible design.
+
+## 7.2 Exam Information & Preparation
+
+- **Weight**: **60%** of final grade.
+- **Date/Time**: 21 January 2026, 9am-12pm.
+- **Format**: **3 long-answer questions**, each based on a **practical scenario** (similar to past papers provided).
+- **Style**: Mix of description, comparison, evaluation, design, and short calculations (e.g., MAE, similarity).
+- **Preparation Strategy**:
+    1.  **Know the Schema**: Be able to map any scenario onto the **General Adaptive Architecture**.
+    2.  **Compare & Contrast**: Prepare concise tables for techniques (e.g., CF vs. CBF, explicit vs. implicit).
+    3.  **Practice Calculations**: Be comfortable with **MAE, RMSE, Precision/Recall, Cosine Similarity**.
+    4.  **Apply Frameworks**: Use **Layered Evaluation** for assessment questions, the **Transparency Checklist** for design questions, and the **EU's 7 Requirements** for ethics questions.
+    5.  **Review Past Papers**: Understand how scenarios are constructed and what level of detail is required.
+
+---
+#### **Exam Practice Question 7.1 (Synthesis)**
+**You are asked to advise a start-up building a "Personalised Home Cooking Assistant" app. It suggests recipes based on user dietary preferences, ingredient availability, and cooking skill. Outline your high-level recommendations covering: (a) A suitable *Recommender System* technique with justification, (b) One critical *User Modelling* challenge, and (c) One primary *Responsible Personalisation* concern to address.**
+**[9 marks]**
+
+**Model Answer**:
+**(a) Recommender Technique**: A **Hybrid Cascade** of **Knowledge-Based (KB)** and **Content-Based (CBF)** filtering. **Justification**: The KB system can handle explicit constraints (diet: vegan, allergies) and ingredient availability (a utility function). The CBF system can then refine suggestions by finding recipes similar to those the user has enjoyed (based on cuisine, flavour profiles). This avoids the cold-start problem of pure CF in a private domain.
+**(b) User Modelling Challenge**: **Accurate Inference of Cooking Skill**. Skill is complex to model implicitly (does a failed recipe mean low skill or bad instructions?). Initial explicit profiling (self-reported level) is needed, but the system must also *update* this model from implicit signals (time taken, steps repeated, user feedback) which are noisy and hard to interpret.
+**(c) Responsible Personalisation Concern**: **Algorithmic Bias & Fairness**. Recipe databases and popularity data may under-represent certain cuisines (e.g., Global South dishes) or dietary traditions. A naive algorithm could over-recommend Western, meat-heavy dishes, perpetuating cultural bias and limiting user discovery. Mitigation requires **curating diverse training data** and **incorporating diversity metrics** into the ranking.
+
+---
+## 7.3 Future Directions in User-Adaptive Systems
+
+The field is rapidly evolving, driven by advances in AI, data availability, and new interaction paradigms.
+
+### 1. Generative AI & Agentic AI
+- **Impact on Personalisation**: LLMs are transforming **how** personalisation is delivered.
+    - **Suggesting Items**: LLMs can act as **zero-shot recommenders** by understanding natural language queries and item descriptions.
+    - **Augmenting Presentation**: Generating **personalised summaries, justifications, and narratives** (see Topic 4, 6).
+    - **Agentic AI**: Systems that don't just recommend but **take autonomous actions** on the user's behalf (e.g., an AI agent that books flights based on learned preferences), raising major **control and accountability** challenges.
+
+### 2. Data & Modelling
+- **More Powerful Profiling**: **Deep learning models** (e.g., transformers) can create richer user representations from **multi-modal data** (text, audio, video, biometrics).
+- **Extended Modelling**: Beyond interests/knowledge to **cultural nuances, granular abilities, and dynamic individual traits** (e.g., real-time cognitive load, emotional state).
+- **Data Integration**: Combining data across platforms and devices for a **holistic user model**, intensifying privacy concerns.
+- **Evaluation & Fairness**: More rigorous **bias detection and fairness audits** becoming standard practice.
+
+### 3. Devices & Context
+- **Ubiquitous Data Collection**: **Smart homes, wearables, IoT sensors** provide continuous, rich contextual data (location, activity, environment).
+- **From Data to Behaviour Proxy**: The challenge shifts to **interpreting sensor data** into meaningful proxies for user state and intent.
+- **New Domains**: **Health, wellbeing, smart cities, autonomous vehicles** where personalisation is critical for safety and efficacy.
+- **Example**: A driverless car adapting its driving style (aggressiveness, route choices) to the passenger's stress level (inferred from biometrics) and schedule.
+
+### 4. Interaction
+- **Multi-Modal Interaction**: Systems that understand and respond via **voice, gesture, gaze**, and **affective cues**.
+- **Context as King**: Adaptation decisions will hinge on **high-dimensional context models**.
+- **Social & Group Interaction**: Personalising for **groups** (e.g., family TV recommendations, collaborative work tools) and interacting with **social robots**.
+- **The Personalisation Paradox**: As interactions become more complex and novel, the **need for effective, transparent, and ethical personalisation grows exponentially**.
+
+**Final Takeaway**: The core principles learned in this module—**understanding user needs, selecting appropriate modelling and adaptation techniques, rigorous evaluation, and a steadfast commitment to responsibility**—are the foundational skills needed to navigate and shape this evolving future.
