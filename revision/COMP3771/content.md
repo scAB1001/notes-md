@@ -41,7 +41,7 @@ Both systems deliver contextually relevant information. **MoCoMapps** delivers t
 
 > The **generic architecture** of a user-adaptive system defines the core components and data flows required for adaptation.
 
-![[generic-adaptive-architecture.png|500]]
+![[generic-adaptive-architecture.png|300]]
 *(Diagram showing: User -> [User Data Gathering] -> [User Model] <-> [Domain Model] -> [Adaptation Model] -> [Adaptive Component] -> User)*
 ### Component Roles & Importance
 1.  **User Data Gathering (Sensor/Input)**
@@ -86,7 +86,7 @@ The **Domain Model** would contain entities like **Article**, **Topic** (e.g., P
 3.  **User Model (Data Repository)**: The **structured belief** about the user. A persistent store.
 4.  **User Model Application (Computer Process)**: The **decision engine**. Uses the user model to decide on and generate adaptations.
 5.  **Adaptive Component (Adapting to User)**: The **output effector**. The changed interface/content presented to the user.
-![[generic-adaptive-architecture.png]]
+![[generic-adaptive-architecture.png|300]]
 ### Importance of Each Component
 - **User Model is the most critical component**. It is the system's **knowledge** of the user. If it is **inaccurate or poorly constructed**, all subsequent adaptations will be flawed, regardless of the sophistication of the application logic. It is the **central link** between observation (acquisition) and action (application).
 ### Applied Schema Examples
@@ -164,7 +164,7 @@ This section reinforces the **general schema** through practical case studies an
 
 ### Case Study 1: LILSYS (Call Screening System)
 
-![[generic-adaptive-architecture.png|500]]
+![[generic-adaptive-architecture.png|300]]
 *(Focus on components for LILSYS: Sensors gather data, model decides on call handling, system adapts by ringing/blocking)*
 
 > **Main Purpose**: To act as an **intelligent secretary**, screening incoming phone calls based on the user's **current context and inferred availability**, minimizing disruptive interruptions.
@@ -183,7 +183,7 @@ This section reinforces the **general schema** through practical case studies an
 
 ### Case Study 2: AGENTSALON (Conversational Matchmaking System)
 
-![[generic-adaptive-architecture.png|500]]
+![[generic-adaptive-architecture.png|300]]
 *(Focus on components for AGENTSALON: User input/stored data informs model, which decides on social matches, system adapts by suggesting conversations)*
 
 > **Main Purpose**: To act as a **social facilitator** at events, recommending **who to talk to** and **what to talk about** based on shared interests and profiles, enhancing networking efficiency.
@@ -223,14 +223,11 @@ This section reinforces the **general schema** through practical case studies an
 ---
 # Topic 2: User Model Representation and  Building, User Information Collection
 ## 2.1 System Design Exercise: Module Recommender
-
 **Scenario**: Designing a University of Leeds module recommender to help students choose optional modules.
-
 **Architecture Following the General Schema:**
 
-![[generic-adaptive-architecture.png|500]]
+![[generic-adaptive-architecture.png|300]]
 *(Annotate the generic diagram for this specific case)*
-
 1.  **User Data Gathering (What & How)**:
     *   **Explicit**: Student's **degree programme**, **past module grades**, **stated interests** (from a form).
     *   **Implicit**: **Browsing history** on module catalogue pages (dwell time, clicks).
@@ -266,9 +263,7 @@ This section reinforces the **general schema** through practical case studies an
 **Justification**: Browsing data is **unobtrusive** and captures **real, evolving curiosity** that a student may not explicitly state. It can reveal emerging interests (e.g., spending time on Robotics pages despite no prior background) and helps overcome the **cold-start problem** for students who don't fill out interest forms thoroughly.
 **Interpretation Challenge**: **Ambiguity of Intent**. A long dwell time on a module page might indicate **genuine interest**, but it could also indicate **confusion** (the description is hard to understand), **distraction**, or the student is **researching it for a friend**. Using this signal as a strong positive preference could lead to an **inaccurate user model** and poor recommendations.
 ## 2.2 User Model Representation (Detailed)
-
 > The **User Model** is a structured data representation of the system's beliefs about various aspects of the user. The choice of *what* to model and *how* to represent it depends on the system's adaptive goals.
-
 ### What Can Be Modelled?
 | Aspect | Description | Example | Relevance for Adaptation |
 | :--- | :--- | :--- | :--- |
@@ -278,11 +273,8 @@ This section reinforces the **general schema** through practical case studies an
 | **Interests** | Topics or items the user prefers. | Preference for "AI news" over "sports". | Core to **recommender systems** and **content filtering**. |
 | **Knowledge/Skills** | User's understanding of domain concepts. | Understanding of SQL JOINs vs. basic SELECT. | Core to **adaptive learning systems** (Intelligent Tutoring Systems). |
 | **Goals & Tasks** | User's current objective or activity. | Goal: "Book a flight to Berlin." Task: "Compare hotel prices." | Drives **goal-oriented adaptation** (e.g., a help system suggesting relevant functions). |
-
 **Critical Principle**: Model **only what is needed** for the intended adaptation. Adding unnecessary parameters increases complexity and privacy risk without benefit.
-
 ### Detailed Representation Methods by Aspect
-
 #### 1. Representing Interests
 Used primarily in **information filtering** and **recommender systems**.
 
@@ -291,9 +283,7 @@ Used primarily in **information filtering** and **recommender systems**.
 | **Keyword-Level (Vector Model)** | User profile is a **weighted list of keywords** extracted from content they interact with. | Simple; captures user's own vocabulary; good for niche interests. | No semantic relationships; "vocabulary mismatch" with content. | `{business:0.7, travel:0.5, environment:0.3}` |
 | **Overlay on Fixed List** | Profile is a vector over a **system-defined list** of topics/categories. | Direct mapping to content tags; easy to implement. | Inflexible; no relationships between topics. | Interests over `[Tech, Sports, Politics]` = `[0.9, 0.1, 0.4]` |
 | **Concept-Level (Semantic Overlay)** | Profile is an **overlay on a domain ontology or concept graph**. | Enables **semantic reasoning** (e.g., recommending "global warming" articles if interested in "environment"); supports richer relationships. | Depends on **quality & completeness** of the ontology; complex to build and maintain. | User node linked to "Computer Science" concept in an ACM taxonomy graph, inheriting interest in sub-concepts like "AI". |
-
 **Situation for Use**: A simple news aggregator might use a **fixed list overlay**. A research paper recommender like Google Scholar should use a **concept-level model** (e.g., based on ACM classification) to understand that a user interested in "machine learning" might also appreciate papers on "neural networks."
-
 #### 2. Representing Knowledge/Skills
 Core to **Intelligent Tutoring Systems (ITS)** like SQL-Tutor.
 
@@ -302,8 +292,7 @@ Core to **Intelligent Tutoring Systems (ITS)** like SQL-Tutor.
 | **Scalar Model** | Single value on a scale (e.g., novice to expert). | Extremely simple. | **Low granularity & precision**; boundaries are fuzzy; cannot drive fine-grained adaptation. | `knowledge_physics = "intermediate"` |
 | **Overlay Model** | Represents knowledge as a **subset of an expert domain model**. Each domain concept has a user state (e.g., known, unknown, struggling). | Direct link to instructional content; enables **fine-grained adaptation** targeting specific gaps. | Requires a well-structured, complete **domain model**. | In SQL-Tutor, the domain model is a graph of SQL concepts; the user model marks `SELECT` as `mastered` and `JOIN` as `needs_practice`. |
 | **Bug Model / Perturbation Model** | Extends overlay model to include specific **misconceptions or incorrect rules**. | Powerful for diagnosing and remediating deep errors. | Very complex to build; requires extensive cognitive task analysis. | A math ITS models not just that a student got division wrong, but that they hold the specific bug "ignore remainder". |
-	**Situation for Use**: Most practical AES use the **Overlay Model** as it balances expressive power with implementability. The Bug Model is reserved for domains where specific, common misconceptions are well-documented (e.g., physics, algebra).
-
+**Situation for Use**: Most practical AES use the **Overlay Model** as it balances expressive power with implementability. The Bug Model is reserved for domains where specific, common misconceptions are well-documented (e.g., physics, algebra).
 #### 3. Representing Context
 ![[user-vs-env-context.png|500]]
 *User vs. Environment Context Dimensions*
@@ -312,7 +301,6 @@ Core to **Intelligent Tutoring Systems (ITS)** like SQL-Tutor.
 *   **User Context (Essential)**: **Location** (to suggest nearby places), **Temporal Context** (visit duration, time of day), **Social Context** (alone, family, wheelchair user).
 *   **Environment Context (Essential)**: **Weather** (suggest indoor activities if raining), **Traffic Conditions**.
 *   **Acquisition Challenge**: Requires **sensor data** (GPS), **APIs** (weather), and potentially **explicit input** (group size, accessibility needs).
-
 #### 4. Representing Goals & Tasks
 *   **Method**: Typically a **pre-defined goal catalog or hierarchy**. The system performs **goal/task recognition** to place the user's current activity within this structure.
 *   **Representation**: Often an **overlay** on the goal hierarchy, combined with a **probability** if recognition is uncertain.
@@ -330,16 +318,13 @@ Core to **Intelligent Tutoring Systems (ITS)** like SQL-Tutor.
 
 ---
 ## 2.3 Building the User Model: Acquisition & Update
-
 > **User Model Acquisition** is the process of **constructing** and **maintaining** the user model from the collected data. It involves inference, update rules, and consistency checks.
-
 ### Key Acquisition Techniques
 1.  **Stereotype Reasoning**: **If-Then rules** assign users to pre-defined stereotypes based on **trigger conditions**. The stereotype provides a full set of default attribute values.
     *   `IF (occupation="student" AND course="Computer Science") THEN assign stereotype CS_Student (P=0.8)`.
 2.  **Machine Learning/Data Mining**: Algorithms (e.g., classification, clustering) automatically infer patterns from user data to assign attributes or predict missing values.
 3.  **Plan & Goal Recognition**: Inferring high-level goals from sequences of low-level actions (e.g., inferring "writing a report" from opening Word, searching the web, citing sources).
 4.  **Bayesian Networks**: Probabilistic graphical models that represent dependencies between user attributes and evidence, allowing for **probabilistic inference** under uncertainty.
-
 ### The Cold-Start Problem Revisited
 *   **User Cold-Start**: Solved by **stereotypes** (fast initialisation) and **explicit initial profiling**.
 *   **Item Cold-Start**: **Content-based filtering** solves this by using item attributes (metadata) which are available from the start. **Knowledge-based recommenders** also avoid it, as they don't rely on usage data.
@@ -358,17 +343,13 @@ Core to **Intelligent Tutoring Systems (ITS)** like SQL-Tutor.
 **Model Answer**:
 The system should interpret the early abandonment as a **negative implicit signal**. The update strategy would be to **decrease the weight** for the "Horror" genre in the user's interest vector. Additionally, it could increase weights for the genre of the film they switched *to*, treating that as a positive signal. The decrease for Horror should be significant but not absolute (e.g., reduce by 0.3), as the user might have stopped for reasons unrelated to genre (e.g., interruption).
 ## 2.4 Building the User Model: Interests in Detail
-
 > Building a model of user **interests** is a core task for recommender systems and adaptive information filters. It involves translating raw user **measurements** into **metrics**, and finally into a structured **user model value**.
-
 ### The Click-Through Rate (CTR) Method
-
 A fundamental **implicit feedback** technique for inferring interest.
 
-| **Measurement** → **Metric** → **User Model Value** |
-| :--- |
-| ![[Fig2-click-through.jpg\|500]] |
-
+| Measurement → Metric → User Model Value |
+| :-------------------------------------- |
+| ![[Fig2-click-through.jpg\|500]]        |
 **Process**:
 1.  **Measurement**: Count `#Seen` (impressions) and `#Clicks` on an item.
 2.  **Metric Calculation**: Compute **Click-Through Rate (CTR)**.
@@ -378,7 +359,6 @@ A fundamental **implicit feedback** technique for inferring interest.
 **Situation for Use**: Extremely common in **online advertising**, **news recommenders**, and **e-commerce** to gauge immediate response to presented items. It is a direct, real-time engagement signal.
 
 **Limitation**: **Position Bias**—items placed in prominent positions (top of list) get more clicks regardless of interest, potentially skewing the metric. Requires normalisation techniques to account for bias.
-
 ### Building Keyword-Based Interest Models
 Used when interests are represented as a **weighted vector of keywords**.
 
@@ -390,19 +370,11 @@ This algorithm extracts and weights keywords from documents the user has interac
 | **TF-IDF Example Calculation** |
 | :--- |
 | ![[Fig3-TFIDF.jpg\|500]] |
-
 **Formulas**:
-- **Term Frequency (TF)**: How important a term is *within a single user document*.
-  $$tf(t,d) = \frac{f_d(t)}{\max_{w \in d} f_d(w)}$$
-  where $f_d(t)$ is the raw count of term $t$ in document $d$.
-- **Inverse Document Frequency (IDF)**: How important a term is *across the entire collection* (rarity).
-  $$idf(t, D) = \ln \left( \frac{|D|}{|\{d \in D : t \in d\}|} \right)$$
-  where $|D|$ is the total number of documents in the corpus.
-- **TF-IDF Score**:
-  $$tfidf(t,d,D) = tf(t,d) \cdot idf(t, D)$$
-
+- **Term Frequency (TF)**: How important a term is *within a single user document*. $$tf(t,d) = \frac{f_d(t)}{\max_{w \in d} f_d(w)}$$where $f_d(t)$ is the raw count of term $t$ in document $d$.
+- **Inverse Document Frequency (IDF)**: How important a term is *across the entire collection* (rarity).$$idf(t, D) = \ln \left( \frac{|D|}{|\{d \in D : t \in d\}|} \right)$$where $|D|$ is the total number of documents in the corpus.
+- **TF-IDF Score**:$$tfidf(t,d,D) = tf(t,d) \cdot idf(t, D)$$
 **User Model Construction**: The system aggregates TF-IDF vectors from all documents the user has positively interacted with, creating a **composite keyword vector** that represents their interest profile. This profile can then be compared to new documents using cosine similarity for recommendation.
-
 ### Building Graph-Based & Concept-Based Interest Models
 These methods move beyond keywords to **semantic representations**.
 
@@ -411,9 +383,7 @@ These methods move beyond keywords to **semantic representations**.
 | **Graph-Based** | `Positive Examples -> Semantic Tagging -> Graph Overlay` | A **graph-based profile** where the user is linked to nodes (concepts) in a semantic network (e.g., ontology). | Captures **relationships** between interests; enables **inference** (if interested in "AI", maybe interested in "Machine Learning"). |
 | **Concept-Based (i)** | `Positive Examples -> Semantic Tagging -> Graph Overlay -> Concept Frequency` | **Top Concepts**: A ranked list of high-level concepts from the ontology. | Reduces **dimensionality** and **noise** compared to keywords; more generalisable. |
 | **Concept-Based (ii)** | `Positive Examples -> Clustering -> Top Extraction` | **Top Concepts**: Identified by clustering positive items and extracting common thematic labels. | Discovers latent **topical themes** without a pre-defined ontology. |
-
 **Key Insight from Research**: User interests are **dynamic** and influenced by both **long-term genuine preference** and **short-term public trends** (e.g., news cycles). Effective models (like the **Bayesian framework** in the Google News paper) should separate and combine these factors.
-
 ### Critical Preprocessing: Isolating Interest from Engagement
 Raw behavioural counts (e.g., 10 clicks on Sports, 2 on Politics) conflate:
 1.  **Interest Profile**: The *relative distribution* of attention (e.g., prefers Sports to Politics).
@@ -437,7 +407,6 @@ A key limitation is the **vocabulary mismatch and cold-start problem for new ter
 
 ---
 ## 2.5 Representing Goals & Tasks
-
 Goal and task modelling drives proactive, context-sensitive adaptation.
 
 | Goals and Tasks Hierarchy Example          |
@@ -463,7 +432,6 @@ The framework decomposes a user's observed behaviour into two latent components:
 
 Using **Bayes' theorem**, the system isolates the genuine interest from trend-inflated clicks. For prediction, it **combines** the estimated genuine interest with the *current* public trend. This improves recommendations because it simultaneously respects the user's core preferences while ensuring recommendations are **timely and relevant to the current news cycle**, leading to the observed 30.9% increase in CTR.
 
-
 |       | u1  | u2  | u3    | u4  | u5  | u6  |
 | ----- | --- | --- | ----- | --- | --- | --- |
 | item1 | 5   | 1   | 5     | 4   | 0   | 3   |
@@ -486,13 +454,11 @@ Using **Bayes' theorem**, the system isolates the genuine interest from trend-in
 | similarity measure | 0.63  | 0.56  |           | 0.71  | 0.22  | 0.93  |
 # Topic 3: Recommender Systems
 ## 3.1 Introduction & Core Techniques
-
 > **Recommender Systems** are a primary application of user-adaptivity, designed to address **information overload** by predicting a user's preference for items and presenting a personalised selection.
 
-| **Main Recommendation Techniques** |
-| :--- |
+| Main Recommendation Techniques          |
+| :-------------------------------------- |
 | ![[recommendation-techniques.png\|500]] |
-
 ### Overview of Core Techniques
 | Technique | Core Idea | Background Data | Input Data | Core Algorithm (Simplified) |
 | :--- | :--- | :--- | :--- | :--- |
@@ -501,14 +467,11 @@ Using **Bayes' theorem**, the system isolates the genuine interest from trend-in
 | **Knowledge-Based (KB)** | Leverage **explicit knowledge** about user needs and item suitability. | **Knowledge Base**: Rules, constraints, utility functions linking user needs to items. | Explicit user requirements/constraints. | Search/retrieve items that satisfy the stated constraints and utility criteria. |
 | **Demographic (DM)** | Leverage **user demographic categories**. "People in your demographic liked X." | Demographic user profiles (age, occupation, etc.). | Target user's demographic attributes. | Classify user into a demographic segment, recommend items popular in that segment. |
 | **Utility-Based (UT)** | Leverage a **user-specific utility function**. "This item maximises your defined utility." | Utility function for the user over item features. | Target user's utility function (explicitly defined). | Calculate utility score for each candidate item, rank. |
-
 **Key Insight**: Each technique uses a different type of **background knowledge** (social, content, domain knowledge) and suffers from different weaknesses (cold-start, overspecialisation). This motivates **hybrid systems**.
 
 ---
 ## 3.2 Collaborative Filtering (CF) In-Depth
-
 CF predicts a user's preference for an item based on the preferences of **similar users** (User-User) or the similarity of the item to other items the user liked (Item-Item).
-
 ### User-User Collaborative Filtering
 **Methodology**:
 1.  **Represent Data**: Construct a **User-Item Matrix** with ratings.
@@ -524,12 +487,10 @@ We want to predict user **u3**'s rating for **item3**.
 | **item2** |  3  |  3  |    **1**    |  1  |  5  |  1  |
 | **item3** |  0  |  1  |    **?**    |  2  |  1  |  4  |
 | ...       | ... | ... |     ...     | ... | ... | ... |
-
 **Step 1: Calculate Similarities** (e.g., Cosine between rating vectors).
 `sim(u3,u1)=0.63`, `sim(u3,u4)=0.71`, `sim(u3,u6)=0.93`.
 **Step 2: Neighbourhood (k=3)**: u6, u4, u1.
-**Step 3: Prediction (Weighted Sum)**:
-$$p_{u3,item3} = \frac{(4 \cdot 0.93) + (2 \cdot 0.71) + (0 \cdot 0.63)}{0.93+0.71+0.63} \approx 2.26$$
+**Step 3: Prediction (Weighted Sum)**:$$p_{u3,item3} = \frac{(4 \cdot 0.93) + (2 \cdot 0.71) + (0 \cdot 0.63)}{0.93+0.71+0.63} \approx 2.26$$
 **Situation for Use**: When the **user base is relatively stable** and you want to leverage diverse taste communities. Prone to scalability issues.
 #### Problem Setup
 Predict user **u3**'s rating for **item3** using User-User CF with **k=3 nearest neighbours**. We use **Cosine Similarity** to find similar users.
@@ -546,7 +507,6 @@ We need the rating vectors for **u3** and the other users **for the items they h
 | item6 | 4 | 0 |
 | item7 | 0 | 5 |
 *Note: `item3` is omitted because u1 hasn't rated it (0). `item6` is included because u3's rating is 0, which is a valid value for the similarity calculation.*
-
 ##### Step 1: Calculate Cosine Similarity
 
 **Cosine Similarity Formula**:
@@ -559,7 +519,6 @@ u3 \cdot u1 = \\
 (5\cdot5) + (1\cdot3) + (4\cdot1) + (5\cdot3) + (0\cdot4) + (5\cdot0) \\ 
 = 25 + 3 + 4 + 15 + 0 + 0 = 47
 \end{align}$$
-
 2.  **Compute the Magnitude (Euclidean Norm) of each vector**:
     - $\|u3\| = \sqrt{5^2 + 1^2 + 4^2 + 5^2 + 0^2 + 5^2} = \sqrt{25 + 1 + 16 + 25 + 0 + 25} = \sqrt{92} \approx 9.5917$
     - $\|u1\| = \sqrt{5^2 + 3^2 + 1^2 + 3^2 + 4^2 + 0^2} = \sqrt{25 + 9 + 1 + 9 + 16 + 0} = \sqrt{60} \approx 7.7460$
@@ -569,16 +528,13 @@ $$sim(u3, u1) = \frac{47}{9.5917 \times 7.7460} = \frac{47}{74.302} \approx 0.63
 **Repeat for other users** (conceptually):
 - `sim(u3, u4)` and `sim(u3, u6)` are calculated **using the same method**, comparing u3's rating vector to u4's and u6's vectors over their co-rated items.
 - The results given are: `sim(u3, u4)=0.71`, `sim(u3, u6)=0.93`.
-
 ##### Step 2: Define Neighbourhood (k=3)
 Rank users by similarity to u3 (descending):
 1.  u6 (0.93)
 2.  u4 (0.71)
 3.  u1 (0.63)
 These are the **3-nearest neighbours**.
-
 ##### Step 3: Make Prediction for `item3` via Weighted Sum
-
 We now predict $p_{u3, item3}$. We need the **neighbours' ratings for `item3`** and their similarity weights.
 
 | Neighbour | Rating for `item3` ($r_{u,item3}$) | Similarity to u3 ($w_u$) |
@@ -586,13 +542,10 @@ We now predict $p_{u3, item3}$. We need the **neighbours' ratings for `item3`** 
 | u6 | 4 | 0.93 |
 | u4 | 2 | 0.71 |
 | u1 | 0 | 0.63 |
-**Weighted Sum Prediction Formula**:
-$$p_{u,i} = \frac{\sum_{v \in N} (sim(u,v) \cdot r_{v,i})}{\sum_{v \in N} sim(u,v)}$$Where $N$ is the set of k-nearest neighbours.
+**Weighted Sum Prediction Formula**:$$p_{u,i} = \frac{\sum_{v \in N} (sim(u,v) \cdot r_{v,i})}{\sum_{v \in N} sim(u,v)}$$Where $N$ is the set of k-nearest neighbours.
 
 **Calculation**:
-1.  **Weighted Rating Sum (Numerator)**:
-  $$(r_{u6} \cdot w_{u6}) + (r_{u4} \cdot w_{u4}) + (r_{u1} \cdot w_{u1}) = (4 \cdot 0.93) + (2 \cdot 0.71) + (0 \cdot 0.63)$$
-    $$= 3.72 + 1.42 + 0 = 5.14$$
+1.  **Weighted Rating Sum (Numerator)**:$$(r_{u6} \cdot w_{u6}) + (r_{u4} \cdot w_{u4}) + (r_{u1} \cdot w_{u1}) = (4 \cdot 0.93) + (2 \cdot 0.71) + (0 \cdot 0.63)$$$$= 3.72 + 1.42 + 0 = 5.14$$
 2.  **Similarity Sum (Denominator)**:$$0.93 + 0.71 + 0.63 = 2.27$$
 3.  **Final Prediction**:  $$p_{u3, item3} = \frac{5.14}{2.27} \approx 2.2643 \approx 2.26$$
 **Interpretation**: The system predicts u3 would rate `item3` approximately **2.26 out of 5**. This is a **relatively low prediction**, largely influenced by u1's low rating (0), tempered by the higher ratings from more similar users (u4 and u6).
@@ -608,7 +561,6 @@ $$p_{u,i} = \frac{\sum_{v \in N} (sim(u,v) \cdot r_{v,i})}{\sum_{v \in N} sim(u,
 3.  **Magnitude of u2**: $\sqrt{1^2+3^2+1^2+2^2+3^2+1^2} = \sqrt{1+9+1+4+9+1} = \sqrt{25} = 5$
 4.  **Cosine Similarity**: $sim(u3, u2) = \frac{27}{9.592 \times 5} = \frac{27}{47.96} \approx 0.563$
 **Therefore, the similarity is approximately 0.56.**
-
 ### Item-Item Collaborative Filtering
 **Methodology**:
 1.  **Represent Data**: Same User-Item Matrix.
@@ -620,9 +572,7 @@ Predict **u3**'s rating for **item3** by finding items similar to item3 that u3 
 `sim(item3,item4)=0.9`, `sim(item3,item5)=0.64`, `sim(item3,item7)=0.85`.
 **Prediction**:
 $$p_{u3,item3} = \frac{(4 \cdot 0.9) + (5 \cdot 0.64) + (5 \cdot 0.85)}{0.9+0.64+0.85} \approx 4.62$$
-
 **Situation for Use**: **Industry standard** (e.g., Amazon). More stable than user-user because item similarities change less frequently. Scales better.
-
 ### Amazon's Scalable Item-Item CF (Binary Case)
 For implicit data (bought/not bought).
 
@@ -631,7 +581,6 @@ For implicit data (bought/not bought).
 | **item1** | 1 | 0 | **1** | 1 | 0 | 0 |
 | **item2** | 0 | 1 | **0** | 1 | 0 | 0 |
 | **item4** | 0 | 1 | **1** | 1 | 0 | 0 |
-
 **Process**:
 1.  Find customers who bought the same items as u3 (u1, u2, u4 bought item1 or item4).
 2.  Find other items those customers bought (item2, item3, item5, item6, item7).
@@ -639,7 +588,6 @@ For implicit data (bought/not bought).
 4.  Recommend items with highest similarity (e.g., `sim(i4,i2)=0.82`, `sim(i1,i7)=0.58`).
 
 **Why it Scales**: **Similarities between items are pre-computed offline**. The online step just aggregates pre-calculated lists for the user's purchased items, which is very fast.
-
 ### CF: Advantages & Disadvantages
 | Advantages | Disadvantages |
 | :--- | :--- |
@@ -657,13 +605,11 @@ For implicit data (bought/not bought).
 
 ---
 ## 3.3 Content-Based Filtering (CBF) In-Depth
-
 > CBF recommends items **similar in content/attributes** to those the user has liked in the past. It is a direct application of the **user model as a feature preference vector**.
 
-| **Content-Based Recommender Architecture** |
-| :--- |
-| ![[Content-based-recommender-system.png\|500]] |
-
+| Content-Based Recommender Architecture         |
+| :--------------------------------------------- |
+| ![[Content-based-recommender-system.png\|300]] |
 ### Methodology
 1.  **Content Representation**: Each item is represented as a **feature vector** (e.g., TF-IDF keywords, ontology concepts, genre tags).
 2.  **User Profile Construction**: The user's profile is an **aggregated feature vector** from items they have liked/consumed. This can be a weighted average.
@@ -676,11 +622,9 @@ For implicit data (bought/not bought).
 - **Cosine Similarity**:
 $$sim(U,I) = \frac{(0.7\cdot0.8)+(0.9\cdot0.6)+(0.2\cdot0.1)}{\sqrt{0.7^2+0.9^2+0.2^2} \cdot \sqrt{0.8^2+0.6^2+0.1^2}} \approx 0.98$$
 High similarity leads to recommendation.
-
 ### CBF with Keyword, Graph, and Concept Models
 - **Keyword Model**: As above. Simple but suffers from synonymy/polysemy.
 - **Graph/Concept Model**: Items and user profiles are linked to nodes in a **domain ontology** (e.g., ACM Computing Classification for CS papers). Similarity is based on **semantic relatedness** in the graph (e.g., path distance, shared ancestors). Enables deeper reasoning.
-
 ### CBF: Advantages & Disadvantages
 | Advantages | Disadvantages |
 | :--- | :--- |
@@ -688,12 +632,10 @@ High similarity leads to recommendation.
 | **Transparency**: Can explain recommendations ("because you like Technology"). | **Over-Specialisation (Filter Bubble)**: Rarely recommends items outside user's existing profile. |
 | **Independence**: Doesn't need data from other users. | **Limited Serendipity**: Cannot make cross-topic discoveries. |
 | **Domain-Specific Tuning**: Can incorporate domain knowledge via feature engineering. | **Feature Dependency**: Quality depends entirely on **quality and availability of item metadata**. |
-
 **Situation for Use**: **Museum Guides** (Rijksmuseum CHIP project). The system uses a **knowledge graph** of artworks (artist, period, subject). A user's indicated interest in "Rembrandt" and "portraits" (concepts in the graph) allows the system to recommend other portrait paintings from the Dutch Golden Age, even by different artists, by reasoning through the semantic graph.
 
 ---
 ## 3.4 Knowledge-Based Recommenders
-
 > KB recommenders use **explicit knowledge** about the domain, user needs, and how items satisfy those needs. They are often **interactive** and **constraint-based**.
 
 **Core Idea**: The system engages the user in a **dialogue** to understand their specific requirements (e.g., "I need a laptop for gaming under £1000"), then uses a **knowledge base** of item specifications and rules to filter and rank options.
@@ -706,21 +648,17 @@ High similarity leads to recommendation.
 5.  **Output**: A refined list satisfying the evolving utility function.
 
 **How it works**: It often uses **Case-Based Reasoning (CBR)**. The knowledge base is a set of cases (items). The user's requirements are a query. The system finds the most similar cases, and the user's critiques guide the adaptation of the query for subsequent retrieval.
-
 ### KB: Advantages & Disadvantages
 | Advantages | Disadvantages |
 | :--- | :--- |
 | **No Cold-Start Problem**: Works immediately for new users and items. | **Knowledge Engineering Bottleneck**: Requires manual creation and maintenance of the knowledge base/rules. |
 | **Handles Complex Needs**: Can reason about **non-product attributes** (delivery time, vendor reputation). | **Static Recommendations**: Unless the knowledge base is updated, suggestions don't improve from usage data. |
 | **Highly Transparent & Controllable**: User understands the process (filtering by their stated constraints). | **User Effort**: Requires explicit input and iterative refinement from the user. |
-
 **Situation for Use**: **High-involvement purchases** (cars, houses, complex financial products) where user needs are specific and items have many technical attributes.
 
 ---
 ## 3.5 Hybrid Recommender Systems
-
 > **Hybrid systems** combine two or more recommendation techniques to **mitigate the weaknesses** of individual approaches.
-
 ### Hybridisation Methods (Burke's Taxonomy)
 | Method | Description | Order-Sensitive? | Example |
 | :--- | :--- | :--- | :--- |
@@ -731,11 +669,9 @@ High similarity leads to recommendation.
 | **Cascade** | One algorithm produces a coarse list, a second refines it. | **Yes** | **KB** retrieves 100 candidates, **CF** re-ranks the top 20. |
 | **Feature Augmentation** | Output of one algorithm is an input feature to another. | **Yes** | A CBF predicted rating is added as a feature in a CF model. |
 | **Meta-level** | Model from one algorithm is input to another. | **Yes** | A CBF-generated user profile is used as the input vector for a CF method. |
-
 **Example - EntréeC (KB/CF Cascade Hybrid)**:
 1.  **First Stage (KB)**: The knowledge-based Entrée system uses **critique-based navigation** to produce a shortlist of restaurants.
 2.  **Second Stage (CF)**: A collaborative filter breaks ties within this shortlist by leveraging past users' **semantic actions** (e.g., "Nicer", "Cheaper") as enriched implicit ratings. This preserves recommendation rationale while adding social wisdom.
-
 ### Why Hybridise? Problem-Solution Mapping
 - **Cold-Start (User)**: Combine with **Knowledge-Based** (Switching, Cascade).
 - **Cold-Start (Item)**: Combine with **Content-Based** (Weighted, Feature Combination).
@@ -752,13 +688,11 @@ High similarity leads to recommendation.
 Use a **Weighted Hybrid** of **Content-Based Filtering (CBF)** and **Collaborative Filtering (CF)**.
 **Justification**: New songs have no play history (CF fails), but they have rich metadata (genre, artist, tempo). **CBF** can immediately recommend them to users whose profiles match these features. The **Weighted Hybrid** allows the system to blend the CBF score for new items with CF scores for established items. Over time, as the new song gains plays, the CF component's weight can automatically increase. This ensures new items are recommendable from day one while maintaining overall recommendation quality.
 ## 3.6 Hybrid Recommender Systems: Detailed Methods & Applications
-
 > **Hybrid Recommender Systems** combine multiple base recommendation techniques to **leverage their complementary strengths** and **mitigate their individual weaknesses**. The Netflix Prize winner used a **blend of over 100 different models**, demonstrating the power of hybridisation.
 
-| **Hybridisation Methods Overview** |
-| :--- |
+| Hybridisation Methods Overview      |
+| :---------------------------------- |
 | ![[Hybridization-Methods.png\|500]] |
-
 ### 1. Weighted Hybrid
 **Methodology**: Computes a **linear combination** of the prediction scores from multiple algorithms.
 $$R_{final} = \frac{R_1 \cdot W_1 + R_2 \cdot W_2 + ... + R_n \cdot W_n}{W_1 + W_2 + ... + W_n}$$
@@ -771,7 +705,6 @@ Where $R_i$ is the score from algorithm $i$ and $W_i$ is its assigned weight.
 - **Final Score**: $R_{final} = \frac{4.2 \cdot 0.6 + 3.8 \cdot 0.4}{1.0} = 4.04$.
 
 **When to Use**: When you have **multiple reliable but imperfect predictors** and want a stable, blended result. It is **order-insensitive**.
-
 ### 2. Switching Hybrid
 **Methodology**: Selects **one algorithm** from the available set based on a **contextual rule or condition**. The output is the recommendation from the selected algorithm alone.
 
@@ -780,7 +713,6 @@ Where $R_i$ is the score from algorithm $i$ and $W_i$ is its assigned weight.
 - **Execution**: A new user with 2 ratings gets recommendations via a **KB** system that asks for preferences (e.g., "I need a gaming laptop under £1000"). After they provide 5 ratings, the system **switches** to using CF to leverage the wisdom of similar users.
 
 **When to Use**: To handle **specific system states or user segments** where one algorithm is distinctly superior (e.g., cold-start vs. warm-start). It is **order-sensitive** (the switching logic defines the sequence).
-
 ### 3. Mixed Hybrid
 **Methodology**: Presents recommendations from **different algorithms simultaneously** in separate UI sections. The user sees the outputs side-by-side.
 
@@ -790,7 +722,6 @@ Where $R_i$ is the score from algorithm $i$ and $W_i$ is its assigned weight.
 The user sees both lists on the same page.
 
 **When to Use**: To **increase diversity and serendipity** by exposing the user to different recommendation rationales. It is **order-insensitive** in terms of algorithm combination, though UI layout matters.
-
 ### 4. Feature Combination Hybrid
 **Methodology**: Merges **features** from different data sources into a **single, unified feature set**, which is then fed into one recommendation algorithm.
 
@@ -801,7 +732,6 @@ The user sees both lists on the same page.
 - **Single Algorithm**: A **neural network** or matrix factorization model is trained on this combined feature set to make predictions.
 
 **When to Use**: When you want a **single, powerful model** that can learn complex interactions between different data types. It is **order-insensitive** for feature merging.
-
 ### 5. Cascade Hybrid
 **Methodology**: Arranges algorithms in a **sequential pipeline**. The first algorithm produces a **coarse ranking or candidate set**. The second (and subsequent) algorithm(s) **refine this list**.
 
@@ -810,7 +740,6 @@ The user sees both lists on the same page.
 2.  **Stage 2 (Collaborative Filtering)**: The CF algorithm re-ranks these 100 candidates based on what **similar users engaged with**, promoting the most socially validated articles to the top 10.
 
 **When to Use**: When you have a **high-precision, high-recall requirement** and one algorithm is good at broad recall (KB, CBF) while another is good at precision (CF). It is **highly order-sensitive**.
-
 ### 6. Feature Augmentation Hybrid
 **Methodology**: Uses the **output of one algorithm** as an **input feature** for another algorithm.
 
@@ -819,7 +748,6 @@ The user sees both lists on the same page.
 2.  **Algorithm B (Collaborative Filtering)**: Uses the **CBF-predicted rating** as an *additional feature* in its user-item matrix, alongside the real ratings. The CF model then makes its final prediction using this enriched data.
 
 **When to Use**: To **boost the signal** for a primary algorithm (often CF) when data is sparse. The secondary algorithm provides "synthetic" data points. It is **order-sensitive**.
-
 ### 7. Meta-Level Hybrid
 **Methodology**: Uses the **model generated by one algorithm** (not just its output) as the **input to another algorithm**.
 
@@ -840,7 +768,6 @@ The user sees both lists on the same page.
 
 ---
 ## 3.7 Comparing & Selecting Hybrid Methods
-
 **Decision Guide: Which Hybrid Method to Use?**
 
 | If your primary challenge is...            | Consider this hybrid method...                         | Because it...                                    |
@@ -851,7 +778,6 @@ The user sees both lists on the same page.
 | **Overspecialisation / Lack of Diversity** | **Mixed** or **Weighted** (with CF).                   | Introduces serendipity from other users' tastes. |
 | **Need for Explainability**                | **Mixed** (show KB results) or **Cascade** (KB first). | Preserves a transparent reasoning component.     |
 | **Maximising Predictive Accuracy**         | **Weighted** (ensemble) or **Cascade** (refinement).   | Combines multiple signals for a precise score.   |
-
 **Key Features Recap for Any Algorithm**:
 When analysing or designing a recommender, always specify:
 1.  **Background Data**: What knowledge does it require? (e.g., user-item matrix, item features, knowledge base).
@@ -869,14 +795,10 @@ When analysing or designing a recommender, always specify:
 1.  **First Stage (CBF)**: For a given user, the system uses their profile (based on listened songs) and *all songs in the catalogue* (including new ones with metadata). It computes content similarity and produces a **broad candidate list of 500 songs**. This ensures **new songs are included**.
 2.  **Second Stage (CF)**: The system takes this candidate list and applies **Item-Item CF**. It re-ranks the 500 songs based on what users with *similar tastes* have actually played, promoting socially validated songs. This introduces **diversification** based on community wisdom, moving beyond the user's own profile bubble.
 **Result**: New songs are in the running (via CBF), but the final ranking is influenced by broader community trends (via CF).
-
 ## 3.8 Evaluation of Recommender Systems
-
 > Systematic **evaluation** is critical for selecting, tuning, and improving recommender algorithms. It moves from offline **prediction accuracy** to online **business impact** and **user-centric qualities**.
-
 ### 3.8.1 Data-Driven (Offline) Evaluation
 Evaluates algorithms using pre-collected historical data (e.g., MovieLens dataset). A **training-test split** is used.
-
 #### 1. Rating Prediction Accuracy Metrics
 Assess how close predicted ratings are to actual user ratings.
 
@@ -884,7 +806,6 @@ Assess how close predicted ratings are to actual user ratings.
 | :--- | :--- | :--- |
 | **Mean Absolute Error (MAE)** | $$MAE = \frac{1}{n} \sum_{i=1}^{n} \|p_i - r_i\|$$ | Average **magnitude** of error. Simple, interpretable. |
 | **Root Mean Squared Error (RMSE)** | $$RMSE = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (p_i - r_i)^2}$$ | Penalises **large errors more severely** than MAE. Standard in competitions (e.g., Netflix Prize). |
-
 **Example Calculation**:
 
 | Item | Predicted (p) | Actual (r) | \|p-r\| | (p-r)² |
@@ -898,18 +819,17 @@ Assess how close predicted ratings are to actual user ratings.
 | i7 | 3 | 3 | 0 | 0 |
 | **Sum/Avg** | | | **8** | **18** |
 | **MAE** = 8/7 ≈ **1.14** | | | **RMSE** = √(18/7) ≈ **1.60** |
-
 **Situation for Use**: When the system's core task is to **predict exact ratings** (e.g., a movie rating prediction service). **RMSE is more sensitive to large errors**, which may be critical if you want to avoid recommending items the user will strongly dislike.
 
 #### 2. Decision Support Accuracy (Top-N Recommendation)
 Assesses the quality of a **ranked list of recommendations**. Treats recommendation as a **retrieval task**.
 
 **Confusion Matrix for a Single User & Item**:
+
 | | User **Likes** Item | User **Dislikes** Item |
 | :--- | :---: | :---: |
 | **System Recommends** | **True Positive (TP)** | **False Positive (FP)** |
 | **System Does Not Recommend** | **False Negative (FN)** | **True Negative (TN)** |
-
 **Derived Metrics**:
 - **Precision@N**: Of the top N recommended items, how many were actually relevant?
   $$Precision@N = \frac{\#\text{ of relevant items in top N}}{N}$$
@@ -919,7 +839,6 @@ Assesses the quality of a **ranked list of recommendations**. Treats recommendat
   *Focus: Minimising false negatives (missed good items).*
 - **F1-Score@N**: Harmonic mean of Precision and Recall.
   $$F1@N = 2 \cdot \frac{Precision@N \cdot Recall@N}{Precision@N + Recall@N}$$
-
 **Example Scenario (Music Recommender - Top 5)**:
 - System recommends songs: {S1, S2, S3, S4, S5}.
 - User actually likes: {S1, S3, S6, S7}.
@@ -929,7 +848,6 @@ Assesses the quality of a **ranked list of recommendations**. Treats recommendat
 - **Trade-off**: Increasing N typically **increases Recall** (catch more good items) but **decreases Precision** (more bad items sneak in).
 
 **Situation for Use**: For **real-world recommenders** that produce a shortlist (e.g., "Recommended for You" row). More reflective of user experience than rating accuracy.
-
 ### 3.8.2 Beyond Accuracy: Other Critical Metrics
 Accuracy alone is insufficient. A system with high accuracy might recommend only obvious, popular items.
 
@@ -939,12 +857,10 @@ Accuracy alone is insufficient. A system with high accuracy might recommend only
 | **Novelty** | Recommends items **new to the user** (not consumed before). | Prevents boredom and repetitiveness. |
 | **Serendipity** | Recommends **surprisingly relevant** items—new to the user *and* unexpectedly good. | Drives discovery and user delight. Essential to break **filter bubbles**. |
 | **Diversity** | How **dissimilar** recommended items are from each other. Measured by intra-list distance. | Provides choice and caters to multiple interests within a single list. |
-
 **Algorithm Tendencies**:
 - **Collaborative Filtering**: Naturally provides some novelty/serendipity via social discovery, but suffers from **popularity bias**.
 - **Content-Based Filtering**: Poor at novelty/serendipity (trapped in filter bubble) but can have high precision.
 - **Knowledge-Based Systems**: Can explicitly engineer for serendipity via reasoning in knowledge graphs.
-
 ### 3.8.3 Experimental Studies with Users
 
 #### A/B Testing (Online Experiment)
@@ -962,13 +878,11 @@ The **gold standard** for evaluating impact on real user behaviour in a live sys
 - **Business Metrics**: Revenue, retention rate.
 
 **Situation for Use**: To **validate the real-world business impact** of a new algorithm before full deployment. It measures what users *do*, not just what they say.
-
 #### User Studies (Lab/Controlled Experiment)
 Involves a smaller group of participants performing tasks with the system, followed by surveys and interviews.
 
 **Measures**: **Subjective feedback** on trust, satisfaction, perceived usefulness, comprehensibility of recommendations.
 **Situation for Use**: To evaluate **user experience qualities** that logs cannot capture, especially during the design phase.
-
 ### 3.8.4 The Netflix Prize Case Study
 **Goal**: Improve Netflix's rating prediction (Cinematch) by 10% (reduce RMSE).
 **Outcome**: The winning team (**BellKor's Pragmatic Chaos**) used a **blended ensemble of over 100 models**, including:
@@ -996,16 +910,13 @@ Involves a smaller group of participants performing tasks with the system, follo
 - **Recall@3** = (Number of relevant in top 3) / (Total number of relevant items) = **1/3 ≈ 0.33**.
 *(Note: Recall uses the total relevant set size, which is 3 in this case.)*
 ## 3.9 Machine Learning-Based Recommender Systems
-
 > **ML-based Recommender Systems** use advanced machine learning models to learn complex patterns from multi-dimensional data (user, item, context, sequence) to generate highly personalised, scalable, and adaptive recommendations.
-
 ### 3.9.1 Core Components & Pipeline
 The development and deployment of an ML-based recommender follows a structured pipeline.
 
-| **ML-Based Recommender System Architecture** |
-| :--- |
+| ML-Based Recommender System Architecture      |
+| :-------------------------------------------- |
 | ![[ml-based-recommender-arch-steps.png\|500]] |
-
 #### 1. Data Collection & Storage
 Gathers diverse data needed for modelling.
 - **User Data**: Demographics, preferences.
@@ -1019,7 +930,6 @@ Gathers diverse data needed for modelling.
 - **User Profile**: Explicit goals (e.g., "Walk 10,000 steps/day").
 - **Micro-profile**: Current mood, motivation (via in-app feedback).
 - **Feedback**: User responses to suggestions ("too intense", "I'm at work").
-
 #### 2. Data Preprocessing
 Prepares raw data for model consumption.
 - **Cleaning**: Handle missing values, remove outliers.
@@ -1029,7 +939,6 @@ Prepares raw data for model consumption.
 - **Dimensionality Reduction**: Use PCA or autoencoders if feature space is too large.
 
 **Example - MoveApp Preprocessing**: Weather categories (`rain`, `sunny`) are one-hot encoded. Step count is normalized relative to user's goal. Time is converted to cyclical features (sine/cosine of hour) to represent 24-hour periodicity.
-
 #### 3. Model Selection & 4. Training/Optimization
 Choosing and training the ML model.
 
@@ -1038,7 +947,6 @@ Choosing and training the ML model.
 | **Traditional ML** | **Random Forest (RF)**, Decision Trees, SVM, Bayesian Networks. | **Interpretable**, handles tabular data well, good for **feature importance analysis**. Use when explainability is key. |
 | **Deep Learning** | **Neural Networks**, Autoencoders. | Captures **complex non-linear patterns** in high-dimensional data (e.g., raw text, images). |
 | **Temporal/Sequential DL** | **Recurrent Neural Networks (RNNs)**, LSTMs, Transformers. | Models **user behaviour sequences** (e.g., watch history). Essential for "next-in-sequence" recommendations. |
-
 **Example - MoveApp Model Selection**:
 - **Chosen Algorithm**: **Random Forest**.
 - **Justification**:
@@ -1051,13 +959,11 @@ Choosing and training the ML model.
     - **Hyperparameter Tuning**: Used **Randomized Search** with **5-fold cross-validation**.
     - **Optimal Parameters**: `max_depth=6`.
     - **Result**: Train accuracy = 0.764, Test accuracy = 0.663.
-
 #### 5. Recommendation Generation
 The trained model is used to score and rank items for a user.
 - **Prediction**: The model outputs a score (e.g., probability of engagement) for each candidate item.
 - **Ranking**: Items sorted by predicted score.
 - **Filtering**: Apply business rules (e.g., remove already purchased items, enforce diversity).
-
 #### 6. Deployment & Serving
 Putting the model into production.
 - **Deployment Platforms**: TensorFlow Serving, AWS SageMaker, custom REST API.
@@ -1073,7 +979,6 @@ The system is not a single model but a **cascade of filters and recommenders**:
 5.  **Context-Based Post-Filter**: Re-rank based on immediate context (e.g., location near a park).
 6.  **Adaptive Progression**: Gradually increase suggested activity duration/intensity.
 7.  **Just-in-Time Intervention**: Deliver the recommendation at an opportune moment.
-
 #### 7. User Interface & Feedback Loop
 - **UI**: Presents recommendations in the app/website.
 - **Feedback Collection**: **Implicit** (did they start the activity? for how long?) and **Explicit** (star ratings, "too intense" feedback).
@@ -1095,25 +1000,21 @@ The system is not a single model but a **cascade of filters and recommenders**:
 
 ---
 ### 3.9.2 Industry Case Studies
-
 #### Amazon: From Item-Item CF to Deep Learning
 **Evolution**:
 1.  **Foundational Algorithm (c. 1998)**: **Item-to-Item Collaborative Filtering**. Solved **scalability** by pre-computing item similarities offline. Corrected early statistical bias related to heavy buyers.
 2.  **Modern Prime Video (c. 2016)**: **Deep Learning Autoencoders**. Initially failed because they reconstructed the *entire* user history, ignoring **temporal dynamics** (users want recent content). The breakthrough was the **Temporal Autoencoder**, trained to predict what a user would watch in the **next 1-2 weeks**. This **doubled performance** over item-item CF.
 
 **Key Insight**: Success requires adapting the ML model to the **domain's fundamental characteristics**—for video, **relevance decays rapidly with time**.
-
 #### Netflix & YouTube: Deep Hybrid Systems
 - **Netflix**: Uses a **hybrid of CF and Deep Learning**. Models consider viewing history, time of day, device, and even **video artwork** to predict engagement.
 - **YouTube**: Employs **deep candidate generation models** (using user and video embeddings) followed by a **separate ranking model** that weighs predicted watch time, user satisfaction, and diversity. Heavily uses **sequence models** for "next video" recommendation.
-
 ### 3.9.3 Reinforcement Learning for Real-Time Recommendation
 **Concept**: Treats recommendation as a **sequential decision-making problem**. The system (agent) recommends an item (action) to the user (environment), receives feedback (reward—e.g., click, purchase), and updates its strategy (policy) to maximise long-term cumulative reward (e.g., total engagement).
 
 | E-commerce Recommender using RL     |
 | :--- |
 | ![[ecommerce-recommender.png\|500]] |
-
 **Example - Real-Time E-commerce**:
 - **State (s_t)**: User's current session history, profile, context.
 - **Action (a_t)**: Which product to recommend next.
@@ -1122,24 +1023,18 @@ The system is not a single model but a **cascade of filters and recommenders**:
 
 **Advantage**: Optimises for **long-term user value** rather than just immediate click-through. Can strategically explore new items to learn user preferences.
 # Topic 4: Adaptive Content Presentation
-
 > **Adaptive Content Presentation** tailors not just *what* information a user sees (selection), but also *how* that information is structured and presented (presentation) based on their user model. It is a two-step process: **Content Selection** followed by **Content Presentation**.
-
 ### Link to Recommender Systems
 - **Content Selection** is analogous to a **recommender system's filtering/ranking** stage.
 - **Content Presentation** is the **adaptive generation of the UI/content layout** that delivers those selected items.
-
 ## 4.1 Static & Semi-Automatic Approaches
-
 These methods use **pre-authored content components** assembled dynamically.
-
 ### 1. Page-Based Approach
 The simplest method. The system selects from a set of **complete, pre-defined pages**.
 
-| **Page-Based Adaptation** |
-| :--- |
+| Page-Based Adaptation               |
+| :---------------------------------- |
 | ![[page-based-adaptation.png\|500]] |
-
 **Methodology**:
 1.  Authors create multiple versions of a page for different user states (e.g., "Beginner Page", "Expert Page").
 2.  The user model (e.g., `knowledge_level`) is evaluated.
@@ -1154,18 +1049,15 @@ The simplest method. The system selects from a set of **complete, pre-defined pa
 **Disadvantages**:
 - **Static & Inflexible**: Cannot create novel combinations.
 - **Authoring Bottleneck**: Requires creating and maintaining many page variants, which is **expensive and unscalable**.
-
 ### 2. Fragment-Based Approach (Semi-Automatic)
 A more flexible method. Pages are constructed from **smaller, reusable content fragments**.
-
 #### a) Optional Fragments
 - **Methodology**: Each fragment has **applicability conditions** based on the user model. The page is composed by including all fragments whose conditions are true.
 - **Architecture**: `Page = {Fragment | Condition(Fragment, UserModel) = TRUE}`
 
-| **Optional Fragments Example** |
-| :--- |
+| **Optional Fragments Example**   |
+| :------------------------------- |
 | ![[optional-fragments.png\|500]] |
-
 **Example - AVANTI (Web Accessibility System)**: A page for a tourist site includes a basic description fragment for all users. An **optional fragment** with detailed historical context is included **only if** `user_knowledge > beginner`. Another optional fragment with wheelchair access details is included **only if** `user_has_mobility_impairment = TRUE`.
 
 **Advantages**:
@@ -1175,7 +1067,6 @@ A more flexible method. Pages are constructed from **smaller, reusable content f
 **Disadvantages**:
 - **Combinatorial Complexity**: Managing conditions for many fragments is **error-prone**.
 - **Coherence Risk**: Combined fragments may not flow well together stylistically.
-
 #### b) Altering Fragments
 - **Methodology**: The page has a fixed **structure of slots (constituents)**. For each slot, there is a set of alternative fragments. The system selects the most appropriate fragment for each slot.
 - **Architecture**: `Page = [Slot1: Fragment_X, Slot2: Fragment_Y, ...]` where Fragment_X is chosen from a set for Slot1.
@@ -1183,7 +1074,6 @@ A more flexible method. Pages are constructed from **smaller, reusable content f
 | **Altering Fragments Example** |
 | :--- |
 | ![[altering-fragments.png\|500]] |
-
 **Example - AHA! (Adaptive Hypermedia System)**:
 - A page has a **navigation frame** (a constituent) and a **content frame** (another constituent).
 - For the navigation constituent, the system selects a fragment containing links appropriate to the user's knowledge (hiding advanced links for novices).
@@ -1208,16 +1098,13 @@ A more flexible method. Pages are constructed from **smaller, reusable content f
 
 ---
 ## 4.2 Automatic Approaches (Dynamic Generation)
-
 These methods **generate content on-the-fly** from underlying data/knowledge models, offering maximum flexibility. This is an active research area, increasingly using **Natural Language Generation (NLG)** and **Large Language Models (LLMs)**.
-
 ### Key Systems & Techniques
 | System/Technique | Core Idea | Adaptation Mechanism |
 | :--- | :--- | :--- |
 | **ILEX** | Generates **museum object descriptions** in natural language. | Uses a **domain model** (semantic network of artifacts) and a **user model** (interests). Selects concepts based on **structural relevance** in the network and **user interest**. Generates coherent text linking these concepts. |
 | **GEA (Generator of Evaluative Arguments)** | Generates **justifications for recommendations** (e.g., why a house is good for you). | Uses a **hierarchical user preference model** (value tree). Computes how much each attribute (e.g., garden size) contributes to the item's overall utility for the user. Selects attributes whose contribution exceeds a threshold and generates a persuasive argument focusing on them. |
 | **RIA (Responsive Information Architect)** | Generates **multi-dimensional data presentations** (e.g., charts, text summaries). | Formalises selection as an **optimisation problem**. Maximises a *desirability* score based on content features, user features (e.g., expertise), and interaction history. Can produce radically different presentations (a detailed table vs. a simple chart) for the same data based on the user. |
-
 ### Modern Examples with LLMs & NLG
 1.  **Recipe Recommender with Justifications (Starke et al.)**:
     - **Task**: Recommend healthy recipes and **explain why** they are suitable.
@@ -1233,7 +1120,6 @@ These methods **generate content on-the-fly** from underlying data/knowledge mod
     - **Task**: Assemble educational videos from segmented clips.
     - **Method**: 1) Selects video segments based on concepts linked via a **domain taxonomy**. 2) Generates **linking voiceover text** automatically using NLG to create a coherent narrative.
     - **Adaptation**: The selection of concepts and the complexity of the linking narrative are adapted to the learner's **knowledge level** in the user model.
-
 ### Presentation Techniques: Managing Relevance & Focus
 Once content is selected, it must be presented effectively. A key trade-off is **Focus vs. Context**.
 
@@ -1244,7 +1130,6 @@ Once content is selected, it must be presented effectively. A key trade-off is *
 | **Colouring** | Relevant content is highlighted with a background colour. | **Yes**. | **Very Strong**. |
 | **Sorting** | Lists are ordered by relevance (most relevant first). | **No** (changes order). | **Strong** (position indicates priority). |
 | **Scaling (Fisheye View)** | Font size is proportional to the "Degree of Interest" (relevance). | **Partial** (some context is shrunk). | **Very Strong**. |
-
 **Situation for Use**: **Dimming/Fading** is good for preserving full context while guiding attention. **Sorting** is best for unstructured lists where order doesn't convey intrinsic meaning.
 
 ---
@@ -1256,18 +1141,15 @@ Once content is selected, it must be presented effectively. A key trade-off is *
 **Altering Fragments** is more likely to guarantee coherence. Its methodology is based on a **pre-defined page structure (slots/constituents)** set by the author, which ensures a logical layout and that all necessary page components are present. **Optional Fragments** lacks this structural backbone; it simply includes all fragments that match conditions, which can lead to pages missing key components or having a jumbled, incoherent flow if fragments are not meticulously designed to fit together in any combination.
 # Topic 5: Evaluation of User-Adaptive Systems
 ## 5.1 The Layered Evaluation Framework
-
 > **Layered Evaluation** is a **formative evaluation** methodology that **decomposes** an adaptive system into its core functional stages and evaluates each stage **independently**. This isolates faults, provides targeted feedback, and is more informative than a holistic "black box" test.
 
 **Core Philosophy**: "Divide to conquer." Evaluate the **components of the adaptation process** separately to understand *where* and *why* the system succeeds or fails.
-
 ### The Six Evaluation Layers
 The framework decomposes the generic adaptive architecture into six sequential layers, each with a distinct **goal**, **evaluation criteria**, and **methods**.
 
 | **Layered Evaluation Diagram** |
 | :--- |
 | *(Imagine a diagram showing the 6 sequential layers from the architecture)* |
-
 #### **Layer 1: Collection of Input Data**
 - **Goal**: Verify the **quality and reliability** of the raw data being gathered.
 - **Key Criteria**:
@@ -1280,7 +1162,6 @@ The framework decomposes the generic adaptive architecture into six sequential l
     - **Cross-Validation**: Compare data from multiple sources (e.g., app logs vs. server logs).
 
 **Example - 3Cixty Tourist App**: Test if the GPS sensor accurately and promptly reports the user's location in Milan, and if Bluetooth beacons trigger correctly at museum entrances.
-
 #### **Layer 2: Interpretation of the Collected Data**
 - **Goal**: Check that **raw data is correctly interpreted** into meaningful user signals.
 - **Key Criteria**:
@@ -1292,7 +1173,6 @@ The framework decomposes the generic adaptive architecture into six sequential l
     - **Cross-Validation**: Compare inferred states with user self-reports (ground truth).
 
 **Example - 3Cixty**: If the app infers "user is interested in art" from visiting two galleries, a user test might reveal they were just sheltering from rain, invalidating the interpretation.
-
 #### **Layer 3: Modelling the Current State (The User Model)**
 - **Goal**: Assess the **accuracy and quality** of the inferred user model itself.
 - **Key Criteria**:
@@ -1305,7 +1185,6 @@ The framework decomposes the generic adaptive architecture into six sequential l
     - **Focus Groups**: Discuss if the modelled stereotypes feel accurate.
 
 **Example - 3Cixty**: Evaluate if the user's inferred "interest profile" for categories (art, food, history) can predict which type of place they will click on next. Calculate precision/recall.
-
 #### **Layer 4: Deciding Upon Adaptation**
 - **Goal**: Determine if the **adaptation logic** makes appropriate decisions.
 - **Key Criteria**:
@@ -1316,7 +1195,6 @@ The framework decomposes the generic adaptive architecture into six sequential l
     - **Simulated Users + Cross-Validation**: Use simulated user models to generate many decision scenarios and have experts or algorithms rate the appropriateness of outputs.
 
 **Example - 3Cixty**: Given a user model showing high art interest and current location near the Last Supper, the system decides to recommend a nearby modern art gallery. Experts evaluate if this is appropriate or if a restaurant recommendation would be better given the time of day.
-
 #### **Layer 5: Applying Adaptation Decisions (The Adaptive Interface)**
 - **Goal**: Evaluate the **implementation and presentation** of the adaptation.
 - **Key Criteria**:
@@ -1330,7 +1208,6 @@ The framework decomposes the generic adaptive architecture into six sequential l
     - **Heuristic Evaluation**: Use usability heuristics tailored to adaptive systems.
 
 **Example - 3Cixty**: The system applies the decision by popping up a notification for the gallery. User tests assess if the pop-up is annoying (obtrusive) and if the information displayed is clear (usable).
-
 #### **Layer 6: Evaluating the System as a Whole (Summative)**
 - **Goal**: Assess the **overall utility and impact** of the adaptive system.
 - **Focus**: **Benefits vs. Drawbacks (Usability Threats)**.
@@ -1357,7 +1234,6 @@ This is a **Layer 2: Interpretation of the Collected Data** problem. The **raw d
 
 ---
 ## 5.2 Usability Threats of Adaptive Systems
-
 Adaptivity introduces specific **usability threats** that must be evaluated, especially in Layer 6 and considered across all layers.
 
 | Threat | Definition | Evaluation Question | Layer(s) Most Relevant |
@@ -1367,21 +1243,17 @@ Adaptivity introduces specific **usability threats** that must be evaluated, esp
 | **Obtrusiveness** | Adaptation interrupts the user's primary task. | "Does the adaptation distract or annoy the user?" | L5 (Application - Timeliness). |
 | **Privacy Infringement** | User feels uncomfortable with data collection/use. | "Does the user feel their data is misused or over-collected?" | L1 (Collection), L3 (Model). |
 | **Filter Bubble / Diminished Breadth of Experience** | User is trapped in a narrow niche of content. | "Is the user exposed to sufficiently diverse and novel options?" | L4 (Decision logic), L6 (Overall). |
-
 **Mitigation Strategies**:
 - **Predictability & Controllability**: Provide **scrutable user models** (L3) and **explainable adaptations** (L5).
 - **Obtrusiveness**: Use **subtle, non-modal adaptations** (e.g., highlighting vs. pop-ups).
 - **Privacy**: Implement **transparent data practices** and user controls (L1).
 - **Filter Bubble**: Incorporate **diversity and serendipity metrics** into the adaptation decision logic (L4).
-
 ## 5.3 Experimental Methods: A/B Testing
-
 > **A/B Testing** is a **summative, online evaluation method** used primarily for **Layer 6** assessment. It compares two (or more) *versions* of a system with real users to measure causal impact on **Key Performance Indicators (KPIs)**.
 
-| **A/B Testing Process** |
-| :--- |
+| A/B Testing Process                                                                                                               |
+| :-------------------------------------------------------------------------------------------------------------------------------- |
 | *(Imagine a diagram: Users -> Random Split -> Group A (Control) & Group B (Treatment) -> Measure KPIs -> Statistical Comparison)* |
-
 **Methodology**:
 1.  **Formulate Hypothesis**: "The new hybrid recommender (B) will increase purchase conversion rate compared to the old one (A)."
 2.  **Random Assignment**: Users are randomly assigned to Group A (control, sees old version) or Group B (treatment, sees new version).
@@ -1406,9 +1278,7 @@ Adaptivity introduces specific **usability threats** that must be evaluated, esp
 This suggests the **Filter Bubble / Diminished Breadth of Experience** threat. The new algorithm may be increasing engagement by over-specialising on a narrow set of topics the user already likes.
 **Why A/B Testing Missed It**: A/B testing typically focuses on **aggregate behavioural metrics** (like total articles read). It does not measure the **diversity or novelty of the content** consumed. The threat was only revealed via a **subjective user survey** measuring perception, highlighting the need to combine quantitative A/B tests with qualitative methods to get a full picture of user experience.
 ## 6.5 Responsible Personalisation with Large Language Models (LLMs)
-
 > **Large Language Models (LLMs)** like GPT-4 are powerful generative AI tools that can be integrated into user-adaptive systems for tasks like **content generation, tutoring, and conversational personalisation**. Their use introduces unique opportunities and heightened ethical risks.
-
 ### Opportunities: LLM-Powered Personalisation
 LLMs can generate highly fluent, context-aware text, enabling new forms of adaptation.
 
@@ -1418,13 +1288,10 @@ LLMs can generate highly fluent, context-aware text, enabling new forms of adapt
 | **AI Companions & Therapeutic Agents** | Engage in open-ended, empathetic conversation, adapting to user's emotional state. | **ChatGPT-based companions**: Users form parasocial relationships with AI personas. Can provide support but risk over-attachment. |
 | **Dynamic Content & Explanation Generation** | Generate **natural language justifications** for recommendations or create personalised narratives. | A movie recommender using ChatGPT to generate a sentence like "You might like *Inception* because you enjoyed the mind-bending plots of *The Matrix* and you rate Christopher Nolan highly." |
 | **Simulation-Based Training** | Create **interactive, adaptive scenarios** for skill practice. | **AI-Based Virtual Patients**: Medical students converse with an LLM-powered patient chatbot. The patient's responses, symptoms, and emotional tone adapt based on the student's dialogue, simulating a real clinical interview. |
-
 ### Heightened Risks & Ethical Requirements
 The generative power and opacity of LLMs amplify existing ethical concerns. A responsible framework is essential.
-
 ### The EU's Ethics Guidelines for Trustworthy AI (A 7-Requirement Framework)
 This framework provides a robust structure for evaluating any AI system, including LLM-based adapters.
-
 #### **R1: Human Agency & Oversight**
 **Core Question**: Does the system preserve meaningful human control and autonomy?
 - **Risks**: LLMs can create **over-reliance**, **addiction**, or **undue influence** on decision-making (e.g., a student blindly following an AI tutor's answer).
@@ -1432,7 +1299,6 @@ This framework provides a robust structure for evaluating any AI system, includi
     - **Human-in-the-Loop**: Critical decisions (e.g., final diagnosis in a medical trainer) require human validation.
     - **Clear Demarcation**: The system must disclose it is a **machine** (Best Practice 6).
     - **Foster Critical Engagement**: Design interactions that encourage questioning, not passive acceptance.
-
 #### **R2: Technical Robustness & Safety**
 **Core Question**: Is the system reliable, secure, and resilient against errors or misuse?
 - **Risks**: LLMs **hallucinate** (generate plausible but false information). They can be **jailbroken** to produce harmful content. Training data may be **outdated or biased**.
@@ -1440,7 +1306,6 @@ This framework provides a robust structure for evaluating any AI system, includi
     - **Validation & Grounding**: Use retrieval-augmented generation (RAG) to ground responses in verified sources (e.g., a tutor's knowledge base).
     - **Red-Teaming & Adversarial Testing**: Proactively test for harmful outputs.
     - **Continuous Monitoring & Updates**: Ensure training data and models reflect current knowledge.
-
 #### **R3: Privacy & Data Governance**
 **Core Question**: Is user data protected, and is data processing lawful?
 - **Risks**: LLM interactions can reveal sensitive user information. Prompt history may be stored and used for training.
@@ -1453,7 +1318,6 @@ This framework provides a robust structure for evaluating any AI system, includi
     - **Explainability**: Provide **feature-based** or **retrieval-based explanations** (e.g., "This answer is based on source document X").
     - **Traceability**: Log key decision points in the interaction.
     - **Open Communication**: Clearly state the system's **capabilities and limitations** (e.g., "I may make mistakes. Always verify important information.").
-
 #### **R5: Diversity, Non-Discrimination & Fairness**
 **Core Question**: Does the system treat all users fairly and avoid amplifying biases?
 - **Risks**: LLMs encode and can amplify **societal biases** present in their massive training data (e.g., gender, racial stereotypes). This can lead to discriminatory recommendations or language.
@@ -1461,7 +1325,6 @@ This framework provides a robust structure for evaluating any AI system, includi
     - **Bias Audits**: Regularly test outputs for fairness across user subgroups.
     - **Debiasing Techniques**: Apply fine-tuning or inference-time corrections.
     - **Inclusive Design**: Ensure the system is **accessible** to users with diverse abilities.
-
 #### **R6: Societal & Environmental Well-being**
 **Core Question**: What is the system's broader impact on society and the planet?
 - **Risks**: Can **displace human jobs** (e.g., tutors), contribute to **social isolation** (via AI companions), or have a large **carbon footprint** from training/running giant models.
@@ -1469,7 +1332,6 @@ This framework provides a robust structure for evaluating any AI system, includi
     - **Impact Assessment**: Conduct studies on social and environmental effects.
     - **Augmentation, Not Replacement**: Design systems to **assist humans**, not replace them entirely.
     - **Sustainable AI Practices**: Optimise models for energy efficiency.
-
 #### **R7: Accountability**
 **Core Question**: Who is responsible for the system's outcomes?
 - **Risks**: **Liability is unclear** when an LLM causes harm (e.g., gives dangerous medical advice).
@@ -1489,15 +1351,12 @@ This framework provides a robust structure for evaluating any AI system, includi
 
 ---
 ## 6.6 A Practical Transparency Checklist
-
-![[transparency-best-practices.png]]
+![[transparency-best-practices.png|400]]
 Moving from principles to practice, designers can use a **transparency checklist** based on the 9 Best Practices (BPs) from research.
 
 **Definition of Transparency for Design**:
 > "A practice of system design centred on **disclosing understandable information** that provides insight into **why and how** the system produces an outcome, enabling user assessment and control."
-
-
-![[transparency-checklist.png]]
+![[transparency-checklist.png|400]]
 ### Selected Key Checklist Questions for Personalisation Systems
 *(Adapted from the 23-question checklist)*
 
@@ -1514,7 +1373,6 @@ Moving from principles to practice, designers can use a **transparency checklist
 
 **Section: Control (User Participation)**
 - **BP8/BP9**: Does the system offer **alternative choices** (e.g., a non-personalised view) and opportunities to **adjust personalisation** (e.g., sliders, correction of profile)?
-
 ### Applying the Checklist: The Industry Transparency Gap
 An analysis of Facebook, Netflix, YouTube, Spotify, and Amazon revealed:
 - **Relative Strength in *Input***: They disclose *what* data is collected (driven by GDPR).
@@ -1533,9 +1391,7 @@ An analysis of Facebook, Netflix, YouTube, Spotify, and Amazon revealed:
 2.  **Feature**: A "Personalisation Settings" page with a "Diversity" slider (from "More Familiar" to "More Discover"). **Best Practice (BP9)**: It provides an opportunity for the user to **adjust the personalisation logic** according to their current goal, giving them participatory control.
 # Module Wrap-Up & Future Directions
 ## 7.1 Module Learning Objectives - Summary
-
 You should now be able to:
-
 1.  **LO1 - Design & Evaluate**: Apply HCI methodology to **identify user needs**, draw **requirements**, and **design & evaluate** user-adaptive systems using frameworks like the **General Schema** and **Layered Evaluation**.
 
 2.  **LO2 - Model & Adapt**: Identify and apply common techniques for:
@@ -1547,9 +1403,7 @@ You should now be able to:
 3.  **LO3 - Implement Recommenders**: Apply **recommender system techniques** (Content-Based, Collaborative Filtering, Knowledge-Based, Hybrid) in a practical context, understanding their algorithms, inputs, and evaluation.
 
 4.  **LO4 - Reason & Foresee**: Reason about the **significance, strengths, weaknesses, and future directions** of personalisation, including ethical and responsible design.
-
 ## 7.2 Exam Information & Preparation
-
 - **Weight**: **60%** of final grade.
 - **Date/Time**: 21 January 2026, 9am-12pm.
 - **Format**: **3 long-answer questions**, each based on a **practical scenario** (similar to past papers provided).
@@ -1573,27 +1427,22 @@ You should now be able to:
 
 ---
 ## 7.3 Future Directions in User-Adaptive Systems
-
 The field is rapidly evolving, driven by advances in AI, data availability, and new interaction paradigms.
-
 ### 1. Generative AI & Agentic AI
 - **Impact on Personalisation**: LLMs are transforming **how** personalisation is delivered.
     - **Suggesting Items**: LLMs can act as **zero-shot recommenders** by understanding natural language queries and item descriptions.
     - **Augmenting Presentation**: Generating **personalised summaries, justifications, and narratives** (see Topic 4, 6).
     - **Agentic AI**: Systems that don't just recommend but **take autonomous actions** on the user's behalf (e.g., an AI agent that books flights based on learned preferences), raising major **control and accountability** challenges.
-
 ### 2. Data & Modelling
 - **More Powerful Profiling**: **Deep learning models** (e.g., transformers) can create richer user representations from **multi-modal data** (text, audio, video, biometrics).
 - **Extended Modelling**: Beyond interests/knowledge to **cultural nuances, granular abilities, and dynamic individual traits** (e.g., real-time cognitive load, emotional state).
 - **Data Integration**: Combining data across platforms and devices for a **holistic user model**, intensifying privacy concerns.
 - **Evaluation & Fairness**: More rigorous **bias detection and fairness audits** becoming standard practice.
-
 ### 3. Devices & Context
 - **Ubiquitous Data Collection**: **Smart homes, wearables, IoT sensors** provide continuous, rich contextual data (location, activity, environment).
 - **From Data to Behaviour Proxy**: The challenge shifts to **interpreting sensor data** into meaningful proxies for user state and intent.
 - **New Domains**: **Health, wellbeing, smart cities, autonomous vehicles** where personalisation is critical for safety and efficacy.
 - **Example**: A driverless car adapting its driving style (aggressiveness, route choices) to the passenger's stress level (inferred from biometrics) and schedule.
-
 ### 4. Interaction
 - **Multi-Modal Interaction**: Systems that understand and respond via **voice, gesture, gaze**, and **affective cues**.
 - **Context as King**: Adaptation decisions will hinge on **high-dimensional context models**.
