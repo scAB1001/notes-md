@@ -804,3 +804,128 @@ When analysing or designing a recommender, always specify:
 2.  **Second Stage (CF)**: The system takes this candidate list and applies **Item-Item CF**. It re-ranks the 500 songs based on what users with *similar tastes* have actually played, promoting socially validated songs. This introduces **diversification** based on community wisdom, moving beyond the user's own profile bubble.
 **Result**: New songs are in the running (via CBF), but the final ranking is influenced by broader community trends (via CF).
 
+# Topic 3: Recommender Systems (Continued)
+## 3.8 Evaluation of Recommender Systems
+
+> Systematic **evaluation** is critical for selecting, tuning, and improving recommender algorithms. It moves from offline **prediction accuracy** to online **business impact** and **user-centric qualities**.
+
+### 3.8.1 Data-Driven (Offline) Evaluation
+Evaluates algorithms using pre-collected historical data (e.g., MovieLens dataset). A **training-test split** is used.
+
+#### 1. Rating Prediction Accuracy Metrics
+Assess how close predicted ratings are to actual user ratings.
+
+| Metric | Formula | Interpretation & Use |
+| :--- | :--- | :--- |
+| **Mean Absolute Error (MAE)** | $$MAE = \frac{1}{n} \sum_{i=1}^{n} \|p_i - r_i\|$$ | Average **magnitude** of error. Simple, interpretable. |
+| **Root Mean Squared Error (RMSE)** | $$RMSE = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (p_i - r_i)^2}$$ | Penalises **large errors more severely** than MAE. Standard in competitions (e.g., Netflix Prize). |
+
+**Example Calculation**:
+| Item | Predicted (p) | Actual (r) | \|p-r\| | (p-r)² |
+| :--- | :---: | :---: | :---: | :---: |
+| i1 | 1 | 2 | 1 | 1 |
+| i2 | 4 | 1 | 3 | 9 |
+| i3 | 2 | 2 | 0 | 0 |
+| i4 | 2 | 4 | 2 | 4 |
+| i5 | 3 | 1 | 2 | 4 |
+| i6 | 1 | 1 | 0 | 0 |
+| i7 | 3 | 3 | 0 | 0 |
+| **Sum/Avg** | | | **8** | **18** |
+| **MAE** = 8/7 ≈ **1.14** | | | **RMSE** = √(18/7) ≈ **1.60** |
+
+**Situation for Use**: When the system's core task is to **predict exact ratings** (e.g., a movie rating prediction service). **RMSE is more sensitive to large errors**, which may be critical if you want to avoid recommending items the user will strongly dislike.
+
+#### 2. Decision Support Accuracy (Top-N Recommendation)
+Assesses the quality of a **ranked list of recommendations**. Treats recommendation as a **retrieval task**.
+
+**Confusion Matrix for a Single User & Item**:
+| | User **Likes** Item | User **Dislikes** Item |
+| :--- | :---: | :---: |
+| **System Recommends** | **True Positive (TP)** | **False Positive (FP)** |
+| **System Does Not Recommend** | **False Negative (FN)** | **True Negative (TN)** |
+
+**Derived Metrics**:
+- **Precision@N**: Of the top N recommended items, how many were actually relevant?
+  $$Precision@N = \frac{\#\text{ of relevant items in top N}}{N}$$
+  *Focus: Minimising false positives (bad recommendations).*
+- **Recall@N**: Of all the relevant items, how many did we manage to recommend in the top N?
+  $$Recall@N = \frac{\#\text{ of relevant items in top N}}{\text{Total \# of relevant items}}$$
+  *Focus: Minimising false negatives (missed good items).*
+- **F1-Score@N**: Harmonic mean of Precision and Recall.
+  $$F1@N = 2 \cdot \frac{Precision@N \cdot Recall@N}{Precision@N + Recall@N}$$
+
+**Example Scenario (Music Recommender - Top 5)**:
+- System recommends songs: {S1, S2, S3, S4, S5}.
+- User actually likes: {S1, S3, S6, S7}.
+- **Relevant in top N**: S1, S3.
+- **Precision@5** = 2/5 = **0.4**.
+- **Recall@5** = 2/4 = **0.5** (assumes 4 total liked songs).
+- **Trade-off**: Increasing N typically **increases Recall** (catch more good items) but **decreases Precision** (more bad items sneak in).
+
+**Situation for Use**: For **real-world recommenders** that produce a shortlist (e.g., "Recommended for You" row). More reflective of user experience than rating accuracy.
+
+### 3.8.2 Beyond Accuracy: Other Critical Metrics
+Accuracy alone is insufficient. A system with high accuracy might recommend only obvious, popular items.
+
+| Property | Metric/Description | Why it Matters |
+| :--- | :--- | :--- |
+| **Coverage** | % of items in catalogue the system can recommend. | Ensures the **"long tail"** of niche items is reachable. A system recommending only blockbusters has low coverage. |
+| **Novelty** | Recommends items **new to the user** (not consumed before). | Prevents boredom and repetitiveness. |
+| **Serendipity** | Recommends **surprisingly relevant** items—new to the user *and* unexpectedly good. | Drives discovery and user delight. Essential to break **filter bubbles**. |
+| **Diversity** | How **dissimilar** recommended items are from each other. Measured by intra-list distance. | Provides choice and caters to multiple interests within a single list. |
+
+**Algorithm Tendencies**:
+- **Collaborative Filtering**: Naturally provides some novelty/serendipity via social discovery, but suffers from **popularity bias**.
+- **Content-Based Filtering**: Poor at novelty/serendipity (trapped in filter bubble) but can have high precision.
+- **Knowledge-Based Systems**: Can explicitly engineer for serendipity via reasoning in knowledge graphs.
+
+### 3.8.3 Experimental Studies with Users
+
+#### A/B Testing (Online Experiment)
+The **gold standard** for evaluating impact on real user behaviour in a live system.
+
+**Methodology**:
+1.  Randomly split user traffic into **Control Group (A)** and **Treatment Group (B)**.
+2.  Group A sees the **original** recommender (or no personalisation). Group B sees the **new** recommender algorithm/interface.
+3.  Measure **Key Performance Indicators (KPIs)** over a set period.
+4.  Perform statistical tests to determine if differences are significant.
+
+**Example Metrics for A/B Testing**:
+- **Utility Metrics**: **Click-Through Rate (CTR)**, conversion rate, purchase value, session length.
+- **Engagement Metrics**: Number of return visits, time spent.
+- **Business Metrics**: Revenue, retention rate.
+
+**Situation for Use**: To **validate the real-world business impact** of a new algorithm before full deployment. It measures what users *do*, not just what they say.
+
+#### User Studies (Lab/Controlled Experiment)
+Involves a smaller group of participants performing tasks with the system, followed by surveys and interviews.
+
+**Measures**: **Subjective feedback** on trust, satisfaction, perceived usefulness, comprehensibility of recommendations.
+**Situation for Use**: To evaluate **user experience qualities** that logs cannot capture, especially during the design phase.
+
+### 3.8.4 The Netflix Prize Case Study
+**Goal**: Improve Netflix's rating prediction (Cinematch) by 10% (reduce RMSE).
+**Outcome**: The winning team (**BellKor's Pragmatic Chaos**) used a **blended ensemble of over 100 models**, including:
+- **Matrix Factorization** variants (SVD, SVD++).
+- **Restricted Boltzmann Machines (RBMs)**.
+- **Neighbourhood models**.
+**Key Insight**: No single algorithm was best. The **hybrid ensemble** (a form of **Weighted hybridisation**) achieved the winning result by **averaging out the errors** of diverse models. This demonstrates the supremacy of hybrid approaches for maximising **accuracy metrics** like RMSE.
+
+---
+#### **Exam Practice Question 3.5**
+**A/B testing is used to compare a new hybrid recommender (B) against the old content-based one (A). After one week, the *Click-Through Rate (CTR)* on recommendations is 5.2% for Group A and 5.5% for Group B. The product manager wants to deploy B immediately. As a responsible data scientist, what critical question would you ask before agreeing?**
+**[3 marks]**
+
+**Model Answer**:
+**Is the difference statistically significant?** A 0.3% point increase could be due to **random variation** and not a true effect of the new algorithm. We must perform a **statistical significance test** (e.g., a chi-squared test or t-test on the proportions) to calculate a p-value. Only if the p-value is below a threshold (e.g., 0.05) can we confidently attribute the increase to the algorithm change and justify deployment.
+
+---
+#### **Exam Practice Question 3.6**
+**Calculate the *Precision@3* and *Recall@3* for a user given the following: The system's top 3 recommendations are [ItemA, ItemB, ItemC]. The user's set of *truly relevant* items (based on their hidden ratings) is {ItemA, ItemD, ItemF}.**
+**[3 marks]**
+
+**Model Answer**:
+- **Relevant items in top 3**: Only **ItemA**.
+- **Precision@3** = (Number of relevant in top 3) / 3 = **1/3 ≈ 0.33**.
+- **Recall@3** = (Number of relevant in top 3) / (Total number of relevant items) = **1/3 ≈ 0.33**.
+*(Note: Recall uses the total relevant set size, which is 3 in this case.)*
