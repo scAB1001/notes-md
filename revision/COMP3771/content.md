@@ -9,7 +9,6 @@
 3.  **Context**: Physical environment, device, social setting.
 
 > **Core Principle**: **One size does not fit all**. The goal is to deliver the **right information**, to the **right person**, at the **right time**, in the **right way**.
-
 ### Types of Personalisation
 | Type | Definition | Control | Example |
 | :--- | :--- | :--- | :--- |
@@ -23,7 +22,6 @@
 - **MoCoMapps (IBM)**: A travel app that adapts maps and recommends points of interest (e.g., bike racks) based on user's location and interests.
 - **ECoach (Univ. Michigan)**: A personalised coaching system for students, providing adaptive study plans, motivational messages, and wellbeing tips based on academic data and psychometric profiles.
 - **YouTube/Netflix**: Recommends media based on watch history, clicks, and metadata.
-
 ### Core Module Learning Objectives (LOs)
 - **LO1**: Apply HCI methodology to **design & evaluate** adaptive systems.
 - **LO2**: Identify & apply common **user modelling & adaptation** techniques.
@@ -45,7 +43,6 @@ Both systems deliver contextually relevant information. **MoCoMapps** delivers t
 
 ![[generic-adaptive-architecture.png|500]]
 *(Diagram showing: User -> [User Data Gathering] -> [User Model] <-> [Domain Model] -> [Adaptation Model] -> [Adaptive Component] -> User)*
-
 ### Component Roles & Importance
 1.  **User Data Gathering (Sensor/Input)**
     - **Role**: Collects **raw data** about the user. The input to the entire process.
@@ -83,7 +80,6 @@ The **Domain Model** would contain entities like **Article**, **Topic** (e.g., P
 ## 1.3 General Schema & Applied Examples
 
 > **General Schema**: The **conceptual blueprint** defining the main components and data flow in any user-adaptive system.
-
 ### Core Schema Components (Detailed)
 1.  **User Data Gathering (Information About User)**: The **input sensor**. Collects raw data.
 2.  **User Model Acquisition (Computer Process)**: The **inference engine**. Processes raw data to create/update the **user model**.
@@ -93,7 +89,6 @@ The **Domain Model** would contain entities like **Article**, **Topic** (e.g., P
 ![[generic-adaptive-architecture.png]]
 ### Importance of Each Component
 - **User Model is the most critical component**. It is the system's **knowledge** of the user. If it is **inaccurate or poorly constructed**, all subsequent adaptations will be flawed, regardless of the sophistication of the application logic. It is the **central link** between observation (acquisition) and action (application).
-
 ### Applied Schema Examples
 | System                      | User Data Gathered                       | User Model (Acquisition)                                                                           | Adaptation (Application)                                                            | Adaptive Component                                  |
 | :-------------------------- | :--------------------------------------- | :------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------- | :-------------------------------------------------- |
@@ -121,9 +116,7 @@ In **User Model Acquisition**, the click is likely converted into a **positive i
 
 ---
 ## 1.4 Types of User-Adaptivity Support
-
 Adaptive systems provide two broad classes of support:
-
 ### 1. Supporting System Use
 Aims to make **interaction with the system itself** more efficient.
 - **Taking over routine tasks**: Email filtering, automated form filling.
@@ -131,7 +124,6 @@ Aims to make **interaction with the system itself** more efficient.
 - **Helping with system use**: Intelligent help systems, adaptive documentation.
 - **Mediating interaction with the real world**: Managing interruptions (e.g., LILSYS call screening), controlling smart home devices.
 - **Controlling a dialogue**: Conversational agents, automated phone systems.
-
 ### 2. Supporting Information Acquisition
 Aims to help users **find and understand information or products**.
 - **Helping users to find information**: Personalised search, adaptive news feeds.
@@ -139,7 +131,6 @@ Aims to help users **find and understand information or products**.
 - **Tailoring information presentation**: Adaptive educational content, health info.
 - **Supporting collaboration**: Matching team members, adapting shared workspaces.
 - **Supporting learning**: Intelligent Tutoring Systems (ITS) like SQL-Tutor.
-
 ### Case Studies from Reading
 **LILSYS (Call Screening System):**
 - **Information Collected**: Caller ID, time of day, user's current activity (via sensors), manually entered user availability.
@@ -151,7 +142,6 @@ Aims to help users **find and understand information or products**.
 - **Contemporary Similar System**: AI news curators (e.g., Google News) or conversational agents (e.g., Alexa briefings) that learn preferences.
 - **Similarities to LILSYS**: Both (1) build a **user model**, (2) use it to **filter information** (calls/news), and (3) aim to reduce **user effort/cognitive load**.
 - **Differences from LILSYS**: LILSYS mediates **real-world interactions** (calls), AGENTSALON mediates **information access**. LILSYS uses more **sensor data**; AGENTSALON relies more on **explicit preferences**. LILSYS's adaptations are more **critical** (missing an important call).
-
 ### Major Usability Threats (Challenges)
 Adaptivity introduces key **usability threats** that must be designed against:
 1.  **Diminished Predictability & Comprehensibility**: User doesn't understand *why* the system behaved as it did.
@@ -168,7 +158,6 @@ Adaptivity introduces key **usability threats** that must be designed against:
 **Model Answer**:
 1.  **Diminished Controllability**: The user may feel they have lost control over their own communications if the system incorrectly screens out an important call (e.g., a job interview callback) based on its autonomous decision.
 2.  **Infringement of Privacy**: The system's need to **continuously monitor** the user's activity (via sensors) to infer availability constitutes a significant **privacy invasion**, as it creates a log of the user's presence and actions in their own home.
-
 ## 1.5 Applied Analysis & System Design
 
 This section reinforces the **general schema** through practical case studies and design exercises, highlighting how theoretical components map to real-world systems and their associated challenges.

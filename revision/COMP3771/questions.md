@@ -1203,3 +1203,337 @@ The key risk is that **CTR might decrease** for the serendipitous algorithm, eve
 **(c) Additional A/B Test Metrics:**
 - **Behavioural Metric**: **Long-term Engagement**—e.g., **Return Visits per User** over a month or **Session Length**. This captures whether serendipitous recommendations make the site more "sticky" and enjoyable.
 - **Subjective Metric**: **Post-Experience Survey Score**—e.g., asking users to rate "How interesting and diverse were today's recommendations?" on a scale. This directly measures the perceived quality the algorithm aims to improve.
+# 3.9 Machine Learning-Based Recommender Systems: Exam Practice Questions & Model Answers
+
+### **Question 3.9.1: ML Recommender Pipeline & Model Selection**
+A streaming service is building a new **"Next Episode"** recommender. The system must analyse a user's sequential watch history (the order of episodes viewed) and contextual data (time of day, device) to predict the single next episode they are most likely to start.
+
+**(a) The data science team proposes using a **Random Forest** model. Explain why this is a **suboptimal choice** for this specific task, citing **two** fundamental limitations of Random Forests in this context.**  
+**[4 marks]**
+
+**(b) Instead, the team opts for a **Long Short-Term Memory (LSTM)** network. Describe **two** key architectural or functional properties of an LSTM that make it well-suited for the "Next Episode" prediction problem.**  
+**[4 marks]**
+
+**(c) During the **Data Preprocessing** stage, the team has a 'timestamp' feature for each watch event. Explain **one** specific preprocessing technique they should apply to this timestamp feature to better help the LSTM model learn patterns, and justify your answer.**  
+**[2 marks]**
+
+---
+### **Model Answer 3.9.1**
+
+**(a) Limitations of Random Forest:**
+1.  **Inability to Model Temporal Sequences**: **Random Forests** treat each data point (user-episode interaction) as **independent and identically distributed (i.i.d.)**. They fundamentally **ignore the order** of events, which is the core predictive signal for a "next in sequence" task. [2 marks]
+2.  **Poor Handling of Variable-Length Input**: A user's watch history is a **variable-length sequence**. Random Forests require fixed-length feature vectors. While sequences can be manually engineered into features (e.g., "last 5 episodes"), this is **arbitrary and loses information** compared to models natively designed for sequences. [2 marks]
+
+**(b) Strengths of LSTM:**
+1.  **Memory Cells & Gating Mechanisms**: LSTMs have a **cell state** that acts as a conveyor belt of information, regulated by **input, forget, and output gates**. This allows them to **selectively retain and forget information** over long sequences, capturing dependencies like "users who binge a series often skip the recap episode." [2 marks]
+2.  **Native Sequence Processing**: LSTMs **process input sequentially**, one element at a time, updating a hidden state at each step. This makes them **inherently suited for variable-length sequences** and allows them to directly learn patterns from the **raw order of watched episodes** without manual feature engineering. [2 marks]
+
+**(c) Preprocessing for Timestamps:**
+- **Technique**: Convert the raw timestamp (e.g., "14:30") into **cyclical features** using sine and cosine transformations: `sin(2π * hour / 24)`, `cos(2π * hour / 24)`. [1 mark]
+- **Justification**: Raw hour (14) treats 23:00 and 01:00 as far apart (22 difference), when they are actually close in a 24-hour cycle. Cyclical encoding preserves this **periodic nature**, helping the LSTM learn that viewing behaviour at midnight is similar to behaviour at 1 am, but different from behaviour at noon. This is crucial for modelling **daily routine-based watching habits**. [1 mark]
+
+---
+
+### **Question 3.9.2: Deployment, Evaluation & The Feedback Loop**
+The streaming service from Question 3.9.1 deploys its LSTM-based "Next Episode" recommender. The **offline evaluation** on historical data showed excellent **Recall@10**.
+
+**(a) Shortly after launch, user complaints arise that the recommendations feel "repetitive and safe." Which **beyond-accuracy metric** has likely been neglected during offline evaluation? Define this metric and explain how improving it could address the user feedback.**  
+**[3 marks]**
+
+**(b) To address this, the team develops a new **Reinforcement Learning (RL)**-based recommender. The RL agent's goal is to maximise **long-term user engagement** (total watch time over a month).  
+i. Define the **State (s_t)**, **Action (a_t)**, and **Reward (r_t)** for this RL formulation.  
+ii. What is the key **advantage** of this RL approach over the previous LSTM model that was optimised only for offline recall?**  
+**[5 marks]**
+
+**(c) The team plans an **A/B test** to compare the new RL agent (Treatment) against the old LSTM model (Control).  
+i. Why would **Click-Through Rate (CTR) on the recommended episode** be an **insufficient** primary success metric for this test?  
+ii. Suggest **two** more appropriate **behavioural metrics**, and justify their relevance.**  
+**[4 marks]**
+
+---
+### **Model Answer 3.9.2**
+
+**(a) Neglected Beyond-Accuracy Metric:**
+- **Metric**: **Serendipity** (or **Novelty**). [1 mark]
+- **Definition**: **Serendipity** measures the system's ability to recommend **surprising yet relevant items**—things the user would not have found on their own but appreciates upon discovery. [1 mark]
+- **Addressing Feedback**: The LSTM, trained to predict the *most likely* next episode, will consistently recommend the obvious, safe choice (e.g., the very next episode in the series). Actively optimising for **serendipity** would encourage the system to occasionally recommend a **different but thematically related series** or a **hidden gem** from the user's watch history, breaking the repetition and making the service feel more discoverable. [1 mark]
+
+**(b) Reinforcement Learning Formulation:**
+i.  **Definitions**:
+    - **State (s_t)**: The user's current **context**: recent watch history sequence, time of day, current device, inferred mood (e.g., "bingeing" vs. "casual"), remaining watch time budget. [1 mark]
+    - **Action (a_t)**: The specific **episode or shortlist of episodes** to recommend next. [1 mark]
+    - **Reward (r_t)**: The **immediate engagement** resulting from the action, e.g., *minutes watched* of the recommended episode, or a composite signal (click= +0.1, watch >75%= +1.0). [1 mark]
+ii. **Key Advantage**: The RL agent optimises for **long-term cumulative reward**, not just immediate prediction accuracy. It can learn to make **strategic sacrifices** (e.g., recommending a slightly less certain but more engaging genre to prevent fatigue) or **explore** new content to gather information, all to maximise **total watch time over a month**. The LSTM, in contrast, is myopic, aiming only to predict the next click. [2 marks]
+
+**(c) A/B Test Metrics:**
+i.  **Insufficiency of CTR**: CTR only measures the **initial click**. It ignores **engagement quality**. The RL agent might recommend a longer, more captivating episode that the user watches completely, while the LSTM might trigger a click on a short, obvious next episode that is immediately skipped. **CTR could be equal or lower for the RL agent even if it generates far more watch time.** [2 marks]
+ii. **Appropriate Behavioural Metrics**:
+    1.  **Average Watch Time Per Session**: Directly measures the **engagement depth** the recommender facilitates. An increase would indicate the RL agent is better at keeping users watching. [1 mark]
+    2.  **User Retention at 7 Days**: The percentage of users who return to the platform one week after the test starts. This measures **long-term satisfaction and habit formation**, which is the RL agent's ultimate goal. [1 mark]
+
+---
+
+### **Question 3.9.3: Case Study Analysis & Hybridisation**
+Analyse the following description of a real-world system:
+> "Our video platform's recommender uses a **two-stage approach**. First, a **deep candidate generation model** scans millions of videos to produce a few hundred relevant candidates for a user. This model uses **user and video embeddings** learned from past interactions. Second, a separate **ranking model** scores and ranks these candidates using a richer set of features, including predicted watch time, user satisfaction score, and a **diversity penalty**."
+
+**(a) This architecture is characteristic of which major company's recommender system? What is the primary **engineering motivation** for this two-stage (candidate generation + ranking) design?**  
+**[2 marks]**
+
+**(b) The candidate generation model uses **learned embeddings**.  
+i. What is a **vector embedding** in this context?  
+ii. How are these embeddings typically generated, and what key **relationship** do they capture?**  
+**[3 marks]**
+
+**(c) The ranking model includes a "diversity penalty." Explain what this is and **justify** its importance from a **business and user experience perspective**.**  
+**[3 marks]**
+
+**(d) This system can be viewed as a **hybrid recommender**. Identify the **hybridisation method** it uses and **briefly justify** your answer based on the description.**  
+**[2 marks]**
+
+---
+### **Model Answer 3.9.3**
+
+**(a) Company & Motivation:**
+- **Company**: This is the core architecture of **YouTube's** recommender system. [1 mark]
+- **Engineering Motivation**: **Scalability and Precision**. It is computationally impossible to run a complex ranking model over **millions of videos** in real-time. The **candidate generation** stage is a **high-recall**, efficient filter that reduces the pool to a manageable size. The **ranking** stage can then apply a **more complex, precision-oriented model** to the shortlist to produce the final, high-quality ordering. [1 mark]
+
+**(b) Embeddings:**
+i.  **Definition**: A **vector embedding** is a **dense, low-dimensional vector representation** (e.g., 64 floats) of a user or a video in a continuous vector space. [1 mark]
+ii. **Generation & Relationship**: They are typically **learned automatically** by a neural network (e.g., a matrix factorization model or a deep network) trained on interaction data. The key relationship they capture is **proximity in the vector space indicates similarity in interest**. Videos often watched by the same users, or users who watch similar videos, will have **close embedding vectors**. [2 marks]
+
+**(c) Diversity Penalty:**
+- **Explanation**: A **diversity penalty** is a term added to the ranking model's loss function that **reduces the score** of items that are too similar to each other or to items already recommended in the current session. It encourages the final list to contain a **mix of content**. [1 mark]
+- **Business & UX Justification**: From a **user experience** perspective, it **combats boredom and the filter bubble**, making the platform feel fresh and exploratory. From a **business** perspective, it **increases platform stickiness** by exposing users to a broader catalogue, reduces the risk of user churn due to monotony, and can surface more niche content that drives engagement from different user segments. [2 marks]
+
+**(d) Hybridisation Method:**
+- **Method**: **Cascade Hybrid**. [1 mark]
+- **Justification**: The description clearly shows a **sequential process** where one technique (deep candidate generation) produces an output that is then **passed as input** to a second, different technique (the feature-rich ranking model). The result of the first stage directly enables and constraints the second stage, which is the hallmark of a **cascade**. [1 mark]
+# Topic 4: Adaptive Content Presentation: Exam Practice Questions & Model Answers
+
+### **Question 4.1: Static & Semi-Automatic Approaches**
+An e-learning platform for programming uses adaptive techniques to present course material. The platform's architecture is based on **pre-authored content components**.
+
+**(a) The platform initially used a **Page-Based Approach**, creating separate "Beginner," "Intermediate," and "Expert" versions of each lesson. Identify **one major disadvantage** of this approach from the **content author's perspective** and explain how it impacts system maintenance.**  
+**[2 marks]**
+
+**(b) To improve flexibility, the platform migrates to a **Fragment-Based Approach**. For a lesson on "Python Functions," the page is assembled from the following fragments, each with an applicability condition:
+*   F1: Basic syntax example (`user.knowledge_level = 'novice'`)
+*   F2: Advanced decorator example (`user.knowledge_level = 'expert'`)
+*   F3: Interactive code simulator (`user.preferred_learning_style = 'active'`)
+*   F4: Text-based theory deep dive (`user.preferred_learning_style = 'reflective'`)
+If a user has `knowledge_level = 'expert'` and `preferred_learning_style = 'active'`, which fragments will be included in the page? What **potential problem** with the *Optional Fragments* method does this illustrate?**  
+**[3 marks]**
+
+**(c) To solve the problem identified in (b), the platform could switch to an **Altering Fragments** approach. Describe how the page structure would need to be re-designed to use this method, and state **one advantage** this redesign would bring for this e-learning scenario.**  
+**[3 marks]**
+
+---
+### **Model Answer 4.1**
+
+**(a) Major Disadvantage of Page-Based Approach:**
+- **Disadvantage**: **Authoring Bottleneck / High Authoring Overhead**. [1 mark]
+- **Impact on Maintenance**: It requires authors to **create, update, and synchronise multiple full versions of every single lesson**. A change to the core material (e.g., a new Python library) must be manually propagated across **three separate pages**, making maintenance **expensive, time-consuming, and error-prone**. This approach **does not scale** with the number of adaptation dimensions or user states. [1 mark]
+
+**(b) Fragment Inclusion & Problem:**
+- **Included Fragments**: **F2** (expert example) and **F3** (interactive simulator). [1 mark]
+- **Illustrated Problem**: This illustrates the **Coherence Risk** (or **Combinatorial Jumbling**) problem inherent to *Optional Fragments*. [1 mark]
+- **Explanation**: The included fragments (F2 and F3) are **independent components** selected solely because their individual conditions are true. There is **no guarantee they form a coherent, well-structured lesson**. The advanced decorator example (F2) might assume theoretical knowledge that the interactive simulator (F3) does not provide, leading to a confusing or disjointed learning experience. The page lacks a governing narrative or structure. [1 mark]
+
+**(c) Altering Fragments Redesign & Advantage:**
+- **Redesign**: The page must be decomposed into a **fixed template with specific slots (constituents)**. For example: `[Learning_Objective_Slot, Core_Example_Slot, Practice_Activity_Slot]`. For each slot, authors define **alternative fragments** (e.g., for `Core_Example_Slot`: a novice example, an expert example). The system then selects **one fragment per slot** based on the user model. [2 marks]
+- **Advantage**: **Guarantees Pedagogical Coherence**. The fixed template ensures every lesson contains a logically ordered sequence of components (objective → example → practice). This provides a consistent learning structure while still allowing the *content within each slot* to adapt to the user's knowledge level and learning style. [1 mark]
+
+---
+
+### **Question 4.2: Automatic Generation & LLMs**
+A financial news app wants to automatically generate **personalised summaries** of company earnings reports. The system has a user model containing `investment_expertise` (novice, expert) and `portfolio_holdings` (list of stocks user owns).
+
+**(a) The team first builds a rule-based **Natural Language Generation (NLG)** system, inspired by GEA. It identifies key facts from the earnings data (e.g., "Revenue grew 5%", "EPS missed estimates") and has templates to phrase them. Describe **how the user model should influence** the content selection and phrasing for a `novice` vs. an `expert` user.**  
+**[4 marks]**
+
+**(b) The team then experiments using a **Large Language Model (LLM)** like GPT-4, providing it with the raw earnings data and the user model in the prompt. What is the **key methodological advantage** of using an LLM over the rule-based NLG system? What is a **potential risk** specific to using an LLM in this financial context?**  
+**[4 marks]**
+
+**(c) For users who own the stock being reported on, the app uses a **presentation technique** to immediately highlight the most critical information (e.g., "EPS MISS"). Suggest **two** different presentation techniques from the **Focus vs. Context** taxonomy that would be appropriate, and for each, give a **brief example** of how it would be applied in the app's summary text.**  
+**[4 marks]**
+
+---
+### **Model Answer 4.2**
+
+**(a) Influence of User Model on Rule-Based NLG:**
+- **For a `novice` user**: The system should **select fewer, more fundamental metrics** (e.g., "Profit: Up or Down?"). **Phrasing** should use **plain language, avoid jargon**, and include **explanatory clauses** (e.g., "EPS (Earnings Per Share, a key profit measure) missed expectations."). The focus is on **high-level takeaways and education**. [2 marks]
+- **For an `expert` user**: The system can **select a wider range of detailed metrics** (e.g., "Q4 EBIT margin expanded 120 bps year-over-year"). **Phrasing** can use **technical jargon and standard financial abbreviations** without explanation. The focus is on **precise, granular data and forward-looking guidance**. [2 marks]
+
+**(b) LLM vs. Rule-Based NLG:**
+- **Key Methodological Advantage**: **Fluency and Coherence**. An LLM can generate **more natural, varied, and contextually coherent narrative text** that connects disparate data points into a smooth summary. It can infer and articulate **implicit relationships** (e.g., "The revenue growth was driven by strong performance in Asia, offsetting weakness in Europe") that would be extremely complex to hard-code in a rule-based system. [2 marks]
+- **Potential Risk**: **Hallucination / Factual Inaccuracy**. The LLM might **generate plausible-sounding but incorrect figures, trends, or conclusions** not present in the source earnings data. In a financial context, this could lead to **misinformed investment decisions** and serious legal/regulatory consequences. Rule-based systems, while rigid, are inherently more **controllable and verifiable**. [2 marks]
+
+**(c) Appropriate Presentation Techniques:**
+1.  **Colouring (Highlighting)**: The most critical sentence or phrase (e.g., "ADVERSE: Gross margin declined sharply") is given a **bright background colour (e.g., yellow)** within the text block, making it instantly visible upon scanning. [2 marks]
+2.  **Sorting (Priority Ordering)**: In a bullet-point list of key takeaways, the points are **reordered** so that the most impactful information for the shareholder (e.g., "Dividend cut announced") appears **at the very top of the list**, regardless of its sequence in the original report. This uses **positional prominence** to convey priority. [2 marks]
+
+---
+
+### **Question 4.3: Case Study & Hybrid Application**
+A travel planning website uses adaptive presentation to generate a **personalised "Trip Brief"** document for users researching a destination. The brief combines selected attractions, hotels, and logistical advice.
+
+The system uses a **hybrid method**: It first employs a **Fragment-Based (Altering Fragments)** approach for the document's core structure, and then uses **Automatic Generation** to fill in specific details.
+
+**Core Structure (Altering Fragments Slots):**
+1.  **Header Section Slot**
+2.  **Top 3 Attractions Slot**
+3.  **Accommodation Advice Slot**
+4.  **Travel Tips Slot**
+
+**(a) For the **Header Section Slot**, two alternative fragments are: `F_Header_Casual` (title: "Your Awesome Trip to [City]!") and `F_Header_Formal` (title: "Travel Itinerary for [City]"). What **user model attribute** should drive the selection between these, and why?**  
+**[2 marks]**
+
+**(b) The content for the **"Top 3 Attractions"** slot is **not pre-authored**. Instead, the system uses a **recommender algorithm** to select the three most relevant attractions, and then an **NLG module** to generate a one-sentence description for each. Which of the two broad **Adaptive Content Presentation approaches** (Static/Semi-Automatic vs. Automatic) does this part of the system represent? Justify your answer.**  
+**[2 marks]**
+
+**(c) Considering the **entire hybrid system**, describe **one clear advantage** it has over a purely **Page-Based Approach**. Then, describe **one clear advantage** it has over a fully **Automatic Generation Approach** (e.g., an LLM generating the entire document from scratch).**  
+**[4 marks]**
+
+---
+### **Model Answer 4.3**
+
+**(a) User Model Attribute for Header Selection:**
+- **Attribute**: **User's inferred or stated travel style/persona** (e.g., `travel_style = {'backpacker', 'family', 'business_traveller'}`) or potentially `formality_preference`. [1 mark]
+- **Justification**: The header sets the tone of the entire document. A `business_traveller` or a user with `formality_preference = high` would expect a professional, concise header (`F_Header_Formal`). A `backpacker` or `family` user planning a leisure trip would likely respond better to an enthusiastic, casual header (`F_Header_Casual`). This adaptation increases perceived relevance and engagement. [1 mark]
+
+**(b) Approach for "Top 3 Attractions" Slot:**
+- **Approach**: **Automatic Generation**. [1 mark]
+- **Justification**: The content is **generated dynamically on-the-fly** from underlying data (attraction database, user preferences) using algorithmic selection and natural language techniques. It is **not selected from a pre-authored set of fixed fragments**, which is the defining characteristic of Static/Semi-Automatic approaches. [1 mark]
+
+**(c) Advantages of the Hybrid System:**
+- **Advantage over Page-Based Approach**: **Superior Scalability and Flexibility**. The hybrid system does not require a pre-authored "Trip Brief" page for every possible combination of destination, user style, and season. The **Automatic Generation** component for attractions can handle countless destinations, and the **Altering Fragments** structure allows modular reuse of advice fragments (e.g., the same "family-friendly dining tips" fragment can be plugged into many different city briefs). [2 marks]
+- **Advantage over Fully Automatic Generation (LLM-only)**: **Guaranteed Structural Quality and Control**. A pure LLM might produce a beautifully written but poorly structured document (e.g., missing a critical "Travel Tips" section, or burying vital visa information). The hybrid's **Altering Fragments** backbone **ensures a consistent, complete, and logically organised document structure** every time, as defined by domain experts. The LLM/Automatic components are then confined to generating high-quality content *within* that reliable structure. [2 marks]
+# Topic 5 & 6: Evaluation & Ethics: Exam Practice Questions & Model Answers
+
+### **Question 5.1: Layered Evaluation Framework**
+A team is developing "StudyPal," an adaptive learning app that recommends practice exercises. It collects data on time spent per question, correctness, and clicks on hints. It models student knowledge and decides which exercise to show next.
+
+**(a) During a formative evaluation, it is discovered that the app frequently logs a "hint click" even when the user accidentally taps the hint button and immediately closes it. According to the **Layered Evaluation Framework**, which **specific layer** does this fault belong to? Justify your answer.**  
+**[2 marks]**
+
+**(b) To fix this, the team changes the interpretation rule: a "hint click" is only registered if the hint panel stays open for >2 seconds. They now need to evaluate this new rule. Propose an **evaluation method** suitable for this layer and describe how you would apply it to test the new rule's validity.**  
+**[3 marks]**
+
+**(c) The team proceeds to evaluate **Layer 4: Deciding Upon Adaptation**. Describe **two distinct evaluation criteria** appropriate for this layer in the context of StudyPal.**  
+**[2 marks]**
+
+---
+### **Model Answer 5.1**
+
+**(a) Fault Layer and Justification:**
+- **Layer**: **Layer 1: Collection of Input Data**. [1 mark]
+- **Justification**: The problem is with the **accuracy and reliability of the raw data capture**. The sensor (touch screen) is correctly detecting a tap, but the logging mechanism is failing to distinguish between an **intentional, meaningful interaction** and an **accidental tap**. The fault lies in the initial **collection logic**, before any interpretation of *what* the click means occurs. [1 mark]
+
+**(b) Evaluation Method for the New Interpretation Rule:**
+- **Method**: **User Test with Retrospective Think-Aloud** (or **Cross-Validation with Ground Truth**). [1 mark]
+- **Application**: Recruit students to complete exercises using the app. **Record their screen and actions**. Afterwards, replay the session to the participant. For each instance where the new rule triggered (or didn't trigger) a "hint click," ask the participant: **"Was your intention here to use the hint, or was it an accident?"** [1 mark]
+- **Analysis**: Compare the system's interpretation (hint click yes/no) with the participant's stated intent (ground truth). Calculate metrics like **precision** (% of registered hint clicks that were intentional) and **recall** (% of all intentional hint uses that were correctly registered). This directly evaluates the **validity** of the new interpretation rule. [1 mark]
+
+**(c) Criteria for Layer 4 (Decision):**
+1.  **Appropriateness**: Given the student's current knowledge model (e.g., weak on topic X), is the selected exercise (e.g., a hard problem on X) the **most pedagogically suitable** next step? Does it match learning theory (e.g., zone of proximal development)? [1 mark]
+2.  **Acceptance**: Would an expert tutor or the student themselves **find the decision helpful and reasonable**? This assesses the decision's perceived utility before it is rendered. [1 mark]
+
+---
+
+### **Question 5.2: Usability Threats & A/B Testing**
+"NewsFlow" is a personalised news aggregator. An A/B test is conducted to evaluate a new recommendation algorithm designed to increase user engagement.
+
+- **Group A (Control)**: Uses the old algorithm.
+- **Group B (Treatment)**: Uses the new algorithm.
+
+After two weeks, key results are:
+- **Group B** shows a **15% higher average "articles read per session."**
+- **Group B** shows a **10% lower "diversity score"** (measure of topic variety in consumed articles).
+- A post-test survey indicates **Group B users report lower trust in the platform**.
+
+**(a) The decrease in **diversity score** for Group B indicates the presence of a specific **usability threat** of adaptive systems. **Name** this threat and **explain** how it manifests in this scenario.**  
+**[2 marks]**
+
+**(b) The survey result about **lower trust** in Group B likely relates to **two other usability threats**. Identify these **two threats** and briefly explain how the new algorithm might have caused them.**  
+**[4 marks]**
+
+**(c) Based on the **mixed results** of this A/B test, should the team deploy the new algorithm? **Justify your recommendation** by weighing the measured benefits against the identified threats.**  
+**[2 marks]**
+
+---
+### **Model Answer 5.2**
+
+**(a) Usability Threat from Low Diversity:**
+- **Threat**: **Filter Bubble / Diminished Breadth of Experience**. [1 mark]
+- **Manifestation**: The new algorithm is likely over-specialising, recommending articles that are extremely similar to the user's past clicks. This creates a **narrow, reinforcing information loop**, trapping the user in a limited set of topics and perspectives, as evidenced by the lower diversity score. [1 mark]
+
+**(b) Threats Leading to Lower Trust:**
+1.  **Diminished Predictability**: Users cannot anticipate *why* they are being shown certain articles. The new algorithm's logic may be more complex or opaque, making the feed feel random or manipulative, eroding trust. [2 marks]
+2.  **Diminished Controllability**: The new algorithm may offer **fewer or less effective ways for users to correct or influence** their recommendations (e.g., "Not Interested" buttons that don't work). This loss of agency makes users feel the system is controlling them, not serving them, reducing trust. [2 marks]
+
+**(c) Deployment Recommendation:**
+- **Recommendation**: **Do not deploy** the new algorithm in its current state. [1 mark]
+- **Justification**: While the algorithm succeeds on a **single engagement metric** (articles/session), it **fails on critical qualitative dimensions** (diversity, trust) that are essential for long-term user retention and platform health. Increasing engagement at the cost of creating filter bubbles and eroding trust is a **short-sighted trade-off** that will likely lead to user churn and reputational damage over time. The algorithm needs redesign to incorporate **diversity safeguards** and **transparency features** before deployment. [1 mark]
+
+---
+
+### **Question 6.1: Ethics & Transparency with LLMs**
+"HealthGuide" is a proposed LLM-powered chatbot that provides personalised lifestyle and basic symptom advice. It asks users about their diet, exercise, and symptoms to generate tailored recommendations.
+
+**(a) Using the **EU's Ethics Guidelines for Trustworthy AI**, identify the **two most critical requirements** that HealthGuide's designers must prioritise to ensure safety and ethics. For each, **give a specific example** of a harm that could occur if the requirement is neglected.**  
+**[6 marks]**
+
+**(b) To address **transparency**, the team uses the **Transparency Checklist**. They consider adding this feature: *"A 'Why this advice?' button that shows the main user-inputted symptoms used to generate the response."*  
+Which **Best Practice (BP)** from the checklist does this feature most directly address? Is this feature **sufficient** for full transparency regarding the *processing* of the advice? Justify your answer.**  
+**[4 marks]**
+
+**(c) The team is debating whether to include a **clear disclaimer** that HealthGuide is an AI, not a medical professional. Arguing from the **EU Guidelines**, which requirement provides the strongest justification for including this disclaimer? Explain.**  
+**[2 marks]**
+
+---
+### **Model Answer 6.1**
+
+**(a) Critical Requirements and Potential Harms:**
+1.  **R2: Technical Robustness & Safety**. This is paramount for health-related advice. [1 mark]
+    - **Example Harm**: The LLM could **hallucinate** and recommend a dangerous interaction (e.g., "Mixing your medication with grapefruit juice is fine" when it is contraindicated), leading to serious patient harm. [2 marks]
+2.  **R1: Human Agency & Oversight**. Users must not over-rely on the AI for critical health decisions. [1 mark]
+    - **Example Harm**: A user with early signs of a heart attack might be convinced by the chatbot's reassuring but incorrect advice to "rest at home," delaying crucial emergency care and resulting in severe health deterioration or death. [2 marks]
+
+**(b) Transparency Feature Analysis:**
+- **Best Practice Addressed**: **BP3** ("Explain which data, factors, or criteria were used"). The button discloses the **specific input data** (symptoms) that contributed to the output. [1 mark]
+- **Sufficiency**: **No, it is not sufficient**. [1 mark]
+- **Justification**: While it shows the *input*, it does not explain the *reasoning* or *logic* (the "processing"). It fails to disclose **how** those symptoms were weighted, combined with medical knowledge, or used to arrive at the final recommendation. For full processing transparency, it should also explain the **inferential step** (e.g., "Symptom X + Y suggests condition Z, therefore the advice is...") and the **system's confidence level**. This aligns with the deeper goal of BP3/BP4. [2 marks]
+
+**(c) Justification for AI Disclaimer:**
+- **Requirement**: **R1: Human Agency & Oversight** (specifically the principle of **Clear Demarcation**). [1 mark]
+- **Explanation**: The disclaimer is a **fundamental safeguard** to preserve human agency. It ensures users maintain an accurate **mental model** of the system as a fallible machine tool, not a qualified human expert. This mitigates **over-reliance** and encourages users to exercise their own judgment and seek professional human oversight for serious health concerns, thus upholding their autonomy and safety. [1 mark]
+
+---
+
+### **Question 6.2: Integrating Ethics into Evaluation**
+A social media company is planning a **layered evaluation** of its new LLM-powered content moderation system, which automatically flags and explains its reasoning for potentially harmful posts.
+
+**(a) For **Layer 2: Interpretation of Collected Data**, the system must interpret raw text posts as "hate speech," "harassment," or "safe." Beyond technical validity, which **ethical requirement** from the EU framework becomes crucial to evaluate here? Name the requirement and explain what the evaluation should check for.**  
+**[3 marks]**
+
+**(b) When evaluating **Layer 6: The System as a Whole**, the team plans an A/B test measuring the **rate of harmful content** slipping through. What **additional, non-behavioural metric** must they **also** collect to responsibly assess the system's overall impact, and why?**  
+**[3 marks]**
+
+**(c) The transparency checklist highlights that most systems fail to explain *processing*. Draft a **sample explanation** this moderation system could show to a user whose post was flagged, that would satisfy **BP3** by explaining the *processing* (not just the input).**  
+**[2 marks]**
+
+---
+### **Model Answer 6.2**
+
+**(a) Ethical Requirement for Layer 2:**
+- **Requirement**: **R5: Diversity, Non-Discrimination & Fairness**. [1 mark]
+- **Evaluation Check**: The evaluation must assess whether the interpretation logic exhibits **bias**. It should check if the system **disproportionately flags posts** from, or mentioning, certain **demographic groups** (e.g., racial minorities, LGBTQ+ individuals) as "hate speech" when similar sentiment expressed about majority groups is labelled "safe." This involves testing the model's **false positive rates across protected attributes**. [2 marks]
+
+**(b) Additional Layer 6 Metric:**
+- **Metric**: **Perceived Fairness / Justice** among affected user subgroups, gathered via **surveys or interviews**. [1 mark]
+- **Why**: A/B tests only measure aggregate behavioural outcomes. A system could reduce overall harmful content (a success) but do so in a **biased manner**, unfairly censoring marginalised voices. This would constitute a major ethical failure (violating **R5**) and could cause societal harm. Measuring subjective perceptions of fairness from those whose content is moderated is essential to detect this. [2 marks]
+
+**(c) Sample Processing Explanation:**
+"**Why this post was flagged**: Your post contains the phrase '[quote].' Our system identified this as a **common derogatory trope associated with [protected group X]**. This matched **pattern #D4** in our hate speech policy, which prohibits dehumanizing language based on protected characteristics. The confidence of this classification was **85%**." [2 marks]  
+*(This explains the *criteria* (policy pattern) and the *reasoning* (matching a known trope), going beyond just highlighting keywords.)*
