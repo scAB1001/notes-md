@@ -829,3 +829,377 @@ The key trade-off is **Control and Transparency vs. Effort and Completeness**.
 
 **(c) Solving the Scalability Problem:**
 In user-user CF, to make a recommendation for a user, you must compare them to **all M users** in the database online, an O(M) operation. In Amazon's item-item approach, the heavy lifting—calculating **similarities between all N items**—is done **offline** in batch (O(N²), but N is items, not users). The online step is just a **fast lookup**: fetch the pre-computed similar-items lists for the few items the user has purchased and aggregate them. This scales because the online computation is **proportional to the user's purchase history**, not the total number of users or items.
+# Topic 3.3: Exam Practice Questions & Model Answers
+
+### **Question 3.3.1: CBF Methodology & Calculation**
+A book recommendation service uses **Content-Based Filtering**. Books are represented by feature vectors across four genres: `[Fantasy, SciFi, Mystery, Biography]`. The values are based on expert tagging (0 to 1).
+
+**User Profile (U)**: `[Fantasy:0.9, SciFi:0.7, Mystery:0.3, Biography:0.1]`  
+**Book A Feature Vector (I_A)**: `[Fantasy:0.8, SciFi:0.2, Mystery:0.1, Biography:0.0]`  
+**Book B Feature Vector (I_B)**: `[Fantasy:0.3, SciFi:0.9, Mystery:0.0, Biography:0.0]`
+
+**(a) Calculate the **Cosine Similarity** between the user profile and **Book A**. Show your working.**  
+**[4 marks]**
+
+**(b) Based on your calculation and the vector for Book B, which book (**A** or **B**) would the system recommend to this user? Justify your answer briefly.**  
+**[2 marks]**
+
+**(c) This user has only ever read fantasy books. Identify the **key disadvantage** of CBF that this situation illustrates and describe its likely effect on the user's experience.**  
+**[2 marks]**
+
+---
+### **Model Answer 3.3.1**
+
+**(a) Cosine Similarity between U and Book A:**
+1.  **Dot Product**: $(0.9*0.8) + (0.7*0.2) + (0.3*0.1) + (0.1*0.0) = 0.72 + 0.14 + 0.03 + 0 = 0.89$
+2.  **Magnitude of U**: $\sqrt{0.9^2 + 0.7^2 + 0.3^2 + 0.1^2} = \sqrt{0.81 + 0.49 + 0.09 + 0.01} = \sqrt{1.4} \approx 1.183$
+3.  **Magnitude of I_A**: $\sqrt{0.8^2 + 0.2^2 + 0.1^2 + 0.0^2} = \sqrt{0.64 + 0.04 + 0.01 + 0} = \sqrt{0.69} \approx 0.831$
+4.  **Cosine Similarity**: $sim(U, I_A) = \frac{0.89}{1.183 \times 0.831} = \frac{0.89}{0.983} \approx 0.905$
+
+**(b) Recommendation Decision:**
+- **Book A similarity**: ~0.905
+- **Book B similarity (calculated similarly)**: Dot product = $(0.9*0.3)+(0.7*0.9)+(0.3*0)+(0.1*0)=0.27+0.63+0+0=0.90$. Magnitude of I_B = $\sqrt{0.3^2+0.9^2+0+0}=\sqrt{0.09+0.81}= \sqrt{0.90}=0.949$. $sim(U, I_B) = \frac{0.90}{1.183 \times 0.949} = \frac{0.90}{1.122} \approx 0.802$.
+- **Decision**: The system would recommend **Book A**.
+- **Justification**: Book A has a **higher cosine similarity** (0.905 > 0.802) to the user's profile. It more closely matches the user's strong preference for Fantasy, while Book B, despite matching the user's SciFi interest, has a lower overall match.
+
+**(c) Disadvantage and Effect:**
+- **Key Disadvantage**: **Over-Specialisation / Filter Bubble**.
+- **Effect on Experience**: Because the user's profile is dominated by Fantasy, the CBF system will **only recommend books highly similar to Fantasy**. It will **never recommend** a highly-rated SciFi or Mystery book that the user might actually enjoy, **limiting discovery and leading to a repetitive, narrow reading experience**. The user is trapped in a "fantasy bubble."
+
+---
+### **Question 3.3.2: Advanced CBF Models & Applications**
+The **Rijksmuseum CHIP project** uses a semantic knowledge graph for artwork recommendation. A user expresses interest in the concept "Rembrandt" and the subject "Portraits."
+
+**(a) Explain how a **graph/concept-based CBF model** would be superior to a simple **keyword-based model** in this museum context.**  
+**[3 marks]**
+
+**(b) The system recommends a portrait by **Frans Hals**, an artist the user has never heard of. Describe the **reasoning path** through the knowledge graph that could lead to this recommendation.**  
+**[3 marks]**
+
+**(c) While CBF solves the *item cold-start* problem, it suffers from the *user cold-start* problem. Describe **one** specific strategy the museum guide could use to overcome user cold-start for a first-time visitor.**  
+**[2 marks]**
+
+---
+### **Model Answer 3.3.2**
+
+**(a) Advantage of Graph-Based over Keyword-Based Model:**
+A **keyword model** would only match on the literal terms "Rembrandt" and "portrait." A **graph-based model** understands **semantic relationships**. It knows "Rembrandt" *is-a* "Dutch Golden Age painter," that "portraits" *is-a-type-of* "painting," and that other artists like "Frans Hals" are *related-to* "Dutch Golden Age painting." This allows it to recommend **semantically related but lexically different** artworks (e.g., portraits by other Dutch masters), enabling **serendipitous discovery and richer cultural understanding**, which is a key goal of a museum visit.
+
+**(b) Reasoning Path for Frans Hals Recommendation:**
+The knowledge graph would enable the following inference:
+1.  User interest node: **"Rembrandt"**.
+2.  Traverse relationship: Rembrandt `[is-a]` **"Dutch Golden Age Painter"**.
+3.  Traverse relationship: "Dutch Golden Age Painter" `[includes]` **"Frans Hals"**.
+4.  User interest node: **"Portraits"**.
+5.  Traverse relationship: Frans Hals `[specialised-in]` **"Portraits"**.
+6.  **Intersection/Scoring**: The system identifies artworks where the `[created-by]` node is "Frans Hals" and the `[depicts]` node is "Portraits." These artworks receive a high recommendation score because they are connected to *both* of the user's interest concepts via short semantic paths.
+
+**(c) Overcoming User Cold-Start:**
+The museum guide could use an **explicit, interactive profiling session** at the start of the visit. For example, it could show the user a set of **representative artwork images** from different periods, styles, and subjects (e.g., a Rembrandt portrait, a landscape, a modern sculpture) and ask them to select which ones they find most interesting. This quick explicit feedback provides an **initial interest vector** to bootstrap the CBF system, avoiding the need for a lengthy browsing history.
+# Topic 3.4: Exam Practice Questions & Model Answers
+
+### **Question 3.4.1: Knowledge-Based Recommender Operation**
+A **Knowledge-Based (KB)** recommender system is built to help students choose a laptop for their university course. The system's knowledge base contains specifications for various laptop models and rules about course requirements.
+
+**Example Interaction**:
+- **User Input**: "I need a laptop for Computer Science, budget under £800, must run virtual machines."
+- **System Action**: Filters laptops, showing those with ≥16GB RAM, a multi-core CPU, and price < £800.
+- **User Critique**: "Could be lighter."
+- **System Action**: Re-ranks results, prioritising laptops with weight < 2kg.
+
+**(a) In this example, the user's critique "Could be lighter" is a form of **navigation**. Name this specific type of interaction commonly used in KB systems and explain how it differs from simply re-specifying the constraint (e.g., "weight < 2kg").**  
+**[3 marks]**
+
+**(b) The system uses **Case-Based Reasoning (CBR)**. Describe the **two main phases** of the CBR cycle as they occur in this laptop recommender.**  
+**[4 marks]**
+
+**(c) A major **advantage** of this KB system is its ability to handle the **cold-start problem**. Explain why neither the *user cold-start* nor the *item cold-start* problem affects this system.**  
+**[2 marks]**
+
+---
+### **Model Answer 3.4.1**
+
+**(a) Type of Interaction:**
+- This is **critique-based navigation** (or **preference-based navigation**).
+- **Difference from Re-specification**: A critique like "Could be lighter" is a **relative, directional preference** applied to the *current set of results*. It tells the system to find items that are *similar to the current candidates but improved on a specific dimension*. This is more natural and requires less precise knowledge from the user than stating an absolute new constraint like "weight < 2kg," which might eliminate all options or require the user to know the reasonable threshold.
+
+**(b) CBR Cycle Phases:**
+1.  **Retrieve**: The system takes the user's query (initial needs: CS, <£800, runs VMs) as a "new case." It **retrieves** the most similar laptop "cases" from its knowledge base that match these core constraints.
+2.  **Reuse & Revise**: The system **presents** these retrieved cases. The user's critique ("could be lighter") provides feedback. The system **revises** the query case by **adjusting the importance or value of the 'weight' attribute** and re-executes the retrieval, or directly re-ranks the current cases based on weight. This cycle of critique and revision can continue iteratively until the user is satisfied.
+
+**(c) Immunity to Cold-Start:**
+- **User Cold-Start**: Does not occur because the system does **not rely on the user's historical interaction data**. It works purely from the **explicit needs stated in the current session**. A brand-new user can get a recommendation immediately.
+- **Item Cold-Start**: Does not occur because the system does **not rely on community usage data (ratings/purchases)**. A brand-new laptop model can be recommended as long as its **technical specifications are entered into the knowledge base**. Its recommendation power comes from its attributes, not its popularity.
+
+---
+### **Question 3.4.2: Comparing KB with Other Techniques**
+A company is choosing a recommender system for its **online store selling high-end kitchen appliances** (e.g., coffee machines, stand mixers). These are considered "high-involvement" purchases.
+
+**(a) Give **two** reasons why a **Knowledge-Based (KB)** recommender is particularly well-suited for this domain, compared to a **Collaborative Filtering (CF)** system.**  
+**[4 marks]**
+
+**(b) The company also considers a **Content-Based Filtering (CBF)** system using product features. What is the **key functional difference** in how a KB system and a CBF system would process the user constraint "must be easy to clean"?**  
+**[2 marks]**
+
+**(c) Despite its advantages, the KB system has a significant **business cost**. Identify this cost and explain why it is ongoing.**  
+**[2 marks]**
+
+---
+### **Model Answer 3.4.2**
+
+**(a) Suitability of KB for High-Involvement Appliances:**
+1.  **Handles Complex, Technical Constraints**: Kitchen appliance purchases involve specific needs (e.g., "bean hopper capacity > 500g," "must have steam wand"). A KB system can explicitly reason about these **technical attributes** in its knowledge base, whereas CF can only recommend based on what similar users bought, ignoring these precise technical matchings.
+2.  **Transparency and Trust Building**: For expensive items, users need to understand *why* a product is recommended. A KB system can provide a clear, logical explanation ("Recommended because it has a 15-bar pump, meets your budget, and has an integrated grinder"), which **builds trust**. CF's explanation "people like you bought this" is weak and unpersuasive for a technical purchase.
+
+**(b) Processing "Easy to Clean" - KB vs. CBF:**
+- **KB System**: Would have an **explicit rule or attribute** in its knowledge base modelling "ease of cleaning." This might be a categorical value (e.g., `cleanability: high`) or derived from other features (e.g., `dishwasher_safe_parts = TRUE`). It would filter or rank items based on this **engineered knowledge**.
+- **CBF System**: Would rely on the term **"easy to clean"** appearing as a keyword in the product description or a related tag in the item's feature vector. It would match this term to the user's profile. It **lacks semantic understanding**; a product described as "simple maintenance" might not match unless the feature engineering explicitly links those terms.
+
+**(c) Business Cost of KB Systems:**
+- **Cost**: **High Knowledge Engineering and Maintenance Cost**.
+- **Why Ongoing**: The knowledge base (attributes, rules, relationships) is not learned automatically from data; it must be **manually created and curated by domain experts**. This is a significant upfront investment. Furthermore, it is **ongoing** because every new product must be meticulously annotated with all relevant attributes, and rules may need updating as product lines or consumer understanding evolves. This is in contrast to CF or CBF systems where new products can be integrated more automatically (via metadata or initial usage data).
+# Topic 3.5: Exam Practice Questions & Model Answers
+
+### **Question 3.5.1: Selecting a Hybridisation Method**
+A video streaming service has a strong **Collaborative Filtering (CF)** algorithm but wants to improve its recommendations in two specific scenarios:
+- **Scenario 1**: Provide good recommendations to **brand new users** (user cold-start).
+- **Scenario 2**: Increase the **diversity** of recommendations for long-term users who are stuck in a "filter bubble" of very similar content.
+
+**(a) For **Scenario 1**, propose a **hybrid approach**. Name the second technique to combine with CF and specify the **hybridisation method**. Justify your choice.**  
+**[3 marks]**
+
+**(b) For **Scenario 2**, propose a different **hybrid approach**. Again, name the second technique and the **hybridisation method**, justifying how it increases diversity.**  
+**[3 marks]**
+
+**(c) The service implements the solution for Scenario 1 as a **Switching** hybrid. What is one **practical challenge** the service must manage when implementing this switch?**  
+**[2 marks]**
+
+---
+### **Model Answer 3.5.1**
+
+**(a) Hybrid for User Cold-Start (Scenario 1):**
+- **Technique to combine with CF**: **Knowledge-Based (KB)** or **Demographic (DM)**.
+- **Hybridisation Method**: **Switching Hybrid**.
+- **Justification**: For a new user with no viewing history, CF cannot function. The system should **switch** to using a KB system (asking for favourite genres/actors) or a DM system (using age/location) to provide initial recommendations. After the user has accumulated a minimum threshold of interactions (e.g., 10 ratings), the system switches to the main CF algorithm.
+
+**(b) Hybrid for Increasing Diversity (Scenario 2):**
+- **Technique to combine with CF**: **Content-Based Filtering (CBF)**.
+- **Hybridisation Method**: **Mixed** or **Weighted Hybrid**.
+- **Justification**: A **Mixed** hybrid would present separate recommendation rows: "Because you watched X" (CBF) and "Popular with similar viewers" (CF). This explicitly injects diverse, content-based options into the interface. A **Weighted** hybrid would create a final score = `(1-α)*CF_Score + α*CBF_Score`, where the CBF component is tuned to promote items that are *dissimilar* to the user's recent watches, directly increasing intra-list diversity.
+
+**(c) Practical Challenge of a Switching Hybrid:**
+A key challenge is **defining a robust and fair switching criterion**. The service must decide **when** to switch from the cold-start method (KB/DM) to CF. Using a simple threshold (e.g., 10 ratings) may switch users too early (while their profile is still noisy) or too late (frustrating them with poor KB recommendations). The threshold must be carefully tuned and may need to be personalised, adding complexity.
+
+---
+### **Question 3.5.2: Designing a Cascade Hybrid - EntréeC Analysis**
+Recall the **EntréeC** restaurant recommender, which uses a **Cascade** hybrid of **Knowledge-Based (KB)** and **Collaborative Filtering (CF)**.
+
+**(a) In the EntréeC cascade, **which technique is applied first and why is this order logically necessary?**  
+**[2 marks]**
+
+**(b) The CF stage in EntréeC uses a novel **Heuristic Similarity** method for processing user critiques (e.g., "Nicer", "Cheaper"). Explain how this is an example of **Feature Augmentation** and why it's better than using simple numeric ratings.**  
+**[4 marks]**
+
+**(c) A competitor builds a simple **Weighted** hybrid of KB and CF for restaurants. Contrast the **fundamental operational difference** between their Weighted hybrid and EntréeC's **Cascade** hybrid.**  
+**[2 marks]**
+
+---
+### **Model Answer 3.5.2**
+
+**(a) Order in the Cascade:**
+- **First Technique**: The **Knowledge-Based (KB)** system is applied first.
+- **Logical Necessity**: The KB system is necessary to **solve the cold-start problem** and to **narrow down the massive search space** (all restaurants) to a manageable shortlist of candidates that satisfy the user's fundamental constraints (cuisine, location, price). The CF system cannot operate effectively on the full set due to sparsity and lacks the ability to handle explicit constraints. The KB stage provides a viable candidate set for CF to refine.
+
+**(b) Heuristic Similarity as Feature Augmentation:**
+- **Feature Augmentation Explanation**: The KB system's output is not just a list of restaurants, but **semantic actions** (critiques like "Nicer") performed by users on those restaurants. These actions are **augmented features** that are fed into the CF stage. Instead of just a user-item rating matrix, the CF stage now has a richer matrix of *user-item-semantic_action* data.
+- **Advantage over Numeric Ratings**: Simple numeric ratings (e.g., 1-5 stars) lose semantic meaning. The **Heuristic Similarity** method preserves the meaning of critiques by using a handcrafted matrix that defines, for example, that "Nicer" is semantically *opposite* to "Cheaper." This allows the CF stage to find users who made similar *qualitative judgements*, leading to more nuanced and accurate similarity calculations than if all feedback was flattened into a single number.
+
+**(c) Weighted vs. Cascade Operational Difference:**
+- **Weighted Hybrid**: Computes a **single, blended recommendation score** for each restaurant from the start. The KB and CF algorithms run independently on the *full* dataset, and their scores are combined linearly (e.g., `Score = w1*KB_Score + w2*CF_Score`).
+- **Cascade Hybrid**: Operates in **strict sequence**. The **first algorithm (KB) selects a subset** of the entire item catalogue. The **second algorithm (CF) operates only on this pre-filtered subset**, re-ranking or scoring items within it. The CF stage never sees items rejected by the KB stage.
+# Topic 3.6: Exam Practice Questions & Model Answers
+
+### **Question 3.6.1: Detailed Hybrid Method Application**
+A video game store wants a hybrid recommender. It has two core algorithms:
+- **Algorithm P (Popularity-Based)**: Recommends the top-selling games.
+- **Algorithm C (Content-Based)**: Recommends games similar to those the user owns, based on genre, theme, and developer.
+
+The store wants to ensure new users see popular games (to catch trends) but also wants to quickly personalise recommendations based on their first purchase.
+
+**(a) Design a **Cascade Hybrid** using Algorithm P and Algorithm C. Specify the order and describe the precise function of each stage.**  
+**[3 marks]**
+
+**(b) The store instead implements a **Feature Augmentation Hybrid**. Describe how this would work with the same two algorithms.**  
+**[3 marks]**
+
+**(c) Compare the **likely recommendation results** for a new user who just bought "The Witcher 3" under the Cascade design (part a) versus the Feature Augmentation design (part b).**  
+**[2 marks]**
+
+---
+### **Model Answer 3.6.1**
+
+**(a) Cascade Hybrid Design:**
+- **Order**: **Algorithm P (Popularity) → Algorithm C (Content-Based)**.
+- **Stage 1 (P)**: The popularity-based algorithm generates a **broad, initial shortlist** of, for example, the top 100 best-selling games. This ensures new users are exposed to current trends and hits.
+- **Stage 2 (C)**: The content-based algorithm takes this shortlist of 100 games. It computes the similarity between each game in the shortlist and the user's purchased game ("The Witcher 3"). It then **re-ranks the 100 games** based on this content similarity, promoting games like other RPGs, open-world games, or from the same developer to the top.
+
+**(b) Feature Augmentation Hybrid Design:**
+In this design, **Algorithm C (Content-Based)** runs first. For every game in the catalogue, it predicts a **content-based affinity score** for the user based on their purchase. This score becomes a **new feature** for each game. **Algorithm P (Popularity)** is then modified to use an **enhanced scoring function** that combines the raw popularity metric (e.g., sales count) with this content-based affinity feature. For example: `Final_Score = (Sales_Count) + β*(Content_Affinity_Score)`. A single ranked list is produced by this augmented popularity algorithm.
+
+**(c) Comparison of Results:**
+- **Cascade Results**: The final list will be **heavily personalised**. It will contain **only popular games** (from stage 1), but the top recommendations will be exclusively those popular games that are very similar to "The Witcher 3." The list may lack variety.
+- **Feature Augmentation Results**: The final list will be a **blend of popularity and personalisation**. A very popular but dissimilar game (e.g., "FIFA") could still rank highly if its sales count is huge, even if its content affinity is low. The top of the list might show a mix of similar RPGs *and* mega-popular titles from other genres, offering a **more diverse but less purely personalised** result.
+
+---
+### **Question 3.6.2: Analysing Complex Hybrids - The Netflix Prize**
+The winning solution for the Netflix Prize was an ensemble of **over 100 models**. This can be viewed as an advanced form of hybridisation.
+
+**(a) The ensemble combined models including **SVD (Matrix Factorization)**, **Restricted Boltzmann Machines (RBMs)**, and **K-Nearest Neighbours (KNN)**. This overall approach is best described as which **hybridisation method**?**  
+**[1 mark]**
+
+**(b) One of the key insights was that **blending many models reduced error**. Explain the statistical principle behind this, relating it to a **weakness of individual recommendation techniques**.**  
+**[3 marks]**
+
+**(c) A student suggests that instead of a complex blend, Netflix should just use the **single best-performing model** (e.g., the best SVD variant) to simplify their system. Give **two** reasons why the blended ensemble approach is superior for a production system like Netflix.**  
+**[4 marks]**
+
+---
+### **Model Answer 3.6.2**
+
+**(a) Hybridisation Method:**
+This is a **Weighted Hybrid** (specifically, a **weighted ensemble or blending**). The final prediction is a linear (or non-linear) combination of the predictions from all 100+ models.
+
+**(b) Statistical Principle and Weakness:**
+- **Principle**: **Error Reduction through Variance Averaging**. Different models make different errors because they **overfit to different parts of the training data** (they have high variance). By averaging their predictions, these individual errors tend to **cancel out**, leading to a more stable and accurate aggregate prediction.
+- **Relation to Weakness**: Individual techniques like KNN or a specific SVD configuration have inherent **limitations and biases** (e.g., KNN's popularity bias, SVD's assumption of linear interactions). Their errors are often **uncorrelated**. Blending models that make *different types of mistakes* results in a system whose overall mistake is smaller than any component's.
+
+**(c) Superiority of Blending over a Single Model:**
+1.  **Improved Robustness and Generalisation**: A single model, even the best on average, will have **systematic blind spots or failure cases** for certain users or movie types. The ensemble is **more robust** because when one model fails for a particular case, other models in the blend can compensate, leading to consistently good performance across the entire diverse user base and catalogue.
+2.  **Practical Maintainability and Evolution**: A production system needs to evolve. With an ensemble, new and improved models can be **gradually incorporated** into the blend (assigned a small initial weight). This allows for **smooth, low-risk deployment and A/B testing**. Relying on a single "best" model creates a **monolithic dependency**; any update requires a risky "big bang" replacement, and if the new model has an unforeseen flaw, the entire recommendation quality collapses.
+# Topic 3.7: Exam Practice Questions & Model Answers
+
+### **Question 3.7.1: Selecting a Hybrid Method**
+An online magazine for hobbyists (e.g., gardening, DIY, model trains) is implementing a recommender for its article library. It has two core problems:
+1.  **Problem A**: Many articles are old and have very few clicks or ratings (**data sparsity**).
+2.  **Problem B**: Users often specialise in one hobby (e.g., only gardening) and miss excellent articles in related hobbies (e.g., DIY projects for garden sheds) (**overspecialisation**).
+
+The magazine has a good taxonomy (ontology) of topics and tags for all articles.
+
+**(a) For **Problem A (Sparsity)**, refer to the decision guide. Select a **hybrid method** and justify your choice by explaining *how* it mitigates sparsity.**  
+**[3 marks]**
+
+**(b) For **Problem B (Overspecialisation)**, select a **different hybrid method** from the guide. Justify your choice and specify the **two base techniques** you would combine.**  
+**[3 marks]**
+
+**(c) Considering both problems, the engineering team prefers a single, unified solution. Which **one hybrid method** from the guide could potentially address **both** sparsity and overspecialisation? Explain briefly.**  
+**[2 marks]**
+
+---
+### **Model Answer 3.7.1**
+
+**(a) Hybrid for Data Sparsity:**
+- **Selected Method**: **Feature Combination**.
+- **Justification**: Data sparsity in the user-article interaction matrix makes pure **Collaborative Filtering (CF)** unreliable. Feature Combination merges the sparse interaction data with rich **Content-Based (CBF) features** (article tags, topic vectors from the ontology) into a single feature set for a machine learning model (e.g., a neural network). This model can learn from the *content* of articles when interaction data is missing, effectively **enriching the sparse signal** and making accurate predictions possible even for rarely clicked articles.
+
+**(b) Hybrid for Overspecialisation:**
+- **Selected Method**: **Mixed Hybrid**.
+- **Base Techniques**: **Content-Based Filtering (CBF)** and **Collaborative Filtering (CF)**.
+- **Justification**: A Mixed hybrid presents two separate recommendation lists side-by-side. A **"Because you read..."** list (CBF) provides familiar, similar gardening articles. A **"Readers also enjoyed..."** list (CF) can surface articles popular with gardeners who also explored DIY. This **explicitly injects serendipity** by leveraging the diverse tastes of the user's collaborative neighbourhood, directly combating the filter bubble created by a pure CBF system.
+
+**(c) Unified Solution for Both Problems:**
+- **Method**: **Feature Combination** (or a sophisticated **Weighted** ensemble).
+- **Explanation**: A well-designed Feature Combination model (e.g., a neural network) trained on both interaction and content data can inherently handle sparsity (by relying on content features when interactions are absent) and can promote diversity. During training, it can learn that users who like gardening also have a latent interest in DIY based on patterns in the *combined* data of *all* users, allowing it to recommend cross-topic articles even for a user with a sparse, single-topic history. It unifies the signals in one model.
+
+---
+### **Question 3.7.2: Specifying Algorithmic Components**
+A company is building a **movie recommender** and documents its design with the three key features: Background Data, Input Data, and Algorithm.
+
+**Proposed Design**: "Our system uses a **Weighted Hybrid**. It combines a **Content-Based Filtering (CBF)** model that uses movie genres and directors with a **Collaborative Filtering (CF)** model that uses user ratings."
+
+**(a) This documentation is **incomplete**. For the **CBF component**, specify its:
+    (i) **Background Data**,
+    (ii) **Input Data** for a specific user,
+    (iii) **Algorithm** (name and one-sentence description).**
+**[3 marks]**
+
+**(b) For the overall **Weighted Hybrid**, what is the **Background Data** required?**  
+**[1 mark]**
+
+**(c) The product manager wants to add a **Knowledge-Based (KB)** component for new users. This would change the hybrid to a **Switching** hybrid. What additional piece of **Background Data** is now absolutely required?**  
+**[1 mark]**
+
+---
+### **Model Answer 3.7.2**
+
+**(a) CBF Component Specification:**
+(i)  **Background Data**: A **Domain Model** consisting of **feature vectors for every movie**, where features include genres, director, actors, keywords, etc. (A pre-computed vector space).
+(ii) **Input Data**: The **target user's profile**, which is a **feature preference vector** derived from the features of movies they have rated highly or watched.
+(iii) **Algorithm**: **Cosine Similarity computation and ranking**. The algorithm calculates the cosine similarity between the user's preference vector and each candidate movie's feature vector, then ranks movies by this similarity score.
+
+**(b) Weighted Hybrid Background Data:**
+The Weighted Hybrid requires **the union of the background data for both components**. Specifically, it requires: (1) The **User-Item Rating Matrix** (for CF), and (2) The **Movie Feature Vectors/Domain Model** (for CBF).
+
+**(c) Additional Background Data for Switching Hybrid (with KB):**
+The system now requires a **Knowledge Base**. This is a structured set of **rules, constraints, and utility functions** that link user needs (e.g., "I want a funny movie for kids") to movie attributes (e.g., genre="Comedy", certification="PG"). This knowledge base is used by the KB component during the cold-start phase.
+# Topic 3.8: Exam Practice Questions & Model Answers
+
+### **Question 3.8.1: Offline Accuracy Metrics & Trade-offs**
+A team is evaluating two movie recommendation algorithms, **Rec1** and **Rec2**, on a test set of 5 users. The table shows the **Mean Absolute Error (MAE)** and **Root Mean Squared Error (RMSE)** for each.
+
+| User | MAE (Rec1) | MAE (Rec2) | RMSE (Rec1) | RMSE (Rec2) |
+| :--- | :---: | :---: | :---: | :---: |
+| 1 | 0.8 | 0.9 | 1.0 | 1.1 |
+| 2 | 1.2 | 1.0 | 1.5 | 1.3 |
+| 3 | 0.5 | 0.7 | 0.6 | 0.9 |
+| 4 | 1.5 | 1.8 | 2.0 | 2.4 |
+| 5 | 0.9 | 0.9 | 1.2 | 1.2 |
+| **Average** | **1.0** | **1.1** | **1.3** | **1.4** |
+
+**(a) Based on the **average metrics**, which algorithm appears better for minimising prediction error?**  
+**[1 mark]**
+
+**(b) Examine the error for **User 4**. The RMSE for Rec1 is 2.0 and for Rec2 is 2.4. What does this tell you about the **nature of the errors** Rec2 made for this user compared to Rec1?**  
+**[2 marks]**
+
+**(c) The team also computes **Precision@5**. They find Rec2 has a significantly higher Precision@5 than Rec1. Considering this and the accuracy metrics, which algorithm might you **deploy for a real-world streaming service** and why?**  
+**[3 marks]**
+
+---
+### **Model Answer 3.8.1**
+
+**(a) Better Algorithm for Prediction Error:**
+**Rec1** appears better. It has a lower average MAE (1.0 < 1.1) and a lower average RMSE (1.3 < 1.4), indicating both lower average error magnitude and lower penalty for large errors across the test set.
+
+**(b) Nature of Errors for User 4:**
+The higher RMSE for Rec2 (2.4 > 2.0) while the MAE difference is smaller (1.8 vs 1.5) indicates that Rec2 made **at least one very large prediction error** (an "outlier" error) for User 4. RMSE penalises large errors more heavily. This suggests Rec2 might have **completely mispredicted a rating** (e.g., predicted 5 for a movie the user actually hated), whereas Rec1's errors were more consistently moderate.
+
+**(c) Deployment Decision:**
+- **Algorithm to Deploy**: **Rec2**.
+- **Reasoning**: For a real-world streaming service, the **primary goal** is often to generate a **good shortlist of recommendations** (high precision) that users will engage with, not to predict exact star ratings perfectly. **Precision@5** is a more direct measure of this real-world utility than MAE/RMSE. Rec2's superior Precision@5 suggests it creates more engaging top-5 lists, even if its average rating prediction is slightly less accurate. The business impact of higher engagement likely outweighs a marginal increase in rating prediction error. The large error for User 4 is a concern but may be an outlier.
+
+---
+### **Question 3.8.2: Beyond Accuracy & A/B Testing**
+A news website's recommender has high **accuracy** (low RMSE) but user surveys indicate they find the recommendations "repetitive and boring."
+
+**(a) Identify **two** "beyond accuracy" metrics the team should measure to diagnose this problem. For each, briefly explain how a deficiency in that metric could cause the user feedback.**  
+**[4 marks]**
+
+**(b) The team develops a new algorithm focused on **serendipity**. They plan an **A/B test** where Group A (control) gets the old accurate algorithm and Group B (treatment) gets the new serendipitous one. What is the **key risk** in using **Click-Through Rate (CTR)** as the sole success metric for this test?**  
+**[2 marks]**
+
+**(c) Suggest **two** additional metrics, **one behavioural** and **one subjective**, that would provide a more complete evaluation of the serendipitous algorithm in the A/B test.**  
+**[2 marks]**
+
+---
+### **Model Answer 3.8.2**
+
+**(a) Beyond-Accuracy Metrics:**
+1.  **Diversity (Intra-List)**: Measures how dissimilar the recommended articles are from each other. **Low diversity** means all recommendations are on the same topic (e.g., all politics), leading to a **repetitive** experience.
+2.  **Novelty/Serendipity**: Measures how often recommendations are for articles **new to the user** and **unexpectedly good**. **Low novelty** means the system only recommends articles similar to those the user has already read many times, leading to a **boring** experience with no discovery.
+
+**(b) Risk of Using CTR Alone:**
+The key risk is that **CTR might decrease** for the serendipitous algorithm, even if it is improving user experience in the long term. Serendipitous recommendations are, by definition, unexpected. Users might be less likely to click immediately on something unfamiliar, causing a **short-term dip in CTR** even though the recommendations are more valuable for engagement and satisfaction over time. Using CTR alone could wrongly condemn a better algorithm.
+
+**(c) Additional A/B Test Metrics:**
+- **Behavioural Metric**: **Long-term Engagement**—e.g., **Return Visits per User** over a month or **Session Length**. This captures whether serendipitous recommendations make the site more "sticky" and enjoyable.
+- **Subjective Metric**: **Post-Experience Survey Score**—e.g., asking users to rate "How interesting and diverse were today's recommendations?" on a scale. This directly measures the perceived quality the algorithm aims to improve.
