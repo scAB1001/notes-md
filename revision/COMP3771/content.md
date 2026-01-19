@@ -803,3 +803,4 @@ When analysing or designing a recommender, always specify:
 1.  **First Stage (CBF)**: For a given user, the system uses their profile (based on listened songs) and *all songs in the catalogue* (including new ones with metadata). It computes content similarity and produces a **broad candidate list of 500 songs**. This ensures **new songs are included**.
 2.  **Second Stage (CF)**: The system takes this candidate list and applies **Item-Item CF**. It re-ranks the 500 songs based on what users with *similar tastes* have actually played, promoting socially validated songs. This introduces **diversification** based on community wisdom, moving beyond the user's own profile bubble.
 **Result**: New songs are in the running (via CBF), but the final ranking is influenced by broader community trends (via CF).
+
