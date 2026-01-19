@@ -1416,3 +1416,129 @@ Adaptivity introduces specific **usability threats** that must be evaluated, esp
 **Model Answer**:
 This suggests the **Filter Bubble / Diminished Breadth of Experience** threat. The new algorithm may be increasing engagement by over-specialising on a narrow set of topics the user already likes.
 **Why A/B Testing Missed It**: A/B testing typically focuses on **aggregate behavioural metrics** (like total articles read). It does not measure the **diversity or novelty of the content** consumed. The threat was only revealed via a **subjective user survey** measuring perception, highlighting the need to combine quantitative A/B tests with qualitative methods to get a full picture of user experience.
+## 6.5 Responsible Personalisation with Large Language Models (LLMs)
+
+> **Large Language Models (LLMs)** like GPT-4 are powerful generative AI tools that can be integrated into user-adaptive systems for tasks like **content generation, tutoring, and conversational personalisation**. Their use introduces unique opportunities and heightened ethical risks.
+
+### Opportunities: LLM-Powered Personalisation
+LLMs can generate highly fluent, context-aware text, enabling new forms of adaptation.
+
+| Application | Description | Example |
+| :--- | :--- | :--- |
+| **AI Tutors & Learning Companions** | Provide **step-by-step, Socratic guidance** adapted to a student's knowledge level and misconceptions. | **LearnLM (Google) & Eedi**: An LLM-powered math tutor used in UK classrooms. It provides hints, explanations, and generates practice problems tailored to individual student errors. Uses a **human-in-the-loop** for safety. |
+| **AI Companions & Therapeutic Agents** | Engage in open-ended, empathetic conversation, adapting to user's emotional state. | **ChatGPT-based companions**: Users form parasocial relationships with AI personas. Can provide support but risk over-attachment. |
+| **Dynamic Content & Explanation Generation** | Generate **natural language justifications** for recommendations or create personalised narratives. | A movie recommender using ChatGPT to generate a sentence like "You might like *Inception* because you enjoyed the mind-bending plots of *The Matrix* and you rate Christopher Nolan highly." |
+| **Simulation-Based Training** | Create **interactive, adaptive scenarios** for skill practice. | **AI-Based Virtual Patients**: Medical students converse with an LLM-powered patient chatbot. The patient's responses, symptoms, and emotional tone adapt based on the student's dialogue, simulating a real clinical interview. |
+
+### Heightened Risks & Ethical Requirements
+The generative power and opacity of LLMs amplify existing ethical concerns. A responsible framework is essential.
+
+### The EU's Ethics Guidelines for Trustworthy AI (A 7-Requirement Framework)
+This framework provides a robust structure for evaluating any AI system, including LLM-based adapters.
+
+#### **R1: Human Agency & Oversight**
+**Core Question**: Does the system preserve meaningful human control and autonomy?
+- **Risks**: LLMs can create **over-reliance**, **addiction**, or **undue influence** on decision-making (e.g., a student blindly following an AI tutor's answer).
+- **Mitigations**:
+    - **Human-in-the-Loop**: Critical decisions (e.g., final diagnosis in a medical trainer) require human validation.
+    - **Clear Demarcation**: The system must disclose it is a **machine** (Best Practice 6).
+    - **Foster Critical Engagement**: Design interactions that encourage questioning, not passive acceptance.
+
+#### **R2: Technical Robustness & Safety**
+**Core Question**: Is the system reliable, secure, and resilient against errors or misuse?
+- **Risks**: LLMs **hallucinate** (generate plausible but false information). They can be **jailbroken** to produce harmful content. Training data may be **outdated or biased**.
+- **Mitigations**:
+    - **Validation & Grounding**: Use retrieval-augmented generation (RAG) to ground responses in verified sources (e.g., a tutor's knowledge base).
+    - **Red-Teaming & Adversarial Testing**: Proactively test for harmful outputs.
+    - **Continuous Monitoring & Updates**: Ensure training data and models reflect current knowledge.
+
+#### **R3: Privacy & Data Governance**
+**Core Question**: Is user data protected, and is data processing lawful?
+- **Risks**: LLM interactions can reveal sensitive user information. Prompt history may be stored and used for training.
+- **Mitigations**: Apply standard privacy techniques (Topic 6.2) with added vigilance for **conversational data**. Use **on-device models** or **differential privacy** in training.
+
+#### **R4: Transparency**
+**Core Question**: Can users understand the system's workings and limitations?
+- **Risks**: LLMs are **opaque "black boxes"**. It's hard to explain *why* a specific response was generated.
+- **Mitigations**:
+    - **Explainability**: Provide **feature-based** or **retrieval-based explanations** (e.g., "This answer is based on source document X").
+    - **Traceability**: Log key decision points in the interaction.
+    - **Open Communication**: Clearly state the system's **capabilities and limitations** (e.g., "I may make mistakes. Always verify important information.").
+
+#### **R5: Diversity, Non-Discrimination & Fairness**
+**Core Question**: Does the system treat all users fairly and avoid amplifying biases?
+- **Risks**: LLMs encode and can amplify **societal biases** present in their massive training data (e.g., gender, racial stereotypes). This can lead to discriminatory recommendations or language.
+- **Mitigations**:
+    - **Bias Audits**: Regularly test outputs for fairness across user subgroups.
+    - **Debiasing Techniques**: Apply fine-tuning or inference-time corrections.
+    - **Inclusive Design**: Ensure the system is **accessible** to users with diverse abilities.
+
+#### **R6: Societal & Environmental Well-being**
+**Core Question**: What is the system's broader impact on society and the planet?
+- **Risks**: Can **displace human jobs** (e.g., tutors), contribute to **social isolation** (via AI companions), or have a large **carbon footprint** from training/running giant models.
+- **Mitigations**:
+    - **Impact Assessment**: Conduct studies on social and environmental effects.
+    - **Augmentation, Not Replacement**: Design systems to **assist humans**, not replace them entirely.
+    - **Sustainable AI Practices**: Optimise models for energy efficiency.
+
+#### **R7: Accountability**
+**Core Question**: Who is responsible for the system's outcomes?
+- **Risks**: **Liability is unclear** when an LLM causes harm (e.g., gives dangerous medical advice).
+- **Mitigations**:
+    - **Clear Accountability Lines**: Define who (developer, deployer, user) is responsible for what.
+    - **Auditability**: Ensure systems can be audited by third parties.
+    - **Redress Mechanisms**: Provide clear channels for users to report problems and seek remedy.
+
+---
+#### **Exam Practice Question 6.4**
+**An LLM-powered "career coach" chatbot gives personalised advice to university students. Using the EU's Trustworthy AI framework, identify *two* distinct requirements this system is likely to fail and justify your concerns with specific examples.**
+**[6 marks]**
+
+**Model Answer**:
+1.  **R2: Technical Robustness & Safety**. The system is at high risk of providing **inaccurate or outdated career information** (hallucination). For example, it might recommend applying to a company that no longer exists or give incorrect salary data, leading students to make poor decisions.
+2.  **R5: Diversity, Non-Discrimination & Fairness**. The LLM may encode **societal biases** from its training data. It could, for instance, systematically steer female students away from STEM career paths or recommend lower-paying roles to students from certain demographic backgrounds, perpetuating labour market inequalities.
+
+---
+## 6.6 A Practical Transparency Checklist
+
+![[transparency-best-practices.png]]
+Moving from principles to practice, designers can use a **transparency checklist** based on the 9 Best Practices (BPs) from research.
+
+**Definition of Transparency for Design**:
+> "A practice of system design centred on **disclosing understandable information** that provides insight into **why and how** the system produces an outcome, enabling user assessment and control."
+
+
+![[transparency-checklist.png]]
+### Selected Key Checklist Questions for Personalisation Systems
+*(Adapted from the 23-question checklist)*
+
+**Section: Processing (The "Why") - *Most commonly failed in industry***
+- **BP3**: Does the system explain which **data, factors, or criteria** (and their weight) were used to produce a *specific* personalised item? (e.g., "You see this news article because you read articles tagged 'Politics' and it is trending.")
+- **BP3/BP4**: Does it disclose the **goals and reasoning** of the personalisation algorithm? (e.g., "We aim to recommend diverse content. This is a *serendipity* pick.")
+
+**Section: Input (Data)**
+- **BP2**: Does the system inform the user **which data is collected** for personalisation and **how it is pre-processed**?
+- **BP1**: Is this information **accessible and actionable** (can the user do something with it)?
+
+**Section: Output (Presentation)**
+- **BP6**: Is it clear to the user that they are interacting with a **machine-generated/machine-personalised** output?
+
+**Section: Control (User Participation)**
+- **BP8/BP9**: Does the system offer **alternative choices** (e.g., a non-personalised view) and opportunities to **adjust personalisation** (e.g., sliders, correction of profile)?
+
+### Applying the Checklist: The Industry Transparency Gap
+An analysis of Facebook, Netflix, YouTube, Spotify, and Amazon revealed:
+- **Relative Strength in *Input***: They disclose *what* data is collected (driven by GDPR).
+- **Critical Weakness in *Processing***: They **almost never explain the *why* behind a specific recommendation** (e.g., why *this* video, *this* product). This is the core of transparency.
+- **Weakness in *Control***: Meaningful user control over the personalisation logic is limited.
+
+**Conclusion for Designers**: To be truly transparent, move beyond data collection notices. **Explain individual recommendations** and **give users meaningful control** over the adaptation logic.
+
+---
+#### **Exam Practice Question 6.5**
+**A music app currently shows a "Recommended For You" playlist with no explanation. Using the *transparency checklist*, propose *two* specific, implementable features the app could add to improve transparency, linking each to a specific Best Practice.**
+**[4 marks]**
+
+**Model Answer**:
+1.  **Feature**: A "Why this song?" button next to each track. **Best Practice (BP3)**: It discloses the **factors/criteria** used for that specific recommendation (e.g., "Because you frequently listen to this artist" or "Similar to your playlist 'Workout Jams'").
+2.  **Feature**: A "Personalisation Settings" page with a "Diversity" slider (from "More Familiar" to "More Discover"). **Best Practice (BP9)**: It provides an opportunity for the user to **adjust the personalisation logic** according to their current goal, giving them participatory control.
