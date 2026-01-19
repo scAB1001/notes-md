@@ -80,7 +80,7 @@ The process is a **cycle**: (1) Gather data, (2) Update user model, (3) Adaptati
 
 **Model Answer**:
 The **Domain Model** would contain entities like **Article**, **Topic** (e.g., Politics, Sports), **Author**, and **Publisher**. It would define attributes (article length, publication date) and relationships (Article *isAbout* Topic, Article *writtenBy* Author). The **Adaptation Model** (e.g., a content-based filtering algorithm) would use this to compare the **User Model** (a vector of the user's inferred interest in each Topic) with each candidate Article's topic vector (from the Domain Model). It would then calculate a similarity score and select the highest-scoring articles for the adaptive component (the personalised front page).
-## 1.2 General Schema & Applied Examples
+## 1.3 General Schema & Applied Examples
 
 > **General Schema**: The **conceptual blueprint** defining the main components and data flow in any user-adaptive system.
 
@@ -120,7 +120,7 @@ The **Domain Model** would contain entities like **Article**, **Topic** (e.g., P
 In **User Model Acquisition**, the click is likely converted into a **positive implicit rating** (e.g., an indication of interest) and stored in the user-item interaction matrix or used to update a content-based preference profile. The challenge is **interpretation validity**: a click may indicate interest, but it could also be a mistake, a result of misleading imagery, or mere curiosity without purchase intent. Relying solely on clicks can lead to a **noisy and inaccurate user model**.
 
 ---
-## 1.3 Types of User-Adaptivity Support
+## 1.4 Types of User-Adaptivity Support
 
 Adaptive systems provide two broad classes of support:
 
@@ -168,9 +168,8 @@ Adaptivity introduces key **usability threats** that must be designed against:
 **Model Answer**:
 1.  **Diminished Controllability**: The user may feel they have lost control over their own communications if the system incorrectly screens out an important call (e.g., a job interview callback) based on its autonomous decision.
 2.  **Infringement of Privacy**: The system's need to **continuously monitor** the user's activity (via sensors) to infer availability constitutes a significant **privacy invasion**, as it creates a log of the user's presence and actions in their own home.
-# Topic 1: General Schema of User-Adaptive Systems (Practical Applications)
 
-## 1.4 Applied Analysis & System Design
+## 1.5 Applied Analysis & System Design
 
 This section reinforces the **general schema** through practical case studies and design exercises, highlighting how theoretical components map to real-world systems and their associated challenges.
 
@@ -233,7 +232,8 @@ This section reinforces the **general schema** through practical case studies an
 **Architectural Difference**: The **Domain Model**. LILSYS's domain model is about "caller importance" and "user availability states." The Smart Room's domain model is about "meeting entities," "presentation files," and "display devices." The adaptation logic uses this different domain knowledge to drive different actions (blocking vs. projecting).
 
 ---
-## 1.5 System Design Exercise: Module Recommender
+# Topic 2: User Model Representation and  Building, User Information Collection
+## 2.1 System Design Exercise: Module Recommender
 
 **Scenario**: Designing a University of Leeds module recommender to help students choose optional modules.
 
@@ -276,7 +276,6 @@ This section reinforces the **general schema** through practical case studies an
 **Model Answer**:
 **Justification**: Browsing data is **unobtrusive** and captures **real, evolving curiosity** that a student may not explicitly state. It can reveal emerging interests (e.g., spending time on Robotics pages despite no prior background) and helps overcome the **cold-start problem** for students who don't fill out interest forms thoroughly.
 **Interpretation Challenge**: **Ambiguity of Intent**. A long dwell time on a module page might indicate **genuine interest**, but it could also indicate **confusion** (the description is hard to understand), **distraction**, or the student is **researching it for a friend**. Using this signal as a strong positive preference could lead to an **inaccurate user model** and poor recommendations.
-# Topic 2: User Model Representation & Building (Continued)
 ## 2.2 User Model Representation (Detailed)
 
 > The **User Model** is a structured data representation of the system's beliefs about various aspects of the user. The choice of *what* to model and *how* to represent it depends on the system's adaptive goals.
@@ -369,7 +368,6 @@ Core to **Intelligent Tutoring Systems (ITS)** like SQL-Tutor.
 
 **Model Answer**:
 The system should interpret the early abandonment as a **negative implicit signal**. The update strategy would be to **decrease the weight** for the "Horror" genre in the user's interest vector. Additionally, it could increase weights for the genre of the film they switched *to*, treating that as a positive signal. The decrease for Horror should be significant but not absolute (e.g., reduce by 0.3), as the user might have stopped for reasons unrelated to genre (e.g., interruption).
-# Topic 2: User Model Representation & Building (Continued)
 ## 2.4 Building the User Model: Interests in Detail
 
 > Building a model of user **interests** is a core task for recommender systems and adaptive information filters. It involves translating raw user **measurements** into **metrics**, and finally into a structured **user model value**.
@@ -687,3 +685,121 @@ High similarity leads to recommendation.
 **Model Answer**:
 Use a **Weighted Hybrid** of **Content-Based Filtering (CBF)** and **Collaborative Filtering (CF)**.
 **Justification**: New songs have no play history (CF fails), but they have rich metadata (genre, artist, tempo). **CBF** can immediately recommend them to users whose profiles match these features. The **Weighted Hybrid** allows the system to blend the CBF score for new items with CF scores for established items. Over time, as the new song gains plays, the CF component's weight can automatically increase. This ensures new items are recommendable from day one while maintaining overall recommendation quality.
+## 3.6 Hybrid Recommender Systems: Detailed Methods & Applications
+
+> **Hybrid Recommender Systems** combine multiple base recommendation techniques to **leverage their complementary strengths** and **mitigate their individual weaknesses**. The Netflix Prize winner used a **blend of over 100 different models**, demonstrating the power of hybridisation.
+
+| **Hybridisation Methods Overview** |
+| :--- |
+| ![[Hybridization-Methods.png\|500]] |
+
+### 1. Weighted Hybrid
+**Methodology**: Computes a **linear combination** of the prediction scores from multiple algorithms.
+$$R_{final} = \frac{R_1 \cdot W_1 + R_2 \cdot W_2 + ... + R_n \cdot W_n}{W_1 + W_2 + ... + W_n}$$
+Where $R_i$ is the score from algorithm $i$ and $W_i$ is its assigned weight.
+
+**Example Scenario (Movie Streaming)**:
+- **Algorithm A (CF)**: Predicts a rating of **4.2/5** for *Movie X* for user Alice.
+- **Algorithm B (CBF)**: Predicts a rating of **3.8/5** for the same movie.
+- **Weights**: CF weight = 0.6, CBF weight = 0.4 (reflecting greater trust in collaborative signals).
+- **Final Score**: $R_{final} = \frac{4.2 \cdot 0.6 + 3.8 \cdot 0.4}{1.0} = 4.04$.
+
+**When to Use**: When you have **multiple reliable but imperfect predictors** and want a stable, blended result. It is **order-insensitive**.
+
+### 2. Switching Hybrid
+**Methodology**: Selects **one algorithm** from the available set based on a **contextual rule or condition**. The output is the recommendation from the selected algorithm alone.
+
+**Example Scenario (E-commerce with New Users)**:
+- **Condition**: IF `user_rating_count < 5` THEN use **Knowledge-Based (KB)** algorithm ELSE use **Collaborative Filtering (CF)**.
+- **Execution**: A new user with 2 ratings gets recommendations via a **KB** system that asks for preferences (e.g., "I need a gaming laptop under £1000"). After they provide 5 ratings, the system **switches** to using CF to leverage the wisdom of similar users.
+
+**When to Use**: To handle **specific system states or user segments** where one algorithm is distinctly superior (e.g., cold-start vs. warm-start). It is **order-sensitive** (the switching logic defines the sequence).
+
+### 3. Mixed Hybrid
+**Methodology**: Presents recommendations from **different algorithms simultaneously** in separate UI sections. The user sees the outputs side-by-side.
+
+**Example Scenario (Amazon Product Page)**:
+- **Section A**: **"Customers who bought this also bought..."** (Item-Item Collaborative Filtering).
+- **Section B**: **"Related to items you've viewed"** (Content-Based Filtering).
+The user sees both lists on the same page.
+
+**When to Use**: To **increase diversity and serendipity** by exposing the user to different recommendation rationales. It is **order-insensitive** in terms of algorithm combination, though UI layout matters.
+
+### 4. Feature Combination Hybrid
+**Methodology**: Merges **features** from different data sources into a **single, unified feature set**, which is then fed into one recommendation algorithm.
+
+**Example Scenario (Music Recommender)**:
+- **Source 1 (CF Data)**: User-song interaction matrix (implicit ratings).
+- **Source 2 (CBF Data)**: Song audio features (tempo, genre, energy).
+- **Combined Feature Vector**: For a user-song pair, the feature vector includes both the **user's historical interaction pattern** (encoded) and the **song's audio features**.
+- **Single Algorithm**: A **neural network** or matrix factorization model is trained on this combined feature set to make predictions.
+
+**When to Use**: When you want a **single, powerful model** that can learn complex interactions between different data types. It is **order-insensitive** for feature merging.
+
+### 5. Cascade Hybrid
+**Methodology**: Arranges algorithms in a **sequential pipeline**. The first algorithm produces a **coarse ranking or candidate set**. The second (and subsequent) algorithm(s) **refine this list**.
+
+**Example Scenario (High-Precision News Recommender - EntréeC)**:
+1.  **Stage 1 (Knowledge-Based)**: The system uses a knowledge base of news topics and user-stated interests to retrieve **100 candidate articles** that are *generally relevant*.
+2.  **Stage 2 (Collaborative Filtering)**: The CF algorithm re-ranks these 100 candidates based on what **similar users engaged with**, promoting the most socially validated articles to the top 10.
+
+**When to Use**: When you have a **high-precision, high-recall requirement** and one algorithm is good at broad recall (KB, CBF) while another is good at precision (CF). It is **highly order-sensitive**.
+
+### 6. Feature Augmentation Hybrid
+**Methodology**: Uses the **output of one algorithm** as an **input feature** for another algorithm.
+
+**Example Scenario (Improved Rating Prediction)**:
+1.  **Algorithm A (Content-Based)**: Predicts a rating for every user-item pair based on content similarity.
+2.  **Algorithm B (Collaborative Filtering)**: Uses the **CBF-predicted rating** as an *additional feature* in its user-item matrix, alongside the real ratings. The CF model then makes its final prediction using this enriched data.
+
+**When to Use**: To **boost the signal** for a primary algorithm (often CF) when data is sparse. The secondary algorithm provides "synthetic" data points. It is **order-sensitive**.
+
+### 7. Meta-Level Hybrid
+**Methodology**: Uses the **model generated by one algorithm** (not just its output) as the **input to another algorithm**.
+
+**Example Scenario (Complex User Profiles)**:
+1.  **Algorithm A (Content-Based)**: Analyzes a user's reading history and generates a **detailed user profile model** (e.g., a vector of interest weights across 500 topics).
+2.  **Algorithm B (Collaborative Filtering)**: Instead of using raw ratings, the CF algorithm operates on these **CBF-generated profile vectors**. It finds users with similar *profile vectors* (not similar ratings) and recommends items they liked.
+
+**When to Use**: When the **intermediate model** of one algorithm is a richer representation than the raw data for another algorithm to use. It is **order-sensitive**.
+
+---
+#### **Exam Practice Question 3.3**
+**A travel booking site uses a Switching hybrid. For users with no booking history, it uses a Knowledge-Based system asking for destination, budget, and interests. For users with history, it uses Item-Item Collaborative Filtering. Explain one significant *advantage* and one potential *disadvantage* of this specific hybrid design.**
+**[4 marks]**
+
+**Model Answer**:
+**Advantage**: It **effectively solves the user cold-start problem**. New users get immediate, useful recommendations via the interactive KB system without needing a history, providing a good initial experience.
+**Disadvantage**: It creates a **potential "cliff edge" or inconsistency** in user experience. When a user crosses the threshold (e.g., makes their 5th booking), the recommendation logic switches abruptly from transparent, constraint-based KB to opaque, social CF. This sudden change could confuse users if not communicated well, potentially reducing trust.
+
+---
+## 3.7 Comparing & Selecting Hybrid Methods
+
+**Decision Guide: Which Hybrid Method to Use?**
+
+| If your primary challenge is...            | Consider this hybrid method...                         | Because it...                                    |
+| :----------------------------------------- | :----------------------------------------------------- | :----------------------------------------------- |
+| **Cold-Start (User)**                      | **Switching** or **Cascade** (KB first).               | Uses a non-CF method initially.                  |
+| **Cold-Start (Item)**                      | **Weighted** or **Feature Augmentation** (with CBF).   | Incorporates item features from day one.         |
+| **Data Sparsity**                          | **Feature Combination** or **Feature Augmentation**.   | Enriches the data available to the model.        |
+| **Overspecialisation / Lack of Diversity** | **Mixed** or **Weighted** (with CF).                   | Introduces serendipity from other users' tastes. |
+| **Need for Explainability**                | **Mixed** (show KB results) or **Cascade** (KB first). | Preserves a transparent reasoning component.     |
+| **Maximising Predictive Accuracy**         | **Weighted** (ensemble) or **Cascade** (refinement).   | Combines multiple signals for a precise score.   |
+
+**Key Features Recap for Any Algorithm**:
+When analysing or designing a recommender, always specify:
+1.  **Background Data**: What knowledge does it require? (e.g., user-item matrix, item features, knowledge base).
+2.  **Input Data**: What does it need at runtime for a specific user? (e.g., user's rating history, current query).
+3.  **Algorithm**: What is the core computational process? (e.g., find k-NN, compute cosine similarity, apply constraint rules).
+
+---
+#### **Exam Practice Question 3.4**
+**For a *music streaming service*, propose a specific *Cascade Hybrid* design to address both *item cold-start* (new songs) and *user taste diversification*. Name the two base techniques, specify the order, and briefly describe the data flow.**
+**[5 marks]**
+
+**Model Answer**:
+**Cascade Hybrid: Content-Based Filtering (CBF) followed by Collaborative Filtering (CF)**.
+**Order & Data Flow**:
+1.  **First Stage (CBF)**: For a given user, the system uses their profile (based on listened songs) and *all songs in the catalogue* (including new ones with metadata). It computes content similarity and produces a **broad candidate list of 500 songs**. This ensures **new songs are included**.
+2.  **Second Stage (CF)**: The system takes this candidate list and applies **Item-Item CF**. It re-ranks the 500 songs based on what users with *similar tastes* have actually played, promoting socially validated songs. This introduces **diversification** based on community wisdom, moving beyond the user's own profile bubble.
+**Result**: New songs are in the running (via CBF), but the final ranking is influenced by broader community trends (via CF).
