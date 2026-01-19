@@ -1055,7 +1055,7 @@ A more flexible method. Pages are constructed from **smaller, reusable content f
 - **Methodology**: Each fragment has **applicability conditions** based on the user model. The page is composed by including all fragments whose conditions are true.
 - **Architecture**: `Page = {Fragment | Condition(Fragment, UserModel) = TRUE}`
 
-| **Optional Fragments Example**   |
+| Optional Fragments Example       |
 | :------------------------------- |
 | ![[optional-fragments.png\|500]] |
 **Example - AVANTI (Web Accessibility System)**: A page for a tourist site includes a basic description fragment for all users. An **optional fragment** with detailed historical context is included **only if** `user_knowledge > beginner`. Another optional fragment with wheelchair access details is included **only if** `user_has_mobility_impairment = TRUE`.
@@ -1071,8 +1071,8 @@ A more flexible method. Pages are constructed from **smaller, reusable content f
 - **Methodology**: The page has a fixed **structure of slots (constituents)**. For each slot, there is a set of alternative fragments. The system selects the most appropriate fragment for each slot.
 - **Architecture**: `Page = [Slot1: Fragment_X, Slot2: Fragment_Y, ...]` where Fragment_X is chosen from a set for Slot1.
 
-| **Altering Fragments Example** |
-| :--- |
+| Altering Fragments Example       |
+| :------------------------------- |
 | ![[altering-fragments.png\|500]] |
 **Example - AHA! (Adaptive Hypermedia System)**:
 - A page has a **navigation frame** (a constituent) and a **content frame** (another constituent).
@@ -1147,8 +1147,8 @@ Once content is selected, it must be presented effectively. A key trade-off is *
 ### The Six Evaluation Layers
 The framework decomposes the generic adaptive architecture into six sequential layers, each with a distinct **goal**, **evaluation criteria**, and **methods**.
 
-| **Layered Evaluation Diagram** |
-| :--- |
+| Layered Evaluation Diagram                                                  |
+| :-------------------------------------------------------------------------- |
 | *(Imagine a diagram showing the 6 sequential layers from the architecture)* |
 #### **Layer 1: Collection of Input Data**
 - **Goal**: Verify the **quality and reliability** of the raw data being gathered.
