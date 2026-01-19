@@ -881,7 +881,6 @@ When analysing or designing a recommender, always specify:
 2.  **Second Stage (CF)**: The system takes this candidate list and applies **Item-Item CF**. It re-ranks the 500 songs based on what users with *similar tastes* have actually played, promoting socially validated songs. This introduces **diversification** based on community wisdom, moving beyond the user's own profile bubble.
 **Result**: New songs are in the running (via CBF), but the final ranking is influenced by broader community trends (via CF).
 
-# Topic 3: Recommender Systems (Continued)
 ## 3.8 Evaluation of Recommender Systems
 
 > Systematic **evaluation** is critical for selecting, tuning, and improving recommender algorithms. It moves from offline **prediction accuracy** to online **business impact** and **user-centric qualities**.
