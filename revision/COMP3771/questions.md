@@ -30,7 +30,7 @@
 - transparency
 - explanation
 - trust
-## Topic 1:  General architecture of user-adaptive systems
+## Topic 1.1:  Core Definitions & Principles
 ### Question 1.1: General Architecture & Component Roles
 A city council is developing a **"Smart Park" mobile app**. The app uses GPS to detect when a user enters a park. It then checks the user's profile (e.g., "dog owner", "jogger", "family with young children") and current weather data to send personalised push notifications. For example, it might notify a dog owner about a nearby dog-friendly area, or a family about a children's event starting soon.
 
@@ -61,31 +61,6 @@ This feature mitigates the threat of **Diminished Controllability**.
 **Explanation**: A system that automatically infers a user's profile (e.g., labels them as a "jogger") can make mistakes. If the user cannot correct this, they feel a **loss of agency and control** over the system's behaviour. Allowing **manual profile correction** directly restores user control by letting them rectify erroneous inferences, ensuring the system adapts based on an accurate model that aligns with their self-view.
 
 ---
-### Question 1.2: Case Study Analysis & Comparison
-Compare and contrast the **LILSYS** call-screening system and a modern **Smart Speaker** (e.g., Amazon Alexa) that adapts its responses based on the user's voice tone and time of day.
-
-**(a) Describe one key *similarity* in the type of *user data* both systems rely on for adaptation.**
-**[2 marks]**
-
-**(b) Describe one fundamental *difference* in their *primary adaptation goal*.**
-**[2 marks]**
-
-**(c) The smart speaker uses voice tone analysis to infer if the user is stressed and might then respond with a calmer tone. Identify the *layer* in the layered evaluation framework where you would test whether the tone analysis correctly identifies stress, and name a suitable *evaluation method* for this layer.**
-**[4 marks]**
-
----
-### Model Answer 1.2
-**(a) Similarity in User Data:**
-Both systems rely heavily on **implicitly collected contextual and behavioural data** about the user's **current situation**. LILSYS uses **sensor data** (movement, keyboard activity) to infer availability. The smart speaker uses **vocal prosody** (tone, pitch, speed) and **temporal context** (time of day) to infer emotional state and intent. Neither requires the user to explicitly state their state ("I'm busy" / "I'm stressed").
-
-**(b) Difference in Adaptation Goal:**
-The **primary adaptation goal** of LILSYS is to **discourage or mediate interaction** (from the outside world) by screening calls to prevent interruptions. In contrast, the primary adaptation goal of the smart speaker is to **encourage and facilitate interaction** (with itself) by tailoring its responses to be more effective and engaging for the user. LILSYS adapts to *protect* the user's attention; the smart speaker adapts to *capture* and retain the user's attention.
-
-**(c) Layered Evaluation:**
-- **Layer**: This problem belongs to **Layer 2: Interpretation of the Collected Data**.
-- **Reasoning**: The raw data (audio signal) has been collected. The challenge is whether the system's **interpretation** of that data—mapping specific acoustic features to the internal state label "stressed"—is **valid**.
-- **Evaluation Method**: A suitable method would be a **user study with ground truth validation**. Participants would use the speaker while also self-reporting their stress levels via a validated method (e.g., a simple questionnaire or physiological sensor). The system's inferences would then be compared to the user-reported ground truth to calculate **accuracy metrics** (e.g., precision, recall) for stress detection, diagnosing the validity of the interpretation algorithm.
-## Topic 1.1: Core Definitions & Principles
 ### Question 1.1.1: Definitions and Drivers
 A major online newspaper is struggling with declining user engagement. Analytics show that readers often leave the site after viewing only one article, citing "too much irrelevant content."
 
@@ -145,7 +120,31 @@ A new "Smart Recipe Manager" app is described. It learns your cooking preference
 **(b) Learning Objectives:**
 - **LO2: Identify & apply common user modelling & adaptation techniques**. The app **builds a user model** (a profile of taste and ingredient preferences) through **implicit information collection** (monitoring views and saves). It then **applies** this model using **content-based filtering** (matching recipe features to profile) to perform adaptation (highlighting, filtering).
 - **LO3: Implement recommender system techniques**. The core adaptive feature is a **recommender system**. The "Surprise Me" function is a direct application of a recommendation algorithm (likely a hybrid of content-based and novelty-seeking) that generates a personalised item suggestion for the user.
-## Topic 1.2 Components of User-Adaptive Systems
+## Topic 1.2: Components & Schema
+### Question 1.2: Case Study Analysis & Comparison
+Compare and contrast the **LILSYS** call-screening system and a modern **Smart Speaker** (e.g., Amazon Alexa) that adapts its responses based on the user's voice tone and time of day.
+
+**(a) Describe one key *similarity* in the type of *user data* both systems rely on for adaptation.**
+**[2 marks]**
+
+**(b) Describe one fundamental *difference* in their *primary adaptation goal*.**
+**[2 marks]**
+
+**(c) The smart speaker uses voice tone analysis to infer if the user is stressed and might then respond with a calmer tone. Identify the *layer* in the layered evaluation framework where you would test whether the tone analysis correctly identifies stress, and name a suitable *evaluation method* for this layer.**
+**[4 marks]**
+
+---
+### Model Answer 1.2
+**(a) Similarity in User Data:**
+Both systems rely heavily on **implicitly collected contextual and behavioural data** about the user's **current situation**. LILSYS uses **sensor data** (movement, keyboard activity) to infer availability. The smart speaker uses **vocal prosody** (tone, pitch, speed) and **temporal context** (time of day) to infer emotional state and intent. Neither requires the user to explicitly state their state ("I'm busy" / "I'm stressed").
+
+**(b) Difference in Adaptation Goal:**
+The **primary adaptation goal** of LILSYS is to **discourage or mediate interaction** (from the outside world) by screening calls to prevent interruptions. In contrast, the primary adaptation goal of the smart speaker is to **encourage and facilitate interaction** (with itself) by tailoring its responses to be more effective and engaging for the user. LILSYS adapts to *protect* the user's attention; the smart speaker adapts to *capture* and retain the user's attention.
+
+**(c) Layered Evaluation:**
+- **Layer**: This problem belongs to **Layer 2: Interpretation of the Collected Data**.
+- **Reasoning**: The raw data (audio signal) has been collected. The challenge is whether the system's **interpretation** of that data—mapping specific acoustic features to the internal state label "stressed"—is **valid**.
+- **Evaluation Method**: A suitable method would be a **user study with ground truth validation**. Participants would use the speaker while also self-reporting their stress levels via a validated method (e.g., a simple questionnaire or physiological sensor). The system's inferences would then be compared to the user-reported ground truth to calculate **accuracy metrics** (e.g., precision, recall) for stress detection, diagnosing the validity of the interpretation algorithm.
 ### Question 1.2.1: Component Identification & Role
 A university library introduces a "Personalised Research Assistant" on its website. It monitors the abstracts of journal articles a student reads online. It then uses a subject ontology (e.g., the ACM Computing Classification System) to tag those articles with topics. Based on the frequency of these topics, it builds a profile of the student's research interests. Finally, it uses this profile to recommend new, recently published articles in the library's database that align with those interests.
 
@@ -188,7 +187,7 @@ A fitness tracking app for runners proposes personalised training plans. It gath
 `IF` (User Model: `most_recent_run_pace` < `target_pace` **AND** User Model: `reported_fatigue` = 'low')
 `AND` (Domain Model: workout_type 'interval' is recommended for `improving_speed`)
 `THEN` Adaptation: Schedule an interval training session for the next workout.
-## Topic 1.3: Schema & Applied Examples
+## Topic 1.3: Design Application & Comparative Analysis
 ### Question 1.3.1: Schema Mapping & Critical Component
 Consider a language learning app like Duolingo. It tracks user performance on exercises (correct/incorrect answers, time taken). It uses this to estimate proficiency in different language skills (grammar, vocabulary) and to select the next exercise difficulty.
 
@@ -238,8 +237,7 @@ Using the applied examples table:
 2.  **User Model Acquisition**: The **inference engine processes** this log. It identifies series S's genre (Comedy) and updates the **User Model**—increasing the weight for "Comedy" in the user's preference vector.
 3.  **User Model Application**: The **recommendation algorithm** (e.g., content-based filtering) is re-run. It uses the updated preference vector to re-score all programs in the catalogue, calculating a new similarity score for each.
 4.  **Adaptive Component**: The system **regenerates the "Recommended for you" rows** on the homepage. The new ranking, which now gives higher positions to other comedy programs due to the updated model, is displayed to the user.
-## Topic 1.4: Types of Adaptive Support & Case Studies
-
+## Topic 1.4: Case Studies & System Classification
 ### Question 1.4.1: Classifying Adaptive Support
 A new software plugin for a video editing suite analyses a user's editing history (frequently used effects, typical project length). It then adapts its interface by promoting the relevant effect palettes and suggesting customisable project templates when a new project is started.
 
@@ -277,7 +275,7 @@ The smart home hub's challenge is more similar to LILSYS because, like LILSYS, i
 **(b) Manifestation of Diminished Breadth of Experience:**
 - **System**: **AGENTSALON**.
 - **Explanation**: AGENTSALON learns a user's stated news interests and tailors the presented stories. This creates a **filter bubble**. If a user initially expresses interest in, say, technology and sports, the system will increasingly show them only those types of stories. Consequently, the user might **miss important news** about politics, science, or culture that falls outside their initially stated profile. Their understanding of the world becomes narrow and specialised, diminishing the breadth of their information diet, all in the name of reducing the effort of searching for relevant news.
-## Topic 1.5: Design Application & Comparative Analysis
+## Topic 1.5: Full Exam-Style Scenario Analysis
 ### Question 1.5.1: Design from Schema - A Module Recommender
 **Scenario**: The University of Leeds is (hypothetically) considering developing a module recommender to aid students in choosing optional modules.
 You are part of the design team. Following the general architecture of user-adaptive systems:
@@ -337,7 +335,7 @@ A primary concern is **Hallucination and Factual Inaccuracy**. The LLM in System
 **(c) Type of Adaptive Support:**
 - **System A (Gallery Navigator)**: **Supporting Information Acquisition**. It helps users find and understand information about exhibits based on their location and engagement.
 - **System B (Virtual Curator)**: **Supporting Information Acquisition**. It helps users find information (a tour plan) and tailors the presentation of information (answers) based on their stated interests and language level.
-## Topic 2: User model representation and building
+## Topic 2.1: User model representation and building
 ### Question 2.1.1: Detailed Component Design
 Continuing with the University of Leeds **Module Recommender** scenario:
 
@@ -392,7 +390,7 @@ The Module Recommender design document includes the following debate:
 
 **(c) Benefit of Cascade (CBF then CF):**
 The primary benefit is that the CF stage **operates on a pre-filtered, relevant shortlist**. This means the "wisdom of the crowd" (CF) is used to **break ties** and **add serendipity** among modules that are already a good content-based fit. It prevents CF from recommending popular but completely irrelevant modules (e.g., a popular but introductory module to an advanced student), thereby improving the **precision and appropriateness** of the final recommendations.
-## Topic 2.1: Representation Methods & Stereotypes
+## Topic 2.2: Representation Methods & Stereotypes
 ### Question 2.2.1: Selecting Appropriate Representations
 A company is developing two distinct adaptive systems:
 
@@ -443,7 +441,7 @@ The system would use a **probabilistic overlay** on a pre-defined goal catalog. 
 1.  **Temporal Context (Time & Day)**: Cooking activity on a **Tuesday at 6:30 PM** is strong evidence for the "weekday dinner" goal (probability P=0.8). Activity on a **Saturday at 11:00 AM** increases the probability of the "weekend feast" goal, as it suggests meal *planning* or preparing a more elaborate dish.
 2.  **Interaction Patterns with the App**: If the user is **quickly selecting a saved "quick meal" recipe**, this supports "weekday dinner." If they are **browsing extensively, saving multiple recipes, or viewing recipes with long prep times**, this supports "weekend feast."
    The system would combine these evidence streams (and potentially others like number of servings selected) using a simple probabilistic model (e.g., a Naive Bayes classifier) to infer the most likely current goal and adapt suggestions accordingly (quick vs. elaborate recipes).
-## Topic 2.2: Acquisition Techniques & Cold-Start
+## Topic 2.3: Acquisition Techniques, Cold-Start & Model Maintenance
 ### Question 2.3.1: Acquisition Techniques & Cold-Start
 A new "Campus Buddy" app for university students aims to provide personalised event recommendations (societies, talks, sports). It faces the **user cold-start problem** as soon as a student installs it.
 
@@ -492,8 +490,7 @@ The app could use **exponential decay** on the weights in the spending priority 
 **(b) Mitigating Noisy Data:**
 1.  **Probabilistic Modelling & Confidence Measures**: Instead of hard categorisation, assign **probabilities** to categories for each transaction (e.g., P(groceries)=0.7, P(gardening)=0.3). Update the user model using these probabilities. Also, maintain a **confidence score** for each inferred priority; require multiple corroborating transactions (high confidence) before making strong adaptive decisions like issuing a warning.
 2.  **Hybrid Data Source & User Correction**: Combine the automated bank feed categorisation with **explicit user input**. Implement a **scrutable model** where users can review and correct categorisations (e.g., "Was this £50 at Tesco for Groceries or Gardening?"). Use these corrections not only to fix that instance but also to **retrain the categorisation algorithm** for future transactions, creating a feedback loop that improves data quality over time.
-## Topic 2.3: Exam Practice Questions & Model Answers
-
+## Topic 2.4: From Measurements to Models (TF-IDF, etc.)
 ### Question 2.4.1: From Measurements to Models
 An e-commerce site uses a panel of 1000 users to test a new recommendation widget. For a specific product, the widget is shown 5000 times (impressions) and receives 250 clicks.
 
@@ -563,8 +560,7 @@ The key advantage is **semantic reasoning and serendipitous discovery**. A graph
 A simple rule is **exponential moving average**.
 $\text{Interest}_{\text{new}} = \alpha \cdot \text{Interest}_{\text{current}} + (1 - \alpha) \cdot \text{Interest}_{\text{recent}}$
 Where $\text{Interest}_{\text{current}}$ is the existing long-term vector, $\text{Interest}_{\text{recent}}$ is a vector calculated from the last week of listening, and $\alpha$ is a smoothing factor (e.g., 0.9) that controls the influence of new evidence. This gradually integrates recent trends while retaining a memory of long-term preference.
-## Topic 2.4 & Recommender Systems: Exam Practice Questions & Model Answers
-
+## Topic 2.5: Detailed Design & Evaluation
 ### Question 2.5.1: Goal Recognition & Adaptation
 A "Smart Writing Assistant" plugin for word processors is designed to help users with different writing goals, such as "Writing a Research Paper," "Drafting a Business Email," or "Composing a Creative Story."
 
@@ -629,7 +625,7 @@ The Bayesian framework would decompose the observed rating of 5 for `item1` into
 
 **(c) Advantage of Bayesian Framework over CF:**
 The key advantage is **explicit modelling and adaptation to temporal dynamics**. Standard CF treats all past ratings equally. The Bayesian framework explicitly **separates transient trend effects from long-term interest** and can **down-weight older data** as its predictive power decays. This allows it to remain responsive to shifting trends (crucial for news) while maintaining a stable core profile, whereas CF would be slower to adapt and could recommend outdated trending topics.
-## Topic 3: Recommender systems
+## Topic 3.1: Core Techniques & Characterisation
 ### Question 3.1.1: Technique Identification & Characterisation
 A company is developing three different recommender systems:
 
@@ -693,8 +689,7 @@ The key trade-off is **Control and Transparency vs. Effort and Completeness**.
 **(c) Techniques Not Suffering from Item Cold-Start:**
 1.  **Content-Based Filtering (CBF)**: Does not suffer because it relies on the **item's features/metadata** (e.g., video title, description, tags, uploader), which are available as soon as the video is uploaded. It can recommend the new video to users whose profiles match these features.
 2.  **Knowledge-Based (KB)**: Does not suffer because it uses a **knowledge base of constraints and item properties**. If the new video's properties (e.g., category="Educational", length="short") are known, the system can match it to users with relevant constraints (e.g., "I want short educational videos"), regardless of the video having no view history.
-## Topic 3.1: Exam Practice Questions & Model Answers
-
+## Topic 3.2: Collaborative Filtering (CF) - Calculations & Analysis
 ### Question 3.2.1: User-User CF Calculation & Analysis
 **Use the following subset of the rating matrix for calculations:**
 
@@ -790,7 +785,7 @@ The key trade-off is **Control and Transparency vs. Effort and Completeness**.
 
 **(c) Solving the Scalability Problem:**
 In user-user CF, to make a recommendation for a user, you must compare them to **all M users** in the database online, an O(M) operation. In Amazon's item-item approach, the heavy lifting—calculating **similarities between all N items**—is done **offline** in batch (O(N²), but N is items, not users). The online step is just a **fast lookup**: fetch the pre-computed similar-items lists for the few items the user has purchased and aggregate them. This scales because the online computation is **proportional to the user's purchase history**, not the total number of users or items.
-## Topic 3.2: Exam Practice Questions & Model Answers
+## Topic 3.3: Content-Based Filtering (CBF)
 ### Question 3.3.1: CBF Methodology & Calculation
 A book recommendation service uses **Content-Based Filtering**. Books are represented by feature vectors across four genres: `[Fantasy, SciFi, Mystery, Biography]`. The values are based on expert tagging (0 to 1).
 
@@ -854,8 +849,7 @@ The knowledge graph would enable the following inference:
 
 **(c) Overcoming User Cold-Start:**
 The museum guide could use an **explicit, interactive profiling session** at the start of the visit. For example, it could show the user a set of **representative artwork images** from different periods, styles, and subjects (e.g., a Rembrandt portrait, a landscape, a modern sculpture) and ask them to select which ones they find most interesting. This quick explicit feedback provides an **initial interest vector** to bootstrap the CBF system, avoiding the need for a lengthy browsing history.
-## Topic 3.3: Exam Practice Questions & Model Answers
-
+## Topic 3.4: Knowledge-Based (KB)
 ### Question 3.4.1: Knowledge-Based Recommender Operation
 A **Knowledge-Based (KB)** recommender system is built to help students choose a laptop for their university course. The system's knowledge base contains specifications for various laptop models and rules about course requirements.
 
@@ -914,8 +908,7 @@ A company is choosing a recommender system for its **online store selling high-e
 **(c) Business Cost of KB Systems:**
 - **Cost**: **High Knowledge Engineering and Maintenance Cost**.
 - **Why Ongoing**: The knowledge base (attributes, rules, relationships) is not learned automatically from data; it must be **manually created and curated by domain experts**. This is a significant upfront investment. Furthermore, it is **ongoing** because every new product must be meticulously annotated with all relevant attributes, and rules may need updating as product lines or consumer understanding evolves. This is in contrast to CF or CBF systems where new products can be integrated more automatically (via metadata or initial usage data).
-## Topic 3.4: Exam Practice Questions & Model Answers
-
+## Topic 3.5: Hybrid Recommender Systems
 ### Question 3.5.1: Selecting a Hybridisation Method
 A video streaming service has a strong **Collaborative Filtering (CF)** algorithm but wants to improve its recommendations in two specific scenarios:
 - **Scenario 1**: Provide good recommendations to **brand new users** (user cold-start).
@@ -971,7 +964,7 @@ Recall the **EntréeC** restaurant recommender, which uses a **Cascade** hybrid 
 **(c) Weighted vs. Cascade Operational Difference:**
 - **Weighted Hybrid**: Computes a **single, blended recommendation score** for each restaurant from the start. The KB and CF algorithms run independently on the *full* dataset, and their scores are combined linearly (e.g., `Score = w1*KB_Score + w2*CF_Score`).
 - **Cascade Hybrid**: Operates in **strict sequence**. The **first algorithm (KB) selects a subset** of the entire item catalogue. The **second algorithm (CF) operates only on this pre-filtered subset**, re-ranking or scoring items within it. The CF stage never sees items rejected by the KB stage.
-## Topic 3.5: Exam Practice Questions & Model Answers
+## Topic 3.6: Exam Practice Questions & Model Answers
 ### Question 3.6.1: Detailed Hybrid Method Application
 A video game store wants a hybrid recommender. It has two core algorithms:
 - **Algorithm P (Popularity-Based)**: Recommends the top-selling games.
@@ -1027,7 +1020,7 @@ This is a **Weighted Hybrid** (specifically, a **weighted ensemble or blending**
 **(c) Superiority of Blending over a Single Model:**
 1.  **Improved Robustness and Generalisation**: A single model, even the best on average, will have **systematic blind spots or failure cases** for certain users or movie types. The ensemble is **more robust** because when one model fails for a particular case, other models in the blend can compensate, leading to consistently good performance across the entire diverse user base and catalogue.
 2.  **Practical Maintainability and Evolution**: A production system needs to evolve. With an ensemble, new and improved models can be **gradually incorporated** into the blend (assigned a small initial weight). This allows for **smooth, low-risk deployment and A/B testing**. Relying on a single "best" model creates a **monolithic dependency**; any update requires a risky "big bang" replacement, and if the new model has an unforeseen flaw, the entire recommendation quality collapses.
-## Topic 3.6: Exam Practice Questions & Model Answers
+## Topic 3.7: Hybridisation Methods & Advanced Designs
 ### Question 3.7.1: Selecting a Hybrid Method
 An online magazine for hobbyists (e.g., gardening, DIY, model trains) is implementing a recommender for its article library. It has two core problems:
 1.  **Problem A**: Many articles are old and have very few clicks or ratings (**data sparsity**).
@@ -1089,7 +1082,7 @@ The Weighted Hybrid requires **the union of the background data for both compone
 
 **(c) Additional Background Data for Switching Hybrid (with KB):**
 The system now requires a **Knowledge Base**. This is a structured set of **rules, constraints, and utility functions** that link user needs (e.g., "I want a funny movie for kids") to movie attributes (e.g., genre="Comedy", certification="PG"). This knowledge base is used by the KB component during the cold-start phase.
-## Topic 3.7: Exam Practice Questions & Model Answers
+## Topic 3.8: Evaluation of Rec Sys (Offline Metrics), Beyond Accuracy & A/B Testing
 ### Question 3.8.1: Offline Accuracy Metrics & Trade-offs
 A team is evaluating two movie recommendation algorithms, **Rec1** and **Rec2**, on a test set of 5 users. The table shows the **Mean Absolute Error (MAE)** and **Root Mean Squared Error (RMSE)** for each.
 
@@ -1148,7 +1141,7 @@ The key risk is that **CTR might decrease** for the serendipitous algorithm, eve
 **(c) Additional A/B Test Metrics:**
 - **Behavioural Metric**: **Long-term Engagement**—e.g., **Return Visits per User** over a month or **Session Length**. This captures whether serendipitous recommendations make the site more "sticky" and enjoyable.
 - **Subjective Metric**: **Post-Experience Survey Score**—e.g., asking users to rate "How interesting and diverse were today's recommendations?" on a scale. This directly measures the perceived quality the algorithm aims to improve.
-## Topic 3.8: Machine Learning-Based Recommender Systems
+## Topic 3.9: Machine Learning-Based Recommender Systems
 ### Question 3.9.1: ML Recommender Pipeline & Model Selection
 A streaming service is building a new **"Next Episode"** recommender. The system must analyse a user's sequential watch history (the order of episodes viewed) and contextual data (time of day, device) to predict the single next episode they are most likely to start.
 
@@ -1248,8 +1241,7 @@ ii. **Generation & Relationship**: They are typically **learned automatically** 
 **(d) Hybridisation Method:**
 - **Method**: **Cascade Hybrid**. [1 mark]
 - **Justification**: The description clearly shows a **sequential process** where one technique (deep candidate generation) produces an output that is then **passed as input** to a second, different technique (the feature-rich ranking model). The result of the first stage directly enables and constraints the second stage, which is the hallmark of a **cascade**. [1 mark]
-## Topic 4: Adaptive Content Presentation: Exam Practice Questions & Model Answers
-
+## Topic 4.1: Adaptive Content Presentation
 ### Question 4.1: Static & Semi-Automatic Approaches
 An e-learning platform for programming uses adaptive techniques to present course material. The platform's architecture is based on **pre-authored content components**.
 
@@ -1343,8 +1335,7 @@ The system uses a **hybrid method**: It first employs a **Fragment-Based (Alteri
 **(c) Advantages of the Hybrid System:**
 - **Advantage over Page-Based Approach**: **Superior Scalability and Flexibility**. The hybrid system does not require a pre-authored "Trip Brief" page for every possible combination of destination, user style, and season. The **Automatic Generation** component for attractions can handle countless destinations, and the **Altering Fragments** structure allows modular reuse of advice fragments (e.g., the same "family-friendly dining tips" fragment can be plugged into many different city briefs). [2 marks]
 - **Advantage over Fully Automatic Generation (LLM-only)**: **Guaranteed Structural Quality and Control**. A pure LLM might produce a beautifully written but poorly structured document (e.g., missing a critical "Travel Tips" section, or burying vital visa information). The hybrid's **Altering Fragments** backbone **ensures a consistent, complete, and logically organised document structure** every time, as defined by domain experts. The LLM/Automatic components are then confined to generating high-quality content *within* that reliable structure. [2 marks]
-## Topic 5 & 6: Evaluation & Ethics: Exam Practice Questions & Model Answers
-
+## Topic 5.1: Layered Evaluation Framework
 ### Question 5.1: Layered Evaluation Framework
 A team is developing "StudyPal," an adaptive learning app that recommends practice exercises. It collects data on time spent per question, correctness, and clicks on hints. It models student knowledge and decides which exercise to show next.
 
@@ -1373,6 +1364,7 @@ A team is developing "StudyPal," an adaptive learning app that recommends practi
 2.  **Acceptance**: Would an expert tutor or the student themselves **find the decision helpful and reasonable**? This assesses the decision's perceived utility before it is rendered. [1 mark]
 
 ---
+## Topic 5.2: Usability Threats & A/B Testing
 ### Question 5.2: Usability Threats & A/B Testing
 "NewsFlow" is a personalised news aggregator. An A/B test is conducted to evaluate a new recommendation algorithm designed to increase user engagement.
 
@@ -1408,6 +1400,7 @@ After two weeks, key results are:
 - **Justification**: While the algorithm succeeds on a **single engagement metric** (articles/session), it **fails on critical qualitative dimensions** (diversity, trust) that are essential for long-term user retention and platform health. Increasing engagement at the cost of creating filter bubbles and eroding trust is a **short-sighted trade-off** that will likely lead to user churn and reputational damage over time. The algorithm needs redesign to incorporate **diversity safeguards** and **transparency features** before deployment. [1 mark]
 
 ---
+## Topic 6.1: Ethics & Transparency with LLMs
 ### Question 6.1: Ethics & Transparency with LLMs
 "HealthGuide" is a proposed LLM-powered chatbot that provides personalised lifestyle and basic symptom advice. It asks users about their diet, exercise, and symptoms to generate tailored recommendations.
 
@@ -1439,6 +1432,7 @@ Which **Best Practice (BP)** from the checklist does this feature most directly 
 - **Explanation**: The disclaimer is a **fundamental safeguard** to preserve human agency. It ensures users maintain an accurate **mental model** of the system as a fallible machine tool, not a qualified human expert. This mitigates **over-reliance** and encourages users to exercise their own judgment and seek professional human oversight for serious health concerns, thus upholding their autonomy and safety. [1 mark]
 
 ---
+## Topic 6.2: Integrating Ethics into Evaluation
 ### Question 6.2: Integrating Ethics into Evaluation
 A social media company is planning a **layered evaluation** of its new LLM-powered content moderation system, which automatically flags and explains its reasoning for potentially harmful posts.
 
