@@ -29,7 +29,7 @@
 - **LO4**: Reason about the **significance & future** of the field.
 
 ---
-#### **Exam Practice Question 1.1**
+#### Exam Practice Question 1.1
 **Using the examples of *MoCoMapps* and *ECoach*, contrast how they demonstrate the principle of delivering the "right information at the right time".**
 **[4 marks]**
 
@@ -66,12 +66,11 @@ Both systems deliver contextually relevant information. **MoCoMapps** delivers t
 5.  **Adaptive Component (Effector/Output)**
     - **Role**: The part of the system **presented to the user** that changes (interface, content, functionality).
     - **Importance**: The tangible manifestation of adaptation. Must be usable and effective.
-
 ### Data Flow & Process
 The process is a **cycle**: (1) Gather data, (2) Update user model, (3) Adaptation model uses user & domain models to decide on adaptation, (4) Adaptive component changes, (5) User interacts, generating new data.
 
 ---
-#### **Exam Practice Question 1.2**
+#### Exam Practice Question 1.2
 **For a news website that personalises its front page, describe the likely contents of its *Domain Model* and explain how the *Adaptation Model* might use it together with the *User Model*.**
 **[5 marks]**
 
@@ -103,7 +102,7 @@ The **Domain Model** would contain entities like **Article**, **Topic** (e.g., P
 |                                                   | ![[generic-adaptive-arch-smart-bbc-iplayer-ex.png\|400]] |
 
 ---
-#### **Exam Practice Question 1.3**
+#### Exam Practice Question 1.3
 
 | Amazon                                              | Example                                               |
 | --------------------------------------------------- | ----------------------------------------------------- |
@@ -151,7 +150,7 @@ Adaptivity introduces key **usability threats** that must be designed against:
 5.  **Diminished Breadth of Experience**: "**Filter Bubble**" – user is only exposed to things similar to past choices, limiting discovery.
 
 ---
-#### **Exam Practice Question 1.4**
+#### Exam Practice Question 1.4
 **The *LILSYS* system screens phone calls based on the user's context. Identify *two* of the major usability threats this adaptivity could cause and briefly explain each in the context of call screening.**
 **[4 marks]**
 
@@ -161,9 +160,7 @@ Adaptivity introduces key **usability threats** that must be designed against:
 ## 1.5 Applied Analysis & System Design
 
 This section reinforces the **general schema** through practical case studies and design exercises, highlighting how theoretical components map to real-world systems and their associated challenges.
-
 ### Case Study 1: LILSYS (Call Screening System)
-
 ![[generic-adaptive-architecture.png|300]]
 *(Focus on components for LILSYS: Sensors gather data, model decides on call handling, system adapts by ringing/blocking)*
 
@@ -180,9 +177,7 @@ This section reinforces the **general schema** through practical case studies an
 3.  **Transparency & Controllability**: The user may not understand why a specific call was blocked, leading to frustration and a **loss of control** over their own communications.
 
 **Contemporary Similar Systems**: Modern smartphone **"Focus" or "Do Not Disturb" modes** that use calendar, location, and device usage activity to automatically filter notifications and calls.
-
 ### Case Study 2: AGENTSALON (Conversational Matchmaking System)
-
 ![[generic-adaptive-architecture.png|300]]
 *(Focus on components for AGENTSALON: User input/stored data informs model, which decides on social matches, system adapts by suggesting conversations)*
 
@@ -198,9 +193,7 @@ This section reinforces the **general schema** through practical case studies an
 3.  **Data Reliability & Privacy**: Relies on accurate, up-to-date user profiles (which may be embellished) and involves sharing personal interest data, raising **privacy concerns**.
 
 **Contemporary Similar Systems**: **Conference networking apps** (e.g., Grip, Brella), **professional networking platforms** (LinkedIn suggestions), and **dating apps** (match algorithms).
-
 ### Comparative Analysis: LILSYS vs. AGENTSALON
-
 **Three Key Similarities:**
 1.  **Both Mediate Human Interaction**: They adaptively filter or facilitate communication between people.
 2.  **Both Require Sensitive Data Processing**: They rely on personal data (context/activity or interests) to function, creating **privacy challenges**.
@@ -212,7 +205,7 @@ This section reinforces the **general schema** through practical case studies an
 3.  **Primary Data Source**: LILSYS heavily uses **implicit sensor data** about the real-world context. AGENTSALON primarily uses **explicit user profiles** and stated interests.
 
 ---
-#### **Exam Practice Question 1.5**
+#### Exam Practice Question 1.5
 **A modern "Smart Meeting Room" system uses sensors to detect room occupancy and calendar data to automatically project the correct meeting materials when the host enters. Comparing it to *LILSYS*, identify one shared usability threat and one key architectural difference.**
 **[4 marks]**
 
@@ -255,7 +248,7 @@ This section reinforces the **general schema** through practical case studies an
     *   Option to **explore** or **tune** preferences (mixed-initiative adaptation).
 
 ---
-#### **Exam Practice Question 1.6**
+#### Exam Practice Question 1.6
 **For the Module Recommender, one proposed data source is the implicit analysis of module catalogue browsing. Justify why this is useful, and describe a specific challenge in interpreting this data for modelling.**
 **[4 marks]**
 
@@ -308,7 +301,7 @@ Core to **Intelligent Tutoring Systems (ITS)** like SQL-Tutor.
 *   **Example**: A student's goal hierarchy: `Degree > Pass Year 3 > Complete Module X > Submit Assignment 2`. The system infers current goal as `Submit Assignment 2 (P=0.8)` based on opened files and browsing history, triggering adaptations like showing relevant library links.
 
 ---
-#### **Exam Practice Question 2.3**
+#### Exam Practice Question 2.3
 **An Intelligent Tutoring System for Python programming uses an *overlay model* to represent student knowledge. Describe how this model is initially built for a new student and how it is subsequently updated based on the student solving a problem incorrectly.**
 **[5 marks]**
 
@@ -336,7 +329,7 @@ Core to **Intelligent Tutoring Systems (ITS)** like SQL-Tutor.
 | **Changing User State** (concept drift) | Implement **forgetting mechanisms** (decay older evidence), allow **manual profile editing**. |
 
 ---
-#### **Exam Practice Question 2.4**
+#### Exam Practice Question 2.4
 **A streaming service uses a simple vector model to represent user interests in movie genres. Describe a specific strategy for updating this model *implicitly* when a user watches only the first 15 minutes of a "Horror" film before switching it off.**
 **[3 marks]**
 
@@ -367,14 +360,13 @@ Used when interests are represented as a **weighted vector of keywords**.
 **Core Technique: TF-IDF (Term Frequency-Inverse Document Frequency)**
 This algorithm extracts and weights keywords from documents the user has interacted with (e.g., clicked articles). It identifies terms that are **frequent in the user's positive documents** but **relatively rare across all documents**, making them good discriminators of personal interest.
 
-| **TF-IDF Example Calculation** |
-| :--- |
-| ![[Fig3-TFIDF.jpg\|500]] |
+| TF-IDF Example Calculation |
+| :------------------------- |
+| ![[Fig3-TFIDF.jpg\|500]]   |
 **Formulas**:
 - **Term Frequency (TF)**: How important a term is *within a single user document*. $$tf(t,d) = \frac{f_d(t)}{\max_{w \in d} f_d(w)}$$where $f_d(t)$ is the raw count of term $t$ in document $d$.
 - **Inverse Document Frequency (IDF)**: How important a term is *across the entire collection* (rarity).$$idf(t, D) = \ln \left( \frac{|D|}{|\{d \in D : t \in d\}|} \right)$$where $|D|$ is the total number of documents in the corpus.
-- **TF-IDF Score**:$$tfidf(t,d,D) = tf(t,d) \cdot idf(t, D)$$
-**User Model Construction**: The system aggregates TF-IDF vectors from all documents the user has positively interacted with, creating a **composite keyword vector** that represents their interest profile. This profile can then be compared to new documents using cosine similarity for recommendation.
+- **TF-IDF Score**:$$tfidf(t,d,D) = tf(t,d) \cdot idf(t, D)$$**User Model Construction**: The system aggregates TF-IDF vectors from all documents the user has positively interacted with, creating a **composite keyword vector** that represents their interest profile. This profile can then be compared to new documents using cosine similarity for recommendation.
 ### Building Graph-Based & Concept-Based Interest Models
 These methods move beyond keywords to **semantic representations**.
 
@@ -391,14 +383,12 @@ Raw behavioural counts (e.g., 10 clicks on Sports, 2 on Politics) conflate:
 
 **Solution (Two-Step Normalisation for Clustering)**:
 1.  **Apply TF-IDF** to raw user-category counts. This down-weights ubiquitous categories and boosts distinctive ones.
-2.  **Apply L2 Normalisation** to the resulting TF-IDF vector.
-    $$\mathbf{v}_u^{\text{(norm)}} = \frac{\mathbf{v}_u}{||\mathbf{v}_u||_2}$$
-    This projects the vector onto a unit sphere, **preserving its direction (interest distribution)** while **removing its magnitude (engagement level)**.
+2.  **Apply L2 Normalisation** to the resulting TF-IDF vector.$$\mathbf{v}_u^{\text{(norm)}} = \frac{\mathbf{v}_u}{||\mathbf{v}_u||_2}$$This projects the vector onto a unit sphere, **preserving its direction (interest distribution)** while **removing its magnitude (engagement level)**.
 
 **Result**: Users with similar interest patterns but different activity levels (e.g., a sports fanatic and a casual sports fan) will have very similar normalised vectors, allowing clustering algorithms to group them based on **true interest alignment**.
 
 ---
-#### **Exam Practice Question 2.5**
+#### Exam Practice Question 2.5
 **A news website uses a simple keyword-based user interest model built from TF-IDF on clicked articles. Describe one specific limitation of this approach for modelling interests in *breaking news* stories about a new, unforeseen event (e.g., a sudden natural disaster).**
 **[4 marks]**
 
@@ -421,7 +411,7 @@ Goal and task modelling drives proactive, context-sensitive adaptation.
 **Challenge**: **Goal recognition is inherently uncertain and error-prone**. Systems must handle ambiguity and allow for **mixed-initiative correction** (e.g., "Are you trying to book a flight?").
 
 ---
-#### **Exam Practice Question 2.6**
+#### Exam Practice Question 2.6
 **The research on Google News found that a user's news reading interests change over time, and the predictive power of their click history decays. Describe the two-component Bayesian framework proposed to address this and how it improves recommendations.**
 **[5 marks]**
 
@@ -490,8 +480,7 @@ We want to predict user **u3**'s rating for **item3**.
 **Step 1: Calculate Similarities** (e.g., Cosine between rating vectors).
 `sim(u3,u1)=0.63`, `sim(u3,u4)=0.71`, `sim(u3,u6)=0.93`.
 **Step 2: Neighbourhood (k=3)**: u6, u4, u1.
-**Step 3: Prediction (Weighted Sum)**:$$p_{u3,item3} = \frac{(4 \cdot 0.93) + (2 \cdot 0.71) + (0 \cdot 0.63)}{0.93+0.71+0.63} \approx 2.26$$
-**Situation for Use**: When the **user base is relatively stable** and you want to leverage diverse taste communities. Prone to scalability issues.
+**Step 3: Prediction (Weighted Sum)**:$$p_{u3,item3} = \frac{(4 \cdot 0.93) + (2 \cdot 0.71) + (0 \cdot 0.63)}{0.93+0.71+0.63} \approx 2.26$$**Situation for Use**: When the **user base is relatively stable** and you want to leverage diverse taste communities. Prone to scalability issues.
 #### Problem Setup
 Predict user **u3**'s rating for **item3** using User-User CF with **k=3 nearest neighbours**. We use **Cosine Similarity** to find similar users.
 
@@ -508,15 +497,12 @@ We need the rating vectors for **u3** and the other users **for the items they h
 | item7 | 0 | 5 |
 *Note: `item3` is omitted because u1 hasn't rated it (0). `item6` is included because u3's rating is 0, which is a valid value for the similarity calculation.*
 ##### Step 1: Calculate Cosine Similarity
-
 **Cosine Similarity Formula**:
-For two vectors **A** and **B**, the cosine similarity is:
-$$sim(A, B) = \cos(\theta) = \frac{A \cdot B}{\|A\| \|B\|} = \frac{\sum_{i=1}^{n} A_i B_i}{\sqrt{\sum_{i=1}^{n} A_i^2} \cdot \sqrt{\sum_{i=1}^{n} B_i^2}}$$
-**Calculation for `sim(u3, u1)`**:
+For two vectors **A** and **B**, the cosine similarity is:$$sim(A, B) = \cos(\theta) = \frac{A \cdot B}{\|A\| \|B\|} = \frac{\sum_{i=1}^{n} A_i B_i}{\sqrt{\sum_{i=1}^{n} A_i^2} \cdot \sqrt{\sum_{i=1}^{n} B_i^2}}$$**Calculation for `sim(u3, u1)`**:
 1.  **Compute the Dot Product (Numerator)**:
 $$\begin{align}
 u3 \cdot u1 = \\
-(5\cdot5) + (1\cdot3) + (4\cdot1) + (5\cdot3) + (0\cdot4) + (5\cdot0) \\ 
+(5\cdot5) + (1\cdot3) + (4\cdot1) + (5\cdot3) + (0\cdot4) + (5\cdot0) \\
 = 25 + 3 + 4 + 15 + 0 + 0 = 47
 \end{align}$$
 2.  **Compute the Magnitude (Euclidean Norm) of each vector**:
@@ -545,22 +531,23 @@ We now predict $p_{u3, item3}$. We need the **neighbours' ratings for `item3`** 
 **Weighted Sum Prediction Formula**:$$p_{u,i} = \frac{\sum_{v \in N} (sim(u,v) \cdot r_{v,i})}{\sum_{v \in N} sim(u,v)}$$Where $N$ is the set of k-nearest neighbours.
 
 **Calculation**:
-1.  **Weighted Rating Sum (Numerator)**:$$(r_{u6} \cdot w_{u6}) + (r_{u4} \cdot w_{u4}) + (r_{u1} \cdot w_{u1}) = (4 \cdot 0.93) + (2 \cdot 0.71) + (0 \cdot 0.63)$$$$= 3.72 + 1.42 + 0 = 5.14$$
+1.  **Weighted Rating Sum (Numerator)**:$$ \begin{align}(r_{u6} \cdot w_{u6}) + (r_{u4} \cdot w_{u4}) + (r_{u1} \cdot w_{u1}) 
+   \\= (4 \cdot 0.93) + (2 \cdot 0.71) + (0 \cdot 0.63)
+   \\= 3.72 + 1.42 + 0 = 5.14 \end{align}$$
 2.  **Similarity Sum (Denominator)**:$$0.93 + 0.71 + 0.63 = 2.27$$
 3.  **Final Prediction**:  $$p_{u3, item3} = \frac{5.14}{2.27} \approx 2.2643 \approx 2.26$$
 **Interpretation**: The system predicts u3 would rate `item3` approximately **2.26 out of 5**. This is a **relatively low prediction**, largely influenced by u1's low rating (0), tempered by the higher ratings from more similar users (u4 and u6).
 
 ---
-#### **Exam Practice Question 3.7**
+#### Exam Practice Question 3.7
 **Using the same rating matrix, calculate the *Cosine Similarity* between user u3 and user u2. Show your working. You may use the following ratings: u3: [item1:5, item2:1, item4:4, item5:5, item6:0, item7:5]; u2: [item1:1, item2:3, item4:1, item5:2, item6:3, item7:1].**
 **[5 marks]**
 
 **Model Answer**:
-1.  **Dot Product**: $(5*1) + (1*3) + (4*1) + (5*2) + (0*3) + (5*1) = 5 + 3 + 4 + 10 + 0 + 5 = 27$
+1.  **Dot Product**: $(5\cdot1) + (1\cdot3) + (4\cdot1) + (5\cdot2) + (0\cdot3) + (5\cdot1) = 5 + 3 + 4 + 10 + 0 + 5 = 27$
 2.  **Magnitude of u3**: $\sqrt{5^2+1^2+4^2+5^2+0^2+5^2} = \sqrt{25+1+16+25+0+25} = \sqrt{92} \approx 9.592$
 3.  **Magnitude of u2**: $\sqrt{1^2+3^2+1^2+2^2+3^2+1^2} = \sqrt{1+9+1+4+9+1} = \sqrt{25} = 5$
-4.  **Cosine Similarity**: $sim(u3, u2) = \frac{27}{9.592 \times 5} = \frac{27}{47.96} \approx 0.563$
-**Therefore, the similarity is approximately 0.56.**
+4.  **Cosine Similarity**: $$sim(u3, u2) = \frac{27}{9.592 \times 5} = \frac{27}{47.96} \approx 0.563$$**Therefore, the similarity is approximately 0.56.**
 ### Item-Item Collaborative Filtering
 **Methodology**:
 1.  **Represent Data**: Same User-Item Matrix.
@@ -570,9 +557,7 @@ We now predict $p_{u3, item3}$. We need the **neighbours' ratings for `item3`** 
 **Example Continued**:
 Predict **u3**'s rating for **item3** by finding items similar to item3 that u3 has rated.
 `sim(item3,item4)=0.9`, `sim(item3,item5)=0.64`, `sim(item3,item7)=0.85`.
-**Prediction**:
-$$p_{u3,item3} = \frac{(4 \cdot 0.9) + (5 \cdot 0.64) + (5 \cdot 0.85)}{0.9+0.64+0.85} \approx 4.62$$
-**Situation for Use**: **Industry standard** (e.g., Amazon). More stable than user-user because item similarities change less frequently. Scales better.
+**Prediction**: $$p_{u3,item3} = \frac{(4 \cdot 0.9) + (5 \cdot 0.64) + (5 \cdot 0.85)}{0.9+0.64+0.85} \approx 4.62$$**Situation for Use**: **Industry standard** (e.g., Amazon). More stable than user-user because item similarities change less frequently. Scales better.
 ### Amazon's Scalable Item-Item CF (Binary Case)
 For implicit data (bought/not bought).
 
@@ -598,7 +583,7 @@ For implicit data (bought/not bought).
 | | **Lack of Transparency**: Hard to explain *why* an item was recommended ("people like you..."). |
 
 ---
-#### **Exam Practice Question 3.1**
+#### Exam Practice Question 3.1
 **Using the provided rating matrix, calculate the predicted rating for *user5* on *item7* using *Item-Item Collaborative Filtering* with a neighbourhood of k=2. Show your similarity calculations and final prediction.**
 **[6 marks]**
 *(Assume a mini-matrix is provided in the exam. Model answer would show steps: 1) Calculate item7's similarity to other items user5 has rated. 2) Pick top 2. 3) Weighted average.)*
@@ -680,7 +665,7 @@ High similarity leads to recommendation.
 - **Transparency**: Combine any with **Knowledge-Based** to provide explanations.
 
 ---
-#### **Exam Practice Question 3.2**
+#### Exam Practice Question 3.2
 **A music streaming service suffers from the *item cold-start problem* for newly released songs. Describe a *hybridisation method* that could effectively address this, specifying the two base techniques to combine and your justification.**
 **[5 marks]**
 
@@ -702,9 +687,7 @@ Where $R_i$ is the score from algorithm $i$ and $W_i$ is its assigned weight.
 - **Algorithm A (CF)**: Predicts a rating of **4.2/5** for *Movie X* for user Alice.
 - **Algorithm B (CBF)**: Predicts a rating of **3.8/5** for the same movie.
 - **Weights**: CF weight = 0.6, CBF weight = 0.4 (reflecting greater trust in collaborative signals).
-- **Final Score**: $R_{final} = \frac{4.2 \cdot 0.6 + 3.8 \cdot 0.4}{1.0} = 4.04$.
-
-**When to Use**: When you have **multiple reliable but imperfect predictors** and want a stable, blended result. It is **order-insensitive**.
+- **Final Score**: $$R_{final} = \frac{4.2 \cdot 0.6 + 3.8 \cdot 0.4}{1.0} = 4.04$$**When to Use**: When you have **multiple reliable but imperfect predictors** and want a stable, blended result. It is **order-insensitive**.
 ### 2. Switching Hybrid
 **Methodology**: Selects **one algorithm** from the available set based on a **contextual rule or condition**. The output is the recommendation from the selected algorithm alone.
 
@@ -758,7 +741,7 @@ The user sees both lists on the same page.
 **When to Use**: When the **intermediate model** of one algorithm is a richer representation than the raw data for another algorithm to use. It is **order-sensitive**.
 
 ---
-#### **Exam Practice Question 3.3**
+#### Exam Practice Question 3.3
 **A travel booking site uses a Switching hybrid. For users with no booking history, it uses a Knowledge-Based system asking for destination, budget, and interests. For users with history, it uses Item-Item Collaborative Filtering. Explain one significant *advantage* and one potential *disadvantage* of this specific hybrid design.**
 **[4 marks]**
 
@@ -785,7 +768,7 @@ When analysing or designing a recommender, always specify:
 3.  **Algorithm**: What is the core computational process? (e.g., find k-NN, compute cosine similarity, apply constraint rules).
 
 ---
-#### **Exam Practice Question 3.4**
+#### Exam Practice Question 3.4
 **For a *music streaming service*, propose a specific *Cascade Hybrid* design to address both *item cold-start* (new songs) and *user taste diversification*. Name the two base techniques, specify the order, and briefly describe the data flow.**
 **[5 marks]**
 
@@ -820,26 +803,19 @@ Assess how close predicted ratings are to actual user ratings.
 | **Sum/Avg** | | | **8** | **18** |
 | **MAE** = 8/7 ≈ **1.14** | | | **RMSE** = √(18/7) ≈ **1.60** |
 **Situation for Use**: When the system's core task is to **predict exact ratings** (e.g., a movie rating prediction service). **RMSE is more sensitive to large errors**, which may be critical if you want to avoid recommending items the user will strongly dislike.
-
 #### 2. Decision Support Accuracy (Top-N Recommendation)
 Assesses the quality of a **ranked list of recommendations**. Treats recommendation as a **retrieval task**.
 
 **Confusion Matrix for a Single User & Item**:
 
-| | User **Likes** Item | User **Dislikes** Item |
-| :--- | :---: | :---: |
-| **System Recommends** | **True Positive (TP)** | **False Positive (FP)** |
-| **System Does Not Recommend** | **False Negative (FN)** | **True Negative (TN)** |
+|                               |    User *Likes* Item    |  User *Dislikes* Item   |
+| :---------------------------- | :---------------------: | :---------------------: |
+| **System Recommends**         | **True Positive (TP)**  | **False Positive (FP)** |
+| **System Does Not Recommend** | **False Negative (FN)** | **True Negative (TN)**  |
 **Derived Metrics**:
-- **Precision@N**: Of the top N recommended items, how many were actually relevant?
-  $$Precision@N = \frac{\#\text{ of relevant items in top N}}{N}$$
-  *Focus: Minimising false positives (bad recommendations).*
-- **Recall@N**: Of all the relevant items, how many did we manage to recommend in the top N?
-  $$Recall@N = \frac{\#\text{ of relevant items in top N}}{\text{Total \# of relevant items}}$$
-  *Focus: Minimising false negatives (missed good items).*
-- **F1-Score@N**: Harmonic mean of Precision and Recall.
-  $$F1@N = 2 \cdot \frac{Precision@N \cdot Recall@N}{Precision@N + Recall@N}$$
-**Example Scenario (Music Recommender - Top 5)**:
+- **Precision@N**: Of the top N recommended items, how many were actually relevant? $$Precision@N = \frac{\#\text{ of relevant items in top N}}{N}$$*Focus: Minimising false positives (bad recommendations).*
+- **Recall@N**: Of all the relevant items, how many did we manage to recommend in the top N? $$Recall@N = \frac{\#\text{ of relevant items in top N}}{\text{Total \# of relevant items}}$$*Focus: Minimising false negatives (missed good items).*
+- **F1-Score@N**: Harmonic mean of Precision and Recall. $$F1@N = 2 \cdot \frac{Precision@N \cdot Recall@N}{Precision@N + Recall@N}$$**Example Scenario (Music Recommender - Top 5)**:
 - System recommends songs: {S1, S2, S3, S4, S5}.
 - User actually likes: {S1, S3, S6, S7}.
 - **Relevant in top N**: S1, S3.
@@ -862,7 +838,6 @@ Accuracy alone is insufficient. A system with high accuracy might recommend only
 - **Content-Based Filtering**: Poor at novelty/serendipity (trapped in filter bubble) but can have high precision.
 - **Knowledge-Based Systems**: Can explicitly engineer for serendipity via reasoning in knowledge graphs.
 ### 3.8.3 Experimental Studies with Users
-
 #### A/B Testing (Online Experiment)
 The **gold standard** for evaluating impact on real user behaviour in a live system.
 
@@ -892,7 +867,7 @@ Involves a smaller group of participants performing tasks with the system, follo
 **Key Insight**: No single algorithm was best. The **hybrid ensemble** (a form of **Weighted hybridisation**) achieved the winning result by **averaging out the errors** of diverse models. This demonstrates the supremacy of hybrid approaches for maximising **accuracy metrics** like RMSE.
 
 ---
-#### **Exam Practice Question 3.5**
+#### Exam Practice Question 3.5
 **A/B testing is used to compare a new hybrid recommender (B) against the old content-based one (A). After one week, the *Click-Through Rate (CTR)* on recommendations is 5.2% for Group A and 5.5% for Group B. The product manager wants to deploy B immediately. As a responsible data scientist, what critical question would you ask before agreeing?**
 **[3 marks]**
 
@@ -900,7 +875,7 @@ Involves a smaller group of participants performing tasks with the system, follo
 **Is the difference statistically significant?** A 0.3% point increase could be due to **random variation** and not a true effect of the new algorithm. We must perform a **statistical significance test** (e.g., a chi-squared test or t-test on the proportions) to calculate a p-value. Only if the p-value is below a threshold (e.g., 0.05) can we confidently attribute the increase to the algorithm change and justify deployment.
 
 ---
-#### **Exam Practice Question 3.6**
+#### Exam Practice Question 3.6
 **Calculate the *Precision@3* and *Recall@3* for a user given the following: The system's top 3 recommendations are [ItemA, ItemB, ItemC]. The user's set of *truly relevant* items (based on their hidden ratings) is {ItemA, ItemD, ItemF}.**
 **[3 marks]**
 
@@ -942,11 +917,11 @@ Prepares raw data for model consumption.
 #### 3. Model Selection & 4. Training/Optimization
 Choosing and training the ML model.
 
-| Model Category | Example Algorithms | Characteristics & Use Case |
-| :--- | :--- | :--- |
-| **Traditional ML** | **Random Forest (RF)**, Decision Trees, SVM, Bayesian Networks. | **Interpretable**, handles tabular data well, good for **feature importance analysis**. Use when explainability is key. |
-| **Deep Learning** | **Neural Networks**, Autoencoders. | Captures **complex non-linear patterns** in high-dimensional data (e.g., raw text, images). |
-| **Temporal/Sequential DL** | **Recurrent Neural Networks (RNNs)**, LSTMs, Transformers. | Models **user behaviour sequences** (e.g., watch history). Essential for "next-in-sequence" recommendations. |
+| Model Category             | Example Algorithms                                              | Characteristics & Use Case                                                                                              |
+| :------------------------- | :-------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------- |
+| **Traditional ML**         | **Random Forest (RF)**, Decision Trees, SVM, Bayesian Networks. | **Interpretable**, handles tabular data well, good for **feature importance analysis**. Use when explainability is key. |
+| **Deep Learning**          | **Neural Networks**, Autoencoders.                              | Captures **complex non-linear patterns** in high-dimensional data (e.g., raw text, images).                             |
+| **Temporal/Sequential DL** | **Recurrent Neural Networks (RNNs)**, LSTMs, Transformers.      | Models **user behaviour sequences** (e.g., watch history). Essential for "next-in-sequence" recommendations.            |
 **Example - MoveApp Model Selection**:
 - **Chosen Algorithm**: **Random Forest**.
 - **Justification**:
@@ -991,7 +966,7 @@ The system is not a single model but a **cascade of filters and recommenders**:
 - **Results**: Group A showed **significantly higher star ratings**, **greater motivation**, **larger increase in physical activity**, and **lower dropout rates**. This proved the value of the personalised ML components.
 
 ---
-#### **Exam Practice Question 3.7**
+#### Exam Practice Question 3.7
 **The MoveApp team chose a *Random Forest* model. For a different recommender system that must predict the *next movie a user will watch* based on their *sequential viewing history*, why would a Random Forest be a *poor* choice compared to a model like an LSTM?**
 **[4 marks]**
 
@@ -1088,7 +1063,7 @@ A more flexible method. Pages are constructed from **smaller, reusable content f
 - **Static Structure**: The slot template itself cannot adapt.
 
 ---
-#### **Exam Practice Question 4.1**
+#### Exam Practice Question 4.1
 **A university's online module description page uses an *Altering Fragments* approach. It has two constituents: 'Prerequisites' and 'Assessment Details'. Describe two different user model attributes that could drive the selection of different fragment alternatives for these constituents.**
 **[4 marks]**
 
@@ -1133,7 +1108,7 @@ Once content is selected, it must be presented effectively. A key trade-off is *
 **Situation for Use**: **Dimming/Fading** is good for preserving full context while guiding attention. **Sorting** is best for unstructured lists where order doesn't convey intrinsic meaning.
 
 ---
-#### **Exam Practice Question 4.2**
+#### Exam Practice Question 4.2
 **Comparing *Optional Fragments* and *Altering Fragments* approaches, which one is more likely to guarantee a coherent and well-structured final page? Justify your answer by referring to their underlying methodologies.**
 **[3 marks]**
 
@@ -1150,7 +1125,7 @@ The framework decomposes the generic adaptive architecture into six sequential l
 | Layered Evaluation Diagram                                                  |
 | :-------------------------------------------------------------------------- |
 | *(Imagine a diagram showing the 6 sequential layers from the architecture)* |
-#### **Layer 1: Collection of Input Data**
+#### Layer 1: Collection of Input Data
 - **Goal**: Verify the **quality and reliability** of the raw data being gathered.
 - **Key Criteria**:
     - **Accuracy**: Does the sensor/log correctly capture the user's action? (e.g., was a click registered?).
@@ -1162,7 +1137,7 @@ The framework decomposes the generic adaptive architecture into six sequential l
     - **Cross-Validation**: Compare data from multiple sources (e.g., app logs vs. server logs).
 
 **Example - 3Cixty Tourist App**: Test if the GPS sensor accurately and promptly reports the user's location in Milan, and if Bluetooth beacons trigger correctly at museum entrances.
-#### **Layer 2: Interpretation of the Collected Data**
+#### Layer 2: Interpretation of the Collected Data
 - **Goal**: Check that **raw data is correctly interpreted** into meaningful user signals.
 - **Key Criteria**:
     - **Validity**: Does the interpretation match the user's actual intent? (e.g., does "dwell time > 30s" truly mean "interest"?).
@@ -1173,7 +1148,7 @@ The framework decomposes the generic adaptive architecture into six sequential l
     - **Cross-Validation**: Compare inferred states with user self-reports (ground truth).
 
 **Example - 3Cixty**: If the app infers "user is interested in art" from visiting two galleries, a user test might reveal they were just sheltering from rain, invalidating the interpretation.
-#### **Layer 3: Modelling the Current State (The User Model)**
+#### Layer 3: Modelling the Current State (The User Model)
 - **Goal**: Assess the **accuracy and quality** of the inferred user model itself.
 - **Key Criteria**:
     - **Validity/Predictive Accuracy**: Does the model correctly predict user attributes or future behaviour? (Use metrics like **Precision, Recall, MAE**).
@@ -1185,7 +1160,7 @@ The framework decomposes the generic adaptive architecture into six sequential l
     - **Focus Groups**: Discuss if the modelled stereotypes feel accurate.
 
 **Example - 3Cixty**: Evaluate if the user's inferred "interest profile" for categories (art, food, history) can predict which type of place they will click on next. Calculate precision/recall.
-#### **Layer 4: Deciding Upon Adaptation**
+#### Layer 4: Deciding Upon Adaptation
 - **Goal**: Determine if the **adaptation logic** makes appropriate decisions.
 - **Key Criteria**:
     - **Appropriateness**: Given the user model, was the chosen adaptation the best possible action?
@@ -1195,7 +1170,7 @@ The framework decomposes the generic adaptive architecture into six sequential l
     - **Simulated Users + Cross-Validation**: Use simulated user models to generate many decision scenarios and have experts or algorithms rate the appropriateness of outputs.
 
 **Example - 3Cixty**: Given a user model showing high art interest and current location near the Last Supper, the system decides to recommend a nearby modern art gallery. Experts evaluate if this is appropriate or if a restaurant recommendation would be better given the time of day.
-#### **Layer 5: Applying Adaptation Decisions (The Adaptive Interface)**
+#### Layer 5: Applying Adaptation Decisions (The Adaptive Interface)
 - **Goal**: Evaluate the **implementation and presentation** of the adaptation.
 - **Key Criteria**:
     - **Usability**: Is the adapted interface easy to use?
@@ -1208,7 +1183,7 @@ The framework decomposes the generic adaptive architecture into six sequential l
     - **Heuristic Evaluation**: Use usability heuristics tailored to adaptive systems.
 
 **Example - 3Cixty**: The system applies the decision by popping up a notification for the gallery. User tests assess if the pop-up is annoying (obtrusive) and if the information displayed is clear (usable).
-#### **Layer 6: Evaluating the System as a Whole (Summative)**
+#### Layer 6: Evaluating the System as a Whole (Summative)
 - **Goal**: Assess the **overall utility and impact** of the adaptive system.
 - **Focus**: **Benefits vs. Drawbacks (Usability Threats)**.
 - **Typical Benefits (Utility)**:
@@ -1224,7 +1199,7 @@ The framework decomposes the generic adaptive architecture into six sequential l
 - **Methods**: **A/B Testing**, longitudinal field studies, surveys measuring perceived utility and trust.
 
 ---
-#### **Exam Practice Question 5.1**
+#### Exam Practice Question 5.1
 **During the formative evaluation of a fitness app's *mood detection* feature, evaluators find the system often misinterstands a user's raised heart rate during a workout as "stress" rather than "exertion." Which *layer* of the layered evaluation framework does this problem belong to? Propose a specific evaluation method to diagnose it.**
 **[4 marks]**
 
@@ -1270,7 +1245,7 @@ Adaptivity introduces specific **usability threats** that must be evaluated, esp
 **When to Use**: For making **data-driven deployment decisions** about new features or algorithms. It provides evidence of **real-world impact**.
 
 ---
-#### **Exam Practice Question 5.2**
+#### Exam Practice Question 5.2
 **An A/B test for a news app's new personalisation algorithm shows Group B (new algorithm) has a higher average "articles read per session" than Group A. However, a survey reveals Group B users feel they are "seeing the same types of stories." Identify the *usability threat* this suggests and explain why A/B testing on its own might not have detected it.**
 **[4 marks]**
 
@@ -1292,47 +1267,46 @@ LLMs can generate highly fluent, context-aware text, enabling new forms of adapt
 The generative power and opacity of LLMs amplify existing ethical concerns. A responsible framework is essential.
 ### The EU's Ethics Guidelines for Trustworthy AI (A 7-Requirement Framework)
 This framework provides a robust structure for evaluating any AI system, including LLM-based adapters.
-#### **R1: Human Agency & Oversight**
+#### R1: Human Agency & Oversight
 **Core Question**: Does the system preserve meaningful human control and autonomy?
 - **Risks**: LLMs can create **over-reliance**, **addiction**, or **undue influence** on decision-making (e.g., a student blindly following an AI tutor's answer).
 - **Mitigations**:
     - **Human-in-the-Loop**: Critical decisions (e.g., final diagnosis in a medical trainer) require human validation.
     - **Clear Demarcation**: The system must disclose it is a **machine** (Best Practice 6).
     - **Foster Critical Engagement**: Design interactions that encourage questioning, not passive acceptance.
-#### **R2: Technical Robustness & Safety**
+#### R2: Technical Robustness & Safety
 **Core Question**: Is the system reliable, secure, and resilient against errors or misuse?
 - **Risks**: LLMs **hallucinate** (generate plausible but false information). They can be **jailbroken** to produce harmful content. Training data may be **outdated or biased**.
 - **Mitigations**:
     - **Validation & Grounding**: Use retrieval-augmented generation (RAG) to ground responses in verified sources (e.g., a tutor's knowledge base).
     - **Red-Teaming & Adversarial Testing**: Proactively test for harmful outputs.
     - **Continuous Monitoring & Updates**: Ensure training data and models reflect current knowledge.
-#### **R3: Privacy & Data Governance**
+#### R3: Privacy & Data Governance
 **Core Question**: Is user data protected, and is data processing lawful?
 - **Risks**: LLM interactions can reveal sensitive user information. Prompt history may be stored and used for training.
 - **Mitigations**: Apply standard privacy techniques (Topic 6.2) with added vigilance for **conversational data**. Use **on-device models** or **differential privacy** in training.
-
-#### **R4: Transparency**
+#### R4: Transparency
 **Core Question**: Can users understand the system's workings and limitations?
 - **Risks**: LLMs are **opaque "black boxes"**. It's hard to explain *why* a specific response was generated.
 - **Mitigations**:
     - **Explainability**: Provide **feature-based** or **retrieval-based explanations** (e.g., "This answer is based on source document X").
     - **Traceability**: Log key decision points in the interaction.
     - **Open Communication**: Clearly state the system's **capabilities and limitations** (e.g., "I may make mistakes. Always verify important information.").
-#### **R5: Diversity, Non-Discrimination & Fairness**
+#### R5: Diversity, Non-Discrimination & Fairness
 **Core Question**: Does the system treat all users fairly and avoid amplifying biases?
 - **Risks**: LLMs encode and can amplify **societal biases** present in their massive training data (e.g., gender, racial stereotypes). This can lead to discriminatory recommendations or language.
 - **Mitigations**:
     - **Bias Audits**: Regularly test outputs for fairness across user subgroups.
     - **Debiasing Techniques**: Apply fine-tuning or inference-time corrections.
     - **Inclusive Design**: Ensure the system is **accessible** to users with diverse abilities.
-#### **R6: Societal & Environmental Well-being**
+#### R6: Societal & Environmental Well-being
 **Core Question**: What is the system's broader impact on society and the planet?
 - **Risks**: Can **displace human jobs** (e.g., tutors), contribute to **social isolation** (via AI companions), or have a large **carbon footprint** from training/running giant models.
 - **Mitigations**:
     - **Impact Assessment**: Conduct studies on social and environmental effects.
     - **Augmentation, Not Replacement**: Design systems to **assist humans**, not replace them entirely.
     - **Sustainable AI Practices**: Optimise models for energy efficiency.
-#### **R7: Accountability**
+#### R7: Accountability
 **Core Question**: Who is responsible for the system's outcomes?
 - **Risks**: **Liability is unclear** when an LLM causes harm (e.g., gives dangerous medical advice).
 - **Mitigations**:
@@ -1341,7 +1315,7 @@ This framework provides a robust structure for evaluating any AI system, includi
     - **Redress Mechanisms**: Provide clear channels for users to report problems and seek remedy.
 
 ---
-#### **Exam Practice Question 6.4**
+#### Exam Practice Question 6.4
 **An LLM-powered "career coach" chatbot gives personalised advice to university students. Using the EU's Trustworthy AI framework, identify *two* distinct requirements this system is likely to fail and justify your concerns with specific examples.**
 **[6 marks]**
 
@@ -1382,7 +1356,7 @@ An analysis of Facebook, Netflix, YouTube, Spotify, and Amazon revealed:
 **Conclusion for Designers**: To be truly transparent, move beyond data collection notices. **Explain individual recommendations** and **give users meaningful control** over the adaptation logic.
 
 ---
-#### **Exam Practice Question 6.5**
+#### Exam Practice Question 6.5
 **A music app currently shows a "Recommended For You" playlist with no explanation. Using the *transparency checklist*, propose *two* specific, implementable features the app could add to improve transparency, linking each to a specific Best Practice.**
 **[4 marks]**
 
@@ -1416,7 +1390,7 @@ You should now be able to:
     5.  **Review Past Papers**: Understand how scenarios are constructed and what level of detail is required.
 
 ---
-#### **Exam Practice Question 7.1 (Synthesis)**
+#### Exam Practice Question 7.1 (Synthesis)
 **You are asked to advise a start-up building a "Personalised Home Cooking Assistant" app. It suggests recipes based on user dietary preferences, ingredient availability, and cooking skill. Outline your high-level recommendations covering: (a) A suitable *Recommender System* technique with justification, (b) One critical *User Modelling* challenge, and (c) One primary *Responsible Personalisation* concern to address.**
 **[9 marks]**
 
