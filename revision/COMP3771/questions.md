@@ -1455,7 +1455,506 @@ A social media company is planning a **layered evaluation** of its new LLM-power
 *(This explains the **criteria** (policy pattern) and the **reasoning** (matching a known trope), going beyond just highlighting keywords.)*
 
 # More
+## Topic: Advanced Hybridisation & ML Pipelines
+### Question 1: The "ChefPal" Recipe & Meal Planning App
+ChefPal is an adaptive app that generates weekly meal plans. It uses a **multi-stage pipeline**: first, a constraint-based filter removes recipes containing allergens; second, a **neural network** predicts a user's rating for remaining recipes based on their past ratings and recipe features; third, a **diversity optimizer** ensures the weekly plan includes varied cuisines.
 
+**(a) Identify the **hybridisation method** used in ChefPal's pipeline. Justify your answer by mapping each stage of the pipeline to a component of the hybrid method.**
+[4 marks]
+
+**(b) The neural network in stage two uses **embedding layers** for both users and recipe ingredients. Explain what an embedding layer does in this context and **two advantages** it provides over using one-hot encoded categorical variables.**
+[6 marks]
+
+**(c) The **diversity optimizer** (stage three) is critiqued for sometimes replacing a highly predicted recipe with a less-liked but more diverse one, potentially reducing short-term user satisfaction. From the **EU Ethics Guidelines**, which requirement (R1-R7) does this trade-off most directly engage with? Justify your answer.**
+[3 marks]
+
+---
+#### Model Answer 1
+**(a) Hybridisation Method:**
+- **Method**: **Cascade Hybrid**. [1 mark]
+- **Justification**: The process is **strictly sequential**, where the output of one stage becomes the constrained input for the next. [1 mark]
+    1.  **Stage 1 (Constraint Filter)**: Acts as the **first algorithm** in the cascade, producing a candidate set free of allergens.
+    2.  **Stage 2 (Neural Network)**: Acts as the **second algorithm**, taking the filtered candidate set and re-ranking it by predicted rating.
+    3.  **Stage 3 (Diversity Optimizer)**: Acts as the **third (final) algorithm**, taking the re-ranked list and applying a final re-ordering to enforce diversity. Each stage operates on the output of the previous one. [2 marks]
+
+**(b) Embedding Layers:**
+- **What it does**: An **embedding layer** learns to map categorical data (e.g., user IDs, ingredient names) into a **dense, low-dimensional vector space**. During training, it adjusts these vectors so that similar users or ingredients end up **close together** in this learned space. [2 marks]
+- **Advantage 1: Captures Semantic Relationships**. Learned embeddings can capture **latent similarities** that one-hot encoding cannot. For example, the embeddings for "thyme" and "rosemary" might become close in the vector space because they often co-occur in recipes, even though they are lexically distinct. One-hot encoding treats all ingredients as orthogonal. [2 marks]
+- **Advantage 2: Handles High Cardinality & Sparsity Efficiently**. One-hot encoding for thousands of users/ingredients creates huge, sparse vectors that are computationally inefficient. Embeddings **compress** this information into a fixed, dense size (e.g., 64 dimensions), drastically reducing model parameters and improving learning efficiency. [2 marks]
+
+**(c) Ethical Requirement:**
+- **Requirement**: **R1: Human Agency & Oversight**. [1 mark]
+- **Justification**: This trade-off engages with the tension between **system autonomy and user preference**. The system is making an autonomous decision to **override a user's predicted preference** (high-rated recipe) for a perceived long-term benefit (dietary diversity). This risks **diminishing user agency** if the user feels their tastes are being ignored for the system's agenda. The guideline emphasises that users should retain **meaningful control**; this scenario necessitates transparency about the trade-off and possibly user controls over the diversity vs. preference balance. [2 marks]
+
+---
+## Topic: Stereotypes, Bias, & Fairness
+### Question 2: The "CareerPath" AI Career Advisor
+CareerPath uses stereotypes to provide initial career suggestions to students. One stereotype is "TECH_INCLINED": triggered if a student's grades in Maths and Computing are >70%. The stereotype suggests high ratings for careers like "Software Developer" and "Data Scientist," and low ratings for "Primary School Teacher" or "Social Worker."
+
+**(a) This stereotype, while efficient, poses a **fairness risk**. Name this specific type of algorithmic bias and explain how it could manifest and cause harm in this educational context.**
+[4 marks]
+
+**(b) Describe a **technical mitigation strategy** (during system design) and a **procedural mitigation strategy** (during system use) to address the bias identified in (a).**
+[4 marks]
+
+**(c) CareerPath switches from stereotypes to a **Collaborative Filtering (CF)** model after collecting sufficient data on a student's app interactions. Explain why this switch might **perpetuate or even amplify** the initial bias from the stereotype, rather than correcting it.**
+[3 marks]
+
+---
+#### Model Answer 2
+**(a) Fairness Risk:**
+- **Type of Bias**: **Historical/Representational Bias** and **Social Stereotyping Bias**. [1 mark]
+- **Manifestation & Harm**: The stereotype encodes and automates **existing societal biases** that equate high STEM grades with technical careers and undervalue caring professions. [1 mark]
+- **Harmful Impact**:
+    1.  **Self-Fulfilling Prophecy**: A student who excels in Maths but has a passion for teaching might be steered away from it, narrowing their perceived options based on a biased algorithm.
+    2.  **Reinforcement of Gender/Social Biases**: If historical data shows more males in "TECH_INCLINED," the stereotype may disproportionately steer male students towards tech, **perpetuating gender imbalances** in both tech and education fields. This is a clear violation of **fairness (R5)**. [2 marks]
+
+**(b) Mitigation Strategies:**
+- **Technical Strategy**: **Debiasing the Training Data & Model**. Use techniques like **adversarial debiasing** during the stereotype creation. Train the model to predict careers while simultaneously making it impossible to predict a protected attribute (e.g., gender) from its internal representations. This encourages the model to learn features uncorrelated with bias. [2 marks]
+- **Procedural Strategy**: **Implement a "Bias Audit" and "Override Explanation" Requirement**. Regularly audit the system's outputs across demographic groups. Furthermore, if the system recommends against a career a student has explicitly expressed interest in (e.g., teaching), it must **provide a clear, scrutable explanation** based on the stereotype's logic ("We suggested this because of your high Maths grade"), allowing the student to understand and contest the biased recommendation. [2 marks]
+
+**(c) Perpetuation of Bias via CF:**
+The initial stereotype influences the **early interactions** of the affected student. A student steered towards tech articles in the app will generate an **interaction history** skewed towards tech. [1 mark]
+The **CF algorithm** then finds neighbours based on this skewed history—these neighbours will likely be other students who were also initially classified as "TECH_INCLINED" or who genuinely prefer tech. [1 mark]
+The resulting CF recommendations will be a **tech-heavy echo chamber**, amplifying the initial steering effect. The bias is **baked into the interaction data**, which CF then uses as its "ground truth," creating a **feedback loop of bias**. [1 mark]
+
+---
+## Topic: Layered Evaluation & Usability Threats
+### Question 3: The "FitBot" Conversational Coaching Agent
+FitBot is an LLM-powered chatbot that provides real-time form correction during workouts via a user's camera. It uses computer vision to analyse posture, infers incorrect form (User Model), and generates corrective verbal instructions (Adaptation).
+
+**(a) During a **Layer 2 (Interpretation)** evaluation, evaluators find FitBot often misinterprets a user taking a short rest between sets as "exercise abandonment." Propose a **specific refinement** to the interpretation logic and an **evaluation method** to validate the refinement.**
+[4 marks]
+
+**(b) One major **usability threat** for FitBot is **Obtrusiveness**. Describe two distinct design choices that could make FitBot obtrusive in this context. For each, suggest an **alternative design choice** to mitigate it.**
+[6 marks]
+
+**(c) A summative **A/B test** compares FitBot (Group B) to a pre-recorded video guide (Group A). The primary metric is "correct form adherence." After 4 weeks, Group B shows better adherence but also a **30% higher dropout rate**. Which **usability threat** does the higher dropout rate likely indicate? Propose a **hypothesis** for why this threat manifested more in Group B.**
+[4 marks]
+
+---
+#### Model Answer 3
+**(a) Refinement & Evaluation:**
+- **Refinement**: Implement **state-based interpretation**. Integrate a simple **workout state machine** (e.g., "preparing," "set_active," "resting," "completed"). The "resting" state should have a **duration threshold** (e.g., 2 minutes). Only if the user is stationary beyond this threshold during an "active" workout should it be interpreted as "abandonment." [2 marks]
+- **Evaluation Method**: **Video-Cued Retrospective Think-Aloud**. Record users' workouts. Later, show them video clips where the system applied the old and new logic. Ask: "Here you stopped. Were you resting between sets, or were you stopping the workout?" Compare the system's interpretation under the new logic to the user's stated intent to calculate **validity metrics**. [2 marks]
+
+**(b) Obtrusiveness & Mitigation:**
+1.  **Obtrusive Choice**: **Continuous, Unsolicited Verbal Feedback**. The chatbot narrates every minor imperfection: "Knee slightly inward. Back not straight. Elbow drop detected."
+    **Mitigation**: **Threshold-Based & Summarised Feedback**. Only provide verbal corrections when form deviation exceeds a safety threshold. Provide a single, multi-part correction at the end of a set ("Next set, focus on knee alignment and elbow height"), not during the movement. [3 marks]
+2.  **Obtrusive Choice**: **Interrupting Music/Media**. The chatbot's voice interrupts the user's workout playlist.
+    **Mitigation**: **Non-Verbal, Ambient Feedback**. Use **short, distinctive non-verbal sounds** (e.g., a specific chime for "knee," a buzz for "back") paired with a **minimal visual icon** on-screen. This allows correction without breaking the user's auditory flow. [3 marks]
+
+**(c) Dropout Rate Analysis:**
+- **Indicated Usability Threat**: **Diminished Controllability** and **Frustration due to Rigidity**. [1 mark]
+- **Hypothesis**: The pre-recorded video (Group A) is a **passive, predictable resource** the user controls. FitBot (Group B) is an **active, autonomous critic**. Users may feel **constantly monitored and judged** by the AI, leading to **performance anxiety** or annoyance at its imperfections (e.g., incorrect corrections). This loss of control and negative emotional response increases **frustration**, leading to higher dropout, despite better short-term form adherence. The AI's adaptiveness, in this case, created a **coercive rather than supportive** experience. [3 marks]
+
+---
+## Topic: Transparency & Privacy by Design
+### Question 4: The "BudgetGuard" Financial Wellness App
+BudgetGuard connects to users' bank accounts, analyses transactions, categorises spending, and provides personalised saving tips. It uses complex clustering to identify "spending personas."
+
+**(a) Using the **Transparency Checklist**, design **two features**: one addressing **BP3 (Processing Transparency)** and one addressing **BP9 (Participatory Control)**. Be specific to BudgetGuard's context.**
+[6 marks]
+
+**(b) A user is concerned about **inferential privacy**. Explain what inferential privacy means in the context of BudgetGuard. What **sensitive inference** could the system make from seemingly neutral transaction data?**
+[3 marks]
+
+**(c) BudgetGuard uses **differential privacy** when aggregating user data to benchmark spending habits. In simple terms, what is the core guarantee differential privacy provides to the individual user? What is the inevitable **trade-off** for providing this guarantee?**
+[4 marks]
+
+---
+#### Model Answer 4
+**(a) Transparency Features:**
+- **Feature for BP3 (Processing)**: **"How This Tip Was Generated" Drill-Down**. Next to a tip like "You spend 40% more on dining than similar users," an "Explain" link reveals: "This is based on: 1) Your 'Restaurant' transactions totalling £300, 2) Your assigned 'Urban Foodie' spending persona, 3) The average dining spend for your persona is £214." This explains the **factors, criteria, and reasoning** behind the specific output. [3 marks]
+- **Feature for BP9 (Control)**: **"Persona Editor & Influence Sliders"**. In settings, users can view their inferred "Urban Foodie" persona profile. They can: 1) **Edit/Remove categorisations** ("That wasn't a restaurant, it was a supermarket"), and 2) Adjust **sliders** for "How much should persona benchmarks influence my tips?" and "How much should my transaction history influence my persona?" This gives **direct, participatory control** over the key modelling components. [3 marks]
+
+**(b) Inferential Privacy:**
+- **Definition**: The risk that sensitive personal information, **not directly provided**, can be **inferred** from other, less sensitive data the user has consented to share. [1 mark]
+- **Sensitive Inference Example**: From a pattern of transactions at a **specific pharmacy** (location, time, frequency) combined with occasional purchases of soft foods, the system could **infer a user's medical condition** (e.g., undergoing chemotherapy) or pregnancy. This is a profound privacy violation far beyond the intent of sharing financial data for budgeting. [2 marks]
+
+**(c) Differential Privacy:**
+- **Core Guarantee**: It ensures that the **inclusion or exclusion of any single individual's data** from the dataset has a **negligible statistical effect** on the output of any analysis. In practice, it means a user can look at the aggregated benchmark (e.g., "Urban Foodies spend £214 on dining") and know that their specific data **cannot be reliably identified or extracted** from that published figure. [2 marks]
+- **Trade-off**: **Utility vs. Privacy Loss Budget**. Adding the necessary **random noise** to achieve the guarantee **reduces the accuracy (utility)** of the aggregated data. The more privacy you demand (a smaller "privacy loss budget" ε), the noisier and less useful the benchmarks become. The system designer must tune this parameter: perfect privacy renders the data useless; perfect utility offers no formal privacy guarantee. [2 marks]
+
+---
+## Topic: Utility-Based & Knowledge-Based Recommenders
+### Question 5: The "EcoHome" Smart Device Configurator
+EcoHome helps users choose a suite of smart home products (thermostats, lights, solar) to maximise energy savings. It is a **utility-based recommender** where users manually set the importance (0-10) of attributes like "Upfront Cost," "Annual Savings," "Installation Complexity," and "Brand Trust."
+
+**(a) Contrast the **user experience and required effort** of EcoHome's utility-based approach with that of a standard **Collaborative Filtering (CF)** system for the same task. List one pro and one con for the user in each case.**
+[6 marks]
+
+**(b) The team considers adding a **Knowledge-Based (KB) component** to assist users who don't know how to set the utility weights. Describe how a **critique-based interaction** in this hybrid system would work. Give a concrete example dialogue.**
+[4 marks]
+
+**(c) A pure utility-based system suffers from the **"tyranny of small decisions."** Explain what this means in EcoHome's context and how a **hybrid with a CF component** could alleviate it.**
+[3 marks]
+
+---
+#### Model Answer 5
+**(a) Comparison: Utility-Based vs. CF:**
+
+| Aspect | Utility-Based (EcoHome) | Collaborative Filtering (CF) |
+| :--- | :--- | :--- |
+| **User Experience** | **High Control, Transparent, Deliberative**. User actively defines their value function. | **Low Effort, Serendipitous, Opaque**. User just sees what "people like them" bought. |
+| **Pro for User** | **Complete Transparency & Trust**. User understands exactly why product X is top-ranked (e.g., "It scores highest on your weighted formula"). | **No Configuration Effort**. The system works from implicit data (clicks, purchases); the user doesn't need to be an expert to articulate trade-offs. |
+| **Con for User** | **High Cognitive Load & Knowledge Requirement**. User must know and accurately quantify their own preferences for abstract, technical attributes. | **Low Control & Potential Irrelevance**. Recommendations may be popular but ignore the user's specific constraints (e.g., recommending an expensive system when budget is the top concern). |
+
+[3 marks for a clear, accurate row/column; 6 marks for a fully fleshed-out table]
+
+**(b) Critique-Based KB Interaction:**
+- **Process**: The system would first generate an initial recommendation using **default weights** or a simple rule. The user then **critiques** this proposal to steer the system. [1 mark]
+- **Example Dialogue**:
+    - **System**: "Based on average preferences, I suggest the 'GreenWave Thermostat Pro' (£250, saves £120/yr, complex install)."
+    - **User**: **"That's too expensive."** (Critique: "Cheaper")
+    - **System**: (Recomputes, prioritising cost) "Okay. The 'EcoBasic Thermostat' (£120, saves £80/yr, easy install) is a better match. However, your annual savings are lower."
+    - **User**: **"I want higher savings, but keep it simple."** (Critique: "Higher savings" + "Simpler")
+    - **System**: (Finds compromise) "The 'SmartSave Balance' (£180, saves £100/yr, medium install) balances your critiques." [3 marks]
+
+**(c) "Tyranny of Small Decisions" & CF Hybrid:**
+- **Meaning in Context**: It refers to users making **locally optimal but globally sub-optimal choices** when setting weights. A user might slightly favour "Brand Trust" over "Annual Savings," not realising this small preference leads the system to recommend a vastly inferior product overall, missing a much better trade-off available in the market. The user's **limited knowledge** of the product space leads to poor global outcomes. [2 marks]
+- **How CF Hybrid Alleviates It**: A **Weighted Hybrid** combining utility score with a CF score (`Final_Score = w1*Utility + w2*CF_Score`) injects the **"wisdom of the crowd."** A product that is highly popular among users with *similar utility profiles* would get a boost. This can surface products the user's own utility function might undervalue, revealing those **globally better trade-offs** discovered by the collective experience of other buyers. [1 mark]
+## Topic: Reinforcement Learning & Sequential Adaptation
+### Question 1: "NewsFlow RL" Adaptive News Feed
+NewsFlow uses a **Reinforcement Learning (RL)** agent to personalize its news feed. The agent selects articles (actions) to maximize long-term user engagement, measured as total reading time over a 30-day period.
+
+**(a) Define the **State (s_t)**, **Action (a_t)**, and **Reward (r_t)** for NewsFlow's RL formulation. Your definitions must be specific to this news domain.**
+[3 marks]
+
+**(b) The RL agent must balance **exploration** (showing diverse articles to learn user preferences) and **exploitation** (showing articles it believes the user will like). Describe **one risk** if the agent explores too much, and **one risk** if it exploits too much, from the **user's perspective**.**
+[4 marks]
+
+**(c) How would you evaluate whether the RL agent's **exploration strategy is effective**? Describe a **specific metric** and the **methodology** for calculating it from the system's logs.**
+[3 marks]
+
+---
+#### Model Answer 1
+**(a) RL Formulation:**
+- **State (s_t)**: A representation of the user's **current context and history**. This includes: the user's recent click history (last 10 article topics), time of day, day of week, current device (mobile/desktop), and a summary of the user's long-term interest vector (e.g., high in "politics", low in "sports"). [1 mark]
+- **Action (a_t)**: The selection of a **specific article** from the candidate pool to present in the next slot in the user's feed. This is a discrete choice from thousands of possible articles. [1 mark]
+- **Reward (r_t)**: The **immediate user engagement** resulting from presenting article *a_t*. A simple formulation: `r_t = log(seconds_read + 1)`. This gives a positive reward for any reading, with diminishing returns for very long reads, closely correlating with the long-term goal of total reading time. [1 mark]
+
+**(b) Exploration vs. Exploitation Risks:**
+- **Risk of Too Much Exploration**: **Poor Short-Term User Experience and Loss of Trust**. If the system constantly shows irrelevant or uninteresting articles (e.g., sports to a user who only reads politics) in the name of exploration, the user will perceive the feed as **low-quality and random**. This leads to frustration, reduced immediate engagement, and may cause the user to abandon the platform, defeating the long-term goal. [2 marks]
+- **Risk of Too Much Exploitation**: **Accelerated Filter Bubble and User Boredom**. If the system only shows articles very similar to past clicks (e.g., only progressive politics to a left-leaning user), it creates an **extreme filter bubble**. The user misses important counter-perspectives or novel topics, leading to a **diminished breadth of experience**. Over time, the feed becomes predictable and boring, causing engagement to plateau or decline as the user seeks novelty elsewhere. [2 marks]
+
+**(c) Evaluating Exploration Effectiveness:**
+- **Metric**: **Discovery Rate** or **Novelty @ K**. This measures the proportion of recommended articles that are on topics the user has **not engaged with in a defined past period** (e.g., the last 7 days). [1 mark]
+- **Methodology**:
+    1.  From the logs, for each user, identify the set of **article topic tags** they clicked on in the previous 7 days (`Past_Topics`).
+    2.  For a test period, collect the top-K articles recommended each day and extract their topic tags.
+    3.  Calculate: `Discovery_Rate = (Number of recommended articles with at least one topic NOT in Past_Topics) / (Total number of recommendations)`.
+    4.  Aggregate this rate across users and time. A well-tuned RL agent should maintain a **stable, positive Discovery Rate**, indicating it is successfully introducing novel content without collapsing into pure exploitation. [2 marks]
+
+---
+## Topic: Graph-Based Models & Semantic Reasoning
+### Question 2: "ResearchHub" Academic Paper Recommender
+ResearchHub uses a **graph-based knowledge model** where nodes represent papers, authors, and concepts, and edges represent relationships like "cites," "authored_by," and "is_about."
+
+**(a) Explain **one key advantage** of this graph-based model over a standard **Content-Based Filtering (CBF)** model that uses TF-IDF vectors of paper abstracts. Use a specific example of a recommendation that the graph model could make but the CBF model would likely miss.**
+[4 marks]
+
+**(b) The system infers a user's interest in the concept "Graph Neural Networks (GNNs)" because they frequently read papers connected to that node. Describe **two distinct types of evidence** the system could use from the graph to **strengthen or weaken** this inference, beyond simple reading frequency.**
+[4 marks]
+
+**(c) A **privacy concern** arises because the graph can reveal a user's **nascent research interests** before they publish. Why is this a particular concern in an academic context? Suggest a **privacy-preserving technique** specific to graph-based learning that could mitigate this.**
+[4 marks]
+
+---
+#### Model Answer 2
+**(a) Advantage of Graph-Based Model:**
+- **Key Advantage**: **Capability for Multi-Hop, Semantic Reasoning**. A CBF model based on TF-IDF can only find papers with **lexical similarity** in their abstracts. A graph model can traverse **chains of relationships** to find semantically related work that uses different terminology. [2 marks]
+- **Example**: A user reads paper A on "attention mechanisms in transformers." A CBF model would recommend papers with the terms "attention" and "transformer." The **graph model** could traverse: Paper A `[is_about]` → "Self-Attention" `[subclass_of]` → "Graph Attention" `[is_about]` → Paper B on "Graph Attention Networks for Molecular Property Prediction." Paper B uses **different key terms** ("graph," "molecular") but is fundamentally related via the concept hierarchy. The graph model can make this **serendipitous, cross-disciplinary recommendation**; the CBF model cannot. [2 marks]
+
+**(b) Evidence for Inference Strength:**
+1.  **Temporal Proximity in Traversal Paths**: If the user reads paper X, and then shortly after reads paper Y, and the **shortest path** between X and Y in the graph goes through the "GNNs" node, this is strong evidence the user is actively connecting ideas via GNNs, strengthening the inference beyond independent reading events. [2 marks]
+2.  **Diversity of Connection Types**: The inference is strengthened if the user interacts with papers connected to "GNNs" via **different relationship types** (e.g., one paper that *cites* a seminal GNN paper, another that *is_about* GNNs, a third *authored by* a GNN expert). This indicates a broad interest. Conversely, if all connections are of the same type (e.g., only reading papers from one author), the interest might be narrow or coincidental, weakening the general inference. [2 marks]
+
+**(c) Privacy Concern & Mitigation:**
+- **Concern in Academic Context**: In academia, **novel ideas are currency**. Revealing a user's nascent interest in a specific, niche intersection of fields (e.g., "GNNs for archaeology") could allow competitors or reviewers to **infer their unpublished research direction**, potentially leading to intellectual property theft, being "scooped," or biased peer review. This is a high-stakes **inferential privacy** leak. [2 marks]
+- **Privacy-Preserving Technique**: **Graph-Based Federated Learning**. Instead of centralizing the detailed user-graph interaction data, the learning of user embeddings (vector representations of their interests within the graph) is performed **locally on the user's device**. Only **aggregated model updates** (not raw traversal paths) are sent to the server to improve the global graph model. This ensures that the precise sequence of nodes a user explores—which reveals their thought process—never leaves their device. [2 marks]
+
+---
+## Topic: Evaluation Metrics & Trade-offs
+### Question 3: "StyleGen" AI Fashion Outfit Generator
+StyleGen generates complete outfits. It is evaluated both **offline** (using historical "save" data) and **online** via A/B tests.
+
+**(a) The offline evaluation uses **Normalized Discounted Cumulative Gain (NDCG)**. Explain why NDCG is more appropriate than **Precision@K** for evaluating StyleGen's ranked list of generated outfits.**
+[3 marks]
+
+**(b) The A/B test's primary metric is **"outfit save rate."** After two weeks, the test is inconclusive (no significant difference). The team suspects a **"novelty effect"** in the treatment group. What is the novelty effect, and how could it have masked the true performance in the **early days** of the test? Propose a change to the **test design** to account for this.**
+[4 marks]
+
+**(c) Beyond accuracy and engagement, the team wants to evaluate **diversity**. Propose a **computable diversity metric** for StyleGen's outputs and describe **one challenge** in interpreting this metric.**
+[3 marks]
+
+---
+#### Model Answer 3
+**(a) NDCG vs. Precision@K:**
+NDCG is more appropriate because it is a **rank-aware metric** that rewards putting the most relevant items at the top of the list. [1 mark]
+- **Precision@K** treats all items in the top-K equally. If StyleGen's best outfit is ranked 3rd and its worst is ranked 1st, Precision@5 would still be 1/5=0.2 (if only one is saved), failing to capture this mis-ranking. [1 mark]
+- **NDCG** assigns higher weight (gain) to higher ranks. A saved outfit at position 1 contributes more to the score than a saved outfit at position 5. This correctly penalizes StyleGen for **burying good recommendations** and aligns with the user experience of scanning a list from the top. [1 mark]
+
+**(b) Novelty Effect & Test Design:**
+- **Novelty Effect**: The tendency for users to interact with a new feature simply because it is **new and different**, not because it is inherently better. This inflates engagement metrics temporarily. [1 mark]
+- **Masking True Performance**: In the first few days, users in the treatment group (seeing the new StyleGen outfits) might **save more outfits out of curiosity**, making the treatment appear better. This initial spike then decays as the novelty wears off, potentially to a level equal to or below the control. If the 2-week average is calculated, this early inflated period and later decay might average out to "no significant difference," hiding a possible **short-term gain or long-term loss**. [1 mark]
+- **Improved Test Design**: Implement an **"Elimination Period"** or analyze metrics with **time-series segmentation**. Discard the data from the first 3-5 days of the test to allow the novelty effect to dissipate, and then compare the groups only on the subsequent "steady-state" data. Alternatively, analyze the metric **day-by-day** to observe the trend and see if the treatment effect stabilizes. [2 marks]
+
+**(c) Diversity Metric & Challenge:**
+- **Proposed Metric**: **Pairwise Attribute Dissimilarity (Intra-List Diversity)**. For a user's generated set of N outfits, for each outfit, extract a feature vector (e.g., one-hot encoded: `[color:black, style:formal, item:dress,...]`). Compute the average **cosine distance** (1 - cosine similarity) between all unique pairs of outfit vectors in the set. A higher average indicates more diverse outfits. [2 marks]
+- **Challenge in Interpretation**: **Correlation with Relevance**. Maximizing this metric alone could lead to **bizarre, incoherent outfits** (e.g., a ball gown, then swimwear, then a business suit) that are diverse but useless. The metric must be interpreted **in conjunction with relevance/accuracy metrics**. A good system achieves **high diversity within a space of relevant items**. Disentangling whether low diversity is due to a narrow user profile or a failure of the system is difficult. [1 mark]
+
+---
+## Topic: Adaptive Presentation & Fragments
+### Question 4: "LangBot" Adaptive Language Learning Chat Interface
+LangBot teaches Spanish via a chat interface. It uses a **fragment-based approach** to construct its messages. Fragments include grammar explanations, vocabulary hints, cultural notes, and encouragement. Its rules are complex, considering the user's current lesson, error rate, and time of day.
+
+**(a) The current system uses **Optional Fragments**. Describe a scenario where this could lead to a **confusing or overwhelming message** for the learner. Your answer must include specific fragments and their conditions.**
+[3 marks]
+
+**(b) To solve this, the team switches to an **Altering Fragments** approach with four slots: `Greeting`, `Core_Content`, `Feedback`, `Closing`. For the `Feedback` slot, design **two alternative fragments** and the **user model condition** that would trigger each one.**
+[3 marks]
+
+**(c) The team now wants to **dynamically generate** the `Core_Content` using an LLM, prompting it with the user's learning history. This shifts from a fragment-based to an **automatic generation** approach. State **one major advantage** and **one major risk** of this shift in the context of language learning.**
+[4 marks]
+
+---
+#### Model Answer 4
+**(a) Problem with Optional Fragments:**
+- **Scenario**: A user is struggling with the past tense (`error_rate_this_session > 70%`). It is also their 5th consecutive day using the app (`streak_days >= 5`), and the current lesson touches on Mexican culture (`lesson_topic == "food"`). [1 mark]
+- **Applicable Fragments**:
+    - F1 (Grammar Tip): Condition `error_rate > 50%` -> "Remember, for regular -ar verbs in the past..."
+    - F2 (Encouragement): Condition `streak_days >= 3` -> "Great dedication on your 5-day streak!"
+    - F3 (Cultural Note): Condition `lesson_topic == "food"` -> "In Mexico, 'tacos al pastor' have a fascinating history..."
+    - F4 (Vocabulary Hint): Condition `new_vocab_count > 5` -> "The word 'sabor' (flavor) is related to 'sabroso' (tasty)." [1 mark]
+- **Resulting Confusing Message**: The bot sends all four fragments in one block:
+    *"Remember, for regular -ar verbs in the past... Great dedication on your 5-day streak! In Mexico, 'tacos al pastor' have a fascinating history... The word 'sabor' (flavor) is related to 'sabroso' (tasty)."*
+    This is **informationally overloaded and thematically jumbled**, mixing grammar, encouragement, culture, and vocabulary without a coherent narrative, likely overwhelming the learner. [1 mark]
+
+**(b) Altering Fragments for Feedback Slot:**
+- **Slot**: `Feedback`
+    1.  **Fragment F_Feedback_Corrective**: "Let's review that. The correct form is 'hablé' (I spoke). The ending for 'yo' is '-é'. Try the next one!"
+        **Condition**: `last_response_correct == FALSE`
+    2.  **Fragment F_Feedback_Reinforcing**: "¡Excelente! You used 'comí' (I ate) perfectly. That's the correct irregular form."
+        **Condition**: `last_response_correct == TRUE AND response_used_irregular_verb == TRUE`
+[3 marks - 1 for each fragment, 1 for appropriate conditions]
+
+**(c) Shift to LLM Generation:**
+- **Major Advantage**: **Unprecedented Adaptability and Conversational Fluidity**. An LLM can generate `Core_Content` that seamlessly incorporates the user's past errors, stated interests, and current context into a **single, coherent, and naturally flowing response**. For example: "Ah, you mixed up 'ser' and 'estar' again, like you did last Tuesday when describing your mood. Let's tackle this with a quick story about your favorite footballer, Messi, being from Argentina..." This level of **personalized, contextual weaving** is impossible with pre-authored fragments. [2 marks]
+- **Major Risk**: **Loss of Pedagogical Control and Hallucination**. The LLM might generate explanations that are **linguistically incorrect**, pedagogically unsound (teaching a complex rule too early), or culturally inappropriate. It could **"hallucinate"** false grammar rules or vocabulary. In language learning, where accuracy is paramount, this could **actively teach the user incorrect Spanish**, causing significant harm that is hard to correct later. Ensuring the LLM's outputs are **grounded in a verified knowledge base** is critical and challenging. [2 marks]
+
+---
+## Topic: Cold-Start & Hybrid Solutions
+### Question 5: "ArtFolio" Personalized Digital Art Gallery
+ArtFolio recommends digital artworks (NFTs and traditional digital art) to new users. It faces severe **cold-start problems**: new users (user cold-start) and new artworks added daily (item cold-start).
+
+**(a) Propose a **hybrid recommendation strategy** specifically designed to address **both cold-start problems simultaneously**. Name the techniques combined and the **hybridisation method**, and explain the role of each technique.**
+[5 marks]
+
+**(b) For the **item cold-start** component of your hybrid, the system uses **visual feature vectors** (extracted via a CNN) of the artwork images. Why is this a **Content-Based (CBF)** approach? What is a **key limitation** of using only these visual features for art recommendation?**
+[3 marks]
+
+**(c) After 10 user interactions, the system switches to a different hybrid method. What **usability threat** could this sudden switch pose, and how would you mitigate it in the UI?**
+[2 marks]
+
+---
+#### Model Answer 5
+**(a) Hybrid Strategy for Dual Cold-Start:**
+- **Techniques**: **Knowledge-Based (KB) + Content-Based Filtering (CBF)**. [1 mark]
+- **Hybridisation Method**: **Mixed Hybrid** (or **Weighted** with very high initial weight on KB). [1 mark]
+- **Role of Each Technique**:
+    1.  **KB System (Addresses User Cold-Start)**: On first login, engages the user in a **dialogue** ("What art styles do you like? Abstract or figurative? What's your favorite color palette? What's your budget?"). Uses these explicit constraints to filter the entire catalogue. This provides immediate, relevant recommendations without any history. [1.5 marks]
+    2.  **CBF System (Addresses Item Cold-Start)**: For every artwork, including brand new ones, a **visual feature vector** is pre-computed. The system can recommend new artworks whose visual features are similar to those the user has liked (from KB choices or early clicks). This ensures new items can be recommended from day one. [1.5 marks]
+
+**(b) Visual Features as CBF & Limitation:**
+- **Why it's CBF**: The visual feature vector (e.g., a 512-dim vector encoding style, color, texture, composition) acts as the **item's "content" or metadata**. The system recommends art by finding items with **similar feature vectors** to those the user has shown interest in. This is the hallmark of CBF: recommendation via **item attribute similarity**. [1.5 marks]
+- **Key Limitation**: **Misses Conceptual, Narrative, and Contextual Meaning**. Art appreciation often hinges on **concept, story, cultural context, or artist's intent**, which are not captured by low-level visual features. A CBF system might recommend two visually similar abstract paintings, missing that one is about joy and the other about despair, or that one is by a famous political artist. It reduces art to its **visual form, ignoring its function and meaning**, leading to shallow recommendations. [1.5 marks]
+
+**(c) Usability Threat of Sudden Switch:**
+- **Threat**: **Diminished Predictability**. The user has grown accustomed to the initial recommendation logic (e.g., based on their stated preferences). A sudden, unannounced switch to a different algorithm (e.g., to collaborative filtering) can make the recommendations feel **unpredictable and confusing**, breaking the user's mental model of how the system works. [1 mark]
+- **UI Mitigation**: **Introduce a Transparent Transition**. When the switch is triggered, display a **non-obtrusive, educational tooltip**: "Now that we've learned a bit about your tastes, we're also starting to suggest artworks loved by people with similar interests." This manages user expectations and maintains a sense of predictability by explaining the change in logic. [1 mark]
+
+ # Additional Exam Practice Questions & Model Answers
+## Topic: Multi-Armed Bandits & Exploration Strategies
+### Question 1: "AdOpt" Adaptive Advertising Platform
+AdOpt uses a **multi-armed bandit algorithm** to select which ad creative to show users in real-time. Each "arm" is a different ad variant (e.g., humorous, serious, discount-focused). The goal is to maximize click-through rate (CTR).
+
+**(a) Compare and contrast the **ε-greedy** and **Upper Confidence Bound (UCB)** exploration strategies for this application. For each, state one practical advantage and one disadvantage in the context of ad delivery.**
+[6 marks]
+
+**(b) The system initially uses a **context-free bandit** (ignores user traits). They upgrade to a **contextual bandit** that considers user demographics. Explain, with a concrete example, how this change could improve both **short-term CTR** and **long-term user experience**.**
+[4 marks]
+
+**(c) Describe an ethical concern related to **autonomous optimization** in this advertising context. Which EU AI Ethics Requirement does this most directly violate, and why?**
+[3 marks]
+
+---
+#### Model Answer 1
+**(a) ε-greedy vs. UCB:**
+**ε-greedy Strategy**:
+- **Mechanism**: With probability ε (e.g., 5%), select a random ad (exploration). With probability 1-ε, select the ad with the highest historical CTR (exploitation).
+- **Advantage**: **Simple to implement and understand**. The ε parameter provides direct, intuitive control over the exploration/exploitation trade-off.
+- **Disadvantage**: **Inefficient Exploration**. When exploring, it chooses randomly from all ads, including clearly poor performers. This wastes impressions that could be used for more **directed exploration** of promising alternatives. [3 marks]
+
+**Upper Confidence Bound (UCB) Strategy**:
+- **Mechanism**: Always selects the ad with the highest **upper bound of the confidence interval** for its CTR. Ads with high uncertainty (few views) get artificially inflated scores, encouraging their selection.
+- **Advantage**: **Optimal Balance of Exploration/Exploitation**. It automatically and efficiently reduces uncertainty by targeting exploration towards ads with potential (high variance), leading to **faster convergence** on the best ad.
+- **Disadvantage**: **More Complex and Computationally Intensive**. Requires maintaining and updating confidence intervals for every ad. Can be sensitive to initial conditions and may perform poorly with non-stationary environments (if user preferences shift). [3 marks]
+
+**(b) Contextual Bandit Improvement:**
+- **Improvement Explanation**: A context-free bandit finds the single "best ad for everyone." A contextual bandit learns **which ad is best for which user segment**. [1 mark]
+- **Example**: The context-free bandit might find the "humorous ad" has the highest overall CTR. It shows this to everyone. [1 mark]
+- A contextual bandit could learn:
+    - For `user_age < 25`: "Discount-focused ad" has highest CTR.
+    - For `user_age > 50`: "Serious, feature-based ad" has highest CTR.
+- **Short-Term CTR**: Increases because ads are better matched to segments. [1 mark]
+- **Long-Term UX**: Reduces **ad fatigue and annoyance** because users see ads more relevant to their likely interests, making the advertising experience less intrusive. [1 mark]
+
+**(c) Ethical Concern & EU Requirement:**
+- **Ethical Concern**: **Manipulative Optimization and Exploitation of Vulnerabilities**. The autonomous system could learn to target specific user segments with ads that exploit psychological biases or vulnerable states (e.g., targeting gambling ads to users showing patterns of addictive behavior, or high-interest loan ads to users researching financial distress). [1.5 marks]
+- **EU Requirement**: **R1: Human Agency and Oversight** and **R5: Diversity, Non-discrimination and Fairness**.
+- **Justification**: This violates **R1** because the system autonomously makes decisions that can undermine user autonomy and lead to harmful financial or psychological consequences. It violates **R5** because it can lead to **discriminatory outcomes**, systematically targeting vulnerable groups with predatory content. The system prioritizes click probability over user wellbeing, lacking meaningful human oversight. [1.5 marks]
+
+---
+## Topic: Sequential Decision Making & State Representation
+### Question 2: "StudyMate" Adaptive Study Scheduler
+StudyMate creates personalized study plans for exams. It models the student's **knowledge state** across topics and decides which topic to study next, for how long, and with what activity (e.g., read, quiz, video).
+
+**(a) This is a **sequential decision-making problem**. Propose a **state representation** for the system that balances richness with computational feasibility. Your representation should include at least three distinct types of information.**
+[4 marks]
+
+**(b) The system could use a **rule-based planner** or a **Reinforcement Learning (RL) agent** to make decisions. Compare these two approaches in terms of **transparency**, **ability to handle complexity**, and **adaptation speed**.**
+[6 marks]
+
+**(c) A key challenge is **student compliance**. If the system plans a 2-hour study session but the student only completes 30 minutes, how should the **user model** be updated? Describe **two different update strategies** and the rationale for each.**
+[4 marks]
+
+---
+#### Model Answer 2
+**(a) State Representation:**
+An effective state `s_t` could be a tuple containing:
+1.  **Knowledge Vector**: A vector of estimated mastery levels (0-1) for each topic in the syllabus (e.g., `{Topic_A: 0.8, Topic_B: 0.3, Topic_C: 0.6}`). This is the core **overlay model**.
+2.  **Student Context**: Time of day, day until exam, historical study duration preference (e.g., `prefers_short_sessions: True`), and current self-reported energy level (if available). This captures **context**.
+3.  **Recent History**: The last 2-3 study actions taken (topic, activity, duration) and their outcomes (e.g., quiz score). This provides a **short-term memory** to avoid repetition and capture immediate effects.
+This representation is rich enough to inform good decisions but remains a fixed-size vector, making it feasible for rule-based or RL algorithms. [4 marks]
+
+**(b) Rule-Based vs. RL Comparison:**
+
+| Criterion | Rule-Based Planner | Reinforcement Learning (RL) Agent |
+| :--- | :--- | :--- |
+| **Transparency** | **High**. Decisions are made by explicit, human-readable rules (e.g., "IF topic_mastery < 0.5 THEN schedule quiz"). Easy to explain and debug. | **Very Low (Black Box)**. Decisions come from a complex value function or policy network. It's often impossible to articulate *why* a specific topic was chosen. |
+| **Ability to Handle Complexity** | **Low**. Rules become unmanageably complex for multi-dimensional states and long-term dependencies. Capturing nuances like "topic B is best studied after A but before C" is hard. | **High**. RL agents, especially with deep learning, can learn **complex, non-linear policies** from high-dimensional state representations, capturing subtle patterns humans might not encode in rules. |
+| **Adaptation Speed** | **Slow**. Requires manual analysis and reprogramming by experts to adapt to new patterns or student feedback. | **Fast (in theory)**. Can adapt **online** as it interacts with more students, continuously improving its policy. However, initial learning requires much data. |
+
+[6 marks - 2 marks per row with clear, accurate comparison]
+
+**(c) User Model Update Strategies:**
+1.  **Strategy 1: Downgrade Mastery & Adjust Engagement Model**.
+    - **Update**: Decrease the mastery estimate for the studied topic slightly (e.g., by 0.1) because the planned deep study didn't occur. Simultaneously, update a **compliance/engagement model** to reflect a higher likelihood of shorter sessions.
+    - **Rationale**: Treats non-compliance as **negative evidence** about both knowledge (incomplete study) and user behavior. Makes future plans more conservative. [2 marks]
+2.  **Strategy 2: Treat as Partial Evidence & Re-plan**.
+    - **Update**: Treat the 30 minutes as **partial positive evidence**, increasing mastery for the topic but by a smaller amount than a full session. Do not penalize the student. Instead, **trigger an immediate re-planning** for the remaining time based on the new, partially updated state.
+    - **Rationale**: More **positive and supportive**. Acknowledges the effort made. Focuses on agile adaptation rather than modeling "failure," which may be better for maintaining motivation. [2 marks]
+
+---
+## Topic: Critique-Based Interaction & Preference Elicitation
+### Question 3: "HomeStyle" Interior Design Configurator
+HomeStyle helps users choose furniture sets. It uses a **critique-based, knowledge-driven** interface. Users start with a baseline design and provide critiques like "more modern," "cheaper," or "lighter colors."
+
+**(a) Explain the difference between a **compound critique** and a **unit critique**. Give an example of each in the HomeStyle context.**
+[4 marks]
+
+**(b) A naive implementation might treat "cheaper" as a simple filter on price. Why is this **oversimplified**? Describe a more sophisticated way the system's **knowledge base** should handle the "cheaper" critique.**
+[3 marks]
+
+**(c) After several critique cycles, the system's suggestions seem to converge, but the user is still not satisfied. This may indicate a **"human-in-the-loop"** problem. Describe this problem and suggest a **system feature** to overcome it.**
+[3 marks]
+
+---
+#### Model Answer 3
+**(a) Critique Types:**
+- **Unit Critique**: A critique on a **single, specific attribute** of the current suggestion.
+    - *Example*: The user sees a grey sofa and says "**Darker grey**." This critiques only the `color` attribute. [2 marks]
+- **Compound Critique**: A critique that implicitly involves **changes to multiple attributes** simultaneously to satisfy a higher-level goal.
+    - *Example*: The user sees an ornate, dark wood dining set and says "**More Scandinavian**." This implies multiple changes: `style: ornate → minimalist`, `color: dark → light`, `material: heavy wood → light wood/plywood`. The system must understand this **multi-faceted mapping** in its knowledge base. [2 marks]
+
+**(b) Handling "Cheaper" Sophisticatedly:**
+- **Oversimplification**: A simple price filter may eliminate *all* alternatives, or only show drastically inferior quality items, frustrating the user. "Cheaper" is often a **trade-off request**, not a hard constraint. [1.5 marks]
+- **Sophisticated Handling**: The knowledge base should treat "cheaper" as a **preference shift on a utility function**. It should:
+    1.  Identify **substitutable items** that offer similar style/function at lower cost (e.g., laminate instead of solid wood).
+    2.  Suggest **configurational changes** (e.g., a smaller rug, fewer accent chairs) that lower total cost while preserving the design's core.
+    3.  Present a **choice of compromises**: "To make it cheaper, we can: A) Use a synthetic fabric (saves £200), B) Choose a smaller size (saves £150), or C) Remove the matching footstool (saves £100)." This respects the user's intent while leveraging domain knowledge. [1.5 marks]
+
+**(c) Human-in-the-Loop Problem & Solution:**
+- **The Problem**: The user may lack the **vocabulary or visual literacy** to articulate what they want through critiques. They know they don't like the suggestions but can't specify why ("I'll know it when I see it"). The system is trapped in a local optimum of the **user's expressible preferences**, not their true preferences. [1.5 marks]
+- **System Feature to Overcome It**: **Diverse Example-Based Exploration**. Introduce a "**Show me different directions**" button. When clicked, the system generates **three radically different designs** that are all *somewhat* consistent with past critiques but explore different regions of the design space (e.g., one bold, one neutral, one rustic). The user can then **select a direction** ("I like something about option 2") or provide a new, more informed critique based on these examples ("I like the bold colors from option 1 but the clean lines from option 2"). This breaks the cycle by giving the user new reference points. [1.5 marks]
+
+---
+## Topic: Utility Theory & Multi-Criteria Decision Making
+### Question 4: "CitySelect" Relocation Recommendation Engine
+CitySelect helps users choose a city to relocate to. Users specify the **importance** (weight) of criteria like Job Market (J), Cost of Living (C), Culture (Cu), and Safety (S). The system scores each city on these criteria and computes a **weighted utility score**.
+
+**(a) A user sets weights: J=10, C=8, Cu=5, S=9. City X has scores: J=0.7, C=0.9, Cu=0.4, S=0.8. Calculate the **weighted utility score** for City X. Show your working.**
+[2 marks]
+
+**(b) The system uses **Multi-Attribute Utility Theory (MAUT)**. Describe **two fundamental assumptions** of MAUT that often break down in real-world decision-making like city selection.**
+[4 marks]
+
+**(c) To improve recommendations, the system introduces **non-compensatory filters**. What does "non-compensatory" mean in this context? Give an example filter and explain how it changes the recommendation logic from pure weighted utility.**
+[4 marks]
+
+---
+#### Model Answer 4
+**(a) Weighted Utility Calculation:**
+1.  Normalize weights (optional but good practice): Total weight = 10+8+5+9 = 32. Normalized weights: J=10/32≈0.3125, C=8/32=0.25, Cu=5/32≈0.15625, S=9/32≈0.28125.
+2.  **Weighted Utility Score** = Σ (weight_i * score_i).
+    Using raw weights: `Score_X = (10*0.7) + (8*0.9) + (5*0.4) + (9*0.8) = 7 + 7.2 + 2 + 7.2 = **23.4**`
+    Using normalized weights: `Score_X ≈ (0.3125*0.7)+(0.25*0.9)+(0.15625*0.4)+(0.28125*0.8) = 0.21875 + 0.225 + 0.0625 + 0.225 = **0.73125**` (on a 0-1 scale).
+    **Both methods are acceptable if consistent.** [2 marks]
+
+**(b) MAUT Assumptions & Breakdowns:**
+1.  **Assumption of Preference Independence**. MAUT assumes your preference for the level of one criterion (e.g., Job Market) is **independent** of the level of another (e.g., Cost of Living). This breaks down because preferences are often **interactive**. For example, a user might value a "vibrant Culture" **more** if "Job Market" is also high (they'll have money to enjoy it), but value it **less** if jobs are poor (making culture irrelevant). MAUT cannot model these interactions. [2 marks]
+2.  **Assumption of Full Comparability & Linear Trade-offs**. MAUT assumes all trade-offs can be captured by constant weights, implying a **linear relationship**. For example, it assumes the trade-off between Safety and Cost is constant: you'd always give up the same amount of safety for a unit decrease in cost. In reality, this is **non-linear**. A user might accept a slightly less safe city for major savings, but would **never** consider a city below a "catastrophic" safety threshold, regardless of cost. This is a **threshold effect** MAUT misses. [2 marks]
+
+**(c) Non-Compensatory Filters:**
+- **Meaning**: A **non-compensatory filter** is a **hard constraint** or **elimination condition**. If a candidate fails on this criterion, no amount of excellence on other criteria can compensate for it. The candidate is **rejected outright**. This contrasts with the **compensatory** nature of weighted utility, where a low score on one criterion can be offset by high scores on others. [2 marks]
+- **Example Filter**: `Safety Score >= 0.7` (on a 0-1 scale). [1 mark]
+- **Change in Logic**: With this filter, the system **first removes all cities** with a safety score < 0.7 from consideration. **Only then** does it compute the weighted utility score for the remaining cities and ranks them. A city with a perfect 1.0 on Job, Cost, and Culture but a 0.69 on Safety would be **eliminated before scoring**, whereas in pure weighted utility it might have been the top recommendation. This reflects a more realistic, **satisficing** decision model. [1 mark]
+
+---
+## Topic: Social Recommenders & Trust Networks
+### Question 5: "BookWeb" Social Reading Platform
+BookWeb combines **social network data** with reading history. Users follow others, see what they're reading, and get recommendations based on friends' ratings (**social filtering**) and global patterns (**collaborative filtering**).
+
+**(a) Define **social filtering**. How does it differ fundamentally from standard **user-user collaborative filtering (CF)** in terms of the data used and the underlying assumption?**
+[4 marks]
+
+**(b) A user's feed shows: "Your friend **Alex** rated 'Project Hail Mary' 5 stars." This is a **social explanation**. Describe **two distinct benefits** this type of explanation provides over a generic "Recommended for you" label.**
+[3 marks]
+
+**(c) A **privacy threat** emerges from **social inference**. Describe how a malicious user could exploit the social recommendation system to infer a private fact about another user (e.g., their political leaning or health condition).**
+[3 marks]
+
+---
+#### Model Answer 5
+**(a) Social Filtering vs. User-User CF:**
+- **Social Filtering**: Recommends items liked or consumed by people in the user's **explicit social network** (friends, follows). The core data is the **social graph** (who follows whom) combined with item interactions. The underlying assumption is that **social ties imply trust and similarity of taste**. "I trust my friend's judgment." [2 marks]
+- **User-User Collaborative Filtering**: Recommends items liked by users who are **algorithmically similar** based on their entire interaction history, regardless of any social connection. The core data is the **user-item interaction matrix**. The underlying assumption is that **similarity in past behavior predicts similarity in future preferences**. "People who rated the same books as me have similar tastes." [2 marks]
+- **Fundamental Difference**: Social filtering uses **explicit, declared relationships** (social graph). User-user CF uses **inferred, behavioral similarity** (interaction matrix). One is based on **trust/affiliation**, the other on **statistical correlation**.
+
+**(b) Benefits of Social Explanations:**
+1.  **Increased Trust and Perceived Credibility**. A recommendation from a known friend ("Alex liked this") carries more weight and feels more trustworthy than an anonymous algorithmic suggestion. The user has a **pre-existing positive association** with the source. [1.5 marks]
+2.  **Fosters Social Engagement and Shared Experience**. It transforms recommendation from a solitary act into a **social activity**. It can spark conversations ("Why did Alex love this?"), create a sense of community, and give the user a reason to engage with both the content and their friend on the platform. [1.5 marks]
+
+**(c) Privacy Threat - Social Inference Attack:**
+- **Attack Method**: A malicious user (M) can carefully **curate their own profile** and **observe social recommendations** to make inferences.
+- **Concrete Example to Infer Health Condition**:
+    1.  M wants to know if target user T has depression.
+    2.  M **friends/follows** T on BookWeb.
+    3.  M then **rates several books** known to be popular within support communities for depression (e.g., specific memoirs, self-help guides) with very high scores.
+    4.  M monitors their own feed for social recommendations of the form "T also read [Book X]."
+    5.  If books about depression start appearing in M's recommendations **with T as the social link**, M can infer T has been reading those books, strongly suggesting the health condition.
+- **Mechanism**: The system, using **social filtering**, sees M and T are connected and that M has rated niche books highly. It recommends to M other books that their *social connections* (like T) have read. This **leaks T's reading history** through the recommendation engine itself. [3 marks]
 # Last year's exam paper's
 ## 2023/4
 ### Question 1: Amazon Personalised Shopping
