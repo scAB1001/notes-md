@@ -1377,7 +1377,109 @@ You should now be able to:
 3.  **LO3 - Implement Recommenders**: Apply **recommender system techniques** (Content-Based, Collaborative Filtering, Knowledge-Based, Hybrid) in a practical context, understanding their algorithms, inputs, and evaluation.
 
 4.  **LO4 - Reason & Foresee**: Reason about the **significance, strengths, weaknesses, and future directions** of personalisation, including ethical and responsible design.
-## 7.2 App Scenario
+## 7.2 Module Walkthrough: The "LearnFit" Adaptive Learning Platform
+This walkthrough synthesises the entire User Adaptive Intelligent Systems module through a single, consistent case study: **LearnFit**, a hypothetical adaptive platform for personalised fitness and nutrition coaching. We will trace its design, implementation, and evaluation, **emboldening** all key concepts.
+
+---
+### Part 1: Foundations & Architecture
+
+**LearnFit** is a **user-adaptive system**. Its core purpose is to **automatically tailor** fitness plans, workout instructions, and meal suggestions to each individual user, moving beyond a **one-size-fits-all** approach.
+
+The system is built upon the **generic architecture of user-adaptive systems**, which defines its core components and data flow:
+
+1.  **User Data Gathering**: This is the input stage. LearnFit collects raw data. This includes **explicit data** (user's age, weight, goal weight, dietary preferences entered during sign-up) and **implicit data** (workout completion times, skipped exercises, heart rate from a wearable, food items logged via photos).
+2.  **User Model Acquisition**: This is the inference engine. It processes raw data to build the **User Model**. For example, it might infer a user's `fitness_level` (e.g., "beginner") from their workout performance and `motivation_state` (e.g., "declining") from declining log-in frequency.
+3.  **User Model**: This is the system's **structured internal representation** of the user. For LearnFit, this is a composite model including a **scalar** value for `cardiovascular_endurance`, an **overlay model** of mastered vs. unmastered exercise techniques, and a **vector model** of food preferences.
+4.  **User Model Application (Adaptation Model)**: This is the decision logic. It uses the User Model and a **Domain Model** (a knowledge base of exercises, their muscle groups, difficulty, and nutritional information) to decide *what* to adapt. A rule might be: `IF` user_model.fitness_level == "beginner" `AND` user_model.motivation_state == "declining" `THEN` select easier workout `AND` send motivational message.
+5.  **Adaptive Component**: This is the output effector. It executes the adaptation decision, such as **generating the personalised workout interface**, sending a push notification, or altering the meal plan display.
+
+This architecture highlights the shift from standard **Human-Computer Interaction (HCI)** towards a **Human-Computer Partnership (HCP)**, where the system proactively collaborates with the user.
+
+---
+
+### Part 2: User Modelling & Acquisition
+To function, LearnFit must construct an accurate User Model. This involves **representation**, **acquisition** and handling **dynamic change**.
+#### Representation
+LearnFit uses multiple **representation methods**:
+*   For overall fitness, it uses a simple **Scalar Model** (e.g., `fitness_score: 68/100`).
+*   For tracking skill in specific exercises (e.g., squat, deadlift), it uses an **Overlay Model** against a **domain model** of exercise techniques, marking each as "mastered," "learning," or "untried."
+*   For food preferences, it builds a **Vector Model** using **TF-IDF** on ingredients from logged meals, identifying strong likes (e.g., high weight for "avocado") and dislikes.
+
+#### Acquisition & The Cold-Start Problem
+When a new user joins, LearnFit faces the **user cold-start problem**: it has no personal data. To solve this, it uses **stereotypes**.
+*   **Stereotype Definition**: "Time-Pressed Professional"
+    *   **Trigger**: `(age > 25) AND (goal = "maintain") AND (signup_time = "weekday evening")`.
+    *   **Facets & Defaults**: `workout_length_preference: "short_high_intensity"`, `meal_complexity: "quick"`.
+*   This provides an **initial default profile** based on **demographic** and **contextual** data.
+
+As the user interacts, the system switches to **implicit acquisition** techniques, interpreting behavioural data. A **click-through** on a recipe is interpreted as positive interest. Dwell time on a workout video is used to gauge engagement. To handle **noisy data** (e.g., a mis-logged food item), the model uses a **forgetting mechanism** like exponential decay, ensuring recent, reliable data has more influence than old, potentially erroneous data. This manages **concept drift** as the user's fitness and preferences evolve.
+
+---
+### Part 3: Core Adaptation Technique: Recommender Systems
+The primary way LearnFit adapts is by recommending workouts and recipes using various **recommender system** techniques:
+*   **Content-Based Filtering (CBF)**: Recommends items similar to those the user has liked before. If a user frequently completes "yoga" workouts, CBF will recommend other workouts tagged with "yoga," "flexibility," and "mindfulness." Its strength is **transparency** ("recommended because it's like your past workouts"). Its weakness is **overspecialisation**, potentially trapping the user in a "yoga bubble" and never suggesting HIIT.
+*   **Collaborative Filtering (CF)**: Recommends items liked by similar users. LearnFit finds **neighbours**—users with similar workout completion patterns—and recommends workouts those neighbours loved but our target user hasn't tried. This leverages the **wisdom of the crowd**. **User-user CF** compares users directly. **Item-item CF** (like Amazon's method) pre-computes similarities between workouts (e.g., people who do Workout A also do Workout B) for fast, scalable recommendations. CF's core weaknesses are the **user cold-start** and **item cold-start** problems (can't recommend new users or brand new workouts).
+*   **Knowledge-Based (KB) Recommenders**: These work via **interaction and constraints**. When a user sets a goal ("build muscle with home equipment"), a KB system uses a **knowledge base** of exercise rules and equipment constraints to generate a valid plan. It's excellent for **cold-start** and **complex needs** but requires heavy **knowledge engineering**.
+#### Hybridisation
+LearnFit uses a **hybrid recommender system** to overcome individual weaknesses. For example:
+
+*   A **Weighted Hybrid** combines CBF and CF scores: `Final_Score = 0.7*CBF_Score + 0.3*CF_Score`.
+*   A **Cascade Hybrid** is used for meal planning: First, a **KB** system filters recipes by dietary constraints (vegan, nut-free). Second, a **CBF** system re-ranks the shortlist by taste preference.
+*   A **Switching Hybrid** handles new users: start with a **Demographic** recommender (using age/weight stereotype), then switch to **CF** once enough data is collected.
+#### Advanced ML-Based Recommenders
+Modern LearnFit uses **machine learning-based recommenders**. A **pipeline** ingests diverse data (user logs, workout features, time of day), **preprocesses** it (normalising heart rate, cyclical encoding of time), and trains models.
+*   For predicting the **next workout type**, a **Long Short-Term Memory (LSTM)** network models the user's **sequential workout history**.
+*   For a real-time coaching agent that optimises for **long-term habit formation**, a **Reinforcement Learning (RL)** agent is used. The **state (s_t)** is the user's current context (fatigue, recent workouts), the **action (a_t)** is the suggested exercise, and the **reward (r_t)** is based on completion and heart rate data, aiming to maximise **long-term engagement**.
+
+---
+### Part 4: Adaptive Presentation & Generation
+Adaptation isn't just *what* is recommended, but *how* it's presented. LearnFit tailors its interface and explanations.
+
+*   **Static/Semi-Automatic Approaches**: Initially, LearnFit used an **Altering Fragments** approach. The workout screen has fixed **slots**: `[Exercise_Demo_Slot, Technique_Tip_Slot, Motivation_Slot]`. For a beginner, the `Technique_Tip_Slot` shows a basic form video; for an expert, it shows an advanced cue. This guarantees a **coherent** structure.
+*   **Automatic Generation**: Now, LearnFit uses **Natural Language Generation (NLG)**. After a workout, it **automatically generates** a summary: "Great job! Your heart rate stayed in the **fat-burning zone** for 20 minutes." This is done by a **rule-based NLG** system filling templates with data from the User Model. For more fluidity, an **LLM (Large Language Model)** like GPT-4 is prompted with the user's data to generate personalised coaching advice and answer questions.
+
+**Presentation techniques** manage the user's focus. For a user struggling with an exercise, LearnFit uses **colouring** to highlight the key step in the instructions. To show alternative exercises, it uses a **sorted** list with the most suitable (based on the user model) at the top.
+
+---
+### Part 5: Evaluation: Is It Working?
+We cannot deploy LearnFit without rigorous evaluation. We use a **formative**, **layered evaluation** framework to test each component.
+
+1.  **Layer 1: Collection of Input Data**: Is the heart rate monitor from the wearable syncing accurately and without delay? We test **accuracy** and **latency**.
+2.  **Layer 2: Interpretation of Collected Data**: Does "skipping a workout" truly mean "low motivation," or was the user just ill? We use **user tests with retrospective think-aloud** to validate interpretations.
+3.  **Layer 3: Modelling the Current State**: Is the inferred `fitness_level` accurate? We use **cross-validation**, comparing model predictions against actual future performance.
+4.  **Layer 4: Deciding Upon Adaptation**: Given a user with low motivation, is suggesting an easier workout the **appropriate** decision? We conduct **heuristic evaluations** with fitness experts.
+5.  **Layer 5: Applying Adaptation**: Is the generated motivational notification **timely** and not **obtrusive**? We run **user tests** to assess usability.
+6.  **Layer 6: The System as a Whole**: Does LearnFit actually improve user fitness and satisfaction? We run a **summative A/B test**. **Group A** gets a non-adaptive version. **Group B** gets the full adaptive system. We compare **key performance indicators (KPIs)** like **adherence rate**, **average weekly workouts**, and **user satisfaction scores**. The A/B test provides **statistically significant** evidence of the adaptive system's **utility**.
+
+We also constantly guard against **usability threats**:
+*   **Diminished Controllability**: Solved by letting users edit their profile (e.g., "I'm not a beginner").
+*   **Filter Bubble**: Addressed by mixing in **serendipitous** workouts from the CF component to ensure **diversity**.
+*   **Obtrusiveness**: Avoided by using subtle **dimming** instead of pop-ups for non-critical tips.
+
+---
+### Part 6: Responsible Personalisation
+
+Building a system like LearnFit involves significant ethical responsibility, guided by frameworks like the **EU's Ethics Guidelines for Trustworthy AI**.
+
+*   **Privacy**: LearnFit collects sensitive health data. We implement **Privacy by Design**, ensuring **data minimisation**, clear **consent** for **implicit data** collection, and **anonymisation** where possible.
+*   **Transparency & Explanation**: Following a **transparency checklist**, LearnFit must explain its actions. It implements **BP3** by having a "Why this workout?" button that says: "Recommended because it matches your **goal to build strength** and avoids your **sensitive knee**." This is a **feature-based explanation**.
+*   **Fairness (R5)**: We must audit the system for **bias**. Does the stereotyping system unfairly assign lower initial fitness scores to older users? We perform **bias audits** across demographics.
+*   **Agency & Oversight (R1)**: Clear **demarcation** is vital. LearnFit includes the disclaimer: "This is AI-generated advice. Consult a physician before starting any new fitness program." This mitigates **over-reliance**.
+*   **Accountability (R7)**: Clear lines of responsibility are established for when the system gives potentially harmful advice (e.g., suggesting high-impact exercises for a user with an undisclosed injury).
+
+The use of **LLMs** heightens some risks, particularly **hallucination** (the AI inventing a non-existent exercise) and **lack of factual grounding**. Therefore, LLM outputs in LearnFit are **grounded** in the verified exercise knowledge base (**Domain Model**).
+
+---
+### Synthesis: The LearnFit Adaptive Cycle
+The module culminates in understanding this integrated, ethical, and evaluative cycle:
+1.  A user's **implicit** and **explicit data** is **gathered**.
+2.  The **User Model Acquisition** component updates a multi-faceted **User Model**, overcoming **cold-start** with **stereotypes** and handling **noise**.
+3.  The **Adaptation Model**, often a **hybrid recommender** (e.g., **Cascade** of **KB** then **CBF**) or an **ML model** (like an **LSTM**), uses this model and the **Domain Model** to make a decision.
+4.  The **Adaptive Component** presents this via an **adaptively generated** interface, using **presentation techniques** like **sorting** for clarity.
+5.  The system's performance is continuously assessed through **layered evaluation**, with **A/B testing** at the highest level measuring real-world **utility** against **usability threats**.
+6.  Throughout, **ethical principles** govern design, ensuring **transparency**, **fairness**, **privacy**, and ultimately, **trustworthy** personalisation.
+
+This is the complete architecture, methodology, and ethical practice of building a **User-Adaptive Intelligent System**.
 #### Exam Practice Question 7.1 (Synthesis)
 **You are asked to advise a start-up building a "Personalised Home Cooking Assistant" app. It suggests recipes based on user dietary preferences, ingredient availability, and cooking skill. Outline your high-level recommendations covering: (a) A suitable *Recommender System* technique with justification, (b) One critical *User Modelling* challenge, and (c) One primary *Responsible Personalisation* concern to address.**
 **[9 marks]**
