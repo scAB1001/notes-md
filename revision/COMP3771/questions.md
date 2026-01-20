@@ -1455,7 +1455,8 @@ A social media company is planning a **layered evaluation** of its new LLM-power
 *(This explains the **criteria** (policy pattern) and the **reasoning** (matching a known trope), going beyond just highlighting keywords.)*
 
 # Last year's exam paper's
-### Question 1: Amazon Personalised Shopping (2023/4)
+## 2023/4
+### Question 1: Amazon Personalised Shopping
 ![[amazon-question-2023-24-screenshot.png|400]]
 #### Question 1(a)
 **Describe what recommender method has been applied in this case. Indicate one strength and one weakness of the approach.**
@@ -1678,3 +1679,275 @@ A social media company is planning a **layered evaluation** of its new LLM-power
 > 2.  **Used for manipulative advertising** (e.g., targeting "guilt-based" ads for expensive eco-products).
 >
 > This concern is valid because privacy policies are often complex, and **data monetisation** is a common business model. The very act of **tracking** for personalisation (e.g., logging that a user researches "flight shame") creates a permanent record of potentially sensitive **intentions and values**, which could be misused if the data is breached or sold. [2 marks]
+## 2024/5
+### Question 1: MovieLens Recommendation System
+#### Question 1(a)
+**Suggest one possible recommender method that can be used to generate the recommendations shown in the image above. For the method you have suggested, describe and illustrate with examples: what background data will be used, what input data will be provided by the user, how the algorithm will work.**
+[9 marks]
+#### Model Answer with Detailed Explanation
+
+> **Recommended Method**: **User-User Collaborative Filtering (CF)**.
+> **Justification**: MovieLens is a classic research testbed for CF. The scenario describes new users rating a seed set of movies, which is a standard technique to bootstrap a **user profile vector** for finding similar users.
+
+> **1. Background Data Used**:
+> The system requires a **User-Item Rating Matrix**. This is a large, pre-existing database where each row represents a user, each column represents a movie, and each cell contains the **rating** (e.g., 1-5 stars) that user gave to that movie. This matrix is the core "wisdom of the crowd" that the algorithm mines for patterns. [3 marks]
+
+> **2. Input Data Provided by the User**:
+> The user provides **explicit ratings** for a **seed set of movies** presented during registration (e.g., "Rate 15 movies to get started"). This input creates an initial, sparse rating vector for the new user. For example, the user might rate *The Godfather*: 5 stars, *Toy Story*: 4 stars, *The Room*: 1 star. [3 marks]
+
+> **3. How the Algorithm Works**:
+> 1.  **Similarity Computation**: The system calculates the **similarity** (e.g., using **Pearson Correlation** or **Cosine Similarity**) between the new user's rating vector and every other user's vector in the background matrix. It finds the **k-nearest neighbours**—users with the most similar taste patterns.
+> 2.  **Rating Prediction**: For a movie the new user hasn't seen (e.g., *Goodfellas*), the system looks at the ratings given to *Goodfellas* by the identified neighbours. It computes a **weighted average** of these neighbours' ratings, where weights are the similarity scores.
+> 3.  **Recommendation Generation**: The algorithm repeats step 2 for all movies the user hasn't rated. It then ranks them by the **predicted rating** and recommends the top-N (e.g., top 20 shown in the image). [3 marks]
+
+---
+#### Question 1(b)
+**Describe one strength and one limitation of the recommender method you have proposed in (a), considering the technical implementation of the algorithm. For both the strength and the limitation include justification why this would be a strength or a limitation, illustration with an example related to MovieLens.**
+[6 marks]
+#### Model Answer with Detailed Explanation
+
+> **Strength: No Requirement for Content Analysis**.
+> **Justification**: User-User CF operates purely on the **user-item interaction matrix**. It does not need any metadata about the movies (genre, actors, director). This makes it **simpler to implement** from a data engineering perspective, as it avoids the complex task of feature engineering and domain modelling.
+> **MovieLens Example**: The algorithm can successfully connect users who love *2001: A Space Odyssey* (sci-fi) with users who love *There Will Be Blood* (drama) based on rating patterns alone, even if the movies share no obvious content features. It discovers **latent associations** that are not semantically obvious. [3 marks]
+
+> **Limitation: User Cold-Start Problem and Data Sparsity**.
+> **Justification**: The algorithm's core function relies on comparing users via their rating vectors. A **new user** has a very sparse vector (only 15 ratings), making similarity computations **unreliable and noisy**. Furthermore, the global rating matrix is typically extremely sparse (most users haven't seen most movies), which degrades the quality and coverage of neighbourhoods and predictions.
+> **MovieLens Example**: A new user who rates only popular blockbusters may be incorrectly matched to a broad group of users, leading to generic recommendations. If they have a niche taste (e.g., only rates Polish arthouse films), they may find **no sufficiently similar neighbours** in the database, causing the algorithm to fail entirely for them. [3 marks]
+
+---
+#### Question 1(c)
+**Assume that you have to evaluate the recommender method you proposed in (a) considering its accuracy. Suggest one accuracy metric that you can use. Describe how to define the accuracy metric and how to apply it in the context of MovieLens...**
+[6 marks]
+#### Model Answer with Detailed Explanation
+
+> **Accuracy Metric**: **Root Mean Squared Error (RMSE)**.
+>
+> **1. Definition of Correct Recommendation & Comparison**:
+> In this context, a "correct" prediction is one where the system's **predicted rating** for a movie is **close to the user's actual future rating**. To apply RMSE, you conduct an **offline evaluation**:
+> - **Step 1**: Take MovieLens's historical dataset and hide a subset of known user-movie ratings (e.g., hide 20% of each user's ratings to form a **test set**).
+> - **Step 2**: Train your User-User CF algorithm on the remaining 80% of data (the **training set**).
+> - **Step 3**: Use the trained algorithm to **predict the ratings** for the hidden user-movie pairs in the test set.
+> - **Step 4**: **Compare** each predicted rating ($\hat{r}_{ui}$) with the actual, hidden true rating ($r_{ui}$). RMSE is calculated as: $$RMSE = \sqrt{\frac{1}{N} \sum_{(u,i) \in Test} (\hat{r}_{ui} - r_{ui})^2}$$ where N is the number of ratings in the test set. [4 marks]
+
+> **2. Why RMSE is Appropriate**:
+> RMSE is the **standard metric for rating prediction tasks**. It is appropriate because:
+> - It **penalises large errors heavily** (due to the squaring). A prediction that is off by 4 stars is treated as more than twice as bad as one off by 2 stars, which aligns with user experience.
+> - It is **widely used and understood** in the recommender systems research community (including the Netflix Prize), making results comparable.
+> - It directly measures the **core function** of the proposed CF algorithm: predicting a user's exact rating score. A lower RMSE indicates a more accurate algorithm. [2 marks]
+
+---
+#### Question 1(d)
+**Describe two usability challenges that can apply to the recommender method you proposed in (a). For each challenge: state the challenge, give an illustration in the context of MovieLens, suggest a way to reduce the impact, justify why the suggested way will reduce the impact.**
+[8 marks]
+#### Model Answer with Detailed Explanation
+
+> **Challenge 1: Diminished Transparency (The "Black Box" Problem)**.
+> **Illustration**: A MovieLens user sees a recommendation for *Parasite*. They wonder, "Why is this recommended to me?" The User-User CF system can only provide a weak explanation like "Other users with similar tastes liked it." This is **unsatisfying and uninformative**, reducing trust and the user's ability to correct their profile if the recommendation is bad.
+> **Mitigation Strategy**: Implement a **"Hybrid Explanation"** by complementing CF with a lightweight **Content-Based (CBF)** analysis.
+> **Justification**: When explaining the *Parasite* recommendation, the system can now say: "Recommended because **users like you loved it**, and it shares **themes of social satire** with *The Great Dictator* which you rated highly." This combines the collaborative signal with **feature-based reasoning**, making the logic clearer and more actionable for the user. [4 marks]
+
+> **Challenge 2: The Filter Bubble (Overspecialisation via Popularity Bias)**.
+> **Illustration**: A user who rates several Marvel movies highly will be matched with neighbours who also like blockbusters. The CF system will then **continuously recommend more popular action/superhero movies**, creating a feedback loop. The user may never be exposed to brilliant dramas, documentaries, or foreign films they might love, **diminishing their breadth of experience**.
+> **Mitigation Strategy**: Introduce **Serendipity Injections** into the ranking algorithm.
+> **Justification**: Modify the final recommendation list by **demoting** some items that are extremely similar to the user's history and **promoting** items that are highly rated globally but have low predicted scores for this user. For example, occasionally slot in a critically acclaimed anime film. This **breaks the similarity loop** by explicitly balancing **accuracy** with **novelty**, directly countering the filter bubble effect. [4 marks]
+
+---
+#### Question 1(e)
+**MovieLens uses an interest-based user model. Which of the applications listed below can use interest-based user models?**
+[2 marks]
+#### Model Answer
+> **Correct Answers: A, B, C**.
+> - **A (News apps)**: Model interests in topics (politics, sports).
+> - **B (Online bookstores)**: Model interests in genres, authors.
+> - **C (E-commerce)**: Model interests in product categories, brands.
+> - **D (Location navigation)**: Uses **contextual** and **goal-based** models (current location, destination, traffic), not primarily interest-based. [2 marks for all correct]
+
+---
+#### Question 1(f)
+**Concept-level models of user interests are generally more powerful than keyword-level models. Which of the statements from the list below can be used to justify the use of concept-level models to represent users’ interests?**
+[2 marks]
+#### Model Answer
+> **Correct Answers: A, C**.
+> - **A**: **True**. They capture semantic meaning, not just lexical matches.
+> - **C**: **True**. They allow modelling hierarchical and relational detail (e.g., "science fiction" -> "cyberpunk" -> "Neuromancer").
+> - **B**: **False**. They are **harder** to implement (require ontologies, taxonomies).
+> - **D**: **False**. Acquisition is often **slower** (requires semantic analysis). [2 marks for all correct]
+
+---
+#### Question 1(g)
+**Assume that MovieLens has to represent users’ familiarity with movie genres, for which a scalar user model can be used. Circle the letters corresponding to a statement that is true.**
+[1 mark]
+#### Model Answer
+> **Correct Answers: A, C**.
+> - **A**: **True**. This is the definition of a scalar model.
+> - **C**: **True**. A single "familiarity" score is an average over all genre knowledge.
+> - **B**: **False**. Scalar models have **low precision** (they are reductive).
+> - **D**: **False**. Scalar models do **not** require a graph structure. [1 mark for all correct]
+
+---
+### Question 2: Personalised Healthy Living App
+#### Question 2(a)
+**Describe one implicit user information collection method which can be used in the personalised healthy living app to extract a user profile...**
+[6 marks]
+#### Model Answer with Detailed Explanation
+
+> **Method**: **Passive Logging and Sensor-Based Activity Tracking**.
+>
+> **1. Information Collected**:
+> The app collects: (i) **Physical Activity Logs**: Type, duration, and intensity of exercise (e.g., 30-min run, GPS route, heart rate via wearable). (ii) **Dietary Logs**: Food items logged via barcode scans or photos, along with timestamps. (iii) **App Interaction Logs**: Which motivational messages are dismissed/read, which recipe suggestions are clicked. [2 marks]
+
+> **2. Information Collection Technique**:
+> This uses **implicit, unobtrusive data collection**. For activity, it uses **device sensors** (accelerometer, GPS) and **wearable integration** (smartwatch API). For diet, it uses **image recognition** or **barcode scanning**. Interactions are logged via standard app analytics. [2 marks]
+
+> **3. Appropriateness**:
+> This method is highly appropriate because:
+> - **Minimises User Burden**: Manually logging every meal and exercise is tedious and leads to dropout. Automatic tracking is sustainable.
+> - **Provides Objective, Rich Data**: Sensor data is more accurate and detailed than self-reports (e.g., actual heart rate vs. perceived exertion).
+> - **Enables Real-Time Adaptation**: Continuous data flow allows the app to detect patterns (e.g., skipped workouts) and adapt messages **in context**, making interventions more timely and relevant. [2 marks]
+
+---
+#### Question 2(b)
+**Describe four features which can be used in the personalised healthy living app to provide transparency of the implicit profiling method you have suggested in (a). Two features should relate to the input for implicit user profiling. Two features should relate to user control.**
+[8 marks]
+#### Model Answer with Detailed Explanation
+
+> **Features Related to Input Transparency**:
+> 1.  **"Data Collection Dashboard" (BP2)**:
+>     A screen showing **exactly what data is being collected right now**. Icons indicate: "GPS: Active", "Heart Rate: Reading", "Camera: Inactive". A log below shows: "9:15 AM - Logged: 30 min run", "1:00 PM - Logged: Salad scan". This makes the **normally invisible collection process visible and concrete**. [2 marks]
+> 2.  **"Why We Ask For This" Tooltips (BP2/BP4)**:
+>     Next to each data permission request or sensor icon, a "?" button reveals a short explanation. E.g., next to "Heart Rate Access": "We use your heart rate to estimate calorie burn and adjust exercise difficulty. This data stays on your device." This explains the **purpose and scope** of collection, not just the fact of it. [2 marks]
+
+> **Features Related to User Control**:
+> 1.  **Granular Privacy Toggles (BP9)**:
+>     In settings, separate switches for: "Track location during walks", "Analyse food photos", "Use heart rate data for recommendations", "Share anonymised data for research". This provides **participatory control**, allowing users to opt out of specific profiling methods while keeping others, aligning with their personal comfort levels. [2 marks]
+> 2.  **Profile Inspection and Edit (BP8/BP9)**:
+>     A "Your Inferred Profile" page showing: "The app thinks your fitness level is: **Intermediate**", "Your favourite exercise is: **Running**". Each item has an **"Edit"** or "Not Right?" button. The user can manually adjust these inferences. This provides **corrective control**, ensuring the model driving adaptations is accurate and respects the user's self-view. [2 marks]
+
+---
+#### Question 2(f)
+**Consider the effect the system could have on the user’s behaviour. Describe one possible ethical violation regarding human agency and oversight.**
+[4 marks]
+#### Model Answer with Detailed Explanation
+
+> **Ethical Violation: Coercive Nudging and Undermining Autonomy**.
+>
+> **Description**: The app, through its constant tracking, personalised notifications, and adaptive goals, could transition from a **supportive tool** to a **coercive supervisor**. By leveraging data on a user's vulnerabilities (e.g., detecting stress from heart rate variability), it could deliver **manipulative messages** that are hard to ignore, effectively **dictating behaviour** rather than supporting informed choice.
+>
+> **Example Scenario**: The app detects a user has had a sedentary week. Instead of offering supportive choices, it sends a notification: "Your activity is **23% below your peers**. You're at risk of weight gain. Your next scheduled workout is **NOW**." It then locks the phone's entertainment apps until a workout is logged. This uses **shame, social comparison, and restriction** to compel action, stripping the user of **volition**.
+>
+> **Why it Violates Human Agency (EU R1)**: This violates the core principle of **Human Agency and Oversight**. The system is not preserving the user's freedom to make choices; it is **engineering those choices** through manipulative design and punitive constraints. The user becomes a **subject of the system** rather than a partner, leading to potential psychological harm (anxiety, guilt) and eroding the very **self-regulation** skills the app claims to build. [4 marks]
+
+---
+### Question 3: Music Recommender System
+#### Question 3(a)
+**Describe how the click-through method can be applied to determine whether a user is interested in a given song.**
+[4 marks]
+#### Model Answer with Detailed Explanation
+
+> The **click-through method** is an **implicit feedback technique** that interprets a user's click (or tap) on a recommended item as a **positive signal of interest**.
+>
+> **Application in a Music Recommender**:
+> 1.  **Presentation**: The system includes a recommended song in a playlist, "Discover Weekly" list, or as a "Recommended Next" button.
+> 2.  **Action & Interpretation**: If the user **clicks to play** that song, the system logs this as a **click-through event**. This action is interpreted as the user expressing interest in that song. The system may apply additional heuristics to strengthen the signal:
+>     - **Dwell Time**: Did the user listen for more than **30 seconds** (indicating genuine interest vs. accidental click)?
+>     - **Skip Action**: Did they skip before the end (potentially negative signal)?
+> 3.  **Profile Update**: This click-through data is then fed into the **user model acquisition** component. The user's interest profile (e.g., a vector of genre/artist weights) is updated to **increase the weight** for the features (genre, artist, tempo) of the clicked song. This refined profile is used for future **content-based or collaborative recommendations**. [4 marks]
+
+---
+#### Question 3(b)
+**A machine learning algorithm is used to detect the user’s mood... Describe how a formative evaluation of the mood detection algorithm can be conducted, considering two components: data collection and user modelling...**
+[10 marks]
+#### Model Answer with Detailed Explanation
+
+> **Component 1: Data Collection**
+> - **Evaluation Criterion**: **Interpretive Validity**.
+> - **Justification**: We need to verify that the **raw data** (listening history, skips, song metadata) is being **correctly interpreted** as evidence for a specific mood. Does "listening to a slow, minor-key song" truly mean "sad" for *this* user in *this* context?
+> - **Evaluation Method**: **Experience Sampling Method (ESM) / Ecological Momentary Assessment**.
+>     - **Procedure**: During normal app use, randomly prompt the user with a brief survey: "How are you feeling right now? (Happy/Sad/Energetic/Calm)". Simultaneously, log the system's raw input data and its inferred mood.
+>     - **Analysis**: Correlate the system's inference with the user's self-reported **ground truth**.
+> - **Challenge**: **Intrusiveness and Prompt Fatigue**. Frequent prompts interrupt the music experience and may lead users to drop out of the study or give careless responses, biasing the data. [5 marks]
+
+> **Component 2: User Modelling (The Mood Detection Algorithm Itself)**
+> - **Evaluation Criterion**: **Predictive Accuracy**.
+> - **Justification**: The ultimate test is whether the modelled mood state can **accurately predict** future user behaviour or preferences (e.g., the next song they'll choose).
+> - **Evaluation Method**: **Temporal Cross-Validation**.
+>     - **Procedure**: Split the timestamped log data chronologically. Train the mood detection model on the first 80% of the session data. Use it to predict mood for the next 10% of the session. Then, test if the predicted mood, combined with other factors, can predict the song choices in the **final held-out 10%** of the session. Compare against a baseline (e.g., always predicting "neutral").
+>     - **Analysis**: Use metrics like **Precision/Recall for mood-specific recommendations**.
+> - **Challenge**: **Concept Drift**. A user's mood-music associations may change over time (e.g., a breakup changes what "sad" music means). A model validated on old data may not generalise to future behaviour. [5 marks]
+
+---
+#### Question 3(c)
+**The music recommender system uses a fragment-based approach to generate the interface suggesting songs and playlists tailored to the user’s mood and music interests. Describe three advantages of using a fragment-based approach in this case.**
+[6 marks]
+#### Model Answer with Detailed Explanation
+
+> **1. Dynamic Personalisation Across Contexts**:
+> The system can conditionally include/exclude interface **fragments** based on the real-time **user model**. For example, a "**Upbeat Workout Mix**" fragment is included `IF` (inferred_mood == "energetic") `AND` (time_of_day == "morning"). A "**Chill Evening Wind-Down**" fragment is included `IF` (inferred_mood == "calm") `AND` (location == "home"). This allows the **same core app** to serve radically different, contextually appropriate interfaces without rebuilding entire pages. [2 marks]
+
+> **2. Efficient Reuse of Curated Content**:
+> Fragments represent reusable UI components. A single, well-designed "**Artist Spotlight**" fragment (with bio, top songs, similar artists) can be plugged into the interface under many conditions: `IF` (user_interest_in_artist > threshold) `OR` (current_song.artist == featured_artist). This **saves development and design effort** compared to hard-coding this information into multiple static pages. [2 marks]
+
+> **3. Incremental Adaptation and Testing**:
+> New personalisation features can be developed as independent fragments and safely deployed. For instance, a new "**Nostalgia Track**" fragment (based on listening history from this date years ago) can be added with its own applicability condition. Its performance (click-through rate) can be **A/B tested** in isolation without affecting the rest of the interface. This supports **agile, data-driven development** of the adaptive system. [2 marks]
+
+---
+#### Question 3(d)
+**State one disadvantage of using a fragment-based approach. Suggest an alternative approach that could overcome this disadvantage.**
+[4 marks]
+#### Model Answer with Detailed Explanation
+
+> **Disadvantage: Coherence and Layout Risk (Especially with Optional Fragments)**.
+> When using **optional fragments**, the page is assembled by including all fragments whose conditions are true. This can lead to a **cluttered, jumbled, or illogical interface** if fragments are not designed to fit together in all possible combinations. For example, a "Happy Mood Mix" fragment followed by a "Breakup Songs" fragment might appear simultaneously if the mood detection is uncertain, creating a confusing user experience. There is no **guaranteed information hierarchy or narrative flow**. [2 marks]
+
+> **Alternative Approach: Altering Fragments (Slots and Constituents)**.
+> This approach defines a **fixed template** for the main screen with specific **slots** (e.g., `Header_Slot`, `Primary_Recommendation_Slot`, `Secondary_Recommendation_Slot`, `Mood_Context_Slot`). For each slot, the system selects **one fragment** from a set of alternatives. For the `Primary_Recommendation_Slot`, it selects *either* the "Happy Mood Mix" *or* the "Breakup Songs" fragment based on the most confident mood inference. This **ensures a clean, structured layout** and logical coherence, as only one piece of content occupies each designated screen region. [2 marks]
+
+---
+#### Question 3(e)
+**Which of the following recommender algorithms do not suffer from the item cold start problem?**
+[2 marks]
+#### Model Answer
+> **Correct Answers: A, B**.
+> - **A (Content-based)**: Uses item **features/metadata**, available as soon as the song is added to the catalogue.
+> - **B (Knowledge-based)**: Uses a **knowledge base** of constraints and song properties.
+> - **C & D (Collaborative Filtering)**: **Rely on user-item interactions**, so a new song with no plays cannot be recommended. [2 marks for all correct]
+
+---
+#### Question 3(f)
+**The text below refers to a specific user information collection method, called here XXX. What is this method?**
+[2 marks]
+#### Model Answer
+> **Method**: This describes **Local Storage/Client-Side Profiling**.
+> **Explanation**: The profile is stored **unobtrusively** on the user's device (e.g., browser cache, app local storage). Different computers have **separate local storage**, hence separate profiles. If a computer is shared, multiple users get the **same profile** because it's tied to the device, not the person. This highlights a key **limitation** of this method. [2 marks]
+
+---
+#### Question 3(g)
+**A/B testing is used to evaluate personalisation features. Which of the metrics below can be used in A/B testing?**
+[2 marks]
+#### Model Answer
+> **Correct Answers: C, D, E**.
+> - **C (Utility)**: Primary goal of A/B tests (e.g., engagement, conversion).
+> - **D (Efficiency)**: Can be a business metric (e.g., faster task completion).
+> - **E (User’s trust)**: Measurable via post-test surveys.
+> - **A (Prediction Accuracy)**: An **offline, algorithmic metric**, not a live user behaviour.
+> - **B (Coverage)**: An **offline, system-centric metric**. [2 marks for all correct]
+
+---
+#### Question 3(h)
+**Which of the following hybridisation methods are order-insensitive?**
+[2 marks]
+#### Model Answer
+> **Correct Answers: A, C**.
+> - **A (Weighted)**: Final score = $w_1*score_1 + w_2*score_2$. Addition is **commutative**; order doesn't matter.
+> - **C (Feature combination)**: Features from both algorithms are merged into a set; set union is **order-insensitive**.
+> - **B (Switching)**: **Order-sensitive**. Which algorithm runs first defines the switch condition.
+> - **D (Cascade)**: **Highly order-sensitive**. Output of first is input to second.
+> - **E (Feature augmentation)**: **Order-sensitive**. Which algorithm provides the base features vs. augmented features matters. [2 marks for all correct]
+
+---
+#### Question 3(i)
+**Is the statement below true or false? The switching hybridisation method switches between recommendation techniques depending on the current situation. This guarantees that the resultant hybrid algorithm will not suffer the user-cold-start problem.**
+[1 mark]
+#### Model Answer
+> **False**.
+> **Reasoning**: A switching hybrid only **mitigates** the user-cold-start problem if one of the techniques it switches *to* is specifically designed to handle it (e.g., a **Demographic** or **Knowledge-Based** recommender for new users). The statement says it *guarantees* no cold-start problem, which is incorrect. If both techniques in the switch are CF-based, the hybrid will **still suffer** from cold-start. The guarantee is not inherent to the switching method itself. [1 mark]
