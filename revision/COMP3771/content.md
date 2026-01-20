@@ -1377,19 +1377,7 @@ You should now be able to:
 3.  **LO3 - Implement Recommenders**: Apply **recommender system techniques** (Content-Based, Collaborative Filtering, Knowledge-Based, Hybrid) in a practical context, understanding their algorithms, inputs, and evaluation.
 
 4.  **LO4 - Reason & Foresee**: Reason about the **significance, strengths, weaknesses, and future directions** of personalisation, including ethical and responsible design.
-## 7.2 Exam Information & Preparation
-- **Weight**: **60%** of final grade.
-- **Date/Time**: 21 January 2026, 9am-12pm.
-- **Format**: **3 long-answer questions**, each based on a **practical scenario** (similar to past papers provided).
-- **Style**: Mix of description, comparison, evaluation, design, and short calculations (e.g., MAE, similarity).
-- **Preparation Strategy**:
-    1.  **Know the Schema**: Be able to map any scenario onto the **General Adaptive Architecture**.
-    2.  **Compare & Contrast**: Prepare concise tables for techniques (e.g., CF vs. CBF, explicit vs. implicit).
-    3.  **Practice Calculations**: Be comfortable with **MAE, RMSE, Precision/Recall, Cosine Similarity**.
-    4.  **Apply Frameworks**: Use **Layered Evaluation** for assessment questions, the **Transparency Checklist** for design questions, and the **EU's 7 Requirements** for ethics questions.
-    5.  **Review Past Papers**: Understand how scenarios are constructed and what level of detail is required.
-
----
+## 7.2 App Scenario
 #### Exam Practice Question 7.1 (Synthesis)
 **You are asked to advise a start-up building a "Personalised Home Cooking Assistant" app. It suggests recipes based on user dietary preferences, ingredient availability, and cooking skill. Outline your high-level recommendations covering: (a) A suitable *Recommender System* technique with justification, (b) One critical *User Modelling* challenge, and (c) One primary *Responsible Personalisation* concern to address.**
 **[9 marks]**
