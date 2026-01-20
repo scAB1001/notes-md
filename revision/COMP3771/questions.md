@@ -1454,4 +1454,227 @@ A social media company is planning a **layered evaluation** of its new LLM-power
 "**Why this post was flagged**: Your post contains the phrase '[quote].' Our system identified this as a **common derogatory trope associated with [protected group X]**. This matched **pattern #D4** in our hate speech policy, which prohibits dehumanizing language based on protected characteristics. The confidence of this classification was **85%**." [2 marks]
 *(This explains the **criteria** (policy pattern) and the **reasoning** (matching a known trope), going beyond just highlighting keywords.)*
 
-## Last year's exam paper's
+# Last year's exam paper's
+### Question 1: Amazon Personalised Shopping (2023/4)
+![[amazon-question-2023-24-screenshot.png|400]]
+#### Question 1(a)
+**Describe what recommender method has been applied in this case. Indicate one strength and one weakness of the approach.**
+[6 marks]
+#### Model Answer with Detailed Explanation
+> **Method Applied**: The interface demonstrates a **Mixed Hybrid Recommender** approach. Specifically, it shows two different recommendation algorithms operating in parallel:
+> 1.  **"Products related to this item"** – This appears to be a **Content-Based Filtering (CBF)** approach, recommending items with similar features (category, brand, specifications) to the one the user is viewing.
+> 2.  **"Customers also bought these items from Amazon Devices"** – This is a classic **Item-Item Collaborative Filtering (CF)** approach, recommending items frequently purchased together by other users.
+>
+> The **Mixed** hybridisation method presents these two distinct recommendation lists **side-by-side** in the same interface. [2 marks]
+
+> **One Strength**: **Increased Diversity and Serendipity**. By combining CBF and CF, the system mitigates the key weakness of each. Pure CBF tends to create a **filter bubble** of overly similar items. Pure CF can be biased towards popular items. The CF component in the hybrid can suggest **serendipitous items** that are functionally different but contextually relevant (e.g., a case for a device), while the CBF component ensures **relevance** based on item attributes. This diversifies the user's options and can lead to more satisfactory discovery. [2 marks]
+
+> **One Weakness**: **Potential for User Confusion and Interface Clutter**. Presenting two separate lists with different underlying logics ("similar items" vs. "popular combos") can overwhelm or confuse users who may not understand why they are seeing different things. It can also lead to a **cluttered interface**, requiring more cognitive effort from the user to parse the information. Additionally, a simple mixed approach gives **equal visual weight** to both methods, which may not be optimal if one method is significantly more accurate or useful for that particular user or product category. [2 marks]
+
+---
+#### Question 1(b)
+**Amazon uses collaborative filtering to suggest items from other users (e.g., "Customers also bought these items from Amazon Devices"). Describe two strengths and two limitations of implementing collaborative filtering in Amazon and illustrate with examples referring to the specific application context.**
+[8 marks]
+#### Model Answer with Detailed Explanation
+> **Strength 1: Leverages the "Wisdom of the Crowd" for Discovery**.
+> **Explanation**: CF does not require deep knowledge of product features. It identifies patterns from the **user-item interaction matrix** (purchases, views). This allows it to surface **non-obvious associations** that content-based systems might miss.
+> **Amazon Example**: CF can reveal that people who buy a specific Kindle often buy a **particular brand of screen protector** and a **popular mystery novel series**. A CBF system looking at Kindle features would never recommend a book. This cross-category discovery drives additional sales and enhances user satisfaction by meeting unstated needs. [2 marks]
+
+> **Strength 2: Automatically Adapts to Trends and Seasonality**.
+> **Explanation**: As community purchasing behaviour changes, the CF model updates. Popular items rise to the top of recommendations organically.
+> **Amazon Example**: During back-to-school season, CF will quickly start recommending **laptops, notebooks, and dorm supplies** together, as the collective purchase data reflects this trend, without any manual rule updates. It effectively captures real-time market dynamics. [2 marks]
+
+> **Limitation 1: Item Cold-Start Problem**.
+> **Explanation**: A new item has no purchase history, so it cannot be recommended by CF until it accumulates sufficient interactions.
+> **Amazon Example**: When Amazon launches a **new, innovative product** (e.g., a new Echo model), CF cannot recommend it in "customers also bought" lists for the first few days or weeks, significantly hampering its initial visibility and sales velocity. It relies entirely on other marketing channels initially. [2 marks]
+
+> **Limitation 2: Popularity Bias and Reduced Diversity**.
+> **Explanation**: CF tends to recommend items that are already popular, creating a **positive feedback loop** where popular items get more recommendations and become even more popular. This can suppress niche or high-quality but less-known items.
+> **Amazon Example**: For a niche product like a **specialised engineering textbook**, CF will overwhelmingly recommend best-selling novels or mainstream tech gadgets in the "also bought" section, rather than other specialised academic texts. This narrows the user's perceived choices and disadvantages long-tail sellers. [2 marks]
+
+---
+#### Question 1(c)
+**Suggest two accuracy metrics that Amazon can use to compare different recommender algorithms and justify why you have selected these metrics.**
+[6 marks]
+#### Model Answer with Detailed Explanation
+> **Metric 1: Precision@K (e.g., Precision@10)**.
+> **Definition**: The proportion of items in the **top-K recommended list** that are relevant to the user (where relevance is defined by a positive action like a purchase or click). $$\text{Precision@K} = {\text{\# of relevant items in top K} \over K}$$**Justification for Amazon**: This metric directly measures the **business utility** of the recommender's most prominent output—the shortlist shown on screen. Amazon's goal is to maximise the chance a user clicks or buys from the recommended set. High Precision@K means the interface real estate dedicated to recommendations is being used effectively to drive conversions. It's more actionable than rating prediction error. [3 marks]
+
+> **Metric 2: Root Mean Squared Error (RMSE)**.
+> **Definition**: A measure of the **average magnitude of prediction error** for explicit ratings. $RMSE = \sqrt{\frac{1}{N} \sum_{i=1}^{N}(predicted_i - actual_i)^2}$.
+> **Justification for Amazon**: While Amazon focuses on implicit data (clicks/purchases), it also collects explicit **star ratings**. RMSE is suitable for evaluating algorithms that predict these ratings (e.g., for "rate products you've bought" features or internal quality estimation). A lower RMSE indicates the system can more accurately predict how much a user will *like* an item, which is a foundational goal of personalisation. It is more sensitive to large errors than MAE, penalising severe mispredictions. [3 marks]
+
+---
+#### Question 1(d)
+**Describe why accuracy metrics can be insufficient for evaluating recommender algorithms; suggest one other metric that can be used and justify your suggestion in the context of Amazon product recommendations.**
+[6 marks]
+#### Model Answer with Detailed Explanation
+> **Why Accuracy Metrics are Insufficient**:
+> Accuracy metrics like Precision and RMSE measure **predictive performance against observed data**. Their key insufficiency is that they evaluate a **narrow slice of the user experience**. They assume the "ground truth" (what the user *did* interact with) is all that matters. However, users **"don't know what they don't know"**—they cannot click on items never shown to them. An algorithm could have high precision by only recommending extremely safe, popular items the user is already aware of, while completely failing its **discovery role**. Accuracy metrics also ignore **user satisfaction, trust, perceived diversity, and long-term engagement**, which are critical for business success. [2 marks]
+
+> **Alternative Metric: Intra-List Diversity**.
+> **Definition**: A measure of how **dissimilar** the items within a single recommendation list are from each other. Can be calculated as the average pairwise dissimilarity (1 - similarity) between all items in the list.
+> **Justification for Amazon**: For Amazon, maximising user engagement and basket size requires exposing users to a **varied catalogue**. Low diversity (a list of 10 nearly identical phone cases) leads to a **poor user experience** and limits cross-selling opportunities. High diversity (phone cases, screen protectors, headphones, charging bricks) increases the chance of satisfying multiple user needs and encourages exploration. Monitoring diversity ensures the algorithm does not fall into an **overspecialisation trap** and maintains the commercial health of the marketplace by distributing visibility across more products. [4 marks]
+
+---
+#### Question 1(e)
+**To generate the interface with product recommendations (as shown in the image), Amazon could use optional fragments. Give two example fragments that could be used and define corresponding applicability conditions. Based on the examples, describe one problem with using optional fragments and identify an alternative algorithm which can overcome the problem.**
+[8 marks]
+#### Model Answer with Detailed Explanation
+> **Example Fragment 1: Customer Review Snippet Fragment**.
+> **Applicability Condition**: `IF` (product.average_rating >= 4.0) `AND` (number_of_reviews > 50). This ensures the fragment showing a positive review quote only appears for well-established, highly-rated products, adding social proof. [2 marks]
+
+> **Example Fragment 2: "Frequently Bought Together" Discount Promotion Fragment**.
+> **Applicability Condition**: `IF` (item_item_similarity(primary_item, candidate_item) > threshold) `AND` (candidate_item.in_stock = TRUE) `AND` (bundle_discount_available = TRUE). This fragment, which shows a combo deal, only appears if there's a strong CF association, the item is available, and a promotional bundle exists. [2 marks]
+
+> **Problem with Optional Fragments: Combinatorial Explosion and Coherence Risk**.
+> **Explanation**: As the number of fragments and conditions grows, managing them becomes **error-prone and unscalable**. More critically, the method simply includes *all* fragments whose conditions are true, with **no governing page structure**. This could lead to an **incoherent or cluttered layout**. For instance, the "Review Snippet" and "Frequently Bought Together" fragments might appear visually jumbled or in a illogical order, degrading the user experience. The system lacks a **template** to ensure a logical flow of information. [2 marks]
+
+> **Alternative Algorithm: Altering Fragments (Slots and Constituents)**.
+> **Explanation**: This approach defines a **fixed template** for the product page with specific **slots** (e.g., `Slot_A: Product_Media`, `Slot_B: Social_Proof`, `Slot_C: Cross_Sell`). For each slot, a set of alternative fragments is defined. The system selects the **single most appropriate fragment** for each slot based on the user and product context. For the `Social_Proof` slot, it might choose *either* the "Review Snippet" fragment *or* a "Award Badge" fragment, but not both, ensuring a clean, structured layout. This guarantees **coherence and predictable page structure** while still allowing adaptation. [2 marks]
+
+---
+### Question 2: ECoach Student Coaching System
+#### Question 2(a)
+![[ecoach-question-2023-24-screenshot.png|400]]
+**Define two possible stereotypes that could be used in ECoach. For each stereotype, suggest: (i) one trigger and the stereotype probability associated with this trigger and (ii) two facets, associate three values with each facet and indicate the corresponding ratings. Give a brief justification for each stereotype.**
+[16 marks]
+#### Model Answer with Detailed Explanation
+> **Stereotype 1: The Proactive Planner**.
+> **Trigger and Probability**: `IF` (average_assignment_submission_time > 3 days before deadline) `AND` (calendar_usage = high) → `P = 0.8`. The trigger captures early submission and tool use; the high probability reflects that these are strong, observable indicators of planning behaviour. [2 marks]
+>
+> **Facets, Values, and Ratings**:
+> 1.  **Facet: Study Strategy Preference**
+>     - Value: `Spaced Repetition` → Rating: 90/100
+>     - Value: `Cramming` → Rating: 20/100
+>     - Value: `Group Study` → Rating: 60/100
+> 2.  **Facet: Stress Intervention Need**
+>     - Value: `Time Management Tips` → Rating: 30/100 (already good at this)
+>     - Value: `Mindfulness Exercises` → Rating: 70/100 (to maintain balance)
+>     - Value: `Breathing Techniques` → Rating: 50/100
+> [4 marks for facets]
+>
+> **Justification**: This stereotype identifies students who are organised but may still benefit from **wellbeing support to prevent burnout**. The high rating for spaced repetition informs the system to recommend related tools, while the moderate rating for mindfulness suggests promoting those resources proactively. It helps ECoach transition from pure academic support to **holistic coaching**. [2 marks]
+
+> **Stereotype 2: The At-Risk Disengager**.
+> **Trigger and Probability**: `IF` (lecture_access_logs.percentage_accessed < 50%) `AND` (forum_posts = 0) → `P = 0.7`. The trigger uses easily obtainable log data on content access and participation. The probability is not maximum (1.0) because low access could have other causes (e.g., technical issues, using offline materials). [2 marks]
+>
+> **Facets, Values, and Ratings**:
+> 1.  **Facet: Academic Support Priority**
+>     - Value: `Catch-Up Lecture Summaries` → Rating: 90/100
+>     - Value: `Office Hours Encouragement` → Rating: 80/100
+>     - Value: `Past Paper Practice` → Rating: 40/100 (premature if behind)
+> 2.  **Facet: Barrier to Engagement**
+>     - Value: `Lack of Confidence` → Rating: 85/100
+>     - Value: `Time Poverty` → Rating: 75/100
+>     - Value: `Content Difficulty` → Rating: 60/100
+> [4 marks for facets]
+>
+> **Justification**: This stereotype is **diagnostic and intervention-focused**. The high ratings for catch-up summaries and office hours direct ECoach to provide **immediate, actionable academic support**. The "Barrier" facet helps tailor motivational messaging—for high "Lack of Confidence," ECoach might highlight growth mindset content. It enables **early, targeted intervention** before formal academic warnings. [2 marks]
+
+---
+#### Question 2(b)
+**Describe one implicit user information collection technique which can be used to extract stereotype-based user profiles in ECoach. Identify one advantage and one limitation of the chosen technique in the specific context.**
+[6 marks]
+#### Model Answer with Detailed Explanation
+> **Technique**: **Analysis of Learning Management System (LMS) Interaction Logs**.
+> **Description**: ECoach can be integrated with the university's LMS (like Minerva) to **passively analyse log data**. This includes timestamps of when a student accesses lecture slides, video views (and re-watches), time spent on quizzes, frequency of visiting discussion forums, and submission times for assignments. Patterns in this data (e.g., last-minute access, avoiding difficult materials) are used to **infer engagement levels, study habits, and potential struggles**, which feed into the stereotype matching engine. [2 marks]
+
+> **Advantage**: **Unobtrusive and Scalable Data Collection**.
+> **Explanation**: This method requires **no extra effort** from the student, avoiding survey fatigue. It captures **authentic, behavioural data** at scale across thousands of students, providing a rich, continuous stream of evidence for stereotype triggers and profile updates. It's far more efficient than manual observation or frequent explicit check-ins. [2 marks]
+
+> **Limitation**: **Risk of Misinterpretation and Ethical Ambiguity**.
+> **Explanation**: Log data reveals *what* was done, not *why*. A student who doesn't watch lecture videos might be disengaged (**At-Risk Disengager**), or they might be using superior textbooks or attending in person. This can lead to **false positives** and stigmatising labels. Ethically, there are concerns about **transparency** (do students know they're being profiled this way?) and **privacy** (continuous monitoring can feel like surveillance), especially if the data is used for purposes beyond supportive coaching. [2 marks]
+
+---
+#### Question 2(c)
+**Describe one explicit user information collection technique which can be used to extract the stereotype-based user profiles in ECoach. Identify one advantage and one limitation of the chosen technique.**
+[6 marks]
+#### Model Answer with Detailed Explanation
+> **Technique**: **Periodic Self-Reflection and Goal-Setting Questionnaires**.
+> **Description**: ECoach can prompt students at regular intervals (e.g., start of term, after exams) to complete a structured questionnaire. This would ask for **explicit self-assessment** on facets like perceived stress, confidence in topics, study hours, and personal goals (as seen in the "GET THINGS DONE" area of the screenshot). Students could also set and adjust **short-term challenges**. Their direct inputs would **override or strongly weight** the corresponding values in their user profile. [2 marks]
+
+> **Advantage**: **Promotes Student Agency, Metacognition, and Provides Ground Truth**.
+> **Explanation**: This technique actively involves the student in the modelling process, fostering a sense of **control and partnership** (Human-Computer Partnership). It encourages **metacognition**—thinking about one's own learning—which is a valuable educational outcome in itself. Most importantly, it provides a **direct, ground-truth signal** about the student's internal state, correcting potential misinterpretations from implicit data and making the model more accurate and trustworthy. [2 marks]
+
+> **Limitation**: **Reliability and Honesty Concerns, and Increased Burden**.
+> **Explanation**: Self-reported data can be **unreliable**. Students may misrepresent their state due to social desirability bias (e.g., under-reporting stress) or lack of self-awareness. They might also see it as a **burdensome task** and rush through it, providing noisy or random answers. If the system's adaptive advice changes dramatically based on this input, students might learn to "game" the system to get desired outputs, breaking the adaptive loop. [2 marks]
+
+---
+#### Question 2(d)
+**Compose an example from the stereotypes in (a) which illustrates a problem with stereotypes and suggest a way to address the problem.**
+[5 marks]
+#### Model Answer with Detailed Explanation
+> **Example Illustrating the Problem**:
+> Consider a student who fits the trigger for the **"At-Risk Disengager"** stereotype (low lecture access, no forum posts) due to a **hidden disability** like chronic fatigue, requiring them to study in short, intense bursts from downloaded materials. The stereotype would assign high ratings for "Lack of Confidence" (85) and "Catch-Up Summaries" (90). Consequently, ECoach might flood them with **confidence-building messages and remedial content**, which is **irrelevant, patronising, and potentially demoralising**. This illustrates the core problem: **Stereotypes are over-generalised and can perpetuate bias, misrepresenting individuals and leading to inappropriate, one-size-fits-all adaptations.** [2 marks for problem, 1 mark for relating to example]
+
+> **Way to Address the Problem**: **Implement a Scrutable User Model with Mixed-Initiative Refinement**.
+> **Explanation**: The system should make its inferred profile (the stereotype and its facet ratings) **visible and editable** to the student. The interface could say: "ECoach thinks you might be finding the course challenging because you're accessing fewer lectures. Is this accurate?" It would then allow the student to: 1) **Confirm or deny** the stereotype assignment, and 2) **Manually adjust the facet ratings** (e.g., slide "Lack of Confidence" down to 20). This **human-in-the-loop** approach combines the efficiency of stereotyping for initialisation with the accuracy of explicit user control, **mitigating bias and increasing model fidelity**. [2 marks]
+
+---
+### Question 3: Sustainable Living App
+#### Question 3(a)
+**Following the general architecture of user-adaptive systems, answer the following questions...**
+[10 marks]
+#### Model Answer with Detailed Explanation
+> 1.  **What is included in the user model?**
+>     The **User Model** is a structured representation containing: (i) **Preference scores** for different sustainable activity categories (e.g., `{recycling: 0.8, low_transport: 0.5, diet: 0.9}`), inferred from explicit and implicit data. (ii) **Knowledge level** about sustainability concepts (e.g., `beginner`, `intermediate`). (iii) **Media preference vector** (e.g., `{video: 0.7, text: 0.3, audio: 0.5}`). This directly corresponds to the data collected at registration and refined via logs. [2 marks]
+
+> 2.  **What user data is gathered and how?**
+>     Data is gathered via a **hybrid acquisition** strategy:
+>     - **Explicitly**: Upon registration via a **form** (stated preferences, knowledge self-assessment, media choice).
+>     - **Implicitly**: During use via **log data** tracking (which tips are clicked/read/completed, time spent on resources, search queries within the app). This is **unobtrusive data collection**. [2 marks]
+
+> 3.  **How is the user data used to maintain the user model?**
+>     The **User Model Acquisition** component processes the raw data. Explicit registration data creates the **initial model**. Implicit log data is then used for **continuous model update**. For example, if a user repeatedly clicks and completes "cycling tips," their preference score for `low_transport` is increased. A **forgetting mechanism** might be applied to decay old interests and highlight recent ones, handling **concept drift** as the user's lifestyle changes. [2 marks]
+
+> 4.  **What adaptation features are provided?**
+>     The app provides **adaptive content selection and presentation**. Key features include: (i) **Personalised activity suggestions** (e.g., "Try meat-free Monday" for a user with high `diet` preference). (ii) **Tailored educational content** (basic explanations for `beginner`, policy debates for `expert`). (iii) **Adapted media format** (serving videos to users with high `video` preference). [2 marks]
+
+> 5.  **How is the user model utilised to implement the adaptation features?**
+>     The **User Model Application** component (adaptation engine) uses the model to drive decisions. For a `beginner` user with high `recycling` preference, it applies a **Content-Based Filtering (CBF)** algorithm: it selects tips from the knowledge base whose **features** (topic="recycling", complexity="low") best match the user's **profile vector** (high recycling weight, low knowledge score). It then presents the selected tip in the user's preferred `video` format. The model is the **query** against the domain's **item features**. [2 marks]
+
+---
+#### Question 3(b)
+**Discuss how a layered approach can be applied to conduct formative evaluation of the personalised health recommendations...**
+[15 marks]
+#### Model Answer with Detailed Explanation
+> **Layer 1: Collection & Interpretation of Input Data**.
+> - **Criteria**: **Accuracy** (does the app correctly log a tip being read?), **Completeness** (is all relevant behaviour captured?), and **Interpretive Validity** (does "spent 30s on a tip" accurately imply "interest"?).
+> - **Evaluation Method**: **Data Log Analysis & Cross-Validation with User Interviews**. Analysing logs for missing events. Then, conducting **retrospective think-aloud** sessions: show users their activity timeline and ask, "Here you spent 30 seconds on this tip—what were you thinking?" Compare the system's interpretation with the user's stated intent.
+> - **Challenge**: **Ethical and Practical Hurdles in Ground Truth Collection**. Getting honest, accurate self-reports about sustainable behaviour can be subject to **social desirability bias** (users over-reporting green actions), making validation difficult. [5 marks]
+
+> **Layer 2: Modelling the Current State (User & Domain Model)**.
+> - **Criteria**: **Predictive Accuracy** (does the user model correctly predict which tip the user will click next?), **Comprehensiveness** (does the domain model cover all relevant sustainability aspects?).
+> - **Evaluation Method**: **Offline Testing with Historical Data**. Split historical log data into training/test sets. Train the user modelling algorithm on the training set and test its predictions (e.g., will the user click?) on the held-out test set. Calculate metrics like **precision, recall, or F1-score**.
+> - **Challenge**: **Non-Stationarity of the Domain**. Sustainability knowledge and best practices evolve rapidly. A model trained on last year's data may be **outdated**, and continuous re-evaluation is needed. [5 marks]
+
+> **Layer 3: Adaptation Decision & Application**.
+> - **Criteria**: **Perceived Usefulness** (do users find the recommendations helpful?), **Behavioural Change Efficacy** (do the adaptations lead to more sustainable actions?).
+> - **Evaluation Method**: **Controlled User Studies & Heuristic Evaluation**. In a lab, observe users interacting with the adapted recommendations and conduct post-session interviews/surveys on usefulness. Separately, **domain experts** (environmental scientists) can evaluate if the recommended actions are **appropriate and scientifically sound** for the user's inferred profile.
+> - **Challenge**: **Long-Term Impact Measurement**. True success is measured in sustained lifestyle change, which requires **longitudinal field studies** that are costly and time-consuming. Short-term perceived usefulness may not correlate with long-term behavioural impact. [5 marks]
+
+---
+#### Question 3(c)
+**Describe two features that can be added to the app to improve the transparency of the input for its personalised sustainable living recommendations.**
+[6 marks]
+#### Model Answer with Detailed Explanation
+> **Feature 1: A "Your Profile & Data" Dashboard (Addresses BP1 & BP2)**.
+> **Description**: Create a dedicated settings page titled "How we personalise your experience." This dashboard would **visually show the user** the key data points in their profile: "Based on your sign-up, we know you're interested in: [Diet, Recycling]. We've noticed you've been reading about: [Composting]. You prefer to learn via: [Video]." It would also list the **implicit data sources** (e.g., "We track which tips you open to understand what interests you").
+> **Transparency Improvement**: This directly addresses **Best Practice 1 (Accessibility)** and **BP2 (Input Data Disclosure)**. It makes the collected data and the resulting model **accessible, understandable, and actionable**, allowing the user to see the direct link between their actions and the system's "understanding" of them. [3 marks]
+
+> **Feature 2: Inline "Why This Suggestion?" Explanations (Addresses BP3)**.
+> **Description**: Next to each recommended tip (e.g., "Visit a local farmer's market"), include a small icon (ℹ️) or link labelled "Why this for me?". Clicking it reveals a concise, **feature-based explanation**: "This suggestion combines your **strong interest in sustainable diet** with an opportunity to **reduce transport emissions** (a topic you've recently read about). It's also a **video**, which you prefer."
+> **Transparency Improvement**: This tackles the most common industry failure identified by the transparency checklist: explaining the **processing** (**Best Practice 3**). It moves beyond just stating *what* data was used to explain *how* that data was combined (reasoning) to produce the specific output, demystifying the personalisation logic. [3 marks]
+
+---
+#### Question 3(d)
+**Describe one privacy concern about the app which users may have and justify why this concern may occur.**
+[2 marks]
+#### Model Answer with Detailed Explanation
+> **Privacy Concern**: **Profiling of Sensitive Lifestyle and Beliefs Leading to Discrimination or Unwanted Targeting**.
+> **Justification**: The app builds a detailed profile of a user's **sustainable behaviours, dietary choices, and political/ethical leanings** (e.g., veganism, anti-consumerism). This constitutes **sensitive inferential data**. Users may fear this profile could be:
+> 1.  **Shared with third parties** (e.g., health insurers who might penalise "high-carbon" lifestyles, or political campaigns for micro-targeting).
+> 2.  **Used for manipulative advertising** (e.g., targeting "guilt-based" ads for expensive eco-products).
+>
+> This concern is valid because privacy policies are often complex, and **data monetisation** is a common business model. The very act of **tracking** for personalisation (e.g., logging that a user researches "flight shame") creates a permanent record of potentially sensitive **intentions and values**, which could be misused if the data is breached or sold. [2 marks]
