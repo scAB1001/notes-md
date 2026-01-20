@@ -751,7 +751,7 @@ The user sees both lists on the same page.
 
 ---
 ## 3.7 Comparing & Selecting Hybrid Methods
-**Decision Guide: Which Hybrid Method to Use?**
+### Decision Guide: Which Hybrid Method to Use?
 
 | If your primary challenge is...            | Consider this hybrid method...                         | Because it...                                    |
 | :----------------------------------------- | :----------------------------------------------------- | :----------------------------------------------- |
@@ -766,6 +766,86 @@ When analysing or designing a recommender, always specify:
 1.  **Background Data**: What knowledge does it require? (e.g., user-item matrix, item features, knowledge base).
 2.  **Input Data**: What does it need at runtime for a specific user? (e.g., user's rating history, current query).
 3.  **Algorithm**: What is the core computational process? (e.g., find k-NN, compute cosine similarity, apply constraint rules).
+### Identifying a recommender method in a system
+#### Step-by-Step Diagnostic Questions & Interpretation Guide
+**Question 1: Is it recommending items based on the user's own past likes/choices?**
+- **What to look for**: Language like "because you watched/liked/bought X," "more like this," "similar to your history."
+- **If YES** → **Content-Based Filtering (CBF)**.
+    - **Reasoning**: The system is matching item **features** (genre, actor, ingredients) to the user's historical profile.
+    - **Check for tell-tale signs**: Item-to-item similarity is key. Explanations are **feature-based**.
+- **If NO** → Proceed to Question 2.
+
+**Question 2: Does it rely on what SIMILAR USERS liked or did?**
+- **What to look for**: Language like "people like you also bought," "customers also viewed," "trending in your network," "top picks for you" (when not linked to your own history).
+- **If YES** → **Collaborative Filtering (CF)**.
+    - **Reasoning**: The system is leveraging the **user-item interaction matrix** to find patterns. It doesn't need to know *what* the items are, just that people who interact with A also interact with B.
+    - **Sub-typing**:
+        - **User-User CF**: "People whose purchase history matches yours bought this."
+        - **Item-Item CF**: "Customers who bought the item in your cart also bought this." (Amazon's classic method).
+- **If NO** → Proceed to Question 3.
+
+**Question 3: Does it use a DIALOGUE or FORM to ask the user for needs/constraints?**
+- **What to look for**: The system asks a series of questions before giving recommendations. E.g., "What's your budget? Any dietary restrictions? Preferred cuisine?" (for restaurants), "What are your fitness goals? Do you have any injuries?".
+- **If YES** → **Knowledge-Based (KB) Recommender**.
+    - **Reasoning**: The system uses a **knowledge base** of rules and item attributes to **match user constraints**. It often supports **critique-based navigation** ("cheaper," "more powerful").
+    - **Key Feature**: Works **without any user history**. Solves cold-start problems.
+- **If NO** → Proceed to Question 4.
+
+**Question 4: Is it using DEMOGRAPHICS (age, gender, location, job) as the main signal?**
+- **What to look for**: Recommendations that seem based on broad categories. "Recommended for teenagers," "popular in your city," "trending among professionals."
+- **If YES** → **Demographic Recommender**.
+    - **Reasoning**: It's a form of **stereotyping**. It assigns the user to a segment and recommends what is popular/appropriate for that segment.
+- **If NO** → Proceed to Question 5.
+
+**Question 5: Observe - Are there MULTIPLE, distinct recommendation logics or lists visible in the interface?**
+- **What to look for**: Separate, labelled sections like "Because you watched X" **AND** "Trending now" **AND** "Recommended for your profile".
+- **If YES** → **Hybrid Recommender**. **Now identify the hybridisation method**:
+	1.  **Mixed**: The different lists are **shown side-by-side** with clear labels (e.g., Netflix's "Because you watched..." and "Trending Now").
+	2.  **Weighted**: You see a **single, blended list**. To identify, you'd need system documentation. It's the default assumption for a single, unexplained list.
+	3.  **Switching**: The system uses one method **in some contexts** (e.g., for new users) and another later on. Hard to spot from a single snapshot.
+	4.  **Cascade**: The process is **sequential** (e.g., first filter by constraints, then rank by similarity). Might be indicated if the system has a clear multi-step process.
+- **If NO** → Proceed to Question 6.
+
+**Question 6: Consider - Is the system ADAPTING in REAL-TIME to maximise a long-term goal?**
+- **What to look for**: The system seems to be **exploring** (showing varied items to learn your reaction) and **exploiting** (showing known good items). It might change recommendations strategically based on your session history.
+- **If YES** → **Reinforcement Learning (RL) Based Recommender**.
+    - **Reasoning**: The system is an **agent** taking **actions** (recommendations) to maximise **cumulative reward** (long-term engagement, purchases). Common in modern, session-based recommenders.
+- **If NO** → **Result**: The system is likely a **simple popularity / trending-based** system (non-personalised) or another less common method.
+
+---
+#### Quick-Decision Matrix for Exam Questions
+
+| Scenario Clue | Most Likely Technique | Why |
+| :--- | :--- | :--- |
+| "Similar to items you've liked." | **Content-Based (CBF)** | Personal, feature-based similarity. |
+| "People like you also liked..." | **Collaborative Filtering (CF)** | Uses community behaviour. |
+| "Other users who bought X also bought Y." | **Item-Item CF** | Specific type of CF. |
+| Asks you questions first (budget, needs). | **Knowledge-Based (KB)** | Constraint satisfaction. |
+| Works for a brand new user with no history. | **KB** or **Demographic** | Doesn't need interaction data. |
+| Cannot recommend a brand new item. | **CF** (suffers **item cold-start**) | Needs interaction history. |
+| Only recommends items very similar to past likes. | **CBF** (suffers **overspecialisation**) | Limited by user's own history. |
+| Two different recommendation lists on screen. | **Mixed Hybrid** | Parallel presentation of techniques. |
+| Explains recommendation with specific features. | **CBF** or **KB** | Transparent, attribute-based reasoning. |
+| Gives a "because you watched X" AND a "trending" list. | **Mixed Hybrid (CBF + Popularity/CF)** | Clear separation of logics. |
+
+---
+#### Final Verification Questions
+Once you have a hypothesis, ask these to confirm:
+1.  **"What is the core data source?"**
+    - **CBF**: Item features / metadata + User's past interaction with those features.
+    - **CF**: User-Item interaction matrix (ratings, purchases, clicks).
+    - **KB**: Knowledge base of rules & constraints + User's stated needs.
+    - **Demographic**: User's demographic attributes + Segment averages.
+
+2.  **"What problem does it NOT solve?"**
+    - **CBF**: Cannot provide **serendipitous** recommendations outside the user's profile. **Item cold-start** is *solved*.
+    - **CF**: Cannot handle **user** or **item cold-start**. Transparency is low.
+    - **KB**: Cannot **learn** from community trends or implicit behaviour.
+
+3.  **"Is there a clear explanation for *why* this item was recommended?"** (Transparency)
+	- Strong, feature-based explanation → **CBF** or **KB**.
+	- Weak, social explanation ("popular") → **CF** or **Demographic**.
+	- No explanation → Likely a complex **Hybrid** or **ML model**.
 
 ---
 #### Exam Practice Question 3.4
@@ -1382,7 +1462,6 @@ This walkthrough synthesises the entire User Adaptive Intelligent Systems module
 
 ---
 ### Part 1: Foundations & Architecture
-
 **LearnFit** is a **user-adaptive system**. Its core purpose is to **automatically tailor** fitness plans, workout instructions, and meal suggestions to each individual user, moving beyond a **one-size-fits-all** approach.
 
 The system is built upon the **generic architecture of user-adaptive systems**, which defines its core components and data flow:
@@ -1396,7 +1475,6 @@ The system is built upon the **generic architecture of user-adaptive systems**, 
 This architecture highlights the shift from standard **Human-Computer Interaction (HCI)** towards a **Human-Computer Partnership (HCP)**, where the system proactively collaborates with the user.
 
 ---
-
 ### Part 2: User Modelling & Acquisition
 To function, LearnFit must construct an accurate User Model. This involves **representation**, **acquisition** and handling **dynamic change**.
 #### Representation
@@ -1404,7 +1482,6 @@ LearnFit uses multiple **representation methods**:
 *   For overall fitness, it uses a simple **Scalar Model** (e.g., `fitness_score: 68/100`).
 *   For tracking skill in specific exercises (e.g., squat, deadlift), it uses an **Overlay Model** against a **domain model** of exercise techniques, marking each as "mastered," "learning," or "untried."
 *   For food preferences, it builds a **Vector Model** using **TF-IDF** on ingredients from logged meals, identifying strong likes (e.g., high weight for "avocado") and dislikes.
-
 #### Acquisition & The Cold-Start Problem
 When a new user joins, LearnFit faces the **user cold-start problem**: it has no personal data. To solve this, it uses **stereotypes**.
 *   **Stereotype Definition**: "Time-Pressed Professional"
@@ -1458,7 +1535,6 @@ We also constantly guard against **usability threats**:
 
 ---
 ### Part 6: Responsible Personalisation
-
 Building a system like LearnFit involves significant ethical responsibility, guided by frameworks like the **EU's Ethics Guidelines for Trustworthy AI**.
 
 *   **Privacy**: LearnFit collects sensitive health data. We implement **Privacy by Design**, ensuring **data minimisation**, clear **consent** for **implicit data** collection, and **anonymisation** where possible.
@@ -1480,6 +1556,189 @@ The module culminates in understanding this integrated, ethical, and evaluative 
 6.  Throughout, **ethical principles** govern design, ensuring **transparency**, **fairness**, **privacy**, and ultimately, **trustworthy** personalisation.
 
 This is the complete architecture, methodology, and ethical practice of building a **User-Adaptive Intelligent System**.
+## 7.3 Module Concepts Compendium: A Comparative Analysis for LearnFit
+### 1. User Data Collection & Acquisition Methods
+#### Option A: Explicit Data Collection
+**Method**: User manually provides information (e.g., sign-up form, preference sliders, "rate this workout").
+- **LearnFit Example**: User inputs age, weight, goal weight, dietary restrictions.
+- **Advantages**:
+    - **High Reliability**: Data is intentional and accurate.
+    - **Transparency & Control**: User knows what information is being used.
+    - **Solves Cold-Start**: Provides immediate, usable data.
+- **Disadvantages**:
+    - **High User Effort**: Creates sign-up friction and requires ongoing input.
+    - **Incompleteness**: Users may not know or accurately report their own preferences (e.g., "How much do you like interval training?").
+    - **Static**: Does not capture changing states or contexts.
+#### Option B: Implicit Data Collection
+**Method**: System infers information from user behaviour (e.g., click-through rates, dwell time, workout completion, heart rate).
+- **LearnFit Example**: Inferring `exercise_preference` from which workout videos are played to the end, or `current_fatigue` from a decline in lifting performance.
+- **Advantages**:
+    - **Low User Effort**: Unobtrusive and continuous.
+    - **Rich & Dynamic**: Captures real-time context and evolving states.
+    - **Potentially More Truthful**: Reflects actual behaviour, not stated intent.
+- **Disadvantages**:
+    - **Interpretation Challenges**: Risk of **misinterpretation** (e.g., is skipping a workout due to low motivation or injury?).
+    - **Privacy Concerns**: Can feel like surveillance if not transparent.
+    - **Delayed Signal**: Requires sufficient behavioural history to be reliable.
+
+**Comparative Insight**: A robust system like LearnFit uses a **hybrid acquisition** strategy. **Explicit data** bootstraps the initial model and sets constraints (e.g., vegetarian). **Implicit data** then dynamically refines the model and captures context (e.g., user is skipping cardio workouts this week).
+
+---
+### 2. User Model Representation Techniques
+#### Option A: Scalar Model
+**Method**: Represents a user attribute with a single value on a scale.
+- **LearnFit Example**: `overall_fitness_score: 68/100`.
+- **Advantages**:
+    - **Extremely Simple** to store, update, and reason about.
+    - **Computationally Light**.
+- **Disadvantages**:
+    - **Overly Reductive**: Loses all nuance (e.g., a user could be strong but have poor cardio).
+    - **Poor Diagnostic Power**: Cannot identify *which* aspects need adaptation.
+#### Option B: Overlay Model
+**Method**: Represents user knowledge or traits as a subset of an expert **Domain Model**.
+- **LearnFit Example**: Mapping user proficiency against a domain model of exercise techniques: `{squat: mastered, deadlift: learning, burpee: untried}`.
+- **Advantages**:
+    - **High Diagnostic Precision**: Pinpoints exact strengths and weaknesses.
+    - **Enables Fine-Grained Adaptation**: Perfect for educational/tutoring systems.
+- **Disadvantages**:
+    - **Requires Comprehensive Domain Model**: Significant knowledge engineering overhead.
+    - **Can be Complex** to manage and update.
+#### Option C: Vector Model
+**Method**: Represents user interests/preferences as a vector of weights over features.
+- **LearnFit Example**: `taste_preference = [sweet: 0.1, salty: 0.8, spicy: 0.6, umami: 0.3]`.
+- **Advantages**:
+    - **Excellent for Similarity Computation**: Enables **Cosine Similarity** for CBF recommenders.
+    - **Flexible**: Can incorporate many dimensions.
+- **Disadvantages**:
+    - **Feature Engineering Required**: Needs a good set of relevant features.
+    - **Semantic Opacity**: A high weight for "spicy" doesn't explain *why*.
+#### Option D: Stereotypes
+**Method**: Pre-defined, coarse-grained user categories with default attribute values.
+- **LearnFit Example**: `"Weekend Warrior"` stereotype: `goal=general_fitness, available_time=weekends_only, workout_intensity=high`.
+- **Advantages**:
+    - **Powerful Cold-Start Solution**: Provides immediate personalisation with zero user history.
+    - **Simple to Implement**.
+- **Disadvantages**:
+    - **Over-Generalisation**: Assumes all users in a category are identical; risks **bias** and **discrimination**.
+    - **Static**: Hard to evolve beyond the stereotype.
+
+**Comparative Insight**: LearnFit employs a **composite user model**. It uses a **Scalar** for a quick overall summary, an **Overlay Model** for exercise skill tracking (to enable precise tutorial tips), and a **Vector Model** for recipe recommendations. **Stereotypes** are used *only* for initialisation before being overwritten by individual data.
+
+---
+### 3. Core Recommender System Techniques
+| Technique | Core Mechanism | LearnFit Application | Advantages | Disadvantages |
+| :--- | :--- | :--- | :--- | :--- |
+| **Content-Based Filtering (CBF)** | Recommends items similar to those the user liked in the past, based on **item features**. | "You liked the HIIT workout. Here are other HIIT workouts." | **Transparent** (easy to explain).<br>**No Item Cold-Start** (new workout can be recommended if features are known).<br>**User-Specific**. | **Overspecialisation/Filter Bubble** (only suggests similar items).<br>**Limited Serendipity**.<br>**Requires Good Feature Engineering**. |
+| **Collaborative Filtering (CF)** | Recommends items that **similar users** liked. | "People with your workout history also loved this yoga flow." | **Requires No Domain Knowledge** (works from interactions alone).<br>**Enables Serendipity** (can cross interest boundaries).<br>**"Wisdom of the Crowd"**. | **User & Item Cold-Start Problems**.<br>**Sparsity Issues** (needs many interactions).<br>**Popularity Bias**.<br>**Low Transparency** ("people like you" is a weak explanation). |
+| **Knowledge-Based (KB)** | Recommends items that satisfy a set of **user-specified constraints** using a **knowledge base**. | "Find me a <30min, no-equipment, core workout." | **No Cold-Start Problem** (works from stated needs).<br>**Excellent for Complex/High-Involvement Domains** (e.g., fitness plans).<br>**Highly Transparent**. | **Static Knowledge Base** requires costly expert engineering and maintenance.<br>**No Learning** from community preferences. |
+| **Utility-Based** | Computes a **personalised utility score** for each item based on a user-defined function. | User sets sliders: `importance(cardio=9, strength=5, flexibility=3)`; system ranks workouts. | **Maximum User Control & Transparency**. | **High User Effort** to configure and maintain.<br>Users may not know their own utility function. |
+
+---
+### 4. Hybridisation Methods for Recommenders
+LearnFit would combine the above techniques to mitigate weaknesses.
+
+| Hybrid Method | How It Works | LearnFit Example & Rationale | Advantages | Disadvantages |
+| :--- | :--- | :--- | :--- | :--- |
+| **Weighted** | Combines scores from multiple techniques linearly. | `Score = 0.6*CBF_Score + 0.4*CF_Score`. Balances personal similarity (CBF) with community wisdom (CF). | **Simple to implement**. Can fine-tune balance. | Choosing optimal weights is non-trivial. May dampen the strengths of each component. |
+| **Switching** | Uses different techniques in different situations. | **New User**: Use **Demographic** stereotype. **After 10 workouts**: Switch to **CF**. Handles **user cold-start**. | **Applies the right tool for the job**. Clear rationale. | Requires a **robust switching criterion** (when to switch?). Can lead to inconsistent user experience. |
+| **Cascade** | Applies techniques sequentially; output of first is input to second. | 1. **KB** filters all workouts by `equipment=none`. 2. **CBF** ranks the shortlist by similarity to past likes. Ensures constraints are met before personalising. | **Guarantees hard constraints**. Computationally efficient later stages. | **Error Propagation**: If first stage filters out a good item, it's lost forever. **Order-sensitive**. |
+| **Feature Combination** | Merges features from different sources into a single input for one ML model. | A neural network receives both **user-workout interaction history** (CF data) and **workout metadata features** (CBF data). | **Lets the model learn complex interactions** between community and content signals. Powerful. | **Black box**; loses transparency. Complex to implement and train. |
+| **Mixed** | Presents results from different techniques in separate, clearly labelled interface sections. | UI has: "Because you liked HIIT" (**CBF** list) AND "Trending this week" (**Popularity/CF** list). | **Maximises transparency and user choice**. Clear separation of recommendation logic. | Can clutter the interface. User must understand the different sections. |
+
+---
+### 5. Adaptive Content Presentation Approaches
+#### Option A: Page-Based Approach
+**Method**: Pre-author complete, alternative pages for different user states.
+- **LearnFit Example**: A "Beginner Workout Page" and an "Expert Workout Page".
+- **Advantages**:
+    - **High Quality & Coherence**: Each page is fully crafted by a designer.
+    - **Simple Logic**: Just select and serve the right page.
+- **Disadvantages**:
+    - **Authoring Bottleneck**: Must create and maintain *n* pages for *n* user states. **Does not scale**.
+    - **Inflexible**: Cannot create novel combinations (e.g., a beginner who is also an athlete in another sport).
+#### Option B: Fragment-Based Approach
+**Method**: Assemble pages from reusable **content fragments** with **applicability conditions**.
+- **LearnFit Example**:
+    - *Optional Fragments*: Show "Advanced Breathing Technique" fragment `IF user.level > intermediate`.
+    - *Altering Fragments*: For the `Motivation_Slot`, select either a "You got this!" (beginner) or "Push your limits!" (expert) fragment.
+- **Advantages**:
+    - **Flexible & Reusable**: Fragments can be mixed across many pages.
+    - **Easier Maintenance than Page-Based**.
+- **Disadvantages**:
+    - **Combinatorial Complexity** (Optional Fragments): Managing many conditions is error-prone; risks **incoherent** pages.
+    - **Authoring Overhead** (Altering Fragments): Requires defining a slot template and all alternatives.
+#### Option C: Automatic Generation
+**Method**: Generate content on-the-fly from data/knowledge models using **NLG**.
+- **LearnFit Example**: An LLM generates a daily coaching message: "Great workout yesterday! Your heart rate recovery is improving, suggesting better cardiovascular fitness."
+- **Advantages**:
+    - **Maximum Flexibility & Personalisation**: Can generate unique content for any situation.
+    - **Scalable**: No manual authoring per variant needed.
+- **Disadvantages**:
+    - **Risk of Incorrect/Inappropriate Content**: **Hallucination** in LLMs, coherence issues in simpler NLG.
+    - **Quality Control**: Harder to guarantee consistent tone and accuracy.
+    - **Computationally Expensive**.
+
+**Comparative Insight**: LearnFit would use a **hybrid presentation** strategy. The core workout interface uses a reliable **Altering Fragments** template for structure and safety. The conversational coaching agent and report summaries use **Automatic Generation** (LLM/NLG) for fluid, highly personalised communication.
+
+---
+### 6. Evaluation Methodologies
+#### Option A: Layered Evaluation (Formative)
+**Method**: Decomposes the system and evaluates each architectural layer independently.
+- **LearnFit Application**: Testing if heart rate sensor data is accurate (Layer 1), if "workout skip" is correctly interpreted as "low motivation" (Layer 2), if the `fitness_level` model predicts future performance (Layer 3).
+- **Advantages**:
+    - **Diagnostic Power**: Isolates the *source* of problems.
+    - **Targeted Feedback**: Informs specific component improvements.
+- **Disadvantages**:
+    - **Resource Intensive**: Requires multiple, tailored evaluation methods.
+    - **Does Not Assess Holistic User Experience**.
+#### Option B: A/B Testing (Summative)
+**Method**: Compares two system versions (Control vs. Treatment) with live users on aggregate **Key Performance Indicators (KPIs)**.
+- **LearnFit Application**: Does the new **RL-based** recommender (Treatment) increase **30-day user retention** vs. the old **CBF** system (Control)?
+- **Advantages**:
+    - **Measures Real-World Causal Impact**: Gold standard for "what works."
+    - **Business-Aligned**: Tests direct metrics like engagement and retention.
+- **Disadvantages**:
+    - **Requires Large User Base & Traffic**.
+    - **Limited Diagnostic Insight**: Tells you *if* it works, not always *why*.
+    - **Ethical Risks** if treatment group receives a poor experience.
+
+**Comparative Insight**: These are **complementary**, not competing. **Layered Evaluation** is used during *development* to debug and refine components. **A/B Testing** is used pre- and post-*deployment* to validate overall value and guide business decisions.
+
+---
+### 7. Ethics & Responsible AI Frameworks
+#### Option A: Ad-Hoc Compliance
+**Method**: Addressing ethical issues reactively, as they arise.
+- **Advantage**: **Low upfront cost**.
+- **Disadvantage**: **High risk** of privacy scandals, biased outcomes, user distrust, and regulatory penalty. Unsystematic.
+#### Option B: Proactive Framework (e.g., EU Trustworthy AI)
+**Method**: Systematically implementing principles like **Human Agency (R1)**, **Robustness (R2)**, **Privacy (R3)**, **Transparency (R4)**, **Fairness (R5)**, **Well-being (R6)**, **Accountability (R7)**.
+- **LearnFit Application**:
+    - **R1/Agency**: "Consult a doctor" disclaimer; user control over data.
+    - **R2/Robustness**: Testing for LLM hallucination of exercises.
+    - **R4/Transparency**: "Why this workout?" explanations.
+    - **R5/Fairness**: Auditing stereotype assignments for age/gender bias.
+- **Advantages**:
+    - **Builds Trust** and **Mitigates Risk**.
+    - **Comprehensive** coverage of ethical concerns.
+    - **Aligns with Emerging Regulation**.
+- **Disadvantages**:
+    - **Implementation Overhead**: Requires dedicated design and evaluation effort.
+    - **Can Constrain Design** choices (e.g., limiting data collection for privacy).
+
+**Comparative Insight**: For a system handling sensitive health data like LearnFit, a **Proactive Framework is non-negotiable**. The disadvantages are the necessary cost of responsible, sustainable innovation.
+
+---
+#### Final Synthesis: The LearnFit Design Rationale
+Through this comparative analysis, the optimal architecture for **LearnFit** emerges:
+
+1.  **Acquisition**: **Hybrid Explicit/Implicit**, using explicit for constraints and cold-start, implicit for dynamic refinement.
+2.  **User Model**: **Composite** (Scalar summary, Overlay for skills, Vector for preferences), initialised by **Stereotypes**.
+3.  **Recommender Core**: A **Cascade Hybrid**: **KB** (for hard constraints like injury rehab) -> **Weighted Hybrid** of **CBF** (for transparency & personalisation) and **CF** (for diversity & serendipity). Advanced users get an **RL Agent** for long-term habit optimisation.
+4.  **Presentation**: **Altering Fragments** for the structured workout UI, with **Automatic NLG/LLM** for conversational coaching.
+5.  **Evaluation**: **Layered Evaluation** during development; continuous **A/B Testing** in production.
+6.  **Ethics**: **Proactive implementation** of the EU framework, with a **Transparency Checklist** guiding feature design.
+
+This architecture balances **accuracy**, **scalability**, **user experience**, and **ethical responsibility**, illustrating the core trade-offs and synthesis at the heart of User-Adaptive Intelligent Systems.
 #### Exam Practice Question 7.1 (Synthesis)
 **You are asked to advise a start-up building a "Personalised Home Cooking Assistant" app. It suggests recipes based on user dietary preferences, ingredient availability, and cooking skill. Outline your high-level recommendations covering: (a) A suitable *Recommender System* technique with justification, (b) One critical *User Modelling* challenge, and (c) One primary *Responsible Personalisation* concern to address.**
 **[9 marks]**
@@ -1490,7 +1749,7 @@ This is the complete architecture, methodology, and ethical practice of building
 **(c) Responsible Personalisation Concern**: **Algorithmic Bias & Fairness**. Recipe databases and popularity data may under-represent certain cuisines (e.g., Global South dishes) or dietary traditions. A naive algorithm could over-recommend Western, meat-heavy dishes, perpetuating cultural bias and limiting user discovery. Mitigation requires **curating diverse training data** and **incorporating diversity metrics** into the ranking.
 
 ---
-## 7.3 Future Directions in User-Adaptive Systems
+## 7.4 Future Directions in User-Adaptive Systems
 The field is rapidly evolving, driven by advances in AI, data availability, and new interaction paradigms.
 ### 1. Generative AI & Agentic AI
 - **Impact on Personalisation**: LLMs are transforming **how** personalisation is delivered.
