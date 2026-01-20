@@ -1454,6 +1454,8 @@ A social media company is planning a **layered evaluation** of its new LLM-power
 "**Why this post was flagged**: Your post contains the phrase '[quote].' Our system identified this as a **common derogatory trope associated with [protected group X]**. This matched **pattern #D4** in our hate speech policy, which prohibits dehumanizing language based on protected characteristics. The confidence of this classification was **85%**." [2 marks]
 *(This explains the **criteria** (policy pattern) and the **reasoning** (matching a known trope), going beyond just highlighting keywords.)*
 
+# More
+
 # Last year's exam paper's
 ## 2023/4
 ### Question 1: Amazon Personalised Shopping
