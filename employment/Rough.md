@@ -27,5 +27,13 @@ Andreas Bazigos
 ### Work Experience
 - PWC
 - CommerzBank
+### Training and Development
+- Risk aware
+- Applications, software
+- Modules
 ### Education & Qualifications
+- B. Sc. Computer Science, University of Leeds, Leeds
+- Level 6 degree apprenticeship PwC-Leeds partnership
+- Foreign Languages Greek-fluent, Spanish-intermediate, German-intermediate (B1), French-basic
 ### Voluntary Work
+
