@@ -24,7 +24,7 @@ Jun 2023 - Aug 2023 · 3 mosJun 2023 to Aug 2023 · 3 mos Leeds, England, United
 Andreas Bazigos
 07767 147591 | bazigosa@gmail.com
 
-### Work Experience
+### Work Experie201nce
 - PWC
 - CommerzBank
 ### Training and Development
