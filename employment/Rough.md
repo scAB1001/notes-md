@@ -88,7 +88,7 @@ PWC | June 2024 - August 2025 | 1 year 2 months | Leeds
 - NGC certified
 
 
-**DevOps Engineer**
+**Software Developer**
 **Assessment Hub (Amazon, IKEA & JLR)**
 Full-stack developer on the flagship Assessment Hub GRC product; extended forks for IKEA and JLR, delivering front‑end components in Vue.js and back‑end services in C\#.​
 Automated deployment via Azure DevOps pipelines; managed version control with Git.​
@@ -102,6 +102,7 @@ Designated tasks on the ADO Kanban boards for other developers.​
 Collaborated in a small team to implement phase‑X enhancements, meeting clients bi‑weekly for bug triage and progress updates.​
 Authored Business Requirement Documents (BRDs), user stories, and design proposals using Figma.​
 
+**DevOps Engineer**
 **Cloud Cost Assurance (FTSE 100)**
 Back-end developer Working on the Cloud Cost Assurance (CCA) project aiming to optimise client cloud systems and solutions to ESG problems.​  
 Handling and processing client API data with Java’s functional programming capabilities and unique processing tools collection.​  
