@@ -88,7 +88,7 @@ PWC | June 2024 - August 2025 | 1 year 2 months | Leeds
 - NGC certified
 
 
-**Software Developer**
+**Software Developer**Vi
 **Assessment Hub (Amazon, IKEA & JLR)**
 Full-stack developer on the flagship Assessment Hub GRC product; extended forks for IKEA and JLR, delivering front‑end components in Vue.js and back‑end services in C\#.​
 Automated deployment via Azure DevOps pipelines; managed version control with Git.​
