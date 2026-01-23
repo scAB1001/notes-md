@@ -87,14 +87,6 @@ PWC | June 2024 - August 2025 | 1 year 2 months | Leeds
 - Proficient use of Azure, Terraform,  C#, [ASP.NET](http://ASP.NET) Core, Javascript, SQL, Vue and SSMS  
 - NGC certified
 
-- - PWC | June 2023 - August 2023 | 2 months | Leeds
-- Working on the Cloud Cost Assurance (CCA) project aiming to optimise client cloud systems and solutions  
-- Handling and processing client API data with Java's processing tools collection  
-- Lead PMO and coordinator for the centralised Leeds project team  
-- Organising daily team stand-ups/huddles, communicating with remote teams and planning meetings for aspects of project engagement  
-- Adopting a hybrid software development approach of Agile and Test-Driven Development (TDD) principles that include Kanban, milestones, tickets and sprint planning.  
-- Adopting industry standard programming styles and practices  
-- Proficient use of Git, Azure and G-suit applications for external (client) and internal documentation purposes
 
 **DevOps Engineer**
 **Assessment Hub (Amazon, IKEA & JLR)**
@@ -116,6 +108,16 @@ Handling and processing client API data with Java’s functional programming cap
 Lead PMO and coordinator for the centralised Leeds project team.​  
 Organising daily team stand-ups/huddles, communicating with remote teams and planning meetings for aspects of project engagement.​  
 Adopting a hybrid software development approach of Agile and Test-Driven Development (TDD) principles that include Kanban, milestones, tickets and sprint planning.​
+
+- - PWC | June 2023 - August 2023 | 2 months | Leeds
+- Working on the Cloud Cost Assurance (CCA) project aiming to optimise client cloud systems and solutions  
+- Handling and processing client API data with Java's processing tools collection  
+- Lead PMO and coordinator for the centralised Leeds project team  
+- Organising daily team stand-ups/huddles, communicating with remote teams and planning meetings for aspects of project engagement  
+- Adopting a hybrid software development approach of Agile and Test-Driven Development (TDD) principles that include Kanban, milestones, tickets and sprint planning.  
+- Adopting industry standard programming styles and practices  
+- Proficient use of Git, Azure and G-suit applications for external (client) and internal documentation purposes
+
 
 C#, [ASP.NET](http://ASP.NET) Core, Web Forms, UI/UX, Figma, JS, TS, ReactJS, VueJS, Python, Azure, ADO, Git, Terraform, TDD, xUnit, Moq, HTML, CSS, API, SQL, SSMS, MVP, (H)MVC.
 # Template
