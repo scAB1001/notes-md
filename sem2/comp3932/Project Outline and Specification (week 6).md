@@ -1,3 +1,7 @@
+#### Key
+Student: Andreas Bazigos 
+Supervisor: Sharib Ali 
+Assessor: Natasha Shakhlevich
 ### 1. Title
 A concise title that accurately describes the subject of your project.
 The subject should be the computer science problem that you are investigating.
