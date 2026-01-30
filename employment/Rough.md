@@ -122,19 +122,17 @@ Adopting a hybrid software development approach of Agile and Test-Driven Develop
 
 C#, [ASP.NET](http://ASP.NET) Core, Web Forms, UI/UX, Figma, JS, TS, ReactJS, VueJS, Python, Azure, ADO, Git, Terraform, TDD, xUnit, Moq, HTML, CSS, API, SQL, SSMS, MVP, (H)MVC.
 # Template
-Andreas Bazigos
-07767 147591 | bazigosa@gmail.com
+### Tell us about a time when you "hacked the system" to your advantage (Do not use AI / CHATGPT)
+As part of one of my roles in PwC, I took on an ongoing project that concerned Carbon Emission data processing via client API. The actual collection was very tedious, needing to submit requests for access for each call to the API through the company's internal network, receive confirmation, submit the call, then repeat. The process required forms filling in, email chains as confirmation and evidence, and so on.
 
-### Work Experie201nce
-- PWC
-- CommerzBank
-### Training and Development
-- Risk aware
-- Applications, software
-- Modules
-### Education & Qualifications
-- B. Sc. Computer Science, University of Leeds, Leeds
-- Level 6 degree apprenticeship PwC-Leeds partnership
-- Foreign Languages Greek-fluent, Spanish-intermediate, German-intermediate (B1), French-basic
-### Voluntary Work
+I noticed many of these steps were often duplicated and that the entire process was in dire need of automation. After lots of policy reading, confirmation from my manager and testing, I discovered that I could send multiple identical API access requests upfront, using the same data for each one if appropriate. Furthermore, the emails and authorisation process could be sent in bulk and events triggered based on email response which always contained the same keywords and sign-off, which I treated as a unique "trigger key", so to speak.
 
+The results were pleasing: a speed-up in overall project growth and development due to immediate upfront access with little-to-no input required from developers -which previously took from their programming/design time, a routine and tidy collection of confirmation, creating an organised paper trail -unlike previous documentation which meant that each requester would store the sign-offs independently as a sole responsibility and there was no uniform, centralised system.
+
+I consider this hacking the system because I leveraged parts of the existing system in ways previously not considered and essentially automated laborious parts of the role for the better to enable more time and focus on important jobs.
+### Tell us about something you've done in the past that can be considered as evidence of exceptional ability (Do not use AI / CHATGPT)
+I created a Convolutional Neural Network (CNN) and trained it to process images of guitar tab notation and then translate the data into a format I am more comfortable with. 
+
+This worked amazingly because it meant I did not need to learn music theory or the location of each note on the fret-board in different tunings; simply treating the notes as fret and string like coordinates - which is much more digestible for me as a beginner guitarist.
+
+After completing the initial workflow, I automated steps along the way, making a web application to submit both images directly and links to guitar tab pages that contained the tabs images. This application saves me lots of time when learning songs as before I would manually type out each (fret, string).
