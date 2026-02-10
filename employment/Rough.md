@@ -136,7 +136,7 @@ I created a Convolutional Neural Network (CNN) and trained it to process images 
 This worked amazingly because it meant I did not need to learn music theory or the location of each note on the fret-board in different tunings; simply treating the notes as fret and string like coordinates - which is much more digestible for me as a beginner guitarist.
 
 After completing the initial workflow, I automated steps along the way, making a web application to submit both images directly and links to guitar tab pages that contained the tabs images. This application saves me lots of time when learning songs as before I would manually type out each (fret, string).
-## To-shorten
+# To-shorten
 
 33. # Software Engineer
 
