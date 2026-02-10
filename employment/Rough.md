@@ -136,3 +136,90 @@ I created a Convolutional Neural Network (CNN) and trained it to process images 
 This worked amazingly because it meant I did not need to learn music theory or the location of each note on the fret-board in different tunings; simply treating the notes as fret and string like coordinates - which is much more digestible for me as a beginner guitarist.
 
 After completing the initial workflow, I automated steps along the way, making a web application to submit both images directly and links to guitar tab pages that contained the tabs images. This application saves me lots of time when learning songs as before I would manually type out each (fret, string).
+## To-shorten
+
+33. # Software Engineer
+
+London, England, United Kingdom
+
+We’re looking for experienced Software Engineer to join our growing team in Central London, working on a new product to help make a big impact to our customers by removing manual processes in their finance team. You will have the opportunity to help ship premium products to our clients quicker, plus seeing the impact of your code on our 5000+ businesses we work with.  
+**  
+Tipalti Engineering**
+
+Tipalti’s engineering teams are the driving force behind our success. Our technology ecosystem is rich, complex, and constantly evolving as we continue to ship new features and scale our platform globally.
+
+You’ll be joining a team that combines the pace and ownership of a startup with the stability and impact of a global fintech leader. We encourage curiosity, thoughtful debate, and pragmatic engineering—while always keeping the customer at the centre of what we build.
+
+At Tipalti, you’ll collaborate with a diverse, international group of engineers, product managers, and designers who are collectively shaping the future of financial operations.  
+**  
+The Role**
+
+As a Software Engineer, you’ll play a key role in expanding Tipalti’s product offering into new areas. You’ll work in a cross-functional squad alongside Product and Design to shape ideas, turn them into scalable solutions, and deliver high-quality software end to end.
+
+You’ll contribute across the stack, including backend APIs and services, to deliver new functionality that directly improves how our customers manage expenses and procurement at scale.
+
+Our current tech stack includes React, Node.js, JavaScript, and TypeScript. That said, our interview process is technology-agnostic. We care far more about strong engineering fundamentals, problem-solving skills, and the ability to learn quickly than prior experience with a specific framework.
+
+We operate a hybrid working model, with three days a week in our Central London office (Monday, Tuesday, and Thursday).  
+**  
+What You’ll Do**
+
+- Design, build, and maintain end-to-end features for our new team.
+    
+- Collaborate closely with Product Managers and Designers to shape technical and product decisions
+    
+- Develop and evolve backend APIs and microservices to support new and existing functionality
+    
+- Write clean, well-tested, and scalable code across the full stack
+    
+- Take an active role in code reviews, design discussions, and pair programming
+    
+- Contribute to a highly collaborative environment where we learn, build, and succeed together
+    
+
+**About You  
+**
+
+- You’re passionate about learning, sharing knowledge, and improving how teams work
+    
+- You enjoy collaborating with engineers and cross-functional partners, both in person and remotely
+    
+- You take ownership and pride in delivering high-quality, reliable solutions
+    
+- You care deeply about good system design, testing, and long-term maintainability
+    
+
+**Why Join Tipalti?**
+
+🤝 Open, inclusive, and supportive engineering culture  
+  
+🧑‍💻 Build products used by some of the world’s fastest-growing companies
+
+💰Equity options in a late stage scale up  
+  
+🍽 Breakfast and lunch provided three days a week in the office (Mon, Tue, Thu)  
+  
+🦷 Private Medical and Dental cover  
+  
+📱 £100/month mobile allowance and £26/month internet allowance  
+  
+🥚 Free breakfast and snacks in the office  
+  
+✈️ 25 days of paid time off, plus bank holidays
+
+**Our Mission**
+
+Our mission is to elevate how finance teams operate in the global economy. We empower our customers to scale faster and smarter by removing the complexities of doing global business and accelerating their finance operations efficiency. We are the AI-powered platform that automates finance.
+
+Tipalti is fueled by a commitment to our customers and a desire to build lasting connections. Our client portfolio includes high-velocity businesses such as Amazon Twitch, GoDaddy, Roku, WordPress.com, and ZipRecruiter. We work hard for our 99% customer retention rate which is built on trust, reliability and innovation. Tipalti means we handled it" - a mission to which we are constantly committed.
+
+**Accommodations  
+**Tipalti champions inclusive teams, in which every voice counts. We are committed to recruiting diverse candidates with varied personal experiences and abilities. We welcome applications from candidates belonging to historically underrepresented or disadvantaged groups, and maintain an equitable Talent Acquisition process that is free from discrimination.
+
+As an equal opportunities employer, Tipalti complies with employment and human rights laws across the various jurisdictions in which we operate. Should you require reasonable adjustments or accommodations during the recruitment process, including access to alternate formats of materials, meeting spaces, or other accommodations that could better enable your full participation, please reach out to [hr@tipalti.com](mailto:hr@tipalti.com) for assistance.
+
+**AI Use** We may use artificial intelligence and automated systems (collectively "AI") to screen, assess, and select candidates during our recruitment process. This includes resume screening, skills assessment, and candidate matching. You have the right to request human review of any automated decision. For more information about how we collect and use personal data and information during recruitment, please refer to our [Job Candidate Privacy Notice](https://tipalti.com/privacy/job-candidate-privacy-notice). For additional questions about our use of AI during our recruitment process, you can contact [hr@tipalti.com](mailto:hr@tipalti.com).
+
+**Privacy  
+**We are committed to protecting the privacy interests of job applicants and candidates. For more information about our privacy practices during our Talent Acquisition process, please refer to our Job Candidate Privacy Notice below:
+34. 
