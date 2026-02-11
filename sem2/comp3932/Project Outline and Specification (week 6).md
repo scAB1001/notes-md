@@ -130,7 +130,7 @@ coursework, holidays.
 - Develop evaluation protocol
 - Create testing scenarios and tasks
 - Prepare participant materials
-    
+  
 **Week 03 (w/c 26/01)**
 - Conduct pilot testing (3-5 participants)
 - Refine system based on feedback    
