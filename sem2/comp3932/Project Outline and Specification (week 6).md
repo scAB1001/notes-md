@@ -1,3 +1,7 @@
+#### Key
+Student: Andreas Bazigos 
+Supervisor: Sharib Ali 
+Assessor: Natasha Shakhlevich
 ### 1. Title
 A concise title that accurately describes the subject of your project.
 The subject should be the computer science problem that you are investigating.
@@ -126,7 +130,7 @@ coursework, holidays.
 - Develop evaluation protocol
 - Create testing scenarios and tasks
 - Prepare participant materials
-    
+  
 **Week 03 (w/c 26/01)**
 - Conduct pilot testing (3-5 participants)
 - Refine system based on feedback    
