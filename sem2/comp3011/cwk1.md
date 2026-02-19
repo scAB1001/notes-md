@@ -222,8 +222,7 @@ Created `scripts/db-helper.sh` with:
 - [x] Commands: start, stop, status, reset, psql, logs, backup, restore
 - [x] Database introspection: connections, stats, table sizes
 - [x] Automatic cleanup on exit
-### 1.8 Database Helper Script
-A place to collect and gather my data:
+### 1.8 Data Domains
 - [ ] [CDP](https://www.cdp.net/en) (climate data), 
 - [ ] [OpenCorporates](https://opencorporates.com/), 
 - [ ] [UK Government GHG data](https://www.gov.uk/government/collections/uk-local-authority-and-regional-carbon-dioxide-emissions-national-statistics).
@@ -238,6 +237,10 @@ POSTGRES_PASSWORD=postgres
 POSTGRES_DB=green_fintech
 POSTGRES_PORT=5432
 POSTGRES_INITDB_ARGS=--auth=scram-sha-256
+
+DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:${POSTGRES_PORT}/${POSTGRES_DB}
+
+ENVIRONMENT=development
 ```
 
 **Verification**: Database runs, UUID extension enabled, test queries work, auth is secure.
@@ -268,6 +271,10 @@ Later on, I will need help implementing the **advanced features** that will make
 - [ ] Configure `railway.json`
 - [ ] Set up production environment variables
 - [ ] Deploy with GitHub Actions automation
+### 7. Package with PyPI (and Test PyPI)
+- [ ] Configure API Tokens
+- [ ] Configure Username and Password
+- [ ] Package, display on GitHub
 ## 📁 Current Project Structure (key dirs and files)
 ```
 green-fintech-baas/

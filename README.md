@@ -28,6 +28,20 @@ git@github.com:scAB1001/notes-md.git
 8. Restart Obsidian
 9. Make edits to your notes
 10. Publish your notes with git commit and push with `Ctrl + SHFT + P`
+## Lenovo-V15-G4-AMN
+#### Overview
+- **NVMe SSD (468GB)**: `/dev/nvme0n1p2` - Operating system and installed programs
+
+| File System      | Size | Use | Mount                       |
+| ---------------- | ---- | --- | --------------------------- |
+| `/dev/nvme0n1p2` | 468G | 23% | */*                         |
+| `tmpfs`          | 6.8G | 1%  | */dev/shm*                  |
+| `tmpfs`          | 1.4G | 1%  | */run*                      |
+| `tmpfs`          | 1.4G | 1%  | */run/user/1000*            |
+| `/dev/nvme0n1p1` | 511M | 2%  | */boot/efi*                 |
+| `tmpfs`          | 5.0M | 1%  | */run/lock*                 |
+| `efivarfs`       | 118K | 55% | */sys/firmware/efi/efivars* |
+## HP-Elitebook-850-G2
 ### Manage on-device setup and storage
 #### Overview
 You have two storage drives on your **HP-Elitebook-850-G2**:
