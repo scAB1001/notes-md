@@ -296,10 +296,10 @@ If you choose the recommended Path A, here is the specific stack to implement th
 - [x] **SCRAM-SHA-256 authentication** (secure, not trust/md5)
 ## 🎯 Remaining for stage 1
 ### 1.5 SQLAlchemy + Alembic
-- [ ] Async SQLAlchemy 2.0 engine with `asyncpg`
-- [ ] Base model and session dependency
-- [ ] Alembic configured for async migrations
-- [ ] Initial `companies` table migration
+- [x] Async SQLAlchemy 2.0 engine with `asyncpg`
+- [x] Base model and session dependency
+- [x] Alembic configured for async migrations
+- [x] Initial `Company`, `EnvironmentalMetric`, `LoanSimulation` table migration
 ### 1.6 CRUD Endpoints with Pydantic
 - [ ] Full CRUD for `Company` model
 - [ ] Pydantic schemas with validation
