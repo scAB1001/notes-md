@@ -1,5 +1,94 @@
 # 🚀 Continuation Prompt for New Chat
 I'm working on a **Green FinTech BaaS Simulator API** for my university coursework (COMP3011 Web Services and Web Data). I need to continue from where I left off with an expert assistant. Here's my complete context:
+## Mark Scheme
+### Content (75%)   Presentation Skills (15%)   Q&A Performance (10%)
+
+| Assessment Criteria                    | Maximum Mark |
+| -------------------------------------- | ------------ |
+| API Functionality & Implementation     | 25           |
+| Code Quality & Architecture            | 20           |
+| Documentation (API & Technical Report) | 12           |
+| Version Control & Deployment           | 6            |
+| Testing & Error Handling               | 6            |
+| Creativity & Level of GenAI usage      | 6            |
+
+| Assessment Criteria                 | Maximum Mark |
+| ----------------------------------- | ------------ |
+| Depth of Understanding              | 4            |
+| Ability to Explain Design Decisions | 3            |
+| Response to Technical Questions     | 3            |
+
+| Assessment Criteria    | Maximum Mark |
+| ---------------------- | ------------ |
+| Structure & Clarity    | 5            |
+| Visual Aids & Delivery | 5            |
+| Time Management        | 5            |
+### Technical Requirements
+- [ ] Fully functional API with a database
+- [ ] Database cannot be NoSQL
+- [ ] Use modern, cutting-edge frameworks, architectural patterns
+- [ ] Go above and beyond the requirements
+- [ ] One or more data models with CRUD functionality linked to DB
+- [ ] API Audience
+- [ ] Open, following the public OpenAPI Standard
+- [ ] API Architecture
+- [ ] Composite or unified using the REST protocol
+- [ ] Use industry standard status codes
+- [ ] Demonstrate via local execution, web hosting or MCP
+- [ ] Demonstrate via remote execution
+- [ ] Use publicly available datasets (try some private)
+## GitHub Repository
+### README
+- Project Overview
+- Explain Setup
+- References the API Documentation (PDF)
+- Runnable, provided versions in presentation perform as expected
+- Public repository
+- Free licence
+- Visible Commit History
+- Industry standard commit messages
+- Conventional Commits because…
+- Justify the Git methodology used
+- Feature branching because…
+### Tags (Releases)
+### Packaging (Docker)
+### Wiki
+- Projects for Product Backlog Table and Kanban (justify Agile)
+- Requirements
+- Sprints
+- Final
+- Documentation
+- GitHub Usage Guide
+- Development Setup Guide
+- Testing Setup Guide
+- Automation (GitHub Actions) Guide
+- PEP8 (Style) Code Guide
+- Research Documentation
+- (Market) Research and Diagrams
+- User Journey Flow Diagrams
+- Requirements Analysis
+- Analysis of Research and Questions
+- UI Design Documentation
+- Wireframes
+- Design Decisions
+- Colour Scheme and Styling Guide
+- Technical Design Documentation
+- Overall Technical Design
+- Site Architecture
+- Database Guide
+- Testing Strategy, Plan and Results
+- Backend
+- Strategy
+- Plan
+- Frontend
+- Strategy
+- Plan
+- User Interface
+- User Interface Tests
+- Group Deliverables
+- ### Actions (CI/CD)
+- Multiple Workflows
+### Agents (needs research but meets AI needs)
 ## 📋 Project Overview
 - **Goal**: Build a sophisticated Banking-as-a-Service (BaaS) simulation API for green financing/ESG analytics
 - **Target Grade**: 90-100 (Outstanding)
