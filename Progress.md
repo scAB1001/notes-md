@@ -79,12 +79,12 @@ This portal is an excellent source for official, reliable data that can form the
 Focusing on fintech, energy, or optimization aligns perfectly with building a sophisticated, business-relevant project. Let's explore powerful ideas and your options beyond JSON.
 ### 💡 Project Ideas: Business & Optimization Focus
 
-|   |   |   |   |
-|---|---|---|---|
-|Idea & Domain|Core Concept & "Wow" Factor|Potential Data Sources|Advanced Technical Angle|
-|1. Green FinTech / ESG Analytics API|An API that correlates financial company data with environmental performance (carbon, waste, energy use). Wow: Provides a sustainability score or risk flag for investments.|[CDP](https://www.cdp.net/en) (climate data), [OpenCorporates](https://opencorporates.com/), [UK Government GHG data](https://www.gov.uk/government/collections/uk-local-authority-and-regional-carbon-dioxide-emissions-national-statistics).|Implement GraphQL so users can request exactly which financial and ESG fields they want in one query.|
-|2. Energy Consumption Optimizer API|An API that ingests smart meter or building energy data and suggests optimization schedules. Wow: Returns actionable schedules (e.g., "Pre-cool building at 2 PM").|UK [Smart Meter Data](https://www.smartenergydata.org/) (public datasets), [National Grid ESO](https://www.nationalgrideso.com/) data.|Return iCalendar (.ics) files so suggestions can be directly imported into Google/Outlook Calendar.|
-|3. Real-Time Resource Allocation Engine (BAAS)|A Backend-as-a-Service style API for dynamic resource booking (e.g., meeting rooms, EV chargers, machinery). Wow: Uses real-time constraints for optimization.|Simulate data or use a public dataset like [City of London parking bays](https://data.gov.uk/dataset/9dab2c9a-0d8d-4c5c-a2e8-3b1a97ff0c4c/on-street-parking-bays).|Use WebSocket connections for live availability push notifications to clients.|
+|                                                |                                                                                                                                                                              |                                                                                                                                                                                                                                                |                                                                                                       |
+| ---------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| Idea & Domain                                  | Core Concept & "Wow" Factor                                                                                                                                                  | Potential Data Sources                                                                                                                                                                                                                         | Advanced Technical Angle                                                                              |
+| 1. Green FinTech / ESG Analytics API           | An API that correlates financial company data with environmental performance (carbon, waste, energy use). Wow: Provides a sustainability score or risk flag for investments. | [CDP](https://www.cdp.net/en) (climate data), [OpenCorporates](https://opencorporates.com/), [UK Government GHG data](https://www.gov.uk/government/collections/uk-local-authority-and-regional-carbon-dioxide-emissions-national-statistics). | Implement GraphQL so users can request exactly which financial and ESG fields they want in one query. |
+| 2. Energy Consumption Optimizer API            | An API that ingests smart meter or building energy data and suggests optimization schedules. Wow: Returns actionable schedules (e.g., "Pre-cool building at 2 PM").          | UK [Smart Meter Data](https://www.smartenergydata.org/) (public datasets), [National Grid ESO](https://www.nationalgrideso.com/) data.                                                                                                         | Return iCalendar (.ics) files so suggestions can be directly imported into Google/Outlook Calendar.   |
+| 3. Real-Time Resource Allocation Engine (BAAS) | A Backend-as-a-Service style API for dynamic resource booking (e.g., meeting rooms, EV chargers, machinery). Wow: Uses real-time constraints for optimization.               | Simulate data or use a public dataset like [City of London parking bays](https://data.gov.uk/dataset/9dab2c9a-0d8d-4c5c-a2e8-3b1a97ff0c4c/on-street-parking-bays).                                                                             | Use WebSocket connections for live availability push notifications to clients.                        |
 ### Response Types (no GraphQL)
 
 |                          |                                                                                                  |                                                                             |                                                                                     |
@@ -224,8 +224,12 @@ Created `scripts/db-helper.sh` with:
 - [x] Automatic cleanup on exit
 ### 1.8 Database Helper Script
 A place to collect and gather my data:
-- [ ] GovUK
-- [ ] 
+- [ ] [CDP](https://www.cdp.net/en) (climate data), 
+- [ ] [OpenCorporates](https://opencorporates.com/), 
+- [ ] [UK Government GHG data](https://www.gov.uk/government/collections/uk-local-authority-and-regional-carbon-dioxide-emissions-national-statistics).
+- [ ] UK [Smart Meter Data](https://www.smartenergydata.org/) (public datasets)
+- [ ] [National Grid ESO](https://www.nationalgrideso.com/) data.
+- [ ] [City of London parking bays](https://data.gov.uk/dataset/9dab2c9a-0d8d-4c5c-a2e8-3b1a97ff0c4c/on-street-parking-bays)
 
 **Current `.env`:**
 ```env
@@ -264,28 +268,144 @@ Later on, I will need help implementing the **advanced features** that will make
 - [ ] Configure `railway.json`
 - [ ] Set up production environment variables
 - [ ] Deploy with GitHub Actions automation
-
-## 📁 Current Project Structure
+## 📁 Current Project Structure (key dirs and files)
 ```
 green-fintech-baas/
-├── src/app/
-│   ├── api/v1/endpoints/
-│   │   └── companies.py (CRUD complete)
-│   ├── core/config.py
-│   ├── database/session.py
-│   ├── models/company.py
-│   ├── schemas/company.py
-│   └── main.py
-├── scripts/
-│   ├── db-helper.sh (working)
-│   └── init-db.sql
-├── tests/
-├── docker-compose.yml
-├── Dockerfile
-├── pyproject.toml
-└── .env
+┣ 📂.pytest_cache
+┃ ┣ 📂v
+┃ ┃ ┗ 📂cache
+┃ ┃   ┗ 📜nodeids
+┃ ┣ 📜.gitignore
+┃ ┣ 📜CACHEDIR.TAG
+┃ ┗ 📜README.md
+┣ 📂.ruff_cache
+┃ ┣ 📂0.15.0
+┃ ┃ ┣ 📜13280505844423884824
+┃ ┣ 📜.gitignore
+┃ ┗ 📜CACHEDIR.TAG
+┣ 📂.venv
+┃ ┣ 📂bin
+┃ ┃ ┣ 📜activate
+┃ ┃ ┣ 📜activate_this.py
+┃ ┃ ┣ 📜activate.csh
+┃ ┃ ┣ 📜activate.fish
+┃ ┃ ┣ 📜activate.nu
+┃ ┃ ┣ 📜activate.ps1
+┃ ┃ ┣ 📜alembic
+┃ ┃ ┣ 📜black
+┃ ┃ ┣ 📜blackd
+┃ ┃ ┣ 📜coverage
+┃ ┃ ┣ 📜coverage-3.12
+┃ ┃ ┣ 📜coverage3
+┃ ┃ ┣ 📜dmypy
+┃ ┃ ┣ 📜docutils
+┃ ┃ ┣ 📜dotenv
+┃ ┃ ┣ 📜fastapi
+┃ ┃ ┣ 📜httpx
+┃ ┃ ┣ 📜identify-cli
+┃ ┃ ┣ 📜isort
+┃ ┃ ┣ 📜isort-identify-imports
+┃ ┃ ┣ 📜keyring
+┃ ┃ ┣ 📜mako-render
+┃ ┃ ┣ 📜markdown-it
+┃ ┃ ┣ 📜mypy
+┃ ┃ ┣ 📜mypyc
+┃ ┃ ┣ 📜nodeenv
+┃ ┃ ┣ 📜normalizer
+┃ ┃ ┣ 📜pip
+┃ ┃ ┣ 📜pip-3.12
+┃ ┃ ┣ 📜pip3
+┃ ┃ ┣ 📜pip3.12
+┃ ┃ ┣ 📜pre-commit
+┃ ┃ ┣ 📜py.test
+┃ ┃ ┣ 📜pybabel
+┃ ┃ ┣ 📜pygmentize
+┃ ┃ ┣ 📜pytest
+┃ ┃ ┣ 📜python
+┃ ┃ ┣ 📜python3
+┃ ┃ ┣ 📜python3.12
+┃ ┃ ┣ 📜rst2html
+┃ ┃ ┣ 📜rst2html4
+┃ ┃ ┣ 📜rst2html5
+┃ ┃ ┣ 📜rst2latex
+┃ ┃ ┣ 📜rst2man
+┃ ┃ ┣ 📜rst2odt
+┃ ┃ ┣ 📜rst2pseudoxml
+┃ ┃ ┣ 📜rst2s5
+┃ ┃ ┣ 📜rst2xetex
+┃ ┃ ┣ 📜rst2xml
+┃ ┃ ┣ 📜ruff
+┃ ┃ ┣ 📜sphinx-apidoc
+┃ ┃ ┣ 📜sphinx-autogen
+┃ ┃ ┣ 📜sphinx-build
+┃ ┃ ┣ 📜sphinx-quickstart
+┃ ┃ ┣ 📜stubgen
+┃ ┃ ┣ 📜stubtest
+┃ ┃ ┣ 📜twine
+┃ ┃ ┣ 📜uvicorn
+┃ ┃ ┗ 📜virtualenv
+┃ ┣ 📂include
+┃ ┃ ┗ 📂site
+┃ ┃   ┗ 📂python3.12
+┃ ┃     ┗ 📂greenlet
+┃ ┃       ┗ 📜greenlet.h
+┃ ┣ 📂lib
+┃ ┃ ┗ 📂python3.12
+┃ ┣ 📜.gitignore
+┃ ┣ 📜CACHEDIR.TAG
+┃ ┗ 📜pyvenv.cfg
+┣ 📂alembic
+┃ ┣ 📂versions
+┃ ┣ 📜env.py
+┃ ┣ 📜README
+┃ ┗ 📜script.py.mako
+┣ 📂dist
+┃ ┗ 📜app-0.1.0.tar.gz
+┣ 📂scripts
+┃ ┣ 📜db-helper.sh
+┃ ┣ 📜docker-entrypoint.sh
+┃ ┣ 📜init-db.sql
+┃ ┣ 📜postgresql.conf
+┃ ┗ 📜postgresql.custom.conf
+┣ 📂src
+┃ ┗ 📂app
+┃   ┣ 📂__pycache__
+┃   ┣ 📂api
+┃   ┃ ┗ 📂v1
+┃   ┃   ┗ 📂endpoints
+┃   ┣ 📂core
+┃   ┃ ┣ 📂__pycache__
+┃   ┃ ┗ 📜config.py
+┃   ┣ 📂database
+┃   ┃ ┣ 📜__init__.py
+┃   ┃ ┗ 📜session.py
+┃   ┣ 📂models
+┃   ┃ ┣ 📜__init__.py
+┃   ┃ ┗ 📜company.py
+┃   ┣ 📂schemas
+┃   ┣ 📜__init__.py
+┃   ┗ 📜main.py
+┣ 📂tests
+┃ ┣ 📂__pycache__
+┃ ┣ 📜__init__.py
+┃ ┣ 📜api_test.py
+┃ ┣ 📜config_test.py
+┃ ┗ 📜import_test.py
+┣ 📜.dockerignore
+┣ 📜.env
+┣ 📜.gitignore
+┣ 📜.pre-commit-config.yaml
+┣ 📜.python-version
+┣ 📜alembic.ini
+┣ 📜clean.sh
+┣ 📜compose.yaml
+┣ 📜Dockerfile
+┣ 📜git.sh
+┣ 📜LICENSE
+┣ 📜poetry.lock
+┣ 📜pyproject.toml
+┗ 📜README.md
 ```
-
 ## 🔧 Technical Decisions Made
 - **Async FastAPI** for performance
 - **PostgreSQL 18** with SCRAM-SHA-256 (secure)
