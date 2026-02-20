@@ -65,3 +65,13 @@ ayyy bueno si
 bueno, estabamos una chica, se llama ..., y tenemos veinte ocho anyos
 no es el enfoque
 pongose la pila
+hicimos eso - were did that
+fue super lindo
+el jabali' -> boar
+que comi;? what did i eat...
+galletas -> cookies
+vale/valió la pena -> is/was it worth it?
+levantadas ->
+que' te voy a decir -> what am I about tell you?
+de hecho una migracion de migrante italianos a argentina
+contractadiste -> 
