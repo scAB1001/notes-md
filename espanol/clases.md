@@ -87,3 +87,7 @@ chistoso -> funny
 es catalana de nacimiento -> cataloonian by birth 
 lo que sea -> whatever it may be??
 intenta hablar -> i plan to speak...
+lejos -> away
+me cuesta hablar  -> i find it difficult to speak
+que te abre los ojos 
+ya he viajado solo -> i've travelled solo before
