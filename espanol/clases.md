@@ -45,3 +45,10 @@ colchoneta
 mas faciles de lo que esperas
 te cansa
 la piel -> skin
+
+# 20/02/2026
+dime todo lo que sepas sobre la cultura --> tell me everything you know about the culture
+
+hola hola!
+Hace mucho mucho tiempo que no conocimos no? No crees? ? No te parece?
+Espero que hayas pasado un buen tiempo --> I hope you've had a great time
