@@ -74,4 +74,10 @@ vale/valió la pena -> is/was it worth it?
 levantadas ->
 que' te voy a decir -> what am I about tell you?
 de hecho una migracion de migrante italianos a argentina
-contractadiste -> 
+contractadiste -> contractor
+yeso -> cast (but the material)
+espera te muestro -> wait i'll show you
+refugio 
+un situacion terrible en verdad -> a terrible situation, all honesty
+fue muy cheveere -> it was very cool
+que te dije -> that I told you about
