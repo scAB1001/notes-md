@@ -52,3 +52,16 @@ dime todo lo que sepas sobre la cultura --> tell me everything you know about th
 hola hola!
 Hace mucho mucho tiempo que no conocimos no? No crees? ? No te parece?
 Espero que hayas pasado un buen tiempo --> I hope you've had a great time
+me recogio en el carro en al aeropuerto
+me llevo' a las mostanyas de monserrate
+a mentiras -> 
+mercado campesino
+no le pasaba nada a la camera
+es muy barato 
+estuve en este casa y yo no conocia nadie, no personalemente
+no se' de donde que es era -> Idk where shes from
+libano -> lebanon
+ayyy bueno si
+bueno, estabamos una chica, se llama ..., y tenemos veinte ocho anyos
+no es el enfoque
+pongose la pila
