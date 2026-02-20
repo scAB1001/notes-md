@@ -79,5 +79,11 @@ yeso -> cast (but the material)
 espera te muestro -> wait i'll show you
 refugio 
 un situacion terrible en verdad -> a terrible situation, all honesty
-fue muy cheveere -> it was very cool
+fue muy cheveere -> it was very cool/sick
 que te dije -> that I told you about
+primer hicimos -> we manly use
+por lo que vi', estaba guau -> from what i've seen/i see, wow
+chistoso -> funny
+es catalana de nacimiento -> cataloonian by birth 
+lo que sea -> whatever it may be??
+intenta hablar -> i plan to speak...
