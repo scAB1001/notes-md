@@ -303,24 +303,27 @@ If you choose the recommended Path A, here is the specific stack to implement th
 ### 1.6 Pytest Environment Setuo
 - [ ] Pytest tree plan
       ┣ 📂tests 
-      ┃ ┣ 📜conftest.py
-      ┃ ┣ 📜markers.ini
+      ┃ ┣ 📜conftest.py # Shared fixtures (the file)
+      ┃ ┣ 📜markers.ini # Marker definitions
       ┃ ┣ 📂__pycache__
-      ┃ ┣ 📂docker
+      ┃ ┣ 📂docker # Docker test resources
       ┃ ┃ ┣ 📜compose.yaml
       ┃ ┃ ┗ 📜init-test-db.sql
-      ┃ ┣ 📂fixtures
+      ┃ ┣ 📂fixtures # Shared test data
       ┃ ┃ ┗ 📜__init__.py
       ┃ ┃ ┗ 📜 \*.json
-      ┃ ┣ 📂integration
+      ┃ ┣ 📂integration # Integration tests (with DB)
+      ┃ ┃ ┣ 📂api_endpoint_tests # API Endpoint tests
+      ┃ ┃ ┃ ┗ 📜__init__.py
+      ┃ ┃ ┃ ┗ 📜\*\_test.py
       ┃ ┃ ┗ 📜__init__.py
-      ┃ ┃ ┗ 📜 \*\_test.py
-      ┃ ┣ 📂unit
+	  ┃ ┃ ┗ 📜conftest.py # Integration-specific fixtures
+      ┃ ┃ ┗ 📜 \*\_test.py # CRUD and relationship tests
+      ┃ ┣ 📂unit # Unit tests (fast, no DB)
       ┃ ┃ ┣ 📂__pycache__
       ┃ ┃ ┣ 📜__init__.py
-      ┃ ┃ ┗ 📜 \*\_test.py
+      ┃ ┃ ┗ 📜 \*\_test.py # Test model validation, pydantic schemas as business logic
 - [ ] 
-
 ### 1.7 CRUD Endpoints with Pydantic
 - [ ] Full CRUD for `Company` model
 - [ ] Pydantic schemas with validation
@@ -537,3 +540,5 @@ green-fintech-baas/
 4. **OpenCorporates API** integration pattern
 
 Please help me continue building this sophisticated API with production-grade practices. I want each feature implemented in its own branch with tests and documentation.
+
+I currently want to work on the 1.6: `feature/pytest-setup` which is my testing branch.
