@@ -300,18 +300,39 @@ If you choose the recommended Path A, here is the specific stack to implement th
 - [x] Base model and session dependency
 - [x] Alembic configured for async migrations
 - [x] Initial `Company`, `EnvironmentalMetric`, `LoanSimulation` table migration
-### 1.6 CRUD Endpoints with Pydantic
+### 1.6 Pytest Environment Setuo
+- [ ] Pytest tree plan
+      ┣ 📂tests 
+      ┃ ┣ 📜conftest.py
+      ┃ ┣ 📜markers.ini
+      ┃ ┣ 📂__pycache__
+      ┃ ┣ 📂docker
+      ┃ ┃ ┣ 📜compose.yaml
+      ┃ ┃ ┗ 📜init-test-db.sql
+      ┃ ┣ 📂fixtures
+      ┃ ┃ ┗ 📜__init__.py
+      ┃ ┃ ┗ 📜 \*.json
+      ┃ ┣ 📂integration
+      ┃ ┃ ┗ 📜__init__.py
+      ┃ ┃ ┗ 📜 \*\_test.py
+      ┃ ┣ 📂unit
+      ┃ ┃ ┣ 📂__pycache__
+      ┃ ┃ ┣ 📜__init__.py
+      ┃ ┃ ┗ 📜 \*\_test.py
+- [ ] 
+
+### 1.7 CRUD Endpoints with Pydantic
 - [ ] Full CRUD for `Company` model
 - [ ] Pydantic schemas with validation
 - [ ] Pagination, filtering, error handling
 - [ ] Comprehensive tests
-### 1.7 Database Helper Script ✓
+### 1.8 Database Helper Script ✓
 Created `scripts/db-helper.sh` with:
 - [x] Session-wide `.pgpass` file for SCRAM-SHA-256 auth
 - [x] Commands: start, stop, status, reset, psql, logs, backup, restore
 - [x] Database introspection: connections, stats, table sizes
 - [x] Automatic cleanup on exit
-### 1.8 Data Domains
+### 1.9 Data Domains
 - [ ] [CDP](https://www.cdp.net/en) (climate data), 
 - [ ] [OpenCorporates](https://opencorporates.com/), 
 - [ ] [UK Government GHG data](https://www.gov.uk/government/collections/uk-local-authority-and-regional-carbon-dioxide-emissions-national-statistics).
