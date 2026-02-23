@@ -102,3 +102,5 @@ habitantes de calle
 los pagadiarios
 me llamo' mucha attencion en comparicion
 al menos in mi perspectiva
+privilegiados 
+privilega
