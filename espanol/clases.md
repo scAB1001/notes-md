@@ -80,9 +80,9 @@ espera te muestro -> wait i'll show you
 refugio 
 un situacion terrible en verdad -> a terrible situation, all honesty
 fue muy cheveere -> it was very cool/sick
-que te dije -> that I told you about
+**que te dije -> that I told you about**
 primer hicimos -> we manly use
-por lo que vi', estaba guau -> from what i've seen/i see, wow
+**por lo que vi', estaba guau -> from what i've seen/i see, wow**
 chistoso -> funny
 es catalana de nacimiento -> cataloonian by birth 
 lo que sea -> whatever it may be??
@@ -91,3 +91,9 @@ lejos -> away
 me cuesta hablar  -> i find it difficult to speak
 que te abre los ojos 
 ya he viajado solo -> i've travelled solo before
+# 23/02/2026
+Me recuerda a una serie que se llama beef como (carne de res)
+el faro es musica portugesa muy famosa -muy nostalgia, emocional, popuraliso 
+fue super bonito
+ignorancia es una vendicion -> ignorance is bliss
+*fuero las unicas personas que tenian lado*
