@@ -97,3 +97,8 @@ el faro es musica portugesa muy famosa -muy nostalgia, emocional, popuraliso
 fue super bonito
 ignorancia es una vendicion -> ignorance is bliss
 *fuero las unicas personas que tenian lado*
+
+habitantes de calle 
+los pagadiarios
+me llamo' mucha attencion en comparicion
+al menos in mi perspectiva
