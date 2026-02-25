@@ -24,9 +24,9 @@ hay una connexion cosmica -> a cosmic connection
 La pelicula incio' de seguir una amiga que esta abordando su vuelo al ...
 Se conocio' un senor en su pasillo
 
-me parece que ella, el senyor y una senora han estrechado lazos con una y otra - su ex-novia en actualidad
+me parece que ella, el senyor y una senora han estrechado lazos con una y otra: su ex-novia en actualidad
 la situation se vuelve de miedo cuando imaginan sus conexiones con el.
-
+el pandillero -> gangster 
 la manera en que radaron esta pelicula es como comedia
 
 estoy en cuarto de hora mientra la pelicula
@@ -34,4 +34,10 @@ estoy en cuarto de hora mientra la pelicula
 aquien carajo te pasa 
 
 ayy madre mia de caracao - holy jesus
-mornegro
+mornegro -> dark humour
+morboso 
+
+venganza -> revenge
+vengativa -> vengeful
+vengarse -> to be vengeful
+la mato' -> 
