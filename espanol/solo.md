@@ -32,3 +32,6 @@ la manera en que radaron esta pelicula es como comedia
 estoy en cuarto de hora mientra la pelicula
 
 aquien carajo te pasa 
+
+ayy madre mia de caracao - holy jesus
+mornegro
