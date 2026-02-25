@@ -41,3 +41,8 @@ venganza -> revenge
 vengativa -> vengeful
 vengarse -> to be vengeful
 la mato' -> 
+
+
+primer no estoy orgulloso sobre esto pero...
+
+recientemente- pues hace cuatro meses, estaba hablando con una chica y estabamos durmiendo con una y otro. Despues de  
