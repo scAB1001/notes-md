@@ -41,7 +41,7 @@ venganza -> revenge
 vengativa -> vengeful
 vengarse -> to be vengeful
 la mato' -> 
-
+se paso de la ralla -> overstepping lines/boundaries
 
 primer no estoy orgulloso sobre esto pero...
 
