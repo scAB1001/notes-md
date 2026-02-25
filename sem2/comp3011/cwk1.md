@@ -300,7 +300,7 @@ If you choose the recommended Path A, here is the specific stack to implement th
 - [x] Base model and session dependency
 - [x] Alembic configured for async migrations
 - [x] Initial `Company`, `EnvironmentalMetric`, `LoanSimulation` table migration
-### 1.6 Pytest Environment Setuo
+### 1.6 Pytest Environment Setup
 - [ ] Pytest tree plan
       ┣ 📂tests 
       ┃ ┣ 📜conftest.py # Shared fixtures (the file)
@@ -394,13 +394,11 @@ green-fintech-baas/
 ┣ 📂.pytest_cache
 ┃ ┣ 📂v
 ┃ ┃ ┗ 📂cache
-┃ ┃   ┗ 📜nodeids
 ┃ ┣ 📜.gitignore
 ┃ ┣ 📜CACHEDIR.TAG
 ┃ ┗ 📜README.md
 ┣ 📂.ruff_cache
 ┃ ┣ 📂0.15.0
-┃ ┃ ┣ 📜13280505844423884824
 ┃ ┣ 📜.gitignore
 ┃ ┗ 📜CACHEDIR.TAG
 ┣ 📂.venv
@@ -501,7 +499,9 @@ green-fintech-baas/
 ┃   ┃ ┗ 📜session.py
 ┃   ┣ 📂models
 ┃   ┃ ┣ 📜__init__.py
-┃   ┃ ┗ 📜company.py
+┃   ┃ ┣ 📜company.py
+┃   ┃ ┣ 📜environmental_metric.py
+┃   ┃ ┗ 📜loan_simulation.py
 ┃   ┣ 📂schemas
 ┃   ┣ 📜__init__.py
 ┃   ┗ 📜main.py
@@ -510,7 +510,22 @@ green-fintech-baas/
 ┃ ┣ 📜__init__.py
 ┃ ┣ 📜api_test.py
 ┃ ┣ 📜config_test.py
-┃ ┗ 📜import_test.py
+┃	┣ 📜config_test.py
+┃	┣ 📜conftest.py
+┃	┣ 📜crud_test
+┃	┣ 📜database_schema_test
+┃	┗ 📜db_connection_test.py
+┃	┣ 📂docker
+┃	┃ ┣ 📜compose.yaml
+┃	┃ ┗ 📜init-test-db.sql
+┃	┣ 📂fixtures
+┃	┃ ┗ 📜__init__.py
+┃	┣ 📂integration
+┃	┃ ┗ 📜__init__.py
+┃	┣ 📂unit
+┃	┃ ┣ 📂__pycache__
+┃	┃ ┣ 📜__init__.py
+┃	┃ ┗ 📜import_test.py
 ┣ 📜.dockerignore
 ┣ 📜.env
 ┣ 📜.gitignore
