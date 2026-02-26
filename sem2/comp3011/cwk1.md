@@ -301,7 +301,7 @@ If you choose the recommended Path A, here is the specific stack to implement th
 - [x] Alembic configured for async migrations
 - [x] Initial `Company`, `EnvironmentalMetric`, `LoanSimulation` table migration
 ### 1.6 Pytest Environment Setup
-- [ ] Pytest tree plan
+- [x] Pytest tree plan
       ┣ 📂tests 
       ┃ ┣ 📜conftest.py # Shared fixtures (the file)
       ┃ ┣ 📜markers.ini # Marker definitions
@@ -323,7 +323,6 @@ If you choose the recommended Path A, here is the specific stack to implement th
       ┃ ┃ ┣ 📂__pycache__
       ┃ ┃ ┣ 📜__init__.py
       ┃ ┃ ┗ 📜 \*\_test.py # Test model validation, pydantic schemas as business logic
-- [ ] 
 ### 1.7 CRUD Endpoints with Pydantic
 - [ ] Full CRUD for `Company` model
 - [ ] Pydantic schemas with validation
