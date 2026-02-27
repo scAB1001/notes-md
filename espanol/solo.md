@@ -49,3 +49,4 @@ recientemente- pues hace cuatro meses, estaba hablando con una chica y estabamos
 de donde venias -> where were you coming from
 hace memoria -> try to remember
 jodete -> fuck urself
+yo no tengo idea que me estas hablando -> i have not idea what your talking
