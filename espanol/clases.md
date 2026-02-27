@@ -107,3 +107,5 @@ privilega
 se volvieron ->
 se limpian la cola ->
 se pasan por la ralla de la cola ->
+ya no me inspi'ra -> 
+me quedan 20 minutos
