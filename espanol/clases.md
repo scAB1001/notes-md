@@ -104,3 +104,6 @@ me llamo' mucha attencion en comparicion
 al menos in mi perspectiva
 privilegiados 
 privilega
+se volvieron ->
+se limpian la cola ->
+se pasan por la ralla de la cola ->
