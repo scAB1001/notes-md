@@ -109,3 +109,4 @@ se limpian la cola ->
 se pasan por la ralla de la cola ->
 ya no me inspi'ra -> 
 me quedan 20 minutos
+quieres que lo lea en completo -> do you want me to read it all 
