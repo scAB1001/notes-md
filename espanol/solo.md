@@ -46,3 +46,5 @@ se paso de la ralla -> overstepping lines/boundaries
 primer no estoy orgulloso sobre esto pero...
 
 recientemente- pues hace cuatro meses, estaba hablando con una chica y estabamos durmiendo con una y otro. Despues de  
+de donde venias -> where were you coming from
+hace memoria -> try to remember
