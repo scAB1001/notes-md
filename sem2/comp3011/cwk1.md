@@ -466,7 +466,7 @@ Please help me continue building this sophisticated API with production-grade pr
 
 I currently want to work on the 1.6: `feature/pytest-setup` which is my testing branch.
 
-Reminder of: Technical Requirements
+## Reminder of: Technical Requirements
 - Fully functional API with a database
 	- Database cannot be NoSQL
 	- One or more data models with CRUD functionality linked to DB
@@ -480,6 +480,16 @@ Reminder of: Technical Requirements
 - Demonstrate via local execution, web hosting and/or MCP
 - Demonstrate via remote execution
 - Use publicly available datasets (try some private)
+### Previous Example Project Ideas
+• A book metadata and recommendation API integrating a public dataset (e.g. Goodreads or Google Books) and providing analytic endpoints such as genre trends, rating distributions, and person- alised suggestions.
+• An environmental and urban climate statistics API that stores his- torical weather, air quality, and temperature data, enabling users to query aggregated metrics, anomalies, and city-level trends.
+• A productivity and habit analytics API that tracks tasks, habits, time logs, and completion patterns, offering endpoints for streak calculations, productivity heatmaps, and behavioural summaries.
+• A public transport reliability and delay analytics API using open UK transport datasets, providing CRUD for user-reported inci- dents and endpoints for route-level reliability scores, delay pat- terns, and temporal performance summaries.
+• A nutrition and recipe analytics API backed by open food datasets (e.g. USDA or UK FSA), supporting ingredient/recipe CRUD and computing calories, macronutrients, allergen warnings, and cost or difficulty estimates.
+• A housing market and rental insights API integrating ONS or Land Registry data, offering CRUD for listings and locations, plus analytics such as median rent, affordability indices, or regional price trends.
+• A cultural events and tourism insights API using public datasets on museums, festivals, and heritage sites, enabling CRUD for events and providing popularity metrics, seasonal trends, and location-based recommendations.
+• A sports performance and match statistics API backed by public sports datasets (e.g. football, cricket, or F1), supporting CRUD for teams, players, and matches, alongside analytical endpoints for leaderboards, performance summaries, and win probabilities.
+## Datasets relevant to Green Fintech BaaS
 ### GovUK | Accredited official statistics: UK local authority and regional greenhouse gas emissions statistics, 2005 to 2023
 This worksheet contains one table. This worksheet contains links to all worksheets in this document.
 
@@ -601,3 +611,23 @@ https://www.kaggle.com/datasets/mexwell/global-co2-and-greenhouse-gas-emissions
 Complete CO2 and Greenhouse Gas Emissions dataset by Our World in Data. It is updated regularly and includes data on CO2 emissions (annual, per capita, cumulative and consumption-based), other greenhouse gases, energy mix, and other relevant metrics.
 
 Read more about that [here](https://github.com/owid/co2-data)
+### TheGlobalEconomy: Carbon dioxide (CO2) emissions per capita - Country rankings
+https://www.theglobaleconomy.com/rankings/Carbon_dioxide_emissions_per_capita/OECD/
+* indicates monthly or quarterly data series  
+#### Carbon dioxide emissions per capita, 2023:
+The average for 2023 based on 38 countries was 6.42 metric tons of carbon dioxide equivalent per capita. The highest value was in Canada: 14.35 metric tons of carbon dioxide equivalent per capita and the lowest value was in Costa Rica: 1.68 metric tons of carbon dioxide equivalent per capita. The indicator is available from 1970 to 2023. Below is a chart for all countries where data are available.  
+  
+Measure: metric tons of carbon dioxide equivalent per capita; Source: [The World Bank](https://www.worldbank.org/)
+### Statista: Carbon dioxide emissions of the most polluting countries worldwide in 2010 and 2024
+https://www.statista.com/statistics/270499/co2-emissions-in-selected-countries/
+#### Global carbon dioxide emissions 2010-2024, by select country
+Published by
+[Won So](https://www.statista.com/aboutus/our-research-commitment/1816/won-so),
+Jan 20, 2026
+[](https://www.statista.com/statistics/270499/co2-emissions-in-selected-countries/#statisticContainer)
+
+In 2024, China was the biggest carbon polluter in the world by far, having released 12.3 billion metric tons of carbon dioxide (GtCO₂). Although the U.S. was the second-biggest emitter, with 4.9 GtCO₂ in 2024, its CO₂ emissions have declined by 13 percent since 2010. By comparison, China’s CO₂ emissions have increased by more than 42 percent in the same period.   
+#### Cumulative emissions
+Although China is currently the world's largest carbon polluter, the U.S. has released far more [historical carbon dioxide emissions](https://www.statista.com/statistics/1007454/cumulative-co2-emissions-worldwide-by-country/), at more than 400 GtCO₂ since 1750. The wide gap between the two countries is because China's emissions have mostly been produced in the past two decades. Combined, the U.S. and China account for roughly 40 percent of [cumulative CO₂ emissions](https://www.statista.com/statistics/1177911/cumulative-co2-emissions-worldwide-by-region/) since the Industrial Revolution began. 
+#### Sources of emissions
+One of the largest sources of global CO₂ emissions is the power sector, with electricity produced by coal-fired power plants a significant contributor. In China, [emissions from coal-fired electricity generation](https://www.statista.com/statistics/1322297/power-generation-emissions-china-by-fuel-source/) have soared since the turn of the century, and reached 5.2 GtCO₂ in 2024.
