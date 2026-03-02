@@ -168,25 +168,22 @@ This portal is an excellent source for official, reliable data that can form the
 Focusing on fintech, energy, or optimization aligns perfectly with building a sophisticated, business-relevant project. Let's explore powerful ideas and your options beyond JSON.
 ### 💡 Project Ideas: Business & Optimization Focus
 
-|                                                |                                                                                                                                                                              |                                                                                                                                                                                                                                                |                                                                                                       |
-| ---------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
 | Idea & Domain                                  | Core Concept & "Wow" Factor                                                                                                                                                  | Potential Data Sources                                                                                                                                                                                                                         | Advanced Technical Angle                                                                              |
+| ---------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
 | 1. Green FinTech / ESG Analytics API           | An API that correlates financial company data with environmental performance (carbon, waste, energy use). Wow: Provides a sustainability score or risk flag for investments. | [CDP](https://www.cdp.net/en) (climate data), [OpenCorporates](https://opencorporates.com/), [UK Government GHG data](https://www.gov.uk/government/collections/uk-local-authority-and-regional-carbon-dioxide-emissions-national-statistics). | Implement GraphQL so users can request exactly which financial and ESG fields they want in one query. |
 | 2. Energy Consumption Optimizer API            | An API that ingests smart meter or building energy data and suggests optimization schedules. Wow: Returns actionable schedules (e.g., "Pre-cool building at 2 PM").          | UK [Smart Meter Data](https://www.smartenergydata.org/) (public datasets), [National Grid ESO](https://www.nationalgrideso.com/) data.                                                                                                         | Return iCalendar (.ics) files so suggestions can be directly imported into Google/Outlook Calendar.   |
 | 3. Real-Time Resource Allocation Engine (BAAS) | A Backend-as-a-Service style API for dynamic resource booking (e.g., meeting rooms, EV chargers, machinery). Wow: Uses real-time constraints for optimization.               | Simulate data or use a public dataset like [City of London parking bays](https://data.gov.uk/dataset/9dab2c9a-0d8d-4c5c-a2e8-3b1a97ff0c4c/on-street-parking-bays).                                                                             | Use WebSocket connections for live availability push notifications to clients.                        |
 ### Response Types (no GraphQL)
 
-|                          |                                                                                                  |                                                                             |                                                                                     |
-| ------------------------ | ------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| Format                   | Best For                                                                                         | Example Use Case (in our ideas)                                             | How to Implement (in FastAPI)                                                       |
-| CSV/Plain Text           | Delivering raw datasets, logs, or simple lists for spreadsheets.                                 | Exporting a time-series of energy prices or carbon data.                    | Return a Response object with media_type="text/csv" and the CSV string.             |
-| XML                      | Legacy systems, specific industry standards (like some banking feeds).                           | Providing data in a format required by an older building management system. | Use Pydantic to create XML models, return with media_type="application/xml".        |
-| iCalendar (.ics)         | Calendar integrations. This is a standout choice.                                                | Your Energy API returns an optimized schedule as a calendar invite.         | Generate the standard .ics file text and return it with media_type="text/calendar". |
-| Server-Sent Events (SSE) | Unidirectional real-time updates (simpler than WebSockets).                                      | Pushing live price changes in a FinTech API.                                | Create a generator function and stream the response.                                |
-| WebSocket                | Full-duplex, interactive real-time communication.                                                | The Resource Allocation API pushes booking confirmations instantly.         | Use FastAPI's integrated WebSocket support.                                         |
-| Protocol Buffers (gRPC)  | High-performance internal microservices, not typically for public web APIs.                      | (More advanced) If you split services internally.                           | Define a .proto file and use grpcio tools.                                          |
+| Format                   | Best For                                                                    | Example Use Case (in our ideas)                                             | How to Implement (in FastAPI)                                                       |
+| ------------------------ | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| CSV/Plain Text           | Delivering raw datasets, logs, or simple lists for spreadsheets.            | Exporting a time-series of energy prices or carbon data.                    | Return a Response object with media_type="text/csv" and the CSV string.             |
+| XML                      | Legacy systems, specific industry standards (like some banking feeds).      | Providing data in a format required by an older building management system. | Use Pydantic to create XML models, return with media_type="application/xml".        |
+| iCalendar (.ics)         | Calendar integrations. This is a standout choice.                           | Your Energy API returns an optimized schedule as a calendar invite.         | Generate the standard .ics file text and return it with media_type="text/calendar". |
+| Server-Sent Events (SSE) | Unidirectional real-time updates (simpler than WebSockets).                 | Pushing live price changes in a FinTech API.                                | Create a generator function and stream the response.                                |
+| WebSocket                | Full-duplex, interactive real-time communication.                           | The Resource Allocation API pushes booking confirmations instantly.         | Use FastAPI's integrated WebSocket support.                                         |
+| Protocol Buffers (gRPC)  | High-performance internal microservices, not typically for public web APIs. | (More advanced) If you split services internally.                           | Define a .proto file and use grpcio tools.                                          |
 ### 🎯 The Business Problem: The "Green Financing Gap"
-
 **Context**: Traditional banks and lenders often lack the specialized data and models to accurately assess the financial risk and opportunity of sustainability-focused businesses or projects. This creates a "green financing gap" where worthy environmental projects can't secure favorable loans, and banks miss out on a growing market.
 
 **Your Backend API's Role**: It acts as a specialized data and analytics layer that a traditional Bank-as-a-Service (BaaS) platform could integrate. It doesn't process real payments, but it provides the critical intelligence to enable green financial products.
@@ -194,7 +191,6 @@ Focusing on fintech, energy, or optimization aligns perfectly with building a so
 Let's follow a fictional company, EcoTech Manufacturing Ltd., through your API.
 
 The Company:
-
 - Business: Manufactures energy-efficient heating systems.
 - Data Points: Located in Birmingham, registered at Companies House, has an annual energy consumption of 500 MWh, and has reduced its carbon emissions by 15% year-on-year.
 
@@ -204,16 +200,14 @@ The Traditional Loan Process:
 3. The bank's risk model does not factor in EcoTech's energy efficiency, carbon reduction, or the growing market for green tech.
 4. Result: EcoTech gets a standard market-rate loan, or its application is viewed as riskier than it truly is.
 
-The Process with Your Green FinTech BaaS API:  
-The bank's loan officer uses your API to augment their risk assessment.
+With Your Green FinTech BaaS API, the bank's loan officer uses your API to augment their risk assessment.
 
-|   |   |   |
-|---|---|---|
-|Step|API Call & Business Logic|Technical Implementation (No GraphQL/NoSQL)|
-|1. Data Enrichment|GET /api/companies/12345678<br><br>Fetches EcoTech's public company data and enriches it with the latest carbon emissions from a sustainability database.|SQL JOINs between companies and carbon_metrics tables. Returns a unified JSON response.|
-|2. Green Score Calculation|GET /api/companies/12345678/green-score<br><br>Your API runs a proprietary algorithm weighing energy use, emissions trend, and sector benchmarks. Returns a score (e.g., 82/100).|Logic resides in a Python service function. Score is cached (e.g., with Redis) for performance, but primary data is in PostgreSQL.|
-|3. Simulated Product Offering|POST /api/loan-simulations<br><br>Body: {"company_id": "12345678", "loan_amount": 500000, "loan_term": 5}<br><br>Your API calculates: Based on the green score, EcoTech qualifies for a 0.5% interest rate discount. It simulates the loan and estimates CO2 savings from the expansion.|Complex transactional logic in Python. Results saved to a loan_simulations SQL table. Returns a JSON simulation summary.|
-|4. Impact Reporting|GET /api/loan-simulations/abc-123/report<br><br>The bank wants a formal document to justify the green discount to its committees.|Your API generates a PDF report (using a library like ReportLab or WeasyPrint), embedding charts and the justification. You use the Accept header (application/json vs. application/pdf) to serve multiple formats from one endpoint.|
+| Step                          | API Call & Business Logic                                                                                                                                                                                                                                                                | Technical Implementation (No GraphQL/NoSQL)                                                                                                                                                                                           |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1. Data Enrichment            | GET /api/companies/12345678<br><br>Fetches EcoTech's public company data and enriches it with the latest carbon emissions from a sustainability database.                                                                                                                                | SQL JOINs between companies and carbon_metrics tables. Returns a unified JSON response.                                                                                                                                               |
+| 2. Green Score Calculation    | GET /api/companies/12345678/green-score<br><br>Your API runs a proprietary algorithm weighing energy use, emissions trend, and sector benchmarks. Returns a score (e.g., 82/100).                                                                                                        | Logic resides in a Python service function. Score is cached (e.g., with Redis) for performance, but primary data is in PostgreSQL.                                                                                                    |
+| 3. Simulated Product Offering | POST /api/loan-simulations<br><br>Body: {"company_id": "12345678", "loan_amount": 500000, "loan_term": 5}<br><br>Your API calculates: Based on the green score, EcoTech qualifies for a 0.5% interest rate discount. It simulates the loan and estimates CO2 savings from the expansion. | Complex transactional logic in Python. Results saved to a loan_simulations SQL table. Returns a JSON simulation summary.                                                                                                              |
+| 4. Impact Reporting           | GET /api/loan-simulations/abc-123/report<br><br>The bank wants a formal document to justify the green discount to its committees.                                                                                                                                                        | Your API generates a PDF report (using a library like ReportLab or WeasyPrint), embedding charts and the justification. You use the Accept header (application/json vs. application/pdf) to serve multiple formats from one endpoint. |
 #### Mock Tables
 To implement this, you'll design three core, interconnected SQL tables:
 ```sql
@@ -254,14 +248,11 @@ CREATE TABLE loan_simulations (
 
 #### 💡 Your "Innovation" and "Niche" Delivered
 - Innovation (Technical Depth): The sophistication is in the business logic layer (the scoring algorithm), multi-format responses (JSON & PDF), and caching strategy for scores—not in the query language.
-    
 - Niche (Creativity): You're not making a generic company API. You're making a highly specialized vertical API for the green finance niche, solving a real data integration problem.
-    
 
 Next Step: To move from example to build, we should:
 1. Pick one primary, credible data source for the environmental metrics to base the project on (e.g., CDP Open Data or UK Government GHG factors).
 2. Formalize the "green score" algorithm (even a simple, justifiable formula).
-
 #### ⚙️ Technology Blueprint for FastAPI
 If you choose the recommended Path A, here is the specific stack to implement the Green FinTech BaaS Simulator:
 - Core Framework: FastAPI (for async endpoints, automatic OpenAPI docs at /docs)
@@ -339,8 +330,7 @@ Created `scripts/db-helper.sh` with:
 - [ ] [OpenCorporates](https://opencorporates.com/), 
 - [ ] [UK Government GHG data](https://www.gov.uk/government/collections/uk-local-authority-and-regional-carbon-dioxide-emissions-national-statistics).
 - [ ] UK [Smart Meter Data]([https://www.smartenergydata.org/](https://www.sdruk.ukri.org/data/smart-energy-data-service/)) (public datasets)
-- [ ] [National Grid ESO](https://www.nationalgrideso.com/) data.
-- [ ] [City of London parking bays](https://data.gov.uk/dataset/9dab2c9a-0d8d-4c5c-a2e8-3b1a97ff0c4c/on-street-parking-bays)
+- [ ] [National Grid ESO]([https://www.nationalgrideso.com/](https://www.neso.energy/)) data.
 
 **Current `.env`:**
 ```env
@@ -530,3 +520,20 @@ The [Smart Energy Data Service, SENSE](https://es.catapult.org.uk/project/smart-
 SENSE will unlock the power of smart data to enable equitable access to EV charging infrastructure. It will combine smart EV journey data with energy network data and the distribution of existing EV public charge points.  
   
 SENSE will enable researchers to investigate demands from domestic, private hire and non-domestic vehicles and the timing of demand on hourly, daily, weekly and seasonal basis. In combination with social demographic data, this understanding will facilitate research with real social value.
+### NESO: **Great Britain’s energy explained: January**
+In January, wind was Great Britain’s largest source of electricity generation, providing 36.7%. Gas followed closely behind at 31.3%.
+
+The highest electricity demand was recorded at 47,319 MW on 5 January at 5pm and 29 TWh ran through the network, that’s enough to run 29 billion washing machine cycles.
+
+The largest share of our gas came from UK and Norwegian gas fields at 60% with Liquefied Natural Gas (LNG) imports providing 31% and storage withdrawal provided the remaining 8%.
+
+Distribution networks transported 70% of our gas to homes, offices, hospitals etc and power stations received 8%.
+
+Our control room experts continue to balance electricity supply and demand second by second – and you can follow the electricity mix live in our carbon intensity app - available on [Google Play Store](https://play.google.com/store/apps/details?id=com.carbonintensityapp&hl=en_GB) and [The App Store](https://apps.apple.com/gb/app/the-national-grid-eso-app/id1469935379).
+#### Need more reports?
+All of our monthly electricity reports are available to download and share.
+
+|[Name](https://www.neso.energy/energy-101/great-britains-monthly-energy-stats?order=title&sort=asc "sort by Name")|[Published Sort ascending](https://www.neso.energy/energy-101/great-britains-monthly-energy-stats?order=field_publication_date&sort=asc "sort by Published")|
+|---|---|
+|[January 2026 Energy Report](https://www.neso.energy/document/376821/download)|5 Feb 2026|
+|[2025 Annual Energy Report](https://www.neso.energy/document/375541/download)|8 Jan 2026|
