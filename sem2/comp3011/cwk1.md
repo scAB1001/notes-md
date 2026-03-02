@@ -254,7 +254,7 @@ Next Step: To move from example to build, we should:
 1. Pick one primary, credible data source for the environmental metrics to base the project on (e.g., CDP Open Data or UK Government GHG factors).
 2. Formalize the "green score" algorithm (even a simple, justifiable formula).
 #### ⚙️ Technology Blueprint for FastAPI
-If you choose the recommended Path A, here is the specific stack to implement the Green FinTech BaaS Simulator:
+The specific stack to implement the Green FinTech BaaS Simulator:
 - Core Framework: FastAPI (for async endpoints, automatic OpenAPI docs at /docs)
 - Data Layer & ORM: SQLAlchemy 2.0 (Core + ORM) with Alembic for migrations (skills directly transferable from your PinPoint project)
 - Database: PostgreSQL (with the uuid-ossp extension for your loan simulation IDs)
@@ -465,34 +465,47 @@ green-fintech-baas/
 Please help me continue building this sophisticated API with production-grade practices. I want each feature implemented in its own branch with tests and documentation.
 
 I currently want to work on the 1.6: `feature/pytest-setup` which is my testing branch.
-### GovUK | Accredited official statistics: UK local authority and regional greenhouse gas emissions statistics, 2005 to 2023
 
-|                                                                                                      |                                                                                                                                                                                                                                                    |
-| ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Contents**                                                                                         |                                                                                                                                                                                                                                                    |
-| This worksheet contains one table. This worksheet contains links to all worksheets in this document. |                                                                                                                                                                                                                                                    |
-| **Worksheet title**                                                                                  | **Description**                                                                                                                                                                                                                                    |
-| [Cover](#Cover.A1)                                                                                   | Background information on the published statistics and contact details                                                                                                                                                                             |
-| [Contents](#'Contents'.A1)                                                                           | Links to all other sheets within the workbook                                                                                                                                                                                                      |
-| **Local authority greenhouse gas emissions**                                                         |                                                                                                                                                                                                                                                    |
-| [Table 1.1](#'1_1'.A1)                                                                               | Local authority territorial greenhouse gas emissions estimates 2005-2023                                                                                                                                                                           |
-| [Table 1.2](#'1_2'.A1)                                                                               | Local authority territorial carbon dioxide (CO2) emissions estimates 2005-2023                                                                                                                                                                     |
-| [Table 1.3](#'1_3'.A1)                                                                               | Local authority territorial methane (CH4) emissions estimates 2005-2023                                                                                                                                                                            |
-| [Table 1.4](#'1_4'.A1)                                                                               | Local authority territorial nitrous oxide (N2O) emissions estimates 2005-2023                                                                                                                                                                      |
-| **Emissions within the scope of influence of local authorities**                                     |                                                                                                                                                                                                                                                    |
-| [Table 2.1](#'2_1'.A1)                                                                               | Local authority territorial carbon dioxide (CO2) emissions estimates estimates within the scope of influence of local authorities 2005-2023 - Subset dataset (Excludes large industrial sites, railways, motorways, land-use, livestock and soils) |
-| **Sector scope**                                                                                     |                                                                                                                                                                                                                                                    |
-| [Table 3.1](#'3_1'.A1)                                                                               | Scope of the local authority emission sectors used in these statistics                                                                                                                                                                             |
-| [Table 3.2](#'3_2'.A1)                                                                               | Common Reporting Table (CRT) sectors from the UK Greenhouse Gas Inventory which are covered by the local authority greenhouse gas emission statistics                                                                                              |
-| **Reconciliation with national territorial greenhouse gas emissions estimates**                      |                                                                                                                                                                                                                                                    |
-| [Table 4.1](#'4_1'.A1)                                                                               | Reconciliation of 2023 local authority territorial greenhouse gas emissions estimates with full end user UK Greenhouse Gas Inventory, by fuel and sector                                                                                           |
-| [Table 4.1 Notes](#'4_1_Notes'.A1)                                                                   | Notes on the methodological differences and differences in categorisation between local authority estimates and UK estimates in table 4.1                                                                                                          |
-| [Table 4.2](#'4_2'.A1)                                                                               | Reconciliation of 2023 local authority territorial greenhouse gas emissions estimates with end user inventory for England, by fuel and sector                                                                                                      |
-| [Table 4.3](#'4_3'.A1)                                                                               | Reconciliation of 2023 local authority territorial greenhouse gas emissions estimates with end user inventory for Scotland, by fuel and sector                                                                                                     |
-| [Table 4.4](#'4_4'.A1)                                                                               | Reconciliation of 2023 local authority territorial greenhouse gas emissions estimates with end user inventory for Wales, by fuel and sector                                                                                                        |
-| [Table 4.5](#'4_5'.A1)                                                                               | Reconciliation of 2023 local authority territorial greenhouse gas emissions estimates with end user inventory for Northern Ireland, by fuel and sector                                                                                             |
-| **Pollution inventory**                                                                              |                                                                                                                                                                                                                                                    |
-| [Table 5.1](#'5_1'.A1)                                                                               | Pollution Inventory 'by source' emissions, not consistent with local authority emissions by end-user                                                                                                                                               |
+Reminder of: Technical Requirements
+- Fully functional API with a database
+	- Database cannot be NoSQL
+	- One or more data models with CRUD functionality linked to DB
+- Use modern, cutting-edge frameworks, architectural patterns
+	- Go above and beyond the requirements
+- API Audience
+	- Open, following the public OpenAPI Standard
+- API Architecture
+	- Composite or unified using the REST protocol
+	- Use industry standard status codes
+- Demonstrate via local execution, web hosting and/or MCP
+- Demonstrate via remote execution
+- Use publicly available datasets (try some private)
+### GovUK | Accredited official statistics: UK local authority and regional greenhouse gas emissions statistics, 2005 to 2023
+This worksheet contains one table. This worksheet contains links to all worksheets in this document.
+
+| Worksheet title                                                                 | Description                                                                                                                                                                                                                                        |
+| ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Cover](#Cover.A1)                                                              | Background information on the published statistics and contact details                                                                                                                                                                             |
+| [Contents](#'Contents'.A1)                                                      | Links to all other sheets within the workbook                                                                                                                                                                                                      |
+| **Local authority greenhouse gas emissions**                                    |                                                                                                                                                                                                                                                    |
+| [Table 1.1](#'1_1'.A1)                                                          | Local authority territorial greenhouse gas emissions estimates 2005-2023                                                                                                                                                                           |
+| [Table 1.2](#'1_2'.A1)                                                          | Local authority territorial carbon dioxide (CO2) emissions estimates 2005-2023                                                                                                                                                                     |
+| [Table 1.3](#'1_3'.A1)                                                          | Local authority territorial methane (CH4) emissions estimates 2005-2023                                                                                                                                                                            |
+| [Table 1.4](#'1_4'.A1)                                                          | Local authority territorial nitrous oxide (N2O) emissions estimates 2005-2023                                                                                                                                                                      |
+| **Emissions within the scope of influence of local authorities**                |                                                                                                                                                                                                                                                    |
+| [Table 2.1](#'2_1'.A1)                                                          | Local authority territorial carbon dioxide (CO2) emissions estimates estimates within the scope of influence of local authorities 2005-2023 - Subset dataset (Excludes large industrial sites, railways, motorways, land-use, livestock and soils) |
+| **Sector scope**                                                                |                                                                                                                                                                                                                                                    |
+| [Table 3.1](#'3_1'.A1)                                                          | Scope of the local authority emission sectors used in these statistics                                                                                                                                                                             |
+| [Table 3.2](#'3_2'.A1)                                                          | Common Reporting Table (CRT) sectors from the UK Greenhouse Gas Inventory which are covered by the local authority greenhouse gas emission statistics                                                                                              |
+| **Reconciliation with national territorial greenhouse gas emissions estimates** |                                                                                                                                                                                                                                                    |
+| [Table 4.1](#'4_1'.A1)                                                          | Reconciliation of 2023 local authority territorial greenhouse gas emissions estimates with full end user UK Greenhouse Gas Inventory, by fuel and sector                                                                                           |
+| [Table 4.1 Notes](#'4_1_Notes'.A1)                                              | Notes on the methodological differences and differences in categorisation between local authority estimates and UK estimates in table 4.1                                                                                                          |
+| [Table 4.2](#'4_2'.A1)                                                          | Reconciliation of 2023 local authority territorial greenhouse gas emissions estimates with end user inventory for England, by fuel and sector                                                                                                      |
+| [Table 4.3](#'4_3'.A1)                                                          | Reconciliation of 2023 local authority territorial greenhouse gas emissions estimates with end user inventory for Scotland, by fuel and sector                                                                                                     |
+| [Table 4.4](#'4_4'.A1)                                                          | Reconciliation of 2023 local authority territorial greenhouse gas emissions estimates with end user inventory for Wales, by fuel and sector                                                                                                        |
+| [Table 4.5](#'4_5'.A1)                                                          | Reconciliation of 2023 local authority territorial greenhouse gas emissions estimates with end user inventory for Northern Ireland, by fuel and sector                                                                                             |
+| **Pollution inventory**                                                         |                                                                                                                                                                                                                                                    |
+| [Table 5.1](#'5_1'.A1)                                                          | Pollution Inventory 'by source' emissions, not consistent with local authority emissions by end-user                                                                                                                                               |
 ### Smart Energy Data Service
 https://www.sdruk.ukri.org/data/smart-energy-data-service/
 #### At a glance
@@ -537,3 +550,54 @@ All of our monthly electricity reports are available to download and share.
 |---|---|
 |[January 2026 Energy Report](https://www.neso.energy/document/376821/download)|5 Feb 2026|
 |[2025 Annual Energy Report](https://www.neso.energy/document/375541/download)|8 Jan 2026|
+### CDP Full GHG Emissions Dataset
+I have submitted a request for this.
+
+CDP’s proprietary dataset providing modelled and reported emissions covering over 14,500 companies. In 2025, CDP adopted a new model for generating emissions estimates: the k-nearest neighbors (KNN) model. Therefore, there are two versions of the dataset this year, one with modelled emissions using the gamma generalized linear model (GLM), which has been used since 2015; and one with modelled emissions from the new KNN model.
+
+**Features:**
+- Reported and estimated emissions for Scope 1, location-based and market-based Scope 2 and Scope 3
+- Reported and estimated energy for fuel and steam, heat, electricity & cooling (SHEC)
+- Reported renewable energy and fuel usage
+- Carbon Intensity (S1 + S2 / 1M company revenue)
+
+CDP is facilitating analysis around the exposure of companies and investor portfolios to carbon risk through strengthening the accuracy and completeness of the GHG emissions data available to investors. Beginning in 2015, it developed an annual quality reviewed GHG modelled emissions dataset. The dataset is built upon the original foundations of transparency, robust methods and value to investors while covering a wider universe of companies, integrating more relevant data points and expanding upon the types and pedigrees of the models used for estimation. This work has been supported by CDP’s Technical Advisory Committee (Data), which provided expert advice during the course of the initial project.
+
+**GLM Methodology:**
+- [CDP Full GHG Emissions Dataset – 2025 Summary (GLM)](https://cdp.net/api/file/ghg-emissions-dataset-summary-glm)
+- [CDP Full GHG Emissions Dataset – Technical Annex I: Data Cleaning Approach (GLM)](https://cdp.net/api/file/ghg-emissions-dataset-technical-annex-i-glm)
+- [CDP Full GHG Emissions Dataset – Technical Annex II: Statistical Framework (GLM)](https://cdp.net/api/file/ghg-emissions-dataset-technical-annex-ii-glm)
+- [CDP Full GHG Emissions Dataset – Technical Annex III: Scope 3 Overview and Modelling (GLM)](https://cdp.net/api/file/ghg-emissions-dataset-technical-annex-iii-glm)
+
+**KNN Methodology:**
+- [CDP Full GHG Emissions Dataset – 2025 Summary (KNN)](https://cdp.net/api/file/ghg-emissions-dataset-summary-knn)
+- [CDP Full GHG Emissions Dataset – Technical Annex I: Data Cleaning Approach (KNN)](https://cdp.net/api/file/ghg-emissions-dataset-technical-annex-i-knn)
+- [CDP Full GHG Emissions Dataset – Technical Annex II: Statistical Framework (KNN)](https://cdp.net/api/file/ghg-emissions-dataset-technical-annex-ii-knn)
+- [CDP Full GHG Emissions Dataset – Technical Annex III: Scope 3 Overview and Modelling (KNN)](https://cdp.net/api/file/ghg-emissions-dataset-technical-annex-iii-knn)
+_By providing access to its environmental data, CDP supports not-for-profit organizations, policy-making, and other public-purpose initiatives to advance environmental objectives, including in academia and other non-commercial research. A_ _**Data License Agreement**_ _is required to access CDP data, to ensure responsible data use and to improve our understanding of the use of CDP data._
+
+_A subsidized cost-based fee may apply, depending on who is using the data and for what purpose, to help offset some of CDP’s operational costs associated with collecting, storing and distributing this data._
+### Kaggle:Countries CO2 Emission and more...
+https://www.kaggle.com/datasets/lobosi/c02-emission-by-countrys-grouth-and-population
+Yearly CO2 Emission by each Countrys Energy Con/Prod, GDP, Population and more
+#### About Dataset
+The world is becoming more modernized by the year, and with this becoming all the more polluted.
+
+This data was pulled from the US Energy Administration and joined together for an easier analysis. Its a collection of some big factors that play into C02 Emissions, with everything from the Production and Consumption of each type of major energy source for each country and its pollution rating each year. It also includes each countries GDP, Population, Energy intensity per capita (person), and Energy intensity per GDP (per person GDP). All the data spans all the way from the 1980's to 2020.
+#### Feature Descriptions:
+- **Country** - Country in question
+- **Energy_type** - Type of energy source
+- **Year** - Year the data was recorded
+- **Energy_consumption** - Amount of Consumption for the specific energy source, measured (quad Btu)
+- **Energy_production** - Amount of Production for the specific energy source, measured (quad Btu)
+- **GDP** - Countries GDP at purchasing power parities, measured (Billion 2015$ PPP)
+- **Population** - Population of specific Country, measured (Mperson)
+- **Energy_intensity_per_capita** - Energy intensity is a measure of the energy inefficiency of an economy. It is calculated as units of energy per unit of capita (capita = individual person), measured (MMBtu/person)
+- **Energy_intensity_by_GDP**- Energy intensity is a measure of the energy inefficiency of an economy. It is calculated as units of energy per unit of GDP, measred (1000 Btu/2015$ GDP PPP)
+- **CO2_emission** - The amount of C02 emitted, measured (MMtonnes CO2)
+### Global CO2 and Greenhouse Gas Emissions
+https://www.kaggle.com/datasets/mexwell/global-co2-and-greenhouse-gas-emissions
+#### About Dataset
+Complete CO2 and Greenhouse Gas Emissions dataset by Our World in Data. It is updated regularly and includes data on CO2 emissions (annual, per capita, cumulative and consumption-based), other greenhouse gases, energy mix, and other relevant metrics.
+
+Read more about that [here](https://github.com/owid/co2-data)
