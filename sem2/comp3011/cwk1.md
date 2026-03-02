@@ -325,7 +325,7 @@ If you choose the recommended Path A, here is the specific stack to implement th
       ┃ ┃ ┗ 📜 \*\_test.py # Test model validation, pydantic schemas as business logic
 ### 1.7 CRUD Endpoints with Pydantic
 - [ ] Full CRUD for `Company` model
-- [ ] Pydantic schemas with validation
+- [x] Pydantic schemas with validation
 - [ ] Pagination, filtering, error handling
 - [ ] Comprehensive tests
 ### 1.8 Database Helper Script ✓
