@@ -338,7 +338,7 @@ Created `scripts/db-helper.sh` with:
 - [ ] [CDP](https://www.cdp.net/en) (climate data), 
 - [ ] [OpenCorporates](https://opencorporates.com/), 
 - [ ] [UK Government GHG data](https://www.gov.uk/government/collections/uk-local-authority-and-regional-carbon-dioxide-emissions-national-statistics).
-- [ ] UK [Smart Meter Data](https://www.smartenergydata.org/) (public datasets)
+- [ ] UK [Smart Meter Data]([https://www.smartenergydata.org/](https://www.sdruk.ukri.org/data/smart-energy-data-service/)) (public datasets)
 - [ ] [National Grid ESO](https://www.nationalgrideso.com/) data.
 - [ ] [City of London parking bays](https://data.gov.uk/dataset/9dab2c9a-0d8d-4c5c-a2e8-3b1a97ff0c4c/on-street-parking-bays)
 
@@ -390,87 +390,6 @@ Later on, I will need help implementing the **advanced features** that will make
 ## 📁 Current Project Structure (key dirs and files)
 ```
 green-fintech-baas/
-┣ 📂.pytest_cache
-┃ ┣ 📂v
-┃ ┃ ┗ 📂cache
-┃ ┣ 📜.gitignore
-┃ ┣ 📜CACHEDIR.TAG
-┃ ┗ 📜README.md
-┣ 📂.ruff_cache
-┃ ┣ 📂0.15.0
-┃ ┣ 📜.gitignore
-┃ ┗ 📜CACHEDIR.TAG
-┣ 📂.venv
-┃ ┣ 📂bin
-┃ ┃ ┣ 📜activate
-┃ ┃ ┣ 📜activate_this.py
-┃ ┃ ┣ 📜activate.csh
-┃ ┃ ┣ 📜activate.fish
-┃ ┃ ┣ 📜activate.nu
-┃ ┃ ┣ 📜activate.ps1
-┃ ┃ ┣ 📜alembic
-┃ ┃ ┣ 📜black
-┃ ┃ ┣ 📜blackd
-┃ ┃ ┣ 📜coverage
-┃ ┃ ┣ 📜coverage-3.12
-┃ ┃ ┣ 📜coverage3
-┃ ┃ ┣ 📜dmypy
-┃ ┃ ┣ 📜docutils
-┃ ┃ ┣ 📜dotenv
-┃ ┃ ┣ 📜fastapi
-┃ ┃ ┣ 📜httpx
-┃ ┃ ┣ 📜identify-cli
-┃ ┃ ┣ 📜isort
-┃ ┃ ┣ 📜isort-identify-imports
-┃ ┃ ┣ 📜keyring
-┃ ┃ ┣ 📜mako-render
-┃ ┃ ┣ 📜markdown-it
-┃ ┃ ┣ 📜mypy
-┃ ┃ ┣ 📜mypyc
-┃ ┃ ┣ 📜nodeenv
-┃ ┃ ┣ 📜normalizer
-┃ ┃ ┣ 📜pip
-┃ ┃ ┣ 📜pip-3.12
-┃ ┃ ┣ 📜pip3
-┃ ┃ ┣ 📜pip3.12
-┃ ┃ ┣ 📜pre-commit
-┃ ┃ ┣ 📜py.test
-┃ ┃ ┣ 📜pybabel
-┃ ┃ ┣ 📜pygmentize
-┃ ┃ ┣ 📜pytest
-┃ ┃ ┣ 📜python
-┃ ┃ ┣ 📜python3
-┃ ┃ ┣ 📜python3.12
-┃ ┃ ┣ 📜rst2html
-┃ ┃ ┣ 📜rst2html4
-┃ ┃ ┣ 📜rst2html5
-┃ ┃ ┣ 📜rst2latex
-┃ ┃ ┣ 📜rst2man
-┃ ┃ ┣ 📜rst2odt
-┃ ┃ ┣ 📜rst2pseudoxml
-┃ ┃ ┣ 📜rst2s5
-┃ ┃ ┣ 📜rst2xetex
-┃ ┃ ┣ 📜rst2xml
-┃ ┃ ┣ 📜ruff
-┃ ┃ ┣ 📜sphinx-apidoc
-┃ ┃ ┣ 📜sphinx-autogen
-┃ ┃ ┣ 📜sphinx-build
-┃ ┃ ┣ 📜sphinx-quickstart
-┃ ┃ ┣ 📜stubgen
-┃ ┃ ┣ 📜stubtest
-┃ ┃ ┣ 📜twine
-┃ ┃ ┣ 📜uvicorn
-┃ ┃ ┗ 📜virtualenv
-┃ ┣ 📂include
-┃ ┃ ┗ 📂site
-┃ ┃   ┗ 📂python3.12
-┃ ┃     ┗ 📂greenlet
-┃ ┃       ┗ 📜greenlet.h
-┃ ┣ 📂lib
-┃ ┃ ┗ 📂python3.12
-┃ ┣ 📜.gitignore
-┃ ┣ 📜CACHEDIR.TAG
-┃ ┗ 📜pyvenv.cfg
 ┣ 📂alembic
 ┃ ┣ 📂versions
 ┃ ┣ 📜env.py
@@ -556,4 +475,58 @@ green-fintech-baas/
 Please help me continue building this sophisticated API with production-grade practices. I want each feature implemented in its own branch with tests and documentation.
 
 I currently want to work on the 1.6: `feature/pytest-setup` which is my testing branch.
+### GovUK | Accredited official statistics: UK local authority and regional greenhouse gas emissions statistics, 2005 to 2023
 
+|                                                                                                      |                                                                                                                                                                                                                                                    |
+| ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Contents**                                                                                         |                                                                                                                                                                                                                                                    |
+| This worksheet contains one table. This worksheet contains links to all worksheets in this document. |                                                                                                                                                                                                                                                    |
+| **Worksheet title**                                                                                  | **Description**                                                                                                                                                                                                                                    |
+| [Cover](#Cover.A1)                                                                                   | Background information on the published statistics and contact details                                                                                                                                                                             |
+| [Contents](#'Contents'.A1)                                                                           | Links to all other sheets within the workbook                                                                                                                                                                                                      |
+| **Local authority greenhouse gas emissions**                                                         |                                                                                                                                                                                                                                                    |
+| [Table 1.1](#'1_1'.A1)                                                                               | Local authority territorial greenhouse gas emissions estimates 2005-2023                                                                                                                                                                           |
+| [Table 1.2](#'1_2'.A1)                                                                               | Local authority territorial carbon dioxide (CO2) emissions estimates 2005-2023                                                                                                                                                                     |
+| [Table 1.3](#'1_3'.A1)                                                                               | Local authority territorial methane (CH4) emissions estimates 2005-2023                                                                                                                                                                            |
+| [Table 1.4](#'1_4'.A1)                                                                               | Local authority territorial nitrous oxide (N2O) emissions estimates 2005-2023                                                                                                                                                                      |
+| **Emissions within the scope of influence of local authorities**                                     |                                                                                                                                                                                                                                                    |
+| [Table 2.1](#'2_1'.A1)                                                                               | Local authority territorial carbon dioxide (CO2) emissions estimates estimates within the scope of influence of local authorities 2005-2023 - Subset dataset (Excludes large industrial sites, railways, motorways, land-use, livestock and soils) |
+| **Sector scope**                                                                                     |                                                                                                                                                                                                                                                    |
+| [Table 3.1](#'3_1'.A1)                                                                               | Scope of the local authority emission sectors used in these statistics                                                                                                                                                                             |
+| [Table 3.2](#'3_2'.A1)                                                                               | Common Reporting Table (CRT) sectors from the UK Greenhouse Gas Inventory which are covered by the local authority greenhouse gas emission statistics                                                                                              |
+| **Reconciliation with national territorial greenhouse gas emissions estimates**                      |                                                                                                                                                                                                                                                    |
+| [Table 4.1](#'4_1'.A1)                                                                               | Reconciliation of 2023 local authority territorial greenhouse gas emissions estimates with full end user UK Greenhouse Gas Inventory, by fuel and sector                                                                                           |
+| [Table 4.1 Notes](#'4_1_Notes'.A1)                                                                   | Notes on the methodological differences and differences in categorisation between local authority estimates and UK estimates in table 4.1                                                                                                          |
+| [Table 4.2](#'4_2'.A1)                                                                               | Reconciliation of 2023 local authority territorial greenhouse gas emissions estimates with end user inventory for England, by fuel and sector                                                                                                      |
+| [Table 4.3](#'4_3'.A1)                                                                               | Reconciliation of 2023 local authority territorial greenhouse gas emissions estimates with end user inventory for Scotland, by fuel and sector                                                                                                     |
+| [Table 4.4](#'4_4'.A1)                                                                               | Reconciliation of 2023 local authority territorial greenhouse gas emissions estimates with end user inventory for Wales, by fuel and sector                                                                                                        |
+| [Table 4.5](#'4_5'.A1)                                                                               | Reconciliation of 2023 local authority territorial greenhouse gas emissions estimates with end user inventory for Northern Ireland, by fuel and sector                                                                                             |
+| **Pollution inventory**                                                                              |                                                                                                                                                                                                                                                    |
+| [Table 5.1](#'5_1'.A1)                                                                               | Pollution Inventory 'by source' emissions, not consistent with local authority emissions by end-user                                                                                                                                               |
+### Smart Energy Data Service
+https://www.sdruk.ukri.org/data/smart-energy-data-service/
+#### At a glance
+- Secure access to data from power networks, electric vehicles and energy meters
+- Research-ready and customised datasets, combining smart energy data with contextual data
+- Tackling critical policy challenges around Net Zero, energy security and fairness
+- Making it easier to decide where to invest in energy infrastructure by providing clear evidence
+#### About
+Transforming our understanding of the UK’s energy system through integrated data from power networks, electric vehicles, and energy meters alongside socioeconomic indicators.
+
+This integrated view of energy patterns and their social context will help tackle critical policy challenges around Net Zero, energy security and fairness.
+
+The [Smart Energy Data Service, SENSE](https://es.catapult.org.uk/project/smart-energy-data-service-sense/) will support new research into complex human and economic systems, enabling evidence-based decisions about energy infrastructure investment, reducing disparities in urban and rural areas, and improving energy efficiency in schools, hospitals and other public buildings.
+#### Data focus
+- Comprehensive power network data across distribution and consumption points
+- Electric vehicle usage patterns and charging infrastructure use
+- Smart meter and automated meter readings (AMR) revealing building energy consumption
+- Built environment statistics linked to energy efficiency metrics
+#### What’s coming?
+- Processed datasets integrating energy networks, meters, and demographic information
+- Specialised energy data platform designed for research accessibility
+- PhD secondment opportunities with industry and academic partners
+- Analytical tools supporting Net Zero transition planning and energy justice analysis
+#### **Mapping EV charging needs and network demands**
+SENSE will unlock the power of smart data to enable equitable access to EV charging infrastructure. It will combine smart EV journey data with energy network data and the distribution of existing EV public charge points.  
+  
+SENSE will enable researchers to investigate demands from domestic, private hire and non-domestic vehicles and the timing of demand on hourly, daily, weekly and seasonal basis. In combination with social demographic data, this understanding will facilitate research with real social value.
