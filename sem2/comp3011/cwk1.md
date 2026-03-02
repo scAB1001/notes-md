@@ -543,7 +543,7 @@ The [Smart Energy Data Service, SENSE](https://es.catapult.org.uk/project/smart-
 SENSE will unlock the power of smart data to enable equitable access to EV charging infrastructure. It will combine smart EV journey data with energy network data and the distribution of existing EV public charge points.  
   
 SENSE will enable researchers to investigate demands from domestic, private hire and non-domestic vehicles and the timing of demand on hourly, daily, weekly and seasonal basis. In combination with social demographic data, this understanding will facilitate research with real social value.
-### NESO: **Great Britain’s energy explained: January**
+#### NESO: **Great Britain’s energy explained: January**
 In January, wind was Great Britain’s largest source of electricity generation, providing 36.7%. Gas followed closely behind at 31.3%.
 
 The highest electricity demand was recorded at 47,319 MW on 5 January at 5pm and 29 TWh ran through the network, that’s enough to run 29 billion washing machine cycles.
@@ -631,3 +631,134 @@ In 2024, China was the biggest carbon polluter in the world by far, having relea
 Although China is currently the world's largest carbon polluter, the U.S. has released far more [historical carbon dioxide emissions](https://www.statista.com/statistics/1007454/cumulative-co2-emissions-worldwide-by-country/), at more than 400 GtCO₂ since 1750. The wide gap between the two countries is because China's emissions have mostly been produced in the past two decades. Combined, the U.S. and China account for roughly 40 percent of [cumulative CO₂ emissions](https://www.statista.com/statistics/1177911/cumulative-co2-emissions-worldwide-by-region/) since the Industrial Revolution began. 
 #### Sources of emissions
 One of the largest sources of global CO₂ emissions is the power sector, with electricity produced by coal-fired power plants a significant contributor. In China, [emissions from coal-fired electricity generation](https://www.statista.com/statistics/1322297/power-generation-emissions-china-by-fuel-source/) have soared since the turn of the century, and reached 5.2 GtCO₂ in 2024.
+### OpenCorporates: The Open Database Of The Corporate World
+#### Legal-entity data you can trust
+Fresh, standardized, auditable information direct from official primary sources across 140+ jurisdictions — all underpinned by our Legal-Entity Data Principles and world-leading expertise in legal-entity data. **This is data you can trust.**
+https://opencorporates.com/companies?utf8=%E2%9C%93&q=&commit=Go&jurisdiction_code=&utf8=%E2%9C%93&type=companies&controller=searches&action=search_companies&mode=best_fields&search_fields%5B%5D=name&search_fields%5B%5D=previous_names&search_fields%5B%5D=company_number&search_fields%5B%5D=other_company_numbers&branch=&nonprofit=&order=
+### Financial Data API
+#### Esg ScoresPremium subscription
+
+ESG risk score measures a company's exposure to environmental, social, and corporate governance risks in its daily operations. The score is calculated on a numerical scale ranging from 0 (low risk) to 100 (high risk). The API endpoint returns historical ESG risk score values for several thousand US and international companies.
+
+- ###### Endpoint
+    
+    `https://financialdata.net/api/v1/esg-scores?identifier=MSFT`
+    
+- ###### Parameters
+    
+    |Name|Type|Description|Example|
+    |---|---|---|---|
+    |identifier|string|The trading symbol for a security, or the central index key (CIK). The latter is assigned to the entity by the United States Securities and Exchange Commission.|MSFT, 0000789019|
+    |format|string|(Optional) The format of the returned data, either JSON (JavaScript Object Notation) or CSV (Comma Separated Values). Defaults to JSON.|json, csv|
+    
+- ###### Response
+    
+    ```
+    [
+      {
+        "trading_symbol": "MSFT",
+        "central_index_key": "0000789019",
+        "registrant_name": "MICROSOFT CORP",
+        "industry": "Software & Services",
+        "date": "2025-02-01",
+        "environmental_risk_score": 1.6,
+        "social_risk_score": 7.6,
+        "governance_risk_score": 4.2,
+        "esg_risk_score": 13.5
+      },
+      {
+        "trading_symbol": "MSFT",
+        "central_index_key": "0000789019",
+        "registrant_name": "MICROSOFT CORP",
+        "industry": "Software & Services",
+        "date": "2025-01-01",
+        "environmental_risk_score": 1.6,
+        "social_risk_score": 7.6,
+        "governance_risk_score": 5.0,
+        "esg_risk_score": 14.2
+      },
+      ...
+    ]
+    ```
+    
+
+#### Esg RatingsPremium subscription
+
+ESG corporate rating is a metric used for evaluating a company's sustainability performance; ratings range from D- (poor performance) to A+ (excellent performance). ESG industry rank shows how a company's ESG risk score compares to that of other companies in the same industry. The API endpoint provides ratings for publicly traded US and international companies.
+
+- ###### Endpoint
+    
+    `https://financialdata.net/api/v1/esg-ratings?identifier=MSFT`
+    
+- ###### Parameters
+    
+    |Name|Type|Description|Example|
+    |---|---|---|---|
+    |identifier|string|The trading symbol for a security, or the central index key (CIK). The latter is assigned to the entity by the United States Securities and Exchange Commission.|MSFT, 0000789019|
+    |format|string|(Optional) The format of the returned data, either JSON (JavaScript Object Notation) or CSV (Comma Separated Values). Defaults to JSON.|json, csv|
+    
+- ###### Response
+    
+    ```
+    [
+      {
+        "trading_symbol": "MSFT",
+        "central_index_key": "0000789019",
+        "registrant_name": "MICROSOFT CORP",
+        "industry": "Software & Services",
+        "date": "2025-02-01",
+        "esg_corporate_rating": "A",
+        "esg_industry_rank": "10 out of 143"
+      },
+      {
+        "trading_symbol": "MSFT",
+        "central_index_key": "0000789019",
+        "registrant_name": "MICROSOFT CORP",
+        "industry": "Software & Services",
+        "date": "2025-01-01",
+        "esg_corporate_rating": "A",
+        "esg_industry_rank": "15 out of 143"
+      },
+      ...
+    ]
+    ```
+    
+
+#### Industry Esg ScoresPremium subscription
+
+Industry ESG score evaluates how well an industry manages risks related to ESG (environmental, social, and governance) factors. The score is calculated on a numerical scale ranging from 0 (low risk) to 100 (high risk).
+
+- ###### Endpoint
+    
+    `https://financialdata.net/api/v1/industry-esg-scores?date=2025-01-01`
+    
+- ###### Parameters
+    
+    |Name|Type|Description|Example|
+    |---|---|---|---|
+    |date|string|The date in YYYY-MM-DD format.|2025-01-01|
+    |format|string|(Optional) The format of the returned data, either JSON (JavaScript Object Notation) or CSV (Comma Separated Values). Defaults to JSON.|json, csv|
+    
+- ###### Response
+    
+    ```
+    [
+      {
+        "industry": "Aerospace & Defense",
+        "date": "2025-01-01",
+        "environmental_risk_score": 9.0,
+        "social_risk_score": 14.8,
+        "governance_risk_score": 6.2,
+        "esg_risk_score": 30.1
+      },
+      {
+        "industry": "Auto Components",
+        "date": "2025-01-01",
+        "environmental_risk_score": 4.0,
+        "social_risk_score": 5.8,
+        "governance_risk_score": 5.0,
+        "esg_risk_score": 14.7
+      },
+      ...
+    ]
+    ```
