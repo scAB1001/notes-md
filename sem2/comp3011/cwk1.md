@@ -636,23 +636,17 @@ One of the largest sources of global CO₂ emissions is the power sector, with e
 Fresh, standardized, auditable information direct from official primary sources across 140+ jurisdictions — all underpinned by our Legal-Entity Data Principles and world-leading expertise in legal-entity data. **This is data you can trust.**
 https://opencorporates.com/companies?utf8=%E2%9C%93&q=&commit=Go&jurisdiction_code=&utf8=%E2%9C%93&type=companies&controller=searches&action=search_companies&mode=best_fields&search_fields%5B%5D=name&search_fields%5B%5D=previous_names&search_fields%5B%5D=company_number&search_fields%5B%5D=other_company_numbers&branch=&nonprofit=&order=
 ### Financial Data API
+https://financialdata.net/documentation?ref=freepublicapis.com#company_information
 #### Esg ScoresPremium subscription
-
 ESG risk score measures a company's exposure to environmental, social, and corporate governance risks in its daily operations. The score is calculated on a numerical scale ranging from 0 (low risk) to 100 (high risk). The API endpoint returns historical ESG risk score values for several thousand US and international companies.
-
 - ###### Endpoint
-    
     `https://financialdata.net/api/v1/esg-scores?identifier=MSFT`
-    
 - ###### Parameters
-    
     |Name|Type|Description|Example|
     |---|---|---|---|
     |identifier|string|The trading symbol for a security, or the central index key (CIK). The latter is assigned to the entity by the United States Securities and Exchange Commission.|MSFT, 0000789019|
     |format|string|(Optional) The format of the returned data, either JSON (JavaScript Object Notation) or CSV (Comma Separated Values). Defaults to JSON.|json, csv|
-    
 - ###### Response
-    
     ```
     [
       {
@@ -680,25 +674,16 @@ ESG risk score measures a company's exposure to environmental, social, and corpo
       ...
     ]
     ```
-    
-
 #### Esg RatingsPremium subscription
-
 ESG corporate rating is a metric used for evaluating a company's sustainability performance; ratings range from D- (poor performance) to A+ (excellent performance). ESG industry rank shows how a company's ESG risk score compares to that of other companies in the same industry. The API endpoint provides ratings for publicly traded US and international companies.
-
 - ###### Endpoint
-    
     `https://financialdata.net/api/v1/esg-ratings?identifier=MSFT`
-    
 - ###### Parameters
-    
     |Name|Type|Description|Example|
     |---|---|---|---|
     |identifier|string|The trading symbol for a security, or the central index key (CIK). The latter is assigned to the entity by the United States Securities and Exchange Commission.|MSFT, 0000789019|
     |format|string|(Optional) The format of the returned data, either JSON (JavaScript Object Notation) or CSV (Comma Separated Values). Defaults to JSON.|json, csv|
-    
 - ###### Response
-    
     ```
     [
       {
@@ -722,25 +707,16 @@ ESG corporate rating is a metric used for evaluating a company's sustainability 
       ...
     ]
     ```
-    
-
 #### Industry Esg ScoresPremium subscription
-
 Industry ESG score evaluates how well an industry manages risks related to ESG (environmental, social, and governance) factors. The score is calculated on a numerical scale ranging from 0 (low risk) to 100 (high risk).
-
 - ###### Endpoint
-    
     `https://financialdata.net/api/v1/industry-esg-scores?date=2025-01-01`
-    
 - ###### Parameters
-    
     |Name|Type|Description|Example|
     |---|---|---|---|
     |date|string|The date in YYYY-MM-DD format.|2025-01-01|
     |format|string|(Optional) The format of the returned data, either JSON (JavaScript Object Notation) or CSV (Comma Separated Values). Defaults to JSON.|json, csv|
-    
 - ###### Response
-    
     ```
     [
       {
@@ -758,6 +734,119 @@ Industry ESG score evaluates how well an industry manages risks related to ESG (
         "social_risk_score": 5.8,
         "governance_risk_score": 5.0,
         "esg_risk_score": 14.7
+      },
+      ...
+    ]
+    ```
+  #### Company InformationStandard subscription
+This API endpoint provides basic information about the company, such as its LEI number, industry, contact information, and other key facts. The data covers a few thousand US and international companies.
+- ###### Endpoint
+    `https://financialdata.net/api/v1/company-information?identifier=MSFT`
+- ###### Parameters
+    |Name|Type|Description|Example|
+    |---|---|---|---|
+    |identifier|string|The trading symbol for a security, or the central index key (CIK). The latter is assigned to the entity by the United States Securities and Exchange Commission.|MSFT, 0000789019|
+    |format|string|(Optional) The format of the returned data, either JSON (JavaScript Object Notation) or CSV (Comma Separated Values). Defaults to JSON.|json, csv|
+- ###### Response
+    ```
+    [
+      {
+        "trading_symbol": "MSFT",
+        "central_index_key": "0000789019",
+        "registrant_name": "MICROSOFT CORP",
+        "isin_number": "US5949181045",
+        "lei_number": null,
+        "ein_number": "911144442",
+        "exchange": "Nasdaq",
+        "sic_code": "7372",
+        "sic_description": "Services-Prepackaged Software",
+        "fiscal_year_end": "0630",
+        "state_of_incorporation": "WA",
+        "address_street": "ONE MICROSOFT WAY",
+        "address_city": "REDMOND",
+        "address_state": "WA",
+        "address_zip_code": "98052-6399",
+        "address_country": "UNITED STATES",
+        "address_country_code": "US",
+        "phone_number": "425-882-8080",
+        "mailing_address": "ONE MICROSOFT WAY, REDMOND, WA, 98052-6399",
+        "business_address": "ONE MICROSOFT WAY, REDMOND, WA, 98052-6399",
+        "former_name": null,
+        "industry": "Information technology",
+        "founding_date": "1975-04-04",
+        "chief_executive_officer": "Satya Nadella",
+        "number_of_employees": 228000,
+        "website": "https://www.microsoft.com/",
+        "market_cap": 2800000000000.0,
+        "shares_issued": null,
+        "shares_outstanding": 7434880776,
+        "description": "Microsoft Corporation is an American multinational technology conglomerate headquartered in Redmond, Washington. Founded in 1975, the company became highly influential in the rise of personal computers through software like Windows, and the company has since expanded to Internet services, cloud computing, video gaming and other fields. Microsoft is the largest software maker, one of the most valuable public U.S. companies, and one of the most valuable brands globally."
+      }
+    ]
+    ```
+#### International Company InformationStandard subscription
+Our API provides basic information about the international company, such as its exchange, industry, employee count, and other key facts. Data is available for the following stock exchanges: Toronto, London, Frankfurt, Euronext Paris, Euronext Amsterdam, Tokyo, Hong Kong, Singapore, Indonesia, Malaysia, Korea, Brazil, Mexico, India, Bombay.
+- ###### Endpoint
+    `https://financialdata.net/api/v1/international-company-information?identifier=SHEL.L`
+- ###### Parameters
+    |Name|Type|Description|Example|
+    |---|---|---|---|
+    |identifier|string|The trading symbol for a security.|SHEL.L|
+    |format|string|(Optional) The format of the returned data, either JSON (JavaScript Object Notation) or CSV (Comma Separated Values). Defaults to JSON.|json, csv|
+- ###### Response
+    ```
+    [
+      {
+        "trading_symbol": "SHEL.L",
+        "registrant_name": "Shell PLC",
+        "exchange": "London Stock Exchange",
+        "isin_number": "GB00BP6MXD84",
+        "industry": "Energy",
+        "founding_date": "1907",
+        "chief_executive_officer": "Wael Sawan",
+        "number_of_employees": 90000,
+        "website": "https://www.shell.com/",
+        "description": "Shell PLC is a British multinational oil and gas company, headquartered in London, England. Shell is a public limited company with a primary listing on the London Stock Exchange (LSE) and secondary listings on Euronext Amsterdam and the New York Stock Exchange. A core component of Big Oil, Shell is the second largest investor-owned oil and gas company in the world by revenue (after ExxonMobil), and among the world's largest companies out of any industry. Measured by both its own emissions, and the emissions of all the fossil fuels it sells, Shell was the ninth-largest corporate producer of greenhouse gas emissions in the period 1988–2015."
+      }
+    ]
+    ```
+#### Key MetricsStandard subscription
+The API endpoint returns key financial metrics such as price-to-earnings ratio, price-to-book ratio, free cash flow, etc. This information is particularly important for value investors looking to identify undervalued stocks. Data is available for several thousand US and international companies.
+- ###### Endpoint
+    `https://financialdata.net/api/v1/key-metrics?identifier=MSFT`
+- ###### Parameters
+    |Name|Type|Description|Example|
+    |---|---|---|---|
+    |identifier|string|The trading symbol for a security, or the central index key (CIK). The latter is assigned to the entity by the United States Securities and Exchange Commission.|MSFT, 0000789019|
+    |format|string|(Optional) The format of the returned data, either JSON (JavaScript Object Notation) or CSV (Comma Separated Values). Defaults to JSON.|json, csv|
+- ###### Response
+    ```
+    [
+      {
+        "trading_symbol": "MSFT",
+        "central_index_key": "0000789019",
+        "registrant_name": "MICROSOFT CORP",
+        "fiscal_year": "2024",
+        "period_end_date": "2024-06-30",
+        "earnings_per_share": 11.86,
+        "earnings_per_share_forecast": 13.33,
+        "price_to_earnings_ratio": 38.5101180438449,
+        "forward_price_to_earnings_ratio": 34.2633158289572,
+        "earnings_growth_rate": 22.0164609053498,
+        "price_earnings_to_growth_ratio": 1.74915115601015,
+        "book_value_per_share": 36.1293231059077,
+        "price_to_book_ratio": 12.6415321610417,
+        "ebitda": 136758000000.0,
+        "enterprise_value": 3351003630000.0,
+        "dividend_yield": 0.00656931603829476,
+        "dividend_payout_ratio": 0.252972678587637,
+        "debt_to_equity_ratio": 0.17575434767224,
+        "capital_expenditures": 62237000000.0,
+        "free_cash_flow": 56311000000.0,
+        "return_on_equity": 0.328281379782998,
+        "one_year_beta": 1.19353548418252,
+        "three_year_beta": 1.25034202198802,
+        "five_year_beta": 1.19116942054093
       },
       ...
     ]
