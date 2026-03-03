@@ -136,6 +136,10 @@ I created a Convolutional Neural Network (CNN) and trained it to process images 
 This worked amazingly because it meant I did not need to learn music theory or the location of each note on the fret-board in different tunings; simply treating the notes as fret and string like coordinates - which is much more digestible for me as a beginner guitarist.
 
 After completing the initial workflow, I automated steps along the way, making a web application to submit both images directly and links to guitar tab pages that contained the tabs images. This application saves me lots of time when learning songs as before I would manually type out each (fret, string).
+### Tell us something interesting about yourself that we couldn't learn from your CV
+Before travelling to countries for a holiday, I like to embrace the culture ahead of time.
+Last summer I went to Colombia and, in preparation, I learnt how to dance salsa as well as speak Spanish. Fast-forward to today and I have a salsa group dance performance in a few weeks with tickets sold out!
+### Why are you interested in working for Genio?
 # To-shorten
 
 33. # Software Engineer
