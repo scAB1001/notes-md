@@ -140,6 +140,7 @@ After completing the initial workflow, I automated steps along the way, making a
 Before travelling to countries for a holiday, I like to embrace the culture ahead of time.
 Last summer I went to Colombia and, in preparation, I learnt how to dance salsa as well as speak Spanish. Fast-forward to today and I have a salsa group dance performance in a few weeks with tickets sold out!
 ### Why are you interested in working for Genio?
+After reading Mala Benn's "My first month at Genio (formerly Glean): a journey of learning and growth" post, coupled with some general research, I feel a passion towards the same goal of helping produce learning tools. Having gone through academia as a tech-person, I often found few resources at my disposal and any that were... well, they were often lacking. I want to change that ---to be a part of a company and team who drives innovation with the goal of helping others. This listing really stood out to me.
 # To-shorten
 
 33. # Software Engineer
