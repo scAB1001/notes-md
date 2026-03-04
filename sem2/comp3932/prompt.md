@@ -1,19 +1,744 @@
-# Hand-Gesture VR Anatomy Navigation System
+# Theory pt.1
+## Varjo Developer Guide
+https://developer.varjo.com/docs/get-started/get-started
 
+You can develop for Varjo headsets with the familiar 3D tools you use today to create immersive experiences. These tools can easily be adapted to work with Varjo headsets and human-eye resolution.
+### Human Eye Resolution
+https://developer.varjo.com/docs/get-started/human-eye-resolution
+### Foveated Rendering
+Foveated rendering uses eye tracking to render the image in full resolution only in those areas where the user is currently looking. 
+- Similar to rendering for other HMDs. 
+- The main difference is that applications must submit **four** views instead of two. 
+	- Two displays for viewports per eye: a *human-eye-resolution focus* view and a *high-resolution peripheral* view.
+- Demonstrates significantly improved performance and frame rate with minimal to no perceived loss in quality. 
+- Mimics how the eyes functiom, digesting the greatest detail around the center of our gaze. 
+- Foveated rendering is available for all Varjo headsets.
+![599](https://developer.varjo.com/assets/uploads/Foveation.png)
+When using Varjo XR plugins for Unity or Unreal, these features are enabled by default.
+To learn more about how the image is rendered to the Varjo HMD, see [Rendering to Varjo headsets](https://developer.varjo.com/docs/native/rendering-to-varjo-headsets).
+
+Varjo XR-4 has no need for two displays per eye as the displays are high enough resolution across the full view.
+## Video Pass-through (VPT) Technology
+By using VPT instead of optical see-through (OST), Varjo’s [mixed reality device](https://varjo.com/products) completely and convincingly merges real and virtual, **making it the only device to achieve photorealism in mixed reality.**
+
+Enables functionality that OST systems like *HoloLens* or *Magic Leap*.
+
+**Virtual objects can be** **black or opaque and appear as solid as anything in the real world**. Colors are perfectly rendered and appear just as they should. You can also add, omit and adjust colors, shadows and light in the virtual world and the real world.
+
+Furthermore, real-time camera data is used to calculate global illumination models that allow shadows and light to naturally interact with virtual objects in real time – just as they would with real-world objects. **Virtual objects can even illuminate, cast shadows over, or reflect the world around them**. They can also appear as transparent and refract the light from the real world behind them.
+
+Importantly, **Varjo also allows you to see your own body as you interact with virtual objects**, the real world around you, and even your colleagues as you collaborate on mixed reality projects. 
+### How does the technology work?
+VPT uses cameras to digitize the world in real time. That data is then combined with virtual content inside our GPU and shown to users through our device – completely blurring the lines between real and virtual.
+
+It follows the same general logic as our [Bionic Display™](https://varjo.com/blog/introducing-bionic-display-how-varjo-delivers-human-eye-resolution/). Visual quality and bandwidth are optimized by sampling video streams from each camera with different resolutions and using [eye tracking](https://varjo.com/blog/industrial-strength-eye-tracking-in-varjo) to determine which area of the sensor should be sampled in the highest resolution. So the highest resolution will always be wherever the user is looking at any given time.
+
+Just as the human eye does, Varjo then samples the surrounding areas in lower resolution to make sure the transfer speed (below 10Gb/s) can be handled by modern computers. To put this into context, the human eye sends peripheral images to the brain at just 10 Mb/s.
+
+All this means that **Varjo’s mixed reality runs at around 35 times the resolution of HTC Vive Pro mixed reality**, for example, and each individual pixel is of a much higher quality.
+### How VPT mixed reality revolutionizes work in a range of fields
+Professionals in engineering, [design](https://varjo.com/use-cases/design-and-visualization), [simulation](https://varjo.com/use-cases/training-and-simulation), and [research](https://varjo.com/use-cases/research) can use Varjo’s mixed reality to **develop and interact with photorealistic 3D models while collaborating with others in real life and real time**. 
+
+We collaborated with [Volvo Cars](https://varjo.com/case-studies/xr-test-drive-with-volvo/) to create a truly ground-breaking demo of **a real car being safely driven while wearing a Varjo headset** and interacting with totally convincing virtual elements – including a virtual moose that the driver needs to avoid. 
+
+Today, Volvo is using Varjo headsets to design and develop the world’s safest cars. With Varjo’s photorealistic mixed reality and eye tracking, Volvo is now able to do design and safety studies on cars that haven’t even been built yet.
+
+We have also collaborated with [Bohemia Interactive Simulations](https://bisimulations.com/) and [many other simulation companies](https://varjo.com/blog/5-pioneering-virtual-and-mixed-reality-training-solutions/) to create **a hybrid cockpit simulator** where the world outside the cockpit is illustrated with VR and the cockpit is real and enhanced with VPT.
+## Eye tracking
+Varjo headsets feature the 20/20 Eye Tracker, our integrated eye tracking functionality. You can use eye tracking in your application and log gaze information for analytics. Eye tracking can also be used to interact with content; you can use it to select an object or prompt for additional information simply by looking at it.
+
+For detailed instructions, refer to your engine’s documentation:
+- [Native eye tracking documentation](https://developer.varjo.com/docs/native/eye-tracking)
+- [Example of using eye tracking with Unity XR SDK](https://developer.varjo.com/docs/unity-xr-sdk/eye-tracking-with-varjo-xr-plugin)
+- [Example of using eye tracking with Unreal](https://developer.varjo.com/docs/unreal/ue5/unreal5-examples)
+### WHAT IS GAZE?
+Gaze starts from the **gaze origin** (the eye) and follows the **gaze vector** (the direction of the gaze). A normalized gaze vector is calculated. It is important to understand this concept in order to process eye tracking data while developing for Varjo headsets.
+
+You can also record gaze data together with a video feed from the headset. For instructions, see [Gaze data logging page](https://developer.varjo.com/docs/get-started/gaze-data-collection).
+### Varjo XR-4  EYE TRACKER SPECIFICATIONS
+Varjo headsets contain two eye tracking cameras, one for each eye. A combined gaze ray can be computed either using information from two eyes (both eyes tracked; the typical situation) or from one eye (e.g., if the other eye cannot be tracked). 
+
+With the recommended computer configurations, you can expect a latency of about 20–30ms from pupil change to the eye tracking result being available.
+- IPD range: 56–72mm
+- Gaze camera resolution: 640 x 480 px per camera.
+- Gaze tracking frequency: 100 Hz (default for native SDK) or 200 Hz (default for OpenXR and Unity XR SDK)
+### DEVELOPING WITH THE 20/20 EYE TRACKER
+- [ ] Enable **Allow eye tracking** in the **System** tab in Varjo Base.
+![583](https://developer.varjo.com/assets/uploads/eye_tracking.png)
+Keep in mind that eye tracking must be recalibrated whenever the headset is taken off and put back on, even if the same person is using it. 
+
+This is necessary because the headset may not be positioned exactly the same way on a person’s head every time. You can manage the calibration directly from your application.
+## Hand Tracking
+Hand tracking lets you reach into the virtual world with your hands and without using a physical controller. Gestures such as pinching, grabbing, and interacting with objects allow for a new level of immersion in your applications.
+
+Varjo has two hand tracking modes to choose from, operated from the Varjo Base.
+See the platform-specific documentation for hand tracking:
+- [Native hand tracking (Ultraleap only)](https://developer.varjo.com/docs/native/hand-tracking-native)
+- [OpenXR hand tracking](https://developer.varjo.com/docs/openxr/user-input)
+- [Unity hand tracking (Ultraleap recommended)](https://developer.varjo.com/docs/unity-xr-sdk/hand-tracking-with-varjo-xr-plugin)
+- [Unreal hand tracking](https://developer.varjo.com/docs/unreal/ue5/hand-tracking-with-unreal5)
+## Varjo hand tracking
+Varjo hand tracking uses the headset’s VPT cameras only for XR-4 Series headsets.
+
+Varjo hand tracking **does not require** any additional installs or SDKs when using or developing as the feature uses standard OpenXR hand tracking. Varjo native SDK is unavailable.
+## Ultraleap hand tracking
+> Note: Ultraleap Gemini software should not be installed.
+
+Ultraleap provides optional hand tracking for Varjo. Varjo XR-4 has an **external** hand tracking module add-on.
+
+With the XR-4 with Ultraleap hand tracking module, hand tracking is enabled by default and no additional software is required. If you have previously used standalone Ultraleap sensor, **please uninstall its drivers** as Varjo Base comes with necessary drivers for the sensors.
+
+Refer to [Ultraleap’s documentation](https://docs.ultraleap.com/) for up-to-date guides on integration.
+
+We also recommend that you get acquainted with Ultraleap’s [XR design guidelines](https://docs.ultraleap.com/xr-guidelines/) before you start to work on hand tracking interactions. The guidelines provide valuable information for using hand tracking successfully in your project.
+### Ultraleap hand tracking offset
+When you start to develop with XR-4 hand tracking **you do not need** to define an offset for the hand position. Use an offset of $(0,0,0)$ for XR-4.
+![425](https://developer.varjo.com/assets/uploads/HMD_front.jpg)![417](https://developer.varjo.com/assets/uploads/HMD_side.jpg)![[hand-tracking-xr-4.png|413]]
+
+Use the following offset (X = right, Y = up, Z = forward, you may need to use a different scale and coordinate system depending on your engine of choice):
+```C
+Y:      -0.0112 m
+Z:       0.0999 m
+X tilt:  0°
+```
+
+Varjo Base is the software used to control your headset. You can observe what the headset viewer is seeing, quickly access settings and presentation tools, and analyze your project with real-time data. Read more about [Varjo Base](https://varjo.com/use-center/get-to-know-your-headset/using-varjo-base/).
+## Unity XR SDK
+This page will help you set up and use the Unity XR SDK development environment for Varjo headsets. The XR SDK is a plugin framework for Unity with numerous benefits for developers. Read more about the XR SDK in [Unity's blog article](https://blogs.unity3d.com/2020/01/24/unity-xr-platform-updates) and [XR SDK documentation](https://docs.unity3d.com/Manual/xr-sdk.html).  
+  
+To learn more about Unity XR development and practices, familiarize yourself with [Unity's XR documentation](https://docs.unity3d.com/Manual/XR.html). Varjo Unity XR SDK plugin is based on Varjo Native SDK.
+### Requirements
+You will need the following to set up the Unity environment:
+- A computer that meets the [system requirements](https://support.varjo.com/hc/en-us/get-started-with-varjo-headsets#system-requirements)
+- [Latest Varjo Base](https://developer.varjo.com/downloads#varjo-base)
+- Unity 2021.3 LTS or newer with Windows build support
+- Unity build set to Windows Standalone 64-bit
+- A project using DirectX 11/12 (OpenGL/Vulkan are currently not supported)
+- [Varjo Unity XR SDK Plugin](https://developer.varjo.com/downloads#unity-developer-assets)
+- A Varjo headset (optional, simulator can be used for basic compatibility testing)
+- For XR-4 compatibility use Varjo Unity XR SDK 3.6.0 or newer
+## Getting started
+The [Getting started](https://developer.varjo.com/docs/unity-xr-sdk/getting-started-with-varjo-xr-plugin-for-unity) section will help you download and install the Varjo XR plugin for Unity.
+### Adding Varjo XR support to a Unity project
+- [x] Add Varjo XR support to your Unity project. First, open an existing project or create a new one using a render pipeline of your choice. 
+
+See [XR Plugin Compatibility](https://developer.varjo.com/docs/unity-xr-sdk/compatibility) for compatible Unity editor and render pipeline versions.
+
+1. From the Unity main menu, select **Window** > **Package Manager**.
+	Click the **+** icon in the top left corner. Select **Add Package from git URL** and provide the SSH URL for the Varjo XR plugin repository: `git@github.com:varjocom/VarjoUnityXRPlugin.git`.
+
+2. **Edit > Project Settings > XR Plug-in Management**, select the **XR Plugin Management** tab and check **Varjo** in the **Plug-in Providers** list.
+	The Varjo XR plugin is now enabled in your project. You can modify the plugin settings in the **Project Settings** dialog under the **XR Plug-in Management** tab and **Varjo**.
+
+See [Rendering Settings](https://developer.varjo.com/docs/unity-xr-sdk/rendering-settings-in-varjo-xr-plugin) for a detailed description of the available settings.
+![520](https://developer.varjo.com/assets/uploads/unity-getting-started-4.png)
+
+3. If there is only one Camera in the Scene, the Camera is tagged as the Main Camera, and it’s at the root of the hierarchy, you can enable HMD tracking simply by selecting **Game Object** > **XR** > **Convert Main Camera To XR Rig** from the Unity main menu.
+
+	For more complex scenes, follow [Unity’s documentation](https://docs.unity3d.com/Manual/configuring-project-for-xr.html) to set up tracking with the XR plug-in framework.
+![515](https://developer.varjo.com/assets/uploads/unity-getting-started-5.png)
+#### HDRP Post Process Settings
+- [ ] Create a new **Volume Profile** and add it to the scene as a **global volume.** Add the following overrides:
+- **Exposure** : mode = Fixed (fixed exposure value can be adjusted based on scene)
+- **Bloom** : Intensity = 0
+- **Ambient Occlusion** : Intensity = 0
+
+![388](https://developer.varjo.com/assets/uploads/PostProcessSettings.png)
+For further reccommendations on post-processing effects, see [post-processing](https://developer.varjo.com/docs/get-started/Post-processing).
+### Unity XR SDK Compatibility
+#### Unity version compatibility
+The Varjo XR plugin is compatible with Unity 2020.3 or later. All plugin features work with **Unity’s Built-in Render Pipeline**, **High Definition Render Pipeline** (HDRP), and **Universal Render Pipeline** (URP).
+#### Cross-platform compatibility
+Cross-platform compatibility with other Unity XR SDKs and plugins.
+
+By default, Unity will initialize XR SDKs in alphabetical order. When using multiple XR SDKs, [change the order](https://docs.unity3d.com/Packages/com.unity.xr.management@4.2/manual/EndUser.html#example-modifying-the-loader-list) to prioritize Varjo so that the application does not launch in OpenXR or OpenVR compatibility mode.
+##### Example: Modifying the loader list
+https://docs.unity3d.com/Manual/configuring-project-for-xr.html
+By default, **Edit > Project Settings > XR Plug-in Management** UI displays loaders in strict alphabetical order, based on their names. 
+
+- [ ] In most scenarios, you don't need to change this order. However, if you need the loaders in a different order, you can modify the loaders list from script like so:
+``` java
+var generalSettings = XRGeneralSettingsPerBuildTarget.XRGeneralSettingsForBuildTarget(BuildTarget.Standalone);
+var settingsManager = generalSettings.Manager;
+
+// Get example loaders as XRLoaders
+var fooLoader = new FooLoader() as XRLoader;
+var barLoader = new BarLoader() as XRLoader;
+
+// Adding new loaders
+// Append the new FooLoader
+if (!settingsManager.TryAddLoader(fooLoader))
+	Debug.Log("Adding new Foo Loader failed! Refer to the documentation for additional information!");
+
+// Insert the new BarLoader at the start of the list
+if (!settingsManager.TryAddLoader(barLoader, 0))
+	Debug.Log("Adding new Bar Loader failed! Refer to the documentation for additional information!");
+
+// Removing loaders
+if (!settingsManager.TryRemoveLoader(fooLoader))
+	Debug.Log("Failed to remove the fooLoader! Refer to the documentation for additional information!");
+
+// Modifying the loader list order
+var readonlyCurrentLoaders = settingsManager.activeLoaders;
+
+// Copy the returned read only list
+var currentLoaders = new List<XRLoader>(readonlyCurrentLoaders);
+
+// Reverse the list
+currentLoaders.Reverse();
+
+if (!settingsManager.TrySetLoaders(currentLoaders))
+	Debug.Log("Failed to set the reordered loader list! Refer to the documentation for additional information!");
+```
+
+You would most likely place this script in a custom build script, but that isn't required. Regardless of the script's location location, you **should do this as a setup step before you start a build** because the first thing that XR Plug-in Manager does at build time is serialize the loader list to the build target.
+
+**Note:** A new loader that wasn't known at startup can't be added to the loader list at runtime, which causes the modification operation to fail. You can still modify the list during runtime, whether the app runs in Play mode or as a standalone build.
+
+This means that you are able to do the following during runtime:
+- Remove loaders from the list of loaders.
+- Re-add loaders that were previously removed.
+- Reorder the list of loaders.
+
+**Note**: Any operation on the XR Plug-in Manager UI will reset the ordering to the original alphabetical ordering.
+##### **OpenXR** (Generic, Oculus, Windows Mixed Reality)
+While Unity OpenXR can be used with other headsets, we do not recommend that you use it with Varjo. Make sure to initialize Varjo XR SDK before OpenXR, otherwise the Unity project will run in OpenXR compatibility mode instead of native Varjo mode on Varjo headsets.
+
+When Unity OpenXR is used with Varjo you only get standard OpenXR features. No Varjo extensions, such as quad view or foveated rendering.
+##### **OpenVR Unity XR Plugin**
+Works with Varjo, but `openvr_api.dll` must be removed either from Varjo or OpenVR plugin for builds. Note that the OpenVR plugin for Unity supports rendering but not motion controllers. Make sure to initialize Varjo XR SDK before OpenVR, otherwise the Unity project will run in OpenVR compatibility mode instead of native Varjo mode on Varjo headsets.
+
+# Theory pt.2
+### Mixed Reality with Varjo XR plugin
+Developing mixed reality applications for the Varjo XR headsets.
+- [x] Once set up, the Varjo XR plugin settings can be found in the **Project Settings** dialog. Under the **XR Plug-in Management** tab, select **Varjo** and disable the **Opaque** option. 
+- [ ] You can also do this with a script using runtime functions. See [Rendering settings](https://developer.varjo.com/docs/unity-xr-sdk/rendering-settings-in-varjo-xr-plugin) for additional information.
+![459](https://developer.varjo.com/assets/uploads/unity-opaque.png)
+
+- [ ] To enable/disable rendering the image from the VPT cameras, use the following methods:
+```c++
+// Start rendering the video see-through image
+VarjoMixedReality.StartRender();
+
+// Stop rendering the video see-through image
+VarjoMixedReality.StopRender();
+```
+
+When enabled, you will see the image from the VPT cameras when your application renders 0 in the color buffer. You can do this either by using a stencil mask or by making the camera clear to 0. For instructions on how to set up a stencil mask, see [Masking](https://developer.varjo.com/docs/unity-xr-sdk/masking-with-varjo-xr-plugin). To make the camera clear to 0, set the camera’s **Clear Flags** to **Solid Color** and set **RGBA(0,0,0,0)** as the background color.
+![[clear-camera-unity-xr-settings.png|461]]
+#### High Definition Render Pipeline and Universal Render Pipeline
+When using HDRP, make sure to use a color buffer format with an alpha channel. 
+- [ ] In the **Project Settings** dialog, select the **Quality** tab and under **HDRP settings** select the **HD Render Pipeline Asset**. 
+- [ ] Set the **Color Buffer Format** dropdown to **R16G16B16A16**. You will need to do this for all HDRP assets in use.
+![](https://developer.varjo.com/assets/uploads/unity-hdrp-color-buffer-format.png)
+
+- [ ] To make the camera clear to 0, set the camera’s **Background Type** to **Color** and set **RGBA(0,0,0,0)** as the background color.
+![](https://developer.varjo.com/assets/uploads/unity-vst-camera-settings-hdrp.png)
+#### Using mixed reality with Universal Render Pipeline
+When using URP, you need to modify the camera settings to be able to write into the alpha channel of the color buffer. 
+
+- [ ] For VPT to work, make sure the camera’s **Post Processing** and **HDR** settings are disabled.
+- [ ] To make the camera clear to 0, set the camera’s **Background Type** to **Solid Color** and set **RGBA(0,0,0,0)** as the background color.
+![497](https://developer.varjo.com/assets/uploads/unity-vst-camera-settings-urp.png)
+### Environment reflections
+- [ ] Varjo XR Plugin can use the feed from the VPT cameras to create lighting conditions and reflections that match those in your current real world location. 
+
+This is *useful when blending your virtual content with the real world*, making the scene appear more natural and realistic.
+![397](https://developer.varjo.com/assets/uploads/EnvironmentReflections.PNG)
+### Shadow catcher
+- [ ] To **cast shadows** on the ground under your virtual objects, add a shadow catcher material to a flat plane set at ground level relative to the XR rig. 
+- [ ] For dynamic content, this can be done with the following graph. The graph will only show *real-time* shadows.
+![535](https://developer.varjo.com/assets/uploads/ShadowCatcher.PNG)
+## Multi-app support
+Multiple Varjo applications can be ran simultaneously, allowing the image to be constructed using several applications made with different engines or image generators.
+
+The applications are rendered in priority order. Higher-priority is overlaid on top of lower.
+
+Example applications include:
+- **Training & Simulation:** Use a specific IG to render terrain while using a Unity or Unreal app for rendering the cockpit, hand-tracking, and mission selection.
+- **Design & Research:** Use a specific application to bring 3D objects on top of another virtual scene with Varjo Markers or with custom-made SteamVR applications.
+- **Research & Analytics:** Access eye-tracking data while another application is used to render visuals.
+### Performance
+Be aware that running multiple applications simultaneously can be very taxing on overall system performance. Often, visual quality needs to be toned down to achieve satisfactory performance. Multiple GPUs can be used to improve performance, but keep in mind that this requires specific application support. See to the [Benchmark example](https://developer.varjo.com/docs/native/varjo-sdk-examples#benchmark-example) for a reference implementation.
+
+Note that currently there is no multi-GPU support for Unity or Unreal.
+To use multi-app support, please refer to the SDK-specific documentation:
+- [Varjo Native SDK](https://developer.varjo.com/docs/native/multi-app-native)
+- [Unity XR SDK](https://developer.varjo.com/docs/unity-xr-sdk/multi-app-with-varjo-xr-plugin)
+### Using multi-app functionality with Varjo XR plugin
+- [ ] To enable multi-app functionality, modify the _Session Priority_ setting in the Varjo-specific **Project Settings**. 
+
+Applications are sorted by their session priority so that higher-priority sessions are overlaid on top of lower-priority ones.
+
+Read more about the _Session Priority_ setting and it’s runtime functions in [Rendering Settings](https://developer.varjo.com/docs/unity-xr-sdk/rendering-settings-in-varjo-xr-plugin).
+- [ ] To enable transparency for your application, refer to [Mixed Reality with Varjo XR plugin](https://developer.varjo.com/docs/unity-xr-sdk/mixed-reality-with-varjo-xr-plugin).
+
+When developing, **refer to this page** for multi-app use-cases:
+- [ ] https://developer.varjo.com/docs/get-started/multi-app-advanced
+## Timing
+### Varjo system time
+Varjo uses *nanoseconds* as a time unit. Varjo timestamps are monotonic, independent of the time-of-day clock, and relative to the epoch that is constant during the execution of the program (Varjo system epoch). 
+
+The current Varjo time can be queried using the method `GetVarjoTimestamp` in the _VarjoTime_ class, which returns the number of nanoseconds that elapsed since the Varjo system epoch.
+```c++
+// Gets current Varjo system timestamp
+long GetVarjoTimestamp();
+```
+### Varjo system time conversion
+Note that the Varjo system time epoch is not equal to e.g. the [Unix Epoch](https://en.wikipedia.org/wiki/Unix_time) or any other global time epoch. However, Varjo timestamps can be converted to be compatible with timestamps from other time sources. 
+
+To do so, Varjo system time and the other time source needs to be synchronized. The clock synchronization procedure measures the offset between the two time sources and the offset would then be used for the timestamp conversion.
+### Conversion to C# DateTime object
+The method `ConvertVarjoTimestampToDateTime` in the _VarjoTime_ class can be used to convert from the Varjo nanoseconds time to the real time-of-day clock timestamp expressed as the C# [DateTime](https://learn.microsoft.com/en-us/dotnet/api/system.datetime) object.
+```c#
+// Converts Varjo system timestamp to DateTime object
+DateTime? ConvertVarjoTimestampToDateTime(long varjoTimestamp);
+```
+
+The result of this conversion depends on the time-of-day clock adjustment of the operating system (e.g. Windows time synchronization with NTP server). 
+
+This conversion is supported for Varjo timestamps that are up to one hour in the past, but not earlier than the time when the Varjo system was started (e.g. the conversion can’t be used with timestamps that were recorded before the last computer reboot or restart of the Varjo services). 
+
+The conversion can also be applied to Varjo timestamps that are in the future relative to the result of `GetVarjoTimestamp`, however, the future time conversion must be used with consideration of a possible upcoming time-of-day clock adjustment that can’t be accounted for at the moment of the conversion.
+
+The conversion can fail (_null_ is returned) if queried for an unsupported Varjo timestamp value, however, the failure is not guaranteed in all possible misuse scenarios.
+## Using eye tracking with Varjo XR plugin
+### Calibration
+To reliably track user’s eye movements, eye tracking must be calibrated first. 
+While Varjo headsets support automatic one-dot calibration, we recommended that you request a separate calibration if more accurate eye tracking data is required. 
+
+- [ ] You can request calibration by calling a method in the _VarjoEyeTracking_ class.
+```c++
+// Requests gaze calibration: "Fast" 5 dot calibration is used by default.
+// Returns true if calibration was successfully requested.
+bool VarjoEyeTracking.RequestGazeCalibration();
+
+// Requests gaze calibration with specific GazeCalibrationMode: allows to
+// choose between "Fast" and "OneDot" calibration.
+// Returns true if calibration was successfully requested.
+bool VarjoEyeTracking.RequestGazeCalibration(gazeCalibrationMode);
+```
+
+It is possible to query quality assessment of current user gaze calibration by calling method `GetGazeCalibrationQuality`.
+```c++
+// Returns score assesment of currently used gaze calibration
+GazeCalibrationQuality VarjoEyeTracking.GetGazeCalibrationQuality();
+```
+
+Returned struct `GazeCalibrationQuality` contains score `GazeEyeCalibrationQuality` for left and right eye calibration. These values indicate how well each of the eyes passed through the calibration procedure and how accurate returned gaze data could be for the eye. Possible returned scores are `Invalid` (score not available), `Low`, `Medium` and `High`.
+### Accessing eye tracking data
+If eye tracking is calibrated, you can access eye tracking data by using either the [XR Input subsystem](https://docs.unity3d.com/ScriptReference/XR.XRInputSubsystem.html) or the methods provided in the _VarjoEyeTracking_ class.
+
+- [ ] With the Input subsystem, the eye tracking data can be retrieved using [Eyes interface](https://docs.unity3d.com/ScriptReference/XR.Eyes.html).
+
+The methods in _VarjoEyeTracking_ allow you to poll the eye tracking data at the full frequency supported by the headset, which is especially important for research scenarios. 
+
+These methods provide eye tracking data frames as [_GazeData_](https://developer.varjo.com/docs/unity-xr-sdk/eye-tracking-with-varjo-xr-plugin#gazedata) structs and estimates for user’s eye properties as [_EyeMeasurements_](https://developer.varjo.com/docs/unity-xr-sdk/eye-tracking-with-varjo-xr-plugin#eyemeasurements):
+### GazeData
+- `long frameNumber` - A unique identifier of the frame at the time when the data was recorded.
+- `long captureTime` - A timestamp, in nanoseconds, of when the video frame was recorded by the eye tracking cameras. It is relative to the [Varjo system time epoch](https://developer.varjo.com/docs/native/introduction-to-varjo-sdk#timing).
+- `float focusDistance` - The distance between eye and focus point in meters. Values are between 0 and 2 meters.
+- `float focusStability` - Stability of the user’s focus. Value are between 0.0 and 1.0, where 0.0 indicates least stable focus and 1.0 most stable.
+- [deprecated] `float leftPupilSize` - Pupil size for the left eye, calculated according to the pupil size range detected by the headset. Values are between 0 and 1.
+- [deprecated] `float rightPupilSize` - Pupil size for the right eye, calculated according to the pupil size range detected by the headset. Values are between 0 and 1.
+
+- **GazeStatus** status - A status for eye tracking.
+- **GazeRay** gaze - Gaze ray combined from both eyes.
+- **GazeEyeStatus** leftStatus - A status for the left eye.
+- **GazeRay** left - Gaze ray for the left eye.
+- **GazeEyeStatus** rightStatus - A status for the right eye.
+- **GazeRay** right - Gaze ray for the right eye.
+
+**GazeStatus** is a value for the eye tracking status of the headset as follows:
+- 0 – Data unavailable: User is not wearing the headset or eyes cannot be located
+- 1 – User is wearing the headset, but gaze tracking is being calibrated
+- 2 – Data is valid
+
+**GazeRay** struct contains data about eye position coordinates in meters [_origin (x, y, z)_] and a normalized direction vector [_forward (x, y, z)_]. Gaze data is given in the left-hand coordinate system and is relative to head pose.
+
+**GazeEyeStatus** is a value for each eye as follows:
+- 0 – Eye is not tracked and not visible (e.g., the eye is shut)
+- 1 – Eye is visible but not reliably tracked (e.g., during a saccade or blink)
+- 2 – Eye is tracked but quality is compromised (e.g., the headset has moved after calibration)
+- 3 – Eye is tracked
+
+Gaze data should be polled frequently as all frames older than _500ms_ are discarded. Gaze data is polled using the following methods:
+```c++
+// Returns the latest gaze data frame. The result may change even within a single Unity engine frame.
+GazeData VarjoEyeTracking.GetGaze();
+
+// Writes all gaze data frames since the last call to this method in GazeData list.
+// Returns the number of retrieved gaze data frames.
+int VarjoEyeTracking.GetGazeList(out gazeDataList);
+
+// Pulls most recent gaze data and eye measurements from the queue.
+// Returns the number of retrieved gaze data frames.
+int VarjoEyeTracking.GetGazeList(out List<GazeData> gazeData, out List<EyeMeasurements> eyeMeasurements)
+```
+### EyeMeasurements
+- `long frameNumber` - A unique identifier of the frame at the time when the data was recorded.
+- `long captureTime` - A timestamp, in nanoseconds, of when the video frame was recorded by the eye tracking cameras. It is relative to the [Varjo system time epoch](https://developer.varjo.com/docs/native/introduction-to-varjo-sdk#timing).
+- `float interPupillaryDistanceInMM` - Estimate of user’s inter-pupillary distance measured in millimeters. 0.0 if estimate is not available.
+- `float leftPupilIrisDiameterRatio` - Ratio of user’s left pupil diameter estimate to estimated iris diameter. 0.0 if either estimate is not available and ratio cannot be calculated
+- `float rightPupilIrisDiameterRatio` - Ratio of user’s right pupil diameter estimate to estimated iris diameter. 0.0 if either estimate is not available and ratio cannot be calculated
+- `float leftPupilDiameterInMM` - Estimate of pupil diameter for the left eye in millimeters. If estimate is not available e.g. when pupil is not tracked, value is set to 0.0.
+- `float rightPupilDiameterInMM` - Estimate of pupil diameter for the right eye in millimeters. If estimate is not available e.g. when pupil is not tracked, value is set to 0.0.
+- `float leftIrisDiameterInMM` - Estimated diameter of left iris in millimeters. Estimation is updated when user puts the headset on his head. Estimate values are valid until user removes headset from his head. 0.0 is returned when estimate is not available.
+- `float rightIrisDiameterInMM` - Estimated diameter of right iris in millimeters. Estimation is updated when user puts the headset on his head. Estimate values are valid until user removes headset from his head. 0.0 is returned when estimate is not available.
+- `float leftEyeOpenness` - Estimated openness ratio of the left eye. Value 1.0 corresponds to a fully open eye, 0.0 to a fully closed eye.
+- `float rightEyeOpenness` - Estimated openness ratio of the right eye. Value 1.0 corresponds to a fully open eye, 0.0 to a fully closed eye.
+
+Eye measurements data can be polled using the following methods:
+```c++
+// Returns the latest eye measurements. The result may change even within a single Unity engine frame.
+EyeMeasurements VarjoEyeTracking.GetEyeMeasurements();
+
+// Pulls most recent gaze data and eye measurements from the queue.
+int VarjoEyeTracking.GetGazeList(out List<GazeData> gazeData, out List<EyeMeasurements> eyeMeasurements)
+```
+*Please note* that **leftPupilIrisDiameterRatio**, **rightPupilIrisDiameterRatio**, **leftPupilDiameterInMM**, **rightPupilDiameterInMM**, **leftIrisDiameterInMM**, **rightIrisDiameterInMM**, **leftEyeOpenness**, **rightEyeOpenness** are experimental features and provided in this release without any accuracy guarantees.
+### Data stream options
+- [ ] The Varjo XR plugin provides several options for the eye tracking data stream. 
+
+You can choose between:
+- smoothed (default, filter type _Standard_) and unfiltered gaze data (filter type _None_)
+- and select a gaze output frequency from _100Hz_, _200Hz_ 
+- and the _maximum supported frequency_ by connected headset (default). 
+
+See the general [Eye tracking](https://developer.varjo.com/docs/get-started/eye-tracking-with-varjo-headset) documentation for frequencies supported by different headsets.
+You can set the options using the following methods:
+```c++
+// Sets GazeOutputFilterType: None / Standard
+// Returns true if output filter type was successfully set.
+bool VarjoEyeTracking.SetGazeOutputFilterType(outputFilterType);
+
+// Sets GazeOutputFrequency: MaximumSupported / Frequency100Hz / Frequency200Hz
+// Returns true if output frequency was successfully set.
+bool VarjoEyeTracking.SetGazeOutputFrequency(outputFrequency);
+```
+
+You can also query currently used options using the following methods:
+```c++
+// Returns currently set GazeOutputFilterType
+GazeOutputFilterType VarjoEyeTracking.GetGazeOutputFilterType();
+
+// Returns currently set GazeOutputFrequency
+GazeOutputFrequency VarjoEyeTracking.GetGazeOutputFrequency();
+```
+#### Eye tracking examples
+Examples of using eye tracking can be found in the [Eye tracking example](https://github.com/varjocom/VarjoUnityXRPlugin/blob/master/Samples~/HDRP/EyeTracking/Scripts/EyeTrackingExample.cs) of the [Varjo Unity XR Plugin](https://github.com/varjocom/VarjoUnityXRPlugin).
+## Using hand tracking with Ultraleap plugin
+Get Ultraleap Tracking plugin from [here.](https://github.com/ultraleap/UnityPlugin)
+- [x] https://github.com/ultraleap/UnityPlugin#Installation
+
+Follow the [Ultraleap documentation](https://docs.ultraleap.com/xr-and-tabletop/xr/unity/getting-started/index.html) to enable and use the plugin in your project.
+- [x] https://docs.ultraleap.com/xr-and-tabletop/xr/unity/getting-started/index.html
+
+**Do not** install any Ultraleap drivers (ie. Ultraleap Gemini). All you need is the Ultraleap Unity plugin. The drivers are embedded to Varjo Base installation.
+
+When you start to develop with hand tracking, make sure to define an offset for the hand position. This is necessary because the head tracking point for your headset differs from the hand tracking point for Ultraleap.
+
+The offsets can be defined in the **Leap XR Service Provider** component under **Advanced Options**. 
+- [ ] Select **Manual Head Offset** as the **Device Offset Mode** and set the correct values for **Device Offset Y Axis**, **Device Offset Z Axis** and **Device Tilt X Axis**.
+![592](https://developer.varjo.com/assets/uploads/unity-ultraleap-offset-1.png)
+- [ ] Use the following offset for Varjo XR-4:
+```c#
+Y:       0
+Z:       0
+X tilt:  0
+```
+### Varjo hand tracking is **not supported** by Varjo Unity XR SDK. 
+- [ ] However, you can use it with Unity OpenXR. See [[#Unity XR SDK Compatibility]] above.
+### Set hand tracking offsets automatically
+Attach the following component next to the **Leap XR Service Provider** component to handle the offsets automatically depending on the device used.
+```c#
+using UnityEngine;
+using UnityEngine.XR;
+using Leap.Unity;
+
+[RequireComponent(typeof(LeapXRServiceProvider))]
+public class VarjoHandTrackingOffset : MonoBehaviour
+{
+	private InputDevice hmd;
+	private LeapXRServiceProvider xrServiceProvider;
+	
+	void Start()
+	{
+		hmd = InputDevices.GetDeviceAtXRNode(XRNode.Head);
+		xrServiceProvider = GetComponent<LeapXRServiceProvider>();
+
+		switch (hmd.name)
+		{
+		case "XR-4":
+				xrServiceProvider.deviceOffsetMode = 
+					LeapXRServiceProvider.DeviceOffsetMode.ManualHeadOffset;
+				xrServiceProvider.deviceOffsetYAxis = 0f;
+				xrServiceProvider.deviceOffsetZAxis = 0f;
+				xrServiceProvider.deviceTiltXAxis = 0f;
+				break;
+		case "XR-3":
+		case "VR-3":
+				xrServiceProvider.deviceOffsetMode = LeapXRServiceProvider.DeviceOffsetMode.ManualHeadOffset;
+				xrServiceProvider.deviceOffsetYAxis = -0.0112f;
+				xrServiceProvider.deviceOffsetZAxis = 0.0999f;
+				xrServiceProvider.deviceTiltXAxis = 0f;
+				break;
+		}
+	}
+}
+```
+![](https://developer.varjo.com/assets/uploads/unity-ultraleap-offset-2.png)
+## Control interpupillary distance (IPD)
+### Setting interpupillary distance parameters
+- [ ] It is possible to set interpupillary distance (IPD) parameters of the Varjo headset by calling the method `SetInterPupillaryDistanceParameters` in the _VarjoHeadsetIPD_ class.
+```c#
+// Sets interpupillary distance (IPD) parameters of the headset.
+bool SetInterPupillaryDistanceParameters(IPDAdjustmentMode ipdAdjustmentMode,
+    float? RequestedPositionInMM = null);
+```
+
+- [ ] The requested IPD adjustment mode can be either _Manual_ or _Automatic_.
+```c#
+// Interpupillary Distance (IPD) Adjustment Mode
+public enum IPDAdjustmentMode
+{
+    Manual = 0,
+    Automatic = 1
+}
+```
+
+With the _Manual_ adjustment mode, the headset can be set to the desired IPD position by supplying the parameter `RequestedPositionInMM` containing a floating point value in millimeters. When using this parameter, the caller should typically set the position value to be equal to the known IPD of the user, even if the the value is out of the supported IPD range of the headset. The headset will then drive the IPD motor to the closest supported position.
+
+*Note that* passing a negative, infinite or not-a-number value via the `RequestedPositionInMM` argument will result in a failure and the function will return `false`. An attempt to set a specific IPD position will also fail if the _Automatic_ adjustment mode is requested.
+
+The accuracy of the _Manual_ IPD adjustment mode via the API is nearly the same as via the user interface (UI) in Varjo Base and thus there is little to no gain in setting a more accurate IPD value via API (e.g. by passing more digits of the decimal fraction) than by setting the value via the UI, given the level of accuracy reached by setting it via the UI.
+### Reading interpupillary distance parameters state
+- [ ] You can query the currently used IPD adjustment mode by calling the method `GetAdjustmentMode` in the _VarjoHeadsetIPD_ class.
+```c#
+// Get interpupillary distance adjustment mode
+IPDAdjustmentMode GetAdjustmentMode();
+```
+
+- [ ] You can read the interpupillary distance set in the headset in millimeters by calling `GetDistance()` from the same _VarjoHeadsetIPD_ class. Returns zero if it is not connected.
+```c#
+// Get current headset interpupillary distance in millimeters
+float GetDistance();
+```
+## Unity XR plugin examples
+The Varjo XR Plugin includes an optional [samples](https://github.com/varjocom/VarjoUnityXRPlugin/tree/master/Samples~) package, which contains example scenes and code for enabling Varjo features for your project. *You are free to use, copy, and modify the code and examples for your own projects.*
+
+While samples are currently provided only for the High Definition Render Pipeline, most of the example scripts also work with other render pipelines. Samples for Unity’s Built-in Render Pipeline and Universal Render Pipeline will be added later.
+
+The samples package includes example scenes for:
+- [Controller input](https://github.com/varjocom/VarjoUnityXRPlugin/tree/master/Samples~/HDRP/ControllerInput)
+- [Eye tracking](https://github.com/varjocom/VarjoUnityXRPlugin/tree/master/Samples~/HDRP/EyeTracking)
+- [Markers](https://github.com/varjocom/VarjoUnityXRPlugin/tree/master/Samples~/HDRP/Markers)
+- [Mixed reality (video pass-through)](https://github.com/varjocom/VarjoUnityXRPlugin/tree/master/Samples~/HDRP/MixedReality)
+### Importing samples into the project
+- [ ] You can import the provided samples into your project using the Package Manager:
+- In the Unity main menu, navigate to **Window** > **Package Manager**.
+- Select **Varjo XR Plugin** from the list of installed packages.
+- Available samples are listed under **Samples**. Select one and click **Import**.
+
+- [ ] Samples are imported into the _Assets_ folder.
+![](https://developer.varjo.com/assets/uploads/unity-samples.png)
+### Unity XR SDK Known Issues
+#### All Render Pipelines
+- No XR-4 Varjo Controllers: Update Varjo Unity XR SDK to 3.6.0 or newer in your project or, if you cannot do that, open SteamVR tray when running your application.
+- SteamVR Tracker role ‘Held in hand (any)’ does not work with Unity Input System.
+#### High Definition Render Pipeline (HDRP)
+- Some built-in post process effects cause foveation area to be visible.
+- Directional light flare causes foveation area to be visible with HDRI sky.
+#### Universal Render Pipeline (URP)
+- Unity 6 onwards URP does not render correctly and is not recommended to be used. Caused by invalid camera stereo matrices.
+- Unity 2022 LTS onwards URP/Unlit masking materials do not work.
+- Post processing causes foveation area to be visible.
+- Camera.main.GetStereoProjectionMatrix() returns incorrect matrix.
+#### Built-in Render Pipeline
+- Real time lights cause foveation area to be visible on materials lit by them.
+- Particles cause foveation area to be visible.
+## Varjo Base Examples
+https://account.varjo.com/downloads/varjoheadsets
+#### Showcases
+https://account.varjo.com/downloads/showcases
+Of interest:
+- [ ] https://account.varjo.com/downloads/showcases/varjo_showcases_v4/40_jet_engine/
+- [ ] https://account.varjo.com/downloads/showcases/varjo_showcases_v4/40_human_anatomy_controller/
+- [ ] https://account.varjo.com/downloads/showcases/varjo_showcases_v4/40_human_anatomy_ultraleap/
+## VR Template Quick Start Guide
+Unity’s **VR Project Template** provides a starting point for virtual reality development in Unity. The template configures project settings, pre-installs the right packages, and includes various pre-configured Example Assets to demonstrate how to set up a project that is ready for VR. Please refer to the [XR Project Setup](https://docs.unity3d.com/2022.3/Documentation/Manual/xr-create-projects.html) documentation for additional information.
+
+The VR Template uses the following Unity features:
+- [OpenXR](https://docs.unity3d.com/Packages/com.unity.xr.openxr@1.14/index.html) - A scalable package that enables cross-platform support for multiple hardware environments.
+- [XR Interaction Toolkit](https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.1/index.html) - A high-level, component-based, interaction system for creating XR experiences. It provides a framework that makes 3D and UI interactions available from Unity input events.
+### Using the Sample Scene
+The **VR Template** contains a **Scene** named `SampleScene` located in `Assets/Scenes`. This scene’s Hierarchy is pre-configured with GameObjects that allow your application to manage controller and head tracking, locomotion, and interaction with spatial UI and virtual objects.
+
+You can use this scene as a reference, or you can remove the example Assets from it and use it as a starting point for your own Project.
+### Sample Scene Hierarchy Overview
+![SampleSceneHierarchy|283](https://docs.unity3d.com/Packages/com.unity.template.vr@6.1/manual/images/sample-scene-hierarchy.png)
+### Interactables
+There are various objects within the scene that the user is able to interact with. In XRI, they are called interactables. The grab interactable allows a user to pick up a GameObject using either a direct or ray interactor. Grab interactables need a Rigidbody and a Collider to define the interactable area.
+![SampleInteractable](https://docs.unity3d.com/Packages/com.unity.template.vr@6.1/manual/images/sample-interactable.png)
+
+In addition, the [Affordance system](https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.1/manual/affordance-system.html#:%7E:text=The%20XR%20Interactable%20Affordance%20State,subscribed%20to%20this%20particular%20provider.) provides feedback for the user with visual and auditory cues. This requires the use of the [XR Interactable Affordance State Provider](https://docs.unity.cn/Packages/com.unity.xr.interaction.toolkit@3.1/manual/xr-interactable-affordance-state-provider.html) with a specified interactable source. 
+
+For the interactables included in the Sample scene, there is an [Audio Affordance Receiver](https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.6/api/UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.Receiver.Audio.AudioAffordanceReceiver.html) and a [Color Affordance Receiver](https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.6/api/UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.Receiver.Rendering.ColorMaterialPropertyAffordanceReceiver.html) already set up.
+### Color Affordance Receiver Example
+![ColorAffordanceReceiver|338](https://docs.unity3d.com/Packages/com.unity.template.vr@6.1/manual/images/color-affordance-receiver.png)
+[Audio Affordance Receiver Example](https://docs.unity3d.com/Packages/com.unity.template.vr@6.1/manual/index.html#audio-affordance-receiver-example)
+![AudioAffordanceReceiver|332](https://docs.unity3d.com/Packages/com.unity.template.vr@6.1/manual/images/audio-affordance-receiver.png)
+
+- [ ] These Affordance Receivers are driven by [Affordance System Themes](https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.6/api/UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.Theme.html) found in Assets > VR Template Assets > Themes.
+[Edge Color Affordance Theme Example](https://docs.unity3d.com/Packages/com.unity.template.vr@6.1/manual/index.html#edge-color-affordance-theme-example)
+![EdgeColorAffordanceTheme|296](https://docs.unity3d.com/Packages/com.unity.template.vr@6.1/manual/images/edge-color-affordance-theme.png)
+
+[Audio Affordance Theme Example](https://docs.unity3d.com/Packages/com.unity.template.vr@6.1/manual/index.html#audio-affordance-theme-example)
+![AudioAffordanceTheme|336](https://docs.unity3d.com/Packages/com.unity.template.vr@6.1/manual/images/audio-affordance-theme.png)
+### Teleportation
+Teleportation allows users to move within the Sample Scene without experiencing the discomfort common while walking in VR. [Teleportation Areas](https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.1/api/UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation.TeleportationArea.html) designate specific surfaces for the user to move. The teleportation area is configured with specific colliders from the scene.
+
+[Teleportation Area](https://docs.unity3d.com/Packages/com.unity.template.vr@6.1/manual/index.html#teleportation-area)
+![TeleportArea|325](https://docs.unity3d.com/Packages/com.unity.template.vr@6.1/manual/images/teleport-area.png)
+
+[Teleport Anchors](https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.1/api/UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation.TeleportationAnchor.html), on the other hand, constrain the user’s view in terms of position and rotation while teleporting. One is already set up for you in the scene.
+
+[Teleportation Anchor](https://docs.unity3d.com/Packages/com.unity.template.vr@6.1/manual/index.html#teleportation-anchor)
+![TeleportAnchor|300](https://docs.unity3d.com/Packages/com.unity.template.vr@6.1/manual/images/teleport-anchor.png)
+### Spatial UI
+The Sample Scene contains various world space UI examples which allows both near and far interactions with UI elements such as sliders, dropdown menus, toggles, and buttons. In addition, user’s have the ability to move the canvas in space with the Spatial UI Panel prefab, which affords the ability to grab the canvas by either the header or handle at the bottom of the canvas. Billboarding with the Turn To Face component is on the prefab by default, with the positional transformation of the canvas being determined by the direct/ray interactor.
+[Spatial UI Example](https://docs.unity3d.com/Packages/com.unity.template.vr@6.1/manual/index.html#spatial-ui-example)
+![SpatialUI|238](https://docs.unity3d.com/Packages/com.unity.template.vr@6.1/manual/images/ui-setup.png)
+[Project Configuration](https://docs.unity3d.com/Packages/com.unity.template.vr@6.1/manual/index.html#project-configuration)
+Various presets are used to accommodate graphics & rendering requirements for different platforms. By selecting the target platform in the Build Settings, i.e. Windows, Mac, Linux or Android, different URP Config Settings are automatically updated for the user. The presets can be found in `Assets/Settings/Project Configuration`.
+
+- [ ] For Android, the `Android Preset` and `Performance URP Config` assets provide a good baseline of graphics settings for low powered headsets such as the Quest.
+![ProjectConfigURPAndroid|565](https://docs.unity3d.com/Packages/com.unity.template.vr@6.1/manual/images/projectconfig-urp-android.png)
+
+- [ ] For standalone PC VR, the `Standalone Preset` and `Quality URP Config` assets allow for a higher quality experience.
+![ProjectConfigURPPCVR|575](https://docs.unity3d.com/Packages/com.unity.template.vr@6.1/manual/images/projectconfig-urp-pcvr.png)
+
+- [ ] In addition, by selecting the target platform in Build Settings, OpenXR feature groups and interaction profiles are preconfigured. By default, the Android build target updates the settings for Meta Quest support.
+![ProjectConfigOpenXRAndroid|513](https://docs.unity3d.com/Packages/com.unity.template.vr@6.1/manual/images/projectconfig-openxr-metaquest.png)
+
+- [ ] For standalone PC VR, numerous interaction profiles are already configured for the user. If you don't see your platform listed, add your interaction profile manually by clicking the **+** button.
+![ProjectConfigOpenXRAndroid|503](https://docs.unity3d.com/Packages/com.unity.template.vr@6.1/manual/images/projectconfig-openxr-standalone.png)
+### Graphics APIs
+[Graphics APIs](https://docs.unity3d.com/Packages/com.unity.template.vr@6.1/manual/index.html#graphics-apis)
+The last setting you may need to adjust if you are using the Android build target is the Graphics API. By default, the VR Template uses the Vulkan graphics API for compatibility and performance reasons, including reduced build times. 
+ 
+- [ ] If you are targeting a device that does not fully support the Vulkan API, you may have to add *OpenGLES3* to this list. You can do this by following these steps:
+1. Go to **Edit** > **Project Settings**
+2. Click **Player** in the left-hand pane
+3. Click on the **Android** tab
+4. Expand **Other Settings**
+5. Locate the **Graphics APIs** list and click the **+** symbol
+6. In the drop-down click on **OpenGLES3** to add it to the list
+7. Click on **File** > **Save Project** to lock in these changes
+## Development without Headset
+https://support.varjo.com/hc/en-us/analytics-window
+
+- [x] https://docs.unity3d.com/Packages/com.unity.template.vr@6.1/manual/index.html#audio-affordance-receiver-example
+- [x] https://docs.unity3d.com/2022.3/Documentation/Manual/xr-create-projects.html
+- [x] https://docs.unity3d.com/Manual/XR.html
+
+## Development with XR-4 Headset and Ultraleap
+On the [Developer tools in Varjo Base](https://developer.varjo.com/docs/get-started/developer-tools-in-varjo-base) page you can find information on how to test your build without the Varjo headset.
+- [x] https://github.com/ultraleap/UnityPlugin?tab=readme-ov-file
+	- [ ] Do I needs this?
+	      https://www.ultraleap.com/downloads/leap-motion-controller-2/
+- [x] https://support.varjo.com/hc/en-us/how-can-i-change-my-varjo-account-type
+- [x] https://support.varjo.com/hc/en-us/installing-ultraleap-leap-motion-controller-2
+- [x] Installed *tracking-software-windows-6.2.0.exe*
+
+- [ ] https://docs.ultraleap.com/hand-tracking/XR-Setup/XR-setup.html
+- [ ] https://docs.ultraleap.com/xr-and-tabletop/xr/unity/getting-started/your-first-project.html
+- [ ] https://docs.ultraleap.com/xr-and-tabletop/xr/unity/plugin/index.html
+- [ ] https://docs.ultraleap.com/xr-and-tabletop/xr/unity/plugin/features/scripting-fundamentals.html
+## Device Setup
+### XR-4
+
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ![Varjo_Base_icon\|171](https://support.varjo.com/hs-fs/hubfs/1-Help%20Center/1-Get%20started%20with%20Varjo%20headsets/2-Setting%20up%20your%20headset/Varjo_Base_icon.png?width=255&height=256&name=Varjo_Base_icon.png)                                                                                                                                                                                                                                                                                   | **1. Launch Varjo Base**<br><br>Depending on your commercial package, you may be asked to log in with your Varjo Account.<br><br>Varjo Base needs to be running when using the headset.<br><br>You can check that Varjo Base is running from the Windows notification area located on the Windows taskbar.<br><br>Note that XR-4 Series (2026) headsets require Varjo Base version 4.13 or newer.                                                                                                                                                                                                                                                   |
+| ![Connect_XR_4 (1)](https://support.varjo.com/hs-fs/hubfs/1-Help%20Center/1-Get%20started%20with%20Varjo%20headsets/2-Setting%20up%20your%20headset/Connect_XR_4%20\(1\).png?width=670&height=347&name=Connect_XR_4%20\(1\).png)                                                                                                                                                                                                                                                                             | **2. Connect your headset and charge the controllers**<br><br>Connect power to the headset adapter using the charging cable. Use the 60 W port in the 3-port charger.<br><br>1. Connect power to the headset adapter using the power cable. Use the 60 W port in the 3-port charger. Make sure the power cable locks into place properly. <br>2. Connect the headset adapter (LB-5) to the back of your computer.  <br>3. Connect the headset’s data cable to the headset adapter. The status indicator light in the headset adapter turns green. <br>4. Connect the headset’s display cable to the graphics card of the computer.                  |
+| ![Gaia_power\|292](https://support.varjo.com/hs-fs/hubfs/1-Help%20Center/1-Get%20started%20with%20Varjo%20headsets/2-Setting%20up%20your%20headset/Gaia_power.png?width=670&height=712&name=Gaia_power.png)                                                                                                                                                                                                                                                                                                  | **3. Power on the headset**<br><br>Power on your headset by pressing the **power button** briefly.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| [![XR-4_web_1024__Quick_controllers_power-600x600](https://support.varjo.com/hs-fs/hubfs/1-Help%20Center/1-Get%20started%20with%20Varjo%20headsets/2-Setting%20up%20your%20headset/XR-4_web_1024__Quick_controllers_power-600x600.png?width=600&height=600&name=XR-4_web_1024__Quick_controllers_power-600x600.png)](https://support.varjo.com/hubfs/1-Help%20Center/1-Get%20started%20with%20Varjo%20headsets/2-Setting%20up%20your%20headset/XR-4_web_1024__Quick_controllers_power-600x600.png?hsLang=en) | **4. Power on the controllers (Optional)**<br><br>**a. Varjo Controllers (Varjo Inside-out tracking):**<br><br>Long press the **Menu** button to power the controllers on and off.<br><br>The controllers will go idle if unused for 5 minutes. The controllers are automatically activated when you press any button.<br><br>**b. SteamVR controllers (SteamVR tracking):**<br><br>Follow the manufacturer’s guidance.                                                                                                                                                                                                                             |
+| ![launch_applications](https://support.varjo.com/hs-fs/hubfs/1-Help%20Center/1-Get%20started%20with%20Varjo%20headsets/2-Setting%20up%20your%20headset/launch_applications.png?width=670&height=436&name=launch_applications.png)                                                                                                                                                                                                                                                                            | **5. Launch applications**<br><br>To start a VR application in your headset, run the application on your Windows computer. The application will open directly in your headset. You can also start previously used applications from the [Applications panel](https://support.varjo.com/hc/en-us/using-applications-panel?hsLang=en). <br><br>To start a SteamVR application or game, launch it either in Steam or using its own application executable. Do not start SteamVR manually, it will start automatically.<br><br>You can close a VR application running in your headset from the Applications panel or directly on your Windows computer. |
+![[varjo-base-headset-connect.png|466]]
+### UltraLeap Motion Controller 2
+Disconnect the headset from all other devices and make sure it is powered off.
+![UltraLeap_WEB_1024_all_parts|288](https://support.varjo.com/hs-fs/hubfs/1-Help%20Center/2-Get%20to%20know%20your%20headsets/6-Accessories/UltraLeap_WEB_1024_all_parts.png?width=670&height=543&name=UltraLeap_WEB_1024_all_parts.png)
+
+Included with the Ultraleap hand tracking bundle:
+1. Leap Motion Controller 2
+2. Leap Motion Controller holder
+3. Mounting Base
+4. USB-C 3.0 data cable
+5. Spudger pick
+6. 9 cable clips
+7. 2x spare rubber feet
+8. T6 allen key
+9. 2x long T6 screws (+ 2x spare screws)
+10. 2x short T6 screws (+ 2x spare short screws)
+#### Steps
+
+|   |   |
+|---|---|
+|![UltraLeap_WEB_1024_step1-600x527](https://support.varjo.com/hs-fs/hubfs/1-Help%20Center/2-Get%20to%20know%20your%20headsets/6-Accessories/UltraLeap_WEB_1024_step1-600x527.png?width=315&height=277&name=UltraLeap_WEB_1024_step1-600x527.png)|**Step 1.**<br><br>Remove the two rubber pads at the bottom of the headset with the spudger pick.<br><br>Note: The rubber pads are attached with an adhesive and may require some force to remove. Make sure not to scratch the headset when removing the rubber pads.|
+|![UltraLeap_WEB_1024_step2-600x352](https://support.varjo.com/hs-fs/hubfs/1-Help%20Center/2-Get%20to%20know%20your%20headsets/6-Accessories/UltraLeap_WEB_1024_step2-600x352.png?width=315&height=185&name=UltraLeap_WEB_1024_step2-600x352.png)|**Step 2.**<br><br>Remove the screws from the headset.<br><br>Note: Keep the screws in case you want to remove the mounting kit at some point.|
+|![UltraLeap_WEB_1024_step3-600x352](https://support.varjo.com/hs-fs/hubfs/1-Help%20Center/2-Get%20to%20know%20your%20headsets/6-Accessories/UltraLeap_WEB_1024_step3-600x352.png?width=315&height=185&name=UltraLeap_WEB_1024_step3-600x352.png)|**Step 3.**<br><br>Attach the custom mounting kit (Leap Motion Controller holder + Mounting Base) with two long screws (No. 9) included in the sales box.<br><br>Do not use the screws that were removed in step 2.|
+|![UltraLeap_WEB_1024_step4_1-600x352](https://support.varjo.com/hs-fs/hubfs/1-Help%20Center/2-Get%20to%20know%20your%20headsets/6-Accessories/UltraLeap_WEB_1024_step4_1-600x352.png?width=315&height=185&name=UltraLeap_WEB_1024_step4_1-600x352.png)<br><br>![UltraLeap_WEB_1024_step4_2-600x352](https://support.varjo.com/hs-fs/hubfs/1-Help%20Center/2-Get%20to%20know%20your%20headsets/6-Accessories/UltraLeap_WEB_1024_step4_2-600x352.png?width=315&height=185&name=UltraLeap_WEB_1024_step4_2-600x352.png)|**Step 4a.**<br><br>Before attaching the Leap Motion Controller 2, make sure the USB-C port is facing down when the headset is upright.<br><br>**Step 4b.**<br><br>Attach the Leap Motion Controller 2 by pressing on the edges until it clicks into place. Make sure to support the mounting kit with your hand.|
+|![UltraLeap_WEB_1024_step5-600x352](https://support.varjo.com/hs-fs/hubfs/1-Help%20Center/2-Get%20to%20know%20your%20headsets/6-Accessories/UltraLeap_WEB_1024_step5-600x352.png?width=315&height=185&name=UltraLeap_WEB_1024_step5-600x352.png)|**Step 5.**<br><br>Attach the USB-C data cable so that the cable runs on the same side as headset cables.|
+|![UltraLeap_WEB_1024_step6_1-600x410](https://support.varjo.com/hs-fs/hubfs/1-Help%20Center/2-Get%20to%20know%20your%20headsets/6-Accessories/UltraLeap_WEB_1024_step6_1-600x410.png?width=315&height=215&name=UltraLeap_WEB_1024_step6_1-600x410.png)<br><br>![UltraLeap_WEB_1024_step6_2-600x410](https://support.varjo.com/hs-fs/hubfs/1-Help%20Center/2-Get%20to%20know%20your%20headsets/6-Accessories/UltraLeap_WEB_1024_step6_2-600x410.png?width=315&height=215&name=UltraLeap_WEB_1024_step6_2-600x410.png)|**Step 6a.**<br><br>Make sure the cable does not cover any sensors or cameras on the headset.<br><br>**Step 6b.**<br><br>Attach the first cable clip as shown in the image and hook the cable to the cable holder on the back of the headset.<br><br>You can use the remaining cable clips on the remaining length of the cables.|
+
+#### Removing the Leap Motion Controller holder from the mounting base
+
+|   |   |
+|---|---|
+|![UltraLeap_WEB_1024_release_holder_step1-600x352](https://support.varjo.com/hs-fs/hubfs/1-Help%20Center/2-Get%20to%20know%20your%20headsets/6-Accessories/UltraLeap_WEB_1024_release_holder_step1-600x352.png?width=310&height=182&name=UltraLeap_WEB_1024_release_holder_step1-600x352.png)|**Step 1.**<br><br>Push and hold down the release tab.|
+|![UltraLeap_WEB_1024_release_holder_step2-600x352](https://support.varjo.com/hs-fs/hubfs/1-Help%20Center/2-Get%20to%20know%20your%20headsets/6-Accessories/UltraLeap_WEB_1024_release_holder_step2-600x352.png?width=310&height=182&name=UltraLeap_WEB_1024_release_holder_step2-600x352.png)|**Step 2.**<br><br>Slide the Leap Motion Controller holder away while holding the release tab.|
+#### Attaching the holder permanently to the mounting base
+
+|                                                                                                                                                                                                                                                                                               |                                                                                                                                                                                    |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ![UltraLeap_WEB_1024_screw_holder_to_base-600x410](https://support.varjo.com/hs-fs/hubfs/1-Help%20Center/2-Get%20to%20know%20your%20headsets/6-Accessories/UltraLeap_WEB_1024_screw_holder_to_base-600x410.png?width=304&height=208&name=UltraLeap_WEB_1024_screw_holder_to_base-600x410.png) | If you don’t want the holder to be removable from the mounting base, you can permanently attach the holder to the base with the 2 short screws (No. 10) included in the sales box. |
+### New Project (https://docs.ultraleap.com/xr-and-tabletop/xr/unity/getting-started/your-first-project.html)
+- [ ] Add UltraLeap Tracking: 
+      https://docs.ultraleap.com/xr-and-tabletop/xr/unity/getting-started/index.html
+- [ ] Add Varjo (XR-4) Tracking:
+      [[06. Varjo BaseDevelopment]] -> ### Adding Varjo XR support to a Unity project
+- [ ] Start Varjo Base
+- [ ] Start Ultraleap Tracking
+- [ ] In Unity, setup camera rig:
+      https://docs.unity3d.com/Packages/com.unity.xr.core-utils@2.2/manual/xr-origin-setup.html
+      **GameObject** > **XR** > **XR Origin (Mobile AR)**
+- [ ] In Unity, under Hierarchy, add a set of hands to the scene as a child of the XR Leap Provider Manager:
+      **Right-click** *XR Leap Provider Manager* > **Ultraleap** > **Hands** > **Capsule Hands**
+
+- [ ] https://www.youtube.com/watch?v=EUK80_ZesrU
+## Debugging XR-4 issues
+==UNPLUG EVERY COMPONENT==
+1. Check firmware and drivers
+2. If not loading for 10 mins, replug all
+3. Check temperatures
+	1. Unplug and let cool down (15 mins)
+	2. Worst-case restart all
+# Hand-Gesture VR Anatomy Navigation System
 ## Project Overview
 I'm working on my BSc Computer Science final year project (COMP3932 Synoptic Project/EPA) titled **"Replacing Joystick Control: A Hand-Gesture Based Navigation System for 3D Anatomy Manipulation in Virtual Reality."** The project involves developing a hand-tracking interface for a singular medical anatomical model (a patient's liver) to replace existing joystick-based navigation used in surgical planning.
 
 ## Current Status (March 1st 2026)
 ### What I Have Now:
 **Hardware Access:**
-- Lab PC with: 
+- Access to the Lab PC I will be using for this project: 
 	- Windows 11, 
 	- Precision 3650 Tower, 
 	- 11th Gen Intel(R) Core(TM) i7-11700 @ 2.50GHz, 2496 Mhz, 8 Core(s), 16 Logical Processor(s),
 	- GPU 0: NVIDIA GeForce RTX 3080
+	- GPU 1: Intel(R) UHD Graphics 750
 	- Installed Physical Memory (RAM): 32.0 GB
-
-
+- Unity Hub and Plugins available.
 - Virtual Reality Lab access with Varjo XR-4 headsets
 - UltraLeap 2 (Leap Motion Controller 2) peripheral mounted on headset
 - Varjo Base software installed on lab PC
@@ -35,8 +760,8 @@ I'm working on my BSc Computer Science final year project (COMP3932 Synoptic Pro
 **Knowledge Gained:**
 - Varjo + UltraLeap integration: Unity XR SDK doesn't support Varjo's hand tracking, must use UltraLeap
 - XR-4 offset configuration: All offsets are zero (Y=0, Z=0, X tilt=0)
-- Need for mesh preprocessing: Medical models have holes, non-manifold edges, high vertex density
 - Gesture detection approaches: pinch thresholds (enter 0.02, exit 0.05), grab detection via finger curl
+- The liver .obj file simply needs to be imported and rendered in Unity, no mesh pre-processing is needed
 ## Project Requirements & Scope
 ### The Computer Science Problem:
 Traditional joystick interfaces for 3D medical visualization impose artificial control mappings that poorly match natural human spatial reasoning. This project investigates whether computer vision-based hand tracking can reduce cognitive load by enabling direct, gesture-based interaction that more closely mimics real-world object manipulation.
@@ -46,15 +771,13 @@ Traditional joystick interfaces for 3D medical visualization impose artificial c
 2. Computer vision integration: Real-time hand tracking interpretation
 3. 3D spatial mapping: Converting hand movements to precise model transformations
 4. Performance engineering: Maintaining <100ms latency, 90+ FPS
-5. Mesh processing: Handling topological inconsistencies in medical models
 ### Project Aim (Formal):
 *"The aim of this project is to develop and evaluate a hand-gesture based interaction system for intuitive 3D anatomical model manipulation in virtual reality, addressing the usability limitations of traditional joystick-controlled interfaces."*
 ### Objectives (SMART):
-1. Develop 3D model preprocessing pipeline for medical mesh optimization
-2. Implement real-time hand gesture recognition using UltraLeap API
-3. Design gesture-to-action mapping framework for VR navigation
-4. Conduct comparative usability evaluation vs. joystick baseline
-5. Optimize system performance for comfortable VR experience
+1. Implement real-time hand gesture recognition using UltraLeap API
+2. Design gesture-to-action mapping framework for VR navigation
+3. Conduct comparative usability evaluation vs. joystick baseline
+4. Optimize system performance for comfortable VR experience
 ### Deliverables:
 - Final dissertation report (60-80 pages)
 - Software repository with mesh processing toolkit, gesture recognition, Unity integration
@@ -68,12 +791,6 @@ Traditional joystick interfaces for 3D medical visualization impose artificial c
 - Unity requirements: 2021.3 LTS+, Windows Standalone 64-bit, DirectX 11/12 (no OpenGL/Vulkan)
 - Model scale: Unity expects 1 unit = 1 meter
 
-**Mesh Processing Requirements:**
-- Fix holes and non-manifold geometry
-- Simplify dense meshes while preserving anatomical topology
-- Convert to Unity-compatible format (OBJ/FBX)
-- Preserve critical features for surgical accuracy
-
 **Gesture Set to Implement:**
 - Pinch: Grab/select (threshold: enter 0.02, exit 0.05)
 - Grab: Move model (palm closure + finger curl)
@@ -81,54 +798,49 @@ Traditional joystick interfaces for 3D medical visualization impose artificial c
 - Two-hand: Scale based on hand distance delta
 - Two-hand rotate: Rotation around focal point
 
-## Project Plan & Timeline
-### Immediate Next Steps (Weeks 1-2):
+## Project Plan
+### Immediate Next Steps
 1. Verify Unity version and build settings
 2. Install Varjo XR plugin via Package Manager
 3. Import UltraLeap Unity plugin (Core only)
 4. Create hand offset configuration script
 5. Run sample scene with hand visualization
 6. Test in lab with actual hardware
-### Weeks 3-4: Model Pipeline
+### Model Pipeline
 - Inventory and assess all OBJ files for issues
-- Research mesh processing algorithms
-- Develop Python/Blender cleaning pipeline
 - Import processed models to Unity
-### Weeks 5-7: Gesture Implementation
+- Render and re-test
+### Gesture Implementation
 - Implement pinch, grab, point detection
 - Create gesture state machine
 - Map gestures to model transformations
 - Add visual feedback
-### Weeks 8-10: Evaluation Prep
+### Evaluation Prep
 - Design test tasks and data collection
 - Create joystick baseline version
 - Prepare ethics approval materials
 - Pilot testing and refinement
 ## Risks & Mitigation
 
-| Risk | Mitigation |
-|------|------------|
-| Hand tracking unreliable | Simulation mode (mouse control), maintain joystick backup |
-| Mesh processing fails | Prioritize one working model, manual Blender cleanup |
-| Hardware access conflicts | Book lab 2 weeks ahead, develop in simulator mode |
-| Scope creep | MVP defined: basic gestures + one model |
-| Participant recruitment | Start early, use computing students |
+| Risk                      | Mitigation                                                |
+| ------------------------- | --------------------------------------------------------- |
+| Hand tracking unreliable  | Simulation mode (mouse control), maintain joystick backup |
+| Hardware access conflicts | Book lab 2 weeks ahead, develop in simulator mode         |
+| Scope creep               | MVP defined: basic gestures + one model                   |
+| Participant recruitment   | Start early, use computing students                       |
 ## Ethics Considerations
 - **Data:** Only publicly available anonymized datasets (TCIA)
 - **User testing:** University students only, informed consent, right to withdraw
 - **Health & safety:** Pre-screening, 15-min VR sessions, researcher monitoring
 - **Ethical approval:** Required for user testing (submission Week 4 Semester 2)
 ## Questions Needing Attention
-1. What specific mesh processing algorithms are most appropriate for preserving anatomical accuracy while simplifying?
-2. How many evaluation participants provide statistically meaningful results?
-3. What additional gestures would enhance surgical planning tasks?
-4. How to handle the overlay 3D-2D Python utility - what role does it play?
+1. How many evaluation participants provide statistically meaningful results?
+2. What additional gestures would enhance surgical planning tasks?
+3. How to handle the overlay 3D-2D Python utility - what role does it play?
 ## Expected Output from This Catch-Up
 I need help with:
 - Refining the technical approach based on current understanding
 - Troubleshooting integration issues
-- Developing mesh processing pipeline
 - Designing robust gesture recognition
 - Planning evaluation methodology
 - Writing dissertation chapters
-- Preparing for EPA presentations/assessments
