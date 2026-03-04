@@ -926,3 +926,5 @@ The HDRP (High Definition Render Pipeline) blank template includes the settings 
 - High Definition RP 14.0.0
 
 Should I select *connect to Unity Cloud* and use *Unity Version Control*? ==BOTH NOT CHOSEN==
+Shown this on start:
+![[Pasted image 20260304160552.png|500]]
