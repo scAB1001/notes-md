@@ -64,8 +64,16 @@ había un invierno ==en particular, donde el aire se sintió particularmente fr�
 
 El niño había pasado tiempo, construyendo ==el hombre== de nieve más grande que nunca. Estaba tan orgulloso. Como dio un paso atrás para admirar su hermosa creación, los sonidos de un carro se hacían más fuertes en su dirección. De repente, un carro rojo conduciendo muy rápido le pego'. 
 
-El niño comenzó a llorar y también juró que nunca volvería a dejar que suceda otra vez.
-Tres anos después se note lo mismo carro que esta conduciendo a cerca. Esto es fue cuando inicio a hacer su plan de la venganza. 
+El niño comenzó a llorar y también juró que nunca volvería a dejar que ==sucediera== otra vez.
+	*sucediera* -> because hubiera is for past events that could not be changed in the future, unlike this. 
+
+Tres anos después ==noto' lo mismo== carro que esta conduciendo a cerca. 
+	noto' lo mismo -> el mismo pq no es indeterminado (use gender when specifying the noun/thing wanted ---mimicked for esto/este, eso/ese)
+
+Esto fue cuando inicio' a hacer su plan de ==la== venganza. 
+	inicio' a hacer su plan de ==la== venganza.  -> su venganza
 
 Si has estado haciendo un seguimiento de los hombres de nieve, entonces ...
-Ganari'a la venganza
+
+
+- Ganari'a la venganza
