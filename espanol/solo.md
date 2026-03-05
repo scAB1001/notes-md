@@ -17,36 +17,39 @@
 ### Vocabulario y frases
 defile -> catwalk
 pasillo -> plane aisle
-igual que teno carinyo -> we're still on good terms
+igual que tengo cariño -> we're still on good terms
 yo defenestre' -> i ripped him a new one
-hay una connexion cosmica -> a cosmic connection
+hay una conexión cósmica -> a cosmic connection
 ### Mi comprehension 
-La pelicula incio' de seguir una amiga que esta abordando su vuelo al ...
-Se conocio' un senor en su pasillo
+La película incio de seguir una amiga que esta abordando su vuelo al ...
+Se conoció un senor en su pasillo
 
-me parece que ella, el senyor y una senora han estrechado lazos con una y otra: su ex-novia en actualidad
+me parece que ella, el señor y una senora han estrechado lazos con una y otra: su ex-novia en actualidad
 la situation se vuelve de miedo cuando imaginan sus conexiones con el.
 el pandillero -> gangster 
-la manera en que radaron esta pelicula es como comedia
+la manera en que rodaran esta película es como comedia
 
-estoy en cuarto de hora mientra la pelicula
+estoy en cuarto de hora mientra la película
 
-aquien carajo te pasa 
+a quien carajo te pasa ->
 
-ayy madre mia de caracao - holy jesus
-mornegro -> dark humour
+ay madre mía de curacao - holy Jesus
+mor negro -> dark humour
 morboso 
 
 venganza -> revenge
 vengativa -> vengeful
 vengarse -> to be vengeful
-la mato' -> 
+la mato -> 
 se paso de la ralla -> overstepping lines/boundaries
 
 primer no estoy orgulloso sobre esto pero...
 
-recientemente- pues hace cuatro meses, estaba hablando con una chica y estabamos durmiendo con una y otro. Despues de  
+recientemente- pues hace cuatro meses, estaba hablando con una chica y estábamos durmiendo con una y otro. Después de  
 de donde venias -> where were you coming from
 hace memoria -> try to remember
-jodete -> fuck urself
+jódete -> fuck yourself
 yo no tengo idea que me estas hablando -> i have not idea what your talking
+# El cuento corto sobre la venganza
+Cuando era un pequeño niño, lo gustaba hacer hombres de nieve en el invierno.
+Se reía mientras juega en las sabanas blancas. Sin embargo, había un invierno específicamente, donde el aire se sentio  
