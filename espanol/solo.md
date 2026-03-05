@@ -51,13 +51,21 @@ hace memoria -> try to remember
 jódete -> fuck yourself
 yo no tengo idea que me estas hablando -> i have not idea what your talking
 # El cuento corto sobre la venganza
-En los inviernos, cuando era un pequeño niño, lo gustaba hacer hombres de nieve en el jardín.
-Se reía mientras juega en las sabanas blancas. Sin embargo, había un invierno específicamente, donde el aire se sintió particularmente frío. 
+En los inviernos, cuando era un pequeño niño, ==lo gustaba== hacer hombres de nieve en el jardín.
+	lo gustaba hacer -> to who did it please? Him, so (le) 
 
-El niño había pasado tiempo, construyendo un hombre de nieve más grande que nunca. Estaba tan orgulloso. Como dio un paso atrás para admirar su hermosa creación, los sonidos de un carro se hacían más fuertes en su dirección. De repente, un carro rojo conduciendo muy rápido lo pego. 
+Se reía mientras ==juega== en las ==sa'banas== blancas. Sin embargo, había un invierno en partic, donde 
+	Se reía mientras juega -> He would laugh while playing/he played -> he was playing -> jugaba
+
+había un invierno ==en particular, donde el aire se sintió particularmente frío==. 
+	-> with a particular cold vs. where that cold was particularly cold
+	-> había un invierno con particular frío.
+
+
+El niño había pasado tiempo, construyendo ==el hombre== de nieve más grande que nunca. Estaba tan orgulloso. Como dio un paso atrás para admirar su hermosa creación, los sonidos de un carro se hacían más fuertes en su dirección. De repente, un carro rojo conduciendo muy rápido le pego'. 
 
 El niño comenzó a llorar y también juró que nunca volvería a dejar que suceda otra vez.
 Tres anos después se note lo mismo carro que esta conduciendo a cerca. Esto es fue cuando inicio a hacer su plan de la venganza. 
 
 Si has estado haciendo un seguimiento de los hombres de nieve, entonces ...
-
+Ganari'a la venganza
