@@ -112,3 +112,4 @@ me quedan 20 minutos
 quieres que lo lea en completo -> do you want me to read it all 
 # 
 compromiso
+es ido lastimada
