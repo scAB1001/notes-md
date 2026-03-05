@@ -51,5 +51,5 @@ hace memoria -> try to remember
 jódete -> fuck yourself
 yo no tengo idea que me estas hablando -> i have not idea what your talking
 # El cuento corto sobre la venganza
-Cuando era un pequeño niño, lo gustaba hacer hombres de nieve en el invierno.
-Se reía mientras juega en las sabanas blancas. Sin embargo, había un invierno específicamente, donde el aire se sentio  
+En lose inviernos, cuando era un pequeño niño, lo gustaba hacer hombres de nieve en el jardín.
+Se reía mientras juega en las sabanas blancas. Sin embargo, había un invierno específicamente, donde el aire se sintió particularmente frío. El niño había pasado tiempo, construyendo un hombre de nieve más grande que nunca. Estaba tan orgulloso. Como dio un paso atrás para admirar su hermosa creación, los sonidos de un carro se hacían más fuertes en su dirección. De repente, un carro rojo conduciendo muy rápido lo pego. El nino comenzó a llorar y también juró que nunca volvería a  dejar que suceda
