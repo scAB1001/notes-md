@@ -110,6 +110,9 @@ se pasan por la ralla de la cola ->
 ya no me inspi'ra -> 
 me quedan 20 minutos
 quieres que lo lea en completo -> do you want me to read it all 
-# 
+# 05
 compromiso
 es ido lastimada
+# 06
+lo que sea
+Use subjunctive whenever there is question e.g. whatver you can find in the supermarket
