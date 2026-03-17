@@ -84,4 +84,13 @@ antes de que se le acerquen.
 Patron did him a favour and came with us. He told him, with much decency (nicely), ask him almost but Luis can recognise an order when he hears it. All of it came with this scent of threat, hidden by kindness. 
 tufillo de amenaza disfrazado de amabilidad. 
 
-So much so that, his children never realised 
+So much so that, his children never realised were entertained as they were watching the meat auction that they were passing by, like queens at the slaughterhouse
+Tanta que...
+
+His wife surely noticed the dangerous side of the favour that could not be for nothing.
+Si lo nota...
+
+Whilst walking with them, sje was paying attention to everything ---to the people and their animaes, to the dry earth in the soil, to the cars in the car park. 
+
+She goes with him to... and knows that here she will stya until he returns because his wife never wanted to learn to drive.
+Ve el suyo a lo lejos... nunca quiso aprender
