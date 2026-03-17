@@ -116,3 +116,6 @@ es ido lastimada
 # 06
 lo que sea
 Use subjunctive whenever there is question e.g. whatver you can find in the supermarket
+
+# 17/03
+Hacer guaca -> pay your part/split
