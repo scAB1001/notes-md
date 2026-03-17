@@ -81,4 +81,7 @@ Si has estado haciendo un seguimiento de los hombres de nieve, entonces ...
 Luis already knew they came for him, even before they drew closer to him.
 antes de que se le acerquen.
 
-Patron did him a favour and came with us. He told him, with much decency, take him almost but Luis knew 
+Patron did him a favour and came with us. He told him, with much decency (nicely), ask him almost but Luis can recognise an order when he hears it. All of it came with this scent of threat, hidden by kindness. 
+tufillo de amenaza disfrazado de amabilidad. 
+
+So much so that, his children never realised
