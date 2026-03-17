@@ -92,5 +92,15 @@ Si lo nota...
 
 Whilst walking with them, sje was paying attention to everything ---to the people and their animaes, to the dry earth in the soil, to the cars in the car park. 
 
-She goes with him to... and knows that here she will stya until he returns because his wife never wanted to learn to drive.
+She goes with him to... and knows that here she will stay until he returns because his wife never wanted to learn to drive.
 Ve el suyo a lo lejos... nunca quiso aprender
+
+His wife and his kids also stayed behind, he left without seeing them. He goes in the memory from the moment when they bid him farewell.
+Madre mia
+
+She with that face so much of her, when she could not say what she wanted to say, died of fear.
+Ella con esa cara tan de ella??
+
+The boys were not aware when they were told, captivated by the cows. Luis goes in to the memory the part at the back of their minds, their hair humid with sweat.
+por enterados
+
