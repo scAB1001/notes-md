@@ -77,3 +77,8 @@ Si has estado haciendo un seguimiento de los hombres de nieve, entonces ...
 
 
 - Ganari'a la venganza
+# Mal de Tierra
+Luis already knew they came for him, even before they drew closer to him.
+antes de que se le acerquen.
+
+Patron did him a favour and came with us. He told him, with much decency, take him almost but Luis knew 
