@@ -5,9 +5,9 @@
 	- [x] *node_exporter*, 
 	- [x] *Grafana* and
 	- [x] *stress-ng* (Week 3)
-- [ ] Setup *Docker* (Week 4)
-- [ ] Setup *Minikube* (Week 5)
-- [ ] Setup *iperf3* and *wrk* (Week ?)
+- [x] Setup *Docker* (Week 4)
+- [x] Setup *Minikube* (Week 5)
+- [x] Setup *iperf3* and *wrk* (Week ?)
 ## Setup a Virtual Network
 Creating the VNet before creating a VM is still best practice:
 - Open the Azure Portal
@@ -285,68 +285,44 @@ Prometheus provides a web UI for running basic queries located at `http://<your_
 ![](https://miro.medium.com/v2/resize:fit:700/1*xNEdWSkZU0zsNHh2-AGr4A.png)
 ## Docker
 For this session, we will use [How To Install and Use Docker on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04) tutorial, which is compatible with a Ubuntu 22.04 LTS Virtual Machine in Azure.
-
 You can also install Docker in a Ubuntu 22.04 LTS virtual machine running on Virtualbox hypervisor.
-
 ## RESULTS
 This is a brilliant moment for your coursework, and the "failure" of Test 1 is actually an incredibly valuable technical talking point for your report!
-
 ### Why did the Ping test fail? (The "Kubernetes ICMP Drop")
-
 The ping test returned 100% packet loss because you pinged `mec-gateway-svc`. In Kubernetes, a `Service` (ClusterIP) is not a real physical network interface; it is a set of `iptables` rules managed by `kube-proxy`. By design, Kubernetes Services **do not route ICMP (ping) traffic**. They only route the specific TCP/UDP ports you defined in your manifest (ports 80 and 5201).
 
 To successfully ping the VNF for your connectivity check (Task D), you must ping the actual **Pod IP**, not the Service name.
-
 ### How to Fix Test 1 in your Script
-
 Open your `k8s_setup.sh` script, go to the `"test"` block, and replace **TEST 1** with this updated version that dynamically fetches the exact Pod IP before pinging it:
 
-Bash
-
-```
-            log_info "TEST 1: ICMP Ping (Baseline Network Latency)"
-            log_data "Pinging the VNF Pod directly (K8s Services drop ICMP traffic)."
-            if ask_yes_no "Run Ping test?"; then
-                # Dynamically extract the Pod IP of the HAProxy VNF
-                VNF_POD_IP=$(kubectl get pod -l app=mec-gateway -o jsonpath='{.items[0].status.podIP}')
-                log_info "Extracted VNF Pod IP: $VNF_POD_IP"
-                kubectl run -i --tty --rm ping-client --image=alpine --restart=Never -- sh -c "ping -c 5 $VNF_POD_IP"
-                log_success "Ping test complete. Record the avg latency (ms) for your report."
-            fi
-            echo ""
+```bash
+log_info "TEST 1: ICMP Ping (Baseline Network Latency)"
+log_data "Pinging the VNF Pod directly (K8s Services drop ICMP traffic)."
+if ask_yes_no "Run Ping test?"; then
+		# Dynamically extract the Pod IP of the HAProxy VNF
+		VNF_POD_IP=$(kubectl get pod -l app=mec-gateway -o jsonpath='{.items[0].status.podIP}')
+		log_info "Extracted VNF Pod IP: $VNF_POD_IP"
+		kubectl run -i --tty --rm ping-client --image=alpine --restart=Never -- sh -c "ping -c 5 $VNF_POD_IP"
+		log_success "Ping test complete. Record the avg latency (ms) for your report."
+fi
+echo ""
 ```
 
 ---
-
 ### Analyzing Your Cloud (Minikube) Results
-
 Your `iperf3` and `wrk` tests executed flawlessly. These are the exact numbers you need to log in a spreadsheet for your Cloud vs. Edge comparison:
 
 **1. Throughput (iperf3):** * **Result:** `1.87 Gbits/sec`
-
-- _What this means:_ Your Minikube cloud environment successfully routed 4.34 Gigabytes of data through the HAProxy VNF in 20 seconds. This is your Cloud bandwidth ceiling.
-    
-
+- _What this means:_ Your Minikube cloud environment successfully routed 4.34 Gigabytes of data through the HAProxy VNF in 20 seconds. This is your Cloud bandwidth ceiling.    
 **2. HTTP Load Simulation (wrk):**
-
 - **Result:** `3797.61 Requests/sec`
-    
 - **Latency:** `27.94ms` (Average)
-    
 - _What this means:_ When simulating 100 concurrent 5G users hammering the network, the Cloud VNF processed roughly 3,800 requests every second, with a very respectable 28-millisecond delay.
-    
-
 ### The Next Step: The Edge Comparison
-
 You now have your complete **Cloud (Minikube)** dataset. It is time to see how the lightweight **Edge (K3s)** environment compares.
-
 Run your script to switch environments and gather the other half of your data:
-
 1. Run `./k8s_setup.sh` and select **06 (Start Edge - K3s)**.
-    
 2. Select **07 (Deploy VNF & Run Hello World)** to deploy the exact same VNF into the K3s cluster.
-    
 3. Select **08 (Run Experimental Load Tests)** to get the K3s numbers.
-    
 
 Once you have both sets of numbers, compare the `iperf3` Bitrate and `wrk` Latency. Did K3s perform faster because it lacks the heavy overhead of Minikube? Let me know what the K3s results are!
