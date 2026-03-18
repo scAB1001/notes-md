@@ -1,12 +1,13 @@
 ### To-do
 - [x] Setup a *Virtual Network*.
 - [x] Setup a *Virtual Machine*.
-- [ ] Setup *Prometheus*,
-	- [ ] *node_exporter* and 
-	- [ ] *Grafana* (Week 3)
+- [x] Setup *Prometheus*,
+	- [x] *node_exporter*, 
+	- [x] *Grafana* and
+	- [x] *stress-ng* (Week 3)
 - [ ] Setup *Docker* (Week 4)
 - [ ] Setup *Minikube* (Week 5)
-- [ ] Setup *stress-ng*, *iperf3* and *wrk* (Week )
+- [ ] Setup *iperf3* and *wrk* (Week ?)
 ## Setup a Virtual Network
 Creating the VNet before creating a VM is still best practice:
 - Open the Azure Portal
