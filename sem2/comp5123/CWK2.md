@@ -41,6 +41,25 @@ Note:Some users will now see the option to create VMs in multiple zones. To lear
 - When the **Generate new key pair** window opens, select **Download private key and create resource**. Your key file will be download as **myKey.pem**. Make sure you know where the `.pem` file was downloaded; you'll need the path to it in the next step.
 - When the deployment is finished, select **Go to resource**.
 - On the page for your new VM, select the public IP address and copy it to your clipboard.
+### ## Connect to virtual machine
+Create an [SSH connection](https://learn.microsoft.com/en-us/azure/virtual-machines/linux-vm-connect) with the VM.
+1. If you're on a Windows machine, open a PowerShell prompt. If you're on a Mac or Linux machine, open a Bash prompt and set read-only permission on the .pem file using `chmod 400 ~/Downloads/myKey.pem`.
+2. At your prompt, open an SSH connection to your virtual machine. Replace the IP address with the one from your VM, and replace the path to the `.pem` with the path to where the key file was downloaded.
+```
+ssh -i ~/Downloads/myKey.pem azureuser@10.111.12.123
+```
+**Tip**
+The SSH key you created can be used the next time your create a VM in Azure. Just select the **Use a key stored in Azure** for **SSH public key source** the next time you create a VM. You already have the private key on your computer, so you won't need to download anything.
+### Install web server
+To see your VM in action, install the NGINX web server. From your SSH session, update your package sources and then install the latest NGINX package.
+- [Ubuntu](https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal?tabs=ubuntu#tabpanel_1_ubuntu)
+```
+sudo apt-get -y update
+sudo apt-get -y install nginx
+```
+When done, type `exit` to leave the SSH session.
+#### View the web server in action
+Use a web browser of your choice to view the default NGINX welcome page. Type the public IP address of the VM as the web address. The public IP address can be found on the VM overview page or as part of the SSH connection string you used earlier.
 ## Docker
 For this session, we will use [How To Install and Use Docker on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04) tutorial, which is compatible with a Ubuntu 22.04 LTS Virtual Machine in Azure.
 
