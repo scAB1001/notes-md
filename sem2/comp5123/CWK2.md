@@ -85,6 +85,43 @@ When following the steps in the tutorial, to take advantage of the latest versio
 **Note 3**: Once Grafana is running, you can connect to it at **http://<your_server_IP>:3000/.** You need to create your first dashboard from the information collected by Prometheus. Alternatively, you can import an existing dashboard from a collection of [shared dashboards](https://grafana.com/dashboards?dataSource=prometheus) from Grafana Web site. For example, why not identify the ID of the "Node Exporter Full" dashboard?
 
 **Note 4** When you finish installing Grafana on your virtual machine, ensure you open the respective port on the Azure portal (3000) by creating an inbound port rule.
+### Starting from scratch if you're an idiot
+```bash
+# Stop the Running Services
+sudo systemctl stop prometheus
+sudo systemctl stop node_exporter
+sudo systemctl stop grafana-server
+
+# Nuke Prometheus and Node Exporter
+# Binaries
+sudo rm /usr/local/bin/prometheus
+sudo rm /usr/local/bin/promtool
+sudo rm /usr/local/bin/node_exporter
+
+# configuration and data directories
+sudo rm -rf /etc/prometheus 
+sudo rm -rf /var/lib/prometheus
+
+# systemd service files
+sudo rm /etc/systemd/system/prometheus.service 
+sudo rm /etc/systemd/system/node_exporter.service
+
+# grafana
+sudo apt-get purge -y grafana grafana-enterprise
+sudo apt-get autoremove -y
+
+sudo apt-get purge -y grafana grafana-enterprise 
+sudo apt-get autoremove -y
+
+# data or log directories
+sudo rm -rf /etc/grafana 
+sudo rm -rf /var/lib/grafana 
+sudo rm -rf /var/log/grafana
+
+# reload
+sudo systemctl daemon-reload
+
+```
 ### Installing node_exporter 
 ```bash
 # Download the Node Exporter on all machines
