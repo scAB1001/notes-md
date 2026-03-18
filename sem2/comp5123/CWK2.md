@@ -75,8 +75,8 @@ Steps:
 	3) check the installation and do some basic tests.
 
 When following the steps in the tutorial, to take advantage of the latest version of:
-- **Node Exporter**: download version **1.7.0** (node_exporter-1.7.0.linux-amd64.tar.gz) instead of 0.15.2
-- **Prometheus**: download version **2.49.1** (prometheus-2.49.1.linux-amd64.tar.gz) instead of 2.1.0
+- **Node Exporter**: download version **1.7.0** (node_exporter-1.7.0.linux-amd64.tar.gz) instead of 1.7.0
+- **Prometheus**: download version **2.49.1** (prometheus-2.49.1.linux-amd64.tar.gz) instead of 2.49.1
 - **Grafana**: download grafana-enterprise_**10.3.3**_amd64.deb instead of 5.0.4, see [Grafana download page](https://grafana.com/grafana/download?pg=oss-graf&plcmt=hero-btn-1).
 **Note 1**: Prometheus provides a web User Interface for running basic queries located at **http://<your_server_IP>:9090/.** Inspect the list of metrics and do some test.
 
@@ -88,16 +88,16 @@ When following the steps in the tutorial, to take advantage of the latest versio
 ### Installing node_exporter 
 ```bash
 # Download the Node Exporter on all machines
-wget https://github.com/prometheus/node_exporter/releases/download/v0.15.2/node_exporter-0.15.2.linux-amd64.tar.gz
+wget https://github.com/prometheus/node_exporter/releases/download/v1.7.0/node_exporter-1.7.0.linux-amd64.tar.gz
 
 # Extract the downloaded archive
-tar -xf node_exporter-0.15.2.linux-amd64.tar.gz
+tar -xf node_exporter-1.7.0.linux-amd64.tar.gz
 
 # Move the node_exporter binary to /usr/local/bin
-sudo mv node_exporter-0.15.2.linux-amd64/node_exporter /usr/local/bin
+sudo mv node_exporter-1.7.0.linux-amd64/node_exporter /usr/local/bin
 
 # Remove the residual files
-rm -r node_exporter-0.15.2.linux-amd64*
+rm -r node_exporter-1.7.0.linux-amd64*
 
 ```
 
@@ -140,22 +140,22 @@ sudo systemctl start node_exporter
 ### Installing Prometheus
 ```bash
 # Install Prometheus only on the Prometheus Server.
-wget https://github.com/prometheus/prometheus/releases/download/v2.1.0/prometheus-2.1.0.linux-amd64.tar.gz
+wget https://github.com/prometheus/prometheus/releases/download/v2.49.1/prometheus-2.49.1.linux-amd64.tar.gz
 
 # Extract the Prometheus archive :
-tar -xf prometheus-2.1.0.linux-amd64.tar.gz
+tar -xf prometheus-2.49.1.linux-amd64.tar.gz
 
 # Move the binaries to `/usr/local/bin`:
-sudo mv prometheus-2.1.0.linux-amd64/prometheus prometheus-2.1.0.linux-amd64/promtool /usr/local/bin
+sudo mv prometheus-2.49.1.linux-amd64/prometheus prometheus-2.49.1.linux-amd64/promtool /usr/local/bin
 
 # Now, we need to create directories for configuration files and other prometheus data.
 sudo mkdir /etc/prometheus /var/lib/prometheus
 
 # Then, we move the configuration files to the directory we made previously:
-sudo mv prometheus-2.1.0.linux-amd64/consoles prometheus-2.1.0.linux-amd64/console_libraries /etc/prometheus
+sudo mv prometheus-2.49.1.linux-amd64/consoles prometheus-2.49.1.linux-amd64/console_libraries /etc/prometheus
 
 # Finally, we can delete the leftover files as we do not need them any more:
-rm -r prometheus-2.1.0.linux-amd64*
+rm -r prometheus-2.49.1.linux-amd64*
 
 ```
 ### ### Configuring Prometheus
@@ -207,9 +207,10 @@ sudo chown -R prometheus: /etc/prometheus /var/lib/prometheus
 
 ```
 
-Then, we will create a systemd unit file in `/etc/systemd/system/prometheus.service` with the following contents
-
 ```bash
+# Create a systemd unit file in /etc/systemd/system/prometheus.service
+sudo vim /etc/systemd/system/prometheus.service
+
 [Unit]  
 Description=Prometheus  
 After=network.target  
@@ -237,6 +238,11 @@ sudo systemctl start prometheus
 
 ```
 
+```bash
+# Install a light-weight browser like Midori
+sudo snap install midori
+
+```
 Prometheus provides a web UI for running basic queries located at `http://<your_server_IP>:9090/`. This is how it looks like in a web browser:
 ![](https://miro.medium.com/v2/resize:fit:700/1*xNEdWSkZU0zsNHh2-AGr4A.png)
 ## Docker
