@@ -1,9 +1,9 @@
 ### To-do
 - [x] Setup a *Virtual Network*.
-- [ ] Setup a *Virtual Machine*.
+- [x] Setup a *Virtual Machine*.
+- [ ] Setup *Prometheus*, *node_exporter* and *Grafana* (Week 3)
 - [ ] Setup *Docker* (Week 4)
 - [ ] Setup *Minikube* (Week 5)
-- [ ] Setup *Prometheus*, *node_exporter* and *Grafana* (Week )
 - [ ] Setup *stress-ng*, *iperf3* and *wrk* (Week )
 ## Setup a Virtual Network
 Creating the VNet before creating a VM is still best practice:
@@ -59,7 +59,30 @@ sudo apt-get -y install nginx
 ```
 When done, type `exit` to leave the SSH session.
 #### View the web server in action
-Use a web browser of your choice to view the default NGINX welcome page. Type the public IP address of the VM as the web address. The public IP address can be found on the VM overview page or as part of the SSH connection string you used earlier.
+Use a web browser of your choice (not in the vm) to view the default NGINX welcome page. Type the public IP address of the VM as the web address. 
+## Setup Prometheus and Grafana
+There are many online tutorials on how to install and use Prometheus with Grafana.The recommended one for this task is [Getting Started with Prometheus and Grafana.](https://medium.com/devops-dudes/install-prometheus-on-ubuntu-18-04-a51602c6256b)
+
+Steps:
+- Log into Microsoft Azure portal
+- Start the Ubuntu Virtual Machine you created (see previous lab. session)
+- Open a shell.
+- Follow the tutorial [Getting Started with Prometheus and Grafana.](https://medium.com/devops-dudes/install-prometheus-on-ubuntu-18-04-a51602c6256b) You will need 
+	1) to setup Prometheus first: install the node_exporter, install, configure and test Prometheus; 
+	2) setup Grafana for Prometheus, and 
+	3) check the installation and do some basic tests.
+
+When following the steps in the tutorial, to take advantage of the latest version of:
+- **Node Exporter**: download version **1.7.0** (node_exporter-1.7.0.linux-amd64.tar.gz) instead of 0.15.2
+- **Prometheus**: download version **2.49.1** (prometheus-2.49.1.linux-amd64.tar.gz) instead of 2.1.0
+- **Grafana**: download grafana-enterprise_**10.3.3**_amd64.deb instead of 5.0.4, see [Grafana download page](https://grafana.com/grafana/download?pg=oss-graf&plcmt=hero-btn-1).
+**Note 1**: Prometheus provides a web User Interface for running basic queries located at **http://<your_server_IP>:9090/.** Inspect the list of metrics and do some test.
+
+**Note 2**: When you finish installing Prometheus on your virtual machine, ensure you open the respective port on the Azure portal (9090) by creating an inbound port rule.
+
+**Note 3**: Once Grafana is running, you can connect to it at **http://<your_server_IP>:3000/.** You need to create your first dashboard from the information collected by Prometheus. Alternatively, you can import an existing dashboard from a collection of [shared dashboards](https://grafana.com/dashboards?dataSource=prometheus) from Grafana Web site. For example, why not identify the ID of the "Node Exporter Full" dashboard?
+
+**Note 4** When you finish installing Grafana on your virtual machine, ensure you open the respective port on the Azure portal (3000) by creating an inbound port rule.
 ## Docker
 For this session, we will use [How To Install and Use Docker on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04) tutorial, which is compatible with a Ubuntu 22.04 LTS Virtual Machine in Azure.
 
