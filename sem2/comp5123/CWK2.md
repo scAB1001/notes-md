@@ -1,7 +1,9 @@
 ### To-do
 - [x] Setup a *Virtual Network*.
 - [x] Setup a *Virtual Machine*.
-- [ ] Setup *Prometheus*, *node_exporter* and *Grafana* (Week 3)
+- [ ] Setup *Prometheus*,
+	- [ ] *node_exporter* and 
+	- [ ] *Grafana* (Week 3)
 - [ ] Setup *Docker* (Week 4)
 - [ ] Setup *Minikube* (Week 5)
 - [ ] Setup *stress-ng*, *iperf3* and *wrk* (Week )
@@ -83,6 +85,138 @@ When following the steps in the tutorial, to take advantage of the latest versio
 **Note 3**: Once Grafana is running, you can connect to it at **http://<your_server_IP>:3000/.** You need to create your first dashboard from the information collected by Prometheus. Alternatively, you can import an existing dashboard from a collection of [shared dashboards](https://grafana.com/dashboards?dataSource=prometheus) from Grafana Web site. For example, why not identify the ID of the "Node Exporter Full" dashboard?
 
 **Note 4** When you finish installing Grafana on your virtual machine, ensure you open the respective port on the Azure portal (3000) by creating an inbound port rule.
+### Installing node_exporter 
+```bash
+# Download the Node Exporter on all machines
+wget https://github.com/prometheus/node_exporter/releases/download/v0.15.2/node_exporter-0.15.2.linux-amd64.tar.gz
+
+# Extract the downloaded archive
+tar -xf node_exporter-0.15.2.linux-amd64.tar.gz
+
+# Move the node_exporter binary to /usr/local/bin
+sudo mv node_exporter-0.15.2.linux-amd64/node_exporter /usr/local/bin
+
+# Remove the residual files
+rm -r node_exporter-0.15.2.linux-amd64*
+
+```
+
+Next, we will create users and service files for node_exporter.
+
+> For security reasons, run any services/daemons in separate accounts of their own. Thus, we are going to create a user account for node_exporter. Use the `-r` flag to indicate it is a system account, and set the default shell to `/bin/false` using `-s` to prevent logins.
+
+```bash
+# Create an user account for node_exporter
+sudo useradd -rs /bin/false node_exporter
+
+ Create a systemd unit file so that node_exporter can be started at boot. 
+sudo vim /etc/systemd/system/node_exporter.service
+
+```
+
+```bash
+[Unit]  
+Description=Node Exporter  
+After=network.target  
+  
+[Service]  
+User=node_exporter  
+Group=node_exporter  
+Type=simple  
+ExecStart=/usr/local/bin/node_exporter  
+  
+[Install]  
+WantedBy=multi-user.target
+
+```
+
+Since we have created a new unit file, we must reload the systemd daemon, set the service to always run at boot and start it.
+```bash
+sudo systemctl daemon-reload  
+sudo systemctl enable node_exporter  
+sudo systemctl start node_exporter
+
+```
+### Installing Prometheus
+```bash
+# Install Prometheus only on the Prometheus Server.
+wget https://github.com/prometheus/prometheus/releases/download/v2.1.0/prometheus-2.1.0.linux-amd64.tar.gz
+
+# Extract the Prometheus archive :
+tar -xf prometheus-2.1.0.linux-amd64.tar.gz
+
+# Move the binaries to `/usr/local/bin`:
+sudo mv prometheus-2.1.0.linux-amd64/prometheus prometheus-2.1.0.linux-amd64/promtool /usr/local/bin
+
+# Now, we need to create directories for configuration files and other prometheus data.
+sudo mkdir /etc/prometheus /var/lib/prometheus
+
+# Then, we move the configuration files to the directory we made previously:
+sudo mv prometheus-2.1.0.linux-amd64/consoles prometheus-2.1.0.linux-amd64/console_libraries /etc/prometheus
+
+# Finally, we can delete the leftover files as we do not need them any more:
+rm -r prometheus-2.1.0.linux-amd64*
+
+```
+### ### Configuring Prometheus
+After having installed Prometheus, we have to configure Prometheus to let it know about the HTTP endpoints it should monitor. Prometheus uses the [YAML](https://en.wikipedia.org/wiki/YAML) format for its configuration.
+
+Go to `/etc/hosts` and add the following lines, replace `x.x.x.x` with the machine’s corresponding IP address
+
+x.x.x.x prometheus-target-1  
+x.x.x.x prometheus-target-2
+
+We will use `/etc/prometheus/prometheus.yml` as our configuration file
+
+global:  
+  scrape_interval: 10s  
+  
+scrape_configs:  
+  - job_name: 'prometheus_metrics'  
+    scrape_interval: 5s  
+    static_configs:  
+      - targets: ['localhost:9090']  
+  - job_name: 'node_exporter_metrics'  
+    scrape_interval: 5s  
+    static_configs:  
+      - targets: ['localhost:9100','prometheus-target-1:9100','prometheus-target-2:9100']
+
+In this file, we have defined a default scraping interval of 10 seconds. We have also define two sources of metrics, named `prometheus_metrics` and `node_exporter_metrics`. For both of them, we have set the scraping interval to 5 seconds, overriding the default. Then, we have specified the locations where these metrics will be available. Prometheus uses port 9090 and node_exporter uses port 9100 to provide their metrics.
+
+Finally, we will also change the ownership of files that Prometheus will use:
+
+sudo useradd -rs /bin/false prometheussudo chown -R prometheus: /etc/prometheus /var/lib/prometheus
+
+Then, we will create a systemd unit file in `/etc/systemd/system/prometheus.service` with the following contents :
+
+[Unit]  
+Description=Prometheus  
+After=network.target  
+  
+[Service]  
+User=prometheus  
+Group=prometheus  
+Type=simple  
+ExecStart=/usr/local/bin/prometheus \  
+    --config.file /etc/prometheus/prometheus.yml \  
+    --storage.tsdb.path /var/lib/prometheus/ \  
+    --web.console.templates=/etc/prometheus/consoles \  
+    --web.console.libraries=/etc/prometheus/console_libraries  
+  
+[Install]  
+WantedBy=multi-user.target
+
+Finally, we will reload systemd:
+
+sudo systemctl daemon-reload  
+sudo systemctl enable prometheus  
+sudo systemctl start prometheus
+
+Prometheus provides a web UI for running basic queries located at `http://<your_server_IP>:9090/`. This is how it looks like in a web browser:
+
+Press enter or click to view image in full size
+
+![](https://miro.medium.com/v2/resize:fit:700/1*xNEdWSkZU0zsNHh2-AGr4A.png)
 ## Docker
 For this session, we will use [How To Install and Use Docker on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04) tutorial, which is compatible with a Ubuntu 22.04 LTS Virtual Machine in Azure.
 
