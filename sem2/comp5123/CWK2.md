@@ -299,17 +299,17 @@ Open your `k8s_setup.sh` script, go to the `"test"` block, and replace **TEST 1*
 log_info "TEST 1: ICMP Ping (Baseline Network Latency)"
 log_data "Pinging the VNF Pod directly (K8s Services drop ICMP traffic)."
 if ask_yes_no "Run Ping test?"; then
-		# Dynamically extract the Pod IP of the HAProxy VNF
-		VNF_POD_IP=$(kubectl get pod -l app=mec-gateway -o jsonpath='{.items[0].status.podIP}')
-		log_info "Extracted VNF Pod IP: $VNF_POD_IP"
-		kubectl run -i --tty --rm ping-client --image=alpine --restart=Never -- sh -c "ping -c 5 $VNF_POD_IP"
-		log_success "Ping test complete. Record the avg latency (ms) for your report."
+	# Dynamically extract the Pod IP of the HAProxy VNF
+	VNF_POD_IP=$(kubectl get pod -l app=mec-gateway -o jsonpath='{.items[0].status.podIP}')
+	log_info "Extracted VNF Pod IP: $VNF_POD_IP"
+	kubectl run -i --tty --rm ping-client --image=alpine --restart=Never -- sh -c "ping -c 5 $VNF_POD_IP"
+	log_success "Ping test complete. Record the avg latency (ms) for your report."
 fi
 echo ""
 ```
 
 ---
-### Analyzing Your Cloud (Minikube) Results
+### Analysing Your Cloud (Minikube) Results
 Your `iperf3` and `wrk` tests executed flawlessly. These are the exact numbers you need to log in a spreadsheet for your Cloud vs. Edge comparison:
 
 **1. Throughput (iperf3):** * **Result:** `1.87 Gbits/sec`
