@@ -48,7 +48,7 @@ Create an [SSH connection](https://learn.microsoft.com/en-us/azure/virtual-machi
 1. If you're on a Windows machine, open a PowerShell prompt. If you're on a Mac or Linux machine, open a Bash prompt and set read-only permission on the .pem file using `chmod 400 ~/Downloads/myKey.pem`.
 2. At your prompt, open an SSH connection to your virtual machine. Replace the IP address with the one from your VM, and replace the path to the `.pem` with the path to where the key file was downloaded.
 ```
-ssh -i ~/Downloads/myKey.pem azureuser@10.111.12.123
+ssh -i ~/Downloads/myKey.pem azureuser@20.90.75.243
 ```
 **Tip**
 The SSH key you created can be used the next time your create a VM in Azure. Just select the **Use a key stored in Azure** for **SSH public key source** the next time you create a VM. You already have the private key on your computer, so you won't need to download anything.
@@ -64,7 +64,7 @@ When done, type `exit` to leave the SSH session.
 Use a web browser of your choice (not in the vm) to view the default NGINX welcome page. Type the public IP address of the VM as the web address. 
 ## Setup Prometheus and Grafana
 There are many online tutorials on how to install and use Prometheus with Grafana.The recommended one for this task is [Getting Started with Prometheus and Grafana.](https://medium.com/devops-dudes/install-prometheus-on-ubuntu-18-04-a51602c6256b)
-
+### Overview
 Steps:
 - Log into Microsoft Azure portal
 - Start the Ubuntu Virtual Machine you created (see previous lab. session)
@@ -161,13 +161,24 @@ rm -r prometheus-2.1.0.linux-amd64*
 ### ### Configuring Prometheus
 After having installed Prometheus, we have to configure Prometheus to let it know about the HTTP endpoints it should monitor. Prometheus uses the [YAML](https://en.wikipedia.org/wiki/YAML) format for its configuration.
 
-Go to `/etc/hosts` and add the following lines, replace `x.x.x.x` with the machine’s corresponding IP address
+```bash
+# Go to hosts
+sudo vim /etc/hosts
 
-x.x.x.x prometheus-target-1  
-x.x.x.x prometheus-target-2
+# Add the following, replace x.x.x.x with the machine’s corresponding IP address
+20.90.75.243 prometheus-target-1  
+20.90.75.243 prometheus-target-2
+
+```
 
 We will use `/etc/prometheus/prometheus.yml` as our configuration file
+```bash
+# Create the YAML config file
+sudo vim /etc/prometheus/prometheus.yml
 
+```
+
+```bash
 global:  
   scrape_interval: 10s  
   
@@ -181,14 +192,24 @@ scrape_configs:
     static_configs:  
       - targets: ['localhost:9100','prometheus-target-1:9100','prometheus-target-2:9100']
 
-In this file, we have defined a default scraping interval of 10 seconds. We have also define two sources of metrics, named `prometheus_metrics` and `node_exporter_metrics`. For both of them, we have set the scraping interval to 5 seconds, overriding the default. Then, we have specified the locations where these metrics will be available. Prometheus uses port 9090 and node_exporter uses port 9100 to provide their metrics.
+```
 
-Finally, we will also change the ownership of files that Prometheus will use:
+In this file, we have defined:
+- a default scraping interval of 10 seconds. 
+- two sources of metrics, named `prometheus_metrics` and `node_exporter_metrics`. 
+	- For both of them, we have set the scraping interval to 5 seconds, overriding the default. 
+- the locations where these metrics will be available. 
+Prometheus uses port 9090 and node_exporter uses port 9100 to provide their metrics.
+```bash 
+# Change the ownership of files that Prometheus will use
+sudo useradd -rs /bin/false prometheus
+sudo chown -R prometheus: /etc/prometheus /var/lib/prometheus
 
-sudo useradd -rs /bin/false prometheussudo chown -R prometheus: /etc/prometheus /var/lib/prometheus
+```
 
-Then, we will create a systemd unit file in `/etc/systemd/system/prometheus.service` with the following contents :
+Then, we will create a systemd unit file in `/etc/systemd/system/prometheus.service` with the following contents
 
+```bash
 [Unit]  
 Description=Prometheus  
 After=network.target  
@@ -206,16 +227,17 @@ ExecStart=/usr/local/bin/prometheus \
 [Install]  
 WantedBy=multi-user.target
 
-Finally, we will reload systemd:
+```
 
+```bash
+# Reload systemd:
 sudo systemctl daemon-reload  
 sudo systemctl enable prometheus  
 sudo systemctl start prometheus
 
+```
+
 Prometheus provides a web UI for running basic queries located at `http://<your_server_IP>:9090/`. This is how it looks like in a web browser:
-
-Press enter or click to view image in full size
-
 ![](https://miro.medium.com/v2/resize:fit:700/1*xNEdWSkZU0zsNHh2-AGr4A.png)
 ## Docker
 For this session, we will use [How To Install and Use Docker on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04) tutorial, which is compatible with a Ubuntu 22.04 LTS Virtual Machine in Azure.
