@@ -286,7 +286,62 @@ Prometheus provides a web UI for running basic queries located at `http://<your_
 ## Docker
 For this session, we will use [How To Install and Use Docker on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04) tutorial, which is compatible with a Ubuntu 22.04 LTS Virtual Machine in Azure.
 You can also install Docker in a Ubuntu 22.04 LTS virtual machine running on Virtualbox hypervisor.
-## RESULTS
+## UPDATE
+This is a massive discovery. Finding these instructor clarifications just saved you from losing significant marks across almost every section of the rubric.
+
+The instructor has drastically changed the expectations for **Task B (Environment)**, **Task C (Deployment)**, and **Task E (Discussion)**.
+
+Here is exactly what this new information means for your coursework, how we must pivot our strategy, and the immediate next steps to guarantee that 90-100% grade.
+
+---
+### 🚨 The 4 Critical Changes to Our Strategy
+#### 1. The Architecture Split (1 VM ➔ 2 VMs)
+- **What it means:** We can no longer use your single Azure Ubuntu VM to run both Minikube and K3s sequentially. The instructor explicitly expects **two distinct machines**: a heavy "Cloud" server and a restricted "Edge" client.
+- **The Pivot:** * **VM 1 (Cloud):** Your existing Azure Ubuntu VM. This will permanently run Minikube, Prometheus, and Grafana.
+    - **VM 2 (Edge):** You must spin up a _second_ Virtual Machine. The instructor specifically suggested **Alpine Linux** to simulate a Raspberry Pi 5. You should configure this new VM with exactly **4 CPU cores and 4GB or 8GB of RAM** to accurately mimic the Pi 5's hardware. This VM will run K3s and `node_exporter`.
+#### 2. The Monitoring Network (Scraping the Edge)
+- **What it means:** Because we are moving to two VMs, Prometheus (on the Cloud VM) needs to reach across the network to scrape metrics from `node_exporter` (on the Edge VM).
+- **The Pivot:** You must open Port `9100` on the new Edge VM's firewall. We will then add the Edge VM's IP address to the `prometheus.yml` file on your Cloud VM so Grafana can pull its CPU/Memory stats.
+#### 3. VNF Complexity Upgrade (1 VNF ➔ 2 Chained VNFs)
+- **What it means:** The instructor explicitly stated: _"You will be rewarded for more successfully created, complex scenarios. 2 is fine."_ A single HAProxy load balancer is no longer enough for top marks.
+- **The Pivot:** We will deploy a **2-VNF Service Chain**.
+    - **VNF 1:** HAProxy (5G MEC Traffic Gateway / UPF Emulator)
+    - **VNF 2:** CoreDNS (5G Edge DNS Resolver) or a lightweight packet filter/firewall.
+    - _The Scenario:_ User traffic hits the Edge DNS to resolve the service, then flows through the HAProxy Gateway. This is a highly complex, 100% realistic telecom edge scenario that will heavily impress the examiner.
+#### 4. The Literature Review (For Task E)
+- **What it means:** You cannot just write your own thoughts for Q5. You must cite academic papers.
+- **The Pivot:** When you write your report, you must search Google Scholar for papers comparing "K3s vs K8s performance at the edge" or "Kubernetes network overhead in telecom." You will contrast your `iperf3` results with their findings.
+
+---
+### 🛠️ Immediate Next Steps
+Since you are back on your beastly **Windows 11 Lab PC (32GB RAM, i7)**, you have a choice. You can either spin up the new Alpine Edge VM in Azure (which costs credits), or you can use VirtualBox/Hyper-V right there on your lab PC to run both VMs locally for free.
+Assuming you want to keep the Cloud VM in Azure (since we already installed Prometheus/Grafana there), here is exactly what you need to do next:
+#### Step 1: Provision the Edge VM (Simulating a Raspberry Pi 5)
+Spin up a new Virtual Machine (either in Azure or locally via VirtualBox on your Lab PC).
+- **OS:** Alpine Linux (or a very minimal Ubuntu Server install if Alpine is too difficult to provision in Azure).
+- **Specs:** 4 vCPUs, 4GB or 8GB RAM.
+- **Ports to Open:** `22` (SSH), `6443` (K3s API), `9100` (Node Exporter), `5201` (iperf3), and `80` (HTTP).
+#### Step 2: Update the `k8s_setup.sh` Script
+Because our script is so well-organized, adapting to this new requirement is trivial and perfectly satisfies the instructor's requirement for "Reproducibility" (Info 3).
+
+You will run the script on the **Cloud VM** to start Minikube, and run a copy of the script on the **Edge VM** to install K3s and `node_exporter`.
+#### Step 3: Connect Prometheus to the Edge
+On your Cloud VM, open your Prometheus config:
+```bash
+sudo nano /etc/prometheus/prometheus.yml
+```
+Update the targets list to include the internal or public IP of your new Edge VM:
+```YAML
+  - job_name: 'node_exporter_metrics'
+    static_configs:
+      - targets: ['localhost:9100', '<EDGE_VM_IP>:9100']
+```
+
+Then restart Prometheus: `sudo systemctl restart prometheus`.
+
+---
+**How would you like to proceed?** Do you want to spin up the Alpine Edge VM in Azure right now, or do you want to use VirtualBox on your Lab PC? Let me know, and I will give you the exact commands to provision it and install the 2-VNF Service Chain!
+## RESULTS (OLD)
 This is a brilliant moment for your coursework, and the "failure" of Test 1 is actually an incredibly valuable technical talking point for your report!
 ### Why did the Ping test fail? (The "Kubernetes ICMP Drop")
 The ping test returned 100% packet loss because you pinged `mec-gateway-svc`. In Kubernetes, a `Service` (ClusterIP) is not a real physical network interface; it is a set of `iptables` rules managed by `kube-proxy`. By design, Kubernetes Services **do not route ICMP (ping) traffic**. They only route the specific TCP/UDP ports you defined in your manifest (ports 80 and 5201).
