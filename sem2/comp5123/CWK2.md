@@ -341,6 +341,16 @@ Then restart Prometheus: `sudo systemctl restart prometheus`.
 
 ---
 **How would you like to proceed?** Do you want to spin up the Alpine Edge VM in Azure right now, or do you want to use VirtualBox on your Lab PC? Let me know, and I will give you the exact commands to provision it and install the 2-VNF Service Chain!
+### The New Architecture Map
+To satisfy this requirement, here is exactly how your software must be split across two separate VMs:
+
+|Component|VM 1: The "Server" (Cloud)|VM 2: The "Client" (Edge)|
+|---|---|---|
+|**Operating System**|Ubuntu 22.04 LTS (Your Azure VM)|Alpine Linux (or lightweight Ubuntu)|
+|**Kubernetes Engine**|Minikube|K3s|
+|**Hardware Scraper**|**Node Exporter** (Runs here)|**Node Exporter** (Runs here too)|
+|**Data Storage**|**Prometheus** (Runs here)|_None_ (Must not be installed here)|
+|**Visualisation**|**Grafana** (Runs here)|_None_ (Must not be installed here)|
 ## RESULTS (OLD)
 This is a brilliant moment for your coursework, and the "failure" of Test 1 is actually an incredibly valuable technical talking point for your report!
 ### Why did the Ping test fail? (The "Kubernetes ICMP Drop")
