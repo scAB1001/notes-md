@@ -343,7 +343,7 @@ Then restart Prometheus: `sudo systemctl restart prometheus`.
 **How would you like to proceed?** Do you want to spin up the Alpine Edge VM in Azure right now, or do you want to use VirtualBox on your Lab PC? Let me know, and I will give you the exact commands to provision it and install the 2-VNF Service Chain!
 ### The New Architecture Map
 To satisfy this requirement, here is exactly how your software must be split across two separate VMs:
-
+	
 |Component|VM 1: The "Server" (Cloud)|VM 2: The "Client" (Edge)|
 |---|---|---|
 |**Operating System**|Ubuntu 22.04 LTS (Your Azure VM)|Alpine Linux (or lightweight Ubuntu)|
