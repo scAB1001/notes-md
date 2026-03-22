@@ -521,7 +521,7 @@ Using Kubernetes declarative manifests, each VNF was strictly bound by 100Mi mem
 Two Azure Virtual Machines were fashioned to create this scenario. The Cloud environment deploys Minikube with a Docker container runtime to emulate a traditional, heavy ETSI MANO datacenter. The Edge environment deploys K3s with a containerd runtime, removing Docker daemons to emulate a lightweight Multi-Access Edge Computing (MEC) node. I created Bash scripts  which act as imperative provisioners to bootstrap the host dependencies and minimise any configuration drift.
 
 I deployed the identical 3-VNF Service Graph to both clusters using declarative Kubernetes YAML manifests. ConfigMaps were used to decouple the routing logic from the execution environment and directly inject configurations into the containers. 
-To prevent CPU hotspots and Out-Of-Memory evictions on the Edge node, I defined `requests` and `limits` within the Deployment specifications (100Mi Memory and 200m CPU per VNF). Furthemore, Kubernetes Services were used to provide stable internal DNS resolution via `kube-proxy`, allowing for seamless service chaining.
+To prevent CPU hotspots and Out-Of-Memory evictions on the Edge node, I defined requests and limits within the Deployment specifications (100Mi Memory and 200m CPU per VNF). Furthemore, Kubernetes Services were used to provide stable internal DNS resolution via kube-proxy, allowing for seamless service chaining.
 
 A significant networking challenge emerged while managing the infrastructure across two physical client machines: a personal laptop and a university lab workstation. 
 
@@ -529,6 +529,6 @@ Whilst authenticating via SSH into the Cloud VM from the personal machine, which
 
 This strict rule temporarily blocked Port 22 and unexpectedly severed the port 9100 Prometheus telemetry route. I resolved this by lowering the priority of the Inbound Port Rule for SSH (Port 22).
 
-To verify the deployments, I executed a "Hello World" test by instructing an ephemeral Alpine pod to send an HTTP GET request to the ingress Firewall Service. The request successfully traversed the Service Function Chain and returned the expected HTML payload. More crucially, the HTTP headers were queried to reveal the `X-DPI-Inspected: True-Secure` tag. This empirically proved that the DPI VNF successfully intercepted, unboxed, and modified the Layer 7 payload before forwarding it to the UPF Gateway, validating the logical integrity of the entire Service Graph.
+To verify the deployments, I executed a "Hello World" test by instructing an ephemeral Alpine pod to send an HTTP GET request to the ingress Firewall Service. The request successfully traversed the Service Function Chain and returned the expected HTML payload. More crucially, the HTTP headers were queried to reveal the X-DPI-Inspected: True-Secure tag. This empirically proved that the DPI VNF successfully intercepted, unboxed, and modified the Layer 7 payload before forwarding it to the UPF Gateway, validating the logical integrity of the entire Service Graph.
 
 _(Character count: 2212/2500)_
