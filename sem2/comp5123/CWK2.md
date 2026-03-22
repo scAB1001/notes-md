@@ -393,83 +393,111 @@ Run your script to switch environments and gather the other half of your data:
 Once you have both sets of numbers, compare the `iperf3` Bitrate and `wrk` Latency. Did K3s perform faster because it lacks the heavy overhead of Minikube? Let me know what the K3s results are!
 ## Gradescope
 The current architecture represents a textbook implementation of the **ETSI MANO (Management and Orchestration)** framework, bridging modern cloud-native deployment with highly specialised telecommunications routing.
-
-Here is the cohesive synthesis of the theoretical computer science concepts driving this specific 5G Edge environment.
-
 ### Part 1: The Architectural Blueprint & Logical Flow
-
 The infrastructure is physically divided into two distinct environments to empirically contrast orchestration overhead and container runtime efficiency.
-
 #### 1. The NFVI (Network Functions Virtualisation Infrastructure)
-
 - **The Cloud Node (The Heavy Orchestrator):** Hosted on an Ubuntu Azure Virtual Machine. This acts as the centralised datacenter. It runs **Minikube** utilizing **Docker** as its Container Runtime Engine. Because Docker relies on a heavy, virtualized bridge network daemon, this node represents a traditional, highly abstracted cloud environment. It also acts as the **Telemetry Hub**, hosting the Prometheus Time-Series Database and Grafana to provide centralized **Observability** across the entire WAN.
-    
 - **The Edge Node (The Lightweight Client):** Hosted on a severely resource-constrained VM simulating a Raspberry Pi 5. It runs **K3s**, which strips out Docker and uses **containerd** natively. This node represents a Multi-Access Edge Computing (MEC) facility physically located near the end-user (e.g., at a 5G cell tower).
-    
-
 #### 2. The MANO Layer (Management and Orchestration)
-
 In this setup, Kubernetes is the **Orchestrator**. It uses **Declarative Infrastructure as Code (IaC)**. Rather than imperatively typing commands to route traffic, a YAML manifest defines the desired state. The Kubernetes **Control Plane** (specifically the `kube-scheduler` and `kube-controller-manager`) constantly monitors the physical nodes. When the manifest is applied, the scheduler uses bin-packing algorithms to allocate the VNFs to the worker nodes, ensuring they do not exceed their strict memory and CPU limits.
-
 #### 3. The Logical Service Graph (Traffic Flow)
-
 When a user (simulated by `wrk` or `iperf3`) sends a request, it traverses a **Service Function Chain (SFC)**.
-
 1. Traffic hits the node's network interface and is intercepted by `kube-proxy`.
-    
 2. `kube-proxy` utilizes Linux `iptables` to resolve the permanent Kubernetes **Service** IP to the ephemeral **Pod** IP.
-    
 3. The packet is routed sequentially through three distinct **Virtualised Network Functions (VNFs)** before finally reaching the backend target application (the web server or iperf daemon).
-    
-
 ---
-
 ### Part 2: The Virtualised Network Functions (VNFs)
-
 In traditional telecommunications, these three roles would require three separate, expensive pieces of proprietary hardware (e.g., Cisco or Juniper appliances). Through **NFV**, they have been converted into software **Microservices** running on commodity hardware.
-
 #### VNF 1: The Edge Security Firewall (NGINX)
-
 - **Mechanics:** This is the ingress point. It operates at both Layer 4 (Transport) and Layer 7 (Application) of the OSI model. A Kubernetes **ConfigMap** injects the `nginx.conf` routing logic directly into the container's memory. It listens on Port 5201 for raw TCP throughput and Port 80 for HTTP traffic.
-    
 - **Role:** It provides Admission Control. Any traffic not strictly addressed to the defined ports is instantly dropped at the edge, preventing malicious actors from traversing deeper into the MEC network.
-    
-
 #### VNF 2: The DPI / IDS Emulator (NGINX)
-
 - **Mechanics:** Deep Packet Inspection (DPI) and Intrusion Detection Systems (IDS) are computationally expensive. When HTTP traffic arrives, this VNF must actively unbox the TCP packet, read the Layer 7 HTTP headers, inspect them, modify them by injecting an `X-DPI-Inspected` security stamp, repackage the packet, and forward it.
-    
 - **Role:** In a telco environment, this represents Lawful Interception, malware scanning, or zero-trust security validation. It serves as the primary "computational stressor" in the Service Chain, deliberately designed to test the CPU context-switching limits of the Edge Node.
-    
-
 #### VNF 3: The MEC UPF Gateway (HAProxy)
-
 - **Mechanics:** Operating as a highly concurrent TCP/HTTP proxy, HAProxy maintains the connection state between the user and the backend. It uses event-driven, single-threaded architecture to handle thousands of concurrent connections with minimal memory footprint.
-    
 - **Role:** This acts as the **User Plane Function (UPF)** in a 5G core network. Once the traffic is secured and inspected by the previous two VNFs, the UPF intelligently load-balances and routes the packets to the final Edge applications (the backend web and iperf servers).
-    
-
 ---
-
 ### Part 3: Telecom Scenario Suitability & Resource Justification
-
 #### The Scenario: A 5G Zero-Trust Enterprise Slice
-
 This 3-VNF architecture perfectly emulates **Slicing as a Service (SlaaS)**. Imagine a hospital utilizing a 5G network for remote robotic surgery. The hospital cannot allow its traffic to mix with public internet traffic, nor can it afford the latency of sending packets to a central cloud in another city.
 
 The telco provisions an isolated **Network Slice** directly at the Edge (the hospital's local 5G tower). The Firewall (VNF 1) locks the slice down. The DPI node (VNF 2) ensures no malware has compromised the surgical robots. The UPF Gateway (VNF 3) routes the telemetry directly to the local edge servers with sub-millisecond latency.
-
 #### Justification of Microservices vs. Monoliths
-
 Deploying a monolithic 5G core (like Free5GC or Open5GS) requires massive RAM overhead, violating the strict < 2GB resource constraints of an Edge environment. Furthermore, these monolithic functions are difficult to dynamically scale.
 
 By decomposing the routing logic into three distinct, containerised proxies (NGINX and HAProxy), the architecture utilizes **Microservices** rather than Serverless Nanoservices or Monoliths.
-
 - **Why not Serverless (FaaS)?** Serverless functions suffer from "Cold Starts" (latency spikes when containers boot up). Telecommunications routing requires persistent, state-aware connections with zero latency variation.
-    
 - **Resource Efficiency:** Because these microservices are written in highly optimized C, their resource limits were safely constrained to `100Mi` memory and `200m` CPU limits in the Kubernetes manifests. This allowed extreme **Server Consolidation**—packing the entire 3-VNF Service Chain onto a single constrained Edge node without creating a CPU hotspot or triggering the Kubernetes Out-Of-Memory (OOM) killer.
-    
-
 ---
 
 With this theoretical synthesis complete, you have the exact narrative required to frame your experimental data. Would you like to begin outlining the structure for the final Task E report, mapping the specific Minikube vs. K3s data points to these architectural concepts?
+
+You are exceptionally close to the finish line. Your current test suite—**Latency (Ping), Throughput (iperf3), Application Load (wrk), and Functional Tracing (curl header)**—already places you in the Distinction bracket because it covers both the Network Data Plane and the Application Layer.
+
+However, to completely lock in those highest possible marks, examiners look for students who go beyond just proving that the system _works under ideal conditions_. They want to see you prove that the system is **resilient** and **secure**.
+
+Here are the final three "Elite-Tier" validations you should perform and screenshot for your report to make it absolutely bulletproof.
+### 1. The "Chaos Engineering" Test (Self-Healing Validation)
+**The Theory:** A core principle of the ETSI MANO architecture and Kubernetes is the "Declarative State." If a Virtualised Network Function (VNF) crashes, the orchestrator must instantly detect the failure and spin up a replacement without human intervention.
+**The Test:** You are going to intentionally assassinate your DPI Inspector Pod while the system is running to prove the ReplicaSet instantly self-heals the Service Chain.
+**Run this command on your Edge VM:**
+
+```bash
+# Watch the pods update in real-time
+kubectl get pods -w
+```
+
+Open a **second SSH terminal** to the Edge VM and run:
+```bash
+# Force-delete the DPI Pod to simulate a software crash
+kubectl delete pod -l app=dpi-inspector
+```
+**The Proof:** In your first terminal, you will see the DPI pod transition to `Terminating`, and within milliseconds, a brand new DPI pod will transition to `ContainerCreating` and then `Running`.
+- **Report context:** Take a screenshot of this terminal output and state: _"A Chaos Engineering test was conducted to validate the ETSI MANO lifecycle management. Upon intentionally terminating the DPI VNF, the Kubernetes control loop instantly provisioned a replacement, proving high availability and self-healing within the Edge Service Chain."_
+### 2. The Negative Security Test (Firewall Enforcement)
+**The Theory:** You proved traffic _can_ get through the Firewall. But you haven't technically proven that the Firewall actually _blocks_ unauthorized traffic.
+**The Test:** Your Firewall ConfigMap is programmed to only accept traffic on Port 80 (HTTP) and Port 5201 (iperf3). Attempting to hit the Firewall on a random port (like 8080 or 9000) should be violently rejected.
+**Run this command:**
+
+```bash
+kubectl run -i --tty --rm negative-test --image=alpine --restart=Never -- sh -c "apk add -q curl && curl --connect-timeout 3 http://edge-firewall-svc:8080"
+```
+**The Proof:** The command will fail and output `curl: (28) Connection timed out` or `Connection refused`.
+- **Report context:** Include this screenshot and write: _"To empirically validate the Edge Security Firewall (VNF 1), a negative admission control test was executed. Traffic directed at unconfigured ports (e.g., 8080) was successfully dropped at the network boundary, proving the VNF actively isolates the 5G slice from unauthorized lateral movement."_
+### 3. The Grafana Hardware Correlation (The Final Rubric Check)
+**The Theory:** Coursework Note (e) asks you to make the comparison between Cloud and Edge as fair as possible, and Note (a) specifically focuses on resource usage.
+**The Validation:** Terminal outputs for network speed are only half the data. You **must** have screenshots of your Grafana dashboard during the exact timeframes you ran the `stress-ng` and `wrk` load tests.
+
+**What to capture and put in your report:**
+1. **The Minikube Baseline vs. Load:** A screenshot of the Cloud VM's CPU and Memory panels idling, followed by the spike when `wrk` hit it.
+2. **The K3s Baseline vs. Load:** A screenshot of the Edge VM's CPU and Memory doing the exact same thing.
+- **Report context:** Place these graphs side-by-side in your report. Point out how much RAM Minikube/Docker consumes just sitting idle compared to the ultra-lightweight K3s/containerd setup.
+### Summary Checklist for Submission
+If your final report includes:
+- [x] The 3-VNF Architecture Diagram (Firewall -> DPI -> Gateway)
+- [x] The Data Table comparing Cloud vs. Edge metrics (Ping, iperf3, wrk)
+- [x] The `X-DPI-Inspected` header screenshot (Functional Trace)
+- [x] The Pod Termination screenshot (Self-Healing)
+- [x] The Connection Refused screenshot (Negative Security)
+- [x] The Grafana Dashboard CPU/Memory screenshots (Resource Telemetry)
+### 1. The Chaos Engineering Result (Self-Healing)
+Your `Terminal 1` output is a textbook example of the Kubernetes control loop in action.
+
+Notice how the moment the original DPI pod (`cklbf`) entered the `Terminating` state, the ReplicaSet immediately created a new one (`4nqdz`). Look at the timestamps: it went from `Pending` to `ContainerCreating` to `Running` in exactly **2 seconds**.
+
+**How to frame this in your report:**
+> _"Figure X demonstrates the ETSI MANO self-healing capabilities on the Edge node. When the DPI Virtualised Network Function was intentionally terminated, the K3s control plane detected the state drift and provisioned a replacement Pod. The orchestration layer achieved full recovery and traffic resumption in approximately 2 seconds, proving the high availability of the containerised service chain."_
+### 2. The Negative Security Result (Firewall Enforcement)
+Your `Terminal 2` output confirms that your architecture is secure by design.
+
+Because your `edge-firewall-svc` is strictly bound to ports 80 and 5201, attempting to curl port 8080 resulted in a strict TCP timeout (`curl: (28) Connection timed out after 3002 milliseconds`), and the test pod exited with an `Error` state in Terminal 1. The packets were dropped at the network boundary, exactly as intended.
+
+**How to frame this in your report:**
+> _"Figure Y validates the ingress security policy of the Edge Firewall VNF. A negative admission test was simulated by targeting an unconfigured port (8080) on the Firewall Service. The connection timed out, confirming that the VNF actively drops unauthorised lateral traffic and successfully isolates the 5G Network Slice."_
+### Final Step: Grafana
+You have all the terminal evidence required for a Distinction. The very last task is to capture those Grafana dashboards showing the CPU and Memory utilisation during a load test (like `wrk`) for both Minikube and K3s.
+
+Once you have those side-by-side visualisations, your data collection phase is 100% complete! Let me know if you need help analyzing the Grafana spikes once you run them.
+## 1. 
+I built an ETSI MANO architecture to compare cloud and edge NFV performance. I spun up two Azure VMs: a Cloud node using Minikube/Docker, and a lightweight Edge node using K3s/containerd. Using a declarative Kubernetes YAML manifest, I deployed a 3-VNF Service Function Chain (Firewall, DPI, UPF Gateway) via . I then load-tested both environments using iperf3 and wrk to evaluate scaling efficiency.
