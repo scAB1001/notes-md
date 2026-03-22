@@ -500,4 +500,18 @@ You have all the terminal evidence required for a Distinction. The very last tas
 
 Once you have those side-by-side visualisations, your data collection phase is 100% complete! Let me know if you need help analyzing the Grafana spikes once you run them.
 ## 1. 
-I built an ETSI MANO architecture to compare cloud and edge NFV performance. I spun up two Azure VMs: a Cloud node using Minikube/Docker, and a lightweight Edge node using K3s/containerd. Using a declarative Kubernetes YAML manifest, I deployed a 3-VNF Service Function Chain (Firewall, DPI, UPF Gateway) via . I then load-tested both environments using iperf3 and wrk to evaluate scaling efficiency.
+I built an ETSI MANO architecture to compare cloud and edge NFV performance. I spun up two Azure VMs: a Cloud node using Minikube/Docker, and a lightweight Edge node using K3s/containerd. Using a declarative Kubernetes YAML manifest, I deployed a 3-VNF Service Function Chain (Firewall, DPI, UPF Gateway). Then, I load-tested both environments using iperf3 and wrk to evaluate scaling efficiency and other performance metrics.
+## 2.
+**Which VNF(s) did you select, why are they suitable for telecom scenarios, and how do their roles and resource requirements justify your choice? (2500 characters with spaces max)**
+
+I selected a three-node Service Function Chain (SFC) comprised of lightweight, container-native microservices. The architecture consists of NGINX as an Edge Security Firewall (VNF 1), an NGINX proxy configured for Deep Packet Inspection (VNF 2), and HAProxy as a MEC UPF Gateway (VNF 3).
+
+This specific SFC emulates a Zero-Trust 5G Network Slice. It is highly suitable for Slicing-as-a-Service (SlaaS) scenarios requiring low-latency, isolated Multi-Access Edge Computing (MEC). For example, routing telemetry for robotic surgery requires strict admission control and traffic engineering directly at the network edge to eliminate WAN latency. 
+
+The architecture accurately replicates the data-plane routing of a 5G core network by chaining a Firewall for Layer 4/7 filtering, an IDS/DPI emulator for Lawful Interception, and a UPF proxy for high-concurrency load balancing. It simply avoids the orchestration overhead of a full telecom suite.
+
+Each VNF fulfills a critical ETSI MANO network role. The Firewall acts as the ingress boundary., dropping unauthorised traffic before it uses internal cluster resources. The DPI Emulator actively inspects and modifies application-layer HTTP payloads, injecting security headers to validate traceability. The HAProxy UPF Gateway maintains persistent connection states; it multiplexes thousands of concurrent user requests to the backend application servers.
+
+The Edge VM simulated a resource-constrained hardware profile. Therefore, deploying monolithic 5G cores like Free5GC or Open5GS was unfeasible due to their heavy CPU and RAM dependencies; these monoliths violate the strict 2GB memory constraint. Instead, NGINX and HAProxy were chosen as they are highly efficient, C-based binaries. They utilize asynchronous, event-driven architectures that require minimal memory footprints. Using Kubernetes declarative manifests, each VNF was strictly bound by 100Mi memory and 250m CPU limits. This permitted extreme server consolidation. The entire 3-VNF chain successfully operated on a single K3s worker node without triggering CPU hotspots or Kubernetes Out-Of-Memory (OOM) evictions, sustaining over 1000 HTTP requests per second.
+
+_(Character count: 2269/2500)_
