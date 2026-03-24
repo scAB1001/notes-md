@@ -126,3 +126,10 @@ lo tratana un culo -> treats him badly
 
 habia cosas que no lograba 
 cotidianidad -> daily life
+cuaderno -> 
+nunca me paso esto -> nothing like that has ever happened to me
+
+bitacora -> journal/diary/scientific findings
+
+si me paso -> it happened to me
+y despues, nos trataron super bien
