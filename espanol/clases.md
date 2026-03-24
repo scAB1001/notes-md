@@ -120,3 +120,9 @@ Use subjunctive whenever there is question e.g. whatver you can find in the supe
 # 17/03
 Hacer guaca -> pay your part/split
 despues de que ude' me
+
+# 24/03
+lo tratana un culo -> treats him badly
+
+habia cosas que no lograba 
+cotidianidad -> daily life
