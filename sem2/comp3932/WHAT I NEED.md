@@ -523,4 +523,82 @@ Write about the fact the ethical consideration is part of the motivation of the 
 
 - Which metrics?
 - User ethics
-# 6
+# 6 
+In the field of Human-Computer Interaction (HCI) and Virtual Reality (VR), evaluation is not just about "does it work?" but rather "how well does it facilitate human intent?" For a high-scoring Computer Science project, you need a mixed-methods approach that balances **objective telemetry** (what the computer sees) with **subjective feedback** (what the user feels).
+
+The industry standard for evaluating a new interaction paradigm involves a **Within-Subjects Design**, where each participant tests both the baseline (joystick) and your experimental system (hand gestures) to eliminate individual skill variance.
+
+---
+
+## 1. Subjective Metrics: Standard Questionnaires
+
+To justify your claims in the "Results and Discussion" chapter, you should use validated, peer-reviewed scales. This prevents your evaluation from being dismissed as "subjective opinion."
+
+### System Usability Scale (SUS)
+
+The SUS is a ten-item Likert scale (1-5) that provides a "quick and dirty" but reliable tool for measuring usability.
+
+- **Why use it?** It gives you a single score out of 100, which is highly effective for a "Summary Table of Methods" in your report.
+- **Metric:** A score above 68 is considered above average.
+### NASA Task Load Index (NASA-TLX)
+
+This is critical for your project aim of reducing cognitive load. It measures:
+- **Mental Demand:** How much mental and perceptual activity was required?
+- **Physical Demand:** This is vital for hand-tracking to detect "Gorilla Arm" fatigue.
+- **Temporal Demand:** Did the user feel rushed?
+- **Effort/Frustration:** How hard did they have to work to reach their performance level?
+### VR Sickness Questionnaire (VRSQ)
+Since your project involves 3D manipulation, measuring nausea, oculomotor strain, and disorientation is a professional touch that demonstrates a "deeper understanding" of VR safety.
+
+---
+
+## 2. Objective Metrics: The CS Telemetry
+
+While the survey captures the user's perception, your **HandMetricsLogger** should capture the hard data. This is what differentiates a CS project from a design project.
+
+|**Metric**|**Data Source**|**Calculation / Justification**|
+|---|---|---|
+|**Task Completion Time (TCT)**|`VarjoTime.GetVarjoTimestamp()`|Total nanoseconds from the start of the task to the final alignment.|
+|**Transform Efficiency**|`Transform.eulerAngles`|The sum of total rotation applied. High efficiency = low total degrees moved to reach the target.|
+|**Gesture Precision**|`PinchStrength`|The variance in pinch strength during a "grab." Does the user struggle to maintain the 0.8 threshold?.|
+|**Focus Stability**|`GazeData.focusStability`|Measure if users look at the liver or their hands. High focus stability on the model suggests higher intuition.|
+
+---
+
+## 3. The Qualitative Survey: Guided Feedback
+
+Beyond the numbers, you need "clever summary forms" to guide user feedback. Structure your survey to ask about specific features:
+
+1. **Intuition:** "On a scale of 1-5, how much did the 'Pinch' gesture feel like picking up a physical object?"
+    
+2. **Mapping:** "Was the relationship between your hand's rotation and the liver's rotation clear?"
+    
+3. **Discovery:** "How long did it take for you to feel 'in control' of the scaling mechanic?"
+    
+4. **Open-Ended:** "What was the most frustrating part of the hand-tracking experience?" (This is where you look for mentions of **occlusion** or **jitter**).
+    
+
+---
+
+## 4. Evaluation Protocol: A Standard Way
+
+To ensure your results are statistically meaningful ($p < 0.05$), follow this sequence for every participant:
+
+1. **Pre-Test:** Sign ethics consent and Briefing.
+    
+2. **Training:** A 2-minute "sandbox" mode to learn the gestures.
+    
+3. **Task A (Baseline):** Perform the liver alignment task using the Joystick.
+    
+4. **Task B (Experimental):** Perform the same task using Hand Gestures.
+    
+5. **Post-Task Survey:** Fill out the NASA-TLX and SUS for **each** method separately.
+    
+6. **Interview:** Brief qualitative discussion on their preference.
+    
+
+### Statistical Analysis Tip
+
+In your report, do not just list the averages. Use a **Paired Samples t-test** to compare the TCT (Time to Completion) of the joystick vs. gestures. If your $p$-value is less than 0.05, you can formally claim that your gesture system is "statistically faster/more efficient."
+
+Would you like me to draft the specific 10 questions for the System Usability Scale (SUS) tailored to your medical anatomy navigation context?
