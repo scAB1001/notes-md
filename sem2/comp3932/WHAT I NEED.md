@@ -585,18 +585,11 @@ Beyond the numbers, you need "clever summary forms" to guide user feedback. Stru
 To ensure your results are statistically meaningful ($p < 0.05$), follow this sequence for every participant:
 
 1. **Pre-Test:** Sign ethics consent and Briefing.
-    
 2. **Training:** A 2-minute "sandbox" mode to learn the gestures.
-    
 3. **Task A (Baseline):** Perform the liver alignment task using the Joystick.
-    
 4. **Task B (Experimental):** Perform the same task using Hand Gestures.
-    
 5. **Post-Task Survey:** Fill out the NASA-TLX and SUS for **each** method separately.
-    
 6. **Interview:** Brief qualitative discussion on their preference.
-    
-
 ### Statistical Analysis Tip
 
 In your report, do not just list the averages. Use a **Paired Samples t-test** to compare the TCT (Time to Completion) of the joystick vs. gestures. If your $p$-value is less than 0.05, you can formally claim that your gesture system is "statistically faster/more efficient."
