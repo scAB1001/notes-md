@@ -24,5 +24,3 @@ You can also refer to multiple authors at once; this will not only help to make 
 - A number of studies have shown that ... (Richards, 2007; Graham, 2009; Elston, 2011; Chan, 2012)
 - Socio-economic factors such as class and education, as well as "hereditary determinants" (Civaner and Arda, 2008, p.267), can have a detrimental effect on an individual's health.
 ### Useful
-**Immersive 3D virtual reality imaging in planning minimally invasive and complex adult cardiac surgery**
-Sadeghi AH, Bakhuis W, Van Schaagen F, et al. Immersive 3D virtual reality imaging in planning minimally invasive and complex adult cardiac surgery. _Eur Heart J Digit Health_. 2020;1(1):62-70. Published 2020 Nov 23. doi:10.1093/ehjdh/ztaa011
