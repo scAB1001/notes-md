@@ -143,3 +143,37 @@ combo
 que se quieren encontrar
 porque atraves
 sondear
+la tarima
+y va buscamos un espacio donde quepa todo el mundo
+
+esto empieza a generar
+el rock esta mas present que nunca en el gusto 
+que vienen asistiendo anyo tras anyo
+
+el rock se posesiono definitivamente en bogota 
+y logro movilizar varias generaciones
+
+esta condicion se vislumbro desde anyos
+
+comportamientos
+se ofrecen condiciones adecuadas
+demandas
+porque le paro' olas a la gente
+
+una especie de pacto de paz 
+
+parece que Rock al Parque era la respuesta por mucha gente
+eso va sucediendo sobre
+los mismos pelados
+la creacion de las fuerzas de paz
+
+son los que se van a encargar
+pacto de convivencia
+
+riesgo muy alto
+alejaramos
+en torno a la musica
+muchas arenas
+dantesca
+cas del pri en mexico 
+sepultados
