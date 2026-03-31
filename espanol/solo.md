@@ -177,3 +177,37 @@ muchas arenas
 dantesca
 cas del pri en mexico 
 sepultados
+superheroe
+
+conseguirse
+el rock anglo viene de sociedades opulentas
+invertir
+el enenano
+la franja
+distinta
+brucera
+rococo'
+que nos convocan
+las casetes
+soda etereo va a marcar 
+fue la experiencia mia
+camillero
+involucraba a toda la ciudad
+pionero
+sepan de que
+enganchar
+cronicas la rizquesa
+yo estaba lesionada
+palida
+logran socar la chica
+tarima
+fobia de mexico
+empieza a medirse
+distrital
+convocatoria
+florece
+escena
+los meteleros
+ocasion
+tocaba graduar
+bacaneria
