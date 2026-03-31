@@ -104,5 +104,42 @@ Ella con esa cara tan de ella??
 The boys were not aware when they were told, captivated by the cows. Luis goes in to the memory the part at the back of their minds, their hair humid with sweat.
 por enterados
 # Hacer Rock en Hispanoamérica IV
-epopeya
-inespereda
+epopeya -> epic
+inespereda -> unexpected
+sufrida -> suffered, long-suffering
+la vez pasada ya hemos quedado en la importancia de las emisoras 
+
+quedado -> slowed?
+la emisora -> (radio) station/broadcaster/channel
+disqueras -> record company
+
+Fue en el ochenta y ocho en armoni'a y para el 94
+
+Resulta que la juventud si bien existi'a como 
+
+sujeto juri'dico
+
+ese feno'meno cultural es particular de las segunda mitad de siglo 20
+el rock es loq que acunya
+una massa 
+alrededor
+ajena
+la septima papeleta
+eso y hubo una votacio'n muy grande y la ganamos
+redaccion
+que nos diera la posibilidad
+colombia es un pais plurie'tnico
+nombrada
+el marco
+vetnanita
+un papel
+encabezados por pamrio duarte la derecha
+van acercas a lo que en ese momento era el instituto
+ni los equipos de sonido o sea esto empieza de la manera mas rudimentaria mas precarias so con las ganas
+celestes
+festivales pagos
+barriadas
+combo 
+que se quieren encontrar
+porque atraves
+sondear
