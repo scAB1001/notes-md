@@ -107,7 +107,6 @@ por enterados
 # Hacer Rock en Hispanoamérica IV
 # Hacer Rock en Hispanoamérica IV
 # Hacer Rock en Hispanoamérica IV
-# Hacer Rock en Hispanoamérica IV
 ### Vocabulary and Phrases
 1. la epopeya -> epic, grand saga
 La historia de Rock al Parque es una epopeya musical. -> The history of Rock al Parque is a musical epic.

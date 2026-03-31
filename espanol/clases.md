@@ -133,3 +133,5 @@ bitacora -> journal/diary/scientific findings
 
 si me paso -> it happened to me
 y despues, nos trataron super bien
+# 31/03
+Es mas facil para entender explicando
