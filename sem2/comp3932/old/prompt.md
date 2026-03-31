@@ -783,7 +783,7 @@ Traditional joystick interfaces for 3D medical visualization impose artificial c
 3. Conduct comparative usability evaluation vs. joystick baseline
 4. Optimize system performance for comfortable VR experience
 ### Deliverables:
-- Final dissertation report (60-80 pages)
+- Final dissertation report (30 pages)
 - Software repository with mesh processing toolkit, gesture recognition, Unity integration
 - Functional prototype application
 - Evaluation dataset and analysis
