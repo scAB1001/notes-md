@@ -211,3 +211,32 @@ los meteleros
 ocasion
 tocaba graduar
 bacaneria
+las almas
+platanal
+nos ha dejado
+cuadrando
+animo ludico
+se iban a encuerar
+cuadraba
+una jugarreta
+cosme ne ese momento
+a todas aquellas personas que con 
+un sondio verdaderamente maravillgoso
+nos hizo creer en su vestido de cristal
+se presento crack en la filarmonica
+cogiendo
+apocaliptica
+se vencio'
+la nevera 
+la pestilencia
+el rostro
+catartico fonetico
+ingeniamos
+decandentes
+la vecindad
+la escena del rey
+que trae la eseperanza
+enorme
+malvinas
+la esquina del movimiento
+ni las revistas ni las resenya ni los grupos
