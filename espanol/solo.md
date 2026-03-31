@@ -1,3 +1,4 @@
+# Personal
 >Acabo de afeitarme. y lavarme el pelo -en esta orden
  
  no todos se conocen
@@ -12,7 +13,6 @@
  sin nada que hacer
  la linea
  es por eso que 
-
 # Relatos Salvajes
 ### Vocabulario y frases
 defile -> catwalk
@@ -103,4 +103,6 @@ Ella con esa cara tan de ella??
 
 The boys were not aware when they were told, captivated by the cows. Luis goes in to the memory the part at the back of their minds, their hair humid with sweat.
 por enterados
-
+# Hacer Rock en Hispanoamérica IV
+epopeya
+inespereda
