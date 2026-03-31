@@ -104,6 +104,10 @@ Ella con esa cara tan de ella??
 The boys were not aware when they were told, captivated by the cows. Luis goes in to the memory the part at the back of their minds, their hair humid with sweat.
 por enterados
 # Hacer Rock en Hispanoamérica IV
+# Hacer Rock en Hispanoamérica IV
+# Hacer Rock en Hispanoamérica IV
+# Hacer Rock en Hispanoamérica IV
+# Hacer Rock en Hispanoamérica IV
 epopeya -> epic
 inespereda -> unexpected
 sufrida -> suffered, long-suffering
@@ -240,3 +244,12 @@ enorme
 malvinas
 la esquina del movimiento
 ni las revistas ni las resenya ni los grupos
+tiende a temerle 
+tiene rabo de paje
+confinamiento
+utopico
+estamos en el techo de la cordillera
+protagonico
+la bravura 
+
+d
