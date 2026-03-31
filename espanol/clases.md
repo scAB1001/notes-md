@@ -136,3 +136,5 @@ y despues, nos trataron super bien
 # 31/03
 Es mas facil para entender explicando
 Una vaina asi
+muy quieto
+es una mierda
