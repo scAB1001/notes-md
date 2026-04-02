@@ -768,14 +768,14 @@ Do not just report a single "Workload Score of 65/100." [cite_start]Analyzing su
 By abandoning your custom template, adopting RTLX, and explicitly comparing the NASA-TLX subscales against your hidden 6-DoF telemetry algorithms, your Chapter 4 (Results) will transform from a simple summary into a rigorous, publishable analysis of XR interaction paradigms.
 #### When to use
 This is an excellent find. The _Murauer et al. (2018)_ paper you uploaded is a methodological goldmine for your project. While their domain is industrial order picking and yours is medical surgical planning, the underlying Human-Computer Interaction (HCI) experimental design is practically identical.
-### 1. What is useful to you from the Murauer et al. paper?
+#### 1. What is useful to you from the Murauer et al. paper?
 This paper provides a perfect, peer-reviewed blueprint for how you should structure, analyze, and present your own experiment in your dissertation.
 
 - **The Perfect Methodological Parallel:** Murauer et al. utilized a repeated measures (within-subjects) design where participants tested different systems (Text vs. AR). You are doing the exact same thing: a repeated measures design where users test different interaction methods (Varjo Controller vs. Hand Tracking).
 - **The Trinity of Metrics:** They measured Task Completion Time (TCT), number of errors (ER), and perceived cognitive load using the Raw NASA-TLX (RTLX). You are measuring TCT, Errors (Angular/Translational inefficiency), and RTLX. You can cite their methodology to prove your choice of metrics is an established industry standard for evaluating XR systems.
 - **The Statistical Roadmap:** The most valuable part of this paper for you is Section 4.5 (Results). It tells you exactly which statistical tests you need to run on your data. They analyzed their RTLX and TCT scores using a "one-way repeated measures ANOVA" followed by a post-hoc test with a "Bonferroni correction" to find statistical significance. You should plan to use these exact same statistical tests in SPSS or Python for your Chapter 4.
 - **Citation Precedent:** Notice that Murauer et al. explicitly used the _Raw_ NASA-TLX questionnaire (RTLX) and cited Sandra G. Hart's 2006 "20 years later" paper to justify it. This proves that high-level computer science papers readily accept RTLX as a valid metric.
-### 2. When is it applicable to use NASA-TLX vs. RTLX?
+#### 2. When is it applicable to use NASA-TLX vs. RTLX?
 The decision between the two comes down to experimental design constraints and the risk of user fatigue.
 
 **When to use the Original (Weighted) NASA-TLX:**
@@ -787,7 +787,7 @@ RTLX eliminates the weighting process altogether; the ratings are simply average
 RTLX is highly applicable (and preferable) in studies like yours for two reasons:
 1. **Multiple Rapid Tasks:** You are asking users to complete 4 distinct tasks (Translation, Rotation, 6-DoF, Scaling) across 2 conditions (Controller vs. Hands). If you made them do 15 pairwise comparisons after _every single task_, they would suffer from extreme questionnaire fatigue, which would severely skew your data.
 2. **Established Validity:** As Hart noted in her 20-year retrospective, RTLX has gained popularity because it is simpler to apply, and across 29 comparative studies, it was found to be either more sensitive, less sensitive, or equally sensitive to the original.
-### 3. How to write this justification in your report
+#### 3. How to write this justification in your report
 To demonstrate a high level of critical thinking in your Methodology chapter, you can synthesize these sources into a robust academic defense. You can adapt a paragraph like this:
 
 > _"To evaluate the subjective cognitive cost of the interaction paradigms, this study utilized the Raw Task Load Index (RTLX), an unweighted variant of the standard NASA-TLX. While the original NASA-TLX requires a laborious 15-step pairwise comparison to calculate individual metric weights, Hart (2006) notes that eliminating this weighting process to use RTLX is simpler to apply and has been empirically proven to be as sensitive, if not more sensitive, in various contexts. Given the repeated-measures design of this study—requiring subjective evaluation across four rapid, progressive spatial tasks—RTLX was selected to prevent questionnaire fatigue and mitigate context effects. This unweighted approach aligns with recent XR evaluations, such as Murauer et al. (2018), who successfully utilized RTLX alongside Task Completion Time (TCT) to evaluate cognitive load in augmented reality environments."_
@@ -1049,3 +1049,4 @@ Based on Source 3 (User-Defined Gestures), we must select gestures that minimize
     * *The Action:* While gripping the object, pushing the thumbstick forward scales it up, pulling backward scales it down. (This beautifully highlights the "Mapping Dissonance" of controllers—why should pushing a stick "forward" make an object "bigger"? It is an artificial abstraction, perfectly contrasting your natural bimanual hand gesture).
 
 Does this synthesis clarify the academic framework of your experiment? If so, we can move straight into writing the C# logic for these specific `Quaternion` and `Vector3` telemetry algorithms in your new Development Chat!
+## Updating our existing surveys
