@@ -932,3 +932,61 @@ Once the liver is perfectly aligned, the system instantly snaps it into place, t
 - I want to know what algorithm is best to implement for calculating some of these metrics and why.
 - I also want to know which gestures to program. To do this,  I need to map out/finalise all of the movements that can be made e.g., rotation, scaling/zoom in/out, grabbing/piching, moving, etc. 
 	- Once determined, these actions will need to be efficiently and logically mapped to both Varjo VR controller and hand-gestures, deciding on the gesture itself based on literature i.e. what's intuitive and easy for people to perform and then solidifying whether or not it is mono or bimanual gesture for each action. 
+## Results
+This is exactly the type of foundational questioning that leads to a top-tier dissertation. You cannot effectively program a testing environment if you do not understand the academic logic behind it. 
+
+Let’s demystify the 6-DoF task and the NASA-TLX, validate your testing scenario, define your mathematical algorithms, and finalize your gesture mapping using the literature you provided.
+
+---
+### Part 1: The "Why" behind 6-DoF and NASA-TLX
+The easiest way to understand your methodology is to view it as a two-sided coin: **Objective Performance** versus **Subjective Cost**.
+#### Why the 6-DoF Docking Task? (The Objective Measure)
+In your provided Source 2 (the astronaut docking study), they note that controlling 6-DoF requires building an internal "mental representation of one's own position and orientation in space." 
+In the real world, a surgeon manipulating a liver inherently uses 6-DoF (Translate X/Y/Z and Rotate Pitch/Yaw/Roll). When we force users to do this virtually, we are testing the **"Mapping Dissonance."** 
+* **The Controller Problem:** A joystick is a 2D input device. Using it to perform a 3D rotational task forces the brain to translate "pushing a thumbstick left" into "rolling the liver on its Z-axis." This is a heavy cognitive translation step.
+* **The Hand Solution:** Hand-tracking provides a 1:1 kinematic mapping. Your hand moves forward, the liver moves forward. Your wrist twists, the liver twists. 
+* **The Purpose in your Report:** The docking task mathematically proves whether that 1:1 hand mapping actually translates to faster, more accurate spatial manipulation than the joystick. 
+#### Why the NASA-TLX? (The Subjective Measure)
+If your telemetry proves that hand-tracking completes the task 40% faster than the joystick, you might be tempted to say "Hand tracking is universally better." But what if the user’s arms were burning with fatigue? What if the camera lost tracking and frustrated them?
+* **The Purpose in your Report:** The NASA-TLX measures the *Cognitive and Physical Cost* of that performance. Source 3 highlights the physiological load of mid-air interaction. The NASA-TLX forces the user to rate their **Mental Demand**, **Physical Demand** (Gorilla Arm), and **Frustration**. 
+* **Harmonizing the Two:** You achieve $\ge 80\%$ critical analysis when you synthesize both metrics. For example: *"While 6-DoF telemetry proved hand-tracking was 30% faster, the NASA-TLX revealed a 50% increase in Physical Demand due to lack of haptic resting surfaces, indicating a trade-off between intuitive mapping and ergonomic fatigue."*
+
+---
+### Part 2: Reviewing Your 4-Task Setup
+Your isolation of variables (Translation -> Rotation -> Both -> Both + Scale) is **exceptional**. This is exactly how rigorous HCI studies are structured because it prevents confounding variables. If a user fails at Task 3, you know exactly why because you have their baseline data from Task 1 and 2.
+
+**Answering your Scaling Question:**
+*Should scale be constrained to all XYZ?* **Yes, absolutely.** You must lock the aspect ratio (Uniform Scaling). If you allow non-uniform scaling (stretching the liver into a pancake), you change the task from "spatial positioning" to "mesh deformation," which invalidates your docking metrics.
+
+---
+### Part 3: Telemetry Algorithms (The "How")
+To calculate spatial inefficiency, you must use industry-standard 3D mathematical principles. Here is exactly what algorithms to use and why:
+
+**1. Rotational Error (Angular Offset)**
+* **The Algorithm:** `Quaternion.Angle(liver.rotation, target.rotation)`
+* **The Justification:** You must explicitly state in your report that you used Quaternions instead of Euler Angles (Vector3 rotations) to calculate rotational differences. Euler angles suffer from "Gimbal Lock" (when axes align and a degree of freedom is lost, breaking the math). The `Quaternion.Angle` algorithm safely returns the shortest arc in degrees between two 3D orientations, regardless of how many times the user spun the object.
+
+**2. Translational Inefficiency (Path Traveled vs. Optimal Path)**
+* **The Algorithm:** Accumulate the `Vector3.Distance(previousFramePos, currentFramePos)` every frame to get the **Actual Path Traveled**. Then, divide it by the `Vector3.Distance(startPos, targetPos)` to get the **Inefficiency Ratio**.
+* **The Justification:** If the target is 1 meter away, and the user moves the liver 1 meter, the ratio is 1.0 (Perfect). If the user wobbles, pulls it close to inspect it, and moves it 3 meters, the ratio is 3.0. This algorithm perfectly captures spatial confusion.
+
+**3. Clutch Count (Drop Rate)**
+* **The Algorithm:** An integer counter that increments every time the `GrabState` changes from `True` to `False` before the task is complete.
+* **The Justification:** Measures tracking instability and ergonomic need-to-rest.
+
+---
+### Part 4: Finalizing the Gesture Mapping
+Based on Source 3 (User-Defined Gestures), we must select gestures that minimize wrist strain and physiological load. 
+#### Task 1, 2, and 3: Translation & Rotation (6-DoF)
+* **Hand-Tracking (Condition B):** **Mono-manual "Pinch-and-Hold".** * *Literature Justification:* Source 3 explicitly notes that "Fewer fingers" gestures (using just thumb and forefinger) require significantly smaller Range of Motion (ROM) and velocity of wrist motion compared to full hand grabs. Because you are testing precise rotational docking, wrist flexibility is paramount. A pinch allows the wrist to pivot freely.
+    * *The Action:* User pinches the liver with one hand. While pinched, the liver's Transform matches the hand's Transform 1:1.
+* **Varjo Controller (Condition A):** **Mono-manual "Grip Button Hold".**
+    * *The Action:* User holds the side-grip button. The liver follows the controller 1:1.
+#### Task 4: Scaling (Uniform XYZ)
+* **Hand-Tracking (Condition B):** **Bimanual "Pinch-and-Stretch".**
+    * *Literature Justification:* Source 3 found that for "Zoom in / Zoom out" commands, users showed a strong psychological preference for "Stretch with the thumb and forefinger," and physiological measures proved it induced less wrist motion than using whole fists.
+    * *The Action:* User pinches the liver with *both* hands simultaneously. As they pull their hands apart, the distance delta dynamically scales the object up or down.
+* **Varjo Controller (Condition A):** **Thumbstick Up/Down.**
+    * *The Action:* While gripping the object, pushing the thumbstick forward scales it up, pulling backward scales it down. (This beautifully highlights the "Mapping Dissonance" of controllers—why should pushing a stick "forward" make an object "bigger"? It is an artificial abstraction, perfectly contrasting your natural bimanual hand gesture).
+
+Does this synthesis clarify the academic framework of your experiment? If so, we can move straight into writing the C# logic for these specific `Quaternion` and `Vector3` telemetry algorithms in your new Development Chat!
