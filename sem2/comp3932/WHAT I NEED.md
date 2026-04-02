@@ -616,7 +616,7 @@ Would you like me to draft the specific 10 questions for the System Usability Sc
     * *Success State Validation:* Added a 2.0-second spatial Dwell Time to prevent "lucky" fly-by alignments, culminating in an automated TCT (Task Completion Time) calculation and success-state visual feedback.
 
 ---
-### Part 3: Hierarchy Reorganization & Known Configurations
+### Hierarchy Reorganization & Known Configurations
 Looking at your screenshot, your hierarchy is actually quite clean, but we can organize it to industry-standard "System Grouping" to make it impenetrable to future bugs.
 #### Suggested Reorganization
 **1. Create a `[Core_Systems]` Empty Object:**
@@ -660,6 +660,12 @@ Looking at your screenshot, your hierarchy is actually quite clean, but we can o
 * [x] Wire native World Space UI Canvas for state feedback.
 * [x] Code 2.0s Dwell Timer for Task Success validation.
 * [x] Output Final TCT to UI.
+### Testing
+- **The 6-DoF (Degrees of Freedom) Docking Task** is the _objective_ side of your evaluation. It mathematically measures performance. You are asking the user to match Translation (X, Y, Z axes) and Rotation (Pitch, Yaw, Roll) simultaneously. It proves whether the physical interaction is accurate and efficient.
+- **The NASA-TLX** is the _subjective_ side of your evaluation. It measures cognitive cost. It answers the crucial question: "How hard did the user's brain have to work to achieve that 6-DoF docking performance?"
+
+Together, they directly answer your core research problem: 
+> Does replacing abstract joystick controls with natural hand-gestures *reduce* mental friction *without* sacrificing clinical spatial accuracy?
 ## Reviewing the NASA-TLX 
 ### Source 1: Guide
 
