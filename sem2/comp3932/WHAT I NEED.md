@@ -730,11 +730,116 @@ At the moment we have taken pieces of the TLX and modified/used it as a foundati
 - Is this an appropriate measure/method of measure? 
 - How can we show all this and demonstrate the high-level of ciritcal thinking and analysis expected throughout this report? 
 ## Reviewing the 6-DoF
+### Source 1: Six Degrees of Freedom Explained
+Written by Coursera Staff • Updated on Dec 17, 2025
+
+What is six degrees of freedom, and how is it applied in the real world? Learn more about this concept and its uses.
+[Featured Image] An engineer considers the six degrees of freedom while examining a model at their desk.
+Key takeaways
+
+Six degrees of freedom, or 6DoF, is a term used to refer to the number of axes that an object can freely move within a three-dimensional space. 
+
+    The six degrees of freedom are x, y, z translations, and pitch, yaw, and roll. 
+
+    Virtual reality (VR), aviation, robotics, gaming, and medical devices all make use of the six degrees in their movements. 
+
+    You can use the six degrees of freedom to improve realism in virtual reality and augmented reality experiences. 
+
+Learn about how the six degrees of freedom broadly describes an object's freedom of movement and rotation, specifically in three-dimensional spaces.
+
+What are the six degrees of freedom?
+In the realm of spatial orientation and motion, the term six degrees of freedom (6DoF) is a fundamental concept that plays a crucial role in various fields and industries, from robotics and aviation to virtual reality. 
+
+The six degrees of freedom can be classified into two categories: translational and rotational. Translational degrees of freedom refer to movement on the X, Y, and Z axes, which move horizontally, vertically, and up and down. Rotational degrees of freedom refer to how an object rotates and changes orientation. 
+
+Translational degrees of freedom (3DoF):
+Translational degrees of freedom represent the ability to move in different directions. These include:
+
+    X-axis translation: Movement along the horizontal axis, often referred to as left-right or side-to-side motion
+    Y-axis translation: Movement along the vertical axis, often referred to as forward-backward or front-to-back motion
+    Z-axis translation: Movement along the depth axis, often referred to as up-down or vertical motion
+
+Rotational degrees of freedom (3DoF):
+Rotational degrees of freedom represent the ability to rotate or change orientation. These include: 
+
+    Pitch (rotation about X-axis): Tilting forward or backward
+    Yaw (rotation about Y-axis): Turning left or right
+    Roll (rotation about Z-axis): Tilting sideways
+
+Applications of six degrees of freedom: 6DoF examples
+Six degrees of freedom is a versatile concept with applications in various industries where exact control over spatial movement and orientation is essential. As a result, 6DoF is used in aviation, robotics, VR and AR, gaming, medical devices, vehicle design and safety, as well as navigation of autonomous underwater vehicles and spacecraft.
+
+Aviation
+Pilots use six degrees of freedom in flight control systems to control their movement within three-dimensional space. These systems provide inputs corresponding to the six degrees of freedom to maneuver the aircraft effectively. Pilots use control surfaces to adjust rotational degrees of freedom (pitch, yaw, and roll) and throttle control to move along the X, Y, and Z axes (translational degrees of freedom).
+Robotics
+The concept of 6DoF is commonly used in designing robotic systems, such as the six-degree-of-freedom robotic arm. Robotic arms have multiple joints that must move and rotate precisely in a three-dimensional space. Robots that need to interact with the environment in various ways often require 6DoF to perform more complex tasks, such as placing objects or performing laparoscopic surgery with both accuracy and agility. Robotic arms are typically used in manufacturing, research, and health care. 
+
+Six degrees of freedom is often used in the design of human-like robots. Humanoid robots with the ability to move in both translational and rotational degrees of freedom can closely mimic human movements, making it easier for these robots to perform tasks in dynamic environments like driving a vehicle or carrying objects. 
+VR and AR 
+The use of 6DoF in immersive technologies like VR and AR allows users to move and interact with computer-generated content within an augmented or virtual world more naturally. For example, VR headsets with six degrees of freedom simulation allow users to walk around, crouch down, and interact with objects as they do in the physical world. In AR, AR glasses enabled with 6DoF allow users to experience digital information that’s transposed onto the real world with accurate spatial alignment.
+Gaming
+Like its application and usage in VR and AR, gamers can enjoy a more realistic and immersive experience with gaming controllers equipped with 6DoF capabilities. Controllers with 6DoF capabilities allow for more natural and intuitive movements for the player and the ability to interact with the virtual gaming environment in a more immersive way. Examples of controllers with 6DoF include motion controllers (motion tracking) and VR gaming platforms that use headsets equipped with 6DoF.
+
+Medical devices and surgical procedures
+In both MRI and CT scans, the application of 6DoF concepts primarily revolves around reducing the impact of patient motion, improving the accuracy of imaging processes, and enhancing the overall diagnostic quality.
+
+Medical devices and equipment like CT and MRI scanners use a 6DoF parallel robot for precise alignment and positioning during diagnostic imaging. As a result, physicians and medical professionals can get more accurate imaging to use for better decision-making when it comes to reading results and determining the next steps.
+
+What is a 6 degrees of freedom sensor?
+A 6DoF sensor is an electronic device that measures all six degrees of freedom of an instrument as it navigates a space. Highly specific 6DoF sensors measure these movements. These devices have many uses for measuring movements with autonomous vehicles and medical devices, as well as applications in aerospace, industrial, and transportation sectors. 
+
+Robotic arms like surgical robots with 6DoF capabilities allow surgeons to exert more precise control over the positioning and orientation of the robotic arm during procedures, which can result in more accurate and safer procedures for the patient.
+Vehicle design and safety 
+
+Engineers use 6DoF to simulate and test vehicles in a virtual environment to better understand how vehicles respond to different driving conditions and maneuvers. Using 6DoF representation, engineers can ensure the safety of vehicle designs, ensure vehicles meet safety regulations, and operate properly in real-world conditions. Even during manufacturing, designers and engineers can make changes by testing vehicle components in more realistic simulations.
+Navigation
+Autonomous vehicles and drones benefit from 6DoF for navigation and obstacle avoidance in three-dimensional environments. Autonomous underwater vehicles use 6DoF for accurate navigation while conducting underwater exploration. 
+
+Spacecraft also require 6DoF controls for accurate navigation, orientation, and control during missions, especially when maneuvering or docking in microgravity environments.
+Considerations and benefits 
+
+6DoF provides many benefits, including accuracy and adaptability, but it also presents some challenges in terms of cost and complexity. The benefits and success of 6DoF depend on the objective and specific requirements of the application. It’s important to note the benefits of 6DoF and the drawbacks before choosing to use and implement the concept.
+
+Benefits of 6DoF applications 
+
+    Improved simulation for product development, design, and testing
+    Added realism in VR and AR settings 
+    More accurate spatial tracking in medical imaging and robotics 
+    Allows pilots to achieve more precise navigation and maneuvering
+    Helps engineers make safer products with realistic simulations 
+
+Considerations before integrating 6DoF technology
+
+    Incorporating 6DoF technology can increase the overall cost of devices, systems, or applications (for example, 6DoF VR headsets versus 3DoF headsets) 
+    Limitations in some environments 
+    More complex to operate and program 
+
+
+The future of six degrees of freedom 
+As technology advances, sensor technology innovations, human-machine interaction, and simulation capabilities will further enhance the applications and importance of 6DoF. As an increasing number of consumers demanding immersive experiences grows, so will the demand for the capabilities of 6DoF. 
+
+Whether exploring virtual realms or navigating outer space, the principles of 6DoF act as the guiding force through these spatial dimensions.
+
+Space exploration 
+6DoF will likely be crucial for the navigation and operation of spacecraft and robotic systems in the harsh environment of outer space. It’s also a helpful tool for training and preparing humans to maneuver spacecraft. 
+
+The success of space missions is dependent on precise movements and accurate orientation, and 6DoF technology is a key component in achieving future space explorations.
+Extended reality 
+
+VR, AR, and mixed reality depend on technology like 6DoF to continue to advance in the evolution of XR technologies. 6DoF allows users to interact with the virtual world in ways that will continue to shape the features of immersive technology and experiences. 
+
+Future XR devices are likely to incorporate 6DoF tracking systems, enabling users to interact with virtual environments in more intuitive and natural ways. 
+Consumer electronics
+
+Expect to see the integration of 6DoF technology more commonplace in consumer electronics. Beyond gaming and VR applications, smartphones, tablets, and other devices may incorporate 6DoF capabilities without needing external hardware. Integrating 6DoF capabilities in consumer electronics provides users with innovative ways to interact with digital content and applications.
+Advancements in health care 
+
+In health care, 6DoF continues to impact surgical procedures and medical imaging positively. More sophisticated robotic systems mean safer and more minimally invasive surgeries with greater patient outcomes. 6DoF is already used in MRI and CT scans and robotic arms to perform laparoscopic procedures. The future seems only to hold continued advancements in these technologies and procedures
+### 
 ### Currently in our report
- Standard 6-Degrees-of-Freedom (6-DoF) VR wands (like the Varjo or Meta Quest controllers).
+At the moment we have based our tasks of off the 6-DoF tasks. We have taken the standard 3 translational and  3 rotational DoF's as well as some scaling to gather more data. Four tasks have been divised. First, measuring each 3DoF then the 6DoF combined then the 6 plus Scaling. These tasks are to be performed by Varjo VR controller first, then by pure hand-gestures.
 
 You will then explicitly state that for the purposes of your empirical evaluation, the traditional "joystick" paradigm is represented by the 6-DoF Varjo VR controllers. This shows the examiner that you understand the breadth of the field but have made a calculated, practical decision for your experiment's methodology.
-
 #### The "6-DoF Target Alignment" Task (The Gold Standard)
 In academic VR research, the most widely used and validated method for testing spatial manipulation is a **6-DoF (Degrees of Freedom) Docking Task** (also known as Target Alignment).
 Instead of moving objects into boxes, the user must grab an object and perfectly align it with a target silhouette in 3D space.
@@ -744,21 +849,53 @@ Instead of moving objects into boxes, the user must grab an object and perfectly
 2. **The Object:** The solid, textured 3D liver model is spawned in front of them at a random rotation.
 3. **The Target:** A translucent "ghost" or wireframe outline of the liver is positioned a short distance away at a specific, required orientation.
 4. **The Objective:** The user must use their hands (or the joystick baseline) to grab the solid liver, move it to the ghost liver, and rotate it until the two models overlap perfectly.
-### Why This Task is Perfect for Your Evaluation
+#### Why This Task is Perfect for Your Evaluation
 - **It tests all your gestures seamlessly:** To complete the task, the user _must_ use your grab (translation) and rotate gestures. If you make the ghost liver a different size, it forces them to use the bimanual scaling gesture.
 - **It generates objective metrics:** You can write a script that calculates the exact positional distance (Vector3) and rotational difference (Quaternion angle) between the solid liver and the target liver.
 - **It defines "Completion":** The task is mathematically complete when the distance and angle drop below a certain threshold (e.g., `< 0.05` units and `< 5` degrees). This gives you an exact "Task Completion Time" (TCT) to the millisecond for your quantitative data.
 - **It measures cognitive load natively:** Aligning an asymmetrical, complex shape like a liver requires significant spatial reasoning. This will yield rich, contrasting data in your NASA-TLX scores when comparing the intuitive hand gestures against the clunky joystick.
-### The Recommended Protocol
-1. Give the user 3 different alignment tasks of increasing difficulty (e.g., Task 1: simple rotation; Task 2: rotation and translation; Task 3: rotation, translation, and scale).
-2. Have them do all 3 with the joystick.
-3. Have them do all 3 with the hand gestures.
+#### Tasks to Complete
+**Four progressive tasks**. This isolates each spatial variable (Translation, Rotation, Scale) before combining them, giving you perfectly clean data to analyze.
+- **Task 1: Pure Translation (Positional Mapping)**
+    - **The Setup:** The solid liver spawns 30cm away from the Ghost target, but shares the _exact same_ rotation and scale.
+    - **The Action:** The user simply grabs the liver and moves it in a straight line into the hologram.
+    - **What it Proves:** This isolates your `translationalInefficiency` metric. It tests how well the user maps physical hand movement to virtual distance without the distraction of having to twist their wrist.
+ 
+- **Task 2: Pure 3-Axis Rotation (Rotational Mapping)**
+    - **The Setup:** The solid liver spawns right next to the Ghost target (minimizing necessary movement), but is rotated randomly across the X, Y, and Z axes.
+    - **The Action:** The user must grab the liver and manipulate it like a puzzle piece to find the correct orientation.
+    - **What it Proves:** This isolates your `currentAngularError`. It mathematically proves whether rolling a joystick thumbstick or twisting a physical wrist has a lower cognitive load when solving complex spatial puzzles.
 
-Would you like me to write the C# logic for this "Target Alignment" system, including the math that calculates the distance between the two livers and triggers a "Task Complete" event when they match?
-### The "Hidden" Telemetry Metrics
+- **Task 3: Translation + Rotation (The 6-DoF Standard)**
+    - **The Setup:** The solid liver spawns 30cm away _and_ is randomly rotated.
+    - **The Action:** The user must pull the object toward the center while simultaneously reorienting it.
+    - **What it Proves:** This tests the "Clutch Count." Are they able to seamlessly move and rotate at the same time (common with hands), or do they have to move it, drop it, and then rotate it (common with joysticks)?
+
+- **Task 4: Translation + Rotation + Scale (The Master Task)**
+    - **The Setup:** The solid liver spawns at a random offset, randomly rotated, and is scaled down by 50%.
+	    - Shoudl the scale be constrained to all XYZ? As to not make the scaling unnecessarily difficult.
+    - **The Action:** The user must translate, rotate, and execute a bimanual gesture (e.g., pulling two hands apart) or use a secondary joystick input to scale the model up to match the Ghost.
+    - **What it Proves:** This pushes the cognitive load to its absolute maximum. It will provide the starkest contrast in your NASA-TLX scores between the two input methods.
+##### Why this structure guarantees a higher mark:
+In your Chapter 4 (Results and Discussion), having this 4-step breakdown allows you to make highly specific, technically backed claims. Instead of just saying "Hand tracking was faster," you can state: _"While hand-tracking showed a negligible improvement in pure translation (Task 1), it yielded a statistically significant 40% reduction in completion time during 3-Axis Rotation (Task 2)..."_
+_(The user will complete these three tasks first with the Varjo controllers, and then repeat them with their bare hands)._
+#### 5. What is Being Recorded, When, and How
+Your C# script operates silently in the background.
+##### The "Hidden" Telemetry Metrics
 To prove whether hand-gestures reduce cognitive load and increase precision compared to a joystick, you need to calculate the difference between **ideal movement** and **actual movement**.
 
 1. **Angular Offset (The "Angle of Rotation"):** In 3D space, rotation is calculated using Quaternions, not simple Euler angles (which suffer from gimbal lock). We use `Quaternion.Angle()` to mathematically calculate the exact shortest arc in degrees between the user's liver model and the target ghost liver.
 2. **Translational Inefficiency:** What is the shortest straight line from the starting point to the target? How far did the user _actually_ move the liver to get there? If the optimal path is 0.5 meters, but the user moved the liver 2.3 meters (wobbling, overshooting, pulling it closer to look at it), that indicates a high cognitive load and poor mapping.
 3. **Clutch Count (Drop Rate):** How many times did the user grab the object, let go, and grab it again? A high clutch count with the Ultraleap implies the pinch threshold is unstable or the user is suffering from "Gorilla Arm" fatigue and having to rest.
 4. **Task Completion Time (TCT):** Total milliseconds from the first grab to the moment the Angular Offset and Positional Error drop below your success thresholds.
+- **When it Records:** It starts exactly when the user clicks the "Start Trial" button. It stops exactly when the mathematical difference between the Solid Liver and the Ghost Liver drops below your success threshold (e.g., `< 0.02` meters distance and `< 5` degrees rotation).
+- **How it Records:** Because there are no physics, we rely purely on Unity's `Transform` mathematics. Every single frame (running at the sub-100ms latency of your tracking system), the script calculates the Vector3 distance and the Quaternion angle between the two models.
+
+- **What is Recorded:**
+    1. **Task Completion Time (TCT):** Total seconds from "Start" to successful alignment.
+    2. **Angular Inefficiency:** How many total degrees did the user rotate the object versus the shortest mathematical path? (High inefficiency = they were confused about which way to turn it).
+    3. **Path Traveled:** The actual meter distance the liver was moved vs. the straight-line distance.
+    4. **Clutch Count:** How many times the user "let go" of the liver to readjust their grip. (A high clutch count with the Ultraleap indicates fatigue or awkward gesture mapping).
+
+Once the liver is perfectly aligned, the system instantly snaps it into place, turns the Ghost Liver green, plays a soft "success" chime, and writes all that hidden telemetry directly to your CSV file.
+- I want to know what algorithm is best to implement for calculating some of these metrics and why.
