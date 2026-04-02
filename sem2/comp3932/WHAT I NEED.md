@@ -564,22 +564,15 @@ While the survey captures the user's perception, your **HandMetricsLogger** shou
 |**Focus Stability**|`GazeData.focusStability`|Measure if users look at the liver or their hands. High focus stability on the model suggests higher intuition.|
 
 ---
-
 ## 3. The Qualitative Survey: Guided Feedback
-
 Beyond the numbers, you need "clever summary forms" to guide user feedback. Structure your survey to ask about specific features:
 
 1. **Intuition:** "On a scale of 1-5, how much did the 'Pinch' gesture feel like picking up a physical object?"
-    
 2. **Mapping:** "Was the relationship between your hand's rotation and the liver's rotation clear?"
-    
 3. **Discovery:** "How long did it take for you to feel 'in control' of the scaling mechanic?"
-    
 4. **Open-Ended:** "What was the most frustrating part of the hand-tracking experience?" (This is where you look for mentions of **occlusion** or **jitter**).
-    
 
 ---
-
 ## 4. Evaluation Protocol: A Standard Way
 
 To ensure your results are statistically meaningful ($p < 0.05$), follow this sequence for every participant:
