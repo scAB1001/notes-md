@@ -661,7 +661,7 @@ Looking at your screenshot, your hierarchy is actually quite clean, but we can o
 * [x] Code 2.0s Dwell Timer for Task Success validation.
 * [x] Output Final TCT to UI.
 ## Reviewing the NASA-TLX 
-### Source 1
+### Source 1: Guide
 
 NASA Task Load Index
 Acronym
@@ -722,5 +722,43 @@ NASA. NASA TLX: task load index. 2006 [cited 2010 March 4]; Available from: http
 Stanton N, Salmon P, Walker G, et al. Mental workload assessment method. Human factors methods: a practical guide for engineering and design. Great Britain: Ashgate; 2005. p. 301-64.
 ### Source 2: Scale
 ![[(NASA)TLXScale.pdf]]
-### Source 3 
+### Source 3: 20-years laters
+![[NASA-TASK LOAD INDEX (NASA-TLX); 20 YEARS LATER.pdf]]
+### Currently in our report
+At the moment we have taken pieces of the TLX and modified/used it as a foundational template for the tasks. These questions/the index is to assess the VR user tasks.
+- Does it serve our report adequately?
+- Is this an appropriate measure/method of measure? 
+- How can we show all this and demonstrate the high-level of ciritcal thinking and analysis expected throughout this report? 
 ## Reviewing the 6-DoF
+### Currently in our report
+ Standard 6-Degrees-of-Freedom (6-DoF) VR wands (like the Varjo or Meta Quest controllers).
+
+You will then explicitly state that for the purposes of your empirical evaluation, the traditional "joystick" paradigm is represented by the 6-DoF Varjo VR controllers. This shows the examiner that you understand the breadth of the field but have made a calculated, practical decision for your experiment's methodology.
+
+#### The "6-DoF Target Alignment" Task (The Gold Standard)
+In academic VR research, the most widely used and validated method for testing spatial manipulation is a **6-DoF (Degrees of Freedom) Docking Task** (also known as Target Alignment).
+Instead of moving objects into boxes, the user must grab an object and perfectly align it with a target silhouette in 3D space.
+
+**How to implement this with your liver:**
+1. **The Environment:** The user stands at a virtual surgical table.
+2. **The Object:** The solid, textured 3D liver model is spawned in front of them at a random rotation.
+3. **The Target:** A translucent "ghost" or wireframe outline of the liver is positioned a short distance away at a specific, required orientation.
+4. **The Objective:** The user must use their hands (or the joystick baseline) to grab the solid liver, move it to the ghost liver, and rotate it until the two models overlap perfectly.
+### Why This Task is Perfect for Your Evaluation
+- **It tests all your gestures seamlessly:** To complete the task, the user _must_ use your grab (translation) and rotate gestures. If you make the ghost liver a different size, it forces them to use the bimanual scaling gesture.
+- **It generates objective metrics:** You can write a script that calculates the exact positional distance (Vector3) and rotational difference (Quaternion angle) between the solid liver and the target liver.
+- **It defines "Completion":** The task is mathematically complete when the distance and angle drop below a certain threshold (e.g., `< 0.05` units and `< 5` degrees). This gives you an exact "Task Completion Time" (TCT) to the millisecond for your quantitative data.
+- **It measures cognitive load natively:** Aligning an asymmetrical, complex shape like a liver requires significant spatial reasoning. This will yield rich, contrasting data in your NASA-TLX scores when comparing the intuitive hand gestures against the clunky joystick.
+### The Recommended Protocol
+1. Give the user 3 different alignment tasks of increasing difficulty (e.g., Task 1: simple rotation; Task 2: rotation and translation; Task 3: rotation, translation, and scale).
+2. Have them do all 3 with the joystick.
+3. Have them do all 3 with the hand gestures.
+
+Would you like me to write the C# logic for this "Target Alignment" system, including the math that calculates the distance between the two livers and triggers a "Task Complete" event when they match?
+### The "Hidden" Telemetry Metrics
+To prove whether hand-gestures reduce cognitive load and increase precision compared to a joystick, you need to calculate the difference between **ideal movement** and **actual movement**.
+
+1. **Angular Offset (The "Angle of Rotation"):** In 3D space, rotation is calculated using Quaternions, not simple Euler angles (which suffer from gimbal lock). We use `Quaternion.Angle()` to mathematically calculate the exact shortest arc in degrees between the user's liver model and the target ghost liver.
+2. **Translational Inefficiency:** What is the shortest straight line from the starting point to the target? How far did the user _actually_ move the liver to get there? If the optimal path is 0.5 meters, but the user moved the liver 2.3 meters (wobbling, overshooting, pulling it closer to look at it), that indicates a high cognitive load and poor mapping.
+3. **Clutch Count (Drop Rate):** How many times did the user grab the object, let go, and grab it again? A high clutch count with the Ultraleap implies the pinch threshold is unstable or the user is suffering from "Gorilla Arm" fatigue and having to rest.
+4. **Task Completion Time (TCT):** Total milliseconds from the first grab to the moment the Angular Offset and Positional Error drop below your success thresholds.
