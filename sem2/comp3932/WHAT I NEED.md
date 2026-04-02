@@ -779,22 +779,15 @@ This paper provides a perfect, peer-reviewed blueprint for how you should struct
 The decision between the two comes down to experimental design constraints and the risk of user fatigue.
 
 **When to use the Original (Weighted) NASA-TLX:**
-
 The original version requires participants to complete 15 pairwise comparisons (e.g., "Which contributed more to your workload: Mental Demand or Physical Demand?") to create a custom weighting profile _before_ they even rate the task. This is useful in long, isolated tasks where you have plenty of time and need to understand a user's deeply personal definition of workload. However, it is notoriously laborious and time-consuming.
 
 **When to use Raw TLX (RTLX):**
-
 RTLX eliminates the weighting process altogether; the ratings are simply averaged or added to create an estimate of overall workload.
 
 RTLX is highly applicable (and preferable) in studies like yours for two reasons:
-
 1. **Multiple Rapid Tasks:** You are asking users to complete 4 distinct tasks (Translation, Rotation, 6-DoF, Scaling) across 2 conditions (Controller vs. Hands). If you made them do 15 pairwise comparisons after _every single task_, they would suffer from extreme questionnaire fatigue, which would severely skew your data.
-    
 2. **Established Validity:** As Hart noted in her 20-year retrospective, RTLX has gained popularity because it is simpler to apply, and across 29 comparative studies, it was found to be either more sensitive, less sensitive, or equally sensitive to the original.
-    
-
 ### 3. How to write this justification in your report
-
 To demonstrate a high level of critical thinking in your Methodology chapter, you can synthesize these sources into a robust academic defense. You can adapt a paragraph like this:
 
 > _"To evaluate the subjective cognitive cost of the interaction paradigms, this study utilized the Raw Task Load Index (RTLX), an unweighted variant of the standard NASA-TLX. While the original NASA-TLX requires a laborious 15-step pairwise comparison to calculate individual metric weights, Hart (2006) notes that eliminating this weighting process to use RTLX is simpler to apply and has been empirically proven to be as sensitive, if not more sensitive, in various contexts. Given the repeated-measures design of this study—requiring subjective evaluation across four rapid, progressive spatial tasks—RTLX was selected to prevent questionnaire fatigue and mitigate context effects. This unweighted approach aligns with recent XR evaluations, such as Murauer et al. (2018), who successfully utilized RTLX alongside Task Completion Time (TCT) to evaluate cognitive load in augmented reality environments."_
