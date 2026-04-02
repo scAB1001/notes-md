@@ -587,5 +587,140 @@ To ensure your results are statistically meaningful ($p < 0.05$), follow this se
 In your report, do not just list the averages. Use a **Paired Samples t-test** to compare the TCT (Time to Completion) of the joystick vs. gestures. If your $p$-value is less than 0.05, you can formally claim that your gesture system is "statistically faster/more efficient."
 
 Would you like me to draft the specific 10 questions for the System Usability Scale (SUS) tailored to your medical anatomy navigation context?
+# 02/04/2026
+## Update on Project Implementation
+### The Developmental Recap (Logically Stepped)
+#### Phase 1: Architectural Foundation & Environment
+**Goal:** Establish a pristine, non-distracting VR environment (the Clinical Void) that protects cognitive load metrics and optimizes HDRP lighting.
+* **Action:** Configured a minimalist "shoebox" room using scaling and rotation of basic 3D planes to enclose the user.
+* **Fixes:** * *Lighting:* Addressed dark interior walls by creating a `Directional Light_Fill` with disabled shadows to bounce ambient light, preventing double shadows on the liver.
+    * *HDRP Baking:* Disabled Auto-Baking and forced real-time lighting to stop Unity from throwing render pipeline errors during dynamic object manipulation.
+    * *Camera Origins:* Diagnosed a severe spatial offset error by enforcing the `XR Origin` to `0,0,0`, ensuring the Varjo headset calculates world space without interference.
+#### Phase 2: Ultraleap Hand Tracking Integration
+**Goal:** Test physical controllers then Replace physical controllers with optical hand tracking, utilizing Varjo's embedded Leap Motion hardware.
+* **Action:** Cleared out bloated demo assets and integrated the `Service Provider (XR)` directly beneath the Main Camera.
+* **Fixes:**
+    * *Data Severing:* Fixed invisible tracking by manually mapping the `Hand Model Manager` and ensuring the `Leap Provider` reference was intact.
+    * *The Neon Pink Shader:* Diagnosed Unity's immutable package cache bug. Bypassed the procedural (and broken) `CapsuleHands` generation entirely by transitioning to standard Skinned Mesh `Ghost Hands` with native HDRP material compatibility (`Mat_ClinicalHands`).
+#### Phase 3: Kinematic Interaction & Telemetry 
+**Goal:** Create a physics-free interaction system capable of precision manipulation, supported by asynchronous background data logging.
+* **Action:** Wrote `UltraleapKinematicManipulator.cs` and `AlignmentMetricsLogger.cs`.
+* **Fixes:**
+    * *The Hysteresis Loop:* Implemented a strict pinch-to-grab system. Fixed the "Loose Grab" bug by forcing an absolute Vector3 calculation between the index and thumb tip, combined with a `GrabStrength` check.
+    * *Occlusion Loss:* Implemented a 0.25-second coyote-time grace period to prevent the liver from dropping when wrist rotations momentarily block the cameras.
+    * *Telemetry Flatline:* Fixed a GameObject referencing error in the Inspector that was causing `TranslationalError` to flatline at `0.3m`.
+#### Phase 4: Trial Orchestration
+**Goal:** Automate the 4-task progression (Translation, Rotation, 6-DoF, Scaling) and provide native UI feedback.
+* **Action:** Created `ClinicalTrialManager.cs` to act as the central state machine.
+* **Fixes:** * *Feedback Clarity:* Removed material-swapping scripts that fought the render pipeline. Implemented a native World Space UI text monitor (`System_Status_Text`) for state communication.
+    * *Success State Validation:* Added a 2.0-second spatial Dwell Time to prevent "lucky" fly-by alignments, culminating in an automated TCT (Task Completion Time) calculation and success-state visual feedback.
 
-z
+---
+### Part 3: Hierarchy Reorganization & Known Configurations
+Looking at your screenshot, your hierarchy is actually quite clean, but we can organize it to industry-standard "System Grouping" to make it impenetrable to future bugs.
+#### Suggested Reorganization
+**1. Create a `[Core_Systems]` Empty Object:**
+* Move `TrialManager` into this.
+* Move `Global Volume` into this (Extract it from Environment, as it is a post-processing system, not a physical object).
+* Move `XR Interaction Manager` into this.
+
+**2. Create an `[Interaction_Rig]` Empty Object:**
+* Move `XR Origin (XR Rig)` into this.
+
+**3. Create a `[Clinical_Assets]` Empty Object:**
+* Move `Patient4_3D_Liver_Model_Solid` into this.
+* Move `Patient4_3D_Liver_Model_Holo` into this.
+#### Final Object List & Configurations
+
+| Object Name | Component | Key Configuration / Script Data |
+| :--- | :--- | :--- |
+| **Env_OperatingTable** | Transform | Pos: `0.02, 0.679, 1.246`, Rot: `345, 0, 0` |
+| **Directional Light_Main** | Light (Realtime) | Lux: `41945`, Shadows: `Enabled`, Rot: `50, 330, 0` |
+| **Directional Light_Fill** | Light (Realtime) | Lux: `15000`, Shadows: `None`, Rot: `321, 102, 34` |
+| **Global Volume** | Volume | Profile: Fixed Exposure `12.8` |
+| **Service Provider (XR)** | LeapServiceProvider | Multiple Device Mode: `Specific`, Optimization: `HMD` |
+| **Ghost Hand (Left/Right)** | SkinnedMeshRenderer | Material Element 0: `Mat_ClinicalHands` |
+| **Patient4_..._Solid** | Transform / Rigidbody | Pos: `-0.085, 0.871, 1.172` (Base). Is Kinematic: `True` |
+| **Patient4_..._Holo** | Transform | Pos: `0, 0.871, 1.172` (Base). Material: `Mat_ClinicalHologram` |
+| **System_Status_Text** | TextMeshProUGUI | Render Mode: `World Space`. Scale: `0.001` |
+| **TrialManager** | AlignmentMetricsLogger | Solid Liver: `Patient4...Solid`, Target: `Patient4...Holo`, Polling: `0.05` |
+| **TrialManager** | UltraleapManipulator | Enter: `0.025`, Exit: `0.05`, Max Grab: `0.4`, Grace: `0.25` |
+| **TrialManager** | ClinicalTrialManager | Dwell Time: `2.0`, Dist Error: `0.015`, Ang Error: `5.0` |
+
+---
+### Granular Checklist for Completion
+* [x] Establish Clinical Void architecture and real-time HDRP lighting.
+* [x] Zero out XR Origin to fix Varjo headset spatial offsets.
+* [x] Bypass Package Cache immutable bug by switching to Rigged Ghost Hands.
+* [x] Apply `Mat_ClinicalHands` to SkinnedMeshRenderers.
+* [x] Code `AlignmentMetricsLogger` to record 20Hz spatial Euclidean/Quaternion errors.
+* [x] Validate telemetry targeting (fixing the `0.3m` flatline).
+* [x] Code strict Vector3 thumb-to-index pinch thresholds.
+* [x] Code 0.25s Coyote-Time for rotational occlusion.
+* [x] Wire native World Space UI Canvas for state feedback.
+* [x] Code 2.0s Dwell Timer for Task Success validation.
+* [x] Output Final TCT to UI.
+## Reviewing the NASA-TLX 
+### Source 1
+
+NASA Task Load Index
+Acronym
+NASA TLX
+Description
+
+The NASA task load index (NASA TLX) is a tool for measuring and conducting a subjective mental workload (MWL) assessment. It allows you to determine the MWL of a participant while they are performing a task. It rates performance across six dimensions to determine an overall workload rating. The six dimensions are as follows:
+
+1. Mental demand how much thinking, deciding, or calculating was required to perform the task.
+2. Physical demand the amount and intensity of physical activity required to complete the task.
+3. Temporal demand the amount of time pressure involved in completing the task.
+4. Effort how hard does the participant have to work to maintain their level of performance?
+5. Performance the level of success in completing the task.
+6. Frustration level how insecure, discouraged, or secure or content the participant felt during the task.
+
+Each subscale is presented to the participants either during or after the experimental trial. They are asked to rate their score on an interval scale ranging from low (1) to high (20). The TLX also employs a paired comparisons procedure. This involves presenting 15 pairwise combinations to the participants and asking them to select the scale from each pair that has the most effect on the workload during the task under analysis. This procedure accounts for two potential sources of between-rater variability: differences in workload definition between the raters and differences in the sources or workload between the tasks.
+
+The subscales are given to the participants either during or following their experimental trial. The participants self-rate on a scale of 1 (low) to 20 (high) using 15 pairwise combinations designed to elicit from the participants the pair that has the greatest effect on workload while performing the task.
+Uses
+
+To evaluate mental workload demand on an individual performing a specific task.
+How do I use this tool?
+
+1. DEFINE THE TASK(S).
+2. (Optional) CONDUCT A HIERARCHICAL TASK ANALYSIS (HTA) FOR THE TASK(S) UNDER ANALYSIS.
+3. SELECT PARTICIPANTS based on the goals of the analysis.
+4. BRIEF PARTICIPANTS by explaining the purpose of the study and the basics of the NASA-TLX method. A workshop on mental workload and a brief runthrough of the NASA-TLX may be useful.
+5. PERFORM TASK UNDER ANALYSIS. The participants should perform the tasks and fill out the NASA-TLX form either during the trial or immediately posttrial.
+6. FOLLOW WEIGHTING PROCEDURE. Use the WEIGHT software to present the 15 pairwise comparisons to the particpants, asking them to select from each of the 15 pairs the subscale from each pair that contributed the most to the workload of the task.
+7. COMPLETE NASA-TLX RATING. Ask participants to give a rating for each subscale from 1 (low) to 20 (high).
+8. TLX SCORE CALCULATION. The TLX software can calculate the overall worklaod score between 0 and 100.
+Expertise Required
+Users of this tool usually have some training or experience in its use.
+Recommended Supplies/Materials
+Computer and Internet access
+Advantages
+
+Provides a quick and simple estimate of operator mental workload.
+
+Generic subscales allow the technique to be used across multiple domains.
+
+Software is available free online.
+
+TLX software eases the burden on the analyst.
+Disadvantages
+
+Laborious and time consuming to conduct the subscale weighting.
+
+May be intrusive to the task when administered during the trial.
+
+Participants may be prone to correlate their task performance with their workload ratings.
+
+When administered post-task, the participants may forget details of the task.
+Where can I go to learn more?
+
+NASA. NASA TLX: task load index. 2006 [cited 2010 March 4]; Available from: http://humansystems.arc.nasa.gov/groups/TLX/
+
+Stanton N, Salmon P, Walker G, et al. Mental workload assessment method. Human factors methods: a practical guide for engineering and design. Great Britain: Ashgate; 2005. p. 301-64.
+### Source 2: Scale
+![[(NASA)TLXScale.pdf]]
+### Source 3 
+## Reviewing the 6-DoF
