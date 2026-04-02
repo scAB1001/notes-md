@@ -587,3 +587,5 @@ To ensure your results are statistically meaningful ($p < 0.05$), follow this se
 In your report, do not just list the averages. Use a **Paired Samples t-test** to compare the TCT (Time to Completion) of the joystick vs. gestures. If your $p$-value is less than 0.05, you can formally claim that your gesture system is "statistically faster/more efficient."
 
 Would you like me to draft the specific 10 questions for the System Usability Scale (SUS) tailored to your medical anatomy navigation context?
+
+z
