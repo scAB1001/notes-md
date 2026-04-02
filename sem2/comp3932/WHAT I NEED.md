@@ -1056,3 +1056,5 @@ Does this synthesis clarify the academic framework of your experiment? If so, we
 
 *Note: Use 'we' in the Methodology, Implementation, Evaluation etc but use passive voice in the Lit Review.*
 - Use a list of Acronyms table?
+- To reconstruct complex 3D anatomy, 2D DICOM files (the result of various medical imaging technologies like CT, MRI, and PET scans) known as slices undergo a process.
+	- It doesn't make sense -> dimensional mismatch
