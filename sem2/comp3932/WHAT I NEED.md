@@ -1050,3 +1050,7 @@ Based on Source 3 (User-Defined Gestures), we must select gestures that minimize
 
 Does this synthesis clarify the academic framework of your experiment? If so, we can move straight into writing the C# logic for these specific `Quaternion` and `Vector3` telemetry algorithms in your new Development Chat!
 ## Updating our existing surveys
+### Abstract
+> This project is an **Applied Human-Computer Interaction (HCI) study** within the domain of **Medical Spatial Computing**. 
+> It utilizes existing **Computer Vision** tracking technologies to evaluate and propose a novel 3D User Interface paradigm for anatomical manipulation.
+
