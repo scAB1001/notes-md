@@ -1054,3 +1054,5 @@ Does this synthesis clarify the academic framework of your experiment? If so, we
 > This project is an **Applied Human-Computer Interaction (HCI) study** within the domain of **Medical Spatial Computing**. 
 > It utilizes existing **Computer Vision** tracking technologies to evaluate and propose a novel 3D User Interface paradigm for anatomical manipulation.
 
+*Note: Use 'we' in the Methodology, Implementation, Evaluation etc but use passive voice in the Lit Review.*
+- Use a list of Acronyms table?
