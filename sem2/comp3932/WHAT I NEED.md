@@ -574,7 +574,6 @@ Beyond the numbers, you need "clever summary forms" to guide user feedback. Stru
 
 ---
 ## 4. Evaluation Protocol: A Standard Way
-
 To ensure your results are statistically meaningful ($p < 0.05$), follow this sequence for every participant:
 
 1. **Pre-Test:** Sign ethics consent and Briefing.
@@ -668,7 +667,6 @@ Together, they directly answer your core research problem:
 > Does replacing abstract joystick controls with natural hand-gestures *reduce* mental friction *without* sacrificing clinical spatial accuracy?
 ## Reviewing the NASA-TLX 
 ### Source 1: Guide
-
 NASA Task Load Index
 Acronym
 NASA TLX
@@ -735,6 +733,39 @@ At the moment we have taken pieces of the TLX and modified/used it as a foundati
 - Does it serve our report adequately?
 - Is this an appropriate measure/method of measure? 
 - How can we show all this and demonstrate the high-level of ciritcal thinking and analysis expected throughout this report? 
+### Results: Drop NASA TLX and move to RTLX
+The NASA-TLX is the absolute gold standard for measuring subjective workload, but your current approach—modifying it and taking pieces of it—is academically dangerous and could cost you marks. 
+
+[cite_start]Sandra G. Hart, the original creator of the NASA-TLX, explicitly warns that adding, deleting, or redefining subscales and continuing to refer to the result as "NASA-TLX" makes it difficult to summarize circumstances under which the scale is useful[cite: 3]. If you change the questions, examiners will argue you are no longer using a validated psychometric tool; you are just using a custom questionnaire that lacks scientific validation.
+
+To harmonize the NASA-TLX with your 6-DoF task and demonstrate the critical analysis expected of a top-tier project, you must implement the tool strategically. 
+
+#### How the NASA-TLX and 6-DoF Harmonize: The Concept of "Dissociation"
+To score $\ge 80\%$, you must introduce the psychological concept of **Dissociation** into your report. 
+
+The 6-DoF telemetry measures *Objective Performance* (Task Completion Time, Angular Error). [cite_start]The NASA-TLX measures the *Subjective Cost* of achieving that performance[cite: 3]. Dissociation occurs when these two metrics do not align. [cite_start]NASA-TLX ratings may or may not covary with measures of performance[cite: 3]. 
+
+For example, your 6-DoF telemetry might show that a user completed the scaling task perfectly with bare hands (High Performance). [cite_start]However, their NASA-TLX score might reveal an unacceptably high level of workload to achieve that result[cite: 3]. By contrasting the objective math with the subjective human experience, you prove that "faster" does not always mean "better" in Human-Computer Interaction.
+#### How to Implement and Analyze the TLX (The Strategy)
+Instead of creating a custom template, you should implement **Raw TLX (RTLX)** and perform **Diagnostic Subscale Analysis**. 
+
+**1. Use Raw TLX (RTLX)**
+[cite_start]The original NASA-TLX requires a paired comparisons procedure where participants select from 15 pairwise combinations to weight their scores[cite: 1]. [cite_start]This process is notoriously laborious and time-consuming[cite: 1]. 
+* [cite_start]**The Critical Choice:** You should eliminate the weighting process altogether and use RTLX[cite: 3]. 
+* [cite_start]**The Academic Justification:** You can defend this choice by citing that RTLX has been shown in various studies to be either more sensitive, equally sensitive, or less sensitive than the weighted version[cite: 3]. [cite_start]Because RTLX is simpler to apply, the ratings are simply averaged or added to create an estimate of overall workload[cite: 3].
+
+**2. Isolate the Subscales for Diagnostics**
+Do not just report a single "Workload Score of 65/100." [cite_start]Analyzing subscale ratings individually instead of generating a single overall score is a common variation[cite: 3]. [cite_start]Component ratings can help designers pinpoint the source of a workload or performance problem[cite: 3]. 
+* [cite_start]**Mental Demand:** Assesses how much mental and perceptual activity was required, such as thinking, deciding, or looking[cite: 3]. You will use this specific score to prove if traditional controllers cause "Mapping Dissonance" compared to hand-tracking.
+* [cite_start]**Physical Demand:** Assesses how much physical activity was required[cite: 3]. You will use this score to evaluate the "Gorilla Arm" fatigue inherent in mid-air bare-hand tracking.
+* [cite_start]**Performance:** Measures how successful the participant thinks they were in accomplishing the task goals[cite: 3]. 
+* [cite_start]**Frustration Level:** Measures how insecure, discouraged, irritated, stressed, and annoyed the user felt[cite: 3]. A high frustration score during hand-tracking directly correlates to optical tracking loss or occlusion.
+
+**3. Timing the Delivery**
+[cite_start]Administering the scale during a trial may be intrusive to the task[cite: 1]. [cite_start]Conversely, when administered post-task, participants may forget details of the task[cite: 1]. 
+* **The Solution:** You must administer the RTLX immediately after *each* of the 4 separate 6-DoF tasks (Translation, Rotation, Combined, Scaling). [cite_start]This prevents the "context effect," where ratings of one task might be influenced by significantly different experiences immediately before[cite: 3]. 
+
+By abandoning your custom template, adopting RTLX, and explicitly comparing the NASA-TLX subscales against your hidden 6-DoF telemetry algorithms, your Chapter 4 (Results) will transform from a simple summary into a rigorous, publishable analysis of XR interaction paradigms.
 ## Reviewing the 6-DoF
 ### Source 1: Six Degrees of Freedom Explained
 Written by Coursera Staff • Updated on Dec 17, 2025
@@ -932,7 +963,7 @@ Once the liver is perfectly aligned, the system instantly snaps it into place, t
 - I want to know what algorithm is best to implement for calculating some of these metrics and why.
 - I also want to know which gestures to program. To do this,  I need to map out/finalise all of the movements that can be made e.g., rotation, scaling/zoom in/out, grabbing/piching, moving, etc. 
 	- Once determined, these actions will need to be efficiently and logically mapped to both Varjo VR controller and hand-gestures, deciding on the gesture itself based on literature i.e. what's intuitive and easy for people to perform and then solidifying whether or not it is mono or bimanual gesture for each action. 
-## Results
+### Results:  Continue and Implement the code and gestures
 This is exactly the type of foundational questioning that leads to a top-tier dissertation. You cannot effectively program a testing environment if you do not understand the academic logic behind it. 
 
 Let’s demystify the 6-DoF task and the NASA-TLX, validate your testing scenario, define your mathematical algorithms, and finalize your gesture mapping using the literature you provided.
@@ -978,7 +1009,8 @@ To calculate spatial inefficiency, you must use industry-standard 3D mathematica
 ### Part 4: Finalizing the Gesture Mapping
 Based on Source 3 (User-Defined Gestures), we must select gestures that minimize wrist strain and physiological load. 
 #### Task 1, 2, and 3: Translation & Rotation (6-DoF)
-* **Hand-Tracking (Condition B):** **Mono-manual "Pinch-and-Hold".** * *Literature Justification:* Source 3 explicitly notes that "Fewer fingers" gestures (using just thumb and forefinger) require significantly smaller Range of Motion (ROM) and velocity of wrist motion compared to full hand grabs. Because you are testing precise rotational docking, wrist flexibility is paramount. A pinch allows the wrist to pivot freely.
+* **Hand-Tracking (Condition B):** **Mono-manual "Pinch-and-Hold".** 
+* *Literature Justification:* Source 3 explicitly notes that "Fewer fingers" gestures (using just thumb and forefinger) require significantly smaller Range of Motion (ROM) and velocity of wrist motion compared to full hand grabs. Because you are testing precise rotational docking, wrist flexibility is paramount. A pinch allows the wrist to pivot freely.
     * *The Action:* User pinches the liver with one hand. While pinched, the liver's Transform matches the hand's Transform 1:1.
 * **Varjo Controller (Condition A):** **Mono-manual "Grip Button Hold".**
     * *The Action:* User holds the side-grip button. The liver follows the controller 1:1.
