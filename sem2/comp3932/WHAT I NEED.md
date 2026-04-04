@@ -1075,10 +1075,21 @@ Does this synthesis clarify the academic framework of your experiment? If so, we
 - [ ] Pinch with one hand using the thumb and index finger. 
 	- [ ] The user can change the X,Y,Z postion of the grabbed object.
 	- [ ] To undo this action and revert back to a non-pinch state, the thumb and index finger must be noticeably apart. 
-	- [ ] I'm coining this action and transition of state to non-state a 'breaking' of the gesture
+	- [ ] I'm coining this action and transition of state to non-state a 'breaking' of the gesture. A gesture can break, be broken, etc.
 - [ ] Pinch with both hands using the thumbs and index fingers. 
 	- [ ] The pinches do not have to be simultaneous, so long as both pinch states/hands are active. 
-	- [ ] If the double pinch state is active and one of the pinches gets broken, e.g., is no longer in a pinch gesture, the state immediately behaves as the pinch and grab state.
+	- [ ] If the double pinch state is active and one of the pinches gets broken e.g., is no longer in a pinch gesture, the state immediately behaves as the pinch and grab state.
+- [ ] Pinch exactly the same as the Grab gesture and rotate the wrist in any X,Y,Z axis to rotate the model.
+	- [ ] The wrist is unable to rotate the full 360 degrees of any axis. To fix this, when the user has rotated the model, the user can simply break the gesture, unwind their wrist and repeat the gesture.
+
+**Repo**
+- Plan the GH repo so that this is broken into 1-4 sprints
+	- Setup of Devices, Mounting the Ultraleap Motion 2 Controller to the Varjo XR-4 Headset, configuring HDRP pipeline, using tutorial scenes do verify both hand and eye tracking.
+	- 
+
+**Questions**
+- The rotating about multiple axis will be difficult, is this possible?
+- The user can move around the room slightly in the physical world to move in the virtual scene, this acts as pan and move gestures, correct?
 ## How to use the latest FORMS
 Walking through exactly how to process, calculate, and interpret these surveys is the perfect next step. The data you collect is only as good as your ability to decode it for Chapter 4 (Results & Discussion).
 
