@@ -1085,11 +1085,15 @@ Does this synthesis clarify the academic framework of your experiment? If so, we
 **Repo**
 - Plan the GH repo so that this is broken into 1-4 sprints
 	- Setup of Devices, Mounting the Ultraleap Motion 2 Controller to the Varjo XR-4 Headset, configuring HDRP pipeline, using tutorial scenes do verify both hand and eye tracking.
-	- 
+	- Implement the experiment unity scene, materials, objects, basic hands, light, shadows, volumes, service providers, obj model files, hologram etc.
+		- Basic scripts are also included e.g. hand tracking, active states e.g. GRAB
+	- Implement hand gestures and VR Controller gestures
+	- Implement and finalise the background telemtry scripts
 
 **Questions**
 - The rotating about multiple axis will be difficult, is this possible?
 - The user can move around the room slightly in the physical world to move in the virtual scene, this acts as pan and move gestures, correct?
+- Is there anything missing from my Repo, what's expected for a professional standard?
 ## How to use the latest FORMS
 Walking through exactly how to process, calculate, and interpret these surveys is the perfect next step. The data you collect is only as good as your ability to decode it for Chapter 4 (Results & Discussion).
 
