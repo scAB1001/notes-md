@@ -1059,13 +1059,26 @@ Does this synthesis clarify the academic framework of your experiment? If so, we
 - To reconstruct complex 3D anatomy, 2D DICOM files (the result of various medical imaging technologies like CT, MRI, and PET scans) known as slices undergo a process.
 	- It doesn't make sense -> dimensional mismatch
 ## Developing the Gesture code [TO-D0:]
+- Design and map out gestures
+	- Hand gestures
+	- VR controller
+- Create logical flow diagram
+- Create code UML OOP diagram
+- Repo
+
 **Actions**
 - [ ] Grab
 - [ ] Zoom 
 - [ ] Rotate
+
 **Gestures**
-- [ ] Pinch and Hold - one hand, two fingers
-- [ ] Z
+- [ ] Pinch with one hand using the thumb and index finger. 
+	- [ ] The user can change the X,Y,Z postion of the grabbed object.
+	- [ ] To undo this action and revert back to a non-pinch state, the thumb and index finger must be noticeably apart. 
+	- [ ] I'm coining this action and transition of state to non-state a 'breaking' of the gesture
+- [ ] Pinch with both hands using the thumbs and index fingers. 
+	- [ ] The pinches do not have to be simultaneous, so long as both pinch states/hands are active. 
+	- [ ] If the double pinch state is active and one of the pinches gets broken, e.g., is no longer in a pinch gesture, the state immediately behaves as the pinch and grab state.
 ## How to use the latest FORMS
 Walking through exactly how to process, calculate, and interpret these surveys is the perfect next step. The data you collect is only as good as your ability to decode it for Chapter 4 (Results & Discussion).
 
