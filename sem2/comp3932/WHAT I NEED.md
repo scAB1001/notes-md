@@ -996,28 +996,28 @@ This is exactly the type of foundational questioning that leads to a top-tier di
 Let’s demystify the 6-DoF task and the NASA-TLX, validate your testing scenario, define your mathematical algorithms, and finalize your gesture mapping using the literature you provided.
 
 ---
-### Part 1: The "Why" behind 6-DoF and NASA-TLX
+#### Part 1: The "Why" behind 6-DoF and NASA-TLX
 The easiest way to understand your methodology is to view it as a two-sided coin: **Objective Performance** versus **Subjective Cost**.
-#### Why the 6-DoF Docking Task? (The Objective Measure)
+##### Why the 6-DoF Docking Task? (The Objective Measure)
 In your provided Source 2 (the astronaut docking study), they note that controlling 6-DoF requires building an internal "mental representation of one's own position and orientation in space." 
 In the real world, a surgeon manipulating a liver inherently uses 6-DoF (Translate X/Y/Z and Rotate Pitch/Yaw/Roll). When we force users to do this virtually, we are testing the **"Mapping Dissonance."** 
 * **The Controller Problem:** A joystick is a 2D input device. Using it to perform a 3D rotational task forces the brain to translate "pushing a thumbstick left" into "rolling the liver on its Z-axis." This is a heavy cognitive translation step.
 * **The Hand Solution:** Hand-tracking provides a 1:1 kinematic mapping. Your hand moves forward, the liver moves forward. Your wrist twists, the liver twists. 
 * **The Purpose in your Report:** The docking task mathematically proves whether that 1:1 hand mapping actually translates to faster, more accurate spatial manipulation than the joystick. 
-#### Why the NASA-TLX? (The Subjective Measure)
+##### Why the NASA-TLX? (The Subjective Measure)
 If your telemetry proves that hand-tracking completes the task 40% faster than the joystick, you might be tempted to say "Hand tracking is universally better." But what if the user’s arms were burning with fatigue? What if the camera lost tracking and frustrated them?
 * **The Purpose in your Report:** The NASA-TLX measures the *Cognitive and Physical Cost* of that performance. Source 3 highlights the physiological load of mid-air interaction. The NASA-TLX forces the user to rate their **Mental Demand**, **Physical Demand** (Gorilla Arm), and **Frustration**. 
 * **Harmonizing the Two:** You achieve $\ge 80\%$ critical analysis when you synthesize both metrics. For example: *"While 6-DoF telemetry proved hand-tracking was 30% faster, the NASA-TLX revealed a 50% increase in Physical Demand due to lack of haptic resting surfaces, indicating a trade-off between intuitive mapping and ergonomic fatigue."*
 
 ---
-### Part 2: Reviewing Your 4-Task Setup
+#### Part 2: Reviewing Your 4-Task Setup
 Your isolation of variables (Translation -> Rotation -> Both -> Both + Scale) is **exceptional**. This is exactly how rigorous HCI studies are structured because it prevents confounding variables. If a user fails at Task 3, you know exactly why because you have their baseline data from Task 1 and 2.
 
 **Answering your Scaling Question:**
 *Should scale be constrained to all XYZ?* **Yes, absolutely.** You must lock the aspect ratio (Uniform Scaling). If you allow non-uniform scaling (stretching the liver into a pancake), you change the task from "spatial positioning" to "mesh deformation," which invalidates your docking metrics.
 
 ---
-### Part 3: Telemetry Algorithms (The "How")
+#### Part 3: Telemetry Algorithms (The "How")
 To calculate spatial inefficiency, you must use industry-standard 3D mathematical principles. Here is exactly what algorithms to use and why:
 
 **1. Rotational Error (Angular Offset)**
@@ -1033,7 +1033,7 @@ To calculate spatial inefficiency, you must use industry-standard 3D mathematica
 * **The Justification:** Measures tracking instability and ergonomic need-to-rest.
 
 ---
-### Part 4: Finalizing the Gesture Mapping
+#### Part 4: Finalizing the Gesture Mapping
 Based on Source 3 (User-Defined Gestures), we must select gestures that minimize wrist strain and physiological load. 
 #### Task 1, 2, and 3: Translation & Rotation (6-DoF)
 * **Hand-Tracking (Condition B):** **Mono-manual "Pinch-and-Hold".** 
@@ -1058,3 +1058,95 @@ Does this synthesis clarify the academic framework of your experiment? If so, we
 - Use a list of Acronyms table?
 - To reconstruct complex 3D anatomy, 2D DICOM files (the result of various medical imaging technologies like CT, MRI, and PET scans) known as slices undergo a process.
 	- It doesn't make sense -> dimensional mismatch
+## Developing the Gesture code [TO-D0:]
+**Actions**
+- [ ] Grab
+- [ ] Zoom 
+- [ ] Rotate
+**Gestures**
+- [ ] Pinch and Hold - one hand, two fingers
+- [ ] Z
+## How to use the latest FORMS
+Walking through exactly how to process, calculate, and interpret these surveys is the perfect next step. The data you collect is only as good as your ability to decode it for Chapter 4 (Results & Discussion).
+
+Here is a step-by-step mathematical and analytical walkthrough for both the Raw Task Load Index (RTLX) and the System Usability Scale (SUS), tailored directly to your testing scenario.
+
+---
+### Part 1: Interpreting the Raw Task Load Index (RTLX)
+The RTLX measures the **Subjective Cost** of a specific action. Because you are administering it four times per control method (after Translation, Rotation, Translation+Rotation, and Scaling), you are looking for *spikes* in specific subscales. 
+
+Each question is answered on a 1–20 scale. You can analyze this data in two ways:
+#### 1. The Overall Task Load (The Macro View)
+To get the overall workload for a specific task, you simply calculate the mean of the six subscales. Multiply by 5 if you wish to report it as a standard percentage (0–100).
+
+* **Example calculation:** * Mental: 14, Physical: 8, Temporal: 10, Effort: 12, Performance: 6, Frustration: 10. 
+    * Sum = 60. 
+    * Average = 10 (out of 20), or an overall workload score of **50%**.
+#### 2. Diagnostic Subscale Analysis (The Micro View)
+This is where you will secure high marks. Do not just report the averages; contrast the subscales against your objective telemetry.
+
+**Walkthrough Scenario: Task 3 (6-DoF Docking)**
+Imagine a participant finishes Task 3 using both the joystick and then bare hands. You look at their RTLX subscales and see this:
+
+* **VR Joystick Results:** Mental Demand: **18**, Physical Demand: **4**, Frustration: **16**.
+* **Hand-Tracking Results:** Mental Demand: **6**, Physical Demand: **14**, Frustration: **8**.
+
+**How to write this up:**
+> *"Diagnostic analysis of the RTLX subscales revealed a clear trade-off between the two interfaces during 6-DoF manipulation. The legacy VR joystick imposed a severe Mental Demand (18/20), validating the hypothesis that mapping a 2D thumbstick to a 3D liver rotation induces high cognitive friction. Conversely, hand-tracking drastically reduced Mental Demand (6/20) and Frustration (8/20), as the 1:1 kinematic mapping was highly intuitive. However, this came at a physiological cost: Physical Demand spiked to 14/20 during hand-tracking, consistent with the 'Gorilla Arm' fatigue expected during unsupported mid-air interaction."*
+
+---
+### Part 2: Interpreting the System Usability Scale (SUS)
+The SUS provides a reliable, high-level evaluation of the overall system. It uses a 10-item, 1–5 Likert scale. 
+
+**Warning:** You cannot simply add the scores together. The SUS alternates between positive statements (odd numbers) and negative statements (even numbers) to prevent participants from mindlessly checking "5" down the whole page. You must normalize the scores before summing them.
+#### The SUS Formula
+To calculate the final score (which scales from 0 to 100), apply the following logic:
+1.  **For Odd Items (1, 3, 5, 7, 9):** Subtract 1 from the user's response.
+2.  **For Even Items (2, 4, 6, 8, 10):** Subtract the user's response from 5.
+3.  Add all the normalized scores together.
+4.  Multiply the total by 2.5.
+
+The formal calculation is written as:
+$SUS = \left( \sum (Score_{odd} - 1) + \sum (5 - Score_{even}) \right) \times 2.5$
+#### Example Walkthrough: Evaluating the Hand-Tracking System
+A participant finishes all tasks with the Ultraleap hand-tracking and fills out the SUS in Section B of your form. Here are their raw responses:
+
+* Q1 (Positive): **4**
+* Q2 (Negative): **2**
+* Q3 (Positive): **5**
+* Q4 (Negative): **1**
+* Q5 (Positive): **4**
+* Q6 (Negative): **2**
+* Q7 (Positive): **4**
+* Q8 (Negative - *Tiring to use*): **4**
+* Q9 (Positive): **4**
+* Q10 (Negative): **2**
+
+**Step 1: Normalize the Odd (Positive) Questions**
+* Q1: 4 - 1 = **3**
+* Q3: 5 - 1 = **4**
+* Q5: 4 - 1 = **3**
+* Q7: 4 - 1 = **3**
+* Q9: 4 - 1 = **3**
+* *Odd Sum = 16*
+
+**Step 2: Normalize the Even (Negative) Questions**
+* Q2: 5 - 2 = **3**
+* Q4: 5 - 1 = **4**
+* Q6: 5 - 2 = **3**
+* Q8: 5 - 4 = **1** *(Note: They rated it highly tiring, so this yields a low normalized score)*
+* Q10: 5 - 2 = **3**
+* *Even Sum = 14*
+
+**Step 3: Calculate Final Score**
+* Total Sum: 16 + 14 = 30
+* Final Score: 30 × 2.5 = **75**
+#### How to Interpret the Score
+The SUS score is out of 100, but it is **not** a percentage. Based on decades of industry benchmarking, the average SUS score is **68**. 
+* **< 51:** Poor (System requires severe redesign).
+* **51 – 68:** Okay to Fair.
+* **68 – 80.3:** Good (The system is usable and acceptable).
+* **> 80.3:** Excellent.
+
+**How to write this up:**
+> *"The hand-tracking interface achieved a mean SUS score of 75, placing it above the industry-standard baseline of 68 and indicating 'Good' usability. While the system scored highly on intuitive integration (Q3, Q7), individual item analysis revealed that Q8 ('I found the system very tiring to use') acted as a primary detractor, further corroborating the physical demand spikes observed in the RTLX telemetry."*
