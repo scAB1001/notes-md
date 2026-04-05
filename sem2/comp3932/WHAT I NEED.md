@@ -1058,6 +1058,7 @@ Does this synthesis clarify the academic framework of your experiment? If so, we
 - Use a list of Acronyms table?
 - To reconstruct complex 3D anatomy, 2D DICOM files (the result of various medical imaging technologies like CT, MRI, and PET scans) known as slices undergo a process.
 	- It doesn't make sense -> dimensional mismatch
+# 05/04/2026
 ## Developing the Gesture code [TO-D0:]
 - Design and map out gestures
 	- Hand gestures
@@ -1161,11 +1162,6 @@ Here is your repository plan, injected with professional software engineering st
 
 Shall we begin drafting the C# code for the `GestureStateMachine` to solidify how we will mathematically detect the pinch states and trigger your "breaking" mechanic?
 ## How to use the latest FORMS
-Walking through exactly how to process, calculate, and interpret these surveys is the perfect next step. The data you collect is only as good as your ability to decode it for Chapter 4 (Results & Discussion).
-
-Here is a step-by-step mathematical and analytical walkthrough for both the Raw Task Load Index (RTLX) and the System Usability Scale (SUS), tailored directly to your testing scenario.
-
----
 ### Part 1: Interpreting the Raw Task Load Index (RTLX)
 The RTLX measures the **Subjective Cost** of a specific action. Because you are administering it four times per control method (after Translation, Rotation, Translation+Rotation, and Scaling), you are looking for *spikes* in specific subscales. 
 
