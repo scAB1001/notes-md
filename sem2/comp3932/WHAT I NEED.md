@@ -1094,6 +1094,72 @@ Does this synthesis clarify the academic framework of your experiment? If so, we
 - The rotating about multiple axis will be difficult, is this possible?
 - The user can move around the room slightly in the physical world to move in the virtual scene, this acts as pan and move gestures, correct?
 - Is there anything missing from my Repo, what's expected for a professional standard?
+### Results
+#### 1. Answering Your Questions
+**"The rotating about multiple axis will be difficult, is this possible?"**
+Yes, it is entirely possible and mathematically straightforward in Unity, but it is *anatomically* difficult for the user. 
+* **The Math:** You will calculate the *delta rotation* of the hand between frames using Quaternions: `deltaRot = currentHandRot * Quaternion.Inverse(lastHandRot);` and apply that delta to the liver.
+* **The HCI Challenge:** Human wrists do not have 360-degree rotation. Furthermore, twisting the wrist often hides the fingers from the Ultraleap camera (optical occlusion), causing the tracking to drop. Your "breaking" (clutching) mechanic is the exact right solution to this. The user rotates 90 degrees, releases the pinch, resets their wrist, grabs, and rotates again. 
+
+**"The user can move around the room slightly in the physical world to move in the virtual scene, this acts as pan and move gestures, correct?"**
+Technically, no. Moving physically is **Head Tracking (6-DoF Locomotion)**, not a gesture. However, functionally, it does change the user's perspective (panning/dollying) relative to the 3D model. You should explicitly state in your report that the Varjo XR-4 handles user locomotion natively via inside-out tracking, leaving the gestures strictly for object manipulation. 
+
+**"Is there anything missing from my Repo, what's expected for a professional standard?"**
+Your 4-sprint breakdown is excellent for feature delivery, but a professional-grade repository requires specific configuration files and structural pipelines. Here is what you must add to your GitHub setup:
+1.  **.gitignore (Crucial):** You must use a Unity-specific `.gitignore` file. Never push the `Library`, `Temp`, or `Logs` folders to GitHub. They are massive, machine-specific, and will break your repo.
+2.  **Git LFS (Large File Storage):** Medical 3D models (`.obj`), HDRP texture maps, and baked lighting data often exceed GitHub's 100MB file limit. You must initialize Git LFS in Sprint 1 to track `*.obj`, `*.mat`, and `*.asset` files.
+3.  **Documentation Architecture:** A professional repo needs a `README.md` containing: Build Instructions (Unity version 2021.3 LTS, HDRP), Hardware Requirements (Varjo XR-4, Ultraleap), and a brief system overview.
+4.  **Release Tagging:** At the end of each sprint, create a "Release" tag in GitHub (e.g., `v0.1-alpha`, `v1.0-experiment-ready`). This proves to your examiners that you used professional version control pacing.
+
+---
+#### 2. Gesture Mapping (Condition B vs. Condition A)
+Here is the finalized 1:1 mapping for your comparative study. (Note: "Zoom" in 3D object manipulation is technically defined as **Scaling**).
+
+| Action               | Condition B: Bare Hands (Ultraleap)                                                                                                                                        | Condition A: VR Controller (Varjo)                                                                                                                 |
+| :------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Grab / Translate** | **Mono-Pinch:** Single hand pinch (thumb + index). Liver translates 1:1 with hand movement.                                                                                | **Grip Hold:** Press and hold the side grip button. Liver translates 1:1 with controller movement.                                                 |
+| **Rotate**           | **Mono-Pinch + Wrist Pivot:** Same pinch as grab, but wrist rotation applies delta Quaternions to the liver. User releases pinch to "clutch" and reset wrist.              | **Grip Hold + Wrist Pivot:** Press and hold side grip, rotate physical controller. User releases grip to clutch.                                   |
+| **Scale ("Zoom")**   | **Bimanual Pinch:** Both hands pinch. The distance delta between the left and right pinch centers dictates uniform XYZ scaling. Releasing one hand reverts to Grab/Rotate. | **Grip Hold + Thumbstick:** Hold grip button. Push thumbstick Forward to scale up, pull Backward to scale down. *(Highlights mapping dissonance).* |
+
+---
+#### 3. Object-Oriented Architecture (UML Logic)
+To keep your code decoupled and professional, your system should utilize a **State Machine** for the gestures. Here is the logical class structure for your UML diagram:
+
+* **`ClinicalTrialManager` (The Orchestrator)**
+    * *Properties:* `CurrentTaskIndex`, `IsTrialActive`, `TargetDistanceThreshold`, `TargetAngleThreshold`.
+    * *Methods:* `StartTrial()`, `CheckWinCondition()`, `EndTrial()`.
+* **`AlignmentMetricsLogger` (The Telemetry Engine)**
+    * *Properties:* `CSVFilePath`, `StartTime`, `ClutchCount`.
+    * *Methods:* `LogFrameData(Vector3 error, float angle)`, `IncrementClutch()`, `ExportToCSV()`.
+* **`GestureStateMachine` (The Input Interpreter)**
+    * *Properties:* `LeftHandPinchStrength`, `RightHandPinchStrength`, `CurrentState` (Enum: Idle, MonoGrab, BimanualScale).
+    * *Methods:* `EvaluateHands()`, `TriggerGrabEvent()`, `TriggerBreakEvent()`.
+* **`UltraleapKinematicManipulator` (The Physics Mover)**
+    * *Properties:* `TargetLiverTransform`, `ReferenceHandTransform`.
+    * *Methods:* `TranslateObject(Vector3 delta)`, `RotateObject(Quaternion delta)`, `ScaleObject(float distanceDelta)`.
+
+---
+#### 4. Sprint Plan Refinement
+Here is your repository plan, injected with professional software engineering standards:
+
+* **Sprint 1: Architecture & Tracking Validation**
+    * Initialize Git, `.gitignore` (Unity), and Git LFS.
+    * Configure Unity 2021.3 LTS, HDRP, and strictly set Varjo offsets to `0,0,0`.
+    * Verify raw tracking streams for both Varjo standard controllers and the Ultraleap module.
+* **Sprint 2: The Clinical Void & Assets**
+    * Import `.obj` liver models and apply clinical HDRP materials.
+    * Set up the minimalist environment (lighting, shadows, global volume).
+    * Create the "Ghost" target hologram and position it.
+* **Sprint 3: Interaction & State Machines (The Core)**
+    * Code the `GestureStateMachine` for both Hand and Controller inputs.
+    * Implement Grab, Rotate, and Bimanual Scale (with "clutch/break" logic).
+    * Implement the 0.25-second coyote-time for occlusion handling.
+* **Sprint 4: Telemetry & Trial Orchestration**
+    * Code `AlignmentMetricsLogger` to write Euclidean and Quaternion errors to `.csv`.
+    * Wire the `ClinicalTrialManager` UI to guide the user through the 4 tasks.
+    * QA testing, bug fixing, and final `v1.0` GitHub Release tag.
+
+Shall we begin drafting the C# code for the `GestureStateMachine` to solidify how we will mathematically detect the pinch states and trigger your "breaking" mechanic?
 ## How to use the latest FORMS
 Walking through exactly how to process, calculate, and interpret these surveys is the perfect next step. The data you collect is only as good as your ability to decode it for Chapter 4 (Results & Discussion).
 
