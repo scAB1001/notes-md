@@ -1101,11 +1101,11 @@ Yes, it is entirely possible and mathematically straightforward in Unity, but it
 * **The Math:** You will calculate the *delta rotation* of the hand between frames using Quaternions: `deltaRot = currentHandRot * Quaternion.Inverse(lastHandRot);` and apply that delta to the liver.
 * **The HCI Challenge:** Human wrists do not have 360-degree rotation. Furthermore, twisting the wrist often hides the fingers from the Ultraleap camera (optical occlusion), causing the tracking to drop. Your "breaking" (clutching) mechanic is the exact right solution to this. The user rotates 90 degrees, releases the pinch, resets their wrist, grabs, and rotates again. 
 
-**"The user can move around the room slightly in the physical world to move in the virtual scene, this acts as pan and move gestures, correct?"**
-Technically, no. Moving physically is **Head Tracking (6-DoF Locomotion)**, not a gesture. However, functionally, it does change the user's perspective (panning/dollying) relative to the 3D model. You should explicitly state in your report that the Varjo XR-4 handles user locomotion natively via inside-out tracking, leaving the gestures strictly for object manipulation. 
+> **"The user can move around the room slightly in the physical world to move in the virtual scene, this acts as pan and move gestures, correct?"**
+> Technically, no. Moving physically is **Head Tracking (6-DoF Locomotion)**, not a gesture. However, functionally, it does change the user's perspective (panning/dollying) relative to the 3D model. You should explicitly state in your report that the Varjo XR-4 handles user locomotion natively via inside-out tracking, leaving the gestures strictly for object manipulation. 
 
 **"Is there anything missing from my Repo, what's expected for a professional standard?"**
-Your 4-sprint breakdown is excellent for feature delivery, but a professional-grade repository requires specific configuration files and structural pipelines. Here is what you must add to your GitHub setup:
+Your 4-sprint breakdown is excellent for feature delivery, but a professional-grade repository requires specific configuration files and structural pipelines.
 1.  **.gitignore (Crucial):** You must use a Unity-specific `.gitignore` file. Never push the `Library`, `Temp`, or `Logs` folders to GitHub. They are massive, machine-specific, and will break your repo.
 2.  **Git LFS (Large File Storage):** Medical 3D models (`.obj`), HDRP texture maps, and baked lighting data often exceed GitHub's 100MB file limit. You must initialize Git LFS in Sprint 1 to track `*.obj`, `*.mat`, and `*.asset` files.
 3.  **Documentation Architecture:** A professional repo needs a `README.md` containing: Build Instructions (Unity version 2021.3 LTS, HDRP), Hardware Requirements (Varjo XR-4, Ultraleap), and a brief system overview.
