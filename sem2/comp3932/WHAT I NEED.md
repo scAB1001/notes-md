@@ -1161,6 +1161,90 @@ Here is your repository plan, injected with professional software engineering st
     * QA testing, bug fixing, and final `v1.0` GitHub Release tag.
 
 Shall we begin drafting the C# code for the `GestureStateMachine` to solidify how we will mathematically detect the pinch states and trigger your "breaking" mechanic?
+###  Planning the Rep
+
+#### 1. Kanban Configuration: Sprints, WIP Limits, and Granularity
+A Kanban board is not a graveyard for vague ideas; it is a living, breathing engine that tracks progress.
+#### Adding Backlog Items
+**Should I add all backlog items for each sprint prior to being in the actual sprint phase itself?**
+No. This is an anti-pattern. You should define your high-level *Features* (Epics) up front, but only break them down into granular *Tickets* (Issues) during Sprint Planning at the beginning of each sprint. If you try to plan Sprint 4 in detail during Sprint 1, you will fail, because you do not yet know what technical debt or tracking issues you will encounter.
+#### Work-In-Progress (WIP) Limits
+**What should the set limit be for each column?**
+WIP limits force you to finish tasks before starting new ones, demonstrating Lean methodology. As a solo developer, apply these strict limits:
+* **Backlog:** No limit (High-level ideas go here).
+* **Ready (Sprint Backlog):** 5-8 tickets maximum. (Only what you commit to for the current sprint).
+* **In Progress:** **Strict limit of 2.** (If you have 3 things in progress, you are context-switching and destroying your velocity).
+* **In Review (PR Open):** **Strict limit of 2.** (You must merge or close a PR before moving on).
+* **Done:** No limit.
+#### Ticket Specificity and Details
+**How specific and exact should the items be?**
+A ticket is not "Do hand tracking." A ticket must be an actionable, verifiable unit of work.
+
+**What details should be provided?**
+Every ticket (GitHub Issue) must contain:
+1.  **Title:** `[Feature] Implement Pinch Threshold State Machine`
+2.  **Description/User Story:** "As the system, I need to detect when the thumb and index finger are $< 0.02$ units apart to trigger a grab state, and $> 0.05$ units apart to break the grab."
+3.  **Acceptance Criteria:** (How do you know it is done?)
+    * State machine logs "Pinch Entered" to console.
+    * State machine logs "Pinch Exited" to console.
+    * Hysteresis loop prevents flickering between states.
+
+---
+#### 2. The Development Roadmap (Epics & Milestones)
+Your methodology evaluation requires a macro-level Roadmap. In GitHub Projects, you can view your tickets as a Roadmap (Gantt chart) by grouping them into Epics/Milestones.
+
+Here is how you should structure your milestones in GitHub:
+* **Milestone 1: Foundation (Weeks 1-2)**
+    * *Goal:* Stable HDRP environment with zero-offset Varjo pass-through and raw Ultraleap skeletal data streaming.
+* **Milestone 2: Interaction Core (Weeks 3-4)**
+    * *Goal:* Functional Gesture State Machine allowing Translation and Rotation of the 3D Liver mesh without physics colliders.
+* **Milestone 3: Bimanual & Baseline (Weeks 5-6)**
+    * *Goal:* Implementation of bimanual scaling and completion of the Varjo Controller 6-DoF baseline system (Condition A).
+* **Milestone 4: Telemetry & Orchestration (Weeks 7-8)**
+    * *Goal:* `ClinicalTrialManager` sequences tasks 1-4 automatically, and `AlignmentMetricsLogger` successfully outputs Euclidean/Quaternion error to a `.csv` file.
+
+---
+#### 3. Git Workflow: Branching and Committing
+You want to stick to Conventional Commits and Feature Branching. This is exactly what examiners want to see.
+#### The Branching Strategy
+Never commit directly to `main`. When you pick up a ticket (e.g., Issue #12: Implement Dwell Timer), you branch off `main`:
+
+`git checkout -b feat/12/dwell-timer`
+
+**Branch Naming Convention:**
+`<type>/<issue-number>/<short-description>`
+* **Types:** `feat` (new feature), `fix` (bug fix), `docs` (documentation), `refactor` (code structure change).
+* **Example:** `fix/14/fix-pink-shader-bug`
+#### The Commit Strategy
+When you commit work on that branch, use Conventional Commits:
+
+**Commit Naming Convention:**
+`<type>(optional scope): <description>`
+* **Example 1:** `feat(telemetry): implement quaternion angle tracking`
+* **Example 2:** `fix(rendering): disable auto-baking to fix HDRP pipeline errors`
+* **Example 3:** `docs(readme): add hardware prerequisites`
+#### The Pull Request (PR)
+When the branch is done, open a PR against `main`. The PR title must match the convention: `feat: implement dwell timer`. Include `Closes #12` in the PR description so GitHub automatically closes the issue when merged.
+
+---
+#### 4. Version Control and Unity Integration
+**"Should I connect this repo with my actual unity scene as to ensure version control or manually add scripts?"**
+
+**You MUST connect the repository to your actual Unity project folder.** Manually dragging scripts into GitHub via the web interface completely defeats the purpose of version control and will result in a heavy penalty on your methodology mark. Version control tracks the evolution of your *entire* project, including scene files, material properties, and project settings.
+
+**"I am not using unity cloud nor unity version control, why did I choose this?"**
+
+This is a fantastic point to make in your dissertation's methodology chapter. Here is exactly how you justify it:
+
+> *"For version control and source code management, industry-standard Git (hosted via GitHub) was selected over Unity Version Control (Plastic SCM) or Unity Cloud Build. This decision was driven by the project's strict hardware dependencies. The system requires the Varjo XR-4 proprietary runtime and embedded Ultraleap drivers to function. Cloud-based compilation platforms cannot validate these hardware-level integrations, rendering remote builds futile. Furthermore, standard Git coupled with Git Large File Storage (LFS) provided superior, granular control over branch protection and conventional commit histories, which was critical for maintaining the integrity of the C# telemetry algorithms throughout the iterative development cycles."*
+
+**"How else will I track my projects progress?"**
+
+You track your progress through the irrefutable history of your GitHub repository:
+1.  **The Kanban Board:** Shows velocity and task completion.
+2.  **The Git Commit History:** Shows a logical, chronological evolution of the codebase.
+3.  **Pull Requests:** Shows that code was reviewed (even by yourself) before being merged into production.
+4.  **GitHub Releases (Tags):** E.g., tagging `v1.0-experiment-ready` proves you hit your final milestone.
 ## How to use the latest FORMS
 ### Part 1: Interpreting the Raw Task Load Index (RTLX)
 The RTLX measures the **Subjective Cost** of a specific action. Because you are administering it four times per control method (after Translation, Rotation, Translation+Rotation, and Scaling), you are looking for *spikes* in specific subscales. 
