@@ -1317,7 +1317,6 @@ I have explicitly adjusted the architecture for **VR Only**, meaning we are offi
   - [ ] Ghost liver does not physically collide with the Solid liver or hands.
 
 ---
-
 ### **Sprint 3: Interaction & State Machines (The Core)**
 *Focus: Engineering the physics-free kinematic manipulation.*
 
