@@ -1578,11 +1578,90 @@ Use the format `v[Major].[Minor].[Patch]`
 * **v1.0.0 (Submission):** Title: `Final Release: 6-DoF Navigation System`.
     * *Trigger:* Final QA complete. This is the version you link in your dissertatioN
 ### 4. Refined Execution Plan
+To maximize the "Software Management" portion of the marking rubric:
+
 1.  **PR Documentation:** In the Pull Request for each feature, don't just say "done." Write: *"Implemented the 0.25s coyote-time grace period to solve the occlusion problem identified in the risk analysis."* This links your code directly to your critical thinking.
 2.  **Milestone Referencing:** In your GitHub Roadmap view, ensure the Milestones are clearly visible. Each Milestone description should summarize the **HCI goal** (e.g., *"Goal: Reduce cognitive load by replacing abstract inputs with natural gestures"*).
 3.  **Labeling:** Ensure every issue has at least two labels (e.g., `feat` + `telemetry`). This helps the examiner filter your work to see how much of it was actually "Research-based" vs "Technical."
 
 By following this commit-to-PR-to-Milestone pipeline, you create a perfect "paper trail" of professional evidence. You are no longer just a student finishing a project; you are an engineer conducting a validated study.
+
+Mistakes in the commit history are a standard part of the development lifecycle. To fix this, we will perform a **Soft Reset**, which removes the commit from the history but keeps all your code changes sitting in your "Staging Area" so you can unstage them and re-commit them in the correct sequence.
+
+### 1. The "Undo" Command
+Execute this in your PowerShell terminal at the root of your repository:
+```powershell
+git reset --soft HEAD~1
+```
+
+**Why this works:** The `--soft` flag tells Git: "Delete the last commit record, but do not touch my files." Your scripts will now appear in `git status` as "Changes to be committed" (in green).
+
+**Next, unstage the scripts specifically:**
+```powershell
+git restore --staged UnityProject/Assets/_Project/Scripts/
+```
+Now the scripts are "Untracked" (in red), and you can follow the mapping below.
+### 2. Script Mapping to Milestones
+Based on your Milestone deliverables, your scripts belong to three distinct phases. Do not commit them all at once; this preserves the "Audit Trail" required for your Synoptic Project.
+
+| Script File | Target Milestone | Logic / Justification |
+| :--- | :--- | :--- |
+| `VarjoHandTrackingOffset.cs` | **Milestone 1** | Essential for the "Zero-offset configuration" deliverable. |
+| `HDRPHandMaterialFixer.cs` | **Milestone 1** | Required for the "HDRP clinical void environment setup." |
+| `UltraleapKinematicManipulator.cs` | **Milestone 2** | Core of the "primary physics-free manipulation system." |
+| `AlignmentMetricsLogger.cs` | **Milestone 4** | The "CSV output pipeline" for the final experiment. |
+| `ClinicalTrialManager.cs` | **Milestone 4** | Handles "task sequencing" and "trial progression." |
+### 3. Step-by-Step Commit Sequence
+#### **Phase A: Finalizing Milestone 1 (Foundation)**
+*Focus: Hardware stability and rendering.*
+```powershell
+git add UnityProject/Assets/_Project/Scripts/Core/VarjoHandTrackingOffset.cs
+git add UnityProject/Assets/_Project/Scripts/Interaction/HDRPHandMaterialFixer.cs
+# Don't forget the .meta files
+git add UnityProject/Assets/_Project/Scripts/Core/VarjoHandTrackingOffset.cs.meta
+git add UnityProject/Assets/_Project/Scripts/Interaction/HDRPHandMaterialFixer.cs.meta
+
+git commit -m "config(xr): implement varjo offset and hdrp material resolution
+
+- Integrates VarjoHandTrackingOffset.cs to ensure zero-offset alignment between optical tracking and the HMD coordinate space
+- Includes HDRPHandMaterialFixer.cs to resolve shader compatibility issues between the Ultraleap skeletal renderer and the High Definition Render Pipeline
+"
+```
+#### **Phase B: Completing Milestone 2 (Kinematic Core)**
+*Focus: Object manipulation.*
+```powershell
+git add UnityProject/Assets/_Project/Scripts/Interaction/UltraleapKinematicManipulator.cs
+git add UnityProject/Assets/_Project/Scripts/Interaction/UltraleapKinematicManipulator.cs.meta
+
+git commit -m "feat(interaction): implement core kinematic manipulation logic
+
+- Introduces UltraleapKinematicManipulator.cs to handle direct object transformations
+- This implementation focuses on the kinematic translation of raw skeletal data into 3D world space, supporting the initial Pinch-to-Grab functionality required for anatomical model manipulation
+"
+```
+#### **Phase C: Orchestration & Telemetry (Milestone 4 Prep)**
+*Focus: Data and trial logic.*
+```powershell
+git add UnityProject/Assets/_Project/Scripts/AlignmentMetricsLogger.cs
+git add UnityProject/Assets/_Project/Scripts/Core/ClinicalTrialManager.cs
+git add UnityProject/Assets/_Project/Scripts/*.meta
+git add UnityProject/Assets/_Project/Scripts/Core/ClinicalTrialManager.cs.meta
+
+git commit -m "feat(telemetry): implement trial orchestration and metrics logging
+
+- Establishes the experimental data pipeline by introducing AlignmentMetricsLogger.cs for high-frequency CSV output
+- Integrates ClinicalTrialManager.cs to handle the finite state machine for trial sequencing, task validation, and automated success metrics extraction
+  "
+```
+
+---
+### 4. Why this matters for the EPA
+By splitting these, your GitHub **Insights > Network** graph will show a clear progression of features. When an examiner looks at Milestone 1, they see the configuration scripts. When they look at Milestone 2, they see the manipulation logic. 
+This demonstrates that you understand the **Single Responsibility Principle** not just in your code, but in your version control management.
+
+**One warning:** Milestone 1 is currently "Overdue by 10 days" in your metadata. Once you push these commits and merge the PR into `main`, make sure to manually update the Milestone status to "Closed" to reflect that the foundation is now secure.
+
+Did the `git reset --soft` command successfully move the files back to your staging area without throwing any "Access Denied" errors?
 ## How to use the latest FORMS
 ### Part 1: Interpreting the Raw Task Load Index (RTLX)
 The RTLX measures the **Subjective Cost** of a specific action. Because you are administering it four times per control method (after Translation, Rotation, Translation+Rotation, and Scaling), you are looking for *spikes* in specific subscales. 
