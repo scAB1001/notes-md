@@ -1249,8 +1249,6 @@ Here is the fully refined, enterprise-grade ticket breakdown for your GitHub Pro
 
 I have explicitly adjusted the architecture for **VR Only**, meaning we are officially discarding the Mixed Reality/Video Pass-Through (VPT) configuration. Instead, the environment will be a closed, fully immersive "Clinical Void," which actually gives you much tighter control over lighting, shadows, and performance.
 
-You can copy and paste these directly into your GitHub Draft Issues and convert them to real issues.
-
 ---
 ### **Sprint 1: Architecture & Tracking (Foundation)**
 *Focus: Environment stabilization and hardware handshakes.*
@@ -1286,7 +1284,6 @@ You can copy and paste these directly into your GitHub Draft Issues and convert 
   - [ ] Ultraleap camera detects hands and renders default joint meshes.
 
 ---
-
 ### **Sprint 2: The Clinical Void & Assets (Environment)**
 *Focus: Importing medical data and establishing the pristine testing arena.*
 
@@ -1529,6 +1526,68 @@ This refined ticket set is designed to maximize your marks for **Methodology** a
 * **Details:** Perform final QA on both conditions. Finalize README documentation. Tag the repository with the `release` version.
 * **Acceptance Criteria:**
     * [ ] System is stable and tagged as `v1.0-experiment-ready`.
+# 07/04/2026
+To achieve a First-Class mark ($\ge 80\%$) in your methodology, you must demonstrate **traceability**: the ability to trace a high-level requirement (Milestone) down to a specific task (Issue), the code implementation (Branch/Commit), and finally its verification (Pull Request).
+### 1. Branches vs. Sprints: The Technical Standard
+Branches should **never** be broken down into Sprints. Sprints/Milestones are management tools (temporal), while branches are architectural tools (functional).
+
+* **The Sprint (Milestone):** Defines *when* work is due and the *goal* (e.g., Sprint 1: Foundation).
+* **The Issue (Ticket):** Defines *what* needs to be done (e.g., Issue #2: Configure HDRP).
+* **The Branch:** Is the workspace for that specific Issue.
+
+For your "Sprint 1 Baseline," you should create one main feature branch to merge your sandbox work, but use multiple commits within that branch to simulate the history of the four tickets.
+
+**The Workflow:**
+1.  **Branch Name:** `feat/0/sprint-1-baseline` (Issue #0 being a placeholder for the baseline merge).
+2.  **Pull Request Title:** `feat: initialize project baseline (Sprint 1)`
+3.  **PR Description:** `Closes #1, #2, #3, #4`.
+### 2. Sprint 1: Detailed Commit Log
+When you move your sandbox code into the repo, do it in these four discrete commits. This proves you didn't just "dump" code, but followed your own plan.
+
+**Commit 1: Repository Hardening**
+* **Command:** `git add .gitignore .gitattributes LICENSE README.md`
+* **Message:** `chore(git): initialize repository with unity .gitignore and lfs attributes`
+* **Context:** Sets the environment rules before any binary data is added.
+
+**Commit 2: Pipeline Configuration**
+* **Command:** `git add ProjectSettings/ Assets/_Project/Settings/`
+* **Message:** `config(rendering): initialize hdrp and varjo vr-only settings`
+* **Context:** Establishes the "Clinical Void" and Opaque VR rendering mode.
+
+**Commit 3: Dependency Resolution**
+* **Command:** `git add Packages/manifest.json`
+* **Message:** `config(deps): add ultraleap openupm registry and tracking package`
+* **Context:** Proves you are using modern package management for the Ultraleap SDK.
+
+**Commit 4: Hardware Verification**
+* **Command:** `git add Assets/_Project/Scenes/HardwareValidation.unity`
+* **Message:** `feat(hardware): implement multi-device tracking validation scene`
+* **Context:** Finalizes the "Ready" state of the project baseline.
+### 3. Releases and Tagging Strategy
+A "Release" in GitHub should represent a **Major Deliverable** (the end of a Sprint/Milestone), not an individual ticket. Tagging provides a permanent "snapshot" of your project at that state, which is vital for examiners who want to see your progress at specific dates.
+#### Tagging Convention: Semantic Versioning (SemVer)
+Use the format `v[Major].[Minor].[Patch]`
+* **Major:** Breaking changes or submission.
+* **Minor:** New features (end of a Sprint).
+* **Patch:** Bug fixes.
+#### Your Release Roadmap:
+* **v0.1.0 (End of Sprint 1):** Title: `Architecture Baseline`.
+    * *Trigger:* When Ticket 4 is merged and Milestone 1 is closed.
+* **v0.2.0 (End of Sprint 2):** Title: `Clinical Void & Asset Ingestion`.
+    * *Trigger:* When the Liver mesh and environment are locked.
+* **v0.5.0 (End of Sprint 3):** Title: `Beta: Interaction Core`.
+    * *Trigger:* When the Gesture State Machine and 6-DoF baseline are functional.
+* **v1.0.0 (Submission):** Title: `Final Release: 6-DoF Navigation System`.
+    * *Trigger:* Final QA complete. This is the version you link in your dissertation.
+### 4. Refined Execution Plan
+To maximize the "Software Management" portion of the marking rubric:
+
+1.  **PR Documentation:** In the Pull Request for each feature, don't just say "done." Write: *"Implemented the 0.25s coyote-time grace period to solve the occlusion problem identified in the risk analysis."* This links your code directly to your critical thinking.
+2.  **Milestone Referencing:** In your GitHub Roadmap view, ensure the Milestones are clearly visible. Each Milestone description should summarize the **HCI goal** (e.g., *"Goal: Reduce cognitive load by replacing abstract inputs with natural gestures"*).
+3.  **Labeling:** Ensure every issue has at least two labels (e.g., `feat` + `telemetry`). This helps the examiner filter your work to see how much of it was actually "Research-based" vs "Technical."
+
+By following this commit-to-PR-to-Milestone pipeline, you create a perfect "paper trail" of professional evidence. You are no longer just a student finishing a project; you are an engineer conducting a validated study.
+>>>>>>> origin/main
 ## How to use the latest FORMS
 ### Part 1: Interpreting the Raw Task Load Index (RTLX)
 The RTLX measures the **Subjective Cost** of a specific action. Because you are administering it four times per control method (after Translation, Rotation, Translation+Rotation, and Scaling), you are looking for *spikes* in specific subscales. 
