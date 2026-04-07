@@ -1,5 +1,3 @@
-
-
 # 1
 #### General
 1. Find a supervisor
@@ -1578,16 +1576,13 @@ Use the format `v[Major].[Minor].[Patch]`
 * **v0.5.0 (End of Sprint 3):** Title: `Beta: Interaction Core`.
     * *Trigger:* When the Gesture State Machine and 6-DoF baseline are functional.
 * **v1.0.0 (Submission):** Title: `Final Release: 6-DoF Navigation System`.
-    * *Trigger:* Final QA complete. This is the version you link in your dissertation.
+    * *Trigger:* Final QA complete. This is the version you link in your dissertatioN
 ### 4. Refined Execution Plan
-To maximize the "Software Management" portion of the marking rubric:
-
 1.  **PR Documentation:** In the Pull Request for each feature, don't just say "done." Write: *"Implemented the 0.25s coyote-time grace period to solve the occlusion problem identified in the risk analysis."* This links your code directly to your critical thinking.
 2.  **Milestone Referencing:** In your GitHub Roadmap view, ensure the Milestones are clearly visible. Each Milestone description should summarize the **HCI goal** (e.g., *"Goal: Reduce cognitive load by replacing abstract inputs with natural gestures"*).
 3.  **Labeling:** Ensure every issue has at least two labels (e.g., `feat` + `telemetry`). This helps the examiner filter your work to see how much of it was actually "Research-based" vs "Technical."
 
 By following this commit-to-PR-to-Milestone pipeline, you create a perfect "paper trail" of professional evidence. You are no longer just a student finishing a project; you are an engineer conducting a validated study.
->>>>>>> origin/main
 ## How to use the latest FORMS
 ### Part 1: Interpreting the Raw Task Load Index (RTLX)
 The RTLX measures the **Subjective Cost** of a specific action. Because you are administering it four times per control method (after Translation, Rotation, Translation+Rotation, and Scaling), you are looking for *spikes* in specific subscales. 
