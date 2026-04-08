@@ -161,104 +161,6 @@ This is the starting point for a plan, which you should also work on with your s
  3. Functional Prototype Application demonstrating complete workflow from model import to immersive hand-controlled navigation with support for multiple anatomical structures.
  4. Evaluation Dataset & Results including recorded user sessions, performance metrics, comparative analysis, and structured feedback from usability testing.
 ### 5. Plan
-A schedule for your project from now until the final submission of the report (week 10 of
-semester 2). Weekly is probably an appropriate level of planning for most people.
-Use your Deliverables as milestones for your progress (makes the Objective Achievable and
-Time-bound).
-
-Allow time for completing evaluation of your work as well as completing development.
-Allow time for writing up, and consider how you will write up – regularly and incrementally,
-or later, once work is complete.
-
-Please consider when there are other demands there are on your time, e.g. exams,
-coursework, holidays.
-
----
-#### Semester 1
-**Week 06 (w/c 03/11)**
-- Project outline approval
-- Literature review: VR interaction techniques & medical visualization
-- Setup development environment (Unity, Varjo SDK/Magic Leap2 software)
-
-**Week 07 (w/c 10/11)**
-- Research 3D mesh processing algorithms
-- Acquire and test sample anatomical models
-- Begin mesh preprocessing implementation
-
-**Week 08 (w/c 17/11)**
-- Complete mesh preprocessing pipeline
-- Test with complex liver models
-- Start hand tracking API integration
-
-**Week 09 (w/c 24/11)**
-- Implement basic gesture recognition (grab, rotate, zoom)
-- Integrate with simple 3D model in VR
-- **Milestone: Basic gesture control working**
-
-**Week 10 (w/c 01/12)**
-- Refine gesture accuracy and sensitivity
-- Add advanced gestures (pan, select, reset view)
-- Begin writing Chapter 2 (Literature Review)
-
-**Week 11 (w/c 08/12)**
-- Complete core gesture mapping system
-- Initial performance optimization
-- **Milestone: All planned gestures implemented**
-#### Break
-**Week 12-13 (w/c 15/12 - 22/12)
-- Holiday
-
-**Week 13- 15 (w/c 22/12 - 05/01)**
-- Light work: Continue literature review writing
-- Plan evaluation methodology
-- Prepare ethics considerations documentation
-
-#### Semester 2
-**Week 01 (w/c 12/01)**
-- System integration testing
-- Fix compatibility issues between components
-- Begin Chapter 3 (Methodology)
-
-**Week 02 (w/c 19/01)**
-- Develop evaluation protocol
-- Create testing scenarios and tasks
-- Prepare participant materials
-  
-**Week 03 (w/c 26/01)**
-- Conduct pilot testing (3-5 participants)
-- Refine system based on feedback    
-- **Milestone: System ready for evaluation**
-
-**Week 04 (w/c 02/02)**
-- Run formal user evaluation sessions
-- Collect performance data and user feedback
-- Begin data analysis
-
-**Week 05 (w/c 09/02)**
-- Complete all user testing
-- Analyze comparative results
-- Start Chapter 4 (Results)
-
-**Week 06 (w/c 16/02)**
-- Complete results analysis
-- Draft Chapter 5 (Discussion)
-- **Milestone: Evaluation complete**
-
-**Week 07 (w/c 23/02)**
-- Full draft completion (all chapters)
-- Initial proofreading and formatting
-- Prepare appendices
-
-**Week 08 (w/c 02/03)**
-- Supervisor feedback incorporation
-- Technical refinement based on findings
-- Final performance optimization
-
-**Week 09 (w/c 09/03)**
-- Final proofreading and formatting
-- Reference checking
-- Submission preparation
-
 **Week 10 (w/c 16/03)**
 - **FINAL SUBMISSION**
 - Buffer week for unexpected delays
@@ -1103,13 +1005,6 @@ Yes, it is entirely possible and mathematically straightforward in Unity, but it
 > **"The user can move around the room slightly in the physical world to move in the virtual scene, this acts as pan and move gestures, correct?"**
 > Technically, no. Moving physically is **Head Tracking (6-DoF Locomotion)**, not a gesture. However, functionally, it does change the user's perspective (panning/dollying) relative to the 3D model. You should explicitly state in your report that the Varjo XR-4 handles user locomotion natively via inside-out tracking, leaving the gestures strictly for object manipulation. 
 
-**"Is there anything missing from my Repo, what's expected for a professional standard?"**
-Your 4-sprint breakdown is excellent for feature delivery, but a professional-grade repository requires specific configuration files and structural pipelines.
-1.  **.gitignore (Crucial):** You must use a Unity-specific `.gitignore` file. Never push the `Library`, `Temp`, or `Logs` folders to GitHub. They are massive, machine-specific, and will break your repo.
-2.  **Git LFS (Large File Storage):** Medical 3D models (`.obj`), HDRP texture maps, and baked lighting data often exceed GitHub's 100MB file limit. You must initialize Git LFS in Sprint 1 to track `*.obj`, `*.mat`, and `*.asset` files.
-3.  **Documentation Architecture:** A professional repo needs a `README.md` containing: Build Instructions (Unity version 2021.3 LTS, HDRP), Hardware Requirements (Varjo XR-4, Ultraleap), and a brief system overview.
-4.  **Release Tagging:** At the end of each sprint, create a "Release" tag in GitHub (e.g., `v0.1-alpha`, `v1.0-experiment-ready`). This proves to your examiners that you used professional version control pacing.
-
 ---
 #### 2. Gesture Mapping (Condition B vs. Condition A)
 Here is the finalized 1:1 mapping for your comparative study. (Note: "Zoom" in 3D object manipulation is technically defined as **Scaling**).
@@ -1659,8 +1554,7 @@ This demonstrates that you understand the **Single Responsibility Principle** no
 
 Did the `git reset --soft` command successfully move the files back to your staging area without throwing any "Access Denied" errors?
 # 08/04/2026
-## Release / Tag Template
-
+# Release / Tag Template
 ```markdown
 USE -> ([#31](https://github.com/scAB1001/comp3932/pull/31)) instead of (#30)
 
@@ -1705,9 +1599,172 @@ USE -> ([#31](https://github.com/scAB1001/comp3932/pull/31)) instead of (#30)
 
 **Full Changelog**: [Initial Release]
 ```
+# Milestone Summary (LTS)
+I need to branch off of main and continue to the next Milestone 2.
+As I understand it, we did a bulk PR from a singular branch for Milestone 1 as there were not many complex features.
+From now on, I want to use branches mapped to issues. Sub-issues will not need a further branch.
+### Milestone 1 was Git tracking and repo configuration, setting up local and remote quality gates and basic hardware device and software alignment.
+A simple scene was also created. The point was to create a foundation for real development.
+### Milestone 2 should be about the core kinematics
+Simply pinching/grabbing (which is recognised by default) and moving the position of the models.
+The clinical scene should also be made here, a box room with a single floating table ---grey and simple to reduce distractions and GPU load.
+There should be a static copy of the liver (the target liver) - this should be fairly opaque, have a turquoise material and cannot be interacted with.
+The original liver should be given a dark red, fleshy material and be a rigid body that can be picked up etc.
+### Milestone 3 should be about creating the rotation and scaling gestures.
+All these gestures should be programmed for the controllers as well.
+#### Questions
+"The rotating about multiple axis will be difficult, is this possible?"
+Yes, it is entirely possible and mathematically straightforward in Unity, but it is *anatomically* difficult for the user.
+* The Math: You will calculate the *delta rotation* of the hand between frames using Quaternions: `deltaRot = currentHandRot * Quaternion.Inverse(lastHandRot);` and apply that delta to the liver.
+* The HCI Challenge: Human wrists do not have 360-degree rotation. Furthermore, twisting the wrist often hides the fingers from the Ultraleap camera (optical occlusion), causing the tracking to drop. Your "breaking" (clutching) mechanic is the exact right solution to this. The user rotates 90 degrees, releases the pinch, resets their wrist, grabs, and rotates again.
+
+> "The user can move around the room slightly in the physical world to move in the virtual scene, this acts as pan and move gestures, correct?"
+> Technically, no. Moving physically is Head Tracking (6-DoF Locomotion), not a gesture. However, functionally, it does change the user's perspective (panning/dollying) relative to the 3D model. You should explicitly state in your report that the Varjo XR-4 handles user locomotion natively via inside-out tracking, leaving the gestures strictly for object manipulation.
+#### Gesture Mapping (Condition B vs. Condition A)
+Here is the finalized 1:1 mapping for your comparative study. (Note: "Zoom" in 3D object manipulation is technically defined as Scaling).
+
+| Action               | Condition B: Bare Hands (Ultraleap)                                                                                                                                        | Condition A: VR Controller (Varjo)                                                                                                                 |
+| :------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Grab / Translate | Mono-Pinch: Single hand pinch (thumb + index). Liver translates 1:1 with hand movement.                                                                                | Grip Hold: Press and hold the side grip button. Liver translates 1:1 with controller movement.                                                 |
+| Rotate           | Mono-Pinch + Wrist Pivot: Same pinch as grab, but wrist rotation applies delta Quaternions to the liver. User releases pinch to "clutch" and reset wrist.              | Grip Hold + Wrist Pivot: Press and hold side grip, rotate physical controller. User releases grip to clutch.                                   |
+| Scale ("Zoom")   | Bimanual Pinch: Both hands pinch. The distance delta between the left and right pinch centers dictates uniform XYZ scaling. Releasing one hand reverts to Grab/Rotate. | Grip Hold + Thumbstick: Hold grip button. Push thumbstick Forward to scale up, pull Backward to scale down. *(Highlights mapping dissonance).* |
+
+#### TextMesh Pro
+Text that displays the gesture that is active, if any.
+### Milestone 4 - The complete experiment and telemetry setup
+- Collect telemetry
+- Improve scene (instructions for users)
+- Script to load/automate the start/loading of each task (when 1st is done, reset and flip the liver upside down, etc.)
+#### Rough plan (to be modified):
+**Ticket X: `[TELEMETRY] Quaternion and Euclidean Metrics Engine`**
+* **User Story:** As a researcher, I need precise mathematical tracking of the user's spatial accuracy[cite: 3, 10].
+* **Details:** Finalize `AlignmentMetricsLogger.cs`. Implement `Quaternion.Angle` and `Vector3.Distance` calculations at 20Hz.
+* **Acceptance Criteria:**
+    * [ ] Accurate real-time calculation of rotational and translational error.
+
+**Ticket XX: `[TELEMETRY, EXPERIMENT] Spatial Dwell Time Validation`**
+* **User Story:** As an experimenter, I must ensure a task is only "complete" when the user holds a precise alignment[cite: 10].
+* **Details:** Implement a 2.0s timer that triggers only when distance and angular error remain below thresholds.
+* **Acceptance Criteria:**
+    * [ ] "Fly-by" alignments do not trigger task success.
+
+**Ticket XXX: `[TELEMETRY] Persistent CSV Data Export Pipeline`**
+* **User Story:** As a researcher, I need the telemetry data saved in a format compatible with statistical software[cite: 3, 10].
+* **Details:** Code the export system to append TCT, Inefficiency, and Clutch Count to a `.csv` file upon trial completion.
+* **Acceptance Criteria:**
+    * [ ] Data successfully writes to a local CSV file.
+
+**Ticket XXX: `[EXPERIMENT] World Space UI Trial Orchestrator`**
+* **User Story:** As a user, I need instructions in the headset to guide me through the experiment[cite: 10].
+* **Details:** Create a VR HUD that displays current task IDs (1–4) and instructional text for the user.
+* **Acceptance Criteria:**
+    * [ ] UI updates dynamically based on the current experimental state.
+
+This transition to a **branch-per-issue** workflow is a significant step up in engineering maturity. It provides a granular audit trail that will look excellent in your final Dissertation Appendix. 
+
+Below is your professional roadmap for the remaining Milestones. I have refined your descriptions into concise, industry-standard deliverables, integrating the HCI justifications and mapping logic we discussed.
+
+---
+
+# 🎯 Milestone 2: Kinematic Interaction Core
+**Focus:** Establishing the clinical environment and implementing foundational 3D translation (Condition A vs. B).
+
+## [FEAT] Clinical Void Environment & Scene Orchestration #7
+### User Story
+As a researcher, I need a distraction-free, high-performance environment to isolate user performance variables during 3D manipulation tasks.
+### Implementation Details
+* Construct a minimalist "Clinical Void" scene: grey box environment with a single centered pedestal/table.
+* Implement a static "Target Model" (Turquoise/Semi-transparent material) and a dynamic "Active Model" (Red/Fleshy material).
+* Optimize lighting for HDRP to ensure zero frame-drops on the Varjo XR-4.
+### Acceptance Criteria
+* [ ] Scene maintains stable 90 FPS.
+* [ ] Visual distinction between target and active meshes is clear.
+* [ ] Target mesh is non-collidable and static.
+
+## [FEAT] Monomanual Kinematic Translation (Conditions A & B) #8
+### User Story
+As a user, I need to translate the 3D model in XYZ space using both bare hands and physical controllers to compare input efficacy.
+### Implementation Details
+* **Condition B (Hands):** Map the Ultraleap `Pinch` gesture to the Active Model's position.
+* **Condition A (Controller):** Map the Varjo `Grip Hold` button to the Active Model's position.
+* Implement a `KinematicInteractionHandler.cs` to manage state switching between the two input types.
+### Acceptance Criteria
+* [ ] Model follows hand/controller position with 1:1 spatial mapping.
+* [ ] Releasing the pinch/grip leaves the model at its current coordinate.
+* [ ] No "jitter" during translation.
+
+---
+
+# 🎯 Milestone 3: Complex Spatial Transformations
+**Focus:** Rotational logic, bimanual scaling, and multi-axis transformation feedback.
+
+## [FEAT] Rotational Logic & Clutching Mechanics #9
+### User Story
+As a user, I need to rotate the 3D model across three axes while mitigating the physical limitations of human wrist rotation.
+### Implementation Details
+* Calculate delta rotation using Quaternions:
+  $$\Delta q = q_{current} \times q_{last}^{-1}$$
+* Implement a "clutching" mechanic: rotation only applies when a pinch/grip is active. Releasing allows the user to reset their wrist position without affecting the model.
+* Apply delta rotations to the Active Model's local coordinate space.
+### Acceptance Criteria
+* [ ] Rotation is accurate across X, Y, and Z axes.
+* [ ] Clutching mechanic allows for 360-degree rotation through multiple movements.
+
+## [FEAT] Bimanual Scaling & Input Mapping #10
+### User Story
+As a user, I need to scale the model uniformly to inspect internal structures (tumors) at various sizes.
+### Implementation Details
+* **Condition B (Hands):** Implement "Pinch-to-Scale." Use the distance delta between left and right pinch centers to drive uniform XYZ scale.
+* **Condition A (Controller):** Map the thumbstick (Up/Down) to scale the model while the grip is held.
+### Acceptance Criteria
+* [ ] Scale remains uniform (no skewing).
+* [ ] Condition A provides a different "feel" than Condition B (discrete vs. continuous input).
+
+## [FEAT] Real-time Interaction HUD (TextMesh Pro) #11
+### User Story
+As a participant, I need visual confirmation of which gesture is currently active to reduce cognitive load.
+### Implementation Details
+* Create a world-space UI anchored to the user's view or the interaction table.
+* Implement a dynamic text system that displays: `GRAB`, `ROTATE`, or `SCALE`.
+### Acceptance Criteria
+* [ ] UI text updates instantly upon gesture recognition.
+* [ ] Text is legible within the Varjo XR-4's foveated rendering zone.
+
+---
+
+# 🎯 Milestone 4: Telemetry Pipeline & Trial Orchestration
+**Focus:** Data collection and automated experimental sequencing.
+
+## [TELEMETRY] High-Frequency Metrics Engine #12
+### User Story
+As a researcher, I need to capture precise spatial error data at high frequencies for statistical analysis.
+### Implementation Details
+* Finalize `AlignmentMetricsLogger.cs` running at 20Hz.
+* Calculate Euclidean Distance ($d = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2 + (z_2-z_1)^2}$) and Quaternion Angular Error.
+### Acceptance Criteria
+* [ ] Real-time error calculation verified in the debug console.
+
+## [EXPERIMENT] Automated Trial State Machine #13
+### User Story
+As an experimenter, I need the system to automatically cycle through tasks to ensure a consistent experience for all participants.
+### Implementation Details
+* Create a state machine: Task 1 (Translate) $\rightarrow$ Task 2 (Rotate) $\rightarrow$ Task 3 (Scale) $\rightarrow$ Task 4 (Combined).
+* Implement 2.0s **Spatial Dwell Validation**: Task completes only if errors remain below thresholds for the duration.
+### Acceptance Criteria
+* [ ] System resets model position/orientation automatically between tasks.
+* [ ] Dwell timer prevents accidental "fly-by" completions.
+
+## [TELEMETRY] Persistent CSV Data Export #14
+### User Story
+As a researcher, I need the telemetry data exported to a standardized format for external analysis.
+### Implementation Details
+* Implement an automated export system that writes Task Completion Time (TCT), Inefficiency (Total Path Length), and Clutch Counts to a local `.csv`.
+### Acceptance Criteria
+* [ ] Data successfully writes to disk upon experiment completion.
 
 
-## How to use the latest FORMS
+How does this issue breakdown feel for your Sprint 2 workload? Would you like me to refine the `AlignmentMetricsLogger.cs` math logic now so it's ready for Milestone 4?
+# How to use the latest FORMS
 ### Part 1: Interpreting the Raw Task Load Index (RTLX)
 The RTLX measures the **Subjective Cost** of a specific action. Because you are administering it four times per control method (after Translation, Rotation, Translation+Rotation, and Scaling), you are looking for *spikes* in specific subscales. 
 
