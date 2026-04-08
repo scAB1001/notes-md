@@ -1661,6 +1661,114 @@ This demonstrates that you understand the **Single Responsibility Principle** no
 **One warning:** Milestone 1 is currently "Overdue by 10 days" in your metadata. Once you push these commits and merge the PR into `main`, make sure to manually update the Milestone status to "Closed" to reflect that the foundation is now secure.
 
 Did the `git reset --soft` command successfully move the files back to your staging area without throwing any "Access Denied" errors?
+# 08/04/2026
+## Research Context and Rationale
+
+**Clinical Requirement or Research Hypothesis**
+
+- [Provide a concise explanation of the clinical necessity or the specific research question this change addresses, e.g., "Improving depth perception during vessel manipulation."]
+
+**Technical Implementation Summary**
+
+- [Detailed description of the architectural changes, e.g., "Implemented a decoupled state machine for kinematic gesture recognition."]
+- [Secondary change details...]
+
+---
+
+## Project Tracking and Change Classification
+
+**Related Issue(s):** Closes #
+**Milestone Alignment:** [e.g., Milestone 2: Kinematic Interaction Core]
+
+- [ ] **System Feature** (`feat:`): New interaction logic, telemetry expansion, or hardware integration.
+- [ ] **Bug Fix** (`fix:`): Resolution of tracking offsets, shader errors, or logic regressions.
+- [ ] **Configuration** (`config:`): Adjustments to HDRP, XR Plug-in Management, or LFS settings.
+- [ ] **Maintenance** (`chore:`/`refactor:`): Directory scaffolding, meta-file cleanup, or code optimisation.
+- [ ] **Documentation** (`docs:`): Updates to research methodology, README, or system diagrams.
+
+---
+
+## Engineering Quality Assurance
+
+**Code Standards and Repository Hygiene**
+
+- [ ] **Conventional Commits:** The PR title strictly follows the `<type>: <description>` convention.
+- [ ] **Static Analysis:** I have executed `pre-commit run --all-files` and all C# linting (dotnet-format) passed.
+- [ ] **Metadata Integrity:** All new assets include their corresponding `.meta` files.
+- [ ] **Directory Discipline:** All student-authored code and assets are contained within the `_Project` hierarchy.
+
+**Hardware and Performance Validation**
+
+- [ ] **Hardware Handshake:** Functional verification completed on the Varjo XR-4 and Ultraleap Motion 2.
+- [ ] **Frame Rate Stability:** Performance remains at a stable $\geq$ 90 FPS in the environment.
+- [ ] **Latency Constraints:** New interaction or telemetry logic maintains sub-100ms processing latency.
+
+**Experimental Data and Telemetry**
+
+- [ ] **Metric Integrity:** Changes do not corrupt or skew Euclidean/Quaternion error calculation logic.
+- [ ] **Data Persistence:** If the telemetry pipeline was modified, CSV output has been verified for structural accuracy.
+
+---
+
+## Experimental Evidence
+
+- [X] **Unity Editor Configuration**
+* **Screenshot:** HDRP Global Settings (showing the Opaque Clear Flags and 0 Bloom/AO).
+* <img width="583" height="945" alt="image" src="https://github.com/user-attachments/assets/040c61a4-68bd-4049-8d1f-1b8d93bb8a96" />
+
+* **Screenshot:** XR Plug-in Management (showing Varjo as the active loader and Mixed Reality features disabled).
+* <img width="994" height="599" alt="image" src="https://github.com/user-attachments/assets/44e8f471-faa1-4c92-bb7b-e2dc56a9903e" />
+* Package installed via Git and OpenUPM
+* <img width="302" height="245" alt="image" src="https://github.com/user-attachments/assets/2167fd5d-35c6-4a5e-a6af-c0d3d13f75d0" />
+
+* HDRP Wizard on the HDRP + VR tab
+* <img width="802" height="867" alt="image" src="https://github.com/user-attachments/assets/8b363d98-0905-48af-a7ea-21ead5a0eecf" />
+
+
+- [X] **Hardware Validation**
+* **Recording:** Short clip of stable hand-tracking in the "Clinical Void."
+* **Log Output:** Console output showing `LeapXRServiceProvider` initialised without errors.
+
+- [X] **Version Control Baseline**
+* **Screenshot:** Clean working directory and two `.gitignore` files active.
+* <img width="390" height="415" alt="image" src="https://github.com/user-attachments/assets/c884d2b1-91b3-4eef-94a9-7ee2996355af" />
+
+
+**Visual Verification**
+
+_Note: Attach a GIF or high-resolution screenshot demonstrating the interaction or configuration change within the VR environment._
+
+<details>
+<summary><b>System Console and Log Output</b> (Click to expand)</summary>
+
+```text
+# Paste relevant Unity Console logs or Telemetry CSV snippets here
+# e.g., Output verifying hand tracking coordinates
+```
+
+</details>
+
+<details>
+<summary><b>Hardware Calibration Results</b> (Click to expand)</summary>
+
+```text
+# Documentation of the zero-offset calibration results for the Varjo XR-4
+
+```
+</details>
+
+<details>
+<summary><b>Game Objects</b> (Click to expand)</summary>
+<img width="1416" height="699" alt="image" src="https://github.com/user-attachments/assets/5104d5e2-e67f-4156-a6c1-ef3b01043a13" />
+
+</details>
+
+
+---
+
+## Additional Notes for Review
+
+- [Specify any critical areas of interest for the reviewer, such as specific C# math logic or HDRP lighting configurations.]
 ## How to use the latest FORMS
 ### Part 1: Interpreting the Raw Task Load Index (RTLX)
 The RTLX measures the **Subjective Cost** of a specific action. Because you are administering it four times per control method (after Translation, Rotation, Translation+Rotation, and Scaling), you are looking for *spikes* in specific subscales. 
