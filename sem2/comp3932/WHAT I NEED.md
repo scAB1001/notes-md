@@ -1392,10 +1392,6 @@ I have explicitly adjusted the architecture for **VR Only**, meaning we are offi
   - [ ] No console errors during a full playthrough.
   - [ ] GitHub release tag generated.
 ## Tickets [NEW]
-This refined ticket set is designed to maximize your marks for **Methodology** and **Implementation** by demonstrating professional-grade traceability and a deep understanding of the academic requirements[cite: 10]. Every ticket now utilizes your specific 10-label set to clearly categorize work for the examiners.
-
----
-
 ### **Sprint 1: Architecture & Tracking (Foundation)**
 *Goal: Establish a stable, version-controlled baseline for the project[cite: 10].*
 
@@ -1610,6 +1606,7 @@ Based on your Milestone deliverables, your scripts belong to three distinct phas
 | `UltraleapKinematicManipulator.cs` | **Milestone 2** | Core of the "primary physics-free manipulation system." |
 | `AlignmentMetricsLogger.cs` | **Milestone 4** | The "CSV output pipeline" for the final experiment. |
 | `ClinicalTrialManager.cs` | **Milestone 4** | Handles "task sequencing" and "trial progression." |
+
 ### 3. Step-by-Step Commit Sequence
 #### **Phase A: Finalizing Milestone 1 (Foundation)**
 *Focus: Hardware stability and rendering.*
@@ -1663,6 +1660,7 @@ This demonstrates that you understand the **Single Responsibility Principle** no
 Did the `git reset --soft` command successfully move the files back to your staging area without throwing any "Access Denied" errors?
 # 08/04/2026
 ## Release / Tag Template
+
 ```markdown
 USE -> ([#31](https://github.com/scAB1001/comp3932/pull/31)) instead of (#30)
 
