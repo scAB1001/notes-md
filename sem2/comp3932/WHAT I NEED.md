@@ -1662,113 +1662,53 @@ This demonstrates that you understand the **Single Responsibility Principle** no
 
 Did the `git reset --soft` command successfully move the files back to your staging area without throwing any "Access Denied" errors?
 # 08/04/2026
-## Research Context and Rationale
+## Release / Tag Template
+```markdown
+USE -> ([#31](https://github.com/scAB1001/comp3932/pull/31)) instead of (#30)
 
-**Clinical Requirement or Research Hypothesis**
+## Breaking
 
-- [Provide a concise explanation of the clinical necessity or the specific research question this change addresses, e.g., "Improving depth perception during vessel manipulation."]
+* feat(project): initialise sprint 1 baseline with managed asset hierarchy (#30)
+* config(xr): implement varjo offset and hdrp material resolution (#30)
+* config(git): configure local formatting rules and node dependencies (#30)
+* config(github): implement automated ci workflows for linting and releases (#30)
+* chore(project): scaffold directory hierarchy for the unity project (#30)
+* chore(git): initialise repository file-tracking (#30)
+* chore(LFS): add LFS tracking (#30)
 
-**Technical Implementation Summary**
+## Bug Fixes
 
-- [Detailed description of the architectural changes, e.g., "Implemented a decoupled state machine for kinematic gesture recognition."]
-- [Secondary change details...]
+* fix(git): remove comments from .oxfmtrc.json (#30)
 
----
+## Maintenance
 
-## Project Tracking and Change Classification
+* config(github): restrict release drafter target_commitish to main branch (#30)
+* chore(github): updated release-drafter to LTS (#30)
+* config(github): map custom labels to release drafter configuration (#30)
+* chore(github): updated Readme and bug report software versions (#30)
+* chore(github): update pr and bug report templates (#30)
+* chore(github): refine issue templates (#30)
+* chore(git): update list of files to track (#30)
+* chore(github): implement pull request template for traceability (#30)
+* chore(github): implement issue templates for bug reporting and feature requests (#30)
 
-**Related Issue(s):** Closes #
-**Milestone Alignment:** [e.g., Milestone 2: Kinematic Interaction Core]
+## Documentation
 
-- [ ] **System Feature** (`feat:`): New interaction logic, telemetry expansion, or hardware integration.
-- [ ] **Bug Fix** (`fix:`): Resolution of tracking offsets, shader errors, or logic regressions.
-- [ ] **Configuration** (`config:`): Adjustments to HDRP, XR Plug-in Management, or LFS settings.
-- [ ] **Maintenance** (`chore:`/`refactor:`): Directory scaffolding, meta-file cleanup, or code optimisation.
-- [ ] **Documentation** (`docs:`): Updates to research methodology, README, or system diagrams.
+* docs(README): add boilerplate Readme to repo (#30)
+* docs(research): add examiner resource placeholders (#30)
 
----
+## Other Changes
 
-## Engineering Quality Assurance
+## Dependency Updates
 
-**Code Standards and Repository Hygiene**
+## New Contributors
 
-- [ ] **Conventional Commits:** The PR title strictly follows the `<type>: <description>` convention.
-- [ ] **Static Analysis:** I have executed `pre-commit run --all-files` and all C# linting (dotnet-format) passed.
-- [ ] **Metadata Integrity:** All new assets include their corresponding `.meta` files.
-- [ ] **Directory Discipline:** All student-authored code and assets are contained within the `_Project` hierarchy.
+* @scAB1001 made their first contribution in https://github.com/scAB1001/comp3932/pull/30
 
-**Hardware and Performance Validation**
-
-- [ ] **Hardware Handshake:** Functional verification completed on the Varjo XR-4 and Ultraleap Motion 2.
-- [ ] **Frame Rate Stability:** Performance remains at a stable $\geq$ 90 FPS in the environment.
-- [ ] **Latency Constraints:** New interaction or telemetry logic maintains sub-100ms processing latency.
-
-**Experimental Data and Telemetry**
-
-- [ ] **Metric Integrity:** Changes do not corrupt or skew Euclidean/Quaternion error calculation logic.
-- [ ] **Data Persistence:** If the telemetry pipeline was modified, CSV output has been verified for structural accuracy.
-
----
-
-## Experimental Evidence
-
-- [X] **Unity Editor Configuration**
-* **Screenshot:** HDRP Global Settings (showing the Opaque Clear Flags and 0 Bloom/AO).
-* <img width="583" height="945" alt="image" src="https://github.com/user-attachments/assets/040c61a4-68bd-4049-8d1f-1b8d93bb8a96" />
-
-* **Screenshot:** XR Plug-in Management (showing Varjo as the active loader and Mixed Reality features disabled).
-* <img width="994" height="599" alt="image" src="https://github.com/user-attachments/assets/44e8f471-faa1-4c92-bb7b-e2dc56a9903e" />
-* Package installed via Git and OpenUPM
-* <img width="302" height="245" alt="image" src="https://github.com/user-attachments/assets/2167fd5d-35c6-4a5e-a6af-c0d3d13f75d0" />
-
-* HDRP Wizard on the HDRP + VR tab
-* <img width="802" height="867" alt="image" src="https://github.com/user-attachments/assets/8b363d98-0905-48af-a7ea-21ead5a0eecf" />
-
-
-- [X] **Hardware Validation**
-* **Recording:** Short clip of stable hand-tracking in the "Clinical Void."
-* **Log Output:** Console output showing `LeapXRServiceProvider` initialised without errors.
-
-- [X] **Version Control Baseline**
-* **Screenshot:** Clean working directory and two `.gitignore` files active.
-* <img width="390" height="415" alt="image" src="https://github.com/user-attachments/assets/c884d2b1-91b3-4eef-94a9-7ee2996355af" />
-
-
-**Visual Verification**
-
-_Note: Attach a GIF or high-resolution screenshot demonstrating the interaction or configuration change within the VR environment._
-
-<details>
-<summary><b>System Console and Log Output</b> (Click to expand)</summary>
-
-```text
-# Paste relevant Unity Console logs or Telemetry CSV snippets here
-# e.g., Output verifying hand tracking coordinates
+**Full Changelog**: [Initial Release]
 ```
 
-</details>
 
-<details>
-<summary><b>Hardware Calibration Results</b> (Click to expand)</summary>
-
-```text
-# Documentation of the zero-offset calibration results for the Varjo XR-4
-
-```
-</details>
-
-<details>
-<summary><b>Game Objects</b> (Click to expand)</summary>
-<img width="1416" height="699" alt="image" src="https://github.com/user-attachments/assets/5104d5e2-e67f-4156-a6c1-ef3b01043a13" />
-
-</details>
-
-
----
-
-## Additional Notes for Review
-
-- [Specify any critical areas of interest for the reviewer, such as specific C# math logic or HDRP lighting configurations.]
 ## How to use the latest FORMS
 ### Part 1: Interpreting the Raw Task Load Index (RTLX)
 The RTLX measures the **Subjective Cost** of a specific action. Because you are administering it four times per control method (after Translation, Rotation, Translation+Rotation, and Scaling), you are looking for *spikes* in specific subscales. 
