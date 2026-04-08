@@ -1587,7 +1587,6 @@ To maximize the "Software Management" portion of the marking rubric:
 By following this commit-to-PR-to-Milestone pipeline, you create a perfect "paper trail" of professional evidence. You are no longer just a student finishing a project; you are an engineer conducting a validated study.
 
 Mistakes in the commit history are a standard part of the development lifecycle. To fix this, we will perform a **Soft Reset**, which removes the commit from the history but keeps all your code changes sitting in your "Staging Area" so you can unstage them and re-commit them in the correct sequence.
-
 ### 1. The "Undo" Command
 Execute this in your PowerShell terminal at the root of your repository:
 ```powershell
