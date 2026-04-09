@@ -1514,29 +1514,78 @@ To meet the **Acceptance Criteria**, your Inspector for the `InteractionOrchestr
 
 Should we define the "Clutch" state as a global behavior that is always active, or should it behave differently when using the physical Varjo controllers versus the optical Ultraleap tracking?
 # Milestone 4: Telemetry Pipeline & Trial Orchestration
-## [TELEMETRY] High-Frequency Metrics Engine #12
+## [FEAT] [TELEMETRY] Performance Metrics Engine #14
+**Labels:** `feat`, `telemetry`
 ### User Story
-As a researcher, I need to capture precise spatial error data at high frequencies for statistical analysis.
+As a researcher, I need a high-frequency metrics system that captures the hard data of user performance to provide objective evidence for my project.
 ### Implementation Details
-* Finalize `AlignmentMetricsLogger.cs` running at 20Hz.
-* Calculate Euclidean Distance ($d = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2 + (z_2-z_1)^2}$) and Quaternion Angular Error.
+* **Frequency:** Standardise polling at **20Hz** (or 50Hz if the GPU budget allows) via `FixedUpdate`.
+* **State-Aware Logging:** The engine must query the `InteractionOrchestrator` to log metrics relative to the current state (Idle, Transforming, etc.).
+* **Advanced Metrics Math:**
+    * **Euclidean/Quaternion Error:** Real-time distance and angular delta between Active and Ghost models.
+    * **Transform Efficiency:** Cumulative sum of `Vector3.Distance` and `Quaternion.Angle` movements.
+    * **Gesture Precision:** Log the variance of `PinchStrength`. High variance indicates "struggle" to maintain the grab.
+    * **Focus Stability:** Integrate Varjo Gaze Data. Calculate the percentage of time the user's focus is on the `ObjectBounds` vs. their own hands.
 ### Acceptance Criteria
-* [ ] Real-time error calculation verified in the debug console.
-## [EXPERIMENT] Automated Trial State Machine #13
+- [ ] Debug console displays real-time Error and Precision values.
+- [ ] Gaze stability correctly identifies when the user is "looking at the task."
+### Sub-issues
+* **Math Implementation:** Euclidean and Angular Error functions.
+* **Gaze Integration:** Map Varjo Gaze tracking to focused object IDs.
+* **Precision Tracking:** Logic to monitor Pinch Strength stability over time.
+## [FEAT] [EXPERIMENT] Automated Trial Orchestrator & Scene Manager #15
+**Labels:** `feat`, `experiment`
 ### User Story
-As an experimenter, I need the system to automatically cycle through tasks to ensure a consistent experience for all participants.
+As an experimenter, I need the system to automatically handle scene resets, task sequencing, and hardware condition switching to eliminate human error during the study.
 ### Implementation Details
-* Create a state machine: Task 1 (Translate) $\rightarrow$ Task 2 (Rotate) $\rightarrow$ Task 3 (Scale) $\rightarrow$ Task 4 (Combined).
-* Implement 2.0s **Spatial Dwell Validation**: Task completes only if errors remain below thresholds for the duration.
+* **Automated Task Sequence:** Implement a state-based flow for Tasks 1 (Translate), 2 (Rotate), 3 (6-DoF), and 4 (Full Scale).
+* **Auto-Resets:** Upon task completion, the script must reset the user's `XR Origin` and the Livers to the specific "Task Start" transforms.
+* **Dynamic Loading:** Create an interactive "Admin Mode" where pressing a button on the keyboard/controller switches between **Condition A (Varjo)** and **Condition B (Hands)**.
+* **Spatial Dwell Validation:** Implement a **2.0s Timer**. The task only flags as "Complete" if Euclidean Error is $< 0.05$ and Angular Error is $< 5^\circ$ for the duration.
 ### Acceptance Criteria
-* [ ] System resets model position/orientation automatically between tasks.
-* [ ] Dwell timer prevents accidental "fly-by" completions.
-## [TELEMETRY] Persistent CSV Data Export #14
+- [ ] System successfully resets the environment between Task 1 and Task 2.
+- [ ] "Fly-by" completions are impossible due to the 2.0s dwell timer.
+- [ ] Condition switching (Hand vs. Controller) updates the `ActiveProvider` in the Orchestrator instantly.
+### Sub-issues
+* **Task State Machine:** Logic for moving from Task 1 through Task 4.
+* **Environment Reset Engine:** Resetting object positions and user camera.
+* **Provider Auto-Switcher:** Key-bind/Button-bind logic for Condition A/B toggle.
+## [TELEMETRY] [CONFIG] Persistent CSV Export & Data Pipeline #17
+**Labels:** `telemetry`, `config`
 ### User Story
-As a researcher, I need the telemetry data exported to a standardized format for external analysis.
+As a researcher, I need all trial data saved in a standardised format for immediate import into statistical software (Excel).
 ### Implementation Details
-* Implement an automated export system that writes Task Completion Time (TCT), Inefficiency (Total Path Length), and Clutch Counts to a local `.csv`.
+* **Efficient Buffering:** Store telemetry frames in memory during the trial and write to disk only during the "Scene Reset" phase to prevent frame-drops.
+* **Standardised Header:** Ensure CSV includes `Timestamp`, `ConditionID`, `TaskID`, `EuclideanError`, `AngularError`, `PinchStability`, and `GazeFocus`.
+* **Unique ID Generation:** Generate a unique `ParticipantID` for each session to keep data files organised.
 ### Acceptance Criteria
-* [ ] Data successfully writes to disk upon experiment completion.
-
-How does this issue breakdown feel for your Sprint 2 workload? Would you like me to refine the `AlignmentMetricsLogger.cs` math logic now so it's ready for Milestone 4?
+- [ ] A valid `.csv` file is generated in the `/ProjectData/` directory after every session.
+- [ ] No data corruption occurs during hardware condition switches.
+### Sub-issues
+* **CSV Writer Logic:** Implement the `StreamWriter` logic with structured headers.
+* **Data Persistence Guard:** Logic to ensure files aren't overwritten accidentally.
+## [EXPERIMENT] [Chore] World-Space Instructional HUD #18
+**Labels:** `feat`, `experiment`, `ui`
+### User Story
+As a participant, I need clear, in-headset instructions explaining each task so that I can complete the experiment without external verbal guidance.
+### Implementation Details
+* **Instructional Panels:** Create TextMesh Pro panels that appear at the start of each task.
+* **Dynamic Content:** Text must explain the specific DOF required (e.g., "Task 2: Focus on rotating the red liver to match the turquoise hologram orientation").
+* **Visual Feedback:** Implement a "Success Progress Bar" linked to the Dwell Time Validation timer.
+### Acceptance Criteria
+- [ ] Text is legible within the Varjo XR-4's high-resolution foveal area.
+- [ ] Instruction panel vanishes once the user initiates the first "Grab."
+### Sub-issues
+* **UI Content Mapping:** Writing/Assigning text for Tasks 1–4.
+* **Success Progress Bar:** Visualising the 2.0s dwell completion.
+## [RELEASE] [DOCS] v1.0 Final System Release #60
+**Labels:** `release`, `docs`
+### User Story
+As the developer, I need to finalise the project for submission, ensuring the examiner can build and run the experiment.
+### Implementation Details
+* **QA Audit:** Final pass on all 4 tasks for both conditions.
+* **Documentation:** Update README with a Guide (How to start the experiment, where the CSVs are saved).
+* **Tagging:** Create the `v1.0-experiment-ready` release in GitHub.
+### Acceptance Criteria
+- [ ] System builds to without errors.
+- [ ] README is updated with clear installation and hardware requirements.
