@@ -1,415 +1,3 @@
-# 1
-#### General
-1. Find a supervisor
-2. Align it with your specification and speak to career coach, manager, tutor, etc
-3. Core component must be a computer science problem
-4. The project must contain some coded implementation, demonstrating your project’s work but this is not the focus (it can be a small amount)
-5. Book supervisor meetings every 2 weeks (minimum) no matter what and prepare for them as best as possible. Think SEP meetings.
-
-Create a GitHub repo:
-- Wiki for documentation
-- Code repo
-- Planning boards
-- Actions for tests
-
-There will be an Ethical section
-
-Referring to point 5, come prepared to each meeting with the mark scheme as bullet points/questions
-
-Per week spend 10 hours on your project.
-
-Formal deadline
-Preference form in week 1
-
-Short written form on gradescope in week 6.
-
-# 2
-### To-do
-- Research
-- Send list of titles suing project 10: VR/AR
-	- Consider deliverables first
-- Share word-doc/overleaf project + email
-- Meet after project synopsis
-- Research how to use unity - mesh simplification, *meshlab*
-- ==Gradescope==
-#### Notes
-- Liver examples already exist, use the existing paper as a starting point
-- VR/AR (Dora)  - computer access, unity software, camera system is an option and could be integrated as part of the project
-- Hand tracking device (£500)
-	- XR-4 SERIES, SoC
-	- Can only work on-premise in the lab
-- Use magic leap2, connect with unity value (headset)
-	- idea is to replace the joy-sticks with hand-based rendering (software project)
-	- API exists already but need to integrate your own 
-		- REPLACE joystick with hand-movements
-			- CV: "I divised this handtracked for my project to do 3D manipulation of the medical scene (LIVER)"
-			- Loading in the 3D models llike liver, etc but the hand-tracking/movements are the goal. Immersion 
-			- Interactive, user-friendly, VR/AR clinical training with real 3D models
-	- How to transform the 3D segmentation of a model, there are many problems there (scaling etc)
-		- Mesh issues, holes in the mesh, mesh simplification - how would you simplify the dense meshes?
-		- Take mesh, simplify so that it is topologically consistent to preserve shape, load mesh into AR/VR environment, make a user-friendly navigation system through hand-tracking - existing tracking software is a C program that uses joystick
-	- **CANNOT BE PUBLIC** -  code snippet in thesis
-	- Ethics: Publicly available datasets
-	- Business wise: company funded by hollowcare, used in gaming industry and visualisation - healthcare technologies, growing currently, requires bespoke software engineering and skills, combines SME + Engineering (BA)
-		- Mr Mikolaj R Kowal
-
-### Neat
-##### Artificial intelligence in Medicine and Surgery (AIMS group)
-*Sharib Ali*, PhD, School of Computer Science, Faculty of Engineering and Physical Sciences, University of Leeds, UK, s.s.ali@leeds.ac.uk https://artificial-intelligence.leeds.ac.uk/aims/
-
-*Gerardo Loza Omar Choudhry*
-*Edward Ellis Patryk W.*
-*Raneem T. Pedro C.*
-##### Original Problem
-**Project 10: Virtual Reality for right hemicolectomy planning**
-Example segmentation of the trunk of Henle. This is a type 3 (GPCT with two colic veins), involving SRCV, RCV, ASPDV and RGEV - *Mr Mikolaj R Kowal*
-![[right-hemicolectomy-image.png]]
-![[right-hemicolectomy-model.png]]
-##### New problem
-The old model, much like others, is controlled using joysticks. 
-- [Downsides]
-##### Solution
-- There are plenty of real liver and colon 3D models available to use
-- Varjo XR-4 series - VR headset (Can only work on-premise in the lab, property of SoC)
-- Magic Leap 2 - VR headset
-- Using one of the VR headsets and connecting to the API, load in a 3D model and integrate the handtracking to allow user-friendly navigation around it
-
-https://varjo.com/blog/introducing-integrated-hand-tracking-for-varjo-xr-4-series
-https://www.magicleap.com/magic-leap-2
-##### Project title ideas
-1. Clinical Training: Hand-based Rendering for Topologically Consistent Anatomy Navigation in Virtual Reality
-2. Replacing Joystick Control: A Hand-Tracking Interface for Virtual Reality in Surgical Planning
-3. Enhancing Clinical Training: Intuitive Hand-Tracking for 3D Anatomy Manipulation in Virtual Reality
-4. 3D Anatomy Manipulation: Surgical Anatomy through Hand Tracking Software in AR
-5. Hand Tracking Clinical Training Software for Clinical Model Navigation in Virtual Reality
-6. Hand-Tracking for Immersive Surgical Anatomy Visualisation
-7. An Immersive Hand-Tracking Interface for 3D Medical Models
-8. Gesture-Based Navigation of Anatomical Models in Virtual Reality
-9. A Hand-Gesture Navigation System for Patient-Specific Anatomy in Augmented and Virtual Reality
-10. Developing a Hand-Tracking Interface for Virtual Reality-Based Surgical Simulation
-11. A Software Framework for Hand-Controlled Manipulation of Medical Meshes in Immersive Environments
-12. An Immersive Hand-Tracking Interface for Surgical Anatomy Visualisation in Virtual Reality
-##### Top 3
-1. Surgical Simulation: A Hand-Tracking Interface for Anatomical Models in Virtual Reality
-2. Replacing Joystick Control: A Hand-Gesture Based Navigation System for 3D Anatomy Manipulation in Virtual Reality
-3. Replacing Joystick Control: Gesture-Based Navigation of Anatomical Models in Virtual Reality
-# 3
-#### Key
-**Student**: Andreas Bazigos 
-**Supervisor**: Sharib Ali 
-**Assessor**: Natasha Shakhlevich
-### 1. Title
-A concise title that accurately describes the subject of your project.
-The subject should be the computer science problem that you are investigating.
-It should not be, for example, a software artefact (e.g. a mobile app or web site) – that is a
-Deliverable of the project, and part of your solution, but not the subject.
-
---- 
-*Replacing Joystick Control: A Hand-Gesture Based Navigation System for 3D Anatomy Manipulation in Virtual Reality*
-### 2. Aim
-A short paragraph describing the computer science problem that your project is
-investigating.
-
-You can describe the context of the problem but need to separate out the specifics of what
-you will be studying.
-
-This does not need to describe how you solve the problem or with what algorithms or tools,
-unless that is fundamental to the work, e.g. your project is studying a particular algorithm or
-technique.
-
----
-The aim of this project is to develop and evaluate a hand-gesture based interaction system for intuitive 3D anatomical model manipulation in virtual reality, addressing the usability limitations of traditional joystick-controlled interfaces.
-
-**Computer science problem:** Current 3D anatomical visualization systems rely on joystick-based navigation, which presents significant human-computer interaction challenges including non-intuitive control mappings, limited degrees of freedom, and high cognitive load during complex spatial manipulation tasks. These limitations result in steep learning curves and reduced efficiency in surgical planning applications where precise spatial understanding is critical.
-
-**What will be produced:** A prototype VR system with integrated hand-gesture recognition for anatomical model navigation and a formal usability study comparing task completion times, error rates, along with a comparative evaluation of its usability against conventional joystick interfaces.
-### 3. Objectives (up to 5)
-Objectives should be SMART – Specific, Measurable, Achievable, Relevant, Time-bound.
-Objectives should be a list of tasks that collectively meet the Aim of your project (makes
-them Specific and Relevant)
-Consider what you need to achieve to reach your Aim, as stages of your project.
-Normal parts of the project such as literature review and report writing are not Objectives.
-
----
-1. **Develop a 3D model preprocessing pipeline** that automatically repairs, simplifies, and optimizes anatomical meshes for real-time VR rendering while preserving critical topological features for surgical accuracy.
-    
-2. **Implement a real-time hand-gesture recognition system** using the Varjo XR-4/Magic Leap 2 APIs that accurately interprets complex 3D hand movements with precision for intuitive model manipulation.
-    
-3. **Design and develop a gesture-to-action mapping framework** that translates recognized hand movements into precise 3D navigation commands (rotation, zoom, pan, selection) with appropriate feedback and visual confirmation.
-    
-4. **Conduct a comparative usability evaluation** measuring task completion time, error rates, and user satisfaction between the hand-gesture interface and traditional joystick control with at least 10 participants from technical backgrounds.
-    
-5. **Optimize the integrated system performance** to achieve consistent high framerate rendering in VR while maintaining reasonable latency for gesture recognition to ensure a comfortable, user-friendly experience.
-### 4. Deliverables (up to 5)
-Deliverables are concrete items produced as part of your project. They are the evidence
-required to show you have met your Objectives, and ultimately your Aim.
-You should link them to your Objectives such that it is clear which Deliverable relates to
-which objective (makes the Objective Measurable and Achievable).
-
-Your final report and your software repository can both be considered Deliverables. You
-may wish to further sub-divide this, for example if you project delivers several distinct
-software items or particular chapters of your report are relevant.
-This is the starting point for a plan, which you should also work on with your supervisor.
-
----
- 1. Final report
- 2. Software Repository
-	 1. 3D mesh preprocessing toolkit with automated hole-filling, decimation, and optimization algorithms
-	 2. Real-time hand gesture recognition module with trained models and calibration utilities
-	 3. Unity-based VR integration framework with customizable gesture mappings
-	 4. Performance benchmarking and testing suite
- 3. Functional Prototype Application demonstrating complete workflow from model import to immersive hand-controlled navigation with support for multiple anatomical structures.
- 4. Evaluation Dataset & Results including recorded user sessions, performance metrics, comparative analysis, and structured feedback from usability testing.
-### 5. Plan
-**Week 10 (w/c 16/03)**
-- **FINAL SUBMISSION**
-- Buffer week for unexpected delays
-### 6. Risk
-A brief discussion of how to mitigate risk in your project and ensure sufficient work will be
-completed for final submission.
-This could include prioritisation of Objectives and Deliverables or development of
-prototypes as early-stage deliverables.
-This could include some contingency in your plan for delays.
-
----
-**Key Project Risks and Mitigation Strategies:**
-
-1. **Scope Creep Risk** - The project could expand beyond what's achievable in the timeframe
-    - **Mitigation**: Define a "minimum viable product" (MVP) upfront: basic rotation/zoom gestures with one anatomical model. Additional features (pan, selection, multiple models) are stretch goals only if time permits
-    - **Mitigation**: Weekly progress reviews with supervisor to ensure focus remains on core objectives
-2. **Technical Blockers Risk** - Hand tracking API integration or VR hardware issues could cause significant delays
-    - **Mitigation**: Develop a "simulation mode" early that mimics hand gestures using mouse/keyboard, allowing continued development even if hardware is unavailable
-    - **Mitigation**: Start with simple proof-of-concept integration in Week 1 to identify API issues immediately
-3. **Time Management Risk** - Other coursework commitments could reduce project time
-    - **Mitigation**: Use Gantt chart with buffer weeks (Weeks 8-9 of Semester 2) for catch-up
-    - **Mitigation**: Prioritize writing dissertation concurrently with development (write Chapter 2 during development phase)
-4. **Hardware Dependency Risk** - Limited lab access to Varjo XR-4/Magic Leap 2 headsets
-    - **Mitigation**: Schedule lab time 2 weeks in advance and have backup development plan for Unity Editor testing
-    - **Mitigation**: Document all hardware-specific code clearly to minimize rework if equipment changes
-5. **Evaluation Failure Risk** - Difficulty recruiting participants for usability testing
-    - **Mitigation**: Plan evaluation early (Week 3 Semester 2); have backup pool of computing students if medical professionals are unavailable
-    - **Mitigation**: Design evaluation to require only 5-8 participants for meaningful results
-
-**Prioritization Strategy (if delays occur):**
-1. **Essential for submission**: Working gesture system with one model + basic evaluation + completed dissertation
-2. **Can reduce**: Number of gesture types tested, number of evaluation participants, complexity of models used
-3. **Can omit entirely**: Advanced features like mesh preprocessing automation, complex gesture mappings
-
-**Early Prototyping**: A functional prototype demonstrating basic hand tracking will be completed by Week 9 of Semester 1, ensuring core technology viability before major development investment.
-
-- Hand tracking accuracy issues: Some form of confidence scoring will be needed to assess accuracy
-- Performance bottlenecks: Progressive mesh loading may severely impact the system; maintain joystick compatibility as backup
-- VR motion sickness: Include comfort settings (snap turning, reduced movement); rigorous testing with multiple users early in development
-### 7. Ethics
-Describe the ethical issues associated with your project and how you will address them.
-For example, proper handling of data sets, user testing, etc.
-There is a lecture in Week 6 that you must attend and a further advice session in Week 7 if
-you need guidance on how to properly consider ethics.
-If you believe there are no ethical issues associated with your project you should state that
-here.
-
----
-- User Testing: All participants will provide informed consent; right to withdraw at any time; no medical professionals required for initial testing
-- Health and Safety: VR usage guidelines provided; regular breaks enforced; participants screened for epilepsy or motion sickness susceptibility
-- Intellectual Property: Clear acknowledgment of university and individual contributions; no use of proprietary medical data.
-Ethical approval is required for the user-testing portion.
-
-#### Alternative if you're **only** doing technical testing (no human participants)
-**Ethical Considerations:**
-Given that this project involves:
-- No human participants in testing
-- No access to medical or personal data
-- Only publicly available, anonymized 3D models
-- Technical performance evaluation only (no user studies)
-
-**There are no significant ethical concerns requiring formal approval.** Any system testing will be conducted by the researcher only, focusing on technical metrics (frame rates, tracking accuracy) rather than human factors.
-
-**However,** if user testing is added later, formal ethical approval will be sought through the appropriate university channels before any participant recruitment begins.
-# 4
-### Outline
-We'll be looking at ethical issues that might arise in your projects and how to manage these.
-1. Two common issues in computing projects
-	a) Consent
-	b) Privacy and anonymity
-2. Six areas of block ethical approval
-	a) Images of people
-	b) Medical images
-	c) Use of religious texts
-	d) User testing
-	e) Use of data from the internet
-	f) Working with NHS staff
-3. Applying this to a case study
-#### 1 . Common Issues in Computing Projects
-##### Consent
-Each person has a right to control their body, property, and who has access to these.
-- Includes access to data, which is property of the subject and is about them.
-- Consent is a kind of permission-giving; it often, but not perhaps always, makes an act ethically permissible.
-- Securing a person’s consent before collecting or accessing their data is important for respecting their autonomy and boundaries.
-- Sometimes people can’t consent due to mental impairment, e.g. very old and very young.
-- A person does not properly consent to something if they are pressured into agreeing or do not understand what they are agreeing to.
-- So, consent must be:
-	- Free
-	- Informed
-- If your project involves collecting data about users, this presents a risk.
-- In that case, you must have the informed consent of users.
-- Fully informed about what their data is used for, and what data is collected.
-##### Privacy and Anonymity
-Consent is also important because it relates to privacy.
-- Privacy is important:
-- For individuality of thought and expression
-- For freedom from control
-- For regulating boundaries in relationships
-- For control over who experiences us
-- Lack of privacy hinders human flourishing in fiction (George Orwell’s 1984) and totalitarian regimes (eg. North Korea).
-
-If data identifies a person, then it is personal data.
-- Collecting personal data creates a risk of harm:
-- Discrimination (belonging to oppressed groups; religion, sexuality, ethnicity)
-- Social disadvantages (mental health history, criminal record)
-- Identity fraud, targeted marketing, harassment
-- Violating someone’s choice/autonomy: should be up to individuals what data is collected about them
-##### Personal Data: Direct and Indirect Indicators
-**Direct Indicators**
-Can be used to directly identify the data subject.
-- Unique to a person.
-- Includes:
-- Name/initials
-- Address, including full or partial post code
-- Telephone numbers or email addresses
-- Unique identifying numbers (NI number, NHS number)
-- Vehicle identifiers
-- Medical device identifiers
-- IP addresses
-- Facial photographs
-- Names of relatives
-- Individual dates
-
-**Indirect Indicators**
-Can be used in conjunction with other information (direct or indirect) to identify data subjects.
-- Includes:
-- Place of treatment or GP name
-- Sex
-- Place of birth
-- Socio-economic data (income, etc.)
-- Ethnicity
-- Age
-- Household or family constitution
-- Illicit drug use, or other substance use
-- Rare diseases and treatments
-- Transcripts or verbatim responses
-##### Data Linkage
-- “Data linkage” can occur when two (or more) pieces of information from different sources are brought together.
--  This can identify a data subject, or reveal information that is not available in one dataset.
--  This means that even if data is anonymized within the context of its own data set, linkage may de-anonymize the data.
-### 2. Six Areas of Block Ethical Approval
-- There are some kinds of data that you are approved to collect as part of this module.
-- However, each of these must be collected, stored, and processed in line with certain guidelines and restrictions.
-##### a) Images of people
-- Your project might involve using still or moving images of
-people
-- For instance:
-- Tracking individuals in crowded scenes
-- Facial feature recognition
-- Projects might use new or pre-existing images
-
-- New images:
-	- Proper consent forms collected
-	- Participants given all appropriate information necessary for informed consent.
-- Existing images only be taken from legitimate sources
-- When public filming, impact assessments performed to
-determine whether individuals can be identified.
-##### b) Medical images
-- Your project might involve the application of algorithms to medical images.
-- For instance:
-	- Automating the detection of cancerous tissue
-	- Developing interfaces to help with the visualization of tissue samples
-- The project might use images from people’s medical records.
-
-**Ethical issues involved in using medical images?**
-- Anonymization – Medical data is private; can be sensitive, embarrassing
-- Storage / misuse / theft – medical data desirable
-- Legitimacy of sources
-**What should be done to avoid potential problems?**
-- Ensure that the images are taken from legitimate source
-- Ensure images anonymized (you should receive them anonymized, but there could be mistakes)
-- Ensure storage is secure
-##### c) Use of religious texts
-Projects in the field of Natural Language Processing can involve the automated analysis of text
-- These can be religious texts
-- For instance:
-	- Categorization of verses in the Quran
-	- Machine Translation of the Quran into other languages
-
-**Ethical issues involved in using religious texts?**
-- Objects of sacred importance to some; respectful use
-- Misinterpretation or translation by the program
-- Types of interpretation to use? Literal (word for word) or dynamic (sense for sense)?
-- Copyright law violation
-##### d) User testing
-- Project might involve getting user feedback on a system being designed, developed, or evaluated.
-- For example:
-	- Testing the usability of a graphical user interface
-	- Evaluating whether a visualization technique helps people to understand and interpret data more easily
-- Obtaining this feedback might involve: observation, questionnaires, or interviews
-
-- You must provide each participant with an information sheet fully detailing the project, the data that will be collected, how the data will be stored and used.
-- You must assure users that they can leave at any time, to avoid coercion.
-- When appropriate, the user will complete a written consent form.
-- No sensitive information will be recorded, and any personal information will be securely stored.
-##### e) Use of data from the internet
-- Your project might involve analysis of data collected from the internet
-- For instance:
-	- Publicly available databases, eg. government data could be analyzed to identify trends and patterns
-	- Data about website use may be analyzed to extract trends
-
-**Ethical issues in data drawn from the internet?**
-- Legitimacy of sources?
-- Anonymized?
-- Reliable data?
-- Consent from appropriate sources, eg. website owners?
-
-**What should be done to avoid potential problems?**
-- Only draw data from reliable and legitimate sources
-- Any data relating to individuals to be anonymized
-- Consent given when appropriate
-##### f) Working with NHS staff
-- Your project might:
-	- Aim to understand how specific elements of technology are used
-	- Assess the benefits or drawbacks of some new element of technology
-- This might involve observing staff, getting them to read documents or fill out questionnaires, or performing interviews
-- Provide information sheet about your project, obtain written consent when appropriate, assure staff they can withdraw from participating
-- Discuss with staff beforehand how to avoid sensitive information/being left alone with patients
-- Not requesting/accessing information about individual patients
-- No sensitive information recorded, any personal information securely stored
-- No participant named without express consent
-- Students briefed on health and safety protocols
-### 3. Applying this to a case study
-#### Example 1: Target
-- In 2002, US shop chain Target employed a data scientist called Andrew Pole to “figure out if a customer is pregnant, even if she didn’t want us to know”.
-- They intended to use the results of this work to send personalised coupons for relevant products to customers they expected to be pregnant.
-- Pole started by looking at the dataset of customers who told Target they were pregnant. He analysed the shopping habits of these customers to discover patterns. On the basis of this data, developed a “pregnancy prediction” score.
-- Using this software, Pole could estimate due dates and send coupons timed for specific times in the pregnancy.
-- One year later an angry customer demanded: “Are you encouraging my teenage daughter to get pregnant?” Target had been sending her coupons for pregnancy products.
-- One week later, the manager contacted the man again. This time, the man disclosed that his daughter was actually pregnant, but had not told him until the coupons prompted her to do so.
-- Target knew that the teenage girl was pregnant, on the basis of Pole's predictive software, before her father knew.
-##### Observations
-- What are the ethical issues here?
-- Did Andrew Pole do anything wrong?
-- Imagine you were doing his job. Would you have done anything differently?
-### - Summarised the nature of ethics and why it is important
-- Considered some important ethical concepts: consent, anonymity, privacy
-- Examined six specific areas of ethical concern, which your projects might involve
-- Applied these notions to a specific case study
-#### Example 2: Help in identifying deep-learning
-Write about the fact the ethical consideration is part of the motivation of the project 
-# 5
-### To-do
-- Lit review
-- Create a questionnaire for the user testing of performance and intuition etc.
-- No need to process .obj, just load in.
-- Read hand gesture input
-- See previous projects
-	- They plan what's important in core project then the rest in the appendix
 ### Questions
 - How do I record my code and settings? Put in the appendix (table format --make a block diagram (point)) -can I export config settings of Unity Project?
 - Break unity into parameters
@@ -423,25 +11,18 @@ Write about the fact the ethical consideration is part of the motivation of the 
 
 - Which metrics?
 - User ethics
-# 6 
+# 28/03/2026
 In the field of Human-Computer Interaction (HCI) and Virtual Reality (VR), evaluation is not just about "does it work?" but rather "how well does it facilitate human intent?" For a high-scoring Computer Science project, you need a mixed-methods approach that balances **objective telemetry** (what the computer sees) with **subjective feedback** (what the user feels).
 
 The industry standard for evaluating a new interaction paradigm involves a **Within-Subjects Design**, where each participant tests both the baseline (joystick) and your experimental system (hand gestures) to eliminate individual skill variance.
-
----
-
 ## 1. Subjective Metrics: Standard Questionnaires
-
 To justify your claims in the "Results and Discussion" chapter, you should use validated, peer-reviewed scales. This prevents your evaluation from being dismissed as "subjective opinion."
-
 ### System Usability Scale (SUS)
-
 The SUS is a ten-item Likert scale (1-5) that provides a "quick and dirty" but reliable tool for measuring usability.
 
 - **Why use it?** It gives you a single score out of 100, which is highly effective for a "Summary Table of Methods" in your report.
 - **Metric:** A score above 68 is considered above average.
 ### NASA Task Load Index (NASA-TLX)
-
 This is critical for your project aim of reducing cognitive load. It measures:
 - **Mental Demand:** How much mental and perceptual activity was required?
 - **Physical Demand:** This is vital for hand-tracking to detect "Gorilla Arm" fatigue.
@@ -449,9 +30,6 @@ This is critical for your project aim of reducing cognitive load. It measures:
 - **Effort/Frustration:** How hard did they have to work to reach their performance level?
 ### VR Sickness Questionnaire (VRSQ)
 Since your project involves 3D manipulation, measuring nausea, oculomotor strain, and disorientation is a professional touch that demonstrates a "deeper understanding" of VR safety.
-
----
-
 ## 2. Objective Metrics: The CS Telemetry
 
 While the survey captures the user's perception, your **HandMetricsLogger** should capture the hard data. This is what differentiates a CS project from a design project.
@@ -462,8 +40,6 @@ While the survey captures the user's perception, your **HandMetricsLogger** shou
 |**Transform Efficiency**|`Transform.eulerAngles`|The sum of total rotation applied. High efficiency = low total degrees moved to reach the target.|
 |**Gesture Precision**|`PinchStrength`|The variance in pinch strength during a "grab." Does the user struggle to maintain the 0.8 threshold?.|
 |**Focus Stability**|`GazeData.focusStability`|Measure if users look at the liver or their hands. High focus stability on the model suggests higher intuition.|
-
----
 ## 3. The Qualitative Survey: Guided Feedback
 Beyond the numbers, you need "clever summary forms" to guide user feedback. Structure your survey to ask about specific features:
 
@@ -471,8 +47,6 @@ Beyond the numbers, you need "clever summary forms" to guide user feedback. Stru
 2. **Mapping:** "Was the relationship between your hand's rotation and the liver's rotation clear?"
 3. **Discovery:** "How long did it take for you to feel 'in control' of the scaling mechanic?"
 4. **Open-Ended:** "What was the most frustrating part of the hand-tracking experience?" (This is where you look for mentions of **occlusion** or **jitter**).
-
----
 ## 4. Evaluation Protocol: A Standard Way
 To ensure your results are statistically meaningful ($p < 0.05$), follow this sequence for every participant:
 
@@ -484,8 +58,6 @@ To ensure your results are statistically meaningful ($p < 0.05$), follow this se
 6. **Interview:** Brief qualitative discussion on their preference.
 ### Statistical Analysis Tip
 In your report, do not just list the averages. Use a **Paired Samples t-test** to compare the TCT (Time to Completion) of the joystick vs. gestures. If your $p$-value is less than 0.05, you can formally claim that your gesture system is "statistically faster/more efficient."
-
-Would you like me to draft the specific 10 questions for the System Usability Scale (SUS) tailored to your medical anatomy navigation context?
 # 02/04/2026
 ## Update on Project Implementation
 ### The Developmental Recap (Logically Stepped)
@@ -958,6 +530,85 @@ Does this synthesis clarify the academic framework of your experiment? If so, we
 - Use a list of Acronyms table?
 - To reconstruct complex 3D anatomy, 2D DICOM files (the result of various medical imaging technologies like CT, MRI, and PET scans) known as slices undergo a process.
 	- It doesn't make sense -> dimensional mismatch
+## How to use the FORMS (LTS)
+### Part 1: Interpreting the Raw Task Load Index (RTLX)
+The RTLX measures the **Subjective Cost** of a specific action. Because you are administering it four times per control method (after Translation, Rotation, Translation+Rotation, and Scaling), you are looking for *spikes* in specific subscales. 
+
+Each question is answered on a 1–20 scale. You can analyze this data in two ways:
+#### 1. The Overall Task Load (The Macro View)
+To get the overall workload for a specific task, you simply calculate the mean of the six subscales. Multiply by 5 if you wish to report it as a standard percentage (0–100).
+
+* **Example calculation:** * Mental: 14, Physical: 8, Temporal: 10, Effort: 12, Performance: 6, Frustration: 10. 
+    * Sum = 60. 
+    * Average = 10 (out of 20), or an overall workload score of **50%**.
+#### 2. Diagnostic Subscale Analysis (The Micro View)
+This is where you will secure high marks. Do not just report the averages; contrast the subscales against your objective telemetry.
+
+**Walkthrough Scenario: Task 3 (6-DoF Docking)**
+Imagine a participant finishes Task 3 using both the joystick and then bare hands. You look at their RTLX subscales and see this:
+
+* **VR Joystick Results:** Mental Demand: **18**, Physical Demand: **4**, Frustration: **16**.
+* **Hand-Tracking Results:** Mental Demand: **6**, Physical Demand: **14**, Frustration: **8**.
+
+**How to write this up:**
+> *"Diagnostic analysis of the RTLX subscales revealed a clear trade-off between the two interfaces during 6-DoF manipulation. The legacy VR joystick imposed a severe Mental Demand (18/20), validating the hypothesis that mapping a 2D thumbstick to a 3D liver rotation induces high cognitive friction. Conversely, hand-tracking drastically reduced Mental Demand (6/20) and Frustration (8/20), as the 1:1 kinematic mapping was highly intuitive. However, this came at a physiological cost: Physical Demand spiked to 14/20 during hand-tracking, consistent with the 'Gorilla Arm' fatigue expected during unsupported mid-air interaction."*
+
+---
+### Part 2: Interpreting the System Usability Scale (SUS)
+The SUS provides a reliable, high-level evaluation of the overall system. It uses a 10-item, 1–5 Likert scale. 
+
+**Warning:** You cannot simply add the scores together. The SUS alternates between positive statements (odd numbers) and negative statements (even numbers) to prevent participants from mindlessly checking "5" down the whole page. You must normalize the scores before summing them.
+#### The SUS Formula
+To calculate the final score (which scales from 0 to 100), apply the following logic:
+1.  **For Odd Items (1, 3, 5, 7, 9):** Subtract 1 from the user's response.
+2.  **For Even Items (2, 4, 6, 8, 10):** Subtract the user's response from 5.
+3.  Add all the normalized scores together.
+4.  Multiply the total by 2.5.
+
+The formal calculation is written as:
+$SUS = \left( \sum (Score_{odd} - 1) + \sum (5 - Score_{even}) \right) \times 2.5$
+#### Example Walkthrough: Evaluating the Hand-Tracking System
+A participant finishes all tasks with the Ultraleap hand-tracking and fills out the SUS in Section B of your form. Here are their raw responses:
+
+* Q1 (Positive): **4**
+* Q2 (Negative): **2**
+* Q3 (Positive): **5**
+* Q4 (Negative): **1**
+* Q5 (Positive): **4**
+* Q6 (Negative): **2**
+* Q7 (Positive): **4**
+* Q8 (Negative - *Tiring to use*): **4**
+* Q9 (Positive): **4**
+* Q10 (Negative): **2**
+
+**Step 1: Normalize the Odd (Positive) Questions**
+* Q1: 4 - 1 = **3**
+* Q3: 5 - 1 = **4**
+* Q5: 4 - 1 = **3**
+* Q7: 4 - 1 = **3**
+* Q9: 4 - 1 = **3**
+* *Odd Sum = 16*
+
+**Step 2: Normalize the Even (Negative) Questions**
+* Q2: 5 - 2 = **3**
+* Q4: 5 - 1 = **4**
+* Q6: 5 - 2 = **3**
+* Q8: 5 - 4 = **1** *(Note: They rated it highly tiring, so this yields a low normalized score)*
+* Q10: 5 - 2 = **3**
+* *Even Sum = 14*
+
+**Step 3: Calculate Final Score**
+* Total Sum: 16 + 14 = 30
+* Final Score: 30 × 2.5 = **75**
+#### How to Interpret the Score
+The SUS score is out of 100, but it is **not** a percentage. Based on decades of industry benchmarking, the average SUS score is **68**. 
+* **< 51:** Poor (System requires severe redesign).
+* **51 – 68:** Okay to Fair.
+* **68 – 80.3:** Good (The system is usable and acceptable).
+* **> 80.3:** Excellent.
+
+**How to write this up:**
+> *"The hand-tracking interface achieved a mean SUS score of 75, placing it above the industry-standard baseline of 68 and indicating 'Good' usability. While the system scored highly on intuitive integration (Q3, Q7), individual item analysis revealed that Q8 ('I found the system very tiring to use') acted as a primary detractor, further corroborating the physical demand spikes observed in the RTLX telemetry."*
 # 05/04/2026
 ## Developing the Gesture code [TO-D0:]
 - Design and map out gestures
@@ -1554,7 +1205,7 @@ This demonstrates that you understand the **Single Responsibility Principle** no
 
 Did the `git reset --soft` command successfully move the files back to your staging area without throwing any "Access Denied" errors?
 # 08/04/2026
-# Release / Tag Template
+## Release / Tag Template
 ```markdown
 USE -> ([#31](https://github.com/scAB1001/comp3932/pull/31)) instead of (#30)
 
@@ -1599,7 +1250,7 @@ USE -> ([#31](https://github.com/scAB1001/comp3932/pull/31)) instead of (#30)
 
 **Full Changelog**: [Initial Release]
 ```
-# Milestone Summary (LTS)
+## Milestone Summary (LTS)
 I need to branch off of main and continue to the next Milestone 2.
 As I understand it, we did a bulk PR from a singular branch for Milestone 1 as there were not many complex features.
 From now on, I want to use branches mapped to issues. Sub-issues will not need a further branch.
@@ -1666,7 +1317,7 @@ Below is your professional roadmap for the remaining Milestones. I have refined 
 
 ---
 
-# 🎯 Milestone 2: Kinematic Interaction Core
+# Milestone 2: Kinematic Interaction Core
 **Focus:** Establishing the clinical environment and implementing foundational 3D translation (Condition A vs. B).
 ## [FEAT] Clinical Void Environment & Scene Orchestration #7
 ### User Story
@@ -1793,6 +1444,16 @@ As a researcher, I need to isolate the "Precision Pinch" from "Power Grasps" or 
 * **Stability Buffer:** Implement the frame-delay logic for state exits.
 * **Signature Fine-Tuning:** Conduct "dry-run" tests on the Lab PC to calibrate strength thresholds.
 ---
+## [FEAT] Real-time Interaction HUD (TextMesh Pro) #15
+### User Story
+As a participant, I need visual confirmation of which gesture is currently active to reduce cognitive load.
+### Implementation Details
+* Create a world-space UI anchored to the user's view or the interaction table.
+* Implement a dynamic text system that displays: `GRAB`, `ROTATE`, or `SCALE`.
+### Acceptance Criteria
+* [ ] UI text updates instantly upon gesture recognition.
+* [ ] Text is legible within the Varjo XR-4's foveated rendering zone.
+This architectural overhaul ensures your Milestone 3 transitions from "simple scripting" to a **scalable Research Framework**. By implementing an **Abstract Provider Pattern** and a **Finite State Machine (FSM)**, you ensure that the math remains identical across hardware conditions, providing a fair and scientifically valid comparison for your dissertation.
 ## The State Machine [TODO]
 ### 1. The Logic: Decoupling Input from Action
 The core idea is **Abstraction**. You have two hardware conditions (Varjo Controllers and Ultraleap Hands). If you write specific code for each, you have to write your rotation math twice. 
@@ -1881,7 +1542,7 @@ To meet the **Acceptance Criteria**, your Inspector for the `InteractionOrchestr
 * **Reference Model:** [Slot for the Turquoise Liver]
 
 Should we define the "Clutch" state as a global behavior that is always active, or should it behave differently when using the physical Varjo controllers versus the optical Ultraleap tracking?
-# 🎯 Milestone 4: Telemetry Pipeline & Trial Orchestration
+# Milestone 4: Telemetry Pipeline & Trial Orchestration
 **Focus:** Data collection and automated experimental sequencing.
 
 ## [TELEMETRY] High-Frequency Metrics Engine #12
@@ -1913,82 +1574,3 @@ As a researcher, I need the telemetry data exported to a standardized format for
 
 
 How does this issue breakdown feel for your Sprint 2 workload? Would you like me to refine the `AlignmentMetricsLogger.cs` math logic now so it's ready for Milestone 4?
-# How to use the latest FORMS
-### Part 1: Interpreting the Raw Task Load Index (RTLX)
-The RTLX measures the **Subjective Cost** of a specific action. Because you are administering it four times per control method (after Translation, Rotation, Translation+Rotation, and Scaling), you are looking for *spikes* in specific subscales. 
-
-Each question is answered on a 1–20 scale. You can analyze this data in two ways:
-#### 1. The Overall Task Load (The Macro View)
-To get the overall workload for a specific task, you simply calculate the mean of the six subscales. Multiply by 5 if you wish to report it as a standard percentage (0–100).
-
-* **Example calculation:** * Mental: 14, Physical: 8, Temporal: 10, Effort: 12, Performance: 6, Frustration: 10. 
-    * Sum = 60. 
-    * Average = 10 (out of 20), or an overall workload score of **50%**.
-#### 2. Diagnostic Subscale Analysis (The Micro View)
-This is where you will secure high marks. Do not just report the averages; contrast the subscales against your objective telemetry.
-
-**Walkthrough Scenario: Task 3 (6-DoF Docking)**
-Imagine a participant finishes Task 3 using both the joystick and then bare hands. You look at their RTLX subscales and see this:
-
-* **VR Joystick Results:** Mental Demand: **18**, Physical Demand: **4**, Frustration: **16**.
-* **Hand-Tracking Results:** Mental Demand: **6**, Physical Demand: **14**, Frustration: **8**.
-
-**How to write this up:**
-> *"Diagnostic analysis of the RTLX subscales revealed a clear trade-off between the two interfaces during 6-DoF manipulation. The legacy VR joystick imposed a severe Mental Demand (18/20), validating the hypothesis that mapping a 2D thumbstick to a 3D liver rotation induces high cognitive friction. Conversely, hand-tracking drastically reduced Mental Demand (6/20) and Frustration (8/20), as the 1:1 kinematic mapping was highly intuitive. However, this came at a physiological cost: Physical Demand spiked to 14/20 during hand-tracking, consistent with the 'Gorilla Arm' fatigue expected during unsupported mid-air interaction."*
-
----
-### Part 2: Interpreting the System Usability Scale (SUS)
-The SUS provides a reliable, high-level evaluation of the overall system. It uses a 10-item, 1–5 Likert scale. 
-
-**Warning:** You cannot simply add the scores together. The SUS alternates between positive statements (odd numbers) and negative statements (even numbers) to prevent participants from mindlessly checking "5" down the whole page. You must normalize the scores before summing them.
-#### The SUS Formula
-To calculate the final score (which scales from 0 to 100), apply the following logic:
-1.  **For Odd Items (1, 3, 5, 7, 9):** Subtract 1 from the user's response.
-2.  **For Even Items (2, 4, 6, 8, 10):** Subtract the user's response from 5.
-3.  Add all the normalized scores together.
-4.  Multiply the total by 2.5.
-
-The formal calculation is written as:
-$SUS = \left( \sum (Score_{odd} - 1) + \sum (5 - Score_{even}) \right) \times 2.5$
-#### Example Walkthrough: Evaluating the Hand-Tracking System
-A participant finishes all tasks with the Ultraleap hand-tracking and fills out the SUS in Section B of your form. Here are their raw responses:
-
-* Q1 (Positive): **4**
-* Q2 (Negative): **2**
-* Q3 (Positive): **5**
-* Q4 (Negative): **1**
-* Q5 (Positive): **4**
-* Q6 (Negative): **2**
-* Q7 (Positive): **4**
-* Q8 (Negative - *Tiring to use*): **4**
-* Q9 (Positive): **4**
-* Q10 (Negative): **2**
-
-**Step 1: Normalize the Odd (Positive) Questions**
-* Q1: 4 - 1 = **3**
-* Q3: 5 - 1 = **4**
-* Q5: 4 - 1 = **3**
-* Q7: 4 - 1 = **3**
-* Q9: 4 - 1 = **3**
-* *Odd Sum = 16*
-
-**Step 2: Normalize the Even (Negative) Questions**
-* Q2: 5 - 2 = **3**
-* Q4: 5 - 1 = **4**
-* Q6: 5 - 2 = **3**
-* Q8: 5 - 4 = **1** *(Note: They rated it highly tiring, so this yields a low normalized score)*
-* Q10: 5 - 2 = **3**
-* *Even Sum = 14*
-
-**Step 3: Calculate Final Score**
-* Total Sum: 16 + 14 = 30
-* Final Score: 30 × 2.5 = **75**
-#### How to Interpret the Score
-The SUS score is out of 100, but it is **not** a percentage. Based on decades of industry benchmarking, the average SUS score is **68**. 
-* **< 51:** Poor (System requires severe redesign).
-* **51 – 68:** Okay to Fair.
-* **68 – 80.3:** Good (The system is usable and acceptable).
-* **> 80.3:** Excellent.
-
-**How to write this up:**
-> *"The hand-tracking interface achieved a mean SUS score of 75, placing it above the industry-standard baseline of 68 and indicating 'Good' usability. While the system scored highly on intuitive integration (Q3, Q7), individual item analysis revealed that Q8 ('I found the system very tiring to use') acted as a primary detractor, further corroborating the physical demand spikes observed in the RTLX telemetry."*
