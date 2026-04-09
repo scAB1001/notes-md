@@ -1694,9 +1694,8 @@ As a user, I need to translate the 3D model in XYZ space using both bare hands a
 
 ---
 
-# 🎯 Milestone 3: Complex Spatial Transformations
+# 09/04/2026 - Milestone 3: Complex Spatial Transformations
 **Focus:** Rotational logic, bimanual scaling, and multi-axis transformation feedback.
-
 ## [FEAT] Rotational Logic & Clutching Mechanics #9
 ### User Story
 As a user, I need to rotate the 3D model across three axes while mitigating the physical limitations of human wrist rotation.
@@ -1717,7 +1716,6 @@ As a user, I need to scale the model uniformly to inspect internal structures (t
 ### Acceptance Criteria
 * [ ] Scale remains uniform (no skewing).
 * [ ] Condition A provides a different "feel" than Condition B (discrete vs. continuous input).
-
 ## [FEAT] Real-time Interaction HUD (TextMesh Pro) #11
 ### User Story
 As a participant, I need visual confirmation of which gesture is currently active to reduce cognitive load.
@@ -1729,6 +1727,49 @@ As a participant, I need visual confirmation of which gesture is currently activ
 * [ ] Text is legible within the Varjo XR-4's foveated rendering zone.
 
 ---
+## The State Machine
+### 1. The Logic: Decoupling Input from Action
+The core idea is **Abstraction**. You have two hardware conditions (Varjo Controllers and Ultraleap Hands). If you write specific code for each, you have to write your rotation math twice. 
+
+Instead, the State Machine sits in the middle. It doesn't care *how* a "Grab" was triggered (whether a button was pressed or a pinch was detected); it only cares that the system is now in the `TRANSFORMING` state.
+### 2. The States of your Clinical Interaction
+For your project, I recommend five primary states. This ensures that the user cannot accidentally scale the liver while they are trying to rotate it.
+
+* **`IDLE`:** The hand/controller is tracked but not near the liver.
+* **`HOVER`:** The hand is within the collision bounds of the liver. The model might "glow" slightly to provide HCI feedback.
+* **`TRANSLATING` (Monomanual):** A pinch or grip is detected. The model’s position follows the input anchor.
+* **`ROTATING` (Monomanual + Pivot):** Triggered by the same pinch, but the logic switches to applying delta-Quaternions.
+* **`SCALING` (Bimanual):** Triggered when a second pinch/grip is detected while the first is active.
+### 3. The "Brain": `InteractionOrchestrator.cs`
+`UnityProject/Assets/_Project/Scripts/Interaction/InteractionOrchestrator.cs`
+
+This script acts as the "Traffic Cop." It queries your `InputProviders` and decides which state is active. 
+
+#### **Handling the "Pinch vs. Fist" (Signature Isolation)**
+This is where you solve your "fine-tuning" problem. Inside the `UltraleapInputProvider`, you don't just check `IsPinching`. You create a **Gesture Signature**.
+
+```csharp
+// Example Logic for Signature Isolation
+bool isValidPinch = leapHand.IsPinching && 
+                 !leapHand.GetFinger(Finger.FingerType.TYPE_MIDDLE).IsExtended &&
+                 !leapHand.GetFinger(Finger.FingerType.TYPE_PINKY).IsExtended;
+```
+
+By checking that the other fingers are *not* extended (but not fully curled into a fist), you can differentiate between a "Precision Pinch" and a "Power Grasp" or a "Clenched Fist."
+### 4. Handling Transitions (The "Edges")
+A state machine is defined by its **Transitions**. You need to define the "entry" and "exit" costs.
+
+* **Coyote Time:** If the Ultraleap camera loses sight of the thumb for $0.1s$ (due to occlusion), you don't immediately drop the liver. You stay in the `TRANSLATING` state for a few frames. This is called "Interaction Smoothing."
+* **The Clutch:** When the user releases the pinch to reset their wrist, the state moves to `CLUTCHED`. The model orientation is saved: $q_{saved} = transform.rotation$.
+### 5. Why this is "Professional Standard"
+1.  **Extensibility:** If you want to add a "Teleport" gesture in Milestone 4, you just add a `TELEPORT` state and define the hand-sign required to enter it.
+2.  **Telemetry Accuracy:** You can log exactly how much time the user spent in each state. 
+    * *"The user spent $14.2s$ in the `ROTATING` state using hands vs. $8.1s$ using controllers."* This is a goldmine for your dissertation's "Results" section.
+3.  **Debugging:** You can display the current state in your TextMesh Pro HUD. If the liver isn't moving, you can instantly see if the machine is stuck in `IDLE` or if it's actually in `TRANSLATING` but the math is wrong.
+### 🚀 Implementation Tip
+Start by defining an `enum InteractionState { Idle, Hover, Translate, Rotate, Scale }`. Then, in your `Update()` loop, use a `switch(currentState)` block. This keeps your code clean, readable, and—most importantly—ready for the complex bimanual logic in Milestone 3.
+
+Does this "logic-first" approach make sense, or would you like to see how the `BaseInteractionProvider` class should be structured to handle the Varjo and Ultraleap inputs simultaneously?
 # 🎯 Milestone 4: Telemetry Pipeline & Trial Orchestration
 **Focus:** Data collection and automated experimental sequencing.
 
