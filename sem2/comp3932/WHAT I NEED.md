@@ -1345,7 +1345,8 @@ As a user, I need to translate the 3D model in XYZ space using both bare hands a
 
 ---
 
-# 09/04/2026 - Milestone 3 Issues [Refined]
+# 09/04/2026 
+# Milestone 3 Issues [Refined]
 ## [FEAT] Extensible Kinematic Interaction Framework #11
 ### User Story
 As a developer, I need a modular interaction architecture that decouples input detection from transformation logic to ensure a scientifically valid comparison between bare-hand and controller interactions.
@@ -1513,8 +1514,6 @@ To meet the **Acceptance Criteria**, your Inspector for the `InteractionOrchestr
 
 Should we define the "Clutch" state as a global behavior that is always active, or should it behave differently when using the physical Varjo controllers versus the optical Ultraleap tracking?
 # Milestone 4: Telemetry Pipeline & Trial Orchestration
-**Focus:** Data collection and automated experimental sequencing.
-
 ## [TELEMETRY] High-Frequency Metrics Engine #12
 ### User Story
 As a researcher, I need to capture precise spatial error data at high frequencies for statistical analysis.
@@ -1523,7 +1522,6 @@ As a researcher, I need to capture precise spatial error data at high frequencie
 * Calculate Euclidean Distance ($d = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2 + (z_2-z_1)^2}$) and Quaternion Angular Error.
 ### Acceptance Criteria
 * [ ] Real-time error calculation verified in the debug console.
-
 ## [EXPERIMENT] Automated Trial State Machine #13
 ### User Story
 As an experimenter, I need the system to automatically cycle through tasks to ensure a consistent experience for all participants.
@@ -1533,7 +1531,6 @@ As an experimenter, I need the system to automatically cycle through tasks to en
 ### Acceptance Criteria
 * [ ] System resets model position/orientation automatically between tasks.
 * [ ] Dwell timer prevents accidental "fly-by" completions.
-
 ## [TELEMETRY] Persistent CSV Data Export #14
 ### User Story
 As a researcher, I need the telemetry data exported to a standardized format for external analysis.
@@ -1541,6 +1538,5 @@ As a researcher, I need the telemetry data exported to a standardized format for
 * Implement an automated export system that writes Task Completion Time (TCT), Inefficiency (Total Path Length), and Clutch Counts to a local `.csv`.
 ### Acceptance Criteria
 * [ ] Data successfully writes to disk upon experiment completion.
-
 
 How does this issue breakdown feel for your Sprint 2 workload? Would you like me to refine the `AlignmentMetricsLogger.cs` math logic now so it's ready for Milestone 4?
