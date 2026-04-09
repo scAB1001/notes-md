@@ -400,7 +400,7 @@ At the moment we have based our tasks of off the 6-DoF tasks. We have taken the 
 - Does it serve our report adequately?
 - Is this an appropriate measure/method of measure? 
 - How can we show all this and demonstrate the high-level of ciritcal thinking and analysis expected throughout this report? 
-#### The "6-DoF Target Alignment" Task (The Gold Standard) []
+#### The "6-DoF Target Alignment" Task (The Gold Standard) [TODO]
 You will then explicitly state that for the purposes of your empirical evaluation, the traditional "joystick" paradigm is represented by the 6-DoF Varjo VR controllers. This shows the examiner that you understand the breadth of the field but have made a calculated, practical decision for your experiment's methodology.
 In academic VR research, the most widely used and validated method for testing spatial manipulation is a **6-DoF (Degrees of Freedom) Docking Task** (also known as Target Alignment).
 Instead of moving objects into boxes, the user must grab an object and perfectly align it with a target silhouette in 3D space.
