@@ -1668,7 +1668,6 @@ Below is your professional roadmap for the remaining Milestones. I have refined 
 
 # 🎯 Milestone 2: Kinematic Interaction Core
 **Focus:** Establishing the clinical environment and implementing foundational 3D translation (Condition A vs. B).
-
 ## [FEAT] Clinical Void Environment & Scene Orchestration #7
 ### User Story
 As a researcher, I need a distraction-free, high-performance environment to isolate user performance variables during 3D manipulation tasks.
@@ -1702,8 +1701,7 @@ As a user, I need to translate the 3D model in XYZ space using both bare hands a
 ### User Story
 As a user, I need to rotate the 3D model across three axes while mitigating the physical limitations of human wrist rotation.
 ### Implementation Details
-* Calculate delta rotation using Quaternions:
-  $$\Delta q = q_{current} \times q_{last}^{-1}$$
+* Calculate delta rotation using Quaternions: $$\Delta q = q_{current} \times q_{last}^{-1}$$
 * Implement a "clutching" mechanic: rotation only applies when a pinch/grip is active. Releasing allows the user to reset their wrist position without affecting the model.
 * Apply delta rotations to the Active Model's local coordinate space.
 ### Acceptance Criteria
@@ -1731,7 +1729,6 @@ As a participant, I need visual confirmation of which gesture is currently activ
 * [ ] Text is legible within the Varjo XR-4's foveated rendering zone.
 
 ---
-
 # 🎯 Milestone 4: Telemetry Pipeline & Trial Orchestration
 **Focus:** Data collection and automated experimental sequencing.
 
