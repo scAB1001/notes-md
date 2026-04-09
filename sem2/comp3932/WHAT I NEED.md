@@ -1345,60 +1345,28 @@ As a user, I need to translate the 3D model in XYZ space using both bare hands a
 
 ---
 
-# 09/04/2026 - Milestone 3: Complex Spatial Transformations
-**Focus:** Rotational logic, bimanual scaling, and multi-axis transformation feedback.
-## [FEAT] Rotational Logic & Clutching Mechanics #9
-### User Story
-As a user, I need to rotate the 3D model across three axes while mitigating the physical limitations of human wrist rotation.
-### Implementation Details
-* Calculate delta rotation using Quaternions: $$\Delta q = q_{current} \times q_{last}^{-1}$$
-* Implement a "clutching" mechanic: rotation only applies when a pinch/grip is active. Releasing allows the user to reset their wrist position without affecting the model.
-* Apply delta rotations to the Active Model's local coordinate space.
-### Acceptance Criteria
-* [ ] Rotation is accurate across X, Y, and Z axes.
-* [ ] Clutching mechanic allows for 360-degree rotation through multiple movements.
-
-## [FEAT] Bimanual Scaling & Input Mapping #10
-### User Story
-As a user, I need to scale the model uniformly to inspect internal structures (tumors) at various sizes.
-### Implementation Details
-* **Condition B (Hands):** Implement "Pinch-to-Scale." Use the distance delta between left and right pinch centers to drive uniform XYZ scale.
-* **Condition A (Controller):** Map the thumbstick (Up/Down) to scale the model while the grip is held.
-### Acceptance Criteria
-* [ ] Scale remains uniform (no skewing).
-* [ ] Condition A provides a different "feel" than Condition B (discrete vs. continuous input).
-## [FEAT] Real-time Interaction HUD (TextMesh Pro) #11
-### User Story
-As a participant, I need visual confirmation of which gesture is currently active to reduce cognitive load.
-### Implementation Details
-* Create a world-space UI anchored to the user's view or the interaction table.
-* Implement a dynamic text system that displays: `GRAB`, `ROTATE`, or `SCALE`.
-### Acceptance Criteria
-* [ ] UI text updates instantly upon gesture recognition.
-* [ ] Text is legible within the Varjo XR-4's foveated rendering zone.
-This architectural overhaul ensures your Milestone 3 transitions from "simple scripting" to a **scalable Research Framework**. By implementing an **Abstract Provider Pattern** and a **Finite State Machine (FSM)**, you ensure that the math remains identical across hardware conditions, providing a fair and scientifically valid comparison for your dissertation.
-# Milestone 3 Issues [Refined]
+# 09/04/2026 - Milestone 3 Issues [Refined]
 ## [FEAT] Extensible Kinematic Interaction Framework #11
 ### User Story
-As a developer, I need a modular interaction architecture that decouples input detection from transformation math to ensure a scientifically valid comparison between bare-hand and controller interactions.
+As a developer, I need a modular interaction architecture that decouples input detection from transformation logic to ensure a scientifically valid comparison between bare-hand and controller interactions.
 ### Implementation Details
-* **Abstract Abstraction Layer:** Create `BaseInteractionProvider.cs` to hold the "Math Hub." It will store "Last Frame" data and calculate delta vectors.
+* **Abstract Abstraction Layer:** Create `BaseInteractionProvider.cs` acting as hub for Mathematics. It will store "Last Frame" data and calculate delta vectors.
     * **Translation:** $Vector3 \Delta Pos = currentPos - lastPos$
     * **Rotation:** $\Delta q = q_{current} \times q_{last}^{-1}$
-* **Provider Specialization:** Inherit `UltraleapInteractionProvider.cs` and `VarjoControllerProvider.cs` to feed raw hardware signals into the base math.
+* **Provider Specialisation:** Inherit `UltraleapInteractionProvider.cs` and `VarjoControllerProvider.cs` to feed raw hardware signals into the base logic.
 * **Finite State Machine (FSM):** Implement an `InteractionOrchestrator.cs` that manages states: `IDLE`, `HOVER`, `TRANSFORMING`, `CLUTCHING`, and `SCALING`.
 * **Correction Integration:** Ensure `VarjoHandTrackingOffset.cs` output is consumed by the framework before the FSM processes movement.
 ### Acceptance Criteria
 - [ ] Inspector includes a dropdown to toggle between **Ultraleap** and **Varjo** providers.
 - [ ] Active state is displayed via a read-only label in the Inspector (e.g., "Current State: TRANSFORMING").
-- [ ] Transformation math is verified as identical for both hardware conditions.
+- [ ] Transformation logic is verified as identical for both hardware conditions.
 ### Sub-issues & Tasks
 * **Base Class Logic:** Program the delta-calculation hub and "Last Frame" storage.
 * **FSM Core:** Define the `InteractionState` enum and the state transition logic in the Orchestrator.
-* **Inspector Tooling:** Custom editor script or simple labels to visualize active providers and models.
+* **Inspector Tooling:** Custom editor script or simple labels to visualise active providers and models.
 ## [FEAT] Rotational Quaternions & Clutching Logic #12
 ### User Story
-As a user, I need to rotate the liver model across multiple axes using ergonomic wrist pivots, utilizing a "clutch" state to reset my physical hand position without affecting the model.
+As a user, I need to rotate the liver model across multiple axes using wrist pivots, making use of the "clutch" state to reset my physical hand position without affecting the model.
 ### Implementation Details
 * **Quaternion Delta Implementation:** In the `BaseInteractionProvider`, implement the pivot-point logic ensuring the model rotates around its geometric center.
 * **The Clutch State:** When the trigger signal (pinch/grip) is lost, enter the `CLUTCHING` state. This locks the model's current $transform.rotation$ and $transform.position$.
@@ -1408,14 +1376,14 @@ As a user, I need to rotate the liver model across multiple axes using ergonomic
 - [ ] Model orientation remains perfectly static during the `CLUTCHING` phase.
 - [ ] No "snapping" or "jumping" occurs when re-engaging a grab from a different angle.
 ### Sub-issues & Tasks
-* **Pivot Calibration:** Standardize the liver's local pivot to its barycenter.
+* **Pivot Calibration:** Standardise the liver's local pivot to its barycenter.
 * **State Persistence:** Logic to store the model's transform state during clutching.
 * **Controller Alignment:** Map Varjo controller orientation to the `BaseInteractionProvider` rotation input.
 ## [FEAT] Bimanual Scaling & Discrete Input Mapping #13
 ### User Story
 As a researcher, I need to compare the intuitive "stretch" gesture (Condition B) against discrete thumbstick input (Condition A) to evaluate scaling precision.
 ### Implementation Details
-* **Condition B (Bimanual FSM):** Enter `SCALING` state when two valid pinches are detected. Use $Vector3.Distance$ between hand anchors to drive uniform XYZ scaling.
+* **Condition B (Bimanual FSM):** Enter `SCALING` state when two valid pinches are detected. Use `Vector3.Distance` between hand anchors to drive uniform XYZ scaling.
 * **Condition A (Discrete):** Use the Varjo thumbstick Y-axis to apply a linear scale multiplier while in the `TRANSFORMING` state.
 * **Safety Bounds:** Implement `minScale` and `maxScale` variables to prevent model inversion or excessive GPU fill-rate from "vanishing" or "giant" meshes.
 ### Acceptance Criteria
@@ -1426,7 +1394,7 @@ As a researcher, I need to compare the intuitive "stretch" gesture (Condition B)
 * **Bimanual Distance Logic:** Implement distance-based scaling ratio.
 * **Thumbstick Multiplier:** Program the incremental scaling logic for controllers.
 * **Bounds Enforcement:** Clamp the final scale values in the `BaseInteractionProvider`.
-## [FEAT] Gesture Signature Isolation & Fine-Tuning #14
+## [FEAT] Gesture Signature Isolation & Fine-Tuning #16
 ### User Story
 As a researcher, I need to isolate the "Precision Pinch" from "Power Grasps" or "Fists" to ensure the experimental data strictly reflects intended kinematic manipulation.
 ### Implementation Details
@@ -1443,17 +1411,19 @@ As a researcher, I need to isolate the "Precision Pinch" from "Power Grasps" or 
 * **Finger State Audit:** Use `Leap.Finger.IsExtended` to filter invalid signatures.
 * **Stability Buffer:** Implement the frame-delay logic for state exits.
 * **Signature Fine-Tuning:** Conduct "dry-run" tests on the Lab PC to calibrate strength thresholds.
----
-## [FEAT] Real-time Interaction HUD (TextMesh Pro) #15
+## [FEAT] Real-time Interaction HUD (TextMesh Pro) #57
 ### User Story
 As a participant, I need visual confirmation of which gesture is currently active to reduce cognitive load.
 ### Implementation Details
 * Create a world-space UI anchored to the user's view or the interaction table.
-* Implement a dynamic text system that displays: `GRAB`, `ROTATE`, or `SCALE`.
+* Implement a dynamic text system that displays: `IDLE`, `HOVER`, `TRANSFORMING`, `CLUTCHING`, and `SCALING`.
 ### Acceptance Criteria
+* [ ] UI text is visibile, cannot be interacted with and is not distracting.
 * [ ] UI text updates instantly upon gesture recognition.
 * [ ] Text is legible within the Varjo XR-4's foveated rendering zone.
-This architectural overhaul ensures your Milestone 3 transitions from "simple scripting" to a **scalable Research Framework**. By implementing an **Abstract Provider Pattern** and a **Finite State Machine (FSM)**, you ensure that the math remains identical across hardware conditions, providing a fair and scientifically valid comparison for your dissertation.
+### Sub-issues & Tasks
+* Text Verification: Conduct "dry-run" tests on the Lab PC to verify state changes.
+* Text State Errors: Build a fall-back state for neither idle nor a defined gesture.
 ## The State Machine [TODO]
 ### 1. The Logic: Decoupling Input from Action
 The core idea is **Abstraction**. You have two hardware conditions (Varjo Controllers and Ultraleap Hands). If you write specific code for each, you have to write your rotation math twice. 
