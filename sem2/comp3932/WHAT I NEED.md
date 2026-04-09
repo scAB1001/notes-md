@@ -1725,7 +1725,73 @@ As a participant, I need visual confirmation of which gesture is currently activ
 ### Acceptance Criteria
 * [ ] UI text updates instantly upon gesture recognition.
 * [ ] Text is legible within the Varjo XR-4's foveated rendering zone.
-
+This architectural overhaul ensures your Milestone 3 transitions from "simple scripting" to a **scalable Research Framework**. By implementing an **Abstract Provider Pattern** and a **Finite State Machine (FSM)**, you ensure that the math remains identical across hardware conditions, providing a fair and scientifically valid comparison for your dissertation.
+# Milestone 3 Issues [Refined]
+## [FEAT] Extensible Kinematic Interaction Framework #11
+### User Story
+As a developer, I need a modular interaction architecture that decouples input detection from transformation math to ensure a scientifically valid comparison between bare-hand and controller interactions.
+### Implementation Details
+* **Abstract Abstraction Layer:** Create `BaseInteractionProvider.cs` to hold the "Math Hub." It will store "Last Frame" data and calculate delta vectors.
+    * **Translation:** $Vector3 \Delta Pos = currentPos - lastPos$
+    * **Rotation:** $\Delta q = q_{current} \times q_{last}^{-1}$
+* **Provider Specialization:** Inherit `UltraleapInteractionProvider.cs` and `VarjoControllerProvider.cs` to feed raw hardware signals into the base math.
+* **Finite State Machine (FSM):** Implement an `InteractionOrchestrator.cs` that manages states: `IDLE`, `HOVER`, `TRANSFORMING`, `CLUTCHING`, and `SCALING`.
+* **Correction Integration:** Ensure `VarjoHandTrackingOffset.cs` output is consumed by the framework before the FSM processes movement.
+### Acceptance Criteria
+- [ ] Inspector includes a dropdown to toggle between **Ultraleap** and **Varjo** providers.
+- [ ] Active state is displayed via a read-only label in the Inspector (e.g., "Current State: TRANSFORMING").
+- [ ] Transformation math is verified as identical for both hardware conditions.
+### Sub-issues & Tasks
+* **Base Class Logic:** Program the delta-calculation hub and "Last Frame" storage.
+* **FSM Core:** Define the `InteractionState` enum and the state transition logic in the Orchestrator.
+* **Inspector Tooling:** Custom editor script or simple labels to visualize active providers and models.
+## [FEAT] Rotational Quaternions & Clutching Logic #12
+### User Story
+As a user, I need to rotate the liver model across multiple axes using ergonomic wrist pivots, utilizing a "clutch" state to reset my physical hand position without affecting the model.
+### Implementation Details
+* **Quaternion Delta Implementation:** In the `BaseInteractionProvider`, implement the pivot-point logic ensuring the model rotates around its geometric center.
+* **The Clutch State:** When the trigger signal (pinch/grip) is lost, enter the `CLUTCHING` state. This locks the model's current $transform.rotation$ and $transform.position$.
+* **Re-engagement:** Upon re-entering `TRANSFORMING`, capture the new "First Frame" to prevent rotational snapping.
+### Acceptance Criteria
+- [ ] Model rotates $360^{\circ}$ across all axes through successive "clutch and pivot" maneuvers.
+- [ ] Model orientation remains perfectly static during the `CLUTCHING` phase.
+- [ ] No "snapping" or "jumping" occurs when re-engaging a grab from a different angle.
+### Sub-issues & Tasks
+* **Pivot Calibration:** Standardize the liver's local pivot to its barycenter.
+* **State Persistence:** Logic to store the model's transform state during clutching.
+* **Controller Alignment:** Map Varjo controller orientation to the `BaseInteractionProvider` rotation input.
+## [FEAT] Bimanual Scaling & Discrete Input Mapping #13
+### User Story
+As a researcher, I need to compare the intuitive "stretch" gesture (Condition B) against discrete thumbstick input (Condition A) to evaluate scaling precision.
+### Implementation Details
+* **Condition B (Bimanual FSM):** Enter `SCALING` state when two valid pinches are detected. Use $Vector3.Distance$ between hand anchors to drive uniform XYZ scaling.
+* **Condition A (Discrete):** Use the Varjo thumbstick Y-axis to apply a linear scale multiplier while in the `TRANSFORMING` state.
+* **Safety Bounds:** Implement `minScale` and `maxScale` variables to prevent model inversion or excessive GPU fill-rate from "vanishing" or "giant" meshes.
+### Acceptance Criteria
+- [ ] Scaling is uniform across all axes (no skewing).
+- [ ] Releasing one hand during bimanual scaling gracefully transitions the FSM back to `TRANSFORMING` (Monomanual).
+- [ ] Hard bounds prevent scaling outside of research-relevant sizes.
+### Sub-issues & Tasks
+* **Bimanual Distance Logic:** Implement distance-based scaling ratio.
+* **Thumbstick Multiplier:** Program the incremental scaling logic for controllers.
+* **Bounds Enforcement:** Clamp the final scale values in the `BaseInteractionProvider`.
+## [FEAT] Gesture Signature Isolation & Fine-Tuning #14
+### User Story
+As a researcher, I need to isolate the "Precision Pinch" from "Power Grasps" or "Fists" to ensure the experimental data strictly reflects intended kinematic manipulation.
+### Implementation Details
+* **Signature Filtering:** Within `UltraleapInteractionProvider`, implement a check for the non-participating fingers (Middle, Ring, Pinky).
+    * **Valid:** `Index.IsPinching` + `Middle.IsExtended`.
+    * **Invalid:** `Index.IsPinching` + `Middle.IsCurled` (Fist).
+* **Coyote Time:** Implement a $0.1s$ (approx. 9-10 frames at 90Hz) buffer to prevent tracking flicker from causing state-flapping.
+* **Threshold Tuning:** Set the `PinchStrength` threshold to $0.85$ to ensure intentional engagement.
+### Acceptance Criteria
+- [ ] A fully closed fist (clench) does not trigger a "Grab" or "Translate" state.
+- [ ] Interaction remains stable during minor optical occlusions (Coyote Time).
+- [ ] "Precision Pinch" is clearly distinguished from accidental finger proximity.
+### Sub-issues & Tasks
+* **Finger State Audit:** Use `Leap.Finger.IsExtended` to filter invalid signatures.
+* **Stability Buffer:** Implement the frame-delay logic for state exits.
+* **Signature Fine-Tuning:** Conduct "dry-run" tests on the Lab PC to calibrate strength thresholds.
 ---
 ## The State Machine [TODO]
 ### 1. The Logic: Decoupling Input from Action
