@@ -1207,7 +1207,8 @@ Did the `git reset --soft` command successfully move the files back to your stag
 # 08/04/2026
 ## Release / Tag Template
 ```markdown
-USE -> ([#31](https://github.com/scAB1001/comp3932/pull/31)) instead of (#30)
+USE -> ([#71](https://github.com/scAB1001/comp3932/pull/71)) instead of (#30)
+# What's Changed
 
 ## Breaking
 
@@ -1250,7 +1251,8 @@ USE -> ([#31](https://github.com/scAB1001/comp3932/pull/31)) instead of (#30)
 
 **Full Changelog**: [Initial Release]
 ```
-## Milestone Summary (LTS)
+
+# Milestone Summary (LTS)
 I need to branch off of main and continue to the next Milestone 2.
 As I understand it, we did a bulk PR from a singular branch for Milestone 1 as there were not many complex features.
 From now on, I want to use branches mapped to issues. Sub-issues will not need a further branch.
