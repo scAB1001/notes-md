@@ -400,7 +400,7 @@ At the moment we have based our tasks of off the 6-DoF tasks. We have taken the 
 - Does it serve our report adequately?
 - Is this an appropriate measure/method of measure? 
 - How can we show all this and demonstrate the high-level of ciritcal thinking and analysis expected throughout this report? 
-#### The "6-DoF Target Alignment" Task (The Gold Standard)
+#### The "6-DoF Target Alignment" Task (The Gold Standard) []
 You will then explicitly state that for the purposes of your empirical evaluation, the traditional "joystick" paradigm is represented by the 6-DoF Varjo VR controllers. This shows the examiner that you understand the breadth of the field but have made a calculated, practical decision for your experiment's methodology.
 In academic VR research, the most widely used and validated method for testing spatial manipulation is a **6-DoF (Degrees of Freedom) Docking Task** (also known as Target Alignment).
 Instead of moving objects into boxes, the user must grab an object and perfectly align it with a target silhouette in 3D space.
@@ -436,7 +436,7 @@ Instead of moving objects into boxes, the user must grab an object and perfectly
     - **The Setup:** The solid liver spawns at a random offset, randomly rotated, and is scaled down by 50%.
 	    - Shoudl the scale be constrained to all XYZ? As to not make the scaling unnecessarily difficult.
     - **The Action:** The user must translate, rotate, and execute a bimanual gesture (e.g., pulling two hands apart) or use a secondary joystick input to scale the model up to match the Ghost.
-    - **What it Proves:** This pushes the cognitive load to its absolute maximum. It will provide the starkest contrast in your NASA-TLX scores between the two input methods.
+    - **What it Proves:** This pushes the cognitive load to its absolute maximum. It will provide the starkest contrast in your RTLX scores between the two input methods.
 ##### Why this structure guarantees a higher mark:
 In your Chapter 4 (Results and Discussion), having this 4-step breakdown allows you to make highly specific, technically backed claims. Instead of just saying "Hand tracking was faster," you can state: _"While hand-tracking showed a negligible improvement in pure translation (Task 1), it yielded a statistically significant 40% reduction in completion time during 3-Axis Rotation (Task 2)..."_
 _(The user will complete these three tasks first with the Varjo controllers, and then repeat them with their bare hands)._
