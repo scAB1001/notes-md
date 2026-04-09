@@ -1727,7 +1727,7 @@ As a participant, I need visual confirmation of which gesture is currently activ
 * [ ] Text is legible within the Varjo XR-4's foveated rendering zone.
 
 ---
-## The State Machine
+## The State Machine [TODO]
 ### 1. The Logic: Decoupling Input from Action
 The core idea is **Abstraction**. You have two hardware conditions (Varjo Controllers and Ultraleap Hands). If you write specific code for each, you have to write your rotation math twice. 
 
@@ -1744,7 +1744,6 @@ For your project, I recommend five primary states. This ensures that the user ca
 `UnityProject/Assets/_Project/Scripts/Interaction/InteractionOrchestrator.cs`
 
 This script acts as the "Traffic Cop." It queries your `InputProviders` and decides which state is active. 
-
 #### **Handling the "Pinch vs. Fist" (Signature Isolation)**
 This is where you solve your "fine-tuning" problem. Inside the `UltraleapInputProvider`, you don't just check `IsPinching`. You create a **Gesture Signature**.
 
@@ -1770,6 +1769,52 @@ A state machine is defined by its **Transitions**. You need to define the "entry
 Start by defining an `enum InteractionState { Idle, Hover, Translate, Rotate, Scale }`. Then, in your `Update()` loop, use a `switch(currentState)` block. This keeps your code clean, readable, and—most importantly—ready for the complex bimanual logic in Milestone 3.
 
 Does this "logic-first" approach make sense, or would you like to see how the `BaseInteractionProvider` class should be structured to handle the Varjo and Ultraleap inputs simultaneously?
+This architecture is designed to turn your project into a robust "Research Framework." By decoupling **Input Detection** from **Object Transformation**, you ensure that your comparative study is mathematically fair. Both the Ultraleap (Condition B) and the Varjo Controllers (Condition A) will use the exact same math to move the liver; only the "trigger" (the State) changes.
+
+---
+
+### 1. The Abstraction Layer: `BaseInteractionProvider.cs`
+The **Abstract Base Class** acts as a contract. It tells the Unity engine: "I don't know what device is being used, but I know it will provide a position, a rotation, and a trigger signal."
+
+* **The Math Hub:** This class contains the protected methods for calculating $\Delta$ (delta) values.
+    * **Translation:** $Vector3 \Delta Pos = currentPos - lastPos$
+    * **Rotation:** $\Delta q = q_{current} \times q_{last}^{-1}$
+* **The Logic:** It stores the "Last Frame" data so that transitions are smooth and don't "jump" when a user re-engages a grab.
+### 2. The Finite State Machine (FSM)
+The State Machine is the "Brain" that manages the user's intent. Instead of hundreds of `if` statements, you use a clearly defined set of states.
+
+| State                  | Entry Condition     | Behavior                                                    | Exit Condition                                |
+| :--------------------- | :------------------ | :---------------------------------------------------------- | :-------------------------------------------- |
+| **`IDLE`**             | Default             | No transformation applied.                                  | Hand/Controller enters liver bounds.          |
+| **`HOVER`** (optional) | Proximity to Liver  | Highlight model (visual feedback).                          | Pinch/Grip detected OR Hand leaves bounds.    |
+| **`TRANSFORMING`**     | Pinch/Grip active   | Apply $\Delta$ position and $\Delta$ rotation to the liver. | Pinch/Grip released.                          |
+| **`CLUTCHING`**        | Pinch/Grip released | Lock liver coordinates; allow wrist reset.                  | Pinch/Grip re-engaged (back to Transforming). |
+| **`SCALING`**          | Bimanual Pinch      | Calculate distance delta for uniform scale.                 | One hand released.                            |
+### 3. Finger Signature Isolation (The "Fine-Tuning")
+This is where you address the "Fist vs. Pinch" problem in the **`UltraleapInteractionProvider`**. To ensure the experiment only measures "Precision Manipulation," you isolate the gesture signature:
+
+* **The Filter:** Inside the `Update()` loop of the Ultraleap provider, you check the state of the non-participating fingers.
+* **Logic:**
+    * If `Index.IsPinching` AND `Middle/Ring/Pinky.IsExtended` $\rightarrow$ **Valid Pinch**.
+    * If `Index.IsPinching` AND `Middle/Ring/Pinky.IsCurled` $\rightarrow$ **Invalid (Fist)**.
+* **Result:** This prevents "Power Grasps" (closing the whole hand) from being recorded as the same interaction type as a "Precision Pinch," which is critical for your HCI research data.
+### 4. Framework Integration
+The framework pulls in your existing scripts to ensure the data is "Clean" before it hits the state machine:
+
+1.  **Input:** Raw Varjo/Ultraleap data.
+2.  **Correction:** `VarjoHandTrackingOffset.cs` applies the physical offset so the hands align with the HMD.
+3.  **Abstraction:** The `Provider` translates hardware signals into `InteractionStates`.
+4.  **Transformation:** The `BaseClass` applies the actual movement to the liver.
+5.  **Output:** `AlignmentMetricsLogger.cs` (Milestone 4) records the error metrics based on the current state.
+### 5. Implementation Roadmap for Issue #11
+To meet the **Acceptance Criteria**, your Inspector for the `InteractionOrchestrator` should look like this:
+
+* **Active Provider:** [Dropdown: Ultraleap / Varjo]
+* **Current State:** [Read-only Label: IDLE/TRANSFORMING...]
+* **Target Model:** [Slot for the Red Liver]
+* **Reference Model:** [Slot for the Turquoise Liver]
+
+Should we define the "Clutch" state as a global behavior that is always active, or should it behave differently when using the physical Varjo controllers versus the optical Ultraleap tracking?
 # 🎯 Milestone 4: Telemetry Pipeline & Trial Orchestration
 **Focus:** Data collection and automated experimental sequencing.
 
