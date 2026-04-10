@@ -1515,6 +1515,52 @@ To meet the **Acceptance Criteria**, your Inspector for the `InteractionOrchestr
 * **Reference Model:** [Slot for the Turquoise Liver]
 
 Should we define the "Clutch" state as a global behavior that is always active, or should it behave differently when using the physical Varjo controllers versus the optical Ultraleap tracking?
+# 10/04/2026
+## DRY RUN Complete
+### Console Output
+```bash
+<color=#4CAF50><b>[INIT - Ultraleap Provider]</b></color> Successfully linked to LeapServiceProvider.
+UnityEngine.Debug:Log (object)
+COMP3932.Core.Diagnostics:LogSystemInit (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:17)
+COMP3932.Kinematics.UltraleapInteractionProvider:Start () (at Assets/_Project/Scripts/Kinematics/UltraleapInteractionProvider.cs:28)
+
+<color=#FF9800><b>[HARDWARE - Leap Motion 2]</b></color> Data stream initialised.
+UnityEngine.Debug:Log (object)
+COMP3932.Core.Diagnostics:LogHardwareEvent (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:23)
+COMP3932.Kinematics.UltraleapInteractionProvider:Start () (at Assets/_Project/Scripts/Kinematics/UltraleapInteractionProvider.cs:29)
+
+<color=#00FFE8><b>[FSM]</b></color> State transitioned to: <b>TRANSFORMING</b>
+UnityEngine.Debug:Log (object)
+COMP3932.Kinematics.InteractionOrchestrator:ChangeState (COMP3932.Kinematics.InteractionState) (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:87)
+COMP3932.Kinematics.InteractionOrchestrator:ProcessStateMachine () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:44)
+COMP3932.Kinematics.InteractionOrchestrator:Update () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:30)
+
+<color=#00FFE8><b>[FSM]</b></color> State transitioned to: <b>CLUTCHED</b>
+UnityEngine.Debug:Log (object)
+COMP3932.Kinematics.InteractionOrchestrator:ChangeState (COMP3932.Kinematics.InteractionState) (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:87)
+COMP3932.Kinematics.InteractionOrchestrator:ProcessStateMachine () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:52)
+COMP3932.Kinematics.InteractionOrchestrator:Update () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:30)
+
+<color=#00FFE8><b>[FSM]</b></color> State transitioned to: <b>TRANSFORMING</b>
+UnityEngine.Debug:Log (object)
+COMP3932.Kinematics.InteractionOrchestrator:ChangeState (COMP3932.Kinematics.InteractionState) (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:87)
+COMP3932.Kinematics.InteractionOrchestrator:ProcessStateMachine () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:70)
+COMP3932.Kinematics.InteractionOrchestrator:Update () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:30)
+
+<color=#00FFE8><b>[FSM]</b></color> State transitioned to: <b>CLUTCHED</b>
+UnityEngine.Debug:Log (object)
+COMP3932.Kinematics.InteractionOrchestrator:ChangeState (COMP3932.Kinematics.InteractionState) (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:87)
+COMP3932.Kinematics.InteractionOrchestrator:ProcessStateMachine () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:52)
+COMP3932.Kinematics.InteractionOrchestrator:Update () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:30)
+
+```
+
+### Questions & Thoughts
+- Why is the state never idle? There were definitely times when I was not clutching, nor was I transforming.
+- The pinch gesture needs tweaking. Currently, the pinky, middle and ring finger must remain open (not closed) for the pinch state to activate but I find this tricky. The leap motion controller device is far more responsive to any closed movements, so I suggest we flip the logic such that those three fingers must be closed for pinch to activate,
+- The rotation mechanic also needs tweaking. The fix above should aid but theres the issue of rotating a 3D object with one hand on 3 axes. It works but it needs refinement.
+- The pinch and any gesture for that matter cna be activated from anywhere. This is not ideal. I want to use my gesture in proximity to the model. If my hands are far away/not directed at the model, the gestrues should not be able to activate. This arose when I had position the model, left it but the in moved as i went to take my headset off.
+- The bootstrapper did not run?
 # Milestone 4: Telemetry Pipeline & Trial Orchestration
 ## [FEAT] [TELEMETRY] Performance Metrics Engine #14
 **Labels:** `feat`, `telemetry`
