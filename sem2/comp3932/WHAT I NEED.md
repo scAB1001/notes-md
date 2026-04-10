@@ -1516,7 +1516,7 @@ To meet the **Acceptance Criteria**, your Inspector for the `InteractionOrchestr
 
 Should we define the "Clutch" state as a global behavior that is always active, or should it behave differently when using the physical Varjo controllers versus the optical Ultraleap tracking?
 # 10/04/2026
-## DRY RUN Complete
+## DRY RUN 2 Complete
 ### Console Output
 ```bash
 <color=#4CAF50><b>[INIT - Ultraleap Provider]</b></color> Successfully linked to LeapServiceProvider.
@@ -1561,6 +1561,89 @@ COMP3932.Kinematics.InteractionOrchestrator:Update () (at Assets/_Project/Script
 - The rotation mechanic also needs tweaking. The fix above should aid but theres the issue of rotating a 3D object with one hand on 3 axes. It works but it needs refinement.
 - The pinch and any gesture for that matter cna be activated from anywhere. This is not ideal. I want to use my gesture in proximity to the model. If my hands are far away/not directed at the model, the gestrues should not be able to activate. This arose when I had position the model, left it but the in moved as i went to take my headset off.
 - The bootstrapper did not run?
+## DRY RUN 3 Complete
+### Console Output
+```bash
+<color=#4CAF50><b>[INIT - Bootstrapper]</b></color> Awake phase complete. Awaiting external services.
+UnityEngine.Debug:Log (object)
+COMP3932.Core.Diagnostics:LogSystemInit (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:17)
+COMP3932.Core.SystemBootstrapper:Awake () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:21)
+
+<color=#4CAF50><b>[INIT - Bootstrapper]</b></color> Start phase initiated. Verifying hardware and frameworks...
+UnityEngine.Debug:Log (object)
+COMP3932.Core.Diagnostics:LogSystemInit (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:17)
+COMP3932.Core.SystemBootstrapper:Start () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:27)
+
+<color=#FF9800><b>[HARDWARE - Ultraleap SDK]</b></color> Provider located and active.
+UnityEngine.Debug:Log (object)
+COMP3932.Core.Diagnostics:LogHardwareEvent (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:23)
+COMP3932.Core.SystemBootstrapper:VerifyCriticalSystems () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:40)
+COMP3932.Core.SystemBootstrapper:Start () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:28)
+
+<color=#4CAF50><b>[INIT - Kinematic Framework]</b></color> Interaction Orchestrator linked.
+UnityEngine.Debug:Log (object)
+COMP3932.Core.Diagnostics:LogSystemInit (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:17)
+COMP3932.Core.SystemBootstrapper:VerifyCriticalSystems () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:51)
+COMP3932.Core.SystemBootstrapper:Start () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:28)
+
+<color=#4CAF50><b>[INIT - Bootstrapper]</b></color> ALL SYSTEMS VERIFIED. Ready for Clinical Trial.
+UnityEngine.Debug:Log (object)
+COMP3932.Core.Diagnostics:LogSystemInit (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:17)
+COMP3932.Core.SystemBootstrapper:VerifyCriticalSystems () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:70)
+COMP3932.Core.SystemBootstrapper:Start () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:28)
+
+<color=#4CAF50><b>[INIT - Ultraleap Provider]</b></color> Successfully linked to LeapServiceProvider.
+UnityEngine.Debug:Log (object)
+COMP3932.Core.Diagnostics:LogSystemInit (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:17)
+COMP3932.Kinematics.UltraleapInteractionProvider:Start () (at Assets/_Project/Scripts/Kinematics/UltraleapInteractionProvider.cs:28)
+
+<color=#FF9800><b>[HARDWARE - Leap Motion 2]</b></color> Data stream initialised.
+UnityEngine.Debug:Log (object)
+COMP3932.Core.Diagnostics:LogHardwareEvent (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:23)
+COMP3932.Kinematics.UltraleapInteractionProvider:Start () (at Assets/_Project/Scripts/Kinematics/UltraleapInteractionProvider.cs:29)
+
+<color=#00FFE8><b>[FSM]</b></color> State transitioned to: <b>TRANSFORMING</b>
+UnityEngine.Debug:Log (object)
+COMP3932.Kinematics.InteractionOrchestrator:ChangeState (COMP3932.Kinematics.InteractionState) (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:107)
+COMP3932.Kinematics.InteractionOrchestrator:ProcessStateMachine () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:59)
+COMP3932.Kinematics.InteractionOrchestrator:Update () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:41)
+
+<color=#00FFE8><b>[FSM]</b></color> State transitioned to: <b>CLUTCHED</b>
+UnityEngine.Debug:Log (object)
+COMP3932.Kinematics.InteractionOrchestrator:ChangeState (COMP3932.Kinematics.InteractionState) (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:107)
+COMP3932.Kinematics.InteractionOrchestrator:ProcessStateMachine () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:67)
+COMP3932.Kinematics.InteractionOrchestrator:Update () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:41)
+
+<color=#00FFE8><b>[FSM]</b></color> State transitioned to: <b>TRANSFORMING</b>
+UnityEngine.Debug:Log (object)
+COMP3932.Kinematics.InteractionOrchestrator:ChangeState (COMP3932.Kinematics.InteractionState) (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:107)
+COMP3932.Kinematics.InteractionOrchestrator:ProcessStateMachine () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:90)
+COMP3932.Kinematics.InteractionOrchestrator:Update () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:41)
+
+<color=#00FFE8><b>[FSM]</b></color> State transitioned to: <b>CLUTCHED</b>
+UnityEngine.Debug:Log (object)
+COMP3932.Kinematics.InteractionOrchestrator:ChangeState (COMP3932.Kinematics.InteractionState) (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:107)
+COMP3932.Kinematics.InteractionOrchestrator:ProcessStateMachine () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:67)
+COMP3932.Kinematics.InteractionOrchestrator:Update () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:41)
+
+<color=#00FFE8><b>[FSM]</b></color> State transitioned to: <b>IDLE</b>
+UnityEngine.Debug:Log (object)
+COMP3932.Kinematics.InteractionOrchestrator:ChangeState (COMP3932.Kinematics.InteractionState) (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:107)
+COMP3932.Kinematics.InteractionOrchestrator:ProcessStateMachine () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:84)
+COMP3932.Kinematics.InteractionOrchestrator:Update () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:41)
+
+```
+
+### Questions & Thoughts
+- System Bootstrapper works
+- The interaction radius needs to be larger, maybe 0.5-0.6
+- Rotations seemed to be smoother when the hand was in a relaxed closed state rather than a tight fist. The
+## Next Branch
+Raw Delta Rotation is mathematically accurate but often feels jittery because human wrists do not pivot perfectly on a central axis (our bones shift).
+
+We will handle this refinement directly in Issue #12. The FSM is now perfectly set up to accept a "Smoothing Multiplier" or a "Slerp" (Spherical Linear Interpolation) function.
+
+Update these scripts, confirm the Bootstrapper is attached, and let me know how much better the proximity and new finger logic feels!
 # Milestone 4: Telemetry Pipeline & Trial Orchestration
 ## [FEAT] [TELEMETRY] Performance Metrics Engine #14
 **Labels:** `feat`, `telemetry`
