@@ -312,3 +312,5 @@ Las bandas locales tuvieron un rol protagónico. -> Local bands had a leading ro
 128. la bravura -> bravery, fierceness
 Tocar bajo ese aguacero requirió mucha bravura. -> Playing under that downpour required a lot of fierceness.
 # Mi proyecto
+no lo haria -> i wouldnt have to
+anatomia de una caida -> anatmoy of a fall [PELICUA VER LA!!!]
