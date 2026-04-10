@@ -314,3 +314,6 @@ Tocar bajo ese aguacero requirió mucha bravura. -> Playing under that downpour 
 # Mi proyecto
 no lo haria -> i wouldnt have to
 anatomia de una caida -> anatmoy of a fall [PELICUA VER LA!!!]
+
+se quedo' dormido _> State of sleep in past_
+voluntarios
