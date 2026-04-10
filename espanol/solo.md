@@ -311,3 +311,4 @@ Un concierto masivo gratuito parecía un sueño utópico. -> A massive free conc
 Las bandas locales tuvieron un rol protagónico. -> Local bands had a leading role.
 128. la bravura -> bravery, fierceness
 Tocar bajo ese aguacero requirió mucha bravura. -> Playing under that downpour required a lot of fierceness.
+# Mi proyecto
