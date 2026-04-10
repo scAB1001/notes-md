@@ -1637,7 +1637,12 @@ COMP3932.Kinematics.InteractionOrchestrator:Update () (at Assets/_Project/Script
 ### Questions & Thoughts
 - System Bootstrapper works
 - The interaction radius needs to be larger, maybe 0.5-0.6
-- Rotations seemed to be smoother when the hand was in a relaxed closed state rather than a tight fist. The
+- Rotations seemed to be smoother when the hand was in a relaxed closed state rather than a tight fist.
+	- The middle, ring and pinky fingers were over halfway closed but not entirely -- is this ideal
+	- This hand shape was more responsive than when the fist is perfectly closed other than the thumb and index
+- Bug: Sometimes when the active hand would change e.g. I have let go of the model, in Idle state, and move my hand behind my back: If my other hand is visible to the leap motion controller 2 camera, it's within range and I am making a valid pinch gesture, then the model snaps to my position. This is unwanted behaviour.
+	- The liver should only be grabbable within range as well as when it is within view e.g. in front of me (the field of view box has to be tighter/more focused)
+	- When a new hand or a hand is simply the active hand, the liver should not jump to the position of that hand unless moved manually. 
 ## Next Branch
 Raw Delta Rotation is mathematically accurate but often feels jittery because human wrists do not pivot perfectly on a central axis (our bones shift).
 
