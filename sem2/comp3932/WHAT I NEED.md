@@ -1643,6 +1643,54 @@ COMP3932.Kinematics.InteractionOrchestrator:Update () (at Assets/_Project/Script
 - Bug: Sometimes when the active hand would change e.g. I have let go of the model, in Idle state, and move my hand behind my back: If my other hand is visible to the leap motion controller 2 camera, it's within range and I am making a valid pinch gesture, then the model snaps to my position. This is unwanted behaviour.
 	- The liver should only be grabbable within range as well as when it is within view e.g. in front of me (the field of view box has to be tighter/more focused)
 	- When a new hand or a hand is simply the active hand, the liver should not jump to the position of that hand unless moved manually. 
+## DRY RUN 3 Complete
+### Console Output
+```bash
+<color=#4CAF50><b>[INIT - Bootstrapper]</b></color> Awake phase complete. Awaiting external services.
+UnityEngine.Debug:Log (object)
+COMP3932.Core.Diagnostics:LogSystemInit (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:17)
+COMP3932.Core.SystemBootstrapper:Awake () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:21)
+
+<color=#4CAF50><b>[INIT - Bootstrapper]</b></color> Start phase initiated. Verifying hardware and frameworks...
+UnityEngine.Debug:Log (object)
+COMP3932.Core.Diagnostics:LogSystemInit (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:17)
+COMP3932.Core.SystemBootstrapper:Start () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:27)
+
+<color=#FF9800><b>[HARDWARE - Ultraleap SDK]</b></color> Provider located and active.
+UnityEngine.Debug:Log (object)
+COMP3932.Core.Diagnostics:LogHardwareEvent (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:23)
+COMP3932.Core.SystemBootstrapper:VerifyCriticalSystems () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:40)
+COMP3932.Core.SystemBootstrapper:Start () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:28)
+
+<color=#4CAF50><b>[INIT - Kinematic Framework]</b></color> Interaction Orchestrator linked.
+UnityEngine.Debug:Log (object)
+COMP3932.Core.Diagnostics:LogSystemInit (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:17)
+COMP3932.Core.SystemBootstrapper:VerifyCriticalSystems () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:51)
+COMP3932.Core.SystemBootstrapper:Start () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:28)
+
+<color=#4CAF50><b>[INIT - Bootstrapper]</b></color> ALL SYSTEMS VERIFIED. Ready for Clinical Trial.
+UnityEngine.Debug:Log (object)
+COMP3932.Core.Diagnostics:LogSystemInit (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:17)
+COMP3932.Core.SystemBootstrapper:VerifyCriticalSystems () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:70)
+COMP3932.Core.SystemBootstrapper:Start () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:28)
+
+<color=#4CAF50><b>[INIT - Ultraleap Provider]</b></color> Successfully linked to LeapServiceProvider.
+UnityEngine.Debug:Log (object)
+COMP3932.Core.Diagnostics:LogSystemInit (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:17)
+COMP3932.Kinematics.UltraleapInteractionProvider:Start () (at Assets/_Project/Scripts/Kinematics/UltraleapInteractionProvider.cs:28)
+
+<color=#FF9800><b>[HARDWARE - Leap Motion 2]</b></color> Data stream initialised.
+UnityEngine.Debug:Log (object)
+COMP3932.Core.Diagnostics:LogHardwareEvent (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:23)
+COMP3932.Kinematics.UltraleapInteractionProvider:Start () (at Assets/_Project/Scripts/Kinematics/UltraleapInteractionProvider.cs:29)
+
+```
+### Questions & Thoughts
+For this double pinch dry run, a few things happened.
+- To start, I seemed to spawn in my operating table/closer to it but that's a minor issue.
+- However, as I went to grab the liver, i ended up scaling it so much that it cast a shadow inside the room and contorted to a stretched out set of shreds.
+	- We should revisit the scaling. The liver also needs to be scaled with constrained proportions (I have this setup for the gameobject)
+	- Here is the scale: Vector3(0.00100000005,0.00100000005,0.00100000005)
 ## Next Branch
 Raw Delta Rotation is mathematically accurate but often feels jittery because human wrists do not pivot perfectly on a central axis (our bones shift).
 
