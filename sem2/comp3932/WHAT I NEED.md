@@ -1215,10 +1215,6 @@ USE -> ([#71](https://github.com/scAB1001/comp3932/pull/71)) instead of (#30)
 * feat(project): initialise sprint 1 baseline with managed asset hierarchy (#30)
 * config(xr): implement varjo offset and hdrp material resolution (#30)
 * config(git): configure local formatting rules and node dependencies (#30)
-* config(github): implement automated ci workflows for linting and releases (#30)
-* chore(project): scaffold directory hierarchy for the unity project (#30)
-* chore(git): initialise repository file-tracking (#30)
-* chore(LFS): add LFS tracking (#30)
 
 ## Bug Fixes
 
@@ -1228,13 +1224,6 @@ USE -> ([#71](https://github.com/scAB1001/comp3932/pull/71)) instead of (#30)
 
 * config(github): restrict release drafter target_commitish to main branch (#30)
 * chore(github): updated release-drafter to LTS (#30)
-* config(github): map custom labels to release drafter configuration (#30)
-* chore(github): updated Readme and bug report software versions (#30)
-* chore(github): update pr and bug report templates (#30)
-* chore(github): refine issue templates (#30)
-* chore(git): update list of files to track (#30)
-* chore(github): implement pull request template for traceability (#30)
-* chore(github): implement issue templates for bug reporting and feature requests (#30)
 
 ## Documentation
 
@@ -1245,11 +1234,8 @@ USE -> ([#71](https://github.com/scAB1001/comp3932/pull/71)) instead of (#30)
 
 ## Dependency Updates
 
-## New Contributors
+**Full Changelog**: https://github.com/scAB1001/comp3932/compare/v0.2.0...v0.3.0
 
-* @scAB1001 made their first contribution in https://github.com/scAB1001/comp3932/pull/30
-
-**Full Changelog**: [Initial Release]
 ```
 
 # Milestone Summary (LTS)
@@ -1691,6 +1677,7 @@ For this double pinch dry run, a few things happened.
 - However, as I went to grab the liver, i ended up scaling it so much that it cast a shadow inside the room and contorted to a stretched out set of shreds.
 	- We should revisit the scaling. The liver also needs to be scaled with constrained proportions (I have this setup for the gameobject)
 	- Here is the scale: Vector3(0.00100000005,0.00100000005,0.00100000005)
+# 11/04/2026
 ## Next Branch
 Raw Delta Rotation is mathematically accurate but often feels jittery because human wrists do not pivot perfectly on a central axis (our bones shift).
 
