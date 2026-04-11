@@ -1629,7 +1629,7 @@ COMP3932.Kinematics.InteractionOrchestrator:Update () (at Assets/_Project/Script
 - Bug: Sometimes when the active hand would change e.g. I have let go of the model, in Idle state, and move my hand behind my back: If my other hand is visible to the leap motion controller 2 camera, it's within range and I am making a valid pinch gesture, then the model snaps to my position. This is unwanted behaviour.
 	- The liver should only be grabbable within range as well as when it is within view e.g. in front of me (the field of view box has to be tighter/more focused)
 	- When a new hand or a hand is simply the active hand, the liver should not jump to the position of that hand unless moved manually. 
-## DRY RUN 3 Complete
+## DRY RUN 4 Complete
 ### Console Output
 ```bash
 <color=#4CAF50><b>[INIT - Bootstrapper]</b></color> Awake phase complete. Awaiting external services.
@@ -1678,6 +1678,26 @@ For this double pinch dry run, a few things happened.
 	- We should revisit the scaling. The liver also needs to be scaled with constrained proportions (I have this setup for the gameobject)
 	- Here is the scale: Vector3(0.00100000005,0.00100000005,0.00100000005)
 # 11/04/2026
+## DRY RUN 5 Complete
+### Console Output
+```bash
+Not an issue
+
+```
+### Questions & Thoughts
+For this double pinch dry run, a few things happened:
+To start, I spawned in the correct position and height etc, consider that a bug fixed entirely
+
+When it came to scaling, the scaling worked well for the first time.
+- Both the Upper and Lower bounds were respected but a few things need addressing:
+- My secondaryHand comes into frame and is successfully recognised (Ready for the bimanual gesture(s) Scaling).
+  As I pinch with the secondary, the scaling state is properly transitioned to and I start scaling. 
+  However, the exact moment I start my scale, the primaryHand that first pinched to grab the model still behaves as a pinch: the model moves as I scale. Any movement from the primaryHand whilst scaling affects the position of the model.
+  This is unwanted. The model should stay fixed and scale in that fixed position until the scale state is left.
+- Furthermore, the scaling uses RigidBody Automatic Center of Mass to interact with the model I think.
+	- If that is the case then, when the model is very big or very small (even within strict bounds), then the model's center could end up out of reach.
+	- How do we fix this?
+- COMMIT BUG/STATE BEFORE THIS **NEXT FIX**
 ## Next Branch
 Raw Delta Rotation is mathematically accurate but often feels jittery because human wrists do not pivot perfectly on a central axis (our bones shift).
 
