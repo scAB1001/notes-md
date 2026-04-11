@@ -660,11 +660,11 @@ Yes, it is entirely possible and mathematically straightforward in Unity, but it
 #### 2. Gesture Mapping (Condition B vs. Condition A)
 Here is the finalized 1:1 mapping for your comparative study. (Note: "Zoom" in 3D object manipulation is technically defined as **Scaling**).
 
-| Action               | Condition B: Bare Hands (Ultraleap)                                                                                                                                        | Condition A: VR Controller (Varjo)                                                                                                                 |
-| :------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Grab / Translate** | **Mono-Pinch:** Single hand pinch (thumb + index). Liver translates 1:1 with hand movement.                                                                                | **Grip Hold:** Press and hold the side grip button. Liver translates 1:1 with controller movement.                                                 |
-| **Rotate**           | **Mono-Pinch + Wrist Pivot:** Same pinch as grab, but wrist rotation applies delta Quaternions to the liver. User releases pinch to "clutch" and reset wrist.              | **Grip Hold + Wrist Pivot:** Press and hold side grip, rotate physical controller. User releases grip to clutch.                                   |
-| **Scale ("Zoom")**   | **Bimanual Pinch:** Both hands pinch. The distance delta between the left and right pinch centers dictates uniform XYZ scaling. Releasing one hand reverts to Grab/Rotate. | **Grip Hold + Thumbstick:** Hold grip button. Push thumbstick Forward to scale up, pull Backward to scale down. *(Highlights mapping dissonance).* |
+| Action               | Control Method/Condition B: Bare Hands (Ultraleap)                                                                                                                                                                                                | Control Method/Condition A: VR Controller (Varjo)                                                                                                  |
+| :------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Grab / Translate** | **Mono-Pinch:** Single hand pinch (thumb + index). Liver translates 1:1 with hand movement.                                                                                                                                                       | **Grip Hold:** Press and hold the side grip button. Liver translates 1:1 with controller movement.                                                 |
+| **Rotate**           | **Mono-Pinch + Wrist Pivot:** Same pinch as grab, but wrist rotation applies delta Quaternions to the liver. User releases pinch to "clutch" and reset wrist.                                                                                     | **Grip Hold + Wrist Pivot:** Press and hold side grip, rotate physical controller. User releases grip to clutch.                                   |
+| **Scale ("Zoom")**   | **Bimanual Pinch:** Both hands pinch. The distance delta between the left and right pinch centers dictates uniform XYZ scaling. Releasing one hand reverts to Grab/Rotate. Cannot change model position or orientation (rotation) whilst scaling. | **Grip Hold + Thumbstick:** Hold grip button. Push thumbstick Forward to scale up, pull Backward to scale down. *(Highlights mapping dissonance).* |
 
 ---
 #### 3. Object-Oriented Architecture (UML Logic)
@@ -1698,6 +1698,7 @@ When it came to scaling, the scaling worked well for the first time.
 	- If that is the case then, when the model is very big or very small (even within strict bounds), then the model's center could end up out of reach.
 	- How do we fix this?
 - COMMIT BUG/STATE BEFORE THIS **NEXT FIX**
+
 ## Next Branch
 Raw Delta Rotation is mathematically accurate but often feels jittery because human wrists do not pivot perfectly on a central axis (our bones shift).
 
