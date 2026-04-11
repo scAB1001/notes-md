@@ -1698,7 +1698,7 @@ When it came to scaling, the scaling worked well for the first time.
 	- If that is the case then, when the model is very big or very small (even within strict bounds), then the model's center could end up out of reach.
 	- How do we fix this?
 - COMMIT BUG/STATE BEFORE THIS **NEXT FIX**
-
+![[]]
 ## Next Branch
 Raw Delta Rotation is mathematically accurate but often feels jittery because human wrists do not pivot perfectly on a central axis (our bones shift).
 
