@@ -1550,15 +1550,182 @@ When it came to scaling, the scaling worked well for the first time.
 	- How do we fix this?
 - COMMIT BUG/STATE BEFORE THIS **NEXT FIX**
 ![[]]
-# 12/04/2026
 
-## Next Branch
-Raw Delta Rotation is mathematically accurate but often feels jittery because human wrists do not pivot perfectly on a central axis (our bones shift).
-
-We will handle this refinement directly in Issue #12. The FSM is now perfectly set up to accept a "Smoothing Multiplier" or a "Slerp" (Spherical Linear Interpolation) function.
-
-Update these scripts, confirm the Bootstrapper is attached, and let me know how much better the proximity and new finger logic feels!
 # Milestone 4: Telemetry Pipeline & Trial Orchestration
+## Metrics to Collect
+## Improved Metrics Framework for 6-DoF Alignment Tasks
+
+### Metric 1: Task Completion Time (TCT)
+**Keep ✓** – This is a standard metric in XR evaluation literature 
+
+| Aspect | Specification |
+|--------|---------------|
+| **Definition** | Total time from first grab/initiation to successful alignment |
+| **Implementation** | Use `Time.realtimeSinceStartup` (Unity) or `Stopwatch` for high precision |
+| **Why it matters** | Direct measure of efficiency; higher TCT suggests cognitive or motor difficulties |
+| **Literature** | Murauer et al. (2022) used TCT as primary effectiveness metric in AR assembly tasks  |
+
+```csharp
+private float taskStartTime;
+private float taskCompletionTime;
+
+public void StartTask() => taskStartTime = Time.realtimeSinceStartup;
+public void CompleteTask() => taskCompletionTime = Time.realtimeSinceStartup - taskStartTime;
+```
+### Metric 2: Angular Offset (Rotational Error)
+**Keep ✓** – But implement with Quaternion.Angle()
+
+| Aspect | Specification |
+|--------|---------------|
+| **Definition** | Shortest angular distance between current rotation and target rotation |
+| **Implementation** | `Quaternion.Angle(currentRotation, targetRotation)` |
+| **Why Quaternions?** | Euler angles suffer from gimbal lock (loss of rotational degree of freedom when axes align). Quaternions provide continuous, singularity-free rotation representation  |
+| **Literature** | Fang et al. (1998) established unit quaternions as the mathematically correct method for representing and interpolating 3D rotations in VR systems |
+
+```csharp
+public float GetAngularOffset() => Quaternion.Angle(liver.rotation, target.rotation);
+```
+
+**Success threshold:** `< 5 degrees`
+### Metric 3: Translational Error (Positional Offset)
+**Keep ✓**
+
+| Aspect | Specification |
+|--------|---------------|
+| **Definition** | Euclidean distance between current position and target position |
+| **Implementation** | `Vector3.Distance(currentPosition, targetPosition)` |
+| **Why it matters** | Measures spatial precision of placement |
+| **Success threshold** | `< 0.02 meters` (2cm) |
+
+```csharp
+public float GetPositionalOffset() => Vector3.Distance(liver.position, target.position);
+```
+### Metric 4: Path Traveled (Translational Inefficiency)
+**Improve ✓** – Add efficiency ratio
+
+| Aspect | Specification |
+|--------|---------------|
+| **Definition** | Total distance the model moved during task vs. optimal straight-line path |
+| **Implementation** | Accumulate `Vector3.Distance(prevPos, currentPos)` each frame; divide by straight-line distance |
+| **Why it matters** | High inefficiency ratio (>2.0) indicates confusion, hesitation, or poor control mapping |
+| **Interpretation** | Ratio 1.0 = perfect efficiency; Ratio 3.0 = user moved model 3x farther than necessary |
+
+```csharp
+private float actualPathLength = 0f;
+private Vector3 lastPosition;
+
+void Update() {
+    actualPathLength += Vector3.Distance(lastPosition, liver.position);
+    lastPosition = liver.position;
+}
+
+public float GetInefficiencyRatio() => actualPathLength / Vector3.Distance(startPos, targetPos);
+```
+### Metric 5: Rotational Inefficiency (Total Rotation Applied)
+**Add this metric** – Missing from your current list
+
+| Aspect | Specification |
+|--------|---------------|
+| **Definition** | Total degrees of rotation applied vs. minimum required rotation |
+| **Implementation** | Accumulate `Quaternion.Angle(prevRot, currentRot)` each frame; divide by minimum required rotation |
+| **Why it matters** | Measures whether user understood correct rotation direction or "spun" the model excessively |
+| **Interpretation** | High inefficiency suggests poor mental mapping of rotation controls |
+
+```csharp
+private float totalRotationApplied = 0f;
+private Quaternion lastRotation;
+
+void Update() {
+    totalRotationApplied += Quaternion.Angle(lastRotation, liver.rotation);
+    lastRotation = liver.rotation;
+}
+
+public float GetRotationInefficiency() => totalRotationApplied / minimumRequiredRotation;
+```
+### Metric 6: Clutch Count (Grab/Release Frequency)
+**Keep ✓**
+
+| Aspect | Specification |
+|--------|---------------|
+| **Definition** | Number of times user releases and re-grabs the model before task completion |
+| **Implementation** | Increment counter each time `IsInteractionTriggered()` changes from true to false |
+| **Why it matters** | High clutch count indicates: fatigue ("Gorilla Arm" syndrome), poor threshold tuning, or gesture awkwardness  |
+| **Literature** | Nyyssönen et al. (2024) noted that hand-tracking interfaces can cause strain; clutch count quantifies this ergonomic cost |
+
+```csharp
+private int clutchCount = 0;
+private bool wasGrabbing = false;
+
+void Update() {
+    bool isGrabbing = activeProvider.IsInteractionTriggered();
+    if (wasGrabbing && !isGrabbing) clutchCount++;
+    wasGrabbing = isGrabbing;
+}
+```
+
+### Metric 7: Gesture Precision (Pinch Strength Variance)
+**Keep but rename and clarify** – Currently vague
+
+| Aspect | Specification |
+|--------|---------------|
+| **Definition** | Variance of pinch strength during sustained grab |
+| **Implementation** | Calculate standard deviation of `PinchStrength` values while grabbing |
+| **Why it matters** | High variance suggests user struggles to maintain threshold, indicating poor ergonomics or threshold mistuning |
+| **Threshold** | Your current threshold is `0.85f` (85% of max pinch) |
+
+```csharp
+private List<float> pinchStrengths = new List<float>();
+
+void WhileGrabbing() {
+    pinchStrengths.Add(activeHand.PinchStrength);
+}
+
+public float GetPinchVariance() => CalculateStandardDeviation(pinchStrengths);
+```
+
+## Gesture-to-Action Mapping Framework
+
+Based on literature , here are evidence-based gesture mappings:
+
+### Action Taxonomy
+
+| Action | Controller Mapping | Hand Gesture Mapping | Mono/Bi | Literature Justification |
+|--------|-------------------|---------------------|---------|--------------------------|
+| **Grab/Select** | Grip button (0.5+ threshold) | Index-thumb pinch (0.85+ strength) | Mono | Pinch is most intuitive precision grasp  |
+| **Translate (Move)** | Controller position while gripping | Pinch position while pinching | Mono | Direct mapping reduces cognitive load |
+| **Rotate (Yaw/Pitch/Roll)** | Controller rotation while gripping | Hand rotation while pinching | Mono | Wrist rotation is natural for orientation tasks |
+| **Scale (Zoom)** | Thumbstick Y-axis (while gripping) | Bimanual pinch distance delta | Bi | Two-hand scaling provides proportional control  |
+| **Reset View** | Menu button | Two-handed "expand" gesture | Bi | Infrequent action, distinct gesture prevents accidents |
+## Bimanual vs. Unimanual Decision
+
+| Action | Recommendation | Justification |
+|--------|----------------|----------------|
+| **Translation + Rotation** | Unimanual | Nyyssönen et al. (2024) found users preferred unimanual for flexibility and speed  |
+| **Scaling** | Bimanual | Provides intuitive proportional control; distance between hands directly maps to scale |
+
+> "The unimanual approach attempts to provide a higher degree of flexibility, while the bimanual approach seeks to provide more control over the interaction" 
+## Statistical Validation Plan
+
+| Hypothesis | Test | Threshold |
+|------------|------|-----------|
+| Hand gestures reduce TCT vs. controller | Paired t-test / Repeated measures ANOVA | p < 0.05 |
+| Hand gestures reduce clutch count | Wilcoxon signed-rank (non-parametric) | p < 0.05 |
+| Hand gestures reduce inefficiency ratio | Paired t-test | p < 0.05 |
+
+**Literature precedent:** Murauer et al. used one-way repeated measures ANOVA with Bonferroni correction for post-hoc analysis 
+
+## Summary Table: Metrics to Keep
+
+| Metric                             | Keep?                       | Priority | Implementation Complexity    |
+| ---------------------------------- | --------------------------- | -------- | ---------------------------- |
+| Task Completion Time               | ✓ Keep                      | High     | Low                          |
+| Angular Offset (Quaternion)        | ✓ Keep                      | High     | Low                          |
+| Translational Error                | ✓ Keep                      | High     | Low                          |
+| Translational Inefficiency         | ✓ Improve                   | Medium   | Medium                       |
+| Rotational Inefficiency            | ✚ Add                       | Medium   | Medium                       |
+| Clutch Count                       | ✓ Keep                      | High     | Low                          |
+| Gesture Precision (Pinch Variance) | ✓ Keep                      | Medium   | Medium                       |
+## Tickets
 ## [FEAT] [TELEMETRY] Performance Metrics Engine #14
 **Labels:** `feat`, `telemetry`
 ### User Story
