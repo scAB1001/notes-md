@@ -1550,6 +1550,8 @@ When it came to scaling, the scaling worked well for the first time.
 	- How do we fix this?
 - COMMIT BUG/STATE BEFORE THIS **NEXT FIX**
 ![[]]
+# 12/04/2026
+
 ## Next Branch
 Raw Delta Rotation is mathematically accurate but often feels jittery because human wrists do not pivot perfectly on a central axis (our bones shift).
 
