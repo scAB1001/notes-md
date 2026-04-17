@@ -43,7 +43,7 @@ In your report, do not just list the averages. Use a **Paired Samples t-test** t
 * **Fixes:**
     * *Data Severing:* Fixed invisible tracking by manually mapping the `Hand Model Manager` and ensuring the `Leap Provider` reference was intact.
     * *The Neon Pink Shader:* Diagnosed Unity's immutable package cache bug. Bypassed the procedural (and broken) `CapsuleHands` generation entirely by transitioning to standard Skinned Mesh `Ghost Hands` with native HDRP material compatibility (`Mat_ClinicalHands`).
-#### Phase 3: Kinematic Interaction & Telemetry 
+#### Phase 3: Kinematic Interaction & Telemetry
 **Goal:** Create a physics-free interaction system capable of precision manipulation, supported by asynchronous background data logging.
 * **Action:** Wrote `UltraleapKinematicManipulator.cs` and `AlignmentMetricsLogger.cs`.
 * **Fixes:**
@@ -88,9 +88,9 @@ Looking at your screenshot, your hierarchy is actually quite clean, but we can o
 | **TrialManager** | UltraleapManipulator | Enter: `0.025`, Exit: `0.05`, Max Grab: `0.4`, Grace: `0.25` |
 | **TrialManager** | ClinicalTrialManager | Dwell Time: `2.0`, Dist Error: `0.015`, Ang Error: `5.0` |
 
-Together, they directly answer your core research problem: 
+Together, they directly answer your core research problem:
 > Does replacing abstract joystick controls with natural hand-gestures *reduce* mental friction *without* sacrificing clinical spatial accuracy?
-## Reviewing the NASA-TLX 
+## Reviewing the NASA-TLX
 ### Source 1: Guide
 NASA Task Load Index
 Acronym
@@ -156,39 +156,39 @@ Stanton N, Salmon P, Walker G, et al. Mental workload assessment method. Human f
 ### Currently in our report
 At the moment we have taken pieces of the TLX and modified/used it as a foundational template for the tasks. These questions/the index is to assess the VR user tasks.
 - Does it serve our report adequately?
-- Is this an appropriate measure/method of measure? 
-- How can we show all this and demonstrate the high-level of ciritcal thinking and analysis expected throughout this report? 
-### Results: 
+- Is this an appropriate measure/method of measure?
+- How can we show all this and demonstrate the high-level of ciritcal thinking and analysis expected throughout this report?
+### Results:
 #### Drop NASA TLX and move to RTLX
-The NASA-TLX is the absolute gold standard for measuring subjective workload, but your current approach—modifying it and taking pieces of it—is academically dangerous and could cost you marks. 
+The NASA-TLX is the absolute gold standard for measuring subjective workload, but your current approach—modifying it and taking pieces of it—is academically dangerous and could cost you marks.
 
 Sandra G. Hart, the original creator of the NASA-TLX, explicitly warns that adding, deleting, or redefining subscales and continuing to refer to the result as "NASA-TLX" makes it difficult to summarize circumstances under which the scale is useful[cite: 3]. If you change the questions, examiners will argue you are no longer using a validated psychometric tool; you are just using a custom questionnaire that lacks scientific validation.
 
-To harmonize the NASA-TLX with your 6-DoF task and demonstrate the critical analysis expected of a top-tier project, you must implement the tool strategically. 
+To harmonize the NASA-TLX with your 6-DoF task and demonstrate the critical analysis expected of a top-tier project, you must implement the tool strategically.
 ##### How the NASA-TLX and 6-DoF Harmonize: The Concept of "Dissociation"
-To score $\ge 80\%$, you must introduce the psychological concept of **Dissociation** into your report. 
+To score $\ge 80\%$, you must introduce the psychological concept of **Dissociation** into your report.
 
-The 6-DoF telemetry measures *Objective Performance* (Task Completion Time, Angular Error). The NASA-TLX measures the *Subjective Cost* of achieving that performance[cite: 3]. Dissociation occurs when these two metrics do not align. NASA-TLX ratings may or may not covary with measures of performance[cite: 3]. 
+The 6-DoF telemetry measures *Objective Performance* (Task Completion Time, Angular Error). The NASA-TLX measures the *Subjective Cost* of achieving that performance[cite: 3]. Dissociation occurs when these two metrics do not align. NASA-TLX ratings may or may not covary with measures of performance[cite: 3].
 
 For example, your 6-DoF telemetry might show that a user completed the scaling task perfectly with bare hands (High Performance). However, their NASA-TLX score might reveal an unacceptably high level of workload to achieve that result[cite: 3]. By contrasting the objective math with the subjective human experience, you prove that "faster" does not always mean "better" in Human-Computer Interaction.
 ##### How to Implement and Analyze the TLX (The Strategy)
-Instead of creating a custom template, you should implement **Raw TLX (RTLX)** and perform **Diagnostic Subscale Analysis**. 
+Instead of creating a custom template, you should implement **Raw TLX (RTLX)** and perform **Diagnostic Subscale Analysis**.
 
 **1. Use Raw TLX (RTLX)**
-The original NASA-TLX requires a paired comparisons procedure where participants select from 15 pairwise combinations to weight their scores[cite: 1]. This process is notoriously laborious and time-consuming[cite: 1]. 
-* **The Critical Choice:** You should eliminate the weighting process altogether and use RTLX[cite: 3]. 
+The original NASA-TLX requires a paired comparisons procedure where participants select from 15 pairwise combinations to weight their scores[cite: 1]. This process is notoriously laborious and time-consuming[cite: 1].
+* **The Critical Choice:** You should eliminate the weighting process altogether and use RTLX[cite: 3].
 * **The Academic Justification:** You can defend this choice by citing that RTLX has been shown in various studies to be either more sensitive, equally sensitive, or less sensitive than the weighted version[cite: 3]. Because RTLX is simpler to apply, the ratings are simply averaged or added to create an estimate of overall workload[cite: 3].
 
 **2. Isolate the Subscales for Diagnostics**
-Do not just report a single "Workload Score of 65/100." Analyzing subscale ratings individually instead of generating a single overall score is a common variation[cite: 3]. Component ratings can help designers pinpoint the source of a workload or performance problem[cite: 3]. 
+Do not just report a single "Workload Score of 65/100." Analyzing subscale ratings individually instead of generating a single overall score is a common variation[cite: 3]. Component ratings can help designers pinpoint the source of a workload or performance problem[cite: 3].
 * **Mental Demand:** Assesses how much mental and perceptual activity was required, such as thinking, deciding, or looking[cite: 3]. You will use this specific score to prove if traditional controllers cause "Mapping Dissonance" compared to hand-tracking.
 * **Physical Demand:** Assesses how much physical activity was required[cite: 3]. You will use this score to evaluate the "Gorilla Arm" fatigue inherent in mid-air bare-hand tracking.
-* **Performance:** Measures how successful the participant thinks they were in accomplishing the task goals[cite: 3]. 
+* **Performance:** Measures how successful the participant thinks they were in accomplishing the task goals[cite: 3].
 * **Frustration Level:** Measures how insecure, discouraged, irritated, stressed, and annoyed the user felt[cite: 3]. A high frustration score during hand-tracking directly correlates to optical tracking loss or occlusion.
 
 **3. Timing the Delivery**
-Administering the scale during a trial may be intrusive to the task[cite: 1]. Conversely, when administered post-task, participants may forget details of the task[cite: 1]. 
-* **The Solution:** You must administer the RTLX immediately after *each* of the 4 separate 6-DoF tasks (Translation, Rotation, Combined, Scaling). This prevents the "context effect," where ratings of one task might be influenced by significantly different experiences immediately before[cite: 3]. 
+Administering the scale during a trial may be intrusive to the task[cite: 1]. Conversely, when administered post-task, participants may forget details of the task[cite: 1].
+* **The Solution:** You must administer the RTLX immediately after *each* of the 4 separate 6-DoF tasks (Translation, Rotation, Combined, Scaling). This prevents the "context effect," where ratings of one task might be influenced by significantly different experiences immediately before[cite: 3].
 
 By abandoning your custom template, adopting RTLX, and explicitly comparing the NASA-TLX subscales against your hidden 6-DoF telemetry algorithms, your Chapter 4 (Results) will transform from a simple summary into a rigorous, publishable analysis of XR interaction paradigms.
 #### When to use
@@ -226,20 +226,20 @@ What is six degrees of freedom, and how is it applied in the real world? Learn m
 [Featured Image] An engineer considers the six degrees of freedom while examining a model at their desk.
 Key takeaways
 
-Six degrees of freedom, or 6DoF, is a term used to refer to the number of axes that an object can freely move within a three-dimensional space. 
+Six degrees of freedom, or 6DoF, is a term used to refer to the number of axes that an object can freely move within a three-dimensional space.
 
-    The six degrees of freedom are x, y, z translations, and pitch, yaw, and roll. 
+    The six degrees of freedom are x, y, z translations, and pitch, yaw, and roll.
 
-    Virtual reality (VR), aviation, robotics, gaming, and medical devices all make use of the six degrees in their movements. 
+    Virtual reality (VR), aviation, robotics, gaming, and medical devices all make use of the six degrees in their movements.
 
-    You can use the six degrees of freedom to improve realism in virtual reality and augmented reality experiences. 
+    You can use the six degrees of freedom to improve realism in virtual reality and augmented reality experiences.
 
 Learn about how the six degrees of freedom broadly describes an object's freedom of movement and rotation, specifically in three-dimensional spaces.
 
 What are the six degrees of freedom?
-In the realm of spatial orientation and motion, the term six degrees of freedom (6DoF) is a fundamental concept that plays a crucial role in various fields and industries, from robotics and aviation to virtual reality. 
+In the realm of spatial orientation and motion, the term six degrees of freedom (6DoF) is a fundamental concept that plays a crucial role in various fields and industries, from robotics and aviation to virtual reality.
 
-The six degrees of freedom can be classified into two categories: translational and rotational. Translational degrees of freedom refer to movement on the X, Y, and Z axes, which move horizontally, vertically, and up and down. Rotational degrees of freedom refer to how an object rotates and changes orientation. 
+The six degrees of freedom can be classified into two categories: translational and rotational. Translational degrees of freedom refer to movement on the X, Y, and Z axes, which move horizontally, vertically, and up and down. Rotational degrees of freedom refer to how an object rotates and changes orientation.
 
 Translational degrees of freedom (3DoF):
 Translational degrees of freedom represent the ability to move in different directions. These include:
@@ -249,7 +249,7 @@ Translational degrees of freedom represent the ability to move in different dire
     Z-axis translation: Movement along the depth axis, often referred to as up-down or vertical motion
 
 Rotational degrees of freedom (3DoF):
-Rotational degrees of freedom represent the ability to rotate or change orientation. These include: 
+Rotational degrees of freedom represent the ability to rotate or change orientation. These include:
 
     Pitch (rotation about X-axis): Tilting forward or backward
     Yaw (rotation about Y-axis): Turning left or right
@@ -261,10 +261,10 @@ Six degrees of freedom is a versatile concept with applications in various indus
 Aviation
 Pilots use six degrees of freedom in flight control systems to control their movement within three-dimensional space. These systems provide inputs corresponding to the six degrees of freedom to maneuver the aircraft effectively. Pilots use control surfaces to adjust rotational degrees of freedom (pitch, yaw, and roll) and throttle control to move along the X, Y, and Z axes (translational degrees of freedom).
 Robotics
-The concept of 6DoF is commonly used in designing robotic systems, such as the six-degree-of-freedom robotic arm. Robotic arms have multiple joints that must move and rotate precisely in a three-dimensional space. Robots that need to interact with the environment in various ways often require 6DoF to perform more complex tasks, such as placing objects or performing laparoscopic surgery with both accuracy and agility. Robotic arms are typically used in manufacturing, research, and health care. 
+The concept of 6DoF is commonly used in designing robotic systems, such as the six-degree-of-freedom robotic arm. Robotic arms have multiple joints that must move and rotate precisely in a three-dimensional space. Robots that need to interact with the environment in various ways often require 6DoF to perform more complex tasks, such as placing objects or performing laparoscopic surgery with both accuracy and agility. Robotic arms are typically used in manufacturing, research, and health care.
 
-Six degrees of freedom is often used in the design of human-like robots. Humanoid robots with the ability to move in both translational and rotational degrees of freedom can closely mimic human movements, making it easier for these robots to perform tasks in dynamic environments like driving a vehicle or carrying objects. 
-VR and AR 
+Six degrees of freedom is often used in the design of human-like robots. Humanoid robots with the ability to move in both translational and rotational degrees of freedom can closely mimic human movements, making it easier for these robots to perform tasks in dynamic environments like driving a vehicle or carrying objects.
+VR and AR
 The use of 6DoF in immersive technologies like VR and AR allows users to move and interact with computer-generated content within an augmented or virtual world more naturally. For example, VR headsets with six degrees of freedom simulation allow users to walk around, crouch down, and interact with objects as they do in the physical world. In AR, AR glasses enabled with 6DoF allow users to experience digital information that’s transposed onto the real world with accurate spatial alignment.
 Gaming
 Like its application and usage in VR and AR, gamers can enjoy a more realistic and immersive experience with gaming controllers equipped with 6DoF capabilities. Controllers with 6DoF capabilities allow for more natural and intuitive movements for the player and the ability to interact with the virtual gaming environment in a more immersive way. Examples of controllers with 6DoF include motion controllers (motion tracking) and VR gaming platforms that use headsets equipped with 6DoF.
@@ -275,53 +275,53 @@ In both MRI and CT scans, the application of 6DoF concepts primarily revolves ar
 Medical devices and equipment like CT and MRI scanners use a 6DoF parallel robot for precise alignment and positioning during diagnostic imaging. As a result, physicians and medical professionals can get more accurate imaging to use for better decision-making when it comes to reading results and determining the next steps.
 
 What is a 6 degrees of freedom sensor?
-A 6DoF sensor is an electronic device that measures all six degrees of freedom of an instrument as it navigates a space. Highly specific 6DoF sensors measure these movements. These devices have many uses for measuring movements with autonomous vehicles and medical devices, as well as applications in aerospace, industrial, and transportation sectors. 
+A 6DoF sensor is an electronic device that measures all six degrees of freedom of an instrument as it navigates a space. Highly specific 6DoF sensors measure these movements. These devices have many uses for measuring movements with autonomous vehicles and medical devices, as well as applications in aerospace, industrial, and transportation sectors.
 
 Robotic arms like surgical robots with 6DoF capabilities allow surgeons to exert more precise control over the positioning and orientation of the robotic arm during procedures, which can result in more accurate and safer procedures for the patient.
-Vehicle design and safety 
+Vehicle design and safety
 
 Engineers use 6DoF to simulate and test vehicles in a virtual environment to better understand how vehicles respond to different driving conditions and maneuvers. Using 6DoF representation, engineers can ensure the safety of vehicle designs, ensure vehicles meet safety regulations, and operate properly in real-world conditions. Even during manufacturing, designers and engineers can make changes by testing vehicle components in more realistic simulations.
 Navigation
-Autonomous vehicles and drones benefit from 6DoF for navigation and obstacle avoidance in three-dimensional environments. Autonomous underwater vehicles use 6DoF for accurate navigation while conducting underwater exploration. 
+Autonomous vehicles and drones benefit from 6DoF for navigation and obstacle avoidance in three-dimensional environments. Autonomous underwater vehicles use 6DoF for accurate navigation while conducting underwater exploration.
 
 Spacecraft also require 6DoF controls for accurate navigation, orientation, and control during missions, especially when maneuvering or docking in microgravity environments.
-Considerations and benefits 
+Considerations and benefits
 
 6DoF provides many benefits, including accuracy and adaptability, but it also presents some challenges in terms of cost and complexity. The benefits and success of 6DoF depend on the objective and specific requirements of the application. It’s important to note the benefits of 6DoF and the drawbacks before choosing to use and implement the concept.
 
-Benefits of 6DoF applications 
+Benefits of 6DoF applications
 
     Improved simulation for product development, design, and testing
-    Added realism in VR and AR settings 
-    More accurate spatial tracking in medical imaging and robotics 
+    Added realism in VR and AR settings
+    More accurate spatial tracking in medical imaging and robotics
     Allows pilots to achieve more precise navigation and maneuvering
-    Helps engineers make safer products with realistic simulations 
+    Helps engineers make safer products with realistic simulations
 
 Considerations before integrating 6DoF technology
 
-    Incorporating 6DoF technology can increase the overall cost of devices, systems, or applications (for example, 6DoF VR headsets versus 3DoF headsets) 
-    Limitations in some environments 
-    More complex to operate and program 
+    Incorporating 6DoF technology can increase the overall cost of devices, systems, or applications (for example, 6DoF VR headsets versus 3DoF headsets)
+    Limitations in some environments
+    More complex to operate and program
 
 
-The future of six degrees of freedom 
-As technology advances, sensor technology innovations, human-machine interaction, and simulation capabilities will further enhance the applications and importance of 6DoF. As an increasing number of consumers demanding immersive experiences grows, so will the demand for the capabilities of 6DoF. 
+The future of six degrees of freedom
+As technology advances, sensor technology innovations, human-machine interaction, and simulation capabilities will further enhance the applications and importance of 6DoF. As an increasing number of consumers demanding immersive experiences grows, so will the demand for the capabilities of 6DoF.
 
 Whether exploring virtual realms or navigating outer space, the principles of 6DoF act as the guiding force through these spatial dimensions.
 
-Space exploration 
-6DoF will likely be crucial for the navigation and operation of spacecraft and robotic systems in the harsh environment of outer space. It’s also a helpful tool for training and preparing humans to maneuver spacecraft. 
+Space exploration
+6DoF will likely be crucial for the navigation and operation of spacecraft and robotic systems in the harsh environment of outer space. It’s also a helpful tool for training and preparing humans to maneuver spacecraft.
 
 The success of space missions is dependent on precise movements and accurate orientation, and 6DoF technology is a key component in achieving future space explorations.
-Extended reality 
+Extended reality
 
-VR, AR, and mixed reality depend on technology like 6DoF to continue to advance in the evolution of XR technologies. 6DoF allows users to interact with the virtual world in ways that will continue to shape the features of immersive technology and experiences. 
+VR, AR, and mixed reality depend on technology like 6DoF to continue to advance in the evolution of XR technologies. 6DoF allows users to interact with the virtual world in ways that will continue to shape the features of immersive technology and experiences.
 
-Future XR devices are likely to incorporate 6DoF tracking systems, enabling users to interact with virtual environments in more intuitive and natural ways. 
+Future XR devices are likely to incorporate 6DoF tracking systems, enabling users to interact with virtual environments in more intuitive and natural ways.
 Consumer electronics
 
 Expect to see the integration of 6DoF technology more commonplace in consumer electronics. Beyond gaming and VR applications, smartphones, tablets, and other devices may incorporate 6DoF capabilities without needing external hardware. Integrating 6DoF capabilities in consumer electronics provides users with innovative ways to interact with digital content and applications.
-Advancements in health care 
+Advancements in health care
 
 In health care, 6DoF continues to impact surgical procedures and medical imaging positively. More sophisticated robotic systems mean safer and more minimally invasive surgeries with greater patient outcomes. 6DoF is already used in MRI and CT scans and robotic arms to perform laparoscopic procedures. The future seems only to hold continued advancements in these technologies and procedures
 ### Source 2: Virtual reality as training aid for manual spacecraft docking
@@ -351,8 +351,8 @@ ABSTRACT Traditional gesture elicitation studies generally adopted the frequency
 ### Currently in our report
 At the moment we have based our tasks of off the 6-DoF tasks. We have taken the standard 3 translational and  3 rotational DoF's as well as some scaling to gather more data. Four tasks have been divised. First, measuring each 3DoF then the 6DoF combined then the 6 plus Scaling. These tasks are to be performed by Varjo VR controller first, then by pure hand-gestures.
 - Does it serve our report adequately?
-- Is this an appropriate measure/method of measure? 
-- How can we show all this and demonstrate the high-level of ciritcal thinking and analysis expected throughout this report? 
+- Is this an appropriate measure/method of measure?
+- How can we show all this and demonstrate the high-level of ciritcal thinking and analysis expected throughout this report?
 #### The "6-DoF Target Alignment" Task (The Gold Standard) [TODO]
 You will then explicitly state that for the purposes of your empirical evaluation, the traditional "joystick" paradigm is represented by the 6-DoF Varjo VR controllers. This shows the examiner that you understand the breadth of the field but have made a calculated, practical decision for your experiment's methodology.
 In academic VR research, the most widely used and validated method for testing spatial manipulation is a **6-DoF (Degrees of Freedom) Docking Task** (also known as Target Alignment).
@@ -374,7 +374,7 @@ Instead of moving objects into boxes, the user must grab an object and perfectly
     - **The Setup:** The solid liver spawns 30cm away from the Ghost target, but shares the _exact same_ rotation and scale.
     - **The Action:** The user simply grabs the liver and moves it in a straight line into the hologram.
     - **What it Proves:** This isolates your `translationalInefficiency` metric. It tests how well the user maps physical hand movement to virtual distance without the distraction of having to twist their wrist.
- 
+
 - **Task 2: Pure 3-Axis Rotation (Rotational Mapping)**
     - **The Setup:** The solid liver spawns right next to the Ghost target (minimizing necessary movement), but is rotated randomly across the X, Y, and Z axes.
     - **The Action:** The user must grab the liver and manipulate it like a puzzle piece to find the correct orientation.
@@ -413,10 +413,10 @@ To prove whether hand-gestures reduce cognitive load and increase precision comp
 
 Once the liver is perfectly aligned, the system instantly snaps it into place, turns the Ghost Liver green, plays a soft "success" chime, and writes all that hidden telemetry directly to your CSV file.
 - I want to know what algorithm is best to implement for calculating some of these metrics and why.
-- I also want to know which gestures to program. To do this,  I need to map out/finalise all of the movements that can be made e.g., rotation, scaling/zoom in/out, grabbing/piching, moving, etc. 
-	- Once determined, these actions will need to be efficiently and logically mapped to both Varjo VR controller and hand-gestures, deciding on the gesture itself based on literature i.e. what's intuitive and easy for people to perform and then solidifying whether or not it is mono or bimanual gesture for each action. 
+- I also want to know which gestures to program. To do this,  I need to map out/finalise all of the movements that can be made e.g., rotation, scaling/zoom in/out, grabbing/piching, moving, etc.
+	- Once determined, these actions will need to be efficiently and logically mapped to both Varjo VR controller and hand-gestures, deciding on the gesture itself based on literature i.e. what's intuitive and easy for people to perform and then solidifying whether or not it is mono or bimanual gesture for each action.
 ### Results:  Continue and Implement the code and gestures
-This is exactly the type of foundational questioning that leads to a top-tier dissertation. You cannot effectively program a testing environment if you do not understand the academic logic behind it. 
+This is exactly the type of foundational questioning that leads to a top-tier dissertation. You cannot effectively program a testing environment if you do not understand the academic logic behind it.
 
 Let’s demystify the 6-DoF task and the NASA-TLX, validate your testing scenario, define your mathematical algorithms, and finalize your gesture mapping using the literature you provided.
 
@@ -424,14 +424,14 @@ Let’s demystify the 6-DoF task and the NASA-TLX, validate your testing scenari
 #### Part 1: The "Why" behind 6-DoF and NASA-TLX
 The easiest way to understand your methodology is to view it as a two-sided coin: **Objective Performance** versus **Subjective Cost**.
 ##### Why the 6-DoF Docking Task? (The Objective Measure)
-In your provided Source 2 (the astronaut docking study), they note that controlling 6-DoF requires building an internal "mental representation of one's own position and orientation in space." 
-In the real world, a surgeon manipulating a liver inherently uses 6-DoF (Translate X/Y/Z and Rotate Pitch/Yaw/Roll). When we force users to do this virtually, we are testing the **"Mapping Dissonance."** 
+In your provided Source 2 (the astronaut docking study), they note that controlling 6-DoF requires building an internal "mental representation of one's own position and orientation in space."
+In the real world, a surgeon manipulating a liver inherently uses 6-DoF (Translate X/Y/Z and Rotate Pitch/Yaw/Roll). When we force users to do this virtually, we are testing the **"Mapping Dissonance."**
 * **The Controller Problem:** A joystick is a 2D input device. Using it to perform a 3D rotational task forces the brain to translate "pushing a thumbstick left" into "rolling the liver on its Z-axis." This is a heavy cognitive translation step.
-* **The Hand Solution:** Hand-tracking provides a 1:1 kinematic mapping. Your hand moves forward, the liver moves forward. Your wrist twists, the liver twists. 
-* **The Purpose in your Report:** The docking task mathematically proves whether that 1:1 hand mapping actually translates to faster, more accurate spatial manipulation than the joystick. 
+* **The Hand Solution:** Hand-tracking provides a 1:1 kinematic mapping. Your hand moves forward, the liver moves forward. Your wrist twists, the liver twists.
+* **The Purpose in your Report:** The docking task mathematically proves whether that 1:1 hand mapping actually translates to faster, more accurate spatial manipulation than the joystick.
 ##### Why the NASA-TLX? (The Subjective Measure)
 If your telemetry proves that hand-tracking completes the task 40% faster than the joystick, you might be tempted to say "Hand tracking is universally better." But what if the user’s arms were burning with fatigue? What if the camera lost tracking and frustrated them?
-* **The Purpose in your Report:** The NASA-TLX measures the *Cognitive and Physical Cost* of that performance. Source 3 highlights the physiological load of mid-air interaction. The NASA-TLX forces the user to rate their **Mental Demand**, **Physical Demand** (Gorilla Arm), and **Frustration**. 
+* **The Purpose in your Report:** The NASA-TLX measures the *Cognitive and Physical Cost* of that performance. Source 3 highlights the physiological load of mid-air interaction. The NASA-TLX forces the user to rate their **Mental Demand**, **Physical Demand** (Gorilla Arm), and **Frustration**.
 * **Harmonizing the Two:** You achieve $\ge 80\%$ critical analysis when you synthesize both metrics. For example: *"While 6-DoF telemetry proved hand-tracking was 30% faster, the NASA-TLX revealed a 50% increase in Physical Demand due to lack of haptic resting surfaces, indicating a trade-off between intuitive mapping and ergonomic fatigue."*
 
 ---
@@ -459,9 +459,9 @@ To calculate spatial inefficiency, you must use industry-standard 3D mathematica
 
 ---
 #### Part 4: Finalizing the Gesture Mapping
-Based on Source 3 (User-Defined Gestures), we must select gestures that minimize wrist strain and physiological load. 
+Based on Source 3 (User-Defined Gestures), we must select gestures that minimize wrist strain and physiological load.
 #### Task 1, 2, and 3: Translation & Rotation (6-DoF)
-* **Hand-Tracking (Condition B):** **Mono-manual "Pinch-and-Hold".** 
+* **Hand-Tracking (Condition B):** **Mono-manual "Pinch-and-Hold".**
 * *Literature Justification:* Source 3 explicitly notes that "Fewer fingers" gestures (using just thumb and forefinger) require significantly smaller Range of Motion (ROM) and velocity of wrist motion compared to full hand grabs. Because you are testing precise rotational docking, wrist flexibility is paramount. A pinch allows the wrist to pivot freely.
     * *The Action:* User pinches the liver with one hand. While pinched, the liver's Transform matches the hand's Transform 1:1.
 * **Varjo Controller (Condition A):** **Mono-manual "Grip Button Hold".**
@@ -476,7 +476,7 @@ Based on Source 3 (User-Defined Gestures), we must select gestures that minimize
 Does this synthesis clarify the academic framework of your experiment? If so, we can move straight into writing the C# logic for these specific `Quaternion` and `Vector3` telemetry algorithms in your new Development Chat!
 ## Updating our existing surveys
 ### Abstract
-> This project is an **Applied Human-Computer Interaction (HCI) study** within the domain of **Medical Spatial Computing**. 
+> This project is an **Applied Human-Computer Interaction (HCI) study** within the domain of **Medical Spatial Computing**.
 > It utilizes existing **Computer Vision** tracking technologies to evaluate and propose a novel 3D User Interface paradigm for anatomical manipulation.
 
 *Note: Use 'we' in the Methodology, Implementation, Evaluation etc but use passive voice in the Lit Review.*
@@ -485,14 +485,14 @@ Does this synthesis clarify the academic framework of your experiment? If so, we
 	- It doesn't make sense -> dimensional mismatch
 ## How to use the FORMS (LTS)
 ### Part 1: Interpreting the Raw Task Load Index (RTLX)
-The RTLX measures the **Subjective Cost** of a specific action. Because you are administering it four times per control method (after Translation, Rotation, Translation+Rotation, and Scaling), you are looking for *spikes* in specific subscales. 
+The RTLX measures the **Subjective Cost** of a specific action. Because you are administering it four times per control method (after Translation, Rotation, Translation+Rotation, and Scaling), you are looking for *spikes* in specific subscales.
 
 Each question is answered on a 1–20 scale. You can analyze this data in two ways:
 #### 1. The Overall Task Load (The Macro View)
 To get the overall workload for a specific task, you simply calculate the mean of the six subscales. Multiply by 5 if you wish to report it as a standard percentage (0–100).
 
-* **Example calculation:** * Mental: 14, Physical: 8, Temporal: 10, Effort: 12, Performance: 6, Frustration: 10. 
-    * Sum = 60. 
+* **Example calculation:** * Mental: 14, Physical: 8, Temporal: 10, Effort: 12, Performance: 6, Frustration: 10.
+    * Sum = 60.
     * Average = 10 (out of 20), or an overall workload score of **50%**.
 #### 2. Diagnostic Subscale Analysis (The Micro View)
 This is where you will secure high marks. Do not just report the averages; contrast the subscales against your objective telemetry.
@@ -508,7 +508,7 @@ Imagine a participant finishes Task 3 using both the joystick and then bare hand
 
 ---
 ### Part 2: Interpreting the System Usability Scale (SUS)
-The SUS provides a reliable, high-level evaluation of the overall system. It uses a 10-item, 1–5 Likert scale. 
+The SUS provides a reliable, high-level evaluation of the overall system. It uses a 10-item, 1–5 Likert scale.
 
 **Warning:** You cannot simply add the scores together. The SUS alternates between positive statements (odd numbers) and negative statements (even numbers) to prevent participants from mindlessly checking "5" down the whole page. You must normalize the scores before summing them.
 #### The SUS Formula
@@ -554,7 +554,7 @@ A participant finishes all tasks with the Ultraleap hand-tracking and fills out 
 * Total Sum: 16 + 14 = 30
 * Final Score: 30 × 2.5 = **75**
 #### How to Interpret the Score
-The SUS score is out of 100, but it is **not** a percentage. Based on decades of industry benchmarking, the average SUS score is **68**. 
+The SUS score is out of 100, but it is **not** a percentage. Based on decades of industry benchmarking, the average SUS score is **68**.
 * **< 51:** Poor (System requires severe redesign).
 * **51 – 68:** Okay to Fair.
 * **68 – 80.3:** Good (The system is usable and acceptable).
@@ -566,12 +566,12 @@ The SUS score is out of 100, but it is **not** a percentage. Based on decades of
 ### FAQs [TODO:]
 #### 1. Answering Your Questions
 **"The rotating about multiple axis will be difficult, is this possible?"**
-Yes, it is entirely possible and mathematically straightforward in Unity, but it is *anatomically* difficult for the user. 
+Yes, it is entirely possible and mathematically straightforward in Unity, but it is *anatomically* difficult for the user.
 * **The Math:** You will calculate the *delta rotation* of the hand between frames using Quaternions: `deltaRot = currentHandRot * Quaternion.Inverse(lastHandRot);` and apply that delta to the liver.
-* **The HCI Challenge:** Human wrists do not have 360-degree rotation. Furthermore, twisting the wrist often hides the fingers from the Ultraleap camera (optical occlusion), causing the tracking to drop. Your "breaking" (clutching) mechanic is the exact right solution to this. The user rotates 90 degrees, releases the pinch, resets their wrist, grabs, and rotates again. 
+* **The HCI Challenge:** Human wrists do not have 360-degree rotation. Furthermore, twisting the wrist often hides the fingers from the Ultraleap camera (optical occlusion), causing the tracking to drop. Your "breaking" (clutching) mechanic is the exact right solution to this. The user rotates 90 degrees, releases the pinch, resets their wrist, grabs, and rotates again.
 
 > **"The user can move around the room slightly in the physical world to move in the virtual scene, this acts as pan and move gestures, correct?"**
-> Technically, no. Moving physically is **Head Tracking (6-DoF Locomotion)**, not a gesture. However, functionally, it does change the user's perspective (panning/dollying) relative to the 3D model. You should explicitly state in your report that the Varjo XR-4 handles user locomotion natively via inside-out tracking, leaving the gestures strictly for object manipulation. 
+> Technically, no. Moving physically is **Head Tracking (6-DoF Locomotion)**, not a gesture. However, functionally, it does change the user's perspective (panning/dollying) relative to the 3D model. You should explicitly state in your report that the Varjo XR-4 handles user locomotion natively via inside-out tracking, leaving the gestures strictly for object manipulation.
 #### 3. Object-Oriented Architecture (UML Logic)  [TODO:]
 To keep your code decoupled and professional, your system should use a **State Machine** for the gestures. Here is the logical class structure for your UML diagram:
 
@@ -712,7 +712,7 @@ To maximize the "Software Management" portion of the marking rubric:
 
 By following this commit-to-PR-to-Milestone pipeline, you create a perfect "paper trail" of professional evidence. You are no longer just a student finishing a project; you are an engineer conducting a validated study.
 #### Why this matters for the EPA [TODO:]
-By splitting these, your GitHub **Insights > Network** graph will show a clear progression of features. When an examiner looks at Milestone 1, they see the configuration scripts. When they look at Milestone 2, they see the manipulation logic. 
+By splitting these, your GitHub **Insights > Network** graph will show a clear progression of features. When an examiner looks at Milestone 1, they see the configuration scripts. When they look at Milestone 2, they see the manipulation logic.
 This demonstrates that you understand the **Single Responsibility Principle** not just in your code, but in your version control management.
 # Release / Tag Template
 ```markdown
@@ -767,7 +767,7 @@ Here is the finalized 1:1 mapping for your comparative study. (Note: "Zoom" in 3
 | Scale ("Zoom")   | Bimanual Pinch: Both hands pinch. The distance delta between the left and right pinch centers dictates uniform XYZ scaling. Releasing one hand reverts to Grab/Rotate. | Grip Hold + Thumbstick: Hold grip button. Push thumbstick Forward to scale up, pull Backward to scale down. *(Highlights mapping dissonance).* |
 ## The State Machine [TODO]
 ### 1. The Logic: Decoupling Input from Action
-The core idea is **Abstraction**. You have two hardware conditions (Varjo Controllers and Ultraleap Hands). If you write specific code for each, you have to write your rotation math twice. 
+The core idea is **Abstraction**. You have two hardware conditions (Varjo Controllers and Ultraleap Hands). If you write specific code for each, you have to write your rotation math twice.
 
 Instead, the State Machine sits in the middle. It doesn't care *how* a "Grab" was triggered (whether a button was pressed or a pinch was detected); it only cares that the system is now in the `TRANSFORMING` state.
 ### 2. The States of your Clinical Interaction
@@ -781,13 +781,13 @@ For your project, I recommend five primary states. This ensures that the user ca
 ### 3. The "Brain": `InteractionOrchestrator.cs`
 `UnityProject/Assets/_Project/Scripts/Interaction/InteractionOrchestrator.cs`
 
-This script acts as the "Traffic Cop." It queries your `InputProviders` and decides which state is active. 
+This script acts as the "Traffic Cop." It queries your `InputProviders` and decides which state is active.
 #### **Handling the "Pinch vs. Fist" (Signature Isolation)**
 This is where you solve your "fine-tuning" problem. Inside the `UltraleapInputProvider`, you don't just check `IsPinching`. You create a **Gesture Signature**.
 
 ```csharp
 // Example Logic for Signature Isolation
-bool isValidPinch = leapHand.IsPinching && 
+bool isValidPinch = leapHand.IsPinching &&
                  !leapHand.GetFinger(Finger.FingerType.TYPE_MIDDLE).IsExtended &&
                  !leapHand.GetFinger(Finger.FingerType.TYPE_PINKY).IsExtended;
 ```
@@ -800,7 +800,7 @@ A state machine is defined by its **Transitions**. You need to define the "entry
 * **The Clutch:** When the user releases the pinch to reset their wrist, the state moves to `CLUTCHED`. The model orientation is saved: $q_{saved} = transform.rotation$.
 ### 5. Why this is "Professional Standard"
 1.  **Extensibility:** If you want to add a "Teleport" gesture in Milestone 4, you just add a `TELEPORT` state and define the hand-sign required to enter it.
-2.  **Telemetry Accuracy:** You can log exactly how much time the user spent in each state. 
+2.  **Telemetry Accuracy:** You can log exactly how much time the user spent in each state.
     * *"The user spent $14.2s$ in the `ROTATING` state using hands vs. $8.1s$ using controllers."* This is a goldmine for your dissertation's "Results" section.
 3.  **Debugging:** You can display the current state in your TextMesh Pro HUD. If the liver isn't moving, you can instantly see if the machine is stuck in `IDLE` or if it's actually in `TRANSLATING` but the math is wrong.
 
@@ -825,7 +825,7 @@ The State Machine is the "Brain" that manages the user's intent. Instead of hund
 # Milestone 4: Telemetry Pipeline & Trial Orchestration
 ## Metrics to Collect
 ### Metric 1: Task Completion Time (TCT)
-**Keep ✓** – This is a standard metric in XR evaluation literature 
+**Keep ✓** – This is a standard metric in XR evaluation literature
 
 | Aspect             | Specification                                                                               |
 | ------------------ | ------------------------------------------------------------------------------------------- |
@@ -908,7 +908,7 @@ Based on literature , here are evidence-based gesture mappings:
 | **Translation + Rotation** | Unimanual | Nyyssönen et al. (2024) found users preferred unimanual for flexibility and speed  |
 | **Scaling** | Bimanual | Provides intuitive proportional control; distance between hands directly maps to scale |
 
-> "The unimanual approach attempts to provide a higher degree of flexibility, while the bimanual approach seeks to provide more control over the interaction" 
+> "The unimanual approach attempts to provide a higher degree of flexibility, while the bimanual approach seeks to provide more control over the interaction"
 ### Statistical Validation Plan
 
 | Hypothesis | Test | Threshold |
@@ -917,7 +917,7 @@ Based on literature , here are evidence-based gesture mappings:
 | Hand gestures reduce clutch count | Wilcoxon signed-rank (non-parametric) | p < 0.05 |
 | Hand gestures reduce inefficiency ratio | Paired t-test | p < 0.05 |
 
-**Literature precedent:** Murauer et al. used one-way repeated measures ANOVA with Bonferroni correction for post-hoc analysis 
+**Literature precedent:** Murauer et al. used one-way repeated measures ANOVA with Bonferroni correction for post-hoc analysis
 ### Summary Table: Metrics to Keep
 
 | Metric                             | Priority | Implementation Complexity |
@@ -951,7 +951,7 @@ In academia, your grade is not determined by whether your hypothesis was correct
 
 Here is exactly how you pivot your report's narrative to turn this "flaw" into a display of high-level HCI analysis.
 ### 1. Reframing the Narrative (The "VR Baseline" Pivot)
-You don't need to rewrite your Introduction, but you need to adjust your *Methodology* framing. 
+You don't need to rewrite your Introduction, but you need to adjust your *Methodology* framing.
 
 Keep the "2D-to-3D mapping dissonance" as the **ultimate problem** in the medical field. However, state that before proposing bare-hand tracking as the replacement for 2D mice/joysticks, you first had to benchmark it against the **current VR gold standard**: the 6-DoF instrumented controller.
 
@@ -977,3 +977,234 @@ Here is where you put these arguments in your dissertation:
 * **Conclusion -> Future Work:** *"Future studies should isolate the cognitive mapping dissonance by testing this hand-tracking architecture directly against a traditional 2D mouse-and-keyboard 3D Slicer environment on a flat monitor..."*
 
 By owning the limitation and explaining the hardware physics behind *why* the controller performed better, you show the examiners that you deeply understand Human-Computer Interaction.
+
+# Prompt
+
+### Context and Project Progress
+
+Ok, I want to pause the completion of Milestone 4, the GitHub and all coding.
+
+To-date, I have conducted 5 successful user experiments; users went through the following:
+- All four DoF alignment tasks (pure translation (3-DoF), pure rotation (3-DoF), translation + rotation (6-DoF) and translation + rotation + scaling)
+- After each task, I asked them questions from the RTLX:
+  - Six questions total: 1 to 20 scale. Five of the questions treated 1 as low and 20 as high but question 4 treats 1 as perfect and 20 as failure.
+- At the end of the fourth task and after the post-task RTLX questioning, I conducted the SUS for that method/condition.
+  - The SUS comprises 10 Statements and the users would have to rate from strongly disagree, disagree, neutral, agree, strongly agree (a 1 to 5 scale)
+- After the user had completed all 4 RTLX forms and the SUS form, the condition would change from VR Controller to Hand-tracking and everything would be completed again.
+- Once both conditions had been completed and all forms answered, the user would be given an open feedback form. This feedback form had three prompt questions:
+  - The first asked about their preference of the two methods and why
+  - The second asked if they experienced physical fatigue and when
+  - The third and final asked if any hand gestures or controller movements felt unnatural, failed to register, etc (the effectiveness of the implementation itself.)
+
+#### Experiment Process
+
+The total flow of this experiment was:
+  - Give the users the project information sheet to read and ask any questions
+  - Both me and the user initial, date and sign the consent form in front of each other
+  - I give a safety briefing, have them remove obstructive jewellery/accessories
+  - They place the headset on and we adjust it for comfort.
+  - Once calibrated, I load a demo scene where they can play around with the first condition: the controller and the liver. I explain the gestures for this condition. Once they have demonstrated they are familiar with all gestures, I begin the experiment.
+    - They complete task 1 and I then ask them the questions from RTLX and fill-in their answers, task 2 & RTLX, task 3 & RTLX, task 4 & RTLX & SUS
+    - The user is always wearing the headset/resting when I am asking them these questions. I fill-in their answers.
+    - Swap conditions to hand-tracking, let them play again in demo scene until familiar
+    - Begin task 1 & RTLX, task 2 & RTLX, task 3 & RTLX, task 4 & RTLX & SUS, take off headset
+    - Open feedback and finish.
+
+#### Results Example
+
+Alongside this explicit data, we also have implicit data recorded. An example of the data (line 0 and 1) from a user's task 3 (6-DoF + scaling):
+Time(s),State,PosError(m),RotError(deg),PathInefficiency,RotInefficiency,ClutchCount,RawGrip,GripVariance
+0.044,IDLE,0.4175,106.9752,0.0000,0.0000,0,0.0,0.000000
+
+## Research and Introduction
+
+I want to undertake the task of completing the Introduction for this project. That includes the literature review.
+
+My goal is to research using an efficient and effective method that helps me learn quickly and achieve what I need. You will design a system and help me digest and extract what I need from this mass of literature and academic content.
+
+### Preparation
+
+In preparation for this, I want to go over some previous project papers that students have scored high marks for and analyse the following:
+
+-  Their paper's structure (headings (from the contents page), diagrams, appendix)
+-  The flow of explanation (how they introduce points, how the paragraphs connect)
+-  How they are critical in all aspects of their paper (examples and themes)
+-  How they represent data, reference evidence, explain and use diagrams etc.
+-  Provide a summary of their paper in two conscise paragraphs
+-  Provide a predictive score, explaining the strengths and weaknesses of their project according to the marking rubric.
+-  Anything else that is of use to note
+
+#### Template
+
+Contents
+1 Introduction and Background Research 1
+1.1 Context
+1.2 Introduction
+1.3 Project Aim and Objectives
+1.4 Literature review
+1.4.1 Traditional VR Interaction Paradigms
+1.4.2 Limitations of Indirect Hardware Interfaces
+1.4.3 Natural User Interfaces NUI and Optical Hand-Tracking
+1.4.4 Challenges in Optical Tracking and Ergonomics
+1.4.5 High-Fidelity Medical Rendering Technologies
+1.5 Critical Analysis of Existing Solutions
+1.5.1 Existing Solution 1
+1.5.2 Existing Solution 2
+1.6 Report Structure
+2 Methodology
+2.1 A section
+2.1.1 A sub-section
+2.2 Another section
+3 Implementation and Validation
+3.1 A section
+3.1.1 A sub-section
+3.2 Another section
+4 Results, Evaluation and Discussion
+4.1 Evaluation
+4.2 Conclusions
+4.3 Ideas for future work
+References
+Appendices
+A Self-appraisal
+A.1 Critical self-evaluation
+A.2 Personal reflection and lessons learned
+A.3 Legal, social, ethical and professional issues
+A.3.1 Legal issues
+A.3.2 Social issues
+
+#### Profile Framework
+
+Apply the framework and output a profile containing:
+1.  **Structural Breakdown:** How they organized their argument.
+2.  **Flow & Narrative (with specific examples):** How smoothly they transitioned between complex ideas.
+3.  **Criticality Index:** Examples of where they showed deep analytical thinking (or where they lacked it).
+4.  **Data & Evidence Handling:** How they utilized diagrams and referenced their results.
+5.  **Two-Paragraph Summary:** A concise digest of their entire project.
+6.  **Predictive Rubric Score:** An estimated grade (1st, 2:1, etc.) with a justification based on UK university marking standards.
+7.  **What You Can Learn:** What you can learn from this for your project.
+8. **Useful references:** References you can use and investigate further.
+
+### Existing Plan
+
+My compiled group of sources a rough plan which may need updating:
+#### 1. The Global/Domain Context
+**The Goal:** Prove that your project solves a real-world medical problem (The "So What?" test).
+**Goal:** Prove that 3D VR surgical planning improves outcomes and justifies your project's existence.
+**What to search for:** `"Virtual reality" AND "preoperative surgical planning" AND "spatial understanding"` or `"3D anatomy visualization" AND "surgical outcomes"`.
+
+**Core Insights to look for (and cite):**
+* **The Mental 3D Reconstruction Problem:** Traditionally, surgeons look at 2D slices (CT/MRI scans) and have to build a 3D model of the patient’s anatomy *in their minds*. Literature frequently cites this as a high-cognitive-load task that takes years to master.
+* **Altered Surgical Plans:** Recent systematic reviews (like those published in *SPIE Journal of Medical Imaging* or *Surgical Endoscopy*) show that when surgeons use VR to view patient-specific anatomy, they alter their surgical plans in **40% to 52% of cases** because they can spot anatomical variants and spatial relationships they missed on 2D monitors.
+* **Clinical Outcomes:** Look for papers demonstrating that VR planning leads to reduced operative times, reduced intraoperative blood loss, and fewer fluoroscopic (radiation) images needed during surgery.
+##### Sources
+###### 🥇 Gold Standard (High Priority - Cite these to prove clinical necessity):
+1. Translating high-precision mixed reality navigation from lab to operating room: design and clinical evaluation, 2025
+2. Mixed reality for preoperative planning and intraoperative assistance of surgical correction of complex congenital heart defects, 2025
+3. Effect of 3-Dimensional Virtual Reality Models for Surgical Planning of Robotic-Assisted Partial Nephrectomy on Surgical Outcomes: A Randomized Clinical Trial, 2019
+4. Immersive 3D virtual reality imaging in planning minimally invasive and complex adult cardiac surgery, 2020
+5. A review of the evidence for training effectiveness with virtual reality technology, 2021
+6. Immersive virtual reality for surgical training: a systematic review, 2021
+7. Clinical Applications of Mixed Reality and 3D Printing in Congenital Heart Disease, 2022
+###### 🥈 Supporting Literature (Medium/Low Priority - Contextual Medical XR):
+8. XR (extended reality: Virtual reality, augmented reality, mixed reality) technology applications in orthopedic field, 2025
+9. Augmented reality guidance improves accuracy of orthopedic drilling procedures, 2024
+10. Virtual reality three-dimensional echocardiographic imaging for planning surgical atrioventricular valve repair, 2021
+11. Immersive Virtual Reality Heart Models for Planning of Transcatheter Paravalvular Leak Closure: A Feasibility Study, 2021
+12. Immersive virtual reality surgical planning of minimally invasive coronary artery bypass for kawasaki disease, 2020
+
+_(Remaining 13 older/tangential medical XR papers: Plastic surgery training 2020, Orthopedic surgery 2020, Ventricular septal defects 2019, Maxillofacial surgery 2019, Cataract surgery 2017, Orthopaedic surgery 2016, Medical imaging 1998, Laparoscopic colectomy 2002, etc.)_
+#### 2. The HCI Bottleneck (The Problem)
+**The Goal:** Prove that while VR is great, the *current hardware* (joysticks) limits its potential for non-technical users.
+**Goal:** Prove that controllers cause cognitive load and "mapping dissonance" during spatial tasks.
+**What to search for:** `"Virtual reality" AND "controllers vs hand tracking"` or `"indirect hardware interfaces" AND "cognitive load" AND "VR"`.
+
+**Core Insights to look for (and cite):**
+* **Mapping Dissonance:** Controllers create a disconnect between human intent and digital action. You must explain that pushing a plastic thumbstick to rotate a virtual liver is an "abstract control scheme." It forces the brain to translate a physical gesture into a digital output, which increases cognitive friction.
+* **The Barrier to Entry:** Medical professionals are not inherently gamers. Studies frequently note that holding a controller with triggers, grip buttons, and thumbsticks is intimidating and requires an onboarding process that disrupts the clinical workflow.
+* **The Baseline Defense:** You must also find papers that defend controllers (e.g., studies showing controllers provide "binary certainty" with button presses and exact precision). You need this to justify why the Varjo controller is a valid baseline for your comparative user study.
+##### Sources
+###### 🥇 Gold Standard (High Priority - The friction of controllers):
+1. XR Cricothyroidotomy and Intraosseous Access: A Preliminary Study on Usability and Presence between VR/MR and Hand Tracking/Controller Interactions, 2025 _(Crucial: Direct medical comparison)._
+2. A comparison of input devices for precise interaction tasks in VR-based surgical planning and training, 2022
+3. Three-dimensional (3D) stimuli are always better than two-dimensional (2D) multi-tasking? A high cognitive load in 3D-MATB-II, 2025
+4. Cognitive load/flow and performance in virtual reality simulation training of laparoscopic surgery, 2021
+5. Studying the mental effort in virtual versus real environments, 2019
+6. Understanding the attention demand of touch and tangible interaction on a composite task, 2019
+###### 🥈 Supporting Literature (Medium/Low Priority - Tangential Locomotion/Joystick studies):
+7. Locomotion in place in virtual reality: A comparative evaluation of joystick, teleport, and leaning, 2021
+8. Evaluation of locomotion methods in virtual reality navigation environments... 2021
+9. Virtual reality locomotion methods differentially affect spatial orientation and cybersickness... 2025
+
+_(Remaining papers regarding joystick-guided laparoscopic camera holders from 2019, 2018, 2013)._
+#### 3. Proposed Solutions (Hand-Tracking & NUI)
+**The Goal:** Position optical hand-tracking (Natural User Interfaces) as the logical evolution for medical XR.
+**What to search for:** `"Optical hand tracking" AND "Ultraleap" OR "gesture recognition"` or `"Natural User Interfaces" AND "embodied cognition VR"`.
+
+**Core Insights to look for (and cite):**
+* **Zero-Friction Computing:** Hand tracking democratizes XR. Because everyone knows how to use their hands, the act of reaching out to grab a virtual object lowers the cognitive load and provides a direct 1:1 kinematic mapping.
+* **Sense of Embodiment:** Research shows that bare-hand interaction significantly enhances the user's sense of body ownership and presence in the virtual environment compared to holding a proxy object (the controller).
+##### Argument 1: Natural User Interfaces (NUI) Reduce Cognitive Load
+You must prove mathematically that using hands is easier on the brain than using a controller. You are looking for comparative studies that use the same metrics you are using (NASA-TLX and Task Completion Time).
+
+* **Exact Search Strings:** * (Natural User Interface OR NUI OR bare-hand tracking) AND (cognitive load OR NASA-TLX) AND virtual reality
+    * hand tracking AND spatial manipulation AND 6-DoF
+* **What to extract for your report:** Look for papers that show a statistically significant reduction in the **Mental Demand** sub-scale of the NASA-TLX when users switch from controllers to hand-tracking. You want to quote their findings on how direct hand manipulation eliminates the need for the brain to translate a physical thumb movement into a digital rotation.
+##### Argument 2: Embodied Cognition and Proprioception
+This is how you score top marks. Embodied cognition is the psychological theory that our physical bodies shape our thinking. In a medical context, a surgeon's spatial understanding is tied to their physical hands.
+
+* **Exact Search Strings:**
+    * embodied interaction AND virtual reality AND (medical OR anatomy OR surgery)
+    * proprioception AND virtual reality AND grasping
+* **What to extract for your report:** Find papers discussing how doctors rely on proprioception (the body's ability to sense movement and location). Extract quotes arguing that when a user reaches out and pinches a virtual liver, they are leveraging years of real-world evolutionary motor skills, whereas holding a joystick forces them to learn an entirely new, artificial motor skill.
+##### Argument 3: The Validation of Optical Tracking Technology
+You need to justify why optical tracking (specifically infrared camera-based systems like the Ultraleap Controller 2) is now precise enough for clinical use, distinguishing it from older, inaccurate technologies (like the original Xbox Kinect).
+
+* **Exact Search Strings:**
+    * (Leap Motion OR Ultraleap) AND precision AND virtual reality
+    * optical hand tracking AND evaluation AND dexterity
+* **What to extract for your report:** Look for quantitative evaluations of tracking latency and millimeter accuracy. You want to cite papers that prove modern optical tracking operates at sub-millimeter precision with low enough latency to prevent simulator sickness. This proves the hardware is enterprise-grade and capable of handling complex geometry like a 3D liver mesh.
+##### Sources
+**Goal:** Position optical hand-tracking and the Leap Motion 2 as the logical evolution for medical XR.
+###### 🥇 Gold Standard (High Priority - Hand vs. Controller & Hardware Validation):
+1. Analyzing the effectiveness and satisfaction of hand tracking vs. controllers among VR-experienced users, 2026
+2. Comparative Analysis of the Accuracy and Robustness of the Leap Motion Controller 2, 2025 _(Crucial: Evaluates your exact hardware)._
+3. Comparing hand-based and controller-based interactions in virtual reality learning: effects on presence and interaction performance, 2025
+4. Controllers or Bare Hands? A Controlled Evaluation of Input Techniques on Interaction Performance and Exertion in Virtual Reality, 2023
+5. Comparison of a vr stylus with a controller, hand tracking, and a mouse for object manipulation and medical marking tasks in virtual reality, 2023
+6. Unlocking the Potential of Immersive VR Systems: The Role of Gesture and Natural Controls, 2023
+7. Is embodied interaction beneficial? A study on navigating network visualizations, 2023
+###### 🥈 Supporting Literature (Medium Priority - General Gesture Tech/Older Hardware):
+8. Evaluation of XR device's real-world tracking accuracy and depth perception... 2025
+9. A Novel Sensor Fusion Approach for Precise Hand Tracking in Virtual Reality-Based Human—Computer Interaction, 2023
+10. Robust Optical Based Hand Interaction for Virtual Reality, 2022
+11. Hand tracking for immersive virtual reality: Opportunities and challenges, 2021
+12. Object manipulation and deformation using hand gestures, 2021
+
+_(Remaining 18 papers on older Leap Motion validations from 2013-2020, Kinect sensors, EMG gestures, and generic computer vision gesture reviews)._
+#### 4. Critical Nuances (Showing "Deep Understanding")
+**The Goal:** Examiners award marks $\ge 80\%$ to students who critically evaluate their own solutions. You must research the *flaws* of your proposed system.
+**What to search for:** `"Hand tracking" AND "Gorilla Arm fatigue"` or `"optical occlusion" AND "VR tracking latency"`.
+
+**Core Insights to look for (and cite):**
+* **"Gorilla Arm" Fatigue:** A well-documented physiological phenomenon in HCI where users experience severe shoulder and arm fatigue from holding their arms extended in mid-air without physical resting support.
+* **The Missing Haptics Dilemma:** Interacting with a virtual liver using bare hands feels like "pushing air." Without the rumble or resistance of a controller, the brain lacks tactile confirmation that a "grab" was successful.
+* **Optical Occlusion:** The Ultraleap cameras cannot see through solid objects. If one hand crosses over the other (e.g., during your bimanual scaling task), the tracking fails.
+
+**A tip for your literature review:** Don't just list the papers. Synthesize them. For example: *"While [Author A] proved that VR reduces surgical planning time, [Author B] demonstrated that traditional controllers introduce a steep learning curve. This project bridges that gap by..."*
+##### Sources
+**Goal:** Evaluate the _flaws_ of your system (Gorilla Arm fatigue, optical occlusion, lack of haptics).
+###### 🥇 Gold Standard (High Priority - The flaws of mid-air interaction):
+1. Quantifying the 'Gorilla Arm' Effect in a Virtual Reality Text Entry Task via Ray-Casting: A Preliminary Single-Subject Study, 2023 _(Use to define the phenomenon)._
+2. Absence of Inertial Load on Hand Decreases Task Performance in Virtual Reality Interaction, 2024 _(Use to explain lack of haptic feedback on the virtual liver)._
+3. The effect of hands synchronicity on users perceived arms Fatigue in Virtual reality environment, 2023 _(Use to justify your bimanual scaling task design)._
+4. Modeling cumulative arm fatigue in mid-air interaction based on perceived exertion and kinetics of arm motion, 2017
+5. Real-Time Hand Tracking under Occlusion from an Egocentric RGB-D Sensor, 2017 _(Defines the optical tracking blindspot)._
+6. Landing Windows Method as Soft Visual Constraints for Mid-Air Interactions, 2025 _(A solution to lack of haptics)._
+7. Probabilistic In-Plane Detection for Mid-Air Virtual Surface Interactions, 2025
+###### 🥈 Supporting Literature (Medium/Low Priority - Peripheral Fatigue/Haptic Studies):
+8. Dual Leap Motion Controller 2: A Robust Dataset for Multi-view Hand Pose Recognition, 2024 _(Use for Future Work/Self-Appraisal)._
+9. Force Feedback-Based Adaptive Sensor Fusion Algorithm for Precision Enhancement in VR-Based Medical Training Systems, 2026
+10. Effects of different fatigue locations on upper body kinematics and inter-joint coordination in a repetitive pointing task, 2019
+11. Outline Pursuits: Gaze-assisted Selection of Occluded Objects in Virtual Reality, 2020
+
+_(Remaining papers on generalized VR sickness, 2009 haptics, and basic pointing task variability).
