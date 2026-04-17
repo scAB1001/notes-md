@@ -1302,14 +1302,8 @@ A state machine is defined by its **Transitions**. You need to define the "entry
 2.  **Telemetry Accuracy:** You can log exactly how much time the user spent in each state. 
     * *"The user spent $14.2s$ in the `ROTATING` state using hands vs. $8.1s$ using controllers."* This is a goldmine for your dissertation's "Results" section.
 3.  **Debugging:** You can display the current state in your TextMesh Pro HUD. If the liver isn't moving, you can instantly see if the machine is stuck in `IDLE` or if it's actually in `TRANSLATING` but the math is wrong.
-### 🚀 Implementation Tip
-Start by defining an `enum InteractionState { Idle, Hover, Translate, Rotate, Scale }`. Then, in your `Update()` loop, use a `switch(currentState)` block. This keeps your code clean, readable, and—most importantly—ready for the complex bimanual logic in Milestone 3.
-
-Does this "logic-first" approach make sense, or would you like to see how the `BaseInteractionProvider` class should be structured to handle the Varjo and Ultraleap inputs simultaneously?
-This architecture is designed to turn your project into a robust "Research Framework." By decoupling **Input Detection** from **Object Transformation**, you ensure that your comparative study is mathematically fair. Both the Ultraleap (Condition B) and the Varjo Controllers (Condition A) will use the exact same math to move the liver; only the "trigger" (the State) changes.
 
 ---
-
 ### 1. The Abstraction Layer: `BaseInteractionProvider.cs`
 The **Abstract Base Class** acts as a contract. It tells the Unity engine: "I don't know what device is being used, but I know it will provide a position, a rotation, and a trigger signal."
 
@@ -1327,243 +1321,17 @@ The State Machine is the "Brain" that manages the user's intent. Instead of hund
 | **`TRANSFORMING`**     | Pinch/Grip active   | Apply $\Delta$ position and $\Delta$ rotation to the liver. | Pinch/Grip released.                          |
 | **`CLUTCHING`**        | Pinch/Grip released | Lock liver coordinates; allow wrist reset.                  | Pinch/Grip re-engaged (back to Transforming). |
 | **`SCALING`**          | Bimanual Pinch      | Calculate distance delta for uniform scale.                 | One hand released.                            |
-### 3. Finger Signature Isolation (The "Fine-Tuning")
-This is where you address the "Fist vs. Pinch" problem in the **`UltraleapInteractionProvider`**. To ensure the experiment only measures "Precision Manipulation," you isolate the gesture signature:
-
-* **The Filter:** Inside the `Update()` loop of the Ultraleap provider, you check the state of the non-participating fingers.
-* **Logic:**
-    * If `Index.IsPinching` AND `Middle/Ring/Pinky.IsExtended` $\rightarrow$ **Valid Pinch**.
-    * If `Index.IsPinching` AND `Middle/Ring/Pinky.IsCurled` $\rightarrow$ **Invalid (Fist)**.
-* **Result:** This prevents "Power Grasps" (closing the whole hand) from being recorded as the same interaction type as a "Precision Pinch," which is critical for your HCI research data.
-### 4. Framework Integration
-The framework pulls in your existing scripts to ensure the data is "Clean" before it hits the state machine:
-
-1.  **Input:** Raw Varjo/Ultraleap data.
-2.  **Correction:** `VarjoHandTrackingOffset.cs` applies the physical offset so the hands align with the HMD.
-3.  **Abstraction:** The `Provider` translates hardware signals into `InteractionStates`.
-4.  **Transformation:** The `BaseClass` applies the actual movement to the liver.
-5.  **Output:** `AlignmentMetricsLogger.cs` (Milestone 4) records the error metrics based on the current state.
-### 5. Implementation Roadmap for Issue #11
-To meet the **Acceptance Criteria**, your Inspector for the `InteractionOrchestrator` should look like this:
-
-* **Active Provider:** [Dropdown: Ultraleap / Varjo]
-* **Current State:** [Read-only Label: IDLE/TRANSFORMING...]
-* **Target Model:** [Slot for the Red Liver]
-* **Reference Model:** [Slot for the Turquoise Liver]
-
-Should we define the "Clutch" state as a global behavior that is always active, or should it behave differently when using the physical Varjo controllers versus the optical Ultraleap tracking?
-# 10/04/2026
-## DRY RUN 2 Complete
-### Console Output
-```bash
-<color=#4CAF50><b>[INIT - Ultraleap Provider]</b></color> Successfully linked to LeapServiceProvider.
-UnityEngine.Debug:Log (object)
-COMP3932.Core.Diagnostics:LogSystemInit (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:17)
-COMP3932.Kinematics.UltraleapInteractionProvider:Start () (at Assets/_Project/Scripts/Kinematics/UltraleapInteractionProvider.cs:28)
-
-<color=#FF9800><b>[HARDWARE - Leap Motion 2]</b></color> Data stream initialised.
-UnityEngine.Debug:Log (object)
-COMP3932.Core.Diagnostics:LogHardwareEvent (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:23)
-COMP3932.Kinematics.UltraleapInteractionProvider:Start () (at Assets/_Project/Scripts/Kinematics/UltraleapInteractionProvider.cs:29)
-
-<color=#00FFE8><b>[FSM]</b></color> State transitioned to: <b>TRANSFORMING</b>
-UnityEngine.Debug:Log (object)
-COMP3932.Kinematics.InteractionOrchestrator:ChangeState (COMP3932.Kinematics.InteractionState) (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:87)
-COMP3932.Kinematics.InteractionOrchestrator:ProcessStateMachine () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:44)
-COMP3932.Kinematics.InteractionOrchestrator:Update () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:30)
-
-<color=#00FFE8><b>[FSM]</b></color> State transitioned to: <b>CLUTCHED</b>
-UnityEngine.Debug:Log (object)
-COMP3932.Kinematics.InteractionOrchestrator:ChangeState (COMP3932.Kinematics.InteractionState) (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:87)
-COMP3932.Kinematics.InteractionOrchestrator:ProcessStateMachine () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:52)
-COMP3932.Kinematics.InteractionOrchestrator:Update () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:30)
-
-<color=#00FFE8><b>[FSM]</b></color> State transitioned to: <b>TRANSFORMING</b>
-UnityEngine.Debug:Log (object)
-COMP3932.Kinematics.InteractionOrchestrator:ChangeState (COMP3932.Kinematics.InteractionState) (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:87)
-COMP3932.Kinematics.InteractionOrchestrator:ProcessStateMachine () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:70)
-COMP3932.Kinematics.InteractionOrchestrator:Update () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:30)
-
-<color=#00FFE8><b>[FSM]</b></color> State transitioned to: <b>CLUTCHED</b>
-UnityEngine.Debug:Log (object)
-COMP3932.Kinematics.InteractionOrchestrator:ChangeState (COMP3932.Kinematics.InteractionState) (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:87)
-COMP3932.Kinematics.InteractionOrchestrator:ProcessStateMachine () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:52)
-COMP3932.Kinematics.InteractionOrchestrator:Update () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:30)
-
-```
-
-### Questions & Thoughts
-- Why is the state never idle? There were definitely times when I was not clutching, nor was I transforming.
-- The pinch gesture needs tweaking. Currently, the pinky, middle and ring finger must remain open (not closed) for the pinch state to activate but I find this tricky. The leap motion controller device is far more responsive to any closed movements, so I suggest we flip the logic such that those three fingers must be closed for pinch to activate,
-- The rotation mechanic also needs tweaking. The fix above should aid but theres the issue of rotating a 3D object with one hand on 3 axes. It works but it needs refinement.
-- The pinch and any gesture for that matter cna be activated from anywhere. This is not ideal. I want to use my gesture in proximity to the model. If my hands are far away/not directed at the model, the gestrues should not be able to activate. This arose when I had position the model, left it but the in moved as i went to take my headset off.
-- The bootstrapper did not run?
-## DRY RUN 3 Complete
-### Console Output
-```bash
-<color=#4CAF50><b>[INIT - Bootstrapper]</b></color> Awake phase complete. Awaiting external services.
-UnityEngine.Debug:Log (object)
-COMP3932.Core.Diagnostics:LogSystemInit (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:17)
-COMP3932.Core.SystemBootstrapper:Awake () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:21)
-
-<color=#4CAF50><b>[INIT - Bootstrapper]</b></color> Start phase initiated. Verifying hardware and frameworks...
-UnityEngine.Debug:Log (object)
-COMP3932.Core.Diagnostics:LogSystemInit (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:17)
-COMP3932.Core.SystemBootstrapper:Start () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:27)
-
-<color=#FF9800><b>[HARDWARE - Ultraleap SDK]</b></color> Provider located and active.
-UnityEngine.Debug:Log (object)
-COMP3932.Core.Diagnostics:LogHardwareEvent (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:23)
-COMP3932.Core.SystemBootstrapper:VerifyCriticalSystems () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:40)
-COMP3932.Core.SystemBootstrapper:Start () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:28)
-
-<color=#4CAF50><b>[INIT - Kinematic Framework]</b></color> Interaction Orchestrator linked.
-UnityEngine.Debug:Log (object)
-COMP3932.Core.Diagnostics:LogSystemInit (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:17)
-COMP3932.Core.SystemBootstrapper:VerifyCriticalSystems () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:51)
-COMP3932.Core.SystemBootstrapper:Start () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:28)
-
-<color=#4CAF50><b>[INIT - Bootstrapper]</b></color> ALL SYSTEMS VERIFIED. Ready for Clinical Trial.
-UnityEngine.Debug:Log (object)
-COMP3932.Core.Diagnostics:LogSystemInit (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:17)
-COMP3932.Core.SystemBootstrapper:VerifyCriticalSystems () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:70)
-COMP3932.Core.SystemBootstrapper:Start () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:28)
-
-<color=#4CAF50><b>[INIT - Ultraleap Provider]</b></color> Successfully linked to LeapServiceProvider.
-UnityEngine.Debug:Log (object)
-COMP3932.Core.Diagnostics:LogSystemInit (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:17)
-COMP3932.Kinematics.UltraleapInteractionProvider:Start () (at Assets/_Project/Scripts/Kinematics/UltraleapInteractionProvider.cs:28)
-
-<color=#FF9800><b>[HARDWARE - Leap Motion 2]</b></color> Data stream initialised.
-UnityEngine.Debug:Log (object)
-COMP3932.Core.Diagnostics:LogHardwareEvent (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:23)
-COMP3932.Kinematics.UltraleapInteractionProvider:Start () (at Assets/_Project/Scripts/Kinematics/UltraleapInteractionProvider.cs:29)
-
-<color=#00FFE8><b>[FSM]</b></color> State transitioned to: <b>TRANSFORMING</b>
-UnityEngine.Debug:Log (object)
-COMP3932.Kinematics.InteractionOrchestrator:ChangeState (COMP3932.Kinematics.InteractionState) (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:107)
-COMP3932.Kinematics.InteractionOrchestrator:ProcessStateMachine () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:59)
-COMP3932.Kinematics.InteractionOrchestrator:Update () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:41)
-
-<color=#00FFE8><b>[FSM]</b></color> State transitioned to: <b>CLUTCHED</b>
-UnityEngine.Debug:Log (object)
-COMP3932.Kinematics.InteractionOrchestrator:ChangeState (COMP3932.Kinematics.InteractionState) (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:107)
-COMP3932.Kinematics.InteractionOrchestrator:ProcessStateMachine () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:67)
-COMP3932.Kinematics.InteractionOrchestrator:Update () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:41)
-
-<color=#00FFE8><b>[FSM]</b></color> State transitioned to: <b>TRANSFORMING</b>
-UnityEngine.Debug:Log (object)
-COMP3932.Kinematics.InteractionOrchestrator:ChangeState (COMP3932.Kinematics.InteractionState) (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:107)
-COMP3932.Kinematics.InteractionOrchestrator:ProcessStateMachine () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:90)
-COMP3932.Kinematics.InteractionOrchestrator:Update () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:41)
-
-<color=#00FFE8><b>[FSM]</b></color> State transitioned to: <b>CLUTCHED</b>
-UnityEngine.Debug:Log (object)
-COMP3932.Kinematics.InteractionOrchestrator:ChangeState (COMP3932.Kinematics.InteractionState) (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:107)
-COMP3932.Kinematics.InteractionOrchestrator:ProcessStateMachine () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:67)
-COMP3932.Kinematics.InteractionOrchestrator:Update () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:41)
-
-<color=#00FFE8><b>[FSM]</b></color> State transitioned to: <b>IDLE</b>
-UnityEngine.Debug:Log (object)
-COMP3932.Kinematics.InteractionOrchestrator:ChangeState (COMP3932.Kinematics.InteractionState) (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:107)
-COMP3932.Kinematics.InteractionOrchestrator:ProcessStateMachine () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:84)
-COMP3932.Kinematics.InteractionOrchestrator:Update () (at Assets/_Project/Scripts/Kinematics/InteractionOrchestrator.cs:41)
-
-```
-
-### Questions & Thoughts
-- System Bootstrapper works
-- The interaction radius needs to be larger, maybe 0.5-0.6
-- Rotations seemed to be smoother when the hand was in a relaxed closed state rather than a tight fist.
-	- The middle, ring and pinky fingers were over halfway closed but not entirely -- is this ideal
-	- This hand shape was more responsive than when the fist is perfectly closed other than the thumb and index
-- Bug: Sometimes when the active hand would change e.g. I have let go of the model, in Idle state, and move my hand behind my back: If my other hand is visible to the leap motion controller 2 camera, it's within range and I am making a valid pinch gesture, then the model snaps to my position. This is unwanted behaviour.
-	- The liver should only be grabbable within range as well as when it is within view e.g. in front of me (the field of view box has to be tighter/more focused)
-	- When a new hand or a hand is simply the active hand, the liver should not jump to the position of that hand unless moved manually. 
-## DRY RUN 4 Complete
-### Console Output
-```bash
-<color=#4CAF50><b>[INIT - Bootstrapper]</b></color> Awake phase complete. Awaiting external services.
-UnityEngine.Debug:Log (object)
-COMP3932.Core.Diagnostics:LogSystemInit (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:17)
-COMP3932.Core.SystemBootstrapper:Awake () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:21)
-
-<color=#4CAF50><b>[INIT - Bootstrapper]</b></color> Start phase initiated. Verifying hardware and frameworks...
-UnityEngine.Debug:Log (object)
-COMP3932.Core.Diagnostics:LogSystemInit (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:17)
-COMP3932.Core.SystemBootstrapper:Start () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:27)
-
-<color=#FF9800><b>[HARDWARE - Ultraleap SDK]</b></color> Provider located and active.
-UnityEngine.Debug:Log (object)
-COMP3932.Core.Diagnostics:LogHardwareEvent (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:23)
-COMP3932.Core.SystemBootstrapper:VerifyCriticalSystems () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:40)
-COMP3932.Core.SystemBootstrapper:Start () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:28)
-
-<color=#4CAF50><b>[INIT - Kinematic Framework]</b></color> Interaction Orchestrator linked.
-UnityEngine.Debug:Log (object)
-COMP3932.Core.Diagnostics:LogSystemInit (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:17)
-COMP3932.Core.SystemBootstrapper:VerifyCriticalSystems () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:51)
-COMP3932.Core.SystemBootstrapper:Start () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:28)
-
-<color=#4CAF50><b>[INIT - Bootstrapper]</b></color> ALL SYSTEMS VERIFIED. Ready for Clinical Trial.
-UnityEngine.Debug:Log (object)
-COMP3932.Core.Diagnostics:LogSystemInit (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:17)
-COMP3932.Core.SystemBootstrapper:VerifyCriticalSystems () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:70)
-COMP3932.Core.SystemBootstrapper:Start () (at Assets/_Project/Scripts/Core/SystemBootstrapper.cs:28)
-
-<color=#4CAF50><b>[INIT - Ultraleap Provider]</b></color> Successfully linked to LeapServiceProvider.
-UnityEngine.Debug:Log (object)
-COMP3932.Core.Diagnostics:LogSystemInit (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:17)
-COMP3932.Kinematics.UltraleapInteractionProvider:Start () (at Assets/_Project/Scripts/Kinematics/UltraleapInteractionProvider.cs:28)
-
-<color=#FF9800><b>[HARDWARE - Leap Motion 2]</b></color> Data stream initialised.
-UnityEngine.Debug:Log (object)
-COMP3932.Core.Diagnostics:LogHardwareEvent (string,string) (at Assets/_Project/Scripts/Core/Diagnostics.cs:23)
-COMP3932.Kinematics.UltraleapInteractionProvider:Start () (at Assets/_Project/Scripts/Kinematics/UltraleapInteractionProvider.cs:29)
-
-```
-### Questions & Thoughts
-For this double pinch dry run, a few things happened.
-- To start, I seemed to spawn in my operating table/closer to it but that's a minor issue.
-- However, as I went to grab the liver, i ended up scaling it so much that it cast a shadow inside the room and contorted to a stretched out set of shreds.
-	- We should revisit the scaling. The liver also needs to be scaled with constrained proportions (I have this setup for the gameobject)
-	- Here is the scale: Vector3(0.00100000005,0.00100000005,0.00100000005)
-# 11/04/2026
-## DRY RUN 5 Complete
-### Console Output
-```bash
-Not an issue
-
-```
-### Questions & Thoughts
-For this double pinch dry run, a few things happened:
-To start, I spawned in the correct position and height etc, consider that a bug fixed entirely
-
-When it came to scaling, the scaling worked well for the first time.
-- Both the Upper and Lower bounds were respected but a few things need addressing:
-- My secondaryHand comes into frame and is successfully recognised (Ready for the bimanual gesture(s) Scaling).
-  As I pinch with the secondary, the scaling state is properly transitioned to and I start scaling. 
-  However, the exact moment I start my scale, the primaryHand that first pinched to grab the model still behaves as a pinch: the model moves as I scale. Any movement from the primaryHand whilst scaling affects the position of the model.
-  This is unwanted. The model should stay fixed and scale in that fixed position until the scale state is left.
-- Furthermore, the scaling uses RigidBody Automatic Center of Mass to interact with the model I think.
-	- If that is the case then, when the model is very big or very small (even within strict bounds), then the model's center could end up out of reach.
-	- How do we fix this?
-- COMMIT BUG/STATE BEFORE THIS **NEXT FIX**
-![[]]
-
 # Milestone 4: Telemetry Pipeline & Trial Orchestration
 ## Metrics to Collect
-## Improved Metrics Framework for 6-DoF Alignment Tasks
-
 ### Metric 1: Task Completion Time (TCT)
 **Keep ✓** – This is a standard metric in XR evaluation literature 
 
-| Aspect | Specification |
-|--------|---------------|
-| **Definition** | Total time from first grab/initiation to successful alignment |
-| **Implementation** | Use `Time.realtimeSinceStartup` (Unity) or `Stopwatch` for high precision |
-| **Why it matters** | Direct measure of efficiency; higher TCT suggests cognitive or motor difficulties |
-| **Literature** | Murauer et al. (2022) used TCT as primary effectiveness metric in AR assembly tasks  |
+| Aspect             | Specification                                                                               |
+| ------------------ | ------------------------------------------------------------------------------------------- |
+| **Definition**     | Total time from first grab/initiation to successful alignment                               |
+| **Implementation** | Use `Time.realtimeSinceStartup` (Unity) or `Stopwatch` for high precision                   |
+| **Why it matters** | Direct measure of efficiency; higher TCT suggests cognitive or motor difficulties           |
+| **Literature**     | [TODO:] Murauer et al. (2022) used TCT as primary effectiveness metric in AR assembly tasks |
 
 ```csharp
 private float taskStartTime;
@@ -1575,20 +1343,13 @@ public void CompleteTask() => taskCompletionTime = Time.realtimeSinceStartup - t
 ### Metric 2: Angular Offset (Rotational Error)
 **Keep ✓** – But implement with Quaternion.Angle()
 
-| Aspect | Specification |
-|--------|---------------|
-| **Definition** | Shortest angular distance between current rotation and target rotation |
-| **Implementation** | `Quaternion.Angle(currentRotation, targetRotation)` |
-| **Why Quaternions?** | Euler angles suffer from gimbal lock (loss of rotational degree of freedom when axes align). Quaternions provide continuous, singularity-free rotation representation  |
-| **Literature** | Fang et al. (1998) established unit quaternions as the mathematically correct method for representing and interpolating 3D rotations in VR systems |
-
-```csharp
-public float GetAngularOffset() => Quaternion.Angle(liver.rotation, target.rotation);
-```
-
-**Success threshold:** `< 5 degrees`
+| Aspect               | Specification                                                                                                                                                         |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Definition**       | Shortest angular distance between current rotation and target rotation                                                                                                |
+| **Implementation**   | `Quaternion.Angle(currentRotation, targetRotation)`                                                                                                                   |
+| **Why Quaternions?** | Euler angles suffer from gimbal lock (loss of rotational degree of freedom when axes align). Quaternions provide continuous, singularity-free rotation representation |
+| **Literature**       | [TODO:] Fang et al. (1998) established unit quaternions as the mathematically correct method for representing and interpolating 3D rotations in VR systems            |
 ### Metric 3: Translational Error (Positional Offset)
-**Keep ✓**
 
 | Aspect | Specification |
 |--------|---------------|
@@ -1596,12 +1357,7 @@ public float GetAngularOffset() => Quaternion.Angle(liver.rotation, target.rotat
 | **Implementation** | `Vector3.Distance(currentPosition, targetPosition)` |
 | **Why it matters** | Measures spatial precision of placement |
 | **Success threshold** | `< 0.02 meters` (2cm) |
-
-```csharp
-public float GetPositionalOffset() => Vector3.Distance(liver.position, target.position);
-```
 ### Metric 4: Path Traveled (Translational Inefficiency)
-**Improve ✓** – Add efficiency ratio
 
 | Aspect | Specification |
 |--------|---------------|
@@ -1609,20 +1365,7 @@ public float GetPositionalOffset() => Vector3.Distance(liver.position, target.po
 | **Implementation** | Accumulate `Vector3.Distance(prevPos, currentPos)` each frame; divide by straight-line distance |
 | **Why it matters** | High inefficiency ratio (>2.0) indicates confusion, hesitation, or poor control mapping |
 | **Interpretation** | Ratio 1.0 = perfect efficiency; Ratio 3.0 = user moved model 3x farther than necessary |
-
-```csharp
-private float actualPathLength = 0f;
-private Vector3 lastPosition;
-
-void Update() {
-    actualPathLength += Vector3.Distance(lastPosition, liver.position);
-    lastPosition = liver.position;
-}
-
-public float GetInefficiencyRatio() => actualPathLength / Vector3.Distance(startPos, targetPos);
-```
 ### Metric 5: Rotational Inefficiency (Total Rotation Applied)
-**Add this metric** – Missing from your current list
 
 | Aspect | Specification |
 |--------|---------------|
@@ -1630,20 +1373,7 @@ public float GetInefficiencyRatio() => actualPathLength / Vector3.Distance(start
 | **Implementation** | Accumulate `Quaternion.Angle(prevRot, currentRot)` each frame; divide by minimum required rotation |
 | **Why it matters** | Measures whether user understood correct rotation direction or "spun" the model excessively |
 | **Interpretation** | High inefficiency suggests poor mental mapping of rotation controls |
-
-```csharp
-private float totalRotationApplied = 0f;
-private Quaternion lastRotation;
-
-void Update() {
-    totalRotationApplied += Quaternion.Angle(lastRotation, liver.rotation);
-    lastRotation = liver.rotation;
-}
-
-public float GetRotationInefficiency() => totalRotationApplied / minimumRequiredRotation;
-```
 ### Metric 6: Clutch Count (Grab/Release Frequency)
-**Keep ✓**
 
 | Aspect | Specification |
 |--------|---------------|
@@ -1651,20 +1381,7 @@ public float GetRotationInefficiency() => totalRotationApplied / minimumRequired
 | **Implementation** | Increment counter each time `IsInteractionTriggered()` changes from true to false |
 | **Why it matters** | High clutch count indicates: fatigue ("Gorilla Arm" syndrome), poor threshold tuning, or gesture awkwardness  |
 | **Literature** | Nyyssönen et al. (2024) noted that hand-tracking interfaces can cause strain; clutch count quantifies this ergonomic cost |
-
-```csharp
-private int clutchCount = 0;
-private bool wasGrabbing = false;
-
-void Update() {
-    bool isGrabbing = activeProvider.IsInteractionTriggered();
-    if (wasGrabbing && !isGrabbing) clutchCount++;
-    wasGrabbing = isGrabbing;
-}
-```
-
 ### Metric 7: Gesture Precision (Pinch Strength Variance)
-**Keep but rename and clarify** – Currently vague
 
 | Aspect | Specification |
 |--------|---------------|
@@ -1672,21 +1389,8 @@ void Update() {
 | **Implementation** | Calculate standard deviation of `PinchStrength` values while grabbing |
 | **Why it matters** | High variance suggests user struggles to maintain threshold, indicating poor ergonomics or threshold mistuning |
 | **Threshold** | Your current threshold is `0.85f` (85% of max pinch) |
-
-```csharp
-private List<float> pinchStrengths = new List<float>();
-
-void WhileGrabbing() {
-    pinchStrengths.Add(activeHand.PinchStrength);
-}
-
-public float GetPinchVariance() => CalculateStandardDeviation(pinchStrengths);
-```
-
-## Gesture-to-Action Mapping Framework
-
+## Gesture-to-Action Mapping Framework [TODO:]
 Based on literature , here are evidence-based gesture mappings:
-
 ### Action Taxonomy
 
 | Action | Controller Mapping | Hand Gesture Mapping | Mono/Bi | Literature Justification |
@@ -1696,7 +1400,7 @@ Based on literature , here are evidence-based gesture mappings:
 | **Rotate (Yaw/Pitch/Roll)** | Controller rotation while gripping | Hand rotation while pinching | Mono | Wrist rotation is natural for orientation tasks |
 | **Scale (Zoom)** | Thumbstick Y-axis (while gripping) | Bimanual pinch distance delta | Bi | Two-hand scaling provides proportional control  |
 | **Reset View** | Menu button | Two-handed "expand" gesture | Bi | Infrequent action, distinct gesture prevents accidents |
-## Bimanual vs. Unimanual Decision
+### Bimanual vs. Unimanual Decision
 
 | Action | Recommendation | Justification |
 |--------|----------------|----------------|
@@ -1704,7 +1408,7 @@ Based on literature , here are evidence-based gesture mappings:
 | **Scaling** | Bimanual | Provides intuitive proportional control; distance between hands directly maps to scale |
 
 > "The unimanual approach attempts to provide a higher degree of flexibility, while the bimanual approach seeks to provide more control over the interaction" 
-## Statistical Validation Plan
+### Statistical Validation Plan
 
 | Hypothesis | Test | Threshold |
 |------------|------|-----------|
@@ -1713,69 +1417,18 @@ Based on literature , here are evidence-based gesture mappings:
 | Hand gestures reduce inefficiency ratio | Paired t-test | p < 0.05 |
 
 **Literature precedent:** Murauer et al. used one-way repeated measures ANOVA with Bonferroni correction for post-hoc analysis 
+### Summary Table: Metrics to Keep
 
-## Summary Table: Metrics to Keep
-
-| Metric                             | Keep?                       | Priority | Implementation Complexity    |
-| ---------------------------------- | --------------------------- | -------- | ---------------------------- |
-| Task Completion Time               | ✓ Keep                      | High     | Low                          |
-| Angular Offset (Quaternion)        | ✓ Keep                      | High     | Low                          |
-| Translational Error                | ✓ Keep                      | High     | Low                          |
-| Translational Inefficiency         | ✓ Improve                   | Medium   | Medium                       |
-| Rotational Inefficiency            | ✚ Add                       | Medium   | Medium                       |
-| Clutch Count                       | ✓ Keep                      | High     | Low                          |
-| Gesture Precision (Pinch Variance) | ✓ Keep                      | Medium   | Medium                       |
-## Tickets
-## [FEAT] [TELEMETRY] Performance Metrics Engine #14
-**Labels:** `feat`, `telemetry`
-### User Story
-As a researcher, I need a high-frequency metrics system that captures the hard data of user performance to provide objective evidence for my project.
-### Implementation Details
-* **Frequency:** Standardise polling at **20Hz** (or 50Hz if the GPU budget allows) via `FixedUpdate`.
-* **State-Aware Logging:** The engine must query the `InteractionOrchestrator` to log metrics relative to the current state (Idle, Transforming, etc.).
-* **Advanced Metrics Math:**
-    * **Euclidean/Quaternion Error:** Real-time distance and angular delta between Active and Ghost models.
-    * **Transform Efficiency:** Cumulative sum of `Vector3.Distance` and `Quaternion.Angle` movements.
-    * **Gesture Precision:** Log the variance of `PinchStrength`. High variance indicates "struggle" to maintain the grab.
-    * **Focus Stability:** Integrate Varjo Gaze Data. Calculate the percentage of time the user's focus is on the `ObjectBounds` vs. their own hands.
-### Acceptance Criteria
-- [ ] Debug console displays real-time Error and Precision values.
-- [ ] Gaze stability correctly identifies when the user is "looking at the task."
-### Sub-issues
-* **Math Implementation:** Euclidean and Angular Error functions.
-* **Gaze Integration:** Map Varjo Gaze tracking to focused object IDs.
-* **Precision Tracking:** Logic to monitor Pinch Strength stability over time.
-## [FEAT] [EXPERIMENT] Automated Trial Orchestrator & Scene Manager #15
-**Labels:** `feat`, `experiment`
-### User Story
-As an experimenter, I need the system to automatically handle scene resets, task sequencing, and hardware condition switching to eliminate human error during the study.
-### Implementation Details
-* **Automated Task Sequence:** Implement a state-based flow for Tasks 1 (Translate), 2 (Rotate), 3 (6-DoF), and 4 (Full Scale).
-* **Auto-Resets:** Upon task completion, the script must reset the user's `XR Origin` and the Livers to the specific "Task Start" transforms.
-* **Dynamic Loading:** Create an interactive "Admin Mode" where pressing a button on the keyboard/controller switches between **Condition A (Varjo)** and **Condition B (Hands)**.
-* **Spatial Dwell Validation:** Implement a **2.0s Timer**. The task only flags as "Complete" if Euclidean Error is $< 0.05$ and Angular Error is $< 5^\circ$ for the duration.
-### Acceptance Criteria
-- [ ] System successfully resets the environment between Task 1 and Task 2.
-- [ ] "Fly-by" completions are impossible due to the 2.0s dwell timer.
-- [ ] Condition switching (Hand vs. Controller) updates the `ActiveProvider` in the Orchestrator instantly.
-### Sub-issues
-* **Task State Machine:** Logic for moving from Task 1 through Task 4.
-* **Environment Reset Engine:** Resetting object positions and user camera.
-* **Provider Auto-Switcher:** Key-bind/Button-bind logic for Condition A/B toggle.
-## [TELEMETRY] [CONFIG] Persistent CSV Export & Data Pipeline #17
-**Labels:** `telemetry`, `config`
-### User Story
-As a researcher, I need all trial data saved in a standardised format for immediate import into statistical software (Excel).
-### Implementation Details
-* **Efficient Buffering:** Store telemetry frames in memory during the trial and write to disk only during the "Scene Reset" phase to prevent frame-drops.
-* **Standardised Header:** Ensure CSV includes `Timestamp`, `ConditionID`, `TaskID`, `EuclideanError`, `AngularError`, `PinchStability`, and `GazeFocus`.
-* **Unique ID Generation:** Generate a unique `ParticipantID` for each session to keep data files organised.
-### Acceptance Criteria
-- [ ] A valid `.csv` file is generated in the `/ProjectData/` directory after every session.
-- [ ] No data corruption occurs during hardware condition switches.
-### Sub-issues
-* **CSV Writer Logic:** Implement the `StreamWriter` logic with structured headers.
-* **Data Persistence Guard:** Logic to ensure files aren't overwritten accidentally.
+| Metric                             | Priority | Implementation Complexity |
+| ---------------------------------- | -------- | ------------------------- |
+| Task Completion Time               | High     | Low                       |
+| Angular Offset (Quaternion)        | High     | Low                       |
+| Translational Error                | High     | Low                       |
+| Translational Inefficiency         | Medium   | Medium                    |
+| Rotational Inefficiency            | Medium   | Medium                    |
+| Clutch Count                       | High     | Low                       |
+| Gesture Precision (Pinch Variance) | Medium   | Medium                    |
+## Tickets (Talk about how i decided this was out of scope) [TODO:]
 ## [EXPERIMENT] [Chore] World-Space Instructional HUD #18
 **Labels:** `feat`, `experiment`, `ui`
 ### User Story
@@ -1790,14 +1443,3 @@ As a participant, I need clear, in-headset instructions explaining each task so 
 ### Sub-issues
 * **UI Content Mapping:** Writing/Assigning text for Tasks 1–4.
 * **Success Progress Bar:** Visualising the 2.0s dwell completion.
-## [RELEASE] [DOCS] v1.0 Final System Release #60
-**Labels:** `release`, `docs`
-### User Story
-As the developer, I need to finalise the project for submission, ensuring the examiner can build and run the experiment.
-### Implementation Details
-* **QA Audit:** Final pass on all 4 tasks for both conditions.
-* **Documentation:** Update README with a Guide (How to start the experiment, where the CSVs are saved).
-* **Tagging:** Create the `v1.0-experiment-ready` release in GitHub.
-### Acceptance Criteria
-- [ ] System builds to without errors.
-- [ ] README is updated with clear installation and hardware requirements.
