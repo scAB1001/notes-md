@@ -984,7 +984,7 @@ By owning the limitation and explaining the hardware physics behind *why* the co
 
 Ok, I want to pause the completion of Milestone 4, the GitHub and all coding.
 
-To-date, I have conducted 5 successful user experiments; users went through the following:
+To-date, I have conducted 5 successful user experiments (soon to be 10-20); users went through the following:
 - All four DoF alignment tasks (pure translation (3-DoF), pure rotation (3-DoF), translation + rotation (6-DoF) and translation + rotation + scaling)
 - After each task, I asked them questions from the RTLX:
   - Six questions total: 1 to 20 scale. Five of the questions treated 1 as low and 20 as high but question 4 treats 1 as perfect and 20 as failure.
@@ -1010,7 +1010,7 @@ The total flow of this experiment was:
     - Begin task 1 & RTLX, task 2 & RTLX, task 3 & RTLX, task 4 & RTLX & SUS, take off headset
     - Open feedback and finish.
 
-#### Results Example
+#### Implicit Results Example
 
 Alongside this explicit data, we also have implicit data recorded. An example of the data (line 0 and 1) from a user's task 3 (6-DoF + scaling):
 Time(s),State,PosError(m),RotError(deg),PathInefficiency,RotInefficiency,ClutchCount,RawGrip,GripVariance
