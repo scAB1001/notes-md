@@ -609,44 +609,8 @@ The SUS score is out of 100, but it is **not** a percentage. Based on decades of
 
 **How to write this up:**
 > *"The hand-tracking interface achieved a mean SUS score of 75, placing it above the industry-standard baseline of 68 and indicating 'Good' usability. While the system scored highly on intuitive integration (Q3, Q7), individual item analysis revealed that Q8 ('I found the system very tiring to use') acted as a primary detractor, further corroborating the physical demand spikes observed in the RTLX telemetry."*
-# 05/04/2026
-## Developing the Gesture code [TO-D0:]
-- Design and map out gestures
-	- Hand gestures
-	- VR controller
-- Create logical flow diagram
-- Create code UML OOP diagram
-- Repo
-
-**Actions**
-- [ ] Grab
-- [ ] Zoom 
-- [ ] Rotate
-
-**Gestures**
-- [ ] Pinch with one hand using the thumb and index finger. 
-	- [ ] The user can change the X,Y,Z postion of the grabbed object.
-	- [ ] To undo this action and revert back to a non-pinch state, the thumb and index finger must be noticeably apart. 
-	- [ ] I'm coining this action and transition of state to non-state a 'breaking' of the gesture. A gesture can break, be broken, etc.
-- [ ] Pinch with both hands using the thumbs and index fingers. 
-	- [ ] The pinches do not have to be simultaneous, so long as both pinch states/hands are active. 
-	- [ ] If the double pinch state is active and one of the pinches gets broken e.g., is no longer in a pinch gesture, the state immediately behaves as the pinch and grab state.
-- [ ] Pinch exactly the same as the Grab gesture and rotate the wrist in any X,Y,Z axis to rotate the model.
-	- [ ] The wrist is unable to rotate the full 360 degrees of any axis. To fix this, when the user has rotated the model, the user can simply break the gesture, unwind their wrist and repeat the gesture.
-
-**Repo**
-- Plan the GH repo so that this is broken into 1-4 sprints
-	- Setup of Devices, Mounting the Ultraleap Motion 2 Controller to the Varjo XR-4 Headset, configuring HDRP pipeline, using tutorial scenes do verify both hand and eye tracking.
-	- Implement the experiment unity scene, materials, objects, basic hands, light, shadows, volumes, service providers, obj model files, hologram etc.
-		- Basic scripts are also included e.g. hand tracking, active states e.g. GRAB
-	- Implement hand gestures and VR Controller gestures
-	- Implement and finalise the background telemtry scripts
-
-**Questions**
-- The rotating about multiple axis will be difficult, is this possible?
-- The user can move around the room slightly in the physical world to move in the virtual scene, this acts as pan and move gestures, correct?
-- Is there anything missing from my Repo, what's expected for a professional standard?
-### Results
+##  Planning the Repo
+### FAQs [TODO:]
 #### 1. Answering Your Questions
 **"The rotating about multiple axis will be difficult, is this possible?"**
 Yes, it is entirely possible and mathematically straightforward in Unity, but it is *anatomically* difficult for the user. 
@@ -655,20 +619,8 @@ Yes, it is entirely possible and mathematically straightforward in Unity, but it
 
 > **"The user can move around the room slightly in the physical world to move in the virtual scene, this acts as pan and move gestures, correct?"**
 > Technically, no. Moving physically is **Head Tracking (6-DoF Locomotion)**, not a gesture. However, functionally, it does change the user's perspective (panning/dollying) relative to the 3D model. You should explicitly state in your report that the Varjo XR-4 handles user locomotion natively via inside-out tracking, leaving the gestures strictly for object manipulation. 
-
----
-#### 2. Gesture Mapping (Condition B vs. Condition A)
-Here is the finalized 1:1 mapping for your comparative study. (Note: "Zoom" in 3D object manipulation is technically defined as **Scaling**).
-
-| Action               | Control Method/Condition B: Bare Hands (Ultraleap)                                                                                                                                                                                                | Control Method/Condition A: VR Controller (Varjo)                                                                                                  |
-| :------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Grab / Translate** | **Mono-Pinch:** Single hand pinch (thumb + index). Liver translates 1:1 with hand movement.                                                                                                                                                       | **Grip Hold:** Press and hold the side grip button. Liver translates 1:1 with controller movement.                                                 |
-| **Rotate**           | **Mono-Pinch + Wrist Pivot:** Same pinch as grab, but wrist rotation applies delta Quaternions to the liver. User releases pinch to "clutch" and reset wrist.                                                                                     | **Grip Hold + Wrist Pivot:** Press and hold side grip, rotate physical controller. User releases grip to clutch.                                   |
-| **Scale ("Zoom")**   | **Bimanual Pinch:** Both hands pinch. The distance delta between the left and right pinch centers dictates uniform XYZ scaling. Releasing one hand reverts to Grab/Rotate. Cannot change model position or orientation (rotation) whilst scaling. | **Grip Hold + Thumbstick:** Hold grip button. Push thumbstick Forward to scale up, pull Backward to scale down. *(Highlights mapping dissonance).* |
-
----
-#### 3. Object-Oriented Architecture (UML Logic)
-To keep your code decoupled and professional, your system should utilize a **State Machine** for the gestures. Here is the logical class structure for your UML diagram:
+#### 3. Object-Oriented Architecture (UML Logic)  [TODO:]
+To keep your code decoupled and professional, your system should use a **State Machine** for the gestures. Here is the logical class structure for your UML diagram:
 
 * **`ClinicalTrialManager` (The Orchestrator)**
     * *Properties:* `CurrentTaskIndex`, `IsTrialActive`, `TargetDistanceThreshold`, `TargetAngleThreshold`.
@@ -682,31 +634,8 @@ To keep your code decoupled and professional, your system should utilize a **Sta
 * **`UltraleapKinematicManipulator` (The Physics Mover)**
     * *Properties:* `TargetLiverTransform`, `ReferenceHandTransform`.
     * *Methods:* `TranslateObject(Vector3 delta)`, `RotateObject(Quaternion delta)`, `ScaleObject(float distanceDelta)`.
-
----
-#### 4. Sprint Plan Refinement
-Here is your repository plan, injected with professional software engineering standards:
-
-* **Sprint 1: Architecture & Tracking Validation**
-    * Initialize Git, `.gitignore` (Unity), and Git LFS.
-    * Configure Unity 2021.3 LTS, HDRP, and strictly set Varjo offsets to `0,0,0`.
-    * Verify raw tracking streams for both Varjo standard controllers and the Ultraleap module.
-* **Sprint 2: The Clinical Void & Assets**
-    * Import `.obj` liver models and apply clinical HDRP materials.
-    * Set up the minimalist environment (lighting, shadows, global volume).
-    * Create the "Ghost" target hologram and position it.
-* **Sprint 3: Interaction & State Machines (The Core)**
-    * Code the `GestureStateMachine` for both Hand and Controller inputs.
-    * Implement Grab, Rotate, and Bimanual Scale (with "clutch/break" logic).
-    * Implement the 0.25-second coyote-time for occlusion handling.
-* **Sprint 4: Telemetry & Trial Orchestration**
-    * Code `AlignmentMetricsLogger` to write Euclidean and Quaternion errors to `.csv`.
-    * Wire the `ClinicalTrialManager` UI to guide the user through the 4 tasks.
-    * QA testing, bug fixing, and final `v1.0` GitHub Release tag.
-
-Shall we begin drafting the C# code for the `GestureStateMachine` to solidify how we will mathematically detect the pinch states and trigger your "breaking" mechanic?
-##  Planning the Repo
-#### 1. Kanban Configuration: Sprints, WIP Limits, and Granularity
+## Project Management
+### Kanban Configuration: Sprints, WIP Limits, and Granularity
 A Kanban board is not a graveyard for vague ideas; it is a living, breathing engine that tracks progress.
 #### Adding Backlog Items
 **Should I add all backlog items for each sprint prior to being in the actual sprint phase itself?**
@@ -731,9 +660,24 @@ Every ticket (GitHub Issue) must contain:
     * State machine logs "Pinch Entered" to console.
     * State machine logs "Pinch Exited" to console.
     * Hysteresis loop prevents flickering between states.
-
----
-#### 2. The Development Roadmap (Epics & Milestones)
+### Sprint Plan
+* **Sprint 1: Architecture & Tracking Validation**
+    * Initialize Git, `.gitignore` (Unity), and Git LFS.
+    * Configure Unity 2021.3 LTS, HDRP, and strictly set Varjo offsets to `0,0,0`.
+    * Verify raw tracking streams for both Varjo standard controllers and the Ultraleap module.
+* **Sprint 2: The Clinical Void & Assets**
+    * Import `.obj` liver models and apply clinical HDRP materials.
+    * Set up the minimalist environment (lighting, shadows, global volume).
+    * Create the "Ghost" target hologram and position it.
+* **Sprint 3: Interaction & State Machines (The Core)**
+    * Code the `GestureStateMachine` for both Hand and Controller inputs.
+    * Implement Grab, Rotate, and Bimanual Scale (with "clutch/break" logic).
+    * Implement the 0.25-second coyote-time for occlusion handling.
+* **Sprint 4: Telemetry & Trial Orchestration**
+    * Code `AlignmentMetricsLogger` to write Euclidean and Quaternion errors to `.csv`.
+    * Wire the `ClinicalTrialManager` UI to guide the user through the 4 tasks.
+    * QA testing, bug fixing, and final `v1.0` GitHub Release tag.
+#### The Development Roadmap (Epics & Milestones)
 Your methodology evaluation requires a macro-level Roadmap. In GitHub Projects, you can view your tickets as a Roadmap (Gantt chart) by grouping them into Epics/Milestones.
 
 Here is how you should structure your milestones in GitHub:
@@ -745,9 +689,7 @@ Here is how you should structure your milestones in GitHub:
     * *Goal:* Implementation of bimanual scaling and completion of the Varjo Controller 6-DoF baseline system (Condition A).
 * **Milestone 4: Telemetry & Orchestration (Weeks 7-8)**
     * *Goal:* `ClinicalTrialManager` sequences tasks 1-4 automatically, and `AlignmentMetricsLogger` successfully outputs Euclidean/Quaternion error to a `.csv` file.
-
----
-#### 3. Git Workflow: Branching and Committing
+### Git Workflow: Branching and Committing
 You want to stick to Conventional Commits and Feature Branching. This is exactly what examiners want to see.
 #### The Branching Strategy
 Never commit directly to `main`. When you pick up a ticket (e.g., Issue #12: Implement Dwell Timer), you branch off `main`:
@@ -766,160 +708,20 @@ When you commit work on that branch, use Conventional Commits:
 * **Example 1:** `feat(telemetry): implement quaternion angle tracking`
 * **Example 2:** `fix(rendering): disable auto-baking to fix HDRP pipeline errors`
 * **Example 3:** `docs(readme): add hardware prerequisites`
-#### The Pull Request (PR)
-When the branch is done, open a PR against `main`. The PR title must match the convention: `feat: implement dwell timer`. Include `Closes #12` in the PR description so GitHub automatically closes the issue when merged.
-
----
-#### 4. Version Control and Unity Integration
-**"Should I connect this repo with my actual unity scene as to ensure version control or manually add scripts?"**
-
-**You MUST connect the repository to your actual Unity project folder.** Manually dragging scripts into GitHub via the web interface completely defeats the purpose of version control and will result in a heavy penalty on your methodology mark. Version control tracks the evolution of your *entire* project, including scene files, material properties, and project settings.
-
+#### Version Control and Unity Integration
 **"I am not using unity cloud nor unity version control, why did I choose this?"**
-
 This is a fantastic point to make in your dissertation's methodology chapter. Here is exactly how you justify it:
 
+ [TODO:]
 > *"For version control and source code management, industry-standard Git (hosted via GitHub) was selected over Unity Version Control (Plastic SCM) or Unity Cloud Build. This decision was driven by the project's strict hardware dependencies. The system requires the Varjo XR-4 proprietary runtime and embedded Ultraleap drivers to function. Cloud-based compilation platforms cannot validate these hardware-level integrations, rendering remote builds futile. Furthermore, standard Git coupled with Git Large File Storage (LFS) provided superior, granular control over branch protection and conventional commit histories, which was critical for maintaining the integrity of the C# telemetry algorithms throughout the iterative development cycles."*
-
-**"How else will I track my projects progress?"**
 
 You track your progress through the irrefutable history of your GitHub repository:
 1.  **The Kanban Board:** Shows velocity and task completion.
 2.  **The Git Commit History:** Shows a logical, chronological evolution of the codebase.
 3.  **Pull Requests:** Shows that code was reviewed (even by yourself) before being merged into production.
 4.  **GitHub Releases (Tags):** E.g., tagging `v1.0-experiment-ready` proves you hit your final milestone.
-## Tickets [NEW]
-### **Sprint 1: Architecture & Tracking (Foundation)**
-*Goal: Establish a stable, version-controlled baseline for the project[cite: 10].*
-
-**Ticket 1: `[CHORE, CONFIG, DOCS] Setup Repository and LFS Environment`**
-* **User Story:** As a developer, I need a version-controlled environment that handles large medical assets without repository bloat[cite: 10].
-* **Details:** Initialize `.gitignore` for Unity. Configure `.gitattributes` to track `.obj` and `.asset` files via Git LFS. Establish branch protection on `main`.
-* **Acceptance Criteria:**
-    * [ ] Library/Temp folders ignored by Git.
-    * [ ] LFS successfully tracks medical mesh assets.
-
-**Ticket 2: `[CONFIG] Initialize Unity HDRP and Varjo VR Settings`**
-* **User Story:** As a developer, I need the rendering pipeline optimized for the Varjo XR-4 to ensure clinical visual fidelity and high frame rates[cite: 10].
-* **Details:** Configure HDRP for VR-only (Opaque mode). Disable Mixed Reality pass-through to maximize GPU performance for high-fidelity anatomical rendering. Hardcode XR Rig offset to `0,0,0`.
-* **Acceptance Criteria:**
-    * [ ] Varjo Plugin initialized in VR-only mode.
-    * [ ] Stable 90+ FPS in the empty HDRP scene.
-
-**Ticket 3: `[CONFIG] OpenUPM Dependency Resolution`**
-* **User Story:** As a developer, I need to manage third-party SDKs cleanly via a package manager rather than manual imports[cite: 10].
-* **Details:** Configure `manifest.json` with the OpenUPM registry for `com.ultraleap.tracking`.
-* **Acceptance Criteria:**
-    * [ ] Ultraleap SDK resolved via Unity Package Manager.
-
-**Ticket 4: `[FEAT, CONFIG] Validate Multi-Device Tracking Streams`**
-* **User Story:** As an experimenter, I need to verify that both hand-tracking and physical controllers are communicating with the VR engine.
-* **Details:** Create a hardware validation scene. Verify raw skeletal data from the Ultraleap 2 and 6-DoF data from Varjo controllers.
-* **Acceptance Criteria:**
-    * [ ] Real-time hand joint data visible in editor.
-    * [ ] Controller button inputs successfully logged to console.
-
----
-### **Sprint 2: The Clinical Void & Assets (Environment)**
-*Goal: Construct a distraction-free environment and prepare medical assets for evaluation[cite: 10].*
-
-**Ticket 5: `[CONFIG, TELEMETRY] Medical Asset Scaling and Ingestion`**
-* **User Story:** As a researcher, I need the anatomical models scaled precisely to 1:1 real-world proportions to ensure telemetry accuracy[cite: 10].
-* **Details:** Import liver `.obj` models. Enforce 1 Unit = 1 Meter scale. Verify mesh pivot points are centered for accurate rotational telemetry.
-* **Acceptance Criteria:**
-    * [ ] Liver model scale verified against real-world human proportions.
-
-**Ticket 6: `[FIX, CONFIG] Hand Shader Pipeline Restoration`**
-* **User Story:** As a user, I need virtual hands to render correctly in the HDRP pipeline to maintain sense of embodiment.
-* **Details:** Resolve "pink shader" bugs by applying a custom HDRP material (`Mat_ClinicalHands`) to the skeletal hand meshes.
-* **Acceptance Criteria:**
-    * [ ] Hand meshes render with zero shader errors in VR.
-
-**Ticket 7: `[FEAT, EXPERIMENT] Build Immersive Clinical Void Environment`**
-* **User Story:** As an experimenter, I need a minimalist environment to protect the user's cognitive load during testing[cite: 1, 3].
-* **Details:** Create a dark, low-distraction "shoebox" room. Configure non-shadow-casting fill lights to provide clear anatomical visibility without visual noise.
-* **Acceptance Criteria:**
-    * [ ] Environment is distraction-free and performs at high FPS.
-
-**Ticket 8: `[FEAT, EXPERIMENT] Holographic Target Engineering`**
-* **User Story:** As a user, I need a clear, non-colliding target to dock the anatomical model into.
-* **Details:** Create a translucent "Ghost Liver" prefab using an HDRP transparency shader (`Mat_ClinicalHologram`).
-* **Acceptance Criteria:**
-    * [ ] Target is clearly visible and does not interact with physics.
-
----
-### **Sprint 3: Interaction & State Machines (The Core)**
-*Goal: Develop the kinematic interaction logic based on HCI research[cite: 3].*
-
-**Ticket 9: `[FEAT, RESEARCH] Implement Hysteresis Pinch State Machine`**
-* **User Story:** As a user, I need a stable pinch gesture that doesn't flicker or drop the object accidentally[cite: 3].
-* **Details:** Implement `GestureStateMachine.cs` using researched distance thresholds (Enter: 0.02, Exit: 0.05).
-* **Acceptance Criteria:**
-    * [ ] Stable pinch detection without input jitter.
-
-**Ticket 10: `[FEAT, TELEMETRY, RESEARCH] Kinematic Translation & Coyote-Time`**
-* **User Story:** As a user, I need my hand movements to move the object 1:1, with protection against brief tracking loss[cite: 3].
-* **Details:** Implement translation in `UltraleapKinematicManipulator.cs`. Add a 0.25s grace period (coyote-time) for momentary camera occlusion.
-* **Acceptance Criteria:**
-    * [ ] Translation is 1:1 with hand movement.
-    * [ ] Object remains held during sub-0.25s tracking loss.
-
-**Ticket 11: `[FEAT, TELEMETRY, RESEARCH] Wrist-Pivot Rotation and Clutching`**
-* **User Story:** As a user, I need to rotate the object naturally and "clutch" (reset my wrist) to overcome anatomical limits[cite: 3].
-* **Details:** Map wrist rotation to object rotation. Allow breaking the gesture to reset physical orientation while maintaining the object's virtual orientation.
-* **Acceptance Criteria:**
-    * [ ] Rotation deltas apply correctly.
-    * [ ] Users can "clutch" to achieve full 360-degree rotation.
-
-**Ticket 12: `[FEAT, TELEMETRY, RESEARCH] Bimanual Uniform Scaling Logic`**
-* **User Story:** As a user, I need an intuitive way to resize the anatomy without distorting its shape[cite: 3].
-* **Details:** Implement bimanual pinch detection. Use the distance delta between hands to drive uniform XYZ scaling.
-* **Acceptance Criteria:**
-    * [ ] Scaling is uniform across all axes.
-
-**Ticket 13: `[FEAT, EXPERIMENT] Varjo 6-DoF Controller Baseline (Condition A)`**
-* **User Story:** As an experimenter, I need a standard controller baseline to compare against the hand-tracking system[cite: 10].
-* **Details:** Map grip and thumbstick controls to mirror the translation, rotation, and scaling logic of the hand-tracking condition.
-* **Acceptance Criteria:**
-    * [ ] Controllers achieve functional parity with hand-tracking tasks.
-
----
-
-### **Sprint 4: Telemetry & Trial Orchestration (Experiment)**
-*Goal: Automate trial flow and extract objective performance data[cite: 3, 10].*
-
-**Ticket 14: `[TELEMETRY] Quaternion and Euclidean Metrics Engine`**
-* **User Story:** As a researcher, I need precise mathematical tracking of the user's spatial accuracy[cite: 3, 10].
-* **Details:** Finalize `AlignmentMetricsLogger.cs`. Implement `Quaternion.Angle` and `Vector3.Distance` calculations at 20Hz.
-* **Acceptance Criteria:**
-    * [ ] Accurate real-time calculation of rotational and translational error.
-
-**Ticket 15: `[TELEMETRY, EXPERIMENT] Spatial Dwell Time Validation`**
-* **User Story:** As an experimenter, I must ensure a task is only "complete" when the user holds a precise alignment[cite: 10].
-* **Details:** Implement a 2.0s timer that triggers only when distance and angular error remain below thresholds.
-* **Acceptance Criteria:**
-    * [ ] "Fly-by" alignments do not trigger task success.
-
-**Ticket 16: `[TELEMETRY] Persistent CSV Data Export Pipeline`**
-* **User Story:** As a researcher, I need the telemetry data saved in a format compatible with statistical software[cite: 3, 10].
-* **Details:** Code the export system to append TCT, Inefficiency, and Clutch Count to a `.csv` file upon trial completion.
-* **Acceptance Criteria:**
-    * [ ] Data successfully writes to a local CSV file.
-
-**Ticket 17: `[EXPERIMENT] World Space UI Trial Orchestrator`**
-* **User Story:** As a user, I need instructions in the headset to guide me through the experiment[cite: 10].
-* **Details:** Create a VR HUD that displays current task IDs (1–4) and instructional text for the user.
-* **Acceptance Criteria:**
-    * [ ] UI updates dynamically based on the current experimental state.
-
-**Ticket 18: `[RELEASE, DOCS] v1.0 Final System Release`**
-* **User Story:** As the developer, I need a stable, tagged release version for the final dissertation submission[cite: 10].
-* **Details:** Perform final QA on both conditions. Finalize README documentation. Tag the repository with the `release` version.
-* **Acceptance Criteria:**
-    * [ ] System is stable and tagged as `v1.0-experiment-ready`.
-# 07/04/2026
 To achieve a First-Class mark ($\ge 80\%$) in your methodology, you must demonstrate **traceability**: the ability to trace a high-level requirement (Milestone) down to a specific task (Issue), the code implementation (Branch/Commit), and finally its verification (Pull Request).
-### 1. Branches vs. Sprints: The Technical Standard
+### Branches vs. Sprints: The Technical Standard
 Branches should **never** be broken down into Sprints. Sprints/Milestones are management tools (temporal), while branches are architectural tools (functional).
 
 * **The Sprint (Milestone):** Defines *when* work is due and the *goal* (e.g., Sprint 1: Foundation).
@@ -932,29 +734,7 @@ For your "Sprint 1 Baseline," you should create one main feature branch to merge
 1.  **Branch Name:** `feat/0/sprint-1-baseline` (Issue #0 being a placeholder for the baseline merge).
 2.  **Pull Request Title:** `feat: initialize project baseline (Sprint 1)`
 3.  **PR Description:** `Closes #1, #2, #3, #4`.
-### 2. Sprint 1: Detailed Commit Log
-When you move your sandbox code into the repo, do it in these four discrete commits. This proves you didn't just "dump" code, but followed your own plan.
-
-**Commit 1: Repository Hardening**
-* **Command:** `git add .gitignore .gitattributes LICENSE README.md`
-* **Message:** `chore(git): initialize repository with unity .gitignore and lfs attributes`
-* **Context:** Sets the environment rules before any binary data is added.
-
-**Commit 2: Pipeline Configuration**
-* **Command:** `git add ProjectSettings/ Assets/_Project/Settings/`
-* **Message:** `config(rendering): initialize hdrp and varjo vr-only settings`
-* **Context:** Establishes the "Clinical Void" and Opaque VR rendering mode.
-
-**Commit 3: Dependency Resolution**
-* **Command:** `git add Packages/manifest.json`
-* **Message:** `config(deps): add ultraleap openupm registry and tracking package`
-* **Context:** Proves you are using modern package management for the Ultraleap SDK.
-
-**Commit 4: Hardware Verification**
-* **Command:** `git add Assets/_Project/Scenes/HardwareValidation.unity`
-* **Message:** `feat(hardware): implement multi-device tracking validation scene`
-* **Context:** Finalizes the "Ready" state of the project baseline.
-### 3. Releases and Tagging Strategy
+### Releases and Tagging Strategy
 A "Release" in GitHub should represent a **Major Deliverable** (the end of a Sprint/Milestone), not an individual ticket. Tagging provides a permanent "snapshot" of your project at that state, which is vital for examiners who want to see your progress at specific dates.
 #### Tagging Convention: Semantic Versioning (SemVer)
 Use the format `v[Major].[Minor].[Patch]`
@@ -970,7 +750,7 @@ Use the format `v[Major].[Minor].[Patch]`
     * *Trigger:* When the Gesture State Machine and 6-DoF baseline are functional.
 * **v1.0.0 (Submission):** Title: `Final Release: 6-DoF Navigation System`.
     * *Trigger:* Final QA complete. This is the version you link in your dissertatioN
-### 4. Refined Execution Plan
+### Refined Execution Plan
 To maximize the "Software Management" portion of the marking rubric:
 
 1.  **PR Documentation:** In the Pull Request for each feature, don't just say "done." Write: *"Implemented the 0.25s coyote-time grace period to solve the occlusion problem identified in the risk analysis."* This links your code directly to your critical thinking.
@@ -978,85 +758,10 @@ To maximize the "Software Management" portion of the marking rubric:
 3.  **Labeling:** Ensure every issue has at least two labels (e.g., `feat` + `telemetry`). This helps the examiner filter your work to see how much of it was actually "Research-based" vs "Technical."
 
 By following this commit-to-PR-to-Milestone pipeline, you create a perfect "paper trail" of professional evidence. You are no longer just a student finishing a project; you are an engineer conducting a validated study.
-
-Mistakes in the commit history are a standard part of the development lifecycle. To fix this, we will perform a **Soft Reset**, which removes the commit from the history but keeps all your code changes sitting in your "Staging Area" so you can unstage them and re-commit them in the correct sequence.
-### 1. The "Undo" Command
-Execute this in your PowerShell terminal at the root of your repository:
-```powershell
-git reset --soft HEAD~1
-```
-
-**Why this works:** The `--soft` flag tells Git: "Delete the last commit record, but do not touch my files." Your scripts will now appear in `git status` as "Changes to be committed" (in green).
-
-**Next, unstage the scripts specifically:**
-```powershell
-git restore --staged UnityProject/Assets/_Project/Scripts/
-```
-Now the scripts are "Untracked" (in red), and you can follow the mapping below.
-### 2. Script Mapping to Milestones
-Based on your Milestone deliverables, your scripts belong to three distinct phases. Do not commit them all at once; this preserves the "Audit Trail" required for your Synoptic Project.
-
-| Script File | Target Milestone | Logic / Justification |
-| :--- | :--- | :--- |
-| `VarjoHandTrackingOffset.cs` | **Milestone 1** | Essential for the "Zero-offset configuration" deliverable. |
-| `HDRPHandMaterialFixer.cs` | **Milestone 1** | Required for the "HDRP clinical void environment setup." |
-| `UltraleapKinematicManipulator.cs` | **Milestone 2** | Core of the "primary physics-free manipulation system." |
-| `AlignmentMetricsLogger.cs` | **Milestone 4** | The "CSV output pipeline" for the final experiment. |
-| `ClinicalTrialManager.cs` | **Milestone 4** | Handles "task sequencing" and "trial progression." |
-
-### 3. Step-by-Step Commit Sequence
-#### **Phase A: Finalizing Milestone 1 (Foundation)**
-*Focus: Hardware stability and rendering.*
-```powershell
-git add UnityProject/Assets/_Project/Scripts/Core/VarjoHandTrackingOffset.cs
-git add UnityProject/Assets/_Project/Scripts/Interaction/HDRPHandMaterialFixer.cs
-# Don't forget the .meta files
-git add UnityProject/Assets/_Project/Scripts/Core/VarjoHandTrackingOffset.cs.meta
-git add UnityProject/Assets/_Project/Scripts/Interaction/HDRPHandMaterialFixer.cs.meta
-
-git commit -m "config(xr): implement varjo offset and hdrp material resolution
-
-- Integrates VarjoHandTrackingOffset.cs to ensure zero-offset alignment between optical tracking and the HMD coordinate space
-- Includes HDRPHandMaterialFixer.cs to resolve shader compatibility issues between the Ultraleap skeletal renderer and the High Definition Render Pipeline
-"
-```
-#### **Phase B: Completing Milestone 2 (Kinematic Core)**
-*Focus: Object manipulation.*
-```powershell
-git add UnityProject/Assets/_Project/Scripts/Interaction/UltraleapKinematicManipulator.cs
-git add UnityProject/Assets/_Project/Scripts/Interaction/UltraleapKinematicManipulator.cs.meta
-
-git commit -m "feat(interaction): implement core kinematic manipulation logic
-
-- Introduces UltraleapKinematicManipulator.cs to handle direct object transformations
-- This implementation focuses on the kinematic translation of raw skeletal data into 3D world space, supporting the initial Pinch-to-Grab functionality required for anatomical model manipulation
-"
-```
-#### **Phase C: Orchestration & Telemetry (Milestone 4 Prep)**
-*Focus: Data and trial logic.*
-```powershell
-git add UnityProject/Assets/_Project/Scripts/AlignmentMetricsLogger.cs
-git add UnityProject/Assets/_Project/Scripts/Core/ClinicalTrialManager.cs
-git add UnityProject/Assets/_Project/Scripts/*.meta
-git add UnityProject/Assets/_Project/Scripts/Core/ClinicalTrialManager.cs.meta
-
-git commit -m "feat(telemetry): implement trial orchestration and metrics logging
-
-- Establishes the experimental data pipeline by introducing AlignmentMetricsLogger.cs for high-frequency CSV output
-- Integrates ClinicalTrialManager.cs to handle the finite state machine for trial sequencing, task validation, and automated success metrics extraction
-  "
-```
-
----
-### 4. Why this matters for the EPA
+#### Why this matters for the EPA [TODO:]
 By splitting these, your GitHub **Insights > Network** graph will show a clear progression of features. When an examiner looks at Milestone 1, they see the configuration scripts. When they look at Milestone 2, they see the manipulation logic. 
 This demonstrates that you understand the **Single Responsibility Principle** not just in your code, but in your version control management.
-
-**One warning:** Milestone 1 is currently "Overdue by 10 days" in your metadata. Once you push these commits and merge the PR into `main`, make sure to manually update the Milestone status to "Closed" to reflect that the foundation is now secure.
-
-Did the `git reset --soft` command successfully move the files back to your staging area without throwing any "Access Denied" errors?
-# 08/04/2026
-## Release / Tag Template
+# Release / Tag Template
 ```markdown
 USE -> ([#71](https://github.com/scAB1001/comp3932/pull/71)) instead of (#30)
 # What's Changed
@@ -1090,24 +795,13 @@ USE -> ([#71](https://github.com/scAB1001/comp3932/pull/71)) instead of (#30)
 ```
 
 # Milestone Summary (LTS)
-I need to branch off of main and continue to the next Milestone 2.
-As I understand it, we did a bulk PR from a singular branch for Milestone 1 as there were not many complex features.
-From now on, I want to use branches mapped to issues. Sub-issues will not need a further branch.
-### Milestone 1 was Git tracking and repo configuration, setting up local and remote quality gates and basic hardware device and software alignment.
-A simple scene was also created. The point was to create a foundation for real development.
-### Milestone 2 should be about the core kinematics
-Simply pinching/grabbing (which is recognised by default) and moving the position of the models.
-The clinical scene should also be made here, a box room with a single floating table ---grey and simple to reduce distractions and GPU load.
-There should be a static copy of the liver (the target liver) - this should be fairly opaque, have a turquoise material and cannot be interacted with.
-The original liver should be given a dark red, fleshy material and be a rigid body that can be picked up etc.
-### Milestone 3 should be about creating the rotation and scaling gestures.
-All these gestures should be programmed for the controllers as well.
 #### Questions
 "The rotating about multiple axis will be difficult, is this possible?"
 Yes, it is entirely possible and mathematically straightforward in Unity, but it is *anatomically* difficult for the user.
 * The Math: You will calculate the *delta rotation* of the hand between frames using Quaternions: `deltaRot = currentHandRot * Quaternion.Inverse(lastHandRot);` and apply that delta to the liver.
 * The HCI Challenge: Human wrists do not have 360-degree rotation. Furthermore, twisting the wrist often hides the fingers from the Ultraleap camera (optical occlusion), causing the tracking to drop. Your "breaking" (clutching) mechanic is the exact right solution to this. The user rotates 90 degrees, releases the pinch, resets their wrist, grabs, and rotates again.
 
+[TODO:]
 > "The user can move around the room slightly in the physical world to move in the virtual scene, this acts as pan and move gestures, correct?"
 > Technically, no. Moving physically is Head Tracking (6-DoF Locomotion), not a gesture. However, functionally, it does change the user's perspective (panning/dollying) relative to the 3D model. You should explicitly state in your report that the Varjo XR-4 handles user locomotion natively via inside-out tracking, leaving the gestures strictly for object manipulation.
 #### Gesture Mapping (Condition B vs. Condition A)
@@ -1118,152 +812,6 @@ Here is the finalized 1:1 mapping for your comparative study. (Note: "Zoom" in 3
 | Grab / Translate | Mono-Pinch: Single hand pinch (thumb + index). Liver translates 1:1 with hand movement.                                                                                | Grip Hold: Press and hold the side grip button. Liver translates 1:1 with controller movement.                                                 |
 | Rotate           | Mono-Pinch + Wrist Pivot: Same pinch as grab, but wrist rotation applies delta Quaternions to the liver. User releases pinch to "clutch" and reset wrist.              | Grip Hold + Wrist Pivot: Press and hold side grip, rotate physical controller. User releases grip to clutch.                                   |
 | Scale ("Zoom")   | Bimanual Pinch: Both hands pinch. The distance delta between the left and right pinch centers dictates uniform XYZ scaling. Releasing one hand reverts to Grab/Rotate. | Grip Hold + Thumbstick: Hold grip button. Push thumbstick Forward to scale up, pull Backward to scale down. *(Highlights mapping dissonance).* |
-
-#### TextMesh Pro
-Text that displays the gesture that is active, if any.
-### Milestone 4 - The complete experiment and telemetry setup
-- Collect telemetry
-- Improve scene (instructions for users)
-- Script to load/automate the start/loading of each task (when 1st is done, reset and flip the liver upside down, etc.)
-#### Rough plan (to be modified):
-**Ticket X: `[TELEMETRY] Quaternion and Euclidean Metrics Engine`**
-* **User Story:** As a researcher, I need precise mathematical tracking of the user's spatial accuracy[cite: 3, 10].
-* **Details:** Finalize `AlignmentMetricsLogger.cs`. Implement `Quaternion.Angle` and `Vector3.Distance` calculations at 20Hz.
-* **Acceptance Criteria:**
-    * [ ] Accurate real-time calculation of rotational and translational error.
-
-**Ticket XX: `[TELEMETRY, EXPERIMENT] Spatial Dwell Time Validation`**
-* **User Story:** As an experimenter, I must ensure a task is only "complete" when the user holds a precise alignment[cite: 10].
-* **Details:** Implement a 2.0s timer that triggers only when distance and angular error remain below thresholds.
-* **Acceptance Criteria:**
-    * [ ] "Fly-by" alignments do not trigger task success.
-
-**Ticket XXX: `[TELEMETRY] Persistent CSV Data Export Pipeline`**
-* **User Story:** As a researcher, I need the telemetry data saved in a format compatible with statistical software[cite: 3, 10].
-* **Details:** Code the export system to append TCT, Inefficiency, and Clutch Count to a `.csv` file upon trial completion.
-* **Acceptance Criteria:**
-    * [ ] Data successfully writes to a local CSV file.
-
-**Ticket XXX: `[EXPERIMENT] World Space UI Trial Orchestrator`**
-* **User Story:** As a user, I need instructions in the headset to guide me through the experiment[cite: 10].
-* **Details:** Create a VR HUD that displays current task IDs (1–4) and instructional text for the user.
-* **Acceptance Criteria:**
-    * [ ] UI updates dynamically based on the current experimental state.
-
-This transition to a **branch-per-issue** workflow is a significant step up in engineering maturity. It provides a granular audit trail that will look excellent in your final Dissertation Appendix. 
-
-Below is your professional roadmap for the remaining Milestones. I have refined your descriptions into concise, industry-standard deliverables, integrating the HCI justifications and mapping logic we discussed.
-
----
-
-# Milestone 2: Kinematic Interaction Core
-**Focus:** Establishing the clinical environment and implementing foundational 3D translation (Condition A vs. B).
-## [FEAT] Clinical Void Environment & Scene Orchestration #7
-### User Story
-As a researcher, I need a distraction-free, high-performance environment to isolate user performance variables during 3D manipulation tasks.
-### Implementation Details
-* Construct a minimalist "Clinical Void" scene: grey box environment with a single centered pedestal/table.
-* Implement a static "Target Model" (Turquoise/Semi-transparent material) and a dynamic "Active Model" (Red/Fleshy material).
-* Optimize lighting for HDRP to ensure zero frame-drops on the Varjo XR-4.
-### Acceptance Criteria
-* [ ] Scene maintains stable 90 FPS.
-* [ ] Visual distinction between target and active meshes is clear.
-* [ ] Target mesh is non-collidable and static.
-
-## [FEAT] Monomanual Kinematic Translation (Conditions A & B) #8
-### User Story
-As a user, I need to translate the 3D model in XYZ space using both bare hands and physical controllers to compare input efficacy.
-### Implementation Details
-* **Condition B (Hands):** Map the Ultraleap `Pinch` gesture to the Active Model's position.
-* **Condition A (Controller):** Map the Varjo `Grip Hold` button to the Active Model's position.
-* Implement a `KinematicInteractionHandler.cs` to manage state switching between the two input types.
-### Acceptance Criteria
-* [ ] Model follows hand/controller position with 1:1 spatial mapping.
-* [ ] Releasing the pinch/grip leaves the model at its current coordinate.
-* [ ] No "jitter" during translation.
-
----
-
-# 09/04/2026 
-# Milestone 3 Issues [Refined]
-## [FEAT] Extensible Kinematic Interaction Framework #11
-### User Story
-As a developer, I need a modular interaction architecture that decouples input detection from transformation logic to ensure a scientifically valid comparison between bare-hand and controller interactions.
-### Implementation Details
-* **Abstract Abstraction Layer:** Create `BaseInteractionProvider.cs` acting as hub for Mathematics. It will store "Last Frame" data and calculate delta vectors.
-    * **Translation:** $Vector3 \Delta Pos = currentPos - lastPos$
-    * **Rotation:** $\Delta q = q_{current} \times q_{last}^{-1}$
-* **Provider Specialisation:** Inherit `UltraleapInteractionProvider.cs` and `VarjoControllerProvider.cs` to feed raw hardware signals into the base logic.
-* **Finite State Machine (FSM):** Implement an `InteractionOrchestrator.cs` that manages states: `IDLE`, `HOVER`, `TRANSFORMING`, `CLUTCHING`, and `SCALING`.
-* **Correction Integration:** Ensure `VarjoHandTrackingOffset.cs` output is consumed by the framework before the FSM processes movement.
-### Acceptance Criteria
-- [ ] Inspector includes a dropdown to toggle between **Ultraleap** and **Varjo** providers.
-- [ ] Active state is displayed via a read-only label in the Inspector (e.g., "Current State: TRANSFORMING").
-- [ ] Transformation logic is verified as identical for both hardware conditions.
-### Sub-issues & Tasks
-* **Base Class Logic:** Program the delta-calculation hub and "Last Frame" storage.
-* **FSM Core:** Define the `InteractionState` enum and the state transition logic in the Orchestrator.
-* **Inspector Tooling:** Custom editor script or simple labels to visualise active providers and models.
-## [FEAT] Rotational Quaternions & Clutching Logic #12
-### User Story
-As a user, I need to rotate the liver model across multiple axes using wrist pivots, making use of the "clutch" state to reset my physical hand position without affecting the model.
-### Implementation Details
-* **Quaternion Delta Implementation:** In the `BaseInteractionProvider`, implement the pivot-point logic ensuring the model rotates around its geometric center.
-* **The Clutch State:** When the trigger signal (pinch/grip) is lost, enter the `CLUTCHING` state. This locks the model's current $transform.rotation$ and $transform.position$.
-* **Re-engagement:** Upon re-entering `TRANSFORMING`, capture the new "First Frame" to prevent rotational snapping.
-### Acceptance Criteria
-- [ ] Model rotates $360^{\circ}$ across all axes through successive "clutch and pivot" maneuvers.
-- [ ] Model orientation remains perfectly static during the `CLUTCHING` phase.
-- [ ] No "snapping" or "jumping" occurs when re-engaging a grab from a different angle.
-### Sub-issues & Tasks
-* **Pivot Calibration:** Standardise the liver's local pivot to its barycenter.
-* **State Persistence:** Logic to store the model's transform state during clutching.
-* **Controller Alignment:** Map Varjo controller orientation to the `BaseInteractionProvider` rotation input.
-## [FEAT] Bimanual Scaling & Discrete Input Mapping #13
-### User Story
-As a researcher, I need to compare the intuitive "stretch" gesture (Condition B) against discrete thumbstick input (Condition A) to evaluate scaling precision.
-### Implementation Details
-* **Condition B (Bimanual FSM):** Enter `SCALING` state when two valid pinches are detected. Use `Vector3.Distance` between hand anchors to drive uniform XYZ scaling.
-* **Condition A (Discrete):** Use the Varjo thumbstick Y-axis to apply a linear scale multiplier while in the `TRANSFORMING` state.
-* **Safety Bounds:** Implement `minScale` and `maxScale` variables to prevent model inversion or excessive GPU fill-rate from "vanishing" or "giant" meshes.
-### Acceptance Criteria
-- [ ] Scaling is uniform across all axes (no skewing).
-- [ ] Releasing one hand during bimanual scaling gracefully transitions the FSM back to `TRANSFORMING` (Monomanual).
-- [ ] Hard bounds prevent scaling outside of research-relevant sizes.
-### Sub-issues & Tasks
-* **Bimanual Distance Logic:** Implement distance-based scaling ratio.
-* **Thumbstick Multiplier:** Program the incremental scaling logic for controllers.
-* **Bounds Enforcement:** Clamp the final scale values in the `BaseInteractionProvider`.
-## [FEAT] Gesture Signature Isolation & Fine-Tuning #16
-### User Story
-As a researcher, I need to isolate the "Precision Pinch" from "Power Grasps" or "Fists" to ensure the experimental data strictly reflects intended kinematic manipulation.
-### Implementation Details
-* **Signature Filtering:** Within `UltraleapInteractionProvider`, implement a check for the non-participating fingers (Middle, Ring, Pinky).
-    * **Valid:** `Index.IsPinching` + `Middle.IsExtended`.
-    * **Invalid:** `Index.IsPinching` + `Middle.IsCurled` (Fist).
-* **Coyote Time:** Implement a $0.1s$ (approx. 9-10 frames at 90Hz) buffer to prevent tracking flicker from causing state-flapping.
-* **Threshold Tuning:** Set the `PinchStrength` threshold to $0.85$ to ensure intentional engagement.
-### Acceptance Criteria
-- [ ] A fully closed fist (clench) does not trigger a "Grab" or "Translate" state.
-- [ ] Interaction remains stable during minor optical occlusions (Coyote Time).
-- [ ] "Precision Pinch" is clearly distinguished from accidental finger proximity.
-### Sub-issues & Tasks
-* **Finger State Audit:** Use `Leap.Finger.IsExtended` to filter invalid signatures.
-* **Stability Buffer:** Implement the frame-delay logic for state exits.
-* **Signature Fine-Tuning:** Conduct "dry-run" tests on the Lab PC to calibrate strength thresholds.
-## [FEAT] Real-time Interaction HUD (TextMesh Pro) #57
-### User Story
-As a participant, I need visual confirmation of which gesture is currently active to reduce cognitive load.
-### Implementation Details
-* Create a world-space UI anchored to the user's view or the interaction table.
-* Implement a dynamic text system that displays: `IDLE`, `HOVER`, `TRANSFORMING`, `CLUTCHING`, and `SCALING`.
-### Acceptance Criteria
-* [ ] UI text is visibile, cannot be interacted with and is not distracting.
-* [ ] UI text updates instantly upon gesture recognition.
-* [ ] Text is legible within the Varjo XR-4's foveated rendering zone.
-### Sub-issues & Tasks
-* Text Verification: Conduct "dry-run" tests on the Lab PC to verify state changes.
-* Text State Errors: Build a fall-back state for neither idle nor a defined gesture.
 ## The State Machine [TODO]
 ### 1. The Logic: Decoupling Input from Action
 The core idea is **Abstraction**. You have two hardware conditions (Varjo Controllers and Ultraleap Hands). If you write specific code for each, you have to write your rotation math twice. 
