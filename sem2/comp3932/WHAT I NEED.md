@@ -944,6 +944,7 @@ As a participant, I need clear, in-headset instructions explaining each task so 
 ### Sub-issues
 * **UI Content Mapping:** Writing/Assigning text for Tasks 1–4.
 * **Success Progress Bar:** Visualising the 2.0s dwell completion.
+
 # Post Experiment Scare
 Take a deep breath. You have just stumbled into the most valuable part of any scientific research project: **the critical evaluation.**
 
@@ -1098,19 +1099,33 @@ My compiled group of sources a rough plan which may need updating:
 * **Clinical Outcomes:** Look for papers demonstrating that VR planning leads to reduced operative times, reduced intraoperative blood loss, and fewer fluoroscopic (radiation) images needed during surgery.
 ##### Sources
 ###### 🥇 Gold Standard (High Priority - Cite these to prove clinical necessity):
+
 1. Translating high-precision mixed reality navigation from lab to operating room: design and clinical evaluation, 2025
+
 2. Mixed reality for preoperative planning and intraoperative assistance of surgical correction of complex congenital heart defects, 2025
+
 3. Effect of 3-Dimensional Virtual Reality Models for Surgical Planning of Robotic-Assisted Partial Nephrectomy on Surgical Outcomes: A Randomized Clinical Trial, 2019
+
 4. Immersive 3D virtual reality imaging in planning minimally invasive and complex adult cardiac surgery, 2020
+
 5. A review of the evidence for training effectiveness with virtual reality technology, 2021
+
 6. Immersive virtual reality for surgical training: a systematic review, 2021
+
 7. Clinical Applications of Mixed Reality and 3D Printing in Congenital Heart Disease, 2022
+
 ###### 🥈 Supporting Literature (Medium/Low Priority - Contextual Medical XR):
+
 8.
+
 9. XR (extended reality: Virtual reality, augmented reality, mixed reality) technology applications in orthopedic field, 2025
+
 10. Augmented reality guidance improves accuracy of orthopedic drilling procedures, 2024
+
 11. Virtual reality three-dimensional echocardiographic imaging for planning surgical atrioventricular valve repair, 2021
+
 12. Immersive Virtual Reality Heart Models for Planning of Transcatheter Paravalvular Leak Closure: A Feasibility Study, 2021
+
 13. Immersive virtual reality surgical planning of minimally invasive coronary artery bypass for kawasaki disease, 2020
 
 _(Remaining 13 older/tangential medical XR papers: Plastic surgery training 2020, Orthopedic surgery 2020, Ventricular septal defects 2019, Maxillofacial surgery 2019, Cataract surgery 2017, Orthopaedic surgery 2016, Medical imaging 1998, Laparoscopic colectomy 2002, etc.)_
@@ -1125,15 +1140,25 @@ _(Remaining 13 older/tangential medical XR papers: Plastic surgery training 2020
 * **The Baseline Defense:** You must also find papers that defend controllers (e.g., studies showing controllers provide "binary certainty" with button presses and exact precision). You need this to justify why the Varjo controller is a valid baseline for your comparative user study.
 ##### Sources
 ###### 🥇 Gold Standard (High Priority - The friction of controllers):
+
 1. XR Cricothyroidotomy and Intraosseous Access: A Preliminary Study on Usability and Presence between VR/MR and Hand Tracking/Controller Interactions, 2025 _(Crucial: Direct medical comparison)._
+
 2. A comparison of input devices for precise interaction tasks in VR-based surgical planning and training, 2022
+
 3. Three-dimensional (3D) stimuli are always better than two-dimensional (2D) multi-tasking? A high cognitive load in 3D-MATB-II, 2025
+
 4. Cognitive load/flow and performance in virtual reality simulation training of laparoscopic surgery, 2021
+
 5. Studying the mental effort in virtual versus real environments, 2019
+
 6. Understanding the attention demand of touch and tangible interaction on a composite task, 2019
+
 ###### 🥈 Supporting Literature (Medium/Low Priority - Tangential Locomotion/Joystick studies):
+
 7. Locomotion in place in virtual reality: A comparative evaluation of joystick, teleport, and leaning, 2021
+
 8. Evaluation of locomotion methods in virtual reality navigation environments... 2021
+
 9. Virtual reality locomotion methods differentially affect spatial orientation and cybersickness... 2025
 
 _(Remaining papers regarding joystick-guided laparoscopic camera holders from 2019, 2018, 2013)._
@@ -1210,17 +1235,29 @@ _(Remaining 18 papers on older Leap Motion validations from 2013-2020, Kinect se
 ##### Sources
 **Goal:** Evaluate the _flaws_ of your system (Gorilla Arm fatigue, optical occlusion, lack of haptics).
 ###### 🥇 Gold Standard (High Priority - The flaws of mid-air interaction):
+
 1. Quantifying the 'Gorilla Arm' Effect in a Virtual Reality Text Entry Task via Ray-Casting: A Preliminary Single-Subject Study, 2023 _(Use to define the phenomenon)._
+
 2. Absence of Inertial Load on Hand Decreases Task Performance in Virtual Reality Interaction, 2024 _(Use to explain lack of haptic feedback on the virtual liver)._
+
 3. The effect of hands synchronicity on users perceived arms Fatigue in Virtual reality environment, 2023 _(Use to justify your bimanual scaling task design)._
+
 4. Modeling cumulative arm fatigue in mid-air interaction based on perceived exertion and kinetics of arm motion, 2017
+
 5. Real-Time Hand Tracking under Occlusion from an Egocentric RGB-D Sensor, 2017 _(Defines the optical tracking blindspot)._
+
 6. Landing Windows Method as Soft Visual Constraints for Mid-Air Interactions, 2025 _(A solution to lack of haptics)._
+
 7. Probabilistic In-Plane Detection for Mid-Air Virtual Surface Interactions, 2025
+
 ###### 🥈 Supporting Literature (Medium/Low Priority - Peripheral Fatigue/Haptic Studies):
-8. Dual Leap Motion Controller 2: A Robust Dataset for Multi-view Hand Pose Recognition, 2024 _(Use for Future Work/Self-Appraisal)._
-9. Force Feedback-Based Adaptive Sensor Fusion Algorithm for Precision Enhancement in VR-Based Medical Training Systems, 2026
-10. Effects of different fatigue locations on upper body kinematics and inter-joint coordination in a repetitive pointing task, 2019
-11. Outline Pursuits: Gaze-assisted Selection of Occluded Objects in Virtual Reality, 2020
+
+1. Dual Leap Motion Controller 2: A Robust Dataset for Multi-view Hand Pose Recognition, 2024 _(Use for Future Work/Self-Appraisal)._
+
+2. Force Feedback-Based Adaptive Sensor Fusion Algorithm for Precision Enhancement in VR-Based Medical Training Systems, 2026
+
+3. Effects of different fatigue locations on upper body kinematics and inter-joint coordination in a repetitive pointing task, 2019
+
+4. Outline Pursuits: Gaze-assisted Selection of Occluded Objects in Virtual Reality, 2020
 
 _(Remaining papers on generalized VR sickness, 2009 haptics, and basic pointing task variability).
