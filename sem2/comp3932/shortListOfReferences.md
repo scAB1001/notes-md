@@ -13,30 +13,14 @@ Here are the **filtered and organised references** by dissertation chapter:
 ## Chapter 2: Literature Review (Background & Related Work)
 
 ### 2.1 3D Interaction & Object Manipulation in VR
-
-| #   | Citation                                                                                                                                                                                                                                    |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | Argelaguet, F., & Andujar, C. (2013). A survey of 3D object selection techniques for virtual environments. *Computers & Graphics*, 37(3), 121–136. DOI: 10.1016/j.cag.2012.12.003                                                           |
-| 2   | Bowman, D. A., Johnson, D. B., & Hodges, L. F. (2001). Testbed evaluation of virtual environment interaction techniques. *Presence: Teleoperators and Virtual Environments*, 10(1), 75–95. DOI: 10.1162/105474601750182333                  |
-| 3   | Hinckley, K., Pausch, R., Goble, J. C., & Kassell, N. F. (1994). A survey of design issues in spatial input. *UIST '94*, 213–222. DOI: 10.1145/192426.192501                                                                                |
-| 4   | LaViola, J. J., Kruijff, E., McMahan, R. P., Bowman, D., & Poupyrev, I. P. (2017). *3D User Interfaces: Theory and Practice* (2nd ed.). Addison-Wesley Professional. [Book - no DOI]                                                        |
-| 5   | Mendes, D., Caputo, F. M., Giachetti, A., Ferreira, A., & Jorge, J. (2019). A survey on 3D virtual object manipulation: From the desktop to immersive virtual environments. *Computer Graphics Forum*, 38(1), 21–45. DOI: 10.1111/cgf.13390 |
-
 ### 2.2 Hand Tracking & Gesture Interaction
-
-| #   | Citation                                                                                                                                                                                                  |
-| --- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 6   | Bachmann, D., Weichert, F., & Rinkenauer, G. (2018). Review of three-dimensional human-computer interaction with focus on the leap motion controller. *Sensors*, 18(7), 2194. DOI: 10.3390/s18072194      |
-| 8   | Yang, L., Huang, J., Feng, T., Hong-An, W., & Guo-Zhong, D. (2019). Gesture interaction in virtual reality. *Virtual Reality & Intelligent Hardware*, 1(1), 84–112. DOI: 10.3724/SP.J.2096-5796.2018.0006 |
-
 ### 2.3 Controller vs. Hand-Tracking Comparisons
 
-| #   | Citation                                                                                                                                                                                                                                                                                                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 9   | Caggianese, G., Gallo, L., & Neroni, P. (2018). The vive controllers vs. leap motion for interactions in virtual environments: a comparative evaluation. *Intelligent Interactive Multimedia Systems and Services*, 24–33. DOI: 10.1007/978-3-319-92231-7_3                                                         |
-| 10  | Khundam, C., Vorachart, V., Preeyawongsakul, P., Hosap, W., & Noël, F. (2021). A comparative study of interaction time and usability of using controllers and hand tracking in virtual reality training. *Informatics*, 8(3), 60. DOI: 10.3390/informatics8030060                                                   |
-| 11  | Luong, T., Cheng, Y. F., Möbus, M., Fender, A., & Holz, C. (2023). Controllers or bare hands? A controlled evaluation of input techniques on interaction performance and exertion in virtual reality. *IEEE Transactions on Visualization and Computer Graphics*, 29(11), 4633–4644. DOI: 10.1109/TVCG.2023.3320211 |
-| 12  | Voigt-Antons, J. N., Kojic, T., Ali, D., & Möller, S. (2020). Influence of hand tracking as a way of interaction in virtual reality on user experience. *2020 Twelfth International Conference on Quality of Multimedia Experience (QoMEX)*, 1–4. DOI: 10.1109/QoMEX48832.2020.9123119                              |
+| #   | Citation                                                                                                                                                                                                                                                                               |
+| --- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 9   | Caggianese, G., Gallo, L., & Neroni, P. (2018). The vive controllers vs. leap motion for interactions in virtual environments: a comparative evaluation. *Intelligent Interactive Multimedia Systems and Services*, 24–33. DOI: 10.1007/978-3-319-92231-7_3                            |
+| 10  | Khundam, C., Vorachart, V., Preeyawongsakul, P., Hosap, W., & Noël, F. (2021). A comparative study of interaction time and usability of using controllers and hand tracking in virtual reality training. *Informatics*, 8(3), 60. DOI: 10.3390/informatics8030060                      |
+| 12  | Voigt-Antons, J. N., Kojic, T., Ali, D., & Möller, S. (2020). Influence of hand tracking as a way of interaction in virtual reality on user experience. *2020 Twelfth International Conference on Quality of Multimedia Experience (QoMEX)*, 1–4. DOI: 10.1109/QoMEX48832.2020.9123119 |
 
 ### 2.4 Medical/Surgical Applications of VR
 
@@ -45,7 +29,6 @@ Here are the **filtered and organised references** by dissertation chapter:
 | 13  | Allgaier, M., Chheang, V., Saalfeld, P., Apilla, V., Huber, T., Huettl, F., Neyazi, B., Sandalcioglu, I. E., Hansen, C., Preim, B., et al. (2022). A comparison of input devices for precise interaction tasks in VR-based surgical planning and training. *Computers in Biology and Medicine*, 145, 105429. DOI: 10.1016/j.compbiomed.2022.105429                           |
 | 14  | Chheang, V., Saalfeld, P., Joeres, F., Boedecker, C., Huber, T., Huettl, F., Lang, H., Preim, B., & Hansen, C. (2021). A collaborative virtual reality environment for liver surgery planning. *Computers & Graphics*, 99, 234–246. DOI: 10.1016/j.cag.2021.07.001                                                                                                           |
 | 16  | Kenngott, H. G., Pfeiffer, M., Preukschas, A. A., Bettscheider, L., Wise, P. A., Wagner, M., Speidel, S., Huber, M., Nickel, F., Mehrabi, A., & Müller-Stich, B. P. (2021). IMHOTEP: cross-professional evaluation of a three-dimensional virtual reality system for interactive surgical operation planning. *Surgical Endoscopy*, 35, 1–9. DOI: 10.1007/s00464-020-08253-7 |
-| 17  | Rantamaa, H. R., Kangas, J., Kumar, S. K., Mehtonen, H., Järnstedt, J., & Raisamo, R. (2023). Comparison of a VR stylus with a controller, hand tracking, and a mouse for object manipulation and medical marking tasks in virtual reality. *Applied Sciences*, 13(4), 2251. DOI: 10.3390/app13042251                                                                        |
 
 ---
 
@@ -53,12 +36,10 @@ Here are the **filtered and organised references** by dissertation chapter:
 
 ### 3.1 Usability & Workload Measurement (SUS, NASA-TLX)
 
-| #   | Citation                                                                                                                                                                                                    |
-| --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 18  | Bangor, A., Kortum, P., & Miller, J. (2009). Determining what individual SUS scores mean: Adding an adjective rating scale. *Journal of Usability Studies*, 4(3), 114–123. [No DOI available]               |
-| 19  | Brooke, J. (1996). SUS: A quick and dirty usability scale. *Usability Evaluation in Industry*, 189–194. [No DOI available]                                                                                  |
-| 20  | Hart, S. G., & Staveland, L. E. (1988). Development of NASA-TLX (Task Load Index): Results of empirical and theoretical research. *Advances in Psychology*, 52, 139–183. DOI: 10.1016/S0166-4115(08)62386-9 |
-| 21  | Hart, S. G. (2006). NASA-Task Load Index (NASA-TLX); 20 years later. *Proceedings of the Human Factors and Ergonomics Society Annual Meeting*, 50(9), 904–908. DOI: 10.1177/154193120605000909              |
+| #   | Citation                                                                                                                                                                                       |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 18  | Bangor, A., Kortum, P., & Miller, J. (2009). Determining what individual SUS scores mean: Adding an adjective rating scale. *Journal of Usability Studies*, 4(3), 114–123. [No DOI available]  |
+| 19  | Brooke, J. (1996). SUS: A quick and dirty usability scale. *Usability Evaluation in Industry*, 189–194. [No DOI available]                                                                     |
 
 ### 3.2 Performance Metrics (Fitts' Law, Task Completion)
 
@@ -130,4 +111,4 @@ Based on your project's focus, you should also locate and add these key referenc
 | Bimanual interaction theory | Guiard, Y. (1987). Asymmetric division of labor in human skilled bimanual action                                        |
 | Pinch gesture detection     | Pfeuffer, K., Mayer, B., Mardanbegi, D., & Gellersen, H. (2017). Gaze + pinch interaction in virtual reality. *SUI '17* |
 
-These 32 references provide a strong, focused foundation for your dissertation's literature review, methodology justification, and discussion sections. 
+These 32 references provide a strong, focused foundation for your dissertation's literature review, methodology justification, and discussion sections.
