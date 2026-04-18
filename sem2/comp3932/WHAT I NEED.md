@@ -26,7 +26,7 @@ To ensure your results are statistically meaningful ($p < 0.05$), follow this se
 4. **Task B (Experimental):** Perform the same task using Hand Gestures.
 5. **Post-Task Survey:** Fill out the RTLX and SUS for **each** method separately.
 6. **Interview:** Brief qualitative discussion on their preference.
-### Statistical Analysis Tip [TODO:]
+### Statistical Analysis Tip [TODO:] [x]
 In your report, do not just list the averages. Use a **Paired Samples t-test** to compare the TCT (Time to Completion) of the joystick vs. gestures. If your $p$-value is less than 0.05, you can formally claim that your gesture system is "statistically faster/more efficient."
 # 02/04/2026
 ## Update on Project Implementation
@@ -353,7 +353,7 @@ At the moment we have based our tasks of off the 6-DoF tasks. We have taken the 
 - Does it serve our report adequately?
 - Is this an appropriate measure/method of measure?
 - How can we show all this and demonstrate the high-level of ciritcal thinking and analysis expected throughout this report?
-#### The "6-DoF Target Alignment" Task (The Gold Standard) [TODO]
+#### The "6-DoF Target Alignment" Task (The Gold Standard) [TODO:] [x]
 You will then explicitly state that for the purposes of your empirical evaluation, the traditional "joystick" paradigm is represented by the 6-DoF Varjo VR controllers. This shows the examiner that you understand the breadth of the field but have made a calculated, practical decision for your experiment's methodology.
 In academic VR research, the most widely used and validated method for testing spatial manipulation is a **6-DoF (Degrees of Freedom) Docking Task** (also known as Target Alignment).
 Instead of moving objects into boxes, the user must grab an object and perfectly align it with a target silhouette in 3D space.
@@ -765,7 +765,7 @@ Here is the finalized 1:1 mapping for your comparative study. (Note: "Zoom" in 3
 | Grab / Translate | Mono-Pinch: Single hand pinch (thumb + index). Liver translates 1:1 with hand movement.                                                                                | Grip Hold: Press and hold the side grip button. Liver translates 1:1 with controller movement.                                                 |
 | Rotate           | Mono-Pinch + Wrist Pivot: Same pinch as grab, but wrist rotation applies delta Quaternions to the liver. User releases pinch to "clutch" and reset wrist.              | Grip Hold + Wrist Pivot: Press and hold side grip, rotate physical controller. User releases grip to clutch.                                   |
 | Scale ("Zoom")   | Bimanual Pinch: Both hands pinch. The distance delta between the left and right pinch centers dictates uniform XYZ scaling. Releasing one hand reverts to Grab/Rotate. | Grip Hold + Thumbstick: Hold grip button. Push thumbstick Forward to scale up, pull Backward to scale down. *(Highlights mapping dissonance).* |
-## The State Machine [TODO]
+## The State Machine [TODO:]
 ### 1. The Logic: Decoupling Input from Action
 The core idea is **Abstraction**. You have two hardware conditions (Varjo Controllers and Ultraleap Hands). If you write specific code for each, you have to write your rotation math twice.
 
@@ -825,7 +825,6 @@ The State Machine is the "Brain" that manages the user's intent. Instead of hund
 # Milestone 4: Telemetry Pipeline & Trial Orchestration
 ## Metrics to Collect
 ### Metric 1: Task Completion Time (TCT)
-**Keep ✓** – This is a standard metric in XR evaluation literature
 
 | Aspect             | Specification                                                                               |
 | ------------------ | ------------------------------------------------------------------------------------------- |
@@ -833,16 +832,7 @@ The State Machine is the "Brain" that manages the user's intent. Instead of hund
 | **Implementation** | Use `Time.realtimeSinceStartup` (Unity) or `Stopwatch` for high precision                   |
 | **Why it matters** | Direct measure of efficiency; higher TCT suggests cognitive or motor difficulties           |
 | **Literature**     | [TODO:] Murauer et al. (2022) used TCT as primary effectiveness metric in AR assembly tasks |
-
-```csharp
-private float taskStartTime;
-private float taskCompletionTime;
-
-public void StartTask() => taskStartTime = Time.realtimeSinceStartup;
-public void CompleteTask() => taskCompletionTime = Time.realtimeSinceStartup - taskStartTime;
-```
 ### Metric 2: Angular Offset (Rotational Error)
-**Keep ✓** – But implement with Quaternion.Angle()
 
 | Aspect               | Specification                                                                                                                                                         |
 | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -890,7 +880,7 @@ public void CompleteTask() => taskCompletionTime = Time.realtimeSinceStartup - t
 | **Implementation** | Calculate standard deviation of `PinchStrength` values while grabbing |
 | **Why it matters** | High variance suggests user struggles to maintain threshold, indicating poor ergonomics or threshold mistuning |
 | **Threshold** | Your current threshold is `0.85f` (85% of max pinch) |
-## Gesture-to-Action Mapping Framework [TODO:]
+## Gesture-to-Action Mapping Framework [TODO:] [x]
 Based on literature , here are evidence-based gesture mappings:
 ### Action Taxonomy
 
@@ -903,10 +893,10 @@ Based on literature , here are evidence-based gesture mappings:
 | **Reset View** | Menu button | Two-handed "expand" gesture | Bi | Infrequent action, distinct gesture prevents accidents |
 ### Bimanual vs. Unimanual Decision
 
-| Action | Recommendation | Justification |
-|--------|----------------|----------------|
-| **Translation + Rotation** | Unimanual | Nyyssönen et al. (2024) found users preferred unimanual for flexibility and speed  |
-| **Scaling** | Bimanual | Provides intuitive proportional control; distance between hands directly maps to scale |
+| Action                     | Recommendation | Justification                                                                          |
+| -------------------------- | -------------- | -------------------------------------------------------------------------------------- |
+| **Translation + Rotation** | Unimanual      | Nyyssönen et al. (2024) found users preferred unimanual for flexibility and speed      |
+| **Scaling**                | Bimanual       | Provides intuitive proportional control; distance between hands directly maps to scale |
 
 > "The unimanual approach attempts to provide a higher degree of flexibility, while the bimanual approach seeks to provide more control over the interaction"
 ### Statistical Validation Plan
