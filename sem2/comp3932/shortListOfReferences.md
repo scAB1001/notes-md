@@ -19,6 +19,49 @@ The ideas for my dissertation chapters:
 ### 4.2 Embodiment & Presence
 ### 4.3 Pointing & Selection Techniques
 
+Contents
+1 Introduction and Background Research
+1.1 Context
+1.2 Introduction
+1.3 Project Aim and Objectives
+1.4 Literature review
+1.4.1 Traditional VR Interaction Paradigms
+1.4.2 Limitations of Indirect Hardware Interfaces
+1.4.3 Natural User Interfaces NUI and Optical Hand-Tracking
+1.4.4 Challenges in Optical Tracking and Ergonomics
+1.4.5 High-Fidelity Medical Rendering Technologies
+1.5 Critical Analysis of Existing Solutions
+1.5.1 Existing Solution 1
+1.5.2 Existing Solution 2
+1.6 Report Structure
+2 Methodology
+2.1 A section
+2.1.1 A sub-section
+2.2 Another section
+3 Implementation and Validation
+3.1 A section
+3.1.1 A sub-section
+3.2 Another section
+4 Results, Evaluation and Discussion
+4.1 Evaluation
+4.2 Conclusions
+4.3 Ideas for future work
+References
+Appendices
+A Self-appraisal
+A.1 Critical self-evaluation
+A.2 Personal reflection and lessons learned
+A.3 Legal, social, ethical and professional issues
+A.3.1 Legal issues
+A.3.2 Social issues
+A.3.3 Ethical issues
+A.3.4 Professional issues
+B External Material
+C Ethics Documentation 1
+C.0.1 User Testing Ethics
+C.0.2 User Testing Consent
+C.0.3 Post-task Question
+
 ## Summary by Chapter
 
 | Chapter                                      | Number of References |
