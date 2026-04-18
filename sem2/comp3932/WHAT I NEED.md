@@ -1167,19 +1167,33 @@ You need to justify why optical tracking (specifically infrared camera-based sys
 ##### Sources
 **Goal:** Position optical hand-tracking and the Leap Motion 2 as the logical evolution for medical XR.
 ###### 🥇 Gold Standard (High Priority - Hand vs. Controller & Hardware Validation):
+
 1. Analyzing the effectiveness and satisfaction of hand tracking vs. controllers among VR-experienced users, 2026
+
 2. Comparative Analysis of the Accuracy and Robustness of the Leap Motion Controller 2, 2025 _(Crucial: Evaluates your exact hardware)._
+
 3. Comparing hand-based and controller-based interactions in virtual reality learning: effects on presence and interaction performance, 2025
+
 4. Controllers or Bare Hands? A Controlled Evaluation of Input Techniques on Interaction Performance and Exertion in Virtual Reality, 2023
+
 5. Comparison of a vr stylus with a controller, hand tracking, and a mouse for object manipulation and medical marking tasks in virtual reality, 2023
+
 6. Unlocking the Potential of Immersive VR Systems: The Role of Gesture and Natural Controls, 2023
+
 7. Is embodied interaction beneficial? A study on navigating network visualizations, 2023
+
 ###### 🥈 Supporting Literature (Medium Priority - General Gesture Tech/Older Hardware):
+
 8. Evaluation of XR device's real-world tracking accuracy and depth perception... 2025
+
 9. A Novel Sensor Fusion Approach for Precise Hand Tracking in Virtual Reality-Based Human—Computer Interaction, 2023
+
 10. Robust Optical Based Hand Interaction for Virtual Reality, 2022
+
 11. Hand tracking for immersive virtual reality: Opportunities and challenges, 2021
+
 12. Object manipulation and deformation using hand gestures, 2021
+
 13. Virtual Reality as Training
 
 _(Remaining 18 papers on older Leap Motion validations from 2013-2020, Kinect sensors, EMG gestures, and generic computer vision gesture reviews)._
