@@ -826,12 +826,12 @@ The State Machine is the "Brain" that manages the user's intent. Instead of hund
 ## Metrics to Collect
 ### Metric 1: Task Completion Time (TCT)
 
-| Aspect             | Specification                                                                               |
-| ------------------ | ------------------------------------------------------------------------------------------- |
-| **Definition**     | Total time from first grab/initiation to successful alignment                               |
-| **Implementation** | Use `Time.realtimeSinceStartup` (Unity) or `Stopwatch` for high precision                   |
-| **Why it matters** | Direct measure of efficiency; higher TCT suggests cognitive or motor difficulties           |
-| **Literature**     | [TODO:] Murauer et al. (2022) used TCT as primary effectiveness metric in AR assembly tasks |
+| Aspect             | Specification                                                                                   |
+| ------------------ | ----------------------------------------------------------------------------------------------- |
+| **Definition**     | Total time from first grab/initiation to successful alignment                                   |
+| **Implementation** | Use `Time.realtimeSinceStartup` (Unity) or `Stopwatch` for high precision                       |
+| **Why it matters** | Direct measure of efficiency; higher TCT suggests cognitive or motor difficulties               |
+| **Literature**     | [TODO:] [x] Murauer et al. (2022) used TCT as primary effectiveness metric in AR assembly tasks |
 ### Metric 2: Angular Offset (Rotational Error)
 
 | Aspect               | Specification                                                                                                                                                         |
@@ -839,7 +839,7 @@ The State Machine is the "Brain" that manages the user's intent. Instead of hund
 | **Definition**       | Shortest angular distance between current rotation and target rotation                                                                                                |
 | **Implementation**   | `Quaternion.Angle(currentRotation, targetRotation)`                                                                                                                   |
 | **Why Quaternions?** | Euler angles suffer from gimbal lock (loss of rotational degree of freedom when axes align). Quaternions provide continuous, singularity-free rotation representation |
-| **Literature**       | [TODO:] Fang et al. (1998) established unit quaternions as the mathematically correct method for representing and interpolating 3D rotations in VR systems            |
+| **Literature**       | [TODO:] [x] Fang et al. (1998) established unit quaternions as the mathematically correct method for representing and interpolating 3D rotations in VR systems        |
 ### Metric 3: Translational Error (Positional Offset)
 
 | Aspect | Specification |

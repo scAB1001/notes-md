@@ -132,4 +132,4 @@ Based on your project's focus, you should also locate and add these key referenc
 | Bimanual interaction theory | Guiard, Y. (1987). Asymmetric division of labor in human skilled bimanual action                                        |
 | Pinch gesture detection     | Pfeuffer, K., Mayer, B., Mardanbegi, D., & Gellersen, H. (2017). Gaze + pinch interaction in virtual reality. *SUI '17* |
 
-These 32 references provide a strong, focused foundation for your dissertation's literature review, methodology justification, and discussion sections.
+These 32 references provide a strong, focused foundation for your dissertation's literature review, methodology justification, and discussion sections. 
