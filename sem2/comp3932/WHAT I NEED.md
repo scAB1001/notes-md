@@ -1180,6 +1180,7 @@ You need to justify why optical tracking (specifically infrared camera-based sys
 10. Robust Optical Based Hand Interaction for Virtual Reality, 2022
 11. Hand tracking for immersive virtual reality: Opportunities and challenges, 2021
 12. Object manipulation and deformation using hand gestures, 2021
+13. Virtual Reality as Training
 
 _(Remaining 18 papers on older Leap Motion validations from 2013-2020, Kinect sensors, EMG gestures, and generic computer vision gesture reviews)._
 #### 4. Critical Nuances (Showing "Deep Understanding")
