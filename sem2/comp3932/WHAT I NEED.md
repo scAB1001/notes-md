@@ -1106,11 +1106,12 @@ My compiled group of sources a rough plan which may need updating:
 6. Immersive virtual reality for surgical training: a systematic review, 2021
 7. Clinical Applications of Mixed Reality and 3D Printing in Congenital Heart Disease, 2022
 ###### 🥈 Supporting Literature (Medium/Low Priority - Contextual Medical XR):
-8. XR (extended reality: Virtual reality, augmented reality, mixed reality) technology applications in orthopedic field, 2025
-9. Augmented reality guidance improves accuracy of orthopedic drilling procedures, 2024
-10. Virtual reality three-dimensional echocardiographic imaging for planning surgical atrioventricular valve repair, 2021
-11. Immersive Virtual Reality Heart Models for Planning of Transcatheter Paravalvular Leak Closure: A Feasibility Study, 2021
-12. Immersive virtual reality surgical planning of minimally invasive coronary artery bypass for kawasaki disease, 2020
+8.
+9. XR (extended reality: Virtual reality, augmented reality, mixed reality) technology applications in orthopedic field, 2025
+10. Augmented reality guidance improves accuracy of orthopedic drilling procedures, 2024
+11. Virtual reality three-dimensional echocardiographic imaging for planning surgical atrioventricular valve repair, 2021
+12. Immersive Virtual Reality Heart Models for Planning of Transcatheter Paravalvular Leak Closure: A Feasibility Study, 2021
+13. Immersive virtual reality surgical planning of minimally invasive coronary artery bypass for kawasaki disease, 2020
 
 _(Remaining 13 older/tangential medical XR papers: Plastic surgery training 2020, Orthopedic surgery 2020, Ventricular septal defects 2019, Maxillofacial surgery 2019, Cataract surgery 2017, Orthopaedic surgery 2016, Medical imaging 1998, Laparoscopic colectomy 2002, etc.)_
 #### 2. The HCI Bottleneck (The Problem)
