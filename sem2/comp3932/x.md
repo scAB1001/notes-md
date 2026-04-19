@@ -335,7 +335,13 @@ Purpose: Present the data objectively, then interpret it using the literature.
 # Appendices
 
 ## \chapter{Self‑appraisal (10% of mark)}
+\begin{appendices}
+
+% (10\% of mark)
+\chapter{Self‑appraisal}
 \label{}
+
+<This appendix should contain everything covered by the 'self-appraisal' criterion in the mark scheme. Although there is no length limit for this section, 2---4 pages will normally be sufficient. The format of this section is not prescribed, but you may like to organise your discussion into the following sections and subsections.>
 
 \section{Critical self‑evaluation}
 \label{}
@@ -350,19 +356,19 @@ Technical skills, project management, communication.
 \section{Legal, Social, Ethical, Professional Issues}
 \label{}
 
-(LSEPI)
+<Refer to each of these issues in turn. If one or more is not relevant to your project, you should still explain {\em why} you think it was not relevant.> - (LSEPI)
 
-\subsection{Legal Issue}
+\subsection{Legal Issues}
 \label{}
 
 Data protection (GDPR), software licences.
 
-\subsection{Social Issue}
+\subsection{Social Issues}
 \label{}
 
 Accessibility, impact on surgical training.
 
-\subsection{Ethical Issue}
+\subsection{Ethical Issuess}
 \label{}
 
 Informed consent, motion sickness screening, right to withdraw, ethics approval.
@@ -372,8 +378,13 @@ Informed consent, motion sickness screening, right to withdraw, ethics approval.
 
 Code of conduct, reproducibility, open science.
 
+%
+% Any other appendices you wish to use should come after "Self-appraisal". You can have as many appendices as you like.
+%
 \chapter{External Material}
 \label{}
+<This appendix should provide a brief record of materials used in the solution that are not the student's own work. Such materials might be pieces of codes made available from a research group/company or from the internet, datasets prepared by external users or any preliminary materials/drafts/notes provided by a supervisor. It should be clear what was used as ready-made components and what was developed as part of the project. This appendix should be included even if no external materials were used, in which case a statement to that effect is all that is required.>
+
 
 \section{Gantt chart / project timeline.}
 \label{}
@@ -407,3 +418,5 @@ Code of conduct, reproducibility, open science.
 
 \section{Post‑task open feedback form.}
 \label{}
+
+\end{appendices}
