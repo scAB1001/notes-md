@@ -205,3 +205,56 @@ This section provides the strict academic frameworks used to build the Unity tes
     * **Explanation:** The mathematical standard for calculating interface efficiency, utilizing ISO 9241-9 guidelines to evaluate target acquisition speed and spatial difficulty.
 * **058. "The Aligned Rank Transform for Nonparametric Factorial Analyses", 2011**
     * **Explanation:** Provides the exact mathematical justification for running ANOVAs on subjective, ordinal Likert scale data derived from NASA-TLX or System Usability Scale questionnaires.
+
+
+### 1.1 Context: The Medical Need for 3D Spatial Computing
+- **Danger, complexity, cost, efficiency, time, skill** in modern surgery.
+- **2D input for 3D models:** Why CT/MRI slices on flat screens cause cognitive friction (the “dimensional mismatch”).
+- **Gaps in learning:** Novices struggle to mentally reconstruct 3D anatomy from 2D slices; experts rely on years of mental compensation.
+- *Vault integration:* Cite **[056. IMHOTEP (2022)]** to prove that complex liver surgery requires immersive 3D visualisation.
+
+### 1.2 The Problem with Current VR Controllers
+- VR offers 3D visualisation, but **joystick controllers still impose abstract mapping**.
+- Introduce concepts: **mapping dissonance**, **mediated interaction**, **cognitive translation cost**.
+- *Vault integration:* Cite **[053. Caggianese (2018)]** and **[055. Allgaier (2022)]** to show that controllers historically outperform hands for precision, but that gap is narrowing.
+
+### 1.3 Natural User Interfaces (NUI) and Optical Hand‑Tracking as a Solution
+- Define **isomorphic (1:1) mapping** – using innate motor skills.
+- Introduce **Ultraleap / Leap Motion** as the enabling hardware.
+- State the **research question**: *Does hand‑gesture navigation reduce cognitive load and improve usability compared to traditional VR controllers for 6‑DoF liver docking tasks?*
+
+### 1.4 Project Aim and Objectives (SMART)
+- **Aim:** To develop and evaluate a hand‑gesture based interaction system for intuitive 3D anatomical model manipulation in VR, addressing the limitations of joystick‑controlled interfaces.
+- **Objectives:**
+  1. Design and implement a modular Finite State Machine (FSM) for 6‑DoF manipulation (grab, translate, rotate, scale).
+  2. Integrate optical hand‑tracking (Ultraleap) and VR controllers (Varjo) as interchangeable input providers.
+  3. Develop a telemetry pipeline to log objective metrics (TCT, positional/rotational error, inefficiency ratios, clutch count).
+  4. Conduct a within‑subjects pilot study (N=10‑20) comparing both input methods across four tasks of increasing DoF complexity.
+  5. Analyse subjective workload (NASA‑RTLX) and usability (SUS) alongside objective metrics using appropriate statistical tests (paired t‑tests, ART ANOVA).
+
+### 1.5 Report Structure
+- Brief paragraph outlining Chapters 2–6.
+
+\section{Literature review}
+
+\subsection{Foundational 3D Interaction & HCI Taxonomy}
+
+
+\subsection{Limitations of Indirect Hardware Interfaces}
+
+
+\subsection{Natural User Interfaces NUI and Optical Hand-Tracking}
+
+\subsection{Challenges in Optical Tracking and Ergonomics}
+
+
+\subsection{High-Fidelity Medical Rendering Technologies}
+
+
+\section{Critical Analysis of Existing Solutions}
+The "Gap Analysis"—comparing existing medical VR tools and proving why your specific gesture-to-action mapping framework is a necessary development.
+Evaluate Previous Work: Do not merely list previous papers; critically compare their methodologies. For example, note if a study demonstrated improved completion times but failed to use asymmetrical anatomical models, or if it utilized low-fidelity standalone headsets that compromise clinical precision.
+
+
+\section{Report Structure}
+Specific Roadmap: Detail what subsequent chapters contain using precise language. Avoid generic summaries. (e.g., "Chapter 2 justifies the system architecture and gesture-mapping methodology. Chapter 3 details the C\# implementation of the telemetry logger. Chapter 4 evaluates the comparative NASA-TLX and spatial inefficiency results...").
