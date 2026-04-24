@@ -1781,3 +1781,59 @@ namespace COMP3932.Telemetry
         #endregion
     }
 }
+
+
+Here is the complete, logically indexed definition of your Deterministic Finite State Machine's transition pathways, extracted directly from the `InteractionOrchestrator.cs` logic.
+
+This indexed format is highly useful for software documentation, unit testing matrices, and your dissertation's methodology chapter to prove the deterministic nature of your system.
+
+### Global Interrupts (Hardware & Safety Overrides)
+These transitions take precedence over standard user input, ensuring the system fails safely if hardware tracking drops or control schemes are swapped.
+
+* **`00: Tracking Loss Override`**
+  * **Condition:** `isTrackingValid == false` AND (State `== TRANSFORMING` OR `SCALING`)
+  * **Transition:** $\rightarrow$ `CLUTCHED`
+  * **Purpose:** Prevents the liver from snapping to `Vector3.zero` or falling through the floor if the Varjo headset momentarily loses sight of the user's hands.
+
+* **`01: Hardware Swap Reset`**
+  * **Condition:** `SetControlType()` is invoked.
+  * **Transition:** $\rightarrow$ `IDLE`
+  * **Purpose:** Forces a clean slate when dynamically switching between Ultraleap Hands and Varjo Controllers, preventing spatial data from bleeding across hardware conditions.
+
+### Standard Interaction Transitions
+These are the core user-driven pathways processed during the `LateUpdate()` loop when hardware tracking is valid (`isTrackingValid == true`).
+
+* **`02: Initiate Grab`**
+  * **Condition:** State `== IDLE` AND `isTriggered == true` AND `isWithinProximity == true`
+  * **Transition:** $\rightarrow$ `TRANSFORMING`
+  * **Purpose:** The primary entry point for interaction. The user has reached into the 50cm boundary of the liver and successfully executed a valid pinch/grip.
+
+* **`03: Release to Clutch`**
+  * **Condition:** State `== TRANSFORMING` AND `isTriggered == false`
+  * **Transition:** $\rightarrow$ `CLUTCHED`
+  * **Purpose:** The user releases their pinch. The object is locked in its current spatial coordinates to allow the user to reset their physical wrist/arm posture.
+
+* **`04: Initiate Bimanual Scaling`**
+  * **Condition:** State `== TRANSFORMING` AND `isBimanual == true` AND `allowScaling == true`
+  * **Transition:** $\rightarrow$ `SCALING`
+  * **Purpose:** While already holding the liver with one hand, the user pinches with their second hand, locking the spatial pivot and beginning distance-delta calculations.
+
+* **`05: Partial Release (Drop to Monomanual)`**
+  * **Condition:** State `== SCALING` AND `isBimanual == false` AND `isTriggered == true`
+  * **Transition:** $\rightarrow$ `TRANSFORMING`
+  * **Purpose:** The user was scaling with two hands but releases one. The scale is locked, and the active hand immediately resumes standard translation/rotation without dropping the object.
+
+* **`06: Full Release (Drop to Clutch)`**
+  * **Condition:** State `== SCALING` AND `isBimanual == false` AND `isTriggered == false`
+  * **Transition:** $\rightarrow$ `CLUTCHED`
+  * **Purpose:** The user releases both hands simultaneously while scaling. The object's scale and position are locked.
+
+* **`07: Re-engage Grab`**
+  * **Condition:** State `== CLUTCHED` AND `isTriggered == true`
+  * **Transition:** $\rightarrow$ `TRANSFORMING`
+  * **Purpose:** The user has reset their wrist and re-pinches the air. The system updates the "Frame Memory" to prevent the object from snapping, and seamlessly resumes movement.
+
+* **`08: Abandon Object`**
+  * **Condition:** State `== CLUTCHED` AND `isWithinProximity == false`
+  * **Transition:** $\rightarrow$ `IDLE`
+  * **Purpose:** The user has let go of the object and physically walked or moved their hand outside of the 50cm interaction radius. The object is officially released, and the system rests.
