@@ -20,8 +20,11 @@ TODO:
 - [X] Labelled hand bones
 - [X] Leap Motion Controller 2 with FOV
 - [X] Proof‑of‑concept code snippet (Pinch)
-- [X] Images of 3D liver model, real model and unity model  
+- [X] Images of 3D liver model, real model and unity model
 - [X] Images of unity four tasks
+- [X] UML component diagram
+- [X] Pseudo code template (plain and nice)
+- [X] Table of GitHub labels
 - [X]
 - [ ] Varjo XR-4 headset with FOV
 - [ ] Hand‑gesture examples (pinch, grab, point)
@@ -30,7 +33,6 @@ TODO:
 - [ ] Taxonomy of 3D selection techniques (Tree hierarchy)
 - [ ] Data pipeline diagram
 
-- [ ] UML component diagram
 - [ ] Finite State Machine diagram
 - [ ] CONSORT flow diagram
 - [ ] Participant characterisation table
