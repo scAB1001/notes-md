@@ -25,6 +25,12 @@ TODO:
 - [X] UML component diagram
 - [X] Pseudo code template (plain and nice)
 - [X] Table of GitHub labels
+- [X] Image of Roadmap (2)
+- [X] Images of Backlog (2)
+- [X] Image of Kanban
+- [X] Image of issue (2)
+- [X] Table of Fields for views
+- [X]
 - [X]
 - [ ] Varjo XR-4 headset with FOV
 - [ ] Hand‑gesture examples (pinch, grab, point)
