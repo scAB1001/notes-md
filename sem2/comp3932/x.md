@@ -44,30 +44,6 @@ TODO:
 - [ ] Participant characterisation table
 - [ ] Task decomposition table
 
-Using these inputs:
-00: Tracking Loss Override
-01: Hardware Swap Reset
-02: Initiate Grab
-03: Release to Clutch
-04: Initiate Bimanual Scaling
-05: Partial Release (Drop to Monomanual)
-06: Full Release (Drop to Clutch)
-07: Re-engage Grab
-08: Abandon Object
-
-Let the states be aliased as follows: IDLE (A), CLUTCHING (B), TRANSFORMING(C), SCALING (D):
-
-Following the format of transitions: (input1 from current state->resulting state after input1), (input2,input3 from current state->resulting state after input2,input3), etc.
-
-The following define all the connections between states:
-
-A: (01->A), (02->C) = State A has two transition arcs.
-
-B: (01,08->A), (07->C) = State B has two transition arcs.
-
-C: (01->A), (00,03->B), (04->D) = State C has three transition arcs.
-
-D: (01->A), (00,06->B), (05->C) = State D has three transition arcs.
 
 
 ---
