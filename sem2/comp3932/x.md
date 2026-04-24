@@ -65,9 +65,9 @@ A: (01->A), (02->C) = State A has two transition arcs.
 
 B: (01,08->A), (07->C) = State B has two transition arcs.
 
-C: (01->A), (00,03->B), (04->D) = State B has three transition arcs.
+C: (01->A), (00,03->B), (04->D) = State C has three transition arcs.
 
-D: (01->A), (00,06->B), (05->C) = State B has three transition arcs.
+D: (01->A), (00,06->B), (05->C) = State D has three transition arcs.
 
 
 ---
