@@ -1,9 +1,4 @@
 # Plan
-
-This is best read as your **Results chapter narrative guide** — what each output argues, and how it connects to your central research question.
-
----
-
 ## Central Argument Structure
 
 Every output below should be read as evidence toward one of three sub-questions:
