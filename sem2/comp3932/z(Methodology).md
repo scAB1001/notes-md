@@ -186,4 +186,76 @@ Displaying raw Likert responses without scoring inversion would misrepresent the
 
 **What the reader sees:** A single heatmap of raw Likert response differences, with phrasing direction (positive/negative item) annotated below each column.
 
-**The argument:** This requires care in interpretation, which is why the phrasing annotation is built into the code. For odd items (positive phrasing like *"I thought the system was easy to use"*), a red cell means the participant rated hand-tracking more favourably — that is good for hand-tracking. For even items (negative phrasing like *"I found the system very tiring"*), a red cell means they rated it as more tiring — that is bad for hand-tracking. The most dissertation-relevant cells are Q7 (*"I would imagine that most people would learn to use this system very quickly"*) and Q8 (*"I found the system very cumbersome to use"*). If Q8 is uniformly red across participants in the even-item interpretation, that corroborates both the RTLX Physical Demand findings and your participants' qualitative comments about fatigue and unnatural movement. Cross-referencing this figure against the open-ended responses is where your mixed-methods argument is made.
+**The argument:** This requires care in interpretation, which is why the phrasing annotation is built into the code. For odd items (positive phrasing like *"I thought the system was easy to use"*), a red cell means the participant rated hand-tracking more favourably — that is good for hand-tracking. For even items (negative phrasing like *"I found the system very tiring"*), a red cell means they rated it as more tiring — that is bad for hand-tracking. The most dissertation-relevant cells are Q7 (*"I would imagine that most people would learn to use this system very quickly"*) and Q8 (*"I found the system very cumbersome to use"*). If Q8 is uniformly red across participants in the even-item interpretation, that corrobor
+This is an important decision that has consequences across your entire pipeline. Let me go through every layer systematically.
+
+---
+
+## What Changes
+
+### Statistical Reporting — Degrees of Freedom
+Your paired t-tests were already computed at $n=5$, so the test statistics themselves do not change. What changes is how you **report and justify** them. $t(4)$ was previously a temporary state pending full data — it is now your final reported value. Remove every instance of *"partial dataset; final analysis $n=8$"* from all table footnotes.
+
+---
+
+### Power Analysis — This Needs Adding
+Dropping to $n=5$ makes your power situation significantly more critical to acknowledge explicitly. You should report this in your Methodology:These numbers are the most important output of this entire conversation for your dissertation. Here is the complete impact assessment:
+
+---
+
+## Complete Impact by Section
+
+### Methodology Chapter
+You must now explicitly state that $n=5$ is your **final analytic sample**, and justify the exclusion of three participants. The justification needs to be documented — *bias* is not sufficient on its own as written. Common valid reasons include:
+
+- Equipment malfunction / incomplete data collection
+- Participant withdrew consent post-session
+- Systematic response bias identified (e.g. straight-lining all responses)
+- Protocol deviation during session
+
+Whatever your reason, it must be stated clearly. Examiners will ask. Add a participant flow diagram or a brief exclusion table if possible.
+
+You must also add a **post-hoc power analysis** paragraph. The numbers are stark:
+
+> *"At the final analytic sample of $n = 5$, the study achieved a minimum detectable effect of $d = 1.69$ at $\alpha = .05$ and $1 - \beta = .80$ (two-tailed paired $t$-test, $df = 4$). The largest observed effect — SUS aggregate score, $d = 1.05$ — corresponded to an achieved power of $.43$, substantially below the conventional $.80$ threshold. RTLX comparisons ranged from $d = 0.29$ to $d = 0.74$, yielding achieved power of $.08$–$.25$. These figures indicate the study is materially underpowered and that non-significant results cannot be interpreted as evidence of equivalence between modalities. To achieve $.80$ power at the observed SUS effect size ($d \approx 1.05$), a sample of $n = 10$ would be required."*
+
+This is not a weakness to hide — it is a **limitation to foreground honestly** and address in your Discussion.
+
+---
+
+### Results Chapter
+Every inferential result must now be contextualised against the power figures. The protocol for each non-significant result changes from *"no significant difference was found"* to something like:
+
+> *"No statistically significant difference was observed ($W = 2.0$, $p = .188$); however, given the achieved power of $.25$ at this effect size, a Type II error cannot be excluded."*
+
+Effect sizes ($d$ and $r_{rb}$) now become your **primary evidence**, not the $p$-values. At $n=5$, the $p$-value is almost guaranteed to be non-significant for all but the most extreme effects — your SUS $d = 1.05$ is a genuinely large effect that the sample size simply cannot confirm statistically.
+
+---
+
+### Tables — What to Update
+Every table footnote needs two changes:
+
+1. Remove *"partial dataset; final analysis $n=8$"* — replace with *"$n = 5$ (see Section X.X for exclusion criteria)"*
+2. The $t(4)$ and $df = 4$ notation is now **correct and final** — no change needed there
+
+---
+
+### Discussion / Limitations Chapter
+Add a dedicated limitations paragraph covering:
+
+- **Underpowered design:** $n=5$ yields $.43$ power even at the large SUS effect ($d = 1.05$); all null RTLX results must be treated as inconclusive rather than negative
+- **Generalisation:** five participants cannot support population-level claims about hand-tracking viability in clinical contexts
+- **Recommended replication sample:** $n \geq 10$ for large effects, $n \geq 34$ for medium effects ($d = 0.5$)
+- **Counterbalancing:** with $n=5$, any order effects are extremely difficult to detect or control
+
+---
+
+### What Does NOT Change
+- All computed statistics ($t$, $W$, $p$, $d$, $r_{rb}$, RMSSD) — these were already computed on $n=5$
+- All LaTeX table structures and values — only footnote text needs editing
+- All figures and heatmaps — already based on the five participants' data
+- The Wilcoxon as primary statistic — this decision is *more* justified now, not less
+
+---
+
+The core finding remains arguable — a SUS effect size of $d = 1.05$ is large by any convention and points clearly toward the controller being rated as more usable. Your dissertation's intellectual contribution is to report that honestly, acknowledge the power limitation, and frame the work as a **pilot study establishing effect size estimates** to power a future definitive trial — which is a completely legitimate and well-precedented position in HCI research.
