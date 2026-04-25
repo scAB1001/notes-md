@@ -35,6 +35,7 @@ TODO:
 - [X] FSM Delta function table
 - [X] Consent forms scanned and uploaded
 - [X] SUS, RTLX and Open feedback forms added
+- [x] Participant characterisation table
 - [X]
 - [X]
 - [X]
@@ -46,7 +47,6 @@ TODO:
 - [ ] Data pipeline diagram
 
 - [ ] CONSORT flow diagram
-- [ ] Participant characterisation table
 - [ ] Task decomposition table
 
 Participant Characteritics (n=8)
