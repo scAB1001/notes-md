@@ -80,6 +80,6 @@ P01,controller,NA,sus,8,
 P01,controller,NA,sus,9,
 P01,controller,NA,sus,10,
 
-P01,NA,NA,open,1,text
-P01,NA,NA,open,2,
-P01,NA,NA,open,3,
+P01,NA,NA,open,1,""
+P01,NA,NA,open,2,""
+P01,NA,NA,open,3,""
