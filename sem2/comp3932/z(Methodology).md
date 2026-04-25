@@ -135,3 +135,55 @@ Your dissertation conclusion will synthesise all of the above into one of three 
 **Position C — Viable with caveats:** Statistical differences are present but effect sizes are modest. Usability grades are acceptable. Recommendation: hand-tracking is a credible replacement candidate subject to larger-scale validation.
 
 The outputs you have built are designed to produce exactly the evidence needed to defend whichever of these positions your data supports.
+Let me compute what the heatmaps will actually show before writing any code.Good — the data is rich enough to justify exactly four heatmaps. One candidate (raw SUS item responses) is rejected below for methodological reasons. Here is the full assessment and code:
+
+---
+
+## Which Heatmaps Are Justified and Why
+
+**✅ HM-A — RTLX Sub-scale × Task (side-by-side per condition)**
+The most analytically valuable heatmap. Reveals simultaneously *which subscale* and *which task* drives load, for each modality.
+
+**✅ HM-B — RTLX Difference Heatmap (Hand − Controller)**
+Collapses the comparison into a single signed matrix. Red = hand-tracking worse, blue = controller worse. Immediately shows whether the gap is uniform or task/subscale-specific.
+
+**✅ HM-C — Participant × Task RTLX Total (side-by-side)**
+Individual-level view. Exposes whether high group means are driven by one or two outlier participants, or whether the pattern is consistent across all $n$.
+
+**✅ HM-D — SUS Item Difference per Participant (Hand − Controller)**
+Shows which specific SUS questions drove each participant's score gap — directly linkable to qualitative feedback.
+
+**❌ HM — Raw SUS item responses (rejected)**
+Displaying raw Likert responses without scoring inversion would misrepresent the scale. Post-inversion the values lose their 1–5 interpretability for a heatmap reader. The difference map (HM-D) is more informative and methodologically cleaner.Four cells, each a standalone figure. Here is what each one argues for your dissertation:
+
+---
+
+## Figure 7 — RTLX Sub-scale × Task (Side-by-Side)
+
+**What the reader sees:** Two heatmaps — one blue, one red — with the same colour scale, showing mean load per subscale per task for each modality.
+
+**The argument:** This is your primary diagnostic tool for the replacement question. The Performance row will always appear as a visually distinct dark band in both panels (corrected values cluster near 15–19, reflecting participants rating their own performance as good). Everything above and below that band tells you where each modality imposes load. If Frustration darkens from T1→T4 only in the hand panel, that pinpoints bimanual scaling as the failure mode. If Mental Demand is consistently darker in the controller panel, that supports the cognitive friction argument — the controller requires learned mappings that hands do not.
+
+---
+
+## Figure 8 — RTLX Difference Heatmap (Hand − Controller)
+
+**What the reader sees:** A single diverging heatmap. Red cells = hand-tracking imposed more load there. Blue cells = controller imposed more load. White cells = no difference. Every cell is annotated with its signed value.
+
+**The argument:** This is the single most direct visualisation for the replacement verdict. A predominantly red heatmap = hand-tracking is categorically more demanding. A mixed pattern = the trade-off is task- and dimension-specific, meaning replacement is viable for some tasks but not others. Zero-difference cells (bordered in the code) indicate where the modalities are genuinely equivalent. The Temporal Demand and Physical Demand rows are the most theoretically interesting — if they are blue (controller worse), that would be a surprising and dissertation-worthy finding.
+
+---
+
+## Figure 9 — Participant × Task RTLX Total (Side-by-Side)
+
+**What the reader sees:** Two heatmaps showing each individual participant's total RTLX score across the four tasks.
+
+**The argument:** This is your outlier and consistency check, and it is essential at $n=8$. If the group-level finding is that hand-tracking imposes higher cognitive load, Figure 9 lets you verify whether that is true for *every* participant (a robust finding) or whether one participant (e.g. P04, who has notably high hand-tracking scores in the raw data) is inflating the group mean. Consistent row-level patterns — where the hand panel is uniformly darker than the controller panel across most participants — strengthen any inferential claims you make enormously at this sample size. It also lets you flag individual anomalies for your discussion: *"P03 showed the inverse pattern to the group trend, reporting lower RTLX under hand-tracking across all tasks, consistent with their qualitative preference for the hand modality."*
+
+---
+
+## Figure 10 — SUS Item Difference per Participant (Hand − Controller)
+
+**What the reader sees:** A single heatmap of raw Likert response differences, with phrasing direction (positive/negative item) annotated below each column.
+
+**The argument:** This requires care in interpretation, which is why the phrasing annotation is built into the code. For odd items (positive phrasing like *"I thought the system was easy to use"*), a red cell means the participant rated hand-tracking more favourably — that is good for hand-tracking. For even items (negative phrasing like *"I found the system very tiring"*), a red cell means they rated it as more tiring — that is bad for hand-tracking. The most dissertation-relevant cells are Q7 (*"I would imagine that most people would learn to use this system very quickly"*) and Q8 (*"I found the system very cumbersome to use"*). If Q8 is uniformly red across participants in the even-item interpretation, that corroborates both the RTLX Physical Demand findings and your participants' qualitative comments about fatigue and unnatural movement. Cross-referencing this figure against the open-ended responses is where your mixed-methods argument is made.
