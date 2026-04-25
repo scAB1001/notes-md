@@ -30,6 +30,12 @@ TODO:
 - [X] Image of Kanban
 - [X] Image of issue (2)
 - [X] Table of Fields for views
+- [X] Finite State Machine diagram
+- [X] Proof: FSM
+- [X] FSM Delta function table
+- [X] Consent forms scanned and uploaded
+- [X] SUS, RTLX and Open feedback forms added
+- [X]
 - [X]
 - [X]
 - [ ] Varjo XR-4 headset with FOV
@@ -39,12 +45,27 @@ TODO:
 - [ ] Taxonomy of 3D selection techniques (Tree hierarchy)
 - [ ] Data pipeline diagram
 
-- [ ] Finite State Machine diagram
 - [ ] CONSORT flow diagram
 - [ ] Participant characterisation table
 - [ ] Task decomposition table
 
+Participant Characteritics (n=8)
+- Sex/Gender
+- Age (Ranges?)
+- Background
+- Occupation (Surgical and Non-surgical) ?
+- VR Experience (None, Some, Considerable, Very Experienced)
+- Use of XR-4 before (Yes/No)
+- Use of Varjo Controoller experience
+- Hand-tracking experience
+- Gaming Frequency
+- Level of alertness
+- Use of LMC2 before (Yes/No)
+- Handedness
 
+Mean age in years (SD, Min-Max)
+P-value
+3D, three-dimensional; AR, augmented reality.
 
 ---
 

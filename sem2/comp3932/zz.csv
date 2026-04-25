@@ -1,0 +1,46 @@
+# A: Indexes
+Responses: 1–20 integer scales.
+
+    Strict Definition: Discrete Ordinal. You are collecting whole numbers (discrete) that have a meaningful rank order (ordinal), but the true psychological distance between a '4' and a '5' might not be exactly the same as between a '19' and a '20'.
+
+    Practical Analysis Treatment: Interval / Quantitative. In HCI literature, 20-point scales are almost universally treated as Continuous/Interval data. When you calculate the overall RTLX score (the sum or average of the 6 dimensions), you will treat that final number as a continuous quantitative variable, which allows you to use parametric tests like repeated-measures ANOVAs or paired t-tests (assuming normal distribution).
+
+"(1) Mental Demand"
+"(2) Physical Demand"
+"(3) Temporal Demand"
+"(4) Performance"
+"(5) Effort"
+"(6) Frustration Level"
+
+# B: Statements
+Responses: 1–5 (Strongly Disagree to Strongly Agree).
+
+    Strict Definition: Categorical Ordinal. A 5-point Likert scale is the textbook definition of ordinal data. The categories have a strict logical order, but they are qualitative labels translated into numbers.
+
+    Practical Analysis Treatment:
+
+        Item-Level: If you analyze a single question (e.g., "I thought the system was easy to use"), it remains Ordinal. You should use medians/modes and non-parametric tests (like the Wilcoxon signed-rank test).
+
+        Aggregate Level (The 0-100 Score): Once you apply the SUS formula (subtracting 1 from odd questions, subtracting even questions from 5, summing, and multiplying by 2.5), the final score (0–100) is universally treated as Quantitative Interval data, allowing for means, standard deviations, and parametric testing.
+
+"(1) I think that I would like to use this system frequently."
+"(2) I found the system unnecessarily complex."
+"(3) I thought the system was easy to use."
+"(4) I think that I would need the support of a technical person to use this system."
+"(5) I found the various functions in this system were well integrated."
+"(6) I thought there was too much inconsistency in this system."
+"(7) I think that most people would learn to use this system very quickly."
+"(8) I found the system very tiring to use."
+"(9) I felt very confident using the system."
+"(10) I needed to learn a lot of things before I could get going with this system."
+
+# C: Questions
+Responses: Three text fields.
+
+    Strict Definition: Qualitative Unstructured. Free-text responses do not have numerical value or inherent rank.
+
+    Practical Analysis Treatment: Categorical / Nominal. To analyze this scientifically, you will likely perform a Thematic Analysis. You read the text, find common themes (e.g., "Tracking Jitter", "Comfort"), and tag the responses. Once tagged, those themes become Nominal Categorical data (categories with no numerical order), which you can count to say, "62.5% of participants reported tracking jitter."
+
+"(1) Which control method did you prefer overall for manipulating the liver model, and why?"
+"(2) Did you experience any physical fatigue (e.g., in your arms, wrists, or eyes) during either task? If so, when?"
+"(3) Were there any specific gestures or controller movements that felt unnatural, frustrating, or failed to register?"
