@@ -1953,4 +1953,10 @@ All values are your real data. Three things in the data worth flagging for your 
 
 **P04 T4 hand-tracking is an extreme outlier** — TCT of 237s versus a group mean of 90s, and 229 clutches versus a group mean of 61. This single participant is inflating every hand-tracking SD at T4 enormously (TCT SD = 86.8s). Mention this explicitly when writing up T4 results and consider reporting the median alongside the mean for T4 hand-tracking metrics.
 
-	CIte participant flow (mendeley)
+- [ ] CIte participant flow (mendeley)
+- [ ] Change to uniform HTR and CTR
+- [ ] Use 7-DoF or 6DoF + Scaling ==NOT bimanual==
+- [ ] Change to Param. and Non-Param.
+- [ ] Reference in Footers.
+- [ ] Fix footers in general
+- [ ] Consort Flow for general and pilot feasibility
