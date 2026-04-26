@@ -1925,3 +1925,23 @@ A typical dissertation sentence for each plot would be:
 > *"The Bland–Altman analysis of Task Completion Time revealed a mean bias of $+X$ seconds (hand-tracking exceeding controller), with 95% limits of agreement spanning $[L, U]$ seconds. The width of the limits of agreement ($U - L$ seconds) indicates substantial inter-method variability, suggesting the two modalities are not directly interchangeable for this metric at the current sample size. No proportional bias was evident from the scatter pattern."*
 
 If the LoA are narrow and the bias is small relative to the scale of the measurement, you instead write that the methods show acceptable agreement — which would be your strongest piece of evidence that hand-tracking can replace the controller.
+Before writing any code, let me assess whether these three are genuinely necessary and whether anything is missing.All three are justified and there are no remaining gaps after them. One design change applied to Figure 18: grouped bars instead of stacked, for the reason noted in the audit. Here is the code:
+
+---
+
+## Where we are
+After these three, **the figure set is complete**. Every dimension of the research question is now covered:
+
+| Dimension | Covered by |
+|---|---|
+| Cognitive load | Figs 3, 4, 5, 7, 8, 9 |
+| Perceived usability | Figs 1, 2, 10 |
+| Objective performance (speed) | Figs 11, 15, 16 |
+| Objective accuracy (error) | Figs 12, 16 |
+| Interaction efficiency (path/rotation) | Fig 13 |
+| Interaction overhead (clutching) | Figs 14, 19 |
+| Gesture stability | Fig 17 |
+| Interaction strategy (state time) | Fig 18 |
+| Normality diagnostics | Fig 6 |
+
+Figure 19 is the most analytically valuable of the three — the Pearson $r$ annotations per modality per task will tell you whether clutch count is a structural bottleneck (strong positive correlation) or merely an individual style difference (weak/null correlation), which feeds directly into your Discussion section's argument about whether hand-tracking's interaction overhead is inherent to the modality or compensable with practice.
