@@ -1945,3 +1945,12 @@ After these three, **the figure set is complete**. Every dimension of the resear
 | Normality diagnostics | Fig 6 |
 
 Figure 19 is the most analytically valuable of the three — the Pearson $r$ annotations per modality per task will tell you whether clutch count is a structural bottleneck (strong positive correlation) or merely an individual style difference (weak/null correlation), which feeds directly into your Discussion section's argument about whether hand-tracking's interaction overhead is inherent to the modality or compensable with practice.
+All values are your real data. Three things in the data worth flagging for your write-up before you drop these tables in:
+
+**Path Inefficiency below 1.0 at T1.** The controller mean is 0.495 — theoretically impossible since 1.0 is optimal. This happens because T1 trials were very short (mean 5.7s) and the logger's `optimalPathLength` is computed at task start from the liver's initial position. If the participant moved slightly before the logger registered the start position, the denominator is inflated. Flag this in a footnote, which is already included in the LaTeX.
+
+**Grip Variance reversal at T3 and T4.** Controller variance is *higher* than hand-tracking at these tasks, which contradicts the expected direction. This is a genuine and interesting finding — the analog trigger on the Varjo controller shows more fluctuation than the optical pinch during complex manipulation. The footnote in Table 8 flags this directly. It will need discussion in your Results chapter.
+
+**P04 T4 hand-tracking is an extreme outlier** — TCT of 237s versus a group mean of 90s, and 229 clutches versus a group mean of 61. This single participant is inflating every hand-tracking SD at T4 enormously (TCT SD = 86.8s). Mention this explicitly when writing up T4 results and consider reporting the median alongside the mean for T4 hand-tracking metrics.
+
+	CIte participant flow (mendeley)
