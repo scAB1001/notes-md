@@ -1840,7 +1840,227 @@ These are the core user-driven pathways processed during the `LateUpdate()` loop
 Bland-Altman plots are specifically designed to answer one question: **do two measurement methods agree closely enough to be used interchangeably?** In your case, that question is precisely *"can hand-tracking replace controller-tracking?"*
 
 ---
+## Extra
+Looking at your stack — Unity/C#, Python notebooks, LaTeX, pre-commit already configured — here are the hooks worth adding, grouped by value:
 
+---
+
+## Already covered by your `pre-commit-config.yaml`
+These are running: trailing whitespace, end-of-file fixer, merge conflict check, JSON/YAML check, large file check, dotnet-format, oxfmt, Unity meta check, actionlint. No changes needed there.
+
+---
+
+## High value additions
+
+### 1. Commit message linting (`commitlint`)
+You are already using conventional commits (`chore(format):`, `docs(chore):` etc). Enforce it so no one — including future-you at 2am — commits `"fixed stuff"`:
+
+```yaml
+# Add to pre-commit-config.yaml
+- repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
+  rev: v9.16.0
+  hooks:
+    - id: commitlint
+      stages: [commit-msg]
+      additional_dependencies: ["@commitlint/config-conventional"]
+```
+
+Then add a `commitlint.config.js` at the repo root:
+
+```js
+module.exports = {
+  extends: ['@commitlint/config-conventional'],
+  rules: {
+    // Enforce your existing scope conventions
+    'scope-enum': [2, 'always', [
+      'format', 'chore', 'kinematics', 'telemetry',
+      'experiment', 'core', 'docs', 'ci', 'deps'
+    ]],
+    'body-max-line-length': [1, 'always', 120],
+  },
+};
+```
+
+---
+
+### 2. Secret / credential detection (`detect-secrets`)
+You have API-adjacent code (telemetry exports, file paths). Catches accidentally committed tokens, passwords, or keys before they hit remote:
+
+```yaml
+- repo: https://github.com/Yelp/detect-secrets
+  rev: v1.5.0
+  hooks:
+    - id: detect-secrets
+      args: ['--baseline', '.secrets.baseline']
+      exclude: '(\.unity$|\.asset$|\.meta$|Packages/)'
+```
+
+Initialise the baseline once so existing non-secret strings are whitelisted:
+
+```bash
+detect-secrets scan --exclude-files '\.unity$' --exclude-files '\.asset$' > .secrets.baseline
+git add .secrets.baseline
+```
+
+---
+
+### 3. Python notebook cleaning (`nbstripout`)
+Your Jupyter notebooks store cell outputs, execution counts, and kernel metadata in the JSON. This creates enormous noisy diffs and inflates repo size every time you run a cell. `nbstripout` strips all output before committing, keeping only the source:
+
+```yaml
+- repo: https://github.com/kynan/nbstripout
+  rev: 0.7.1
+  hooks:
+    - id: nbstripout
+      files: '\.ipynb$'
+```
+
+---
+
+### 4. Python type and lint checking (`ruff`)
+Your analysis pipeline is substantial Python. `ruff` is extremely fast and replaces flake8 + isort + pyupgrade in one tool:
+
+```yaml
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.8.6
+  hooks:
+    - id: ruff
+      args: [--fix]
+      files: '\.py$|\.ipynb$'
+    - id: ruff-format
+      files: '\.py$|\.ipynb$'
+```
+
+Add a minimal `ruff.toml` at the repo root:
+
+```toml
+line-length = 100
+target-version = "py312"
+
+[lint]
+select = ["E", "F", "W", "I"]   # pycodestyle, pyflakes, isort
+ignore = ["E501"]                # line length handled by formatter
+
+[lint.per-file-ignores]
+"*.ipynb" = ["E402"]             # allow imports not at top in notebooks
+```
+
+---
+
+### 5. LaTeX bibliography and reference checking
+Since you have a full dissertation in LaTeX, catch undefined references and missing citations before they become a problem at compile time. This is a local hook — no external repo needed:
+
+```yaml
+- repo: local
+  hooks:
+    - id: check-latex-references
+      name: check for undefined LaTeX references
+      language: system
+      entry: bash -c 'grep -rn "\\\\ref{" --include="*.tex" | grep -v "\\\\label{" | head -5 || true'
+      files: '\.tex$'
+      pass_filenames: false
+```
+
+A more robust option if you have `chktex` installed:
+
+```yaml
+    - id: chktex
+      name: chktex LaTeX linter
+      language: system
+      entry: chktex -q -n 1 -n 2 -n 8 -n 44
+      files: '\.tex$'
+```
+
+The `-n` flags suppress warnings that are too noisy for academic writing (overfull hboxes etc).
+
+---
+
+## Not worth adding for your stack
+
+- **Spell checking** — too many false positives on LaTeX commands, Unity identifiers, and statistical terminology
+- **Shell script linting (shellcheck)** — your only shell scripts are the git hooks themselves, which live in `.git/` and are not tracked
+- **Docker linting** — no Docker in your stack
+- **C# security scanning** — the Unity codebase is not a web service so attack surface analysis adds no value here
+
+---
+
+## Complete updated `pre-commit-config.yaml`
+
+```yaml
+exclude: '^(Library/|Temp/|Logs/|obj/|bin/|.*\.unitypackage)'
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-merge-conflict
+      - id: check-json
+      - id: check-yaml
+      - id: check-added-large-files
+        args: ["--maxkb=5000"]
+
+  - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
+    rev: v9.16.0
+    hooks:
+      - id: commitlint
+        stages: [commit-msg]
+        additional_dependencies: ["@commitlint/config-conventional"]
+
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+        args: ['--baseline', '.secrets.baseline']
+        exclude: '(\.unity$|\.asset$|\.meta$|Packages/)'
+
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.7.1
+    hooks:
+      - id: nbstripout
+        files: '\.ipynb$'
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.6
+    hooks:
+      - id: ruff
+        args: [--fix]
+        files: '\.py$|\.ipynb$'
+      - id: ruff-format
+        files: '\.py$|\.ipynb$'
+
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.12
+    hooks:
+      - id: actionlint
+
+  - repo: local
+    hooks:
+      - id: dotnet-format
+        name: dotnet-format
+        language: system
+        entry: dotnet format ./UnityProject/FormatOnly.sln whitespace --verify-no-changes
+        types: [c#]
+        pass_filenames: false
+
+      - id: oxfmt
+        name: oxfmt
+        language: node
+        additional_dependencies: ["oxfmt@0.44.0"]
+        entry: oxfmt
+        types_or: [json, yaml, markdown]
+        exclude: '^Assets/.*\.asset$|^ProjectSettings/.*\.asset$'
+
+      - id: check-unity-meta
+        name: check for missing .meta files
+        language: python
+        entry: python -c "import sys, os; m=[f for f in sys.argv[1:] if not os.path.exists(f + '.meta')]; sys.exit('Error - Missing .meta files for:\n' + '\n'.join(m)) if m else sys.exit(0)"
+        files: "^Assets/.*"
+        exclude: '\.meta$'
+```
+
+After updating, run `pre-commit install --hook-type commit-msg` to register the commit-msg stage for commitlint, then `pre-commit autoupdate` to pin all revisions to their latest releases.
 ## What the Axes Mean
 
 **X-axis — the mean of both methods:**
