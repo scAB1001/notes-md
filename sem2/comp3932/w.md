@@ -1837,3 +1837,91 @@ These are the core user-driven pathways processed during the `LateUpdate()` loop
   * **Condition:** State `== CLUTCHED` AND `isWithinProximity == false`
   * **Transition:** $\rightarrow$ `IDLE`
   * **Purpose:** The user has let go of the object and physically walked or moved their hand outside of the 50cm interaction radius. The object is officially released, and the system rests.
+Bland-Altman plots are specifically designed to answer one question: **do two measurement methods agree closely enough to be used interchangeably?** In your case, that question is precisely *"can hand-tracking replace controller-tracking?"*
+
+---
+
+## What the Axes Mean
+
+**X-axis — the mean of both methods:**
+For each trial, you take the controller value and the hand-tracking value and plot their average. This represents your best estimate of the *true* underlying value for that trial, since you have no gold standard. Spreading points along this axis lets you see whether agreement changes at different magnitudes of the measurement.
+
+**Y-axis — the difference (Hand − Controller):**
+For each trial, you subtract the controller value from the hand-tracking value. This is the raw disagreement between the two methods for that observation.
+
+- A point **above zero** means hand-tracking gave a *higher* value than the controller for that trial
+- A point **below zero** means hand-tracking gave a *lower* value
+- A point **at zero** means perfect agreement
+
+---
+
+## The Three Reference Lines
+
+**The bias line (solid, centre):**
+The mean of all differences. This tells you whether one method *systematically* over- or under-measures relative to the other.
+
+- Bias near zero → no systematic offset between methods
+- Positive bias → hand-tracking consistently produces higher values than controller
+- Negative bias → hand-tracking consistently produces lower values
+
+For TCT specifically: a positive bias means participants took *longer* with hand-tracking on average. A negative bias means they were faster. The bias line tells you the *direction and magnitude* of the systematic gap.
+
+**The limits of agreement (dashed, ±1.96 SD):**
+These capture approximately 95% of the differences. They define the range within which the two methods will disagree for any given new observation.
+
+The critical interpretive question is: **are these limits clinically or practically acceptable?**
+
+For example — if your TCT LoA are [−15s, +45s], that means for any given trial, hand-tracking could be 15 seconds faster *or* 45 seconds slower than the controller. Whether that spread is acceptable depends entirely on what the system is being used for. In a clinical planning context, that would likely be unacceptable variability. In a casual training context, it might be fine.
+
+**The zero line (dotted, if present):**
+Perfect agreement. If the bias line sits on zero and the LoA are narrow and straddle zero symmetrically, the methods are interchangeable.
+
+---
+
+## What the Scatter Pattern Tells You
+
+Beyond the three lines, the *shape* of the point cloud matters:
+
+**Random scatter around the bias line → good.**
+Disagreement is random and not systematic. The two methods differ by a consistent offset but not in a structured way.
+
+**Fan shape (spread increases left to right) → problematic.**
+Disagreement grows as the magnitude increases. The methods agree at low values but diverge at high values. This is called *proportional bias* and suggests the relationship between methods is not additive but multiplicative. If you see this, you would need to log-transform the data before re-plotting.
+
+**Curved pattern → non-linear relationship.**
+The methods do not simply offset each other — they have a fundamentally different relationship. Substitution would be inappropriate.
+
+**Outliers far from the LoA → individual trials where something went wrong.**
+At $n=5$ with 4 tasks each, you have only 20 points per plot. A single outlier is visually dominant and worth investigating — was that a tracking loss event, a particularly difficult rotation, or participant-specific behaviour?
+
+---
+
+## How to Read Yours Specifically
+
+For each of your three Bland-Altman plots (TCT, positional error, rotational error), work through this sequence:
+
+**Step 1 — Read the bias.** Is it positive, negative, or near zero? What does that direction mean for your metric?
+
+**Step 2 — Read the LoA width.** Take the upper LoA minus the lower LoA — this is your total spread. Ask: if two clinicians using these two systems measured the same task and got values that far apart, would that matter?
+
+**Step 3 — Check whether zero is inside the LoA.** If the LoA straddle zero (lower LoA is negative, upper is positive), it means the two methods sometimes agree in direction — sometimes hand-tracking is higher, sometimes lower. If *both* LoA are on the same side of zero, the systematic difference is so consistent it never reverses direction.
+
+**Step 4 — Look for patterns in the scatter.** Fan shape, curve, clustering — any of these suggest the simple additive model is wrong.
+
+**Step 5 — Ask whether the LoA are acceptable.** This is a *judgement call*, not a statistical test. Bland-Altman does not give you a p-value for acceptability — you must define in advance (ideally in your Methodology) what level of disagreement would be acceptable for the application.
+
+---
+
+## The Difference Between Bland-Altman and Correlation
+
+A common mistake is to run a Pearson correlation between two methods and, finding $r = 0.95$, conclude they agree. **Correlation measures association, not agreement.** Two methods can be perfectly correlated ($r = 1.0$) while one is always exactly double the other — they move together but are not interchangeable. Bland-Altman explicitly tests interchangeability, which is why it is the correct tool for your research question.
+
+---
+
+## Writing It Up
+
+A typical dissertation sentence for each plot would be:
+
+> *"The Bland–Altman analysis of Task Completion Time revealed a mean bias of $+X$ seconds (hand-tracking exceeding controller), with 95% limits of agreement spanning $[L, U]$ seconds. The width of the limits of agreement ($U - L$ seconds) indicates substantial inter-method variability, suggesting the two modalities are not directly interchangeable for this metric at the current sample size. No proportional bias was evident from the scatter pattern."*
+
+If the LoA are narrow and the bias is small relative to the scale of the measurement, you instead write that the methods show acceptable agreement — which would be your strongest piece of evidence that hand-tracking can replace the controller.
