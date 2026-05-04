@@ -1431,3 +1431,7 @@ Bland-Altman plots are specifically designed to answer one question: **do two me
 - [ ] Change to Param. and Non-Param.
 - [ ] Fix footers in general
 ## Prompt
+
+
+Here is the refined and tightened version of your statistical methods section. I have trimmed the verbose academic phrasing for a more direct, impactful flow. Crucially, **I have woven in the exact papers from your literature vault** (Rantamaa, Saran, Khundam, Luong) to explicitly justify *why* you are using these methods, proving to the examiner that your statistical plan perfectly mirrors the current gold standard in spatial computing HCI research.
+

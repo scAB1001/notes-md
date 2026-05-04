@@ -1,7 +1,3 @@
-Below is a systematic plan for integrating academic visuals into your dissertation. Each entry specifies the visual type, a suggested location (chapter and section), a brief justification, and whether it should be placed in the main text or the appendix (for items referenced multiple times).
-
----
-
 ## Appendix (Reusable Resources)
 
 Place these in the Appendix and reference them from multiple chapters.

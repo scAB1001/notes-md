@@ -259,3 +259,148 @@ Add a dedicated limitations paragraph covering:
 ---
 
 The core finding remains arguable — a SUS effect size of $d = 1.05$ is large by any convention and points clearly toward the controller being rated as more usable. Your dissertation's intellectual contribution is to report that honestly, acknowledge the power limitation, and frame the work as a **pilot study establishing effect size estimates** to power a future definitive trial — which is a completely legitimate and well-precedented position in HCI research.
+
+## RULE
+
+The rule is: **introduce once in the literature review, justify once in the methodology, report once in the results.**
+
+You never re-explain what a test is after the literature review. You never re-justify why you chose it after the methodology. The citations follow the same pattern — they appear heavily in the literature review where the concept is introduced, lightly in the methodology where the test is specified, and not at all in the results where you simply report the output.
+
+---
+
+**Literature Review** — cite fully here. This is where you establish what each test is and why it is appropriate. Every citation listed above belongs here with its full justification paragraph. This is the only place you explain Shapiro-Wilk, Wilcoxon, Cohen's d etc. as concepts.
+
+**Methodology (Statistical Analysis Plan)** — cite minimally here. One back-reference per test is sufficient, using the pattern:
+
+You do not re-explain the test. You simply name it, state which metrics it applies to, and back-reference. The citation appears only because you are making a methodological claim that needs attribution. For tests where the justification is entirely captured by the back-reference, you can omit the citation from the methodology entirely and let the cross-reference carry it.
+
+**Implementation** — no citations for statistical tests here. The implementation chapter describes how the data pipeline was built, not how the data will be analysed. The only statistical content in the implementation chapter is Welford's algorithm, which has its own citation in the literature review and a back-reference in the implementation.
+
+**Results** — no citations for statistical tests here. You report $W = 1.0$, $p = .125$, $d = -1.05$ and move on. The methodology has already told the reader what these numbers mean and why these tests were chosen. Repeating the citation in the results section implies you are still justifying the choice, which should already be settled.
+
+##
+```latex
+This is a substantial editorial task. I will work through Introduction and Literature Review systematically, identifying every problem and proposing a concrete fix. I will not rewrite everything — only flag what needs changing, cutting or restructuring, with a rationale for each decision tied to the marking rubric criterion it addresses.
+
+---
+
+## Introduction Chapter
+
+### Structural Problems
+
+**The chapter does not introduce key terms early enough.** The reader reaches the Literature Review without knowing what CTR, HTR, the liver mesh, the docking task, NUI, 6-DoF or the DFSM are. Every subsequent chapter uses these terms freely. Fix: add a brief terminology paragraph at the end of Section 1.3 that introduces all abbreviations that recur throughout the dissertation. This eliminates the need for repeated full expansions later and is standard practice in technical dissertations.
+
+**Section 1.2 is weak and should be merged.** The section heading is `The Problem with Current VR Controllers` but the content is mostly about the dimensional mismatch established in Section 1.1. It adds one new idea — mapping dissonance — but stretches it across four short paragraphs. Merge Sections 1.1 and 1.2 into a single section titled `Clinical Motivation and Interaction Problem`, keeping the dimensional mismatch, the cognitive translation cost and the mapping dissonance argument in one continuous flow.
+
+**The report structure enumeration is undergraduate in register.** `Chapter 1) provides a systematic literature review...` is the wrong numbering — Chapter 1 is the Introduction, not the literature review. The list also uses passive, weak phrasing. Either remove it entirely and replace with two sentences of prose, or fix the numbering and tighten the language. At this level the examiner does not need a chapter-by-chapter summary of obvious content.
+
+### Sentence-Level Problems
+
+**Section 1.1, paragraph 2:** `Prior to the development of 3D reconstruction, this required surgeons to construct a precise mental model...` — the phrase `develop a better understanding` in the preceding sentence is vague. Cut it. State the clinical act directly: surgeons interpret CT and MRI scans to identify tumour boundaries and vascular anatomy.
+
+**Section 1.1, paragraph 3:** `This cognitive spatial translation was exhausting and error-prone` — this sentence summarises what the previous paragraph already said. Cut it and merge the CASP sentence directly after the imaging sentence.
+
+**Section 1.2, paragraph 1:** `Immersive virtual reality (IVR) directly address` — subject-verb agreement error. Also, `quickly, a secondary obstacle was introduced` is colloquial. Rewrite: `VR resolves the dimensional mismatch by embedding the surgeon within a true 3D environment, but introduces a secondary problem: how to interact with that environment without reintroducing the cognitive translation cost VR was designed to eliminate.`
+
+**Section 1.3, paragraph 1:** `A growing body of evidence suggests` — weak hedge. You have specific citations. State the claim directly and cite. `Optical hand tracking eliminates the controller mapping layer by translating bare-hand motion directly into digital kinematics \citep{Bachmann2018ReviewController}, theoretically removing the cognitive translation cost at source.`
+
+**Section 1.3, paragraph 3:** `Although HTR promises a more intuitive experience, it introduces new hardware vulnerabilities` — the phrase `promises` is subjective. Use `offers` or state it as an empirical finding. Also the commented-out paragraph at the end of this section should either be included or deleted from the submitted document — comments must not appear in the final PDF.
+
+### What to Cut
+
+- The second sentence of the opening paragraph: `Consequently, liver resection: the surgical removal of malignant tumours, is a clinical priority.` — rewrite as: `Liver resection is therefore a clinical priority, yet the extreme vascularity of the liver renders these procedures exceptionally demanding \citep{Fan2002ResectionAspects}.`
+- `Other modelling approaches, such as 3D printing...` in the Literature Review Section 2.1 — this belongs in the Introduction as background context, not in the Literature Review, and even there it is a marginal point that consumes space without advancing the argument.
+- The commented-out lines throughout both chapters must be removed from the submitted document.
+
+---
+
+## Literature Review Chapter
+
+### Structural Problems
+
+**Section 2.1 does not conclude with a forward link to the interaction problem.** The section ends after the Chheang collaborative VR paragraph. Add one sentence: `These studies collectively establish the liver docking task as the optimal experimental stimulus; however, they also expose a foundational gap: the input modality driving the interaction has not been empirically evaluated against optical hand tracking at this hardware generation.` This provides the logical bridge to Section 2.2 and motivates the rest of the literature review.
+
+**Section 2.2.5 (Fitts' Law) is missing its mathematical formulation.** You have a comment `% ADD MATHS []` but no equation. The Fitts' Law equation and the Index of Difficulty formula must be present because the Methodology and Results chapters cite them when justifying TCT as the primary metric and when discussing task complexity scaling. Without the equation in the Literature Review, those back-references are unsupported. Add:
+
+```latex
+Fitts' Law predicts movement time $MT$ as a linear function of the
+Index of Difficulty $ID$:
+\begin{equation}
+    MT = a + b \cdot ID, \quad \text{where} \quad
+    ID = \log_2 \!\left(\frac{2D}{W}\right)
+    \label{eq:fitts}
+\end{equation}
+where $D$ is the distance to the target, $W$ is the target width, and
+$a$ and $b$ are empirically determined device constants
+\citep{Soukoreff2004TowardsHCI}.
+```
+
+**Section 2.2.6 (DFA) opens with a forward reference to Section~\ref{sec:sensor_noise} which appears later in Section 2.6.** This creates a forward dependency within the literature review itself. Either move the DFA section to after Section 2.6, or remove the specific cross-reference and replace it with: `As reactive systems operating on continuous hardware input streams must handle tracking loss, optical occlusion and modality swap events without entering undefined states...`
+
+**Section 2.8 (Statistical Analysis Methods) is misplaced relative to Section 2.7 (Software Compensation).** The statistical methods are analytical tools for evaluating the system, not software compensation techniques. The current order implies they are a subcategory of software engineering, which is logically incorrect. The section is correctly placed before the Summary of Gaps as confirmed earlier — ensure the numbering in the actual LaTeX document reflects this.
+
+**Section 2.9 (Summary of Gaps) still contains the ART ANOVA reference.** The final sentence reads: `evaluating the resulting non-parametric data via the ART ANOVA, this research provides a mathematically robust, definitive analysis`. Remove `the ART ANOVA` and replace with `a pre-registered non-parametric analysis plan`. Also remove `definitive` — a pilot study with n=5 cannot make definitive claims and this word will attract examiner criticism.
+
+**Section 2.10 (Project Aim and Objectives), Objective 5** still references `Aligned Rank Transform (ART) Analysis of Variance (ANOVA)`. Replace with `Wilcoxon Signed-Rank test as the primary non-parametric statistic, with effect sizes reported as Cohen's $d$ and rank-biserial $r$.`
+
+### Section-Level Cuts
+
+**Section 2.3.1 (Early Immersion):** The second paragraph is analytical padding. The key point is that early models conflated immersion with presence. One sentence suffices: `Early frameworks conflated technological immersion with psychological presence, treating embodiment as a binary rather than a continuous, multidimensional construct \citep{Kilteni2012TheReality}, limiting their ability to explain why distinct interaction metaphors produce measurably different cognitive responses.` Cut the rest of that paragraph.
+
+**Section 2.4 (Cognitive Load) opening paragraph:** `\citet{Che2025Three-dimensional3D-MATB-II} underlines that navigating highly dense 3D environments inherently imposes a high baseline cognitive load` — this is a weak opening for the section. The MATB-II paper is a dual-task study unrelated to surgical VR. Lead instead with the surgical motivation: `In surgical simulation, cognitive load is the primary performance determinant; a surgeon who is mentally overloaded by the interaction interface cannot simultaneously reason about anatomy \citep{Mao2021ImmersiveReview}.`
+
+**Section 2.5.2 (Fatigue-Induced Compensation):** The CAF model paragraph and the Yang posture study paragraph are both relevant but the connection to the proposed system is implicit. Add one concluding sentence: `In the proposed study, grip variance --- logged continuously via Welford's algorithm --- serves as a proxy for these fatigue-induced micro-tremors, providing an objective, non-intrusive correlate of the compensatory variance documented here.`
+
+**Section 2.6.1 (Pantomime Grasping):** The sentence `This perfectly aligns with the close-proximity requirements of surgical docking alignment task` is too brief and colloquial. Expand slightly: `The liver docking simulation is explicitly a near-field task; the participant's hands remain within arm's reach of the mesh throughout. The literature therefore predicts a usability preference for HTR in this context, even where objective kinematic performance may favour CTR.`
+
+**Section 2.6.2 (Sensor Noise):** The paragraph beginning `Much like sensor noise, the processing of raw tracking data...` conflates sensor noise with mathematical representation. Quaternions are not a compensation for sensor noise — they are a representation choice that prevents a different class of error (Gimbal Lock). Separate these into two paragraphs with distinct topic sentences.
+
+**Section 2.7.2 (Multi-Modal):** The Gaze+Pinch section is well-written but slightly long. Cut the Midas touch paragraph to one sentence: `The primary limitation is the Midas touch problem, where unintentional glances trigger commands, increasing error rates in precision tasks \citep{Duchowski2017EyeEdition}.`
+
+**Section 2.7.3 (Welford):** The algorithm is well-treated but the opening paragraph on `FixedUpdate` sampling belongs in the Implementation chapter, not the Literature Review. The Literature Review should explain *why* an online algorithm is needed, not *how* Unity's lifecycle works. Replace the first paragraph with: `High-frequency metric accumulation in game engine environments imposes a hard constraint on variance computation: the full sample history cannot be stored without triggering garbage collection at the 90\,Hz physics rate, which would introduce frame-time spikes directly detectable by participants as visual stuttering.`
+
+### Sentence-Level Cuts Across the Chapter
+
+The following phrases appear repeatedly and should be cut on every occurrence — they add length without adding meaning:
+
+- `It can be concluded that...` — just state the conclusion.
+- `This perfectly aligns with...` — just state the alignment.
+- `While [X] is [positive], it [negative]...` — keep the structure once per section for contrast; cut redundant instances.
+- `Furthermore,` at the start of consecutive paragraphs — vary with `This`, `Consequently`, `However` or restructure.
+- `In our case,` — academic register; replace with `For the proposed system,` or `In this project,`.
+- `We know from Section X that...` — replace with a clean cross-reference: `As established in Section~\ref{sec:X},...`
+
+### Missing Content That Later Chapters Depend On
+
+**The liver mesh is never formally introduced.** The Methodology and Implementation chapters refer to `the target mesh`, `the liver model`, `activeLiverModel` and `the docking task` as if the reader already understands what these are. Add one sentence in Section 2.1: `The proposed simulation uses a polygonal mesh of a human liver, generated from segmented CT data, as the manipulation target; this mesh is referred to throughout as the target mesh or liver model.`
+
+**CTR and HTR are not defined as abbreviations in the Introduction.** They first appear informally in Section 2.6. Move their formal introduction to Section 1.3 in the terminology paragraph proposed above: `The two modalities are referred to throughout as Controller Tracking (CTR) and Hand Tracking (HTR).`
+
+**The docking task is not formally defined until the Methodology.** The Introduction and Literature Review both refer to the `liver docking task` or `docking simulation` without ever defining what docking means in this context. Add one sentence in Section 1.1 or Section 2.1: `The docking task requires the participant to translate, rotate and scale a solid liver mesh to align it with a translucent target hologram, replicating the spatial reasoning demands of pre-operative resection margin planning.`
+
+---
+
+## Priority Order for Edits
+
+| Priority | Action                                                                                    |
+| -------- | ----------------------------------------------------------------------------------------- |
+| Critical | Remove all ART ANOVA references from Gaps summary and Objectives                          |
+| Critical | Remove all commented-out lines from submitted document                                    |
+| Critical | Add Fitts' Law equation to Section 2.2.5                                                  |
+| Critical | Add terminology paragraph to Section 1.3 defining CTR, HTR, mesh, docking task, NUI, DFSM |
+| Critical | Fix subject-verb error in Section 1.2 paragraph 1                                         |
+| High     | Merge Sections 1.1 and 1.2                                                                |
+| High     | Add forward link to Section 2.1 conclusion                                                |
+| High     | Fix DFA forward reference to sec:sensor\_noise                                            |
+| High     | Add liver mesh formal definition to Section 2.1                                           |
+| High     | Replace weak hedges throughout (`a growing body of evidence`, `it can be concluded`)      |
+| Medium   | Cut Early Immersion second paragraph to one sentence                                      |
+| Medium   | Separate quaternion paragraph from sensor noise paragraph in Section 2.6.2                |
+| Medium   | Cut Gaze+Pinch Midas touch paragraph to one sentence                                      |
+| Medium   | Replace FixedUpdate opening paragraph in Section 2.7.3                                    |
+| Medium   | Add fatigue-to-grip-variance link sentence in Section 2.5.2                               |
+| Medium   | Rewrite report structure enumeration or replace with prose                                |
+| Low      | Vary paragraph openers throughout (`Furthermore` overuse)                                 |
+| Low      | Replace all `In our case` with `For the proposed system`                                  |
+
+```

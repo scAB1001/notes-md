@@ -1,0 +1,515 @@
+\chapter{Implementation and Validation}
+\label{chap4:implem}
+
+Purpose: Demonstrate technical complexity and engineering rigour. Highly visual.
+
+\section{Hardware Setup}
+\label{}
+- Labelled image of Varjo VR controller (buttons, thumbstick, grip).
+- Labelled image of human hand (thumb, index, middle, etc.) showing tracked landmarks.
+- DoF matrix table (repeated from 3.4 for clarity).
+
+\section{Software Architecture}
+\label{}
+- UML class diagram for the FSM and provider hierarchy.
+- Explanation of the hardware abstraction layer (`BaseInteractionProvider`).
+
+\includegraphics[width=1\linewidth]{images/architecture_design/uml_component_simple.png}
+\captionof{figure}{UML Component Diagram showing}
+\label{fig:uml_simple}
+
+
+% =============================================================================
+\section{Trial Orchestration}
+\label{sec:trial_orchestration_impl}
+% =============================================================================
+
+The \texttt{TrialOrchestrator} realises the three design decisions specified in Section~\ref{sec:trial_orchestration_design}. This section details the two implementation aspects that are architecturally significant: the bitmask constraint application and the spatial dwell validation logic. The keyboard administration controls and environment reset methods are omitted from detailed treatment as they are infrastructural rather than novel; their existence is confirmed by the test suite described in Section~\ref{sec:impl_validation}.
+
+
+% -----------------------------------------------------------------------------
+\subsection{Task Constraint Application via Bitmask}
+\label{sec:bitmask_impl}
+% -----------------------------------------------------------------------------
+
+The \texttt{TrialTask} enumeration encodes the degrees-of-freedom permissions for each task as a three-bit mask using the \texttt{byte} underlying type:
+
+% % % % % % % % % % % % % % % % % % % %
+% ENUMERATE: TrialTask bitmask values
+% % % % % % % % % % % % % % % % % % % %
+\begin{enumerate}[nosep, label=\texttt{0b\,\textsubscript{\arabic*}}]
+    \setcounter{enumi}{-1}
+    \item[\texttt{0b0001}] \texttt{PureTranslation} --- bit 0 set; translation permitted.
+    \item[\texttt{0b0010}] \texttt{PureRotation} --- bit 1 set; rotation permitted.
+    \item[\texttt{0b0011}] \texttt{SixDegreesOfFreedom} --- bits 0 and 1 set; translation and rotation permitted.
+    \item[\texttt{0b0111}] \texttt{FullScale} --- bits 0, 1 and 2 set; translation, rotation and scaling permitted.
+\end{enumerate}
+
+At task start, \texttt{ApplyTaskConstraints} reads the bitmask and writes the three boolean flags on the \texttt{InteractionOrchestrator} directly:
+
+\begin{lstlisting}[language={[Sharp]C}, caption={Bitmask constraint
+application in \texttt{TrialOrchestrator.ApplyTaskConstraints}.},
+label={lst:bitmask}]
+private void ApplyTaskConstraints()
+{
+    byte mask = (byte)currentTask;
+    interactionOrchestrator.allowTranslation = (mask & 0b0001) != 0;
+    interactionOrchestrator.allowRotation    = (mask & 0b0010) != 0;
+    interactionOrchestrator.allowScaling     = (mask & 0b0100) != 0;
+}
+\end{lstlisting}
+
+This single-operation constraint application is preferable to a switch-case enumeration over task values because it scales to any future task definition without modification: adding a new \texttt{TrialTask} value with the appropriate bitmask automatically produces the correct constraint combination without any changes to \texttt{ApplyTaskConstraints}. The correctness of this logic across all four task values is verified by the \texttt{TrialTaskBitmaskTests} EditMode test suite (Section~\ref{sec:impl_validation}).
+
+
+% -----------------------------------------------------------------------------
+\subsection{Spatial Dwell Validation}
+\label{sec:dwell_impl}
+% -----------------------------------------------------------------------------
+
+The 3.0-second dwell criterion specified in Section~\ref{sec:task_design} is enforced by \texttt{ValidateSpatialDwell}, which executes on every \texttt{Update} frame while a task is active. The method evaluates three independent spatial criteria simultaneously and accumulates a timer only while all active criteria are continuously satisfied:
+
+The positional error is computed as the Euclidean distance between the liver's local position and the target hologram's local position. The rotational error is computed via \texttt{Quaternion.Angle}, consistent with the quaternion-based representation mandated by Section~\ref{sec:sensor_noise} to prevent Gimbal Lock singularities \citep{Fang1998RealQuaternions}. The scale error is computed as the absolute ratio difference between the liver's uniform scale and the target's uniform scale.
+
+Each criterion is evaluated against the task-specific tolerance thresholds defined in Section~\ref{sec:task_design}, and the active set of criteria is determined by the current \texttt{TrialTask} value via \texttt{EvaluateTaskCriteria}, which mirrors the bitmask logic: T1 requires only positional validity, T2 requires positional and rotational validity, T3 requires both, and T4 requires all three simultaneously. If any active criterion is violated while the dwell timer is accumulating, the timer is reset to zero without penalty, requiring the participant to re-establish and hold the aligned pose for the full duration from the beginning. This reset behaviour is verified by the \texttt{DwellTimer\_ResetsToZero\_WhenUserExitsTolerance} PlayMode integration test (Section~\ref{sec:impl_validation}).
+
+% =============================================================================
+\section{Telemetry Pipeline}
+\label{sec:telemetry_impl}
+% =============================================================================
+
+The \texttt{SessionTelemetryLogger} realises the three architectural constraints specified in Section~\ref{sec:telemetry_design}. This section details the implementation of the memory-buffered export pipeline, the CSV schema, and the Welford variance accumulator.
+
+
+% -----------------------------------------------------------------------------
+\subsection{Polling and Memory-Buffered Export}
+\label{sec:telemetry_pipeline_impl}
+% -----------------------------------------------------------------------------
+
+The logger operates across two execution contexts within the Unity lifecycle. \texttt{FixedUpdate} runs at the physics timestep and performs two operations on every frame: continuous accumulation of path length, rotation and clutch count, and a polling check that appends a CSV row to the \texttt{StringBuilder} buffer when the elapsed poll timer exceeds the 20\,Hz interval. The separation between continuous accumulation and scheduled polling is deliberate: path inefficiency must be computed from every physics frame to avoid aliasing errors caused by large inter-frame displacements at high movement velocities, whereas the 20\,Hz sampled output is sufficient for the statistical analysis pipeline.
+
+The \texttt{StartTrialLog} method initialises the buffer and writes the CSV header row. The header columns map directly onto the analysis variables defined in Section~\ref{sec:objective_metrics}:
+
+\begin{lstlisting}[language={[Sharp]C}, caption={CSV header initialisation
+in \texttt{SessionTelemetryLogger.StartTrialLog}.},
+label={lst:csv_header}]
+dataBuffer.AppendLine(
+    "Time(s),State,PosError(m),RotError(deg)," +
+    "PathInefficiency,RotInefficiency," +
+    "ClutchCount,RawGrip,GripVariance");
+\end{lstlisting}
+
+The \texttt{StopAndExportLog} method writes the accumulated buffer to disk in a single \texttt{File.WriteAllText} call, implementing the atomic export guarantee described in Section~\ref{sec:telemetry_design}. The output file path follows the naming convention:
+
+\begin{center}
+\texttt{\{participantID\}\_\{condition\}\_\{taskIndex\}\_\{taskName\}\_\{timestamp\}.csv}
+\end{center}
+
+This naming scheme encodes all session metadata required for unambiguous file attribution during the analysis phase, eliminating the need for a separate participant log or manual renaming step. The integrity of the header, column count and file export is verified by the \texttt{SessionTelemetryLoggerPlayModeTests} integration suite (Section~\ref{sec:impl_validation}).
+
+
+% -----------------------------------------------------------------------------
+\subsection{Clutch Count Accumulation}
+\label{sec:clutch_impl}
+% -----------------------------------------------------------------------------
+
+The clutch count metric defined in Section~\ref{sec:objective_metrics} requires detecting the specific FSM transition from a non-grabbing state to a grabbing state, rather than simply counting frames in which a grab is active. The \texttt{TrackClutchCount} method implements this by comparing the current FSM state against the last recorded state on every physics frame:
+
+\begin{lstlisting}[language={[Sharp]C}, caption={Clutch count accumulation
+in \texttt{SessionTelemetryLogger.TrackClutchCount}.},
+label={lst:clutch}]
+private void TrackClutchCount()
+{
+    InteractionState currentState = orchestrator.currentState;
+    bool wasIdle = lastFsmState == InteractionState.IDLE
+                || lastFsmState == InteractionState.CLUTCHED;
+    bool isGrabbing = currentState == InteractionState.TRANSFORMING
+                   || currentState == InteractionState.SCALING;
+
+    if (wasIdle && isGrabbing) clutchCount++;
+    lastFsmState = currentState;
+}
+\end{lstlisting}
+
+The transition condition \texttt{wasIdle \&\& isGrabbing} fires exactly once per grab engagement, regardless of how many frames the participant remains in the grabbing state, producing a count that precisely indexes the number of discrete interaction cycles executed during a task. The correctness of this accumulation logic is verified by the \texttt{ClutchCount\_IncrementsOncePerGrabEngagement} PlayMode integration test (Section~\ref{sec:impl_validation}).
+
+
+% -----------------------------------------------------------------------------
+\subsection{Welford Online Variance}
+\label{sec:welford_impl}
+% -----------------------------------------------------------------------------
+
+Grip variance is accumulated on every physics frame in which the FSM is in an active grabbing state, using the three-variable Welford accumulator introduced in Section~\ref{sec:welford}:
+
+\begin{lstlisting}[language={[Sharp]C}, caption={Welford online variance
+accumulation in \texttt{SessionTelemetryLogger.UpdateWelfordVariance}.},
+label={lst:welford}]
+private void UpdateWelfordVariance(float currentValue)
+{
+    gripSampleCount++;
+    float delta  = currentValue - gripMean;
+    gripMean    += delta / gripSampleCount;
+    float delta2 = currentValue - gripMean;
+    gripM2      += delta * delta2;
+}
+
+private float GetCurrentGripVariance()
+{
+    if (gripSampleCount < 2) return 0f;
+    return gripM2 / (gripSampleCount - 1);
+}
+\end{lstlisting}
+
+The implementation maintains three scalar accumulators (\texttt{gripSampleCount}, \texttt{gripMean}, \texttt{gripM2}) in fixed heap memory throughout the task. No grip history array is allocated; the garbage collector is never invoked by the variance computation regardless of task duration, satisfying the $O(1)$ space requirement established in Section~\ref{sec:telemetry_design}. The Bessel-corrected denominator \texttt{gripSampleCount - 1} produces an unbiased sample variance rather than a population variance, consistent with the statistical treatment in Section~\ref{sec:objective_metrics}. The numerical correctness of this implementation is verified against a two-pass ground truth by the \texttt{WelfordVarianceTests} EditMode suite across datasets of uniform grip, high-variability alternating grip, and 1000-sample simulated trial data (Section~\ref{sec:impl_validation}).
+
+
+\section{Gesture Recognition Engine}
+\label{sec:gesture_engine}
+% - Implementation details: pinch threshold, grip threshold, Coyote time (grace period).
+
+% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+\subsubsection{Prototype Validation and Architectural Motivation}
+\label{sec:prototype_motivation}
+% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+As established in Section~\ref{sec:prototype}, \citet{Sommerville2016GlobAlEdiTioN} advocates prototyping as a risk-reduction strategy for validating technical feasibility before full implementation. Prior to engineering the decoupled architecture described in Section~\ref{sec:hardware_arch}, we developed a monolithic proof-of-concept --- the \texttt{UltraleapKinematicManipulator} (Appendix~\ref{alg:kinematic_manipulator}) --- to validate that the Ultraleap LMC2 could produce stable, low-latency kinematic data suitable for 6-DoF mesh manipulation inside Unity.
+
+The prototype confirmed hardware viability: pinch detection was stable, quaternion-based rotation prevented Gimbal Lock as required by Section~\ref{sec:sensor_noise} \citep{Fang1998RealQuaternions}, and the thumb-index midpoint vector provided a reliable spatial anchor for translation. However, three structural limitations made it unsuitable for production.
+
+\textbf{Provider coupling} \\
+Grab detection iterates directly over \texttt{frame.Hands} from the \texttt{LeapServiceProvider}, hardcoding the logic to the Ultraleap SDK. Substituting the Varjo Controller modality would require rewriting the class entirely, violating the internal validity requirement of the Testbed Evaluation framework \citep{Bowman2001TestbedTechniques}: both modalities must traverse identical transformation mathematics so that any measured performance difference is attributable solely to input modality.
+
+\textbf{Undefined interaction states} \\
+DoF constraints were exposed as serialised boolean flags toggled manually between tasks. An unanticipated input sequence could therefore leave the mesh in a kinematically undefined configuration. As established in Section~\ref{sec:dfsm_theory}, reactive systems must enforce a formally total transition function to guarantee deterministic behaviour \citep{Sipser2012IntroductionComputation}; boolean flags provide no such guarantee.
+
+\textbf{Absent telemetry} \\ % Briefer []
+Positional and rotational offsets were applied on every frame but never recorded. The prototype could confirm kinematic feasibility but could not produce the Task Completion Time, spatial error, inefficiency, clutch count or grip variance metrics defined in Section~\ref{sec:objective_metrics}, making it architecturally incompatible with the trial's data collection requirements.
+
+These three limitations directly defined the production architecture. Provider coupling demanded an abstract \texttt{BaseInteractionProvider} contract. Undefined states demanded the formally specified DFSM introduced in Section~\ref{sec:fsm_design}. Absent telemetry demanded the \texttt{SessionTelemetryLogger} operating on Welford's online algorithm (Section~\ref{sec:welford}) to accumulate grip variance in $O(1)$ space without garbage collection pressure on the 90\,Hz render loop. The following sections detail each production component in turn.
+
+As established in Section~\ref{sec:fsm_theory}, a Deterministic Finite Automaton guarantees total transition coverage for every input-state combination. In Section~\ref{sec:fsm_design}, we defined the four interaction states and modality-based input alphabet at the architectural level. This section details the instantiation of that model within the Unity engine, including the complete transition function, formal computation proof and hardware-specific implementation parameters.
+
+
+% -----------------------------------------------------------------------------
+\subsection{Formal Definition of the Interaction Automaton}
+\label{sec:fsm_definition}
+% -----------------------------------------------------------------------------
+
+% Change [] CITE (6), reword.
+Let the interaction framework be defined by the 5-tuple $M = (Q, \Sigma, \delta, q_0, F)$, where:
+
+% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+\subsubsection{The Set of States ($Q$)}
+\label{sec:fsm_states}
+% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+The finite set of states $Q = \{q_0, q_1, q_2, q_3\}$ are modelled off of the interaction mappings defined in Table~\ref{tbl:modality_comparison}:
+
+% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+\subsubsection{The Input Alphabet ($\Sigma$)}
+\label{sec:fsm_alphabet}
+% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Nine discrete hardware events constitute the input alphabet $\Sigma$, representing the full range of interaction primitives available across both modalities. These events are defined at the hardware abstraction level, ensuring the FSM logic remains modality-agnostic. A full specification of the transition function $\delta$ and the formal computation proof are provided in Section~\ref{sec:fsm_definition}.
+
+Let the alphabet $\Sigma = \{0, 1, 2, 3, 4, 5, 6, 7, 8\}$ represents the discrete hardware events detected by the active provider:
+\begin{enumerate}[nosep, label=${\arabic*}$:, start=0]
+    \item \textbf{Tracking Loss Override} (Camera occlusion)
+    \item \textbf{Hardware Swap Reset} (Controller or hand swap)
+    \item \textbf{Initiate Grab} (Valid pinch within proximity)
+    \item \textbf{Release to Clutch} (Pinch released)
+    \item \textbf{Initiate Bimanual Scaling} (Secondary pinch detected)
+    \item \textbf{Partial Release} (One hand released during scale)
+    \item \textbf{Full Release} (Both hands released simultaneously)
+    \item \textbf{Re-engage Grab} (Pinch resumed from clutch)
+    \item \textbf{Abandon Object} (Hand moves outside proximity bounds)
+\end{enumerate}
+
+% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+\subsubsection{Start State and Accepting States ($q_0, F$)}
+\label{sec:fsm_start_accept}
+% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+The system always initialises in the IDLE state, therefore the initial state is $q_0$.
+
+In the context of this continuous reactive system, returning to state $q_0$ signifies a safely concluded sequence of interactions where the target model is left in a stable, non-volatile configuration. Therefore, the set of accepting states is defined as $F \subseteq Q \therefore F = \{q_0\}$.
+
+% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+\subsubsection{The Transition Function ($\delta$)}
+\label{sec:fsm_delta}
+% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+In applied software engineering, the \texttt{C\#} event logic inherently behaves as a partial function; the system only calculates transitions for valid hardware inputs and implicitly ignores the rest. For example, when a switch-case statement has no \texttt{default} case, the input is simply ignored. However, according to \citeauthor{Sipser2012IntroductionComputation}'s book, \textit{Introduction to the Theory of Computation}, the formal definition of automata require the transition function to be total, meaning there must be a defined output for every input at every state. \newline
+
+To address this, all unhandled input-state combinations from the partial C\# implementation are mathematically formalised as total by defining them as self-loops (e.g., $\delta(q_0, 5) = q_0$). This guarantees the automaton is strictly deterministic and mathematically complete. Let the transition function $\delta : Q \times \Sigma \rightarrow Q$ determine this system's behaviour. \newline
+
+The complete transition matrix for the interaction orchestrator is detailed in Table \ref{tbl:dfa_transitions}. Note the input \texttt{1} (Hardware Swap Reset), which forces an immediate return to the start state ($q_0$) regardless of the current system configuration.
+
+\begin{table}[htbp]
+    \centering
+    % 'c |' creates a vertical line separating the states from the inputs
+    \caption{Formal Total Transition Function ($\delta$) for the FSM}
+    \label{tbl:dfa_transitions}
+    \begin{tabular}{c | c c c c c c c c c}
+        \toprule
+        \multirow{2}{*}{
+            \textbf{State ($Q$)}
+        } &
+        \multicolumn{9}{c}{
+            \textbf{Input Alphabet ($\Sigma$)}
+        } \\
+        \cmidrule{2-10} &
+        \textbf{0} & \textbf{1} & \textbf{2} &
+        \textbf{3} & \textbf{4} & \textbf{5} &
+        \textbf{6} & \textbf{7} & \textbf{8} \\
+        \midrule
+        $\rightarrow *q_0$ & $q_0$      & $\bm{q_0}$ & $\bm{q_2}$ & $q_0$ & $q_0$ & $q_0$ & $q_0$& $q_0$ & $q_0$ \\
+        $q_1$              & $q_1$      & $\bm{q_0}$ & $q_1$ & $q_1$      & $q_1$ & $q_1$ & $q_1$& $\bm{q_2}$  & $\bm{q_0}$ \\
+        $q_2$              & $\bm{q_1}$ & $\bm{q_0}$ & $q_2$ & $\bm{q_1}$ & $\bm{q_3}$ & $q_2$ & $q_2$       & $q_2$ & $q_2$ \\
+        $q_3$              & $\bm{q_1}$ & $\bm{q_0}$ & $q_3$ & $q_3$      & $q_3$ & $\bm{q_2}$ & $\bm{q_1}$  & $q_3$ & $q_3$ \\
+        \bottomrule
+    \end{tabular}
+    \footnotesize
+    \item \textit{Note:} $\rightarrow$ denotes the initial state; $*$ denotes an accepting state.
+    \item Bold entries denote actionable state changes; non-bold entries are self-loops.
+\end{table}
+
+While game engine state machines operate as continuous reactive systems rather than finite string recognisers, applying formal DFA constraints on all possible input combinations results in a predictable and mathematically defined transition.
+% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+\subsubsection{The Deterministic Finite State Machine ($M$)}
+\label{sec:fsm_implemented}
+% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+% % % % % % % % % % % % % % % % % % % %
+% FIGURE: DFSM
+% % % % % % % % % % % % % % % % % % % %
+\begin{center}
+    \includegraphics[width=0.6\linewidth]{images/architecture_design/dfsm.png}
+    \captionof{figure}{Deterministic Finite Automaton governing the interaction framework. States represent kinematic phases; transitions are triggered by discrete hardware events from either modality. Implicit self-loops for unhandled inputs are omitted for visual clarity; the complete transition function is defined in Table~\ref{tbl:dfa_transitions}.}
+    \label{fig:dfa_formal}
+\end{center}
+
+% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+\subsubsection{Formal Definition of Computation}
+\label{}
+% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Let $M = (Q, \Sigma, \delta, q_0, F)$. \\
+Let $w = w_1w_2\dots w_n$ be a sequence of hardware inputs where $w_i \in \Sigma$. \\
+$M$ accepts $w$ if and only if there is a sequence of states $r_0r_1r_2\dots r_n \in Q$ such that: \[
+\begin{matrix}
+   r_0=q_0 \\
+   \delta(r_i, w_{i+1}) = r_{i+1} & \text{for } 0\le i < N \\
+   r_n \in F
+\end{matrix}
+\]
+
+Thus, $M$ recognises the language of hardware inputs if $A=\{w|M \text{ accepts } w\}.$
+
+
+% -----------------------------------------------------------------------------
+\subsection{Objective Performance Metrics}
+\label{sec:objective_metrics}
+% -----------------------------------------------------------------------------
+
+All objective metrics were logged by the \texttt{SessionTelemetryLogger} at 20\,Hz via a memory-buffered pipeline and exported atomically to CSV at task completion. The following metrics were captured:
+
+\textbf{Task Completion Time (TCT).} The elapsed time from task start to successful spatial dwell validation, measured in seconds. TCT is the primary objective performance metric, consistent with the systematic review evidence that VR-trained groups complete spatial procedures 18--43\% faster than control groups \citep{Mao2021ImmersiveReview}. In accordance with Fitts' Law \citep{Soukoreff2004TowardsHCI}, TCT is expected to scale with task Index of Difficulty, providing a mathematical basis for comparing performance across the four tasks of increasing kinematic complexity.
+
+\textbf{Positional Error (m) and Rotational Error ($\degree$).} Final Euclidean distance between the liver centroid and the docking target, and \texttt{Quaternion.Angle} between the liver orientation and the target orientation, measured at the moment the dwell criterion is first satisfied. The use of quaternion-based angular error is mandatory, as established in Section~\ref{sec:sensor_noise}, to prevent Gimbal Lock singularities \citep{Fang1998RealQuaternions}. These metrics serve as the direct quantification of spatial accuracy referenced by the dwell thresholds ($\leq 0.05$\,m and $\leq 5.0\degree$).
+
+\textbf{Path Inefficiency and Rotation Inefficiency.} The ratio of the actual path length (or total rotation) traversed by the liver to the theoretical minimum required to reach the docking pose. A ratio of 1.0 indicates a perfectly direct trajectory; values above 1.0 quantify wasted motion. These metrics extend the Testbed framework \citep{Bowman2001TestbedTechniques} by capturing the quality of the trajectory rather than only its endpoint.
+
+\textbf{Clutch Count.} The number of discrete grab-release cycles executed during a task. As established by \citet{Rantamaa2023ComparisonReality} using identical Varjo and Ultraleap hardware, repeated interaction events serve as a reliable proxy for optical tracking instability and interaction frustration. A high clutch count indicates that the user was unable to maintain a continuous grip, necessitating repeated re-engagements.
+
+\textbf{Grip Variance.} The running unbiased sample variance of raw grip strength (pinch strength for HTR; analog trigger deflection for CTR) during active manipulation frames, computed using Welford's online algorithm (Section~\ref{sec:welford}). Higher variance indicates less stable and consistent actuation, consistent with the biomechanical evidence that optical hand tracking produces greater grip variability than mechanically grounded physical controllers \citep{Allgaier2022ATraining}.
+
+
+% -----------------------------------------------------------------------------
+\subsection{Subjective Metrics}
+\label{sec:subjective_metrics}
+% -----------------------------------------------------------------------------
+
+Subjective data was collected using the two instruments formally introduced in Section~\ref{sec:subjective_instruments}. Blank copies of both questionnaires are reproduced in Appendix~\ref{doc:rtlx} and Appendix~\ref{doc:sus} respectively.
+
+The RTLX was administered immediately after each of the four tasks, capturing the workload profile specific to each subtask's kinematic demands before memory of the experience degraded. The SUS was administered once per condition, after all four tasks for a given modality had been completed, reflecting its design intent as a holistic system usability measure \citep{Brooke1996SUS:Scale}.
+
+An open feedback form (Appendix~\ref{doc:feedback}) was administered post-condition, inviting free-text responses on modality preference, perceived fatigue and gesture effectiveness. Responses will be analysed via post-hoc thematic coding and reported as qualitative evidence supplementing the quantitative findings.
+
+
+% -----------------------------------------------------------------------------
+\subsection{Statistical Analysis Plan}
+\label{sec:stat_plan}
+% -----------------------------------------------------------------------------
+
+\textbf{Normality testing} \\
+Prior to inferential testing, the Shapiro-Wilk test will be applied to all difference scores (HTR minus CTR per metric). At $n = 5$, Shapiro-Wilk is the appropriate normality test as it has greater power than alternatives for small samples.
+
+\textbf{Primary inferential statistics} \\
+For metrics where difference scores are normally distributed, a paired sample $t$-test will be reported. For non-normally distributed metrics, and as the primary statistic given the ordinal nature of the RTLX and SUS data, the Wilcoxon Signed-Rank test will be used. Both tests will be reported alongside Cohen's $d$ (paired) and rank-biserial $r$ as effect size measures. At $n = 5$ the Wilcoxon cannot produce $p < .05$ unless the result is perfectly one-directional; effect sizes are therefore the primary evidence for practical significance \citep{Wobbrock2011TheProcedures}.
+
+\textbf{Post-hoc power analysis} \\
+A post-hoc power analysis will confirm the minimum detectable effect size at $\alpha = .05$ and $1 - \beta = .80$ for $df = 4$, quantifying the study's sensitivity and providing parameters for powering a future confirmatory trial.
+
+\textbf{Carry-over effect check} \\
+Because the condition order was fixed rather than counterbalanced, a period $\times$ treatment interaction check will be conducted to test whether any observed differences are attributable to learning or fatigue effects rather than modality. If a significant carry-over effect is detected, it will be reported as a confound and the affected metrics flagged for cautious interpretation.
+
+% This is experimental algo header
+% \textbf{\hrule} \vspace{0.05\baselineskip}
+% \textbf{Algorithm 1.} Pinch detection based on captured hand tracking
+% \vspace{0.25\baselineskip} \textbf{\hrule} \vspace{0.25\baselineskip}
+
+% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+\subsubsection{Representation as Code}
+\label{sec:fsm_switch_case}
+% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+This algorithm represents the state transitions in our FSM.
+\vfill
+\begin{algorithm}[htbp]
+\caption{Finite State Machine dispatcher.}
+\label{alg:fsm_core }
+\begin{algorithmic}[1]
+\Procedure{ProcessStateMachine}{}
+    \State isTriggered $\gets$ activeProvider.IsInteractionTriggered()
+    \State isBimanual $\gets$ activeProvider.IsBimanualInteractionTriggered()
+    \State isWithinProximity $\gets$ CalculateProximity()
+    \\
+    \State \textbf{switch} currentState:
+
+    \State \quad \textbf{case} IDLE:
+        \State \quad \qquad ProcessIdleState(isTriggered, isWithinProximity)
+        \State \quad \qquad \textbf{break}
+
+    \State \quad \textbf{case} TRANSFORMING:
+        \State \quad \qquad ProcessTransformingState(isTriggered, isBimanual)
+        \State \quad \qquad \textbf{break}
+
+    \State \quad \textbf{case} SCALING:
+        \State \quad \qquad ProcessScalingState(isTriggered, isBimanual)
+        \State \quad \qquad \textbf{break}
+
+    \State \quad \textbf{case} CLUTCHED:
+        \State \quad \qquad ProcessClutchedState(isTriggered, isWithinProximity)
+        \State \quad \qquad \textbf{break}
+
+    \State \textbf{end switch}
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+\vfill
+
+\vfill
+\begin{algorithm}[htbp]
+\caption{Pinch detection based on captured hand tracking.}
+\label{alg:get_pinch_formal}
+\begin{algorithmic}[1]
+\Procedure{GetPinch}{hand}
+    \If{hand = null}
+        \State \textbf{return} Vector3.Zero
+    \EndIf
+    \\
+    % The slash and space (\ ) ensures a visible space in math mode
+    \State Vector3 \ thumbTip $\gets$ hand.fingers[Thumb].TipPosition
+    \State Vector3 \ indexTip $\gets$ hand.fingers[Index].TipPosition
+    \\
+    \State \textbf{return} Vector3.Lerp(thumbTip, indexTip, 0.5)
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+
+\section{Kinematic Mathematics}
+\label{}
+- Quaternion rotations to avoid gimbal lock (cite Fang et al., 1998).
+- Delta calculation for position and rotation.
+- Scale‑around‑pivot algorithm for bimanual scaling.
+
+\section{Telemetry and Data Logging}
+\label{}
+- Data pipeline diagram (sensors → Unity → CSV → analysis).
+- Logging frequency (20 Hz), CSV format, and post‑processing.
+TrialOrchestrator — one section in the implementation describing how the task sequence, condition swap, environment reset and dwell validation were realised in code. You do not need to reproduce the entire class — focus on the bitmask constraint application (which is architecturally interesting and directly tied to the methodology discussion of DoF isolation) and the dwell criterion implementation (which closes the loop on the 3.0 second threshold specified in the methodology).
+Telemetry — one section covering the CSV schema design (mapping directly to the analysis variables), the StringBuilder buffering strategy, the atomic export mechanism, and the Welford implementation. This is also where you explain that the file naming convention (participantID, condition, taskIndex, timestamp) was designed to enable unambiguous joining in the analysis pipeline without manual data cleaning.
+
+TrialOrchestrator — one section in the implementation describing how the task sequence, condition swap, environment reset and dwell validation were realised in code. You do not need to reproduce the entire class — focus on the bitmask constraint application (which is architecturally interesting and directly tied to the methodology discussion of DoF isolation) and the dwell criterion implementation (which closes the loop on the 3.0 second threshold specified in the methodology).
+Telemetry — one section covering the CSV schema design (mapping directly to the analysis variables), the StringBuilder buffering strategy, the atomic export mechanism, and the Welford implementation. This is also where you explain that the file naming convention (participantID, condition, taskIndex, timestamp) was designed to enable unambiguous joining in the analysis pipeline without manual data cleaning.
+- Admin keyboard controls in TrialOrchestrator — mention they exist as researcher overrides, no detailed treatment needed
+
+Telemetry — one section covering the CSV schema design (mapping directly to the analysis variables), the StringBuilder buffering strategy, the atomic export mechanism, and the Welford implementation. This is also where you explain that the file naming convention (participantID, condition, taskIndex, timestamp) was designed to enable unambiguous joining in the analysis pipeline without manual data cleaning.
+
+% % % % % % % % % % % % % % % % % % % %
+% FIGURE: DATA PIPELINE
+% % % % % % % % % % % % % % % % % % % %
+\begin{center}
+    \includegraphics[width=0.7\linewidth]{images/architecture_design/data_pipeline.png}
+    \captionof{figure}{Flow of Data from the application to the analysis.}
+    \label{fig:data_flow}
+\end{center}
+
+SystemBootstrapper — mention it exists, reference the methodology section on system verification, move on
+Diagnostics — mention the global toggle pattern, note it is tested in the EditMode suite, move on
+
+\section{User Interface and Visual Feedback}
+\label{}
+- Soft visual constraints (landing windows, colour change on alignment).
+- Ghost target and solid liver rendering.
+
+% =============================================================================
+\section{System Validation}
+\label{sec:impl_validation}
+% =============================================================================
+
+
+% -----------------------------------------------------------------------------
+\subsection{Test Architecture and Continuous Integration}
+\label{sec:test_architecture}
+% -----------------------------------------------------------------------------
+
+The two-tier testing strategy defined in Section~\ref{sec:system_validation} was implemented using the Unity Test Framework, which exposes NUnit via \texttt{UnityEngine.TestTools} and supports both EditMode and PlayMode execution contexts natively within the Unity Editor. All tests were committed to the branch \texttt{test/83/establish-test-framework}, providing a verifiable TDD audit trail in the repository history. \\
+
+% Remove this bit []
+Two assembly definition files were created to register the test assemblies with Unity's compilation pipeline. \texttt{EditModeTests.asmdef} targets the \texttt{Editor} platform only and references \texttt{COMP3932.Core}, \texttt{COMP3932.Kinematics}, \texttt{COMP3932.Experiment} and \texttt{COMP3932.Telemetry}, enabling unit tests to access all production namespaces without being included in player builds. \texttt{PlayModeTests.asmdef} targets all platforms with no include restriction, permitting integration tests to run inside the Unity runtime environment. \\
+
+All test fixtures were tagged with the \texttt{``ProjectTests''} category, allowing the Unity Test Runner and CI pipeline to filter and execute only the project's own tests rather than all tests discovered across the asset database, including those from third-party packages.
+
+
+% -----------------------------------------------------------------------------
+\subsection{Coverage and Limitations}
+\label{sec:test_coverage}
+% -----------------------------------------------------------------------------
+
+The EditMode suite validated 29 distinct behavioural assertions across the four production namespaces, covering the mathematical correctness of Welford's online variance algorithm against a two-pass ground truth, the completeness of the DFSM transition function, the bitmask constraint logic for all four \texttt{TrialTask} values, and the divide-by-zero guards in the telemetry metric calculators. The PlayMode suite validated nine integration behaviours requiring the Unity runtime, including clutch count accumulation across FSM transitions, CSV column integrity, atomic file export and the full condition swap sequence triggered by task completion.
+
+Two categories of component fall outside the automated test coverage. First, \texttt{UltraleapInteractionProvider} was not exercised in PlayMode because it depends on the Leap SDK's \texttt{LeapServiceProvider} which cannot be instantiated without a connected Ultraleap device or a supported simulator. The provider's mathematical behaviour --- pinch centre interpolation, coyote time buffering and finger audit logic --- was instead validated empirically during development sessions with the device. Second, the \texttt{EnforceSpatialBounds} method in \texttt{InteractionOrchestrator} was partially tested through observable scale clamping assertions in EditMode, but full boundary coverage requires a running physics scene with a positioned mesh, which was deferred to manual integration testing.
+
+% change []
+These limitations are acknowledged and documented as targets for a future expanded test suite should the system progress beyond the prototype stage.
+
+Purpose: Prove that the system works correctly through systematic testing.
+
+
+% -----------------------------------------------------------------------------
+\subsection{Unit Testing}
+\label{}
+% -----------------------------------------------------------------------------
+- Tests for `Diagnostics` class (conditional logging, colour coding).
+- Tests for `TrialTask` bitmask logic.
+- Tests for FSM state transitions without hardware.
+
+
+% -----------------------------------------------------------------------------
+\subsection{Integration Testing}
+\label{}
+% -----------------------------------------------------------------------------
+- Using XR Device Simulator to simulate controller/hand inputs.
+- Verification of telemetry accuracy (inject known movements, compare logged values).
+
+
+% -----------------------------------------------------------------------------
+\subsection{Pilot Study (N=5)}
+\label{}
+% -----------------------------------------------------------------------------
+- Dry run to identify issues (tracking loss, UI clarity).
+- Adjustments made (Coyote time, threshold tuning, demo scene).
+
+
+% -----------------------------------------------------------------------------
+\subsection{Main User Study (N=10‑20)}
+\label{}
+% -----------------------------------------------------------------------------
+- Execution of protocol described in Chapter 3.
+- Data collection and export.
