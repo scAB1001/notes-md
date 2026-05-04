@@ -9,106 +9,198 @@ TODO
     - Make them collaborators on GitHub and share repo
     -
 
-\chapter{Self-Appraisal}
-\label{app:self_appraisal}
-
+```latex
 % =============================================================================
 \section{Critical Self-Evaluation}
 \label{sec:self_eval}
 % =============================================================================
 
-This project required simultaneous competence across four distinct disciplines: Unity HDRP development, optical sensor integration, experimental HCI methodology, and statistical analysis. Reflecting critically, the engineering objectives were met to a professional standard while the experimental objectives were partially constrained by hardware factors outside my control.
+Overall, I consider this project a success.
+Without any prior experience in the hardware, software or experimental
+methodology it demanded, I built a sophisticated system capable of
+assessing the viability of bare-hand gesture interaction under
+scientific standards, as a proposed solution to the cognitive
+dissonance gap in surgical planning.
+There are, however, many things I would approach differently with the
+benefit of hindsight.
 
-\subsubsection{What went well}
-The formal DFSM architecture was the single best design decision of the project. By enforcing totality across all 36 input-state combinations and routing both modalities through the abstract \texttt{BaseInteractionProvider} contract, I eliminated an entire category of undefined runtime behaviour that had plagued the prototype. The TDD strategy --- writing 29 EditMode assertions and 9 PlayMode integration behaviours before human trials --- provided genuine engineering confidence rather than post-hoc assurance. The telemetry pipeline performed without a single data-loss event across all conducted trials: every task completion exported a well-formed CSV atomically, and the Welford accumulator produced numerically stable grip variance across the full 90\,Hz sample rate. The CONSORT-compliant trial protocol was well-executed; the condition order justification, exclusion criteria and statistical analysis plan were all pre-registered in the methodology rather than retrofitted to the results.
+\textbf{Project selection.}
+Even before the project began, I made decisions I would reconsider.
+Supervisor selection took place at the very start of the academic term
+under considerable time pressure, and my shortlist covered entirely
+unrelated fields simply because individual project ideas appealed to
+me in isolation.
+The domain of this project spans computer graphics, medical imagery
+and human-computer interaction, none of which I had meaningful
+experience in.
+I do not regret the choice --- the breadth proved formative --- but
+I would now advise any student to at least ensure their chosen project
+sits within a domain they have some footing in before committing.
 
-\subsubsection{What went wrong and how I adapted}
-The most significant failure was hardware-induced sample reduction. Three of eight enrolled participants were excluded due to Varjo XR-4 subsystem faults producing malformed telemetry exports. This reduced the analysed sample to $n = 5$, below the $n \geq 8$ minimum I had planned for, and meant the Wilcoxon test could not produce $p < .05$ for any two-tailed comparison regardless of effect magnitude. I adapted by foregrounding effect sizes as the primary evidential metric, following the dual-reporting approach of \citet{Rantamaa2023ComparisonReality}, and reframing the study explicitly as a pilot feasibility trial rather than a confirmatory one --- a reframing that is methodologically honest rather than defensive. Had I budgeted two additional enrolment sessions as a contingency for equipment failures, the final sample would have been adequate.
+\textbf{Hardware access and planning.}
+The most consequential change I would make is gaining lab access
+immediately rather than waiting until mid-February, approximately
+12 weeks into a 20-week project window.
+Bureaucratic delays --- including requiring supervisor administrative
+credentials to install any software --- were irritating but manageable.
+The real problem was beginning hardware integration with no prior
+experience of the Varjo XR-4 or Ultraleap LMC2.
+At upwards of \pounds5,000 for the headset alone, I naively expected
+reliable out-of-the-box operation.
+Both devices were subject to intermittent cable, software, overheating
+and unexplained faults whose only resolution was often to wait, restart
+all services, or accept partial data.
+Were I to advise someone entering a similarly hardware-dependent project,
+I would tell them to stress-test the full device stack within the first
+week and, if it proves genuinely unusable, communicate this to their
+supervisor and seek alternative hardware before architectural decisions
+are made around it.
 
-The fixed CTR-first condition order was a deliberate design choice justified by asymmetric prior experience across participants, but in retrospect a partially counterbalanced design --- even with only eight participants --- would have been preferable. I could not implement full counterbalancing without doubling recruitment time, but a blocked crossover assigning four participants to each order would have been feasible within the project timeline.
+\textbf{Literature review.}
+I am proud of the systematic approach I took once I began the literature
+review: collating sources, building a profile for each that captured key
+information at a glance, grouping by theme and ranking by relevance.
+This proved invaluable during writing, as I had already digested and
+annotated each source rather than returning to them cold.
+The regret is that I started too late.
+Competing assignments pushed the literature review aside, and I
+ultimately compressed a body of genuinely complex material into
+approximately one week.
+That pace was insufficient to fully internalise the theoretical
+depth this project required --- particularly the embodiment, fatigue and
+statistical literature --- and I retained less than I should have.
+The profile system partially compensated for this, but the lesson is
+clear: literature review should begin in parallel with project selection,
+not after it.
 
-An early HDRP rendering issue caused a two-week delay at the start of Milestone~2: the Unity HDRP pipeline requires explicit configuration of shadow atlases and volume profiles that are not pre-configured in the default template, and the Varjo XR-4's foveated rendering required additional HDRP compatibility layers that were undocumented at the time. I resolved this by isolating the rendering configuration from the interaction logic through the component architecture, so subsequent changes to either did not require rebuilding the other. The lesson was to validate the full hardware-software stack on a minimal scene before committing to the production architecture --- a principle I now treat as a mandatory first sprint task for any hardware-dependent project.
+\textbf{Version control and engineering practice.}
+My use of Git and the GitHub platform is something I am genuinely proud
+of.
+Rule sets, branch protection, Conventional Commits, milestone-linked
+issue templates, labelled sub-issues, Kanban and Roadmap board views,
+CI Actions and Semantic Versioning releases shaped my development
+workflow end-to-end.
+These are not decorative features; they meant I could always locate
+context for any decision, roll back safely and hand off the codebase
+in an auditable state.
+I note that Git is not standard practice in Unity projects, where
+binary asset sizes often make repository management difficult.
+For this project it was appropriate, but any expansion introducing
+multiple actors, large scene files or binary assets at scale would
+benefit from a more specialised version control strategy, such as
+Git LFS with Unity Plastic SCM integration.
+
+The DFSM architecture was the single best design decision of the
+project.
+Enforcing totality across all 36 input-state combinations and routing
+both modalities through an abstract provider contract eliminated an
+entire class of undefined runtime behaviour that had plagued the
+prototype.
+This was a full-circle moment: I had performed poorly on the Formal
+Languages and Finite Automata module and now the theory I struggled
+with became the structural core of the production system.
+
+\textbf{Sprint timeline and personal cost.}
+My milestones operated on two-week sprints which I technically met,
+but doing so required unreasonable working hours and personal
+sacrifices that a better-distributed workload would have avoided.
+This was partly a knock-on effect of delayed lab access compressing
+the implementation window, but the sprint durations themselves were
+also too ambitious for a project of this scope.
+In future I would plan for three-week sprints with a defined slack
+day per sprint, and I would refuse to treat sprint overrun as
+a personal failure rather than a planning signal.
+
+\textbf{Experimental outcomes.}
+The CONSORT-compliant trial protocol was well-executed: the condition
+order justification, exclusion criteria and statistical analysis plan
+were all pre-registered in the methodology rather than retrofitted to
+results.
+The trials themselves ran more smoothly than expected given my lack of
+prior experience conducting human studies.
+Unfortunately, the Varjo XR-4 continued to fail intermittently during
+live sessions; on some occasions a full trial could not be completed in
+a single sitting, which likely introduced minor temporal confounds in
+the affected participants' data.
+Three of eight enrolled participants were ultimately excluded due to
+headset subsystem faults producing malformed telemetry exports, reducing
+the analysed sample to $n = 5$ against the $n \geq 8$ minimum I had
+planned for.
+This meant the Wilcoxon Signed-Rank test could not produce $p < .05$
+for any two-tailed comparison regardless of effect magnitude.
+I adapted by foregrounding effect sizes as the primary evidential
+metric, following the dual-reporting approach of
+\citet{Rantamaa2023ComparisonReality}, and reframing the study
+explicitly as a pilot feasibility trial rather than a confirmatory one.
+Had I budgeted one or two contingency enrolment sessions from the
+outset, the final sample would likely have been adequate.
 
 % =============================================================================
 \section{Personal Reflection and Lessons Learned}
 \label{sec:reflection}
 % =============================================================================
 
-\subsubsection{Technical growth}
-Before this project I had not worked with quaternion mathematics in a production context, had not implemented a formal automaton in software, and had not run a within-subjects experimental study. I leave the project confident in all three. The most intellectually satisfying moment was deriving the formal proof that the DFSM accepts exactly the language of valid interaction sequences --- connecting the theoretical computer science of Milestone~1 to the physical interaction behaviour of Milestone~3 in a way that felt genuinely rigorous rather than decorative.
+\textbf{Technical growth.}
+Before this project I had not worked with quaternion mathematics in a
+production context, had not implemented a formal automaton in software
+and had not conducted a within-subjects experimental study.
+I leave the project confident in all three.
+The most intellectually satisfying moment was deriving the formal proof
+that the DFSM accepts exactly the language of valid interaction
+sequences, connecting the theoretical computer science I had previously
+struggled with to the physical interaction behaviour of the live trials
+in a way that felt genuinely earned.
 
-\subsubsection{Project management}
-The sprint structure aligned to Milestones 2--4 was effective in preventing scope creep: the Kanban work-in-progress limit of three concurrent issues forced prioritisation decisions that I would otherwise have deferred. The most important lesson was that hardware-dependent research projects require a risk buffer of at least one sprint for device integration failures. I allocated approximately 20\% of Milestone~2 to resolving the HDRP issue, which compressed the gesture recognition development into a tighter window than planned. In future, I would schedule a dedicated hardware validation sprint before the first implementation sprint rather than treating integration as a background task.
+\textbf{Project management.}
+The Kanban work-in-progress limit of three concurrent issues forced
+the kind of prioritisation decisions I would otherwise have deferred
+indefinitely.
+The clearest lesson, however, is that hardware-dependent projects
+require an explicit risk buffer: I spent approximately 20\% of
+Milestone~2 resolving HDRP and device integration issues that I had
+not budgeted for, compressing the gesture recognition development
+window.
+In any future hardware-dependent project, I would schedule a dedicated
+device validation sprint before the first implementation sprint,
+treating integration as a first-class deliverable rather than a
+background assumption.
+I would also extend sprint durations from two to three weeks and
+build slack into each one rather than treating overrun as a personal
+shortcoming.
 
-\subsubsection{Research methodology}
-Running a human study revealed a gap in my preparation: I had designed the statistical analysis plan carefully, but had not stress-tested the trial protocol with a pilot participant before enrolling the main cohort. A single informal dry-run would have identified the headset weight discomfort reported by VR-naïve participants (P04) and allowed me to add a five-minute acclimatisation period to the protocol. This is now the first item I would add to any future experimental checklist.
+\textbf{Research methodology.}
+Running a human study revealed a gap between planning and execution that
+no amount of pre-registration fully closes.
+I had designed the statistical analysis plan carefully but had not
+stress-tested the trial protocol with a single informal pilot
+participant before the main cohort.
+A dry-run session would have surfaced the headset weight discomfort
+reported by VR-naïve participants and the intermittent device faults
+that caused session interruptions, allowing me to add an acclimatisation
+period and a formal equipment checklist to the protocol.
+Both of these are now permanent fixtures in any experimental checklist
+I will produce.
 
-\subsubsection{Communication}
-Writing this dissertation required me to translate between three audiences simultaneously: the non-specialist reader of the Introduction, the methodologist reading the statistics sections, and the software engineer reading the implementation. The discipline of maintaining those distinct registers --- and of resisting the temptation to front-load technical acronyms before a non-expert reader is ready for them --- is a transferable skill I will carry into professional technical writing.
+\textbf{Communication and writing.}
+Writing this dissertation required me to maintain three distinct
+registers simultaneously: non-specialist for the Introduction, methodologist
+for the statistics sections and software engineer for the implementation.
+The discipline of holding those registers separately --- not
+front-loading technical acronyms, not assuming familiarity with
+either experimental design or automata theory --- is a skill I had
+not consciously developed before.
+The same challenge applies to the self-appraisal itself: moving from
+the impersonal scientific voice of the main text to first-person
+reflection required a conscious shift that I found more difficult than
+expected.
+Both transitions are ones I will navigate more confidently in future
+technical writing.
 
-% =============================================================================
-\section{Legal, Social, Ethical and Professional Issues}
-\label{sec:lsep_issues}
-% =============================================================================
-
-\subsection{Legal Issues}
-\label{sec:legal_issues}
-
-\subsubsection{Data protection}
-The study collected demographic data (age, sex, handedness, VR experience) and task performance data from human participants. All data was handled in accordance with the UK General Data Protection Regulation (UK GDPR) and the University of Leeds data governance policy. Participant data was pseudonymised at the point of collection using the identifiers P01--P08; no name, email address or other directly identifying information was stored alongside the telemetry or questionnaire records. Collected CSV files and questionnaire responses were stored on an encrypted university-managed drive and were not transmitted to third-party services. Contact data used for recruitment was deleted upon study completion.
-
-\subsubsection{Intellectual property and software licensing}
-All third-party software components used in this project were operated under their respective licences. The Ultraleap Hyperion SDK is licensed under the Ultraleap SDK Agreement, which permits use in research and educational projects. The Varjo Base SDK is provided under the Varjo Developer Agreement. Unity 2022 LTS was used under a Unity Student licence. NUnit is distributed under the MIT licence. All pre-commit hooks used (\texttt{actionlint}, \texttt{commitlint}, \texttt{pre-commit-hooks}) are open-source tools with MIT or Apache~2.0 licences. The liver mesh \texttt{OBJ} file was sourced from an anonymised clinical CT reconstruction; its provenance was verified by the project supervisor in accordance with the University's research data governance procedures. No proprietary or commercially restricted datasets were used.
-
-\subsubsection{University intellectual property}
-Under the University of Leeds intellectual property policy, software developed as part of an undergraduate project remains the intellectual property of the student unless explicitly assigned otherwise. No external stakeholder agreements were in place that would alter this default position.
-
-\subsection{Social Issues}
-\label{sec:social_issues}
-
-\subsubsection{Impact on surgical training and planning}
-The motivation for this project is explicitly socially beneficial: improving the usability of surgical planning tools has the potential to reduce planning errors, improve resection outcomes for liver cancer patients, and lower the cognitive burden placed on surgeons during high-stakes procedures. However, I acknowledge that a system evaluated on a university convenience sample cannot yet make clinical claims, and that any deployment pathway would require validation on surgical professionals and regulatory evaluation before influencing clinical practice.
-
-\subsubsection{Access and equity}
-The hardware required to replicate this study --- a Varjo XR-4 headset ($\approx$\pounds5,000), an Ultraleap LMC2, and a workstation with an NVIDIA RTX~3080 --- is not accessible to most institutions, particularly those in lower-income healthcare systems. This creates a risk that the benefits of high-fidelity mixed-reality surgical planning tools will accrue disproportionately to well-resourced hospitals. Future work should evaluate whether consumer-grade hardware (e.g., Meta Quest with hand tracking) can replicate the findings at a fraction of the cost, broadening the potential reach of the intervention.
-
-\subsubsection{Participant diversity}
-The convenience sample was predominantly non-surgical (62.5\%) and young (mean age 22.9 years). The SUS and RTLX results may not generalise to practising surgeons, who bring different spatial reasoning skills, tool-use habits and fatigue profiles. This is acknowledged as a limitation in the main text and motivates the recruitment of domain-specific participants in the confirmatory trial.
-
-\subsubsection{Environmental impact}
-Sustained use of a high-performance GPU workstation and the Varjo XR-4 carries an energy cost. Each experimental session consumed approximately 90 minutes of full GPU load. Across eight sessions this represents a modest but non-zero carbon footprint. For a confirmatory trial with $n \geq 20$, I would recommend scheduling sessions to maximise hardware utilisation per day and investigating whether the workstation can be configured to run on renewable energy tariffs.
-
-\subsection{Ethical Issues}
-\label{sec:ethical_issues}
-
-This project falls under two University of Leeds block ethical approval categories: 3.2 (Medical Images) and 3.4 (User Testing).
-
-\subsubsection{Medical images}
-The liver mesh used as the manipulation target was sourced from a fully anonymised CT reconstruction. No patient-identifiable metadata was present in the \texttt{OBJ} file or associated contour data. The supervisor confirmed the legitimacy of the source prior to use, consistent with the block approval requirement under category~3.2.
-
-\subsubsection{Informed consent and voluntary participation}
-Each participant received a written Project Information Sheet prior to enrolment, describing the study purpose, the data to be collected, how data would be used, and the right to withdraw at any time without consequence. Written consent was obtained from all eight enrolled participants before any data collection began. Participation was voluntary; no inducements were offered. Signed consent forms were uploaded to Minerva alongside this report.
-
-\subsubsection{Health and safety}
-Participants were briefed on VR-specific risks before headset application, including the possibility of motion sickness, visual discomfort from extended headset use, and the need to remain seated during the session. The inclusion criterion excluded participants with a history of severe motion sickness. No participant reported motion sickness during the study; two reported minor eye fatigue attributable to headset weight after extended sessions, which is consistent with normal use of the Varjo XR-4 for VR-naïve users.
-
-\subsubsection{Data minimisation}
-The questionnaires collected only the minimum demographic data required to characterise the sample: age, sex, handedness, VR experience level and modality-specific prior exposure. No medical history, financial information or other sensitive personal data was collected. All responses were anonymised at the point of recording using participant identifiers.
-
-\subsubsection{Right to withdraw}
-Three participants were excluded from the analysis due to equipment failure producing malformed telemetry. This exclusion was applied on technical data-integrity grounds and was pre-specified in the exclusion criteria defined before data collection; it did not constitute withdrawal, and all three participants completed the full protocol. No participant exercised the right to withdraw.
-
-\subsection{Professional Issues}
-\label{sec:professional_issues}
-
-\subsubsection{BCS Code of Conduct}
-This project was conducted in accordance with the BCS Code of Conduct. The simulation was developed with honesty and integrity: known limitations (optical occlusion, fixed condition order, $n = 5$) are reported transparently rather than minimised. All third-party contributions --- SDKs, libraries, pre-commit tools, the liver mesh --- are fully attributed in Appendix~\ref{app:external}. No claims are made in the report that exceed what the evidence supports.
-
-\subsubsection{Reproducibility and open science}
-The full source code, pre-commit configuration, GitHub Actions workflow, and anonymised telemetry CSVs are archived in the project repository, referenced in Appendix~\ref{app:external}. The statistical analysis Jupyter notebook is self-contained and reproducible from the raw CSV exports without manual data preparation. This level of reproducibility is consistent with the open science standards increasingly required in HCI and medical informatics research \citep{Nosek2015PromotingScience}.
-
-\subsubsection{Clinical responsibility}
-The most significant professional concern with this class of system is the risk of premature clinical adoption. The findings of this pilot study are explicitly framed as hypothesis-generating rather than confirmatory; the main text states directly that the results must not be interpreted as evidence of clinical equivalence between modalities. Any deployment pathway for HTR-based surgical planning tools would require regulatory evaluation (e.g., under the UK Medical Devices Regulations 2002 or the EU MDR 2017/745 for software as a medical device), independent clinical validation, and surgeon-specific training protocols. Communicating these requirements clearly is a professional obligation, and this report fulfils it.
-
-\subsubsection{Software quality and maintainability}
-The production codebase follows SOLID design principles: the abstract provider interface satisfies the open-closed principle; the FSM dispatcher satisfies the single-responsibility principle; the telemetry logger is decoupled from both. The 38 automated test assertions provide a regression safety net for any future development. This standard of engineering practice reflects the expectation that research software may be extended by other researchers, and that code submitted as part of a scientific study should be auditable.
+\textbf{Lessons summarised.}
+The three most transferable lessons from this project are: begin
+hardware integration and literature review in the first week of the
+project, not the first month; plan experimental contingency capacity
+explicitly rather than assuming nominal conditions; and treat sprint
+overrun as a planning signal requiring scope reduction, not a
+motivation to work longer hours.
+```
