@@ -61,158 +61,54 @@ The study collected demographic data (age, sex, handedness, VR experience) and t
 All third-party software components used in this project were operated under their respective licences. The Ultraleap Hyperion SDK is licensed under the Ultraleap SDK Agreement, which permits use in research and educational projects. The Varjo Base SDK is provided under the Varjo Developer Agreement. Unity 2022 LTS was used under a Unity Student licence. NUnit is distributed under the MIT licence. All pre-commit hooks used (\texttt{actionlint}, \texttt{commitlint}, \texttt{pre-commit-hooks}) are open-source tools with MIT or Apache~2.0 licences. The liver mesh \texttt{OBJ} file was sourced from an anonymised clinical CT reconstruction; its provenance was verified by the project supervisor in accordance with the University's research data governance procedures. No proprietary or commercially restricted datasets were used.
 
 \subsubsection{University intellectual property}
-Under the University of Leeds intellectual property policy, software
-developed as part of an undergraduate project remains the intellectual
-property of the student unless explicitly assigned otherwise.
-No external stakeholder agreements were in place that would alter this
-default position.
+Under the University of Leeds intellectual property policy, software developed as part of an undergraduate project remains the intellectual property of the student unless explicitly assigned otherwise. No external stakeholder agreements were in place that would alter this default position.
 
 \subsection{Social Issues}
 \label{sec:social_issues}
 
 \subsubsection{Impact on surgical training and planning}
-The motivation for this project is explicitly socially beneficial:
-improving the usability of surgical planning tools has the potential to
-reduce planning errors, improve resection outcomes for liver cancer
-patients, and lower the cognitive burden placed on surgeons during
-high-stakes procedures.
-However, I acknowledge that a system evaluated on a university
-convenience sample cannot yet make clinical claims, and that any
-deployment pathway would require validation on surgical professionals
-and regulatory evaluation before influencing clinical practice.
+The motivation for this project is explicitly socially beneficial: improving the usability of surgical planning tools has the potential to reduce planning errors, improve resection outcomes for liver cancer patients, and lower the cognitive burden placed on surgeons during high-stakes procedures. However, I acknowledge that a system evaluated on a university convenience sample cannot yet make clinical claims, and that any deployment pathway would require validation on surgical professionals and regulatory evaluation before influencing clinical practice.
 
 \subsubsection{Access and equity}
-The hardware required to replicate this study --- a Varjo XR-4
-headset ($\approx$\pounds5,000), an Ultraleap LMC2, and a workstation
-with an NVIDIA RTX~3080 --- is not accessible to most institutions,
-particularly those in lower-income healthcare systems.
-This creates a risk that the benefits of high-fidelity mixed-reality
-surgical planning tools will accrue disproportionately to well-resourced
-hospitals.
-Future work should evaluate whether consumer-grade hardware (e.g.,
-Meta Quest with hand tracking) can replicate the findings at a fraction
-of the cost, broadening the potential reach of the intervention.
+The hardware required to replicate this study --- a Varjo XR-4 headset ($\approx$\pounds5,000), an Ultraleap LMC2, and a workstation with an NVIDIA RTX~3080 --- is not accessible to most institutions, particularly those in lower-income healthcare systems. This creates a risk that the benefits of high-fidelity mixed-reality surgical planning tools will accrue disproportionately to well-resourced hospitals. Future work should evaluate whether consumer-grade hardware (e.g., Meta Quest with hand tracking) can replicate the findings at a fraction of the cost, broadening the potential reach of the intervention.
 
 \subsubsection{Participant diversity}
-The convenience sample was predominantly non-surgical (62.5\%) and
-young (mean age 22.9 years).
-The SUS and RTLX results may not generalise to practising surgeons,
-who bring different spatial reasoning skills, tool-use habits and
-fatigue profiles.
-This is acknowledged as a limitation in the main text and motivates
-the recruitment of domain-specific participants in the confirmatory
-trial.
+The convenience sample was predominantly non-surgical (62.5\%) and young (mean age 22.9 years). The SUS and RTLX results may not generalise to practising surgeons, who bring different spatial reasoning skills, tool-use habits and fatigue profiles. This is acknowledged as a limitation in the main text and motivates the recruitment of domain-specific participants in the confirmatory trial.
 
 \subsubsection{Environmental impact}
-Sustained use of a high-performance GPU workstation and the Varjo XR-4
-carries an energy cost.
-Each experimental session consumed approximately 90 minutes of full GPU
-load.
-Across eight sessions this represents a modest but non-zero carbon
-footprint.
-For a confirmatory trial with $n \geq 20$, I would recommend scheduling
-sessions to maximise hardware utilisation per day and investigating
-whether the workstation can be configured to run on renewable energy
-tariffs.
+Sustained use of a high-performance GPU workstation and the Varjo XR-4 carries an energy cost. Each experimental session consumed approximately 90 minutes of full GPU load. Across eight sessions this represents a modest but non-zero carbon footprint. For a confirmatory trial with $n \geq 20$, I would recommend scheduling sessions to maximise hardware utilisation per day and investigating whether the workstation can be configured to run on renewable energy tariffs.
 
 \subsection{Ethical Issues}
 \label{sec:ethical_issues}
 
-This project falls under two University of Leeds block ethical approval
-categories: 3.2 (Medical Images) and 3.4 (User Testing).
+This project falls under two University of Leeds block ethical approval categories: 3.2 (Medical Images) and 3.4 (User Testing).
 
 \subsubsection{Medical images}
-The liver mesh used as the manipulation target was sourced from a fully
-anonymised CT reconstruction.
-No patient-identifiable metadata was present in the \texttt{OBJ} file
-or associated contour data.
-The supervisor confirmed the legitimacy of the source prior to use,
-consistent with the block approval requirement under category~3.2.
+The liver mesh used as the manipulation target was sourced from a fully anonymised CT reconstruction. No patient-identifiable metadata was present in the \texttt{OBJ} file or associated contour data. The supervisor confirmed the legitimacy of the source prior to use, consistent with the block approval requirement under category~3.2.
 
 \subsubsection{Informed consent and voluntary participation}
-Each participant received a written Project Information Sheet prior to
-enrolment, describing the study purpose, the data to be collected, how
-data would be used, and the right to withdraw at any time without
-consequence.
-Written consent was obtained from all eight enrolled participants before
-any data collection began.
-Participation was voluntary; no inducements were offered.
-Signed consent forms were uploaded to Minerva alongside this report.
+Each participant received a written Project Information Sheet prior to enrolment, describing the study purpose, the data to be collected, how data would be used, and the right to withdraw at any time without consequence. Written consent was obtained from all eight enrolled participants before any data collection began. Participation was voluntary; no inducements were offered. Signed consent forms were uploaded to Minerva alongside this report.
 
 \subsubsection{Health and safety}
-Participants were briefed on VR-specific risks before headset
-application, including the possibility of motion sickness, visual
-discomfort from extended headset use, and the need to remain seated
-during the session.
-The inclusion criterion excluded participants with a history of severe
-motion sickness.
-No participant reported motion sickness during the study; two reported
-minor eye fatigue attributable to headset weight after extended
-sessions, which is consistent with normal use of the Varjo XR-4 for
-VR-naïve users.
+Participants were briefed on VR-specific risks before headset application, including the possibility of motion sickness, visual discomfort from extended headset use, and the need to remain seated during the session. The inclusion criterion excluded participants with a history of severe motion sickness. No participant reported motion sickness during the study; two reported minor eye fatigue attributable to headset weight after extended sessions, which is consistent with normal use of the Varjo XR-4 for VR-naïve users.
 
 \subsubsection{Data minimisation}
-The questionnaires collected only the minimum demographic data required
-to characterise the sample: age, sex, handedness, VR experience level
-and modality-specific prior exposure.
-No medical history, financial information or other sensitive personal
-data was collected.
-All responses were anonymised at the point of recording using
-participant identifiers.
+The questionnaires collected only the minimum demographic data required to characterise the sample: age, sex, handedness, VR experience level and modality-specific prior exposure. No medical history, financial information or other sensitive personal data was collected. All responses were anonymised at the point of recording using participant identifiers.
 
 \subsubsection{Right to withdraw}
-Three participants were excluded from the analysis due to equipment
-failure producing malformed telemetry.
-This exclusion was applied on technical data-integrity grounds and was
-pre-specified in the exclusion criteria defined before data collection;
-it did not constitute withdrawal, and all three participants completed
-the full protocol.
-No participant exercised the right to withdraw.
+Three participants were excluded from the analysis due to equipment failure producing malformed telemetry. This exclusion was applied on technical data-integrity grounds and was pre-specified in the exclusion criteria defined before data collection; it did not constitute withdrawal, and all three participants completed the full protocol. No participant exercised the right to withdraw.
 
 \subsection{Professional Issues}
 \label{sec:professional_issues}
 
 \subsubsection{BCS Code of Conduct}
-This project was conducted in accordance with the BCS Code of Conduct.
-The simulation was developed with honesty and integrity: known
-limitations (optical occlusion, fixed condition order, $n = 5$) are
-reported transparently rather than minimised.
-All third-party contributions --- SDKs, libraries, pre-commit tools,
-the liver mesh --- are fully attributed in Appendix~\ref{app:external}.
-No claims are made in the report that exceed what the evidence supports.
+This project was conducted in accordance with the BCS Code of Conduct. The simulation was developed with honesty and integrity: known limitations (optical occlusion, fixed condition order, $n = 5$) are reported transparently rather than minimised. All third-party contributions --- SDKs, libraries, pre-commit tools, the liver mesh --- are fully attributed in Appendix~\ref{app:external}. No claims are made in the report that exceed what the evidence supports.
 
 \subsubsection{Reproducibility and open science}
-The full source code, pre-commit configuration, GitHub Actions workflow,
-and anonymised telemetry CSVs are archived in the project repository,
-referenced in Appendix~\ref{app:external}.
-The statistical analysis Jupyter notebook is self-contained and
-reproducible from the raw CSV exports without manual data preparation.
-This level of reproducibility is consistent with the open science
-standards increasingly required in HCI and medical informatics research
-\citep{Nosek2015PromotingScience}.
+The full source code, pre-commit configuration, GitHub Actions workflow, and anonymised telemetry CSVs are archived in the project repository, referenced in Appendix~\ref{app:external}. The statistical analysis Jupyter notebook is self-contained and reproducible from the raw CSV exports without manual data preparation. This level of reproducibility is consistent with the open science standards increasingly required in HCI and medical informatics research \citep{Nosek2015PromotingScience}.
 
 \subsubsection{Clinical responsibility}
-The most significant professional concern with this class of system is
-the risk of premature clinical adoption.
-The findings of this pilot study are explicitly framed as
-hypothesis-generating rather than confirmatory; the main text states
-directly that the results must not be interpreted as evidence of clinical
-equivalence between modalities.
-Any deployment pathway for HTR-based surgical planning tools would
-require regulatory evaluation (e.g., under the UK Medical Devices
-Regulations 2002 or the EU MDR 2017/745 for software as a medical
-device), independent clinical validation, and surgeon-specific training
-protocols.
-Communicating these requirements clearly is a professional obligation,
-and this report fulfils it.
+The most significant professional concern with this class of system is the risk of premature clinical adoption. The findings of this pilot study are explicitly framed as hypothesis-generating rather than confirmatory; the main text states directly that the results must not be interpreted as evidence of clinical equivalence between modalities. Any deployment pathway for HTR-based surgical planning tools would require regulatory evaluation (e.g., under the UK Medical Devices Regulations 2002 or the EU MDR 2017/745 for software as a medical device), independent clinical validation, and surgeon-specific training protocols. Communicating these requirements clearly is a professional obligation, and this report fulfils it.
 
 \subsubsection{Software quality and maintainability}
-The production codebase follows SOLID design principles: the abstract
-provider interface satisfies the open-closed principle; the FSM
-dispatcher satisfies the single-responsibility principle; the telemetry
-logger is decoupled from both.
-The 38 automated test assertions provide a regression safety net for
-any future development.
-This standard of engineering practice reflects the expectation that
-research software may be extended by other researchers, and that code
-submitted as part of a scientific study should be auditable.
+The production codebase follows SOLID design principles: the abstract provider interface satisfies the open-closed principle; the FSM dispatcher satisfies the single-responsibility principle; the telemetry logger is decoupled from both. The 38 automated test assertions provide a regression safety net for any future development. This standard of engineering practice reflects the expectation that research software may be extended by other researchers, and that code submitted as part of a scientific study should be auditable.
