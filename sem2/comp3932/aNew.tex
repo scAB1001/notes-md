@@ -1,64 +1,21 @@
-
-% (10\% of mark)
-\chapter{Self‑appraisal}
-\label{}
-
-% Appendices: Two appendices are compulsory:
-% Appendix A must include all of the material to be assessed under the Self-appraisal criterion in the mark scheme. For some projects, this may require summarising some of the information that is already in the main text.
-% Appendix B must contain a list of External Materials, i.e. all materials not developed by the student, or a statement saying that there were none. Any number of further, optional appendices may be included after these two compulsory ones. Appendices do not count towards the page limit.
-
-
-<This appendix should contain everything covered by the 'self-appraisal' criterion in the mark scheme. Although there is no length limit for this section, 3---5 pages will normally be sufficient. The format of this section is not prescribed, but you may like to organise your discussion into the following sections and subsections.>
-
-\section{Critical self‑evaluation}
-\label{}
-
-What went well, what went wrong, how you adapted.
-
-% \section{Personal reflection and lessons learned}
-% \label{}
-
-% Technical skills, project management, communication.
-
-% \section{Legal, Social, Ethical, Professional Issues}
-% \label{}
-
-% <Refer to each of these issues in turn. If one or more is not relevant to your project, you should still explain {\em why} you think it was not relevant.> - (LSEPI)
-
-% \subsection{Legal Issues}
-% \label{}
-
-% Data protection (GDPR), software licences.
-
-% \subsection{Social Issues}
-% \label{}
-
-% Accessibility, impact on surgical training.
-
-% \subsection{Ethical Issuess}
-% \label{}
-
-% Informed consent, motion sickness screening, right to withdraw, ethics approval.
-
-% \subsection{Professional Issue}
-% \label{}
-
-% Code of conduct, reproducibility, open science.
-
-
-
+TODO
 - LSEP in Appendix
 - Reference in Appendix B
 - GitHub Test framework in README and close all tickets
 - Read through
-- Submit
+- Submit DRAFT
     - Consent Zip
     - EPA form
     - Make them collaborators on GitHub and share repo
     -
 
-It's time to write my Appendix chapters.
+It's time to write my Appendix chapter A: Self-appraisal.
+Here's the mark scheme:
+- Excellent discussion of the project process, personal reflection, and lessons learned. Thorough discussion of each of legal, social, professional and ethical issues, including explanations if not relevant.
+- A critical self-evaluation of the project process, including personal reflection and lessons learned.
+- Discussion of legal, social, ethical and professional aspects.
 
+Here's the necessary information:
 #### Self-appraisal: Have I...
 - Considered how my work could be extended?
 - Included mature personal reflection which leads to lessons learnt?
@@ -84,7 +41,7 @@ All projects must address legal, social, ethical and professional issues in an a
 For guidance on what to address, you may like to look over your notes from relevant modules (_e.g._ COMP1911 Professional Computing). Some projects from earlier years also discussed some of these issues in an appendix (especially ethics), so these may also be worth looking through, but it only became assessed for the 2018/19 session. The following links may also give you some ideas (if clicking on these links does not work, please cut-and-paste the URL into a web browser):
 
 - The BCS Code of Conduct / Good Practice: [https://www.bcs.org/membership/become-a-member/bcs-code-of-conduct/](https://www.bcs.org/membership/become-a-member/bcs-code-of-conduct/)
-- Leeds Research and Innovation Ethics page:  [https://ris.leeds.ac.uk/research-ethics-and-integrity/](https://ris.leeds.ac.uk/research-ethics-and-integrity/)
+- Leeds Research and Innovation Ethics page:    [https://ris.leeds.ac.uk/research-ethics-and-integrity/](https://ris.leeds.ac.uk/research-ethics-and-integrity/)
 **2. Ethics**
 Ethics plays a special role as some projects have ethical issues and require special procedures to be followed. We have acquired block clearance for the six most common types of ethical issues encountered in computer science projects. We also arrange lectures taken by IDEA (the Inter-Disciplinary Ethics Applied centre) to explain and discuss ethical issues for research projects in general. If you are concerned that your project will be outside these six categories, you should contact the member of IDEA who delivers these lectures.
 
@@ -208,3 +165,73 @@ Every project must address all four pillars. If one is not relevant, explicitly 
 - Maintain objective, technical tone
 ### The “So What?” Test
 - Every section must clearly contribute to improving surgical planning or XR interaction
+
+Here's the current chapter as it stands:
+% =============================================================================
+\chapter{Self-Appraisal}
+\label{app:self_appraisal}
+% =============================================================================
+
+% Appendices: Two appendices are compulsory:
+% Appendix A must include all of the material to be assessed under the Self-appraisal criterion in the mark scheme. For some projects, this may require summarising some of the information that is already in the main text.
+% Appendix B must contain a list of External Materials, i.e. all materials not developed by the student, or a statement saying that there were none. Any number of further, optional appendices may be included after these two compulsory ones. Appendices do not count towards the page limit.
+
+<This appendix should contain everything covered by the 'self-appraisal' criterion in the mark scheme. Although there is no length limit for this section, 3---5 pages will normally be sufficient. The format of this section is not prescribed, but you may like to organise your discussion into the following sections and subsections.>
+
+\section{Critical Self-Evaluation}
+\label{sec:self_eval}
+
+% [FILL IN: What went well, what went wrong, how you adapted.]
+% Suggested structure:
+% - Engineering: what worked (FSM, telemetry pipeline, TDD)
+% - Engineering: what failed (equipment failures, LMC2 occlusion limits)
+% - Experimental: what worked (CONSORT compliance, clean CSV exports)
+% - Experimental: what failed (n=5 after exclusions, fixed condition order)
+% - Personal: time management, hardware dependency risks, lessons learned
+
+\section{Personal Reflection and Lessons Learned}
+\label{sec:reflection}
+
+Technical skills, project management, communication.
+
+\section{Legal, Social, Ethical and Professional Issues}
+\label{sec:lsep_issues}
+
+% <Refer to each of these issues in turn. If one or more is not relevant to your project, you should still explain {\em why} you think it was not relevant.> - (LSEPI)
+
+\subsection{Legal Issues}
+\label{sec:legal_issues}
+
+Data protection (GDPR), software licences.
+
+\subsection{Social Issues}
+\label{sec:social_issues}
+
+Accessibility, impact on surgical training.
+
+\subsection{Ethical Issuess}
+\label{sec:ethical_issues}
+
+Informed consent, motion sickness screening, right to withdraw, ethics approval.
+
+\subsection{Professional Issue}
+\label{sec:professional_issues}
+
+Code of conduct, reproducibility, open science.
+
+% =============================================================================
+\chapter{External Materials}
+\label{app:external}
+% =============================================================================
+
+% [FILL IN: List all external materials used, or state that none were used.]
+% Examples to consider:
+% - Images of the Hand and skeleton, finger enmus?
+% - Liver mesh OBJ file (source: clinical CT reconstruction)
+% - Ultraleap Hyperion SDK soft
+% - Varjo Base SDK
+% - Unity HDRP template
+% - NUnit via Unity Test Framework
+% - simonwittber/pre-commit-unity (check-unity-meta hook)
+% - actionlint (rhysd)
+% - commitlint
