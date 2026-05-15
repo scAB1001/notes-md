@@ -2234,5 +2234,510 @@ You may be asked to draw an RDF diagram from a textual description.
 | A SPARQL query variable must be named `?subject` | **False** | Any name with `?` prefix |
 | DBpedia extracts data from Wikipedia infoboxes | **True** | |
 | The LOD cloud contains only government data | **False** | Many domains (geography, life sciences, media, publications) |
+# Lecture 15: RDF – Resource Description Framework (Detailed)
 
-*End of Lecture 14 notes.*
+## 1. RDF Triple – Subject, Predicate, Object
+
+> **RDF** represents knowledge as **triples**: `(subject, predicate, object)`. This is also called the **Entity-Attribute-Value (EAV)** model.
+
+**Subject** – the resource being described.
+- Must be a **resolvable URI** (web URL). Requesting the URL should return information about the subject.
+- **Exam trap (2020 Q1.14)**: "The subject in an RDF statement must be a resolvable URI" – **True** (in proper Linked Data practice).
+
+**Predicate** – the attribute or relationship.
+- Must have its own **resolvable URI**.
+- **Resolving a predicate**: typing its URI into a browser returns a human-readable definition (e.g. `http://purl.org/dc/elements/1.1/creator` returns description: “An entity primarily responsible for making the resource”).
+- **Exam trap (2019 Q1j)**: "The predicate in an RDF statement defines attributes of the object" – **False** (it defines attributes of the **subject**).
+
+**Object** – the value.
+- Can be a **resolvable URI** (another resource) or a **literal** (string, number, date, etc.).
+- Literals can have language tags (`"Hello"@en`) or datatypes (`"25"^^xsd:integer`).
+
+## 2. URL Abbreviations (Prefixes)
+
+> To save space, URIs are abbreviated as **prefix:suffix**. The prefix expands to a base URI.
+
+**Common prefixes**:
+| Prefix | URI | Purpose |
+|--------|-----|---------|
+| `rdf:` | `http://www.w3.org/1999/02/22-rdf-syntax-ns#` | RDF syntax |
+| `rdfs:` | `http://www.w3.org/2000/01/rdf-schema#` | RDF Schema (classes, properties) |
+| `foaf:` | `http://xmlns.com/foaf/0.1/` | Friend of a Friend (people, names, knows) |
+| `dc:` | `http://purl.org/dc/elements/1.1/` | Dublin Core (title, creator, date) |
+| `vcard:` | `http://www.w3.org/2006/vcard/ns#` | Contact information |
+
+**Example**: `dc:creator` means `http://purl.org/dc/elements/1.1/creator`.
+
+## 3. Blank Nodes
+
+> **Blank nodes** (anonymous resources) are used when you need to describe a resource that doesn’t have a URI. They are written as `_:nodeID` or `[]`.
+
+**Example** (a person with unknown URI):
+```turtle
+_:alice foaf:name "Alice" .
+_:alice foaf:knows <http://example.com/bob> .
+```
+
+**Problems with blank nodes**:
+- Cannot be referenced from outside the document.
+- Difficult to merge data from multiple sources.
+- **Avoid using blank nodes whenever possible** (use persistent URIs).
+
+**Skolemization**: Some RDF databases automatically assign URIs to blank nodes to make them addressable.
+
+## 4. Classes and Types
+
+> **Classes** group resources. Use `rdf:type` (or shorthand `a`) to declare that a resource is an instance of a class.
+
+```turtle
+:London a :City .
+:UnitedKingdom a :Country .
+```
+
+- Classes themselves are instances of `rdfs:Class`.
+- **Subclass**: `rdfs:subClassOf` indicates that all instances of one class are also instances of another.
+
+```turtle
+:City rdfs:subClassOf :Place .
+```
+
+**Exam trap**: In RDF diagrams, the `rdf:type` edge is often labelled `type` or `a`.
+
+## 5. RDF Vocabularies (Ontologies)
+
+> An **RDF vocabulary** is a collection of terms (predicates, classes) with defined meanings, published on the Web.
+
+**Anyone can mint a vocabulary**. To make it reusable:
+- Reuse existing vocabularies whenever possible (FOAF, DC, vCard, etc.).
+- Ensure vocabulary URIs themselves follow Linked Data principles (resolvable, stable).
+
+**LOV (Linked Open Vocabularies)** project collects >800 vocabularies: `https://lov.linkeddata.es/dataset/lov`
+
+**Examples of terms**:
+- `rdfs:label` – human-readable name
+- `rdfs:comment` – description
+- `rdfs:seeAlso` – link to related information
+- `foaf:name` – full name of a person
+- `vcard:locality` – city or town
+
+## 6. Minting Good URIs (Exam-Relevant)
+
+> When creating your own URIs for Linked Data resources or vocabulary terms, follow these guidelines:
+
+1. **Use a DNS domain you control** (e.g. `http://example.com/`)
+2. **Use natural keys** that humans can understand, not random IDs.
+   - Good: `http://example.com/baked_goods/bread/rye-12`
+   - Bad: `http://example.com/984d6a`
+3. **Make URIs neutral to implementation details** (no file extensions like `.aspx`, `.php`, or internal server paths).
+   - Good: `http://example.com/people/alice`
+   - Bad: `http://example.com/showperson.aspx?id=123`
+
+## 7. Fragment Identifiers (`#`)
+
+> **Fragment identifiers** are the part of a URL after the `#` symbol, e.g. `http://example.com/vocab#person`.
+
+**Key behaviours**:
+- Browsers **do not send** the fragment identifier to the server. They request the base URI and then scroll to the fragment.
+- For Linked Data, fragments are often used to address a specific term inside a vocabulary document.
+- **Should be avoided** for identifying resources in Linked Data (prefer full URIs without fragments, or use hash URIs only when the whole document represents a single resource).
+
+**Exam trap (2020 Q1.15)**: "Fragment identifiers are the part of the URL that follows the @ symbol" – **False** (they follow the **hash `#`** symbol, not `@`).
+
+## 8. RDF Serialisation Formats
+
+> **RDF is a data model, not a format**. Several concrete syntaxes (serialisations) exist.
+
+| Format | Description | Use case |
+|--------|-------------|----------|
+| **Turtle** (Terse RDF Triple Language) | Human‑readable, compact, uses prefixes | Most common for examples and tutorials |
+| **RDF/XML** | Original XML‑based format | Legacy systems |
+| **RDFa** | RDF embedded in HTML attributes | Add structured data to web pages (schema.org) |
+| **JSON-LD** | JSON‑based, web‑developer friendly | Modern web APIs, easy to parse in JavaScript |
+
+**Turtle example** (previously shown):
+```turtle
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+<http://example.com/me> a foaf:Person ;
+                         foaf:name "Anakin Skywalker" .
+```
+
+**JSON-LD example**:
+```json
+{
+  "@context": {"foaf": "http://xmlns.com/foaf/0.1/"},
+  "@id": "http://example.com/me",
+  "@type": "foaf:Person",
+  "foaf:name": "Anakin Skywalker"
+}
+```
+
+## 9. Core RDF Vocabularies Table
+
+| Vocabulary | Prefix | Example term |
+|------------|--------|---------------|
+| RDF | `rdf:` | `rdf:type`, `rdf:Property` |
+| RDF Schema | `rdfs:` | `rdfs:label`, `rdfs:comment`, `rdfs:subClassOf` |
+| FOAF | `foaf:` | `foaf:name`, `foaf:knows`, `foaf:homepage` |
+| Dublin Core | `dc:` | `dc:title`, `dc:creator`, `dc:date` |
+| vCard | `vcard:` | `vcard:locality`, `vcard:country-name` |
+
+---
+
+# Lecture 16: RDF Exercises
+
+## 1. Exercise 1: United Kingdom RDF Diagram (2019 Q2 style)
+
+**Statement**: "The United Kingdom comprises four countries: England (whose capital is London), Wales, Scotland, and Northern Ireland. The capitals of Wales and Scotland are Cardiff and Edinburgh, respectively. Belfast is the capital of Northern Ireland. London is also the capital of the United Kingdom and it has a population of 8 million people. English is the official language of England, while in Wales both English and Welsh are official languages."
+
+### Step 1 – Identify resources (subjects)
+- `:UnitedKingdom`, `:England`, `:Wales`, `:Scotland`, `:NorthernIreland`
+- `:London`, `:Cardiff`, `:Edinburgh`, `:Belfast`
+- (Literals for population and languages)
+
+### Step 2 – Identify predicates (use existing vocabularies where possible)
+- `:comprises` (or `dcterms:hasPart`) – not standard; could invent `:comprises`
+- `:hasCapital` (or `dbo:capital`)
+- `:hasPopulation` (or `dbo:population`)
+- `:officialLanguage` (or `dcterms:language`)
+
+### Step 3 – Write RDF triples (Turtle)
+```turtle
+@prefix : <http://example.org/uk/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:UnitedKingdom :comprises :England, :Wales, :Scotland, :NorthernIreland .
+
+:England :hasCapital :London .
+:Wales :hasCapital :Cardiff .
+:Scotland :hasCapital :Edinburgh .
+:NorthernIreland :hasCapital :Belfast .
+
+:UnitedKingdom :hasCapital :London .
+
+:London :hasPopulation "8000000"^^xsd:integer .
+
+:England :officialLanguage "English" .
+:Wales :officialLanguage "English", "Welsh" .
+```
+
+### Step 4 – Draw RDF diagram
+- **Nodes** (circles/rectangles): each resource (`:UnitedKingdom`, `:England`, etc.) and literals (e.g. `"English"`).
+- **Arrows** labelled with predicate names (e.g. `:comprises`, `:hasCapital`).
+- For multiple objects of same predicate (e.g. `:Wales :officialLanguage "English", "Welsh"`), draw two arrows from `:Wales` to each literal, or use a blank node list (simpler: two separate triples).
+
+**Exam tip**: In 2019 Q2, you were asked to **draw** an RDF diagram. Use clear labels and show literals as rectangles (or ovals with quotes). Ensure subject→predicate→object direction is correct.
+
+## 2. Exercise 2: Clement Attlee RDF Diagram
+
+**Statement**: "Clement Attlee was a British politician. He was born in London in 1883. His father was a solicitor and, after studying at Oxford University, Attlee became a barrister. He became Prime Minister when the Labour Party won the 1945 election. Attlee's government created the National Health Service."
+
+### Step 1 – Identify resources
+- `:ClementAttlee` (person)
+- `:London` (place)
+- `:OxfordUniversity` (organisation)
+- `:LabourParty` (organisation)
+- `:NationalHealthService` (organisation)
+- Literals: `"British politician"` (could be a type), `"solicitor"`, `"barrister"`, `"1883"^^xsd:gYear`
+
+### Step 2 – Suitable vocabularies (from LOV)
+- `foaf:Person`, `foaf:name`, `foaf:based_near`
+- `dbo:birthPlace`, `dbo:birthYear`, `dbo:primeMinister`, `dbo:party`
+- `dbo:education` (Oxford University)
+- `dc:creator` (Attlee's government created NHS)
+
+### Step 3 – Example triples (Turtle with prefixes)
+```turtle
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ClementAttlee a foaf:Person ;
+               foaf:name "Clement Attlee" ;
+               dbo:birthPlace :London ;
+               dbo:birthYear "1883"^^xsd:gYear ;
+               dbo:profession "solicitor" , "barrister" ;
+               dbo:education :OxfordUniversity ;
+               dbo:primeMinisterAfterElection "1945"^^xsd:gYear ;
+               dbo:party :LabourParty .
+
+:LabourParty dbo:wonElection "1945"^^xsd:gYear .
+
+:ClementAttlee foaf:based_near :London .
+
+:NationalHealthService dbo:creator :ClementAttlee .
+```
+
+### Step 4 – Diagram
+- Main node `:ClementAttlee` with multiple outgoing edges (`a`, `foaf:name`, `dbo:birthPlace`, etc.).
+- Literal nodes for `"Clement Attlee"`, `"1883"`, `"solicitor"`, etc.
+- Resource nodes for `:London`, `:OxfordUniversity`, `:LabourParty`, `:NationalHealthService`.
+
+## 3. Using LOV to Find Predicates
+
+> The **Linked Open Vocabularies** website (`https://lov.linkeddata.es/dataset/lov`) allows you to search for existing predicates.
+
+**Approach for exercises**:
+1. For a concept like “capital of”, search for “capital” → `dbo:capital` (DBpedia ontology).
+2. For “population” → `dbo:population` or `schema:population`.
+3. For “official language” → `dcterms:language` or `schema:availableLanguage`.
+4. For “born in” → `dbo:birthPlace`.
+5. For “prime minister” → `dbo:primeMinister`.
+
+**Exam note**: You are not expected to memorise all URIs, but you should know common prefixes (`foaf:`, `dbo:`, `dc:`, `rdfs:`) and the principle of **reusing existing vocabularies** before inventing your own.
+
+## 4. Past Paper Traps for Lectures 15 & 16
+
+| Statement | Answer | Reason |
+|-----------|--------|--------|
+| The subject in an RDF statement must be a resolvable URI | **True** | Linked Data principle |
+| The predicate defines attributes of the object | **False** | Defines attributes of the **subject** |
+| Fragment identifiers follow the `@` symbol | **False** | Follow the `#` hash symbol |
+| Blank nodes should be used whenever possible | **False** | Avoid them; use URIs |
+| `a` is shorthand for `rdf:type` | **True** | In Turtle and many serialisations |
+| RDF/XML is the only RDF format | **False** | Turtle, JSON-LD, RDFa also exist |
+| Anyone can create an RDF vocabulary | **True** | But reuse existing ones |
+# Lecture 17 & 18: SPARQL – Querying Linked Data
+
+## 1. What is SPARQL?
+
+> **SPARQL** (recursive acronym for **SPARQL Protocol and RDF Query Language**) is the query language for structured data on the Web. It is the **RDF equivalent of SQL** for relational databases.
+
+**Key capabilities**:
+- Query the **Web of Data** as if it were a single, highly distributed database.
+- Query **multiple data sources** at once, dynamically building a large virtual RDF graph.
+- Designed to look and act as much like SQL as possible, but with important differences.
+
+## 2. SPARQL vs SQL – Key Difference
+
+> In SQL, `SELECT` clause names columns to retrieve from tables.  
+> In SPARQL, `SELECT` clause names **variables** that were **bound in the `WHERE` clause’s triple patterns**.
+
+**Example**:
+```sparql
+SELECT ?name ?url
+WHERE {
+  ?person rdfs:seeAlso ?url ;
+          foaf:name ?name .
+}
+```
+- `?name` and `?url` are variables that appear in the triple patterns.
+- The `WHERE` clause finds all matching triples; `SELECT` decides which variables to output.
+
+## 3. Basic SPARQL Query Structure
+
+```sparql
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?name ?url
+WHERE {
+  ?person rdfs:seeAlso ?url .
+  ?person foaf:name ?name .
+}
+```
+
+**Components**:
+- **`PREFIX`** – declares abbreviation for a URI (same as in Turtle).
+- **`SELECT`** – lists variables to return.
+- **`WHERE { }`** – contains **triple patterns** (like RDF triples but with variables).
+- **Variables** start with `?` (e.g. `?person`, `?name`).
+- **Period (`.`)** separates triple patterns (like AND).
+- **Semicolon (`;`)** allows repeating the same subject for multiple predicates (as in Turtle).
+
+## 4. Triple Patterns and Graph Matching
+
+> A **triple pattern** is like an RDF triple where any of subject, predicate, or object can be a variable.
+
+The SPARQL engine finds all RDF triples in the dataset that **match** the pattern. Variables become bound to concrete URIs or literals.
+
+**Example pattern**: `?person foaf:name ?name`
+- Matches any triple with predicate `foaf:name`.
+- `?person` binds to the subject (a person URI).
+- `?name` binds to the object (a literal name).
+
+## 5. Querying Multiple RDF Files (FROM clause)
+
+> Use `FROM` to specify a particular RDF document (by URL). Multiple `FROM` clauses combine graphs from different sources.
+
+```sparql
+SELECT ?name
+FROM <http://example.com/person1.rdf>
+FROM <http://example.com/person2.rdf>
+WHERE { ?person foaf:name ?name }
+```
+
+**Magic of Linked Data**: Reusing the **same URI** across different files allows data to be combined automatically. Two files referring to `http://example.org/people/alice` are assumed to talk about the same resource.
+
+## 6. SPARQL Endpoints
+
+> A **SPARQL endpoint** is a web-accessible service that accepts SPARQL queries (usually via HTTP GET or POST). It returns results in formats like JSON, XML, CSV, or HTML.
+
+**Convention**: Many datasets expose their endpoint at `/sparql` (e.g. `http://dbpedia.org/sparql`).
+
+**DBpedia SPARQL endpoint**: `http://dbpedia.org/sparql` – provides a web form for interactive queries.
+
+## 7. Common SPARQL Clauses and Keywords
+
+| Keyword | Purpose |
+|---------|---------|
+| `SELECT` | Choose which variables to return |
+| `WHERE` | Triple patterns to match |
+| `DISTINCT` | Remove duplicate results |
+| `FILTER` | Restrict results based on conditions (e.g. numeric comparison, string matching) |
+| `ORDER BY` | Sort results by a variable |
+| `LIMIT` | Restrict number of results (not in examples but common) |
+| `FROM` | Specify RDF source document(s) |
+
+## 8. SPARQL Query Examples (from Lecture 18)
+
+### 8.1 Find any entity with a `foaf:name`
+```sparql
+SELECT ?entity
+WHERE {
+  ?entity foaf:name ?name
+}
+```
+
+### 8.2 Find any subject related to Leeds (as entity)
+```sparql
+PREFIX dbr: <http://dbpedia.org/resource/>
+SELECT ?sub
+WHERE {
+  ?sub ?pred dbr:Leeds .
+}
+```
+**Exam trap (2020 Q2w)**: "Which is a correct SPARQL query to find any subject related to Leeds?" – All of `SELECT ?sub WHERE { ?sub ?pred :Leeds. }`, `SELECT ?entity WHERE { ?entity ?pred :Leeds. }`, etc. are correct because variable names don’t matter. Answer: **D. All of the above**.
+
+### 8.3 Find any subject related to the string "Leeds" (English language)
+```sparql
+SELECT ?sub
+WHERE {
+  ?sub ?pred "Leeds"@en .
+}
+```
+
+### 8.4 Find the name of any person born in Leeds (correct pattern)
+```sparql
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+
+SELECT ?name ?entity
+WHERE {
+  ?entity foaf:name ?name .
+  ?entity dbo:birthPlace dbr:Leeds .
+}
+```
+**Exam trap (2020 Q2x)**: The correct query must bind `?entity` as the person, then `foaf:name` gives the name, and `dbo:birthPlace` gives the place. Option B from the paper was correct.
+
+### 8.5 Find name and spouse of any person born in Leeds
+```sparql
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbp: <http://dbpedia.org/property/>
+
+SELECT ?name ?spouse
+WHERE {
+  ?entity foaf:name ?name .
+  ?entity dbo:birthPlace dbr:Leeds .
+  ?entity dbp:spouse ?spouse .
+}
+```
+
+### 8.6 Find any person born in Leeds before 1900-01-01 (FILTER)
+```sparql
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?entity ?name ?birth
+WHERE {
+  ?entity foaf:name ?name .
+  ?entity dbo:birthPlace dbr:Leeds .
+  ?entity dbo:birthDate ?birth .
+  FILTER (?birth < "1900-01-01"^^xsd:date)
+}
+```
+
+### 8.7 People born in Berlin, ordered by name (ORDER BY)
+```sparql
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+
+SELECT ?person ?name
+WHERE {
+  ?person dbo:birthPlace dbr:Berlin .
+  ?person foaf:name ?name .
+}
+ORDER BY ?name
+```
+
+### 8.8 Find capital of France
+```sparql
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+
+SELECT ?city
+WHERE {
+  dbr:France dbo:capital ?city .
+}
+```
+
+### 8.9 Find capital cities of all countries
+```sparql
+PREFIX dbo: <http://dbpedia.org/ontology/>
+
+SELECT ?country ?city
+WHERE {
+  ?country dbo:capital ?city .
+}
+```
+
+## 9. Using `DISTINCT` and Discovering Classes
+
+**Discover all RDF types (classes) present in a dataset**:
+```sparql
+SELECT DISTINCT ?Concept
+WHERE {
+  [] a ?Concept .
+}
+```
+- `[]` is a **blank node** (matches any subject).
+- `a` is shorthand for `rdf:type`.
+- `DISTINCT` removes duplicate class names.
+
+## 10. Important SPARQL Syntax Notes
+
+- **Variables** begin with `?` (e.g. `?person`). Variable names can be any alphanumeric string.
+- **Prefixes** must be declared before use (either in query or the endpoint may have default prefixes).
+- **Literals** can have language tags (`"Leeds"@en`) or datatypes (`"1900-01-01"^^xsd:date`).
+- **Semicolon** `;` allows chaining multiple predicates for the same subject (instead of repeating `?person`).
+- **Comma** `,` allows multiple objects for same predicate.
+
+**Example with semicolon** (two predicates for same subject):
+```sparql
+?person rdfs:seeAlso ?url ;
+        foaf:name ?name .
+```
+Equivalent to:
+```sparql
+?person rdfs:seeAlso ?url .
+?person foaf:name ?name .
+```
+
+## 11. Past Paper Traps for Lectures 17 & 18
+
+| Statement | Answer | Reason |
+|-----------|--------|--------|
+| SPARQL is the SQL equivalent for RDF | **True** | |
+| SPARQL SELECT clause names tables | **False** | It names variables from WHERE |
+| `[]` in SPARQL is a blank node | **True** | |
+| `a` in SPARQL is shorthand for `rdf:type` | **True** | |
+| SPARQL requires `FROM` clause for every query | **False** | Without `FROM`, it queries the default graph (e.g. the endpoint's dataset) |
+| A SPARQL endpoint is a web service that accepts queries | **True** | |
+| Variable names are fixed (`?subject` must be used) | **False** | Any name with `?` prefix is allowed |
+| `FILTER` can compare dates and numbers | **True** | |
+| `ORDER BY` sorts results | **True** | |
+
+*End of Lectures 17 & 18 notes.*
