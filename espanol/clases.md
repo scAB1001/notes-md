@@ -139,4 +139,5 @@ Una vaina asi
 muy quieto
 es una mierda
 
-ancha
+ancha - wide 
+el esfuerzo - effort
