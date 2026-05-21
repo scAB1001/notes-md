@@ -189,16 +189,13 @@ Both **request** and **response** messages share the same basic structure:
 
 ### 3.4 HTTP Message Line Endings
 **Exam trap (2020 Q1.3)**: "Each line in an HTTP message ends with a two-character end-of-line sequence, consisting of a carriage return and a **tab** character" — **False**. The end-of-line sequence is a **carriage return** followed by a **line feed** (CRLF: `\r\n`), **not** a tab character.
-
 ## 4. HTTP Headers
 Each HTTP header has a simple syntax: a **name**, followed by a **colon** (`:`), followed by the **field value**.
-
 ### 4.1 Header Types
 * **General headers**: Used by both clients and servers (e.g. `Date: Tue, 3 Oct 1974 02:16:00 GMT`)
 * **Request headers**: Provide extra information to servers (e.g. `Accept: */*` — the client accepts any media type)
 * **Response headers**: Provide information to the client (e.g. `Server: Tiki-Hut/1.0`)
 * **Entity headers**: Deal with the entity body (e.g. `Content-Type: text/html; charset=iso-latin-1`)
-
 ### 4.2 Common Header Examples
 
 | Header | Description |
@@ -214,7 +211,6 @@ Each HTTP header has a simple syntax: a **name**, followed by a **colon** (`:`),
 Each MIME type consists of a **primary type** and a **subtype** separated by a **slash** (`/`), with optional parameters beginning with a **semicolon** (`;`).
 
 **Format**: `primary-type/subtype` (e.g. `text/html`, `image/jpeg`)
-
 ### 5.1 Primary Types
 
 | Type | Description |
@@ -226,7 +222,6 @@ Each MIME type consists of a **primary type** and a **subtype** separated by a *
 | **video** | Video movie format |
 | **multipart** | Collection of multiple objects (composite type) |
 | **message** | Message format (composite type) |
-
 ### 5.2 MIME Type Examples (Exam-Critical)
 * `text/html` — HTML document
 * `text/plain` — Plain ASCII text
@@ -236,7 +231,6 @@ Each MIME type consists of a **primary type** and a **subtype** separated by a *
 * `application/vnd.ms-powerpoint` — Microsoft PowerPoint
 
 **Exam trap (2020 Q2f)**: "Which of the following is NOT a valid MIME type?" — `video/html` is **NOT valid**. There is no `html` subtype under the `video` primary type. Valid ones include `image/gif`, `application/vnd.ms-powerpoint`, and `text/plain`.
-
 ### 5.3 MIME Registration with IANA
 MIME types are registered and maintained by **IANA (Internet Assigned Numbers Authority)**, **not** by IETF.
 
@@ -247,7 +241,6 @@ MIME types are registered and maintained by **IANA (Internet Assigned Numbers Au
 * **Vendor (vnd.)** — commercially available products (e.g. `image/vnd.fpx`); begin with `vnd.`
 * **Personal/Vanity (prs.)** — private types; begin with `prs.`
 * **Experimental (x- or x.)** — unregistered/experimental types; begin with `x.` or `x-`
-
 ## 6. HTTP Methods (Verbs)
 
 | Method | Description | Message Body? |
