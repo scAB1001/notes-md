@@ -163,7 +163,7 @@ Both **request** and **response** messages share the same basic structure:
 
 **Example**: `GET /test/hi-there.txt HTTP/1.1`
 ### 3.2 Response Message Format
-```
+```html
 <version> <status> <reason-phrase>
 <headers>
 
