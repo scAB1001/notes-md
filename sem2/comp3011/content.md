@@ -148,9 +148,8 @@ Both **request** and **response** messages share the same basic structure:
 1. A **start line**
 2. A block of **headers**
 3. An **optional body** (entity body)
-
 ### 3.1 Request Message Format
-```
+```html
 <method> <request-URL> <version>
 <headers>
 
@@ -163,7 +162,6 @@ Both **request** and **response** messages share the same basic structure:
 * **Entity-body**: A block of arbitrary data (not all messages have one)
 
 **Example**: `GET /test/hi-there.txt HTTP/1.1`
-
 ### 3.2 Response Message Format
 ```
 <version> <status> <reason-phrase>
@@ -175,7 +173,6 @@ Both **request** and **response** messages share the same basic structure:
 * **Reason-phrase**: A **human-readable** version of the status code.
 
 **Example**: `HTTP/1.0 200 OK`
-
 ### 3.3 Status Code Classes
 
 | Range | Category | Meaning |
