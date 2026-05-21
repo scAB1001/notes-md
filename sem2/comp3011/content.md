@@ -420,7 +420,6 @@ From the client's perspective, it connects **directly with the end server** and 
 # Lecture 4: Bridging the Semantic Gap
 
 ## 1. The REST Cycle (Recap)
-
 When a human browses the web, the cycle is:
 1. Request a web page
 2. Server sends the page (e.g. HTML)
@@ -436,9 +435,7 @@ When a human browses the web, the cycle is:
 > 4. Client **changes its current state** using information in the representation
 > 5. Client **recognises control structures** (e.g. `<a>` tags, hypermedia links)
 > 6. Client **decides** on a new resource to request → back to step 1
-
 ## 2. The Core Challenge
-
 Steps 1–5 can be easily implemented in **fully autonomous code**. But **Step 6 (deciding which new resource to request) is difficult**. Why?
 
 > A computer program can easily understand a document's **structure** (e.g. discover HTML links), but it cannot understand **what each link actually does**.
@@ -448,34 +445,24 @@ Steps 1–5 can be easily implemented in **fully autonomous code**. But **Step 6
 > **Semantic gap**: the difference between understanding the **syntax/structure** of a document and understanding its **meaning** in the application domain.
 
 **Exam trap (2020 Q2g)**: "The biggest challenge in RESTful web API design is bridging the **semantic gap**." – **True**.
-
 ## 3. Can We Bridge the Semantic Gap?
-
 > **No magic shortcut**. We cannot eliminate the semantic gap completely because computers are not as smart as humans. However, we can **narrow the gap** with good API design.
-
 ### 3.1 Role of the API Designer
-
 To bridge the semantic gap (from server to client), the API designer should:
 1. **Write down application semantics** in a **human-readable specification**
 2. **Register one or more IANA media types** for the design. In the registration, associate the media types with the human-readable specification.
-
 ### 3.2 Role of the Client Developer
-
 To bridge the gap in the opposite direction (client understanding server responses), the client developer:
 1. Looks up an **unknown media type** in the **IANA registry**
 2. **Reads the human-readable specification** to learn how to deal with documents of that media type
-
 ## 4. Example: Maze+XML API
-
 To illustrate bridging the semantic gap, consider a **maze navigation API**. Any complex problem can be represented as a maze:
 - Problem is too complex to understand all at once
 - Every client begins at the same **first step**
 - At each step, the server presents **possible next steps**
 - Client decides which next step to take
 - Client knows what counts as **success** and when to stop
-
 ### 4.1 Maze+XML Media Type
-
 > **Media type name**: `application/vnd.amundsen.maze+xml`
 
 The `+xml` suffix indicates the **underlying syntax** is XML, but the **semantics** are defined specifically for mazes.
@@ -483,7 +470,6 @@ The `+xml` suffix indicates the **underlying syntax** is XML, but the **semantic
 > **Structured syntax suffix** (e.g. `+xml`, `+json`, `+zip`) is an augmentation to a media type that specifies the underlying structure (syntax). Registered and maintained by **IANA**.
 
 **Registered suffixes include**: `+xml`, `+json`, `+zip`, `+ber`, `+der`, `+fastinfoset`, `+wbxml`, `+cbor`.
-
 ### 4.2 Fiat Standards
 
 > **Fiat standards** are not really standards; they are **behaviours**. No one agreed to them. They are just a description of the way somebody does things.
