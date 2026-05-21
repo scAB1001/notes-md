@@ -252,41 +252,30 @@ MIME types are registered and maintained by **IANA (Internet Assigned Numbers Au
 | **TRACE** | Trace the message through proxy servers to the server | **No** |
 | **OPTIONS** | Determine what methods can operate on a server | **No** |
 | **DELETE** | Remove a document from the server | **No** |
-
 ### 6.1 GET
 The **most common** method. Used to ask a server to send a resource. GET *can* technically have a message body, but it is **recommended not to send data in it**. Instead, data should be sent in a **query string**.
 
 **Exam trap (2019 Q1o)**: "A GET request is used when we do not intend to change the data on a server, and therefore a GET message should not have a payload" — **True**. GET is a **safe** method (does not modify server state) and should not carry a payload body.
-
 ### 6.2 HEAD
 Behaves like GET, but the server returns **only the headers** — **no entity body is returned**.
 
 **Uses of HEAD**: determine the **resource type** without downloading, check if an object **exists** (via status code), test if a resource has been **modified** (via `Last-Modified` header).
 
 **Exam trap (2020 Q1.4)**: "Response messages to HTTP HEAD requests do not have a body" — **True**.
-
 ### 6.3 POST
 Sends **input data to the server** for processing. Often used to support **HTML forms**. The data is carried in the **entity body** of the request.
-
 ### 6.4 PUT
 Writes/stores documents or data on the server. The body of the request contains the data to be stored. The server updates or creates the resource at the specified URL.
 
 **PUT vs POST**: **PUT** stores/replaces a resource at a **known URL** (idempotent). **POST** submits data for processing, and the server decides where/how to store it (not idempotent).
-
 ### 6.5 TRACE
 Allows clients to see how its request looks when it finally reaches the server (useful for diagnosing proxy modifications). The server returns a TRACE response with the **original request message** in the body.
-
-**Exam trap (2020 Q2a)**: "Which of the following is NOT a standard HTTP method? A. PUT, B. POST, C. MOVE, D. TRACE" — **C. MOVE** is not a standard HTTP method. It is a **WebDAV extension method**.
-
 ### 6.6 OPTIONS
 Asks the server about **supported capabilities** — what methods it supports in general or for particular resources.
-
 ### 6.7 DELETE
 Asks the server to delete the resource. There is **no guarantee** the delete is carried out — the HTTP specification allows the server to **override the request** without telling the client.
-
 ### 6.8 Extension Methods
 HTTP is **field-extensible**. Extensions like **WebDAV** add methods such as `LOCK`, `MKCOL`, `COPY`, and `MOVE`. These are **not standard HTTP methods**.
-
 ## 7. Past Paper Traps for Lecture 2
 
 | Statement                                                                            | Answer    | Reason                                                                      |
