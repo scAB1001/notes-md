@@ -291,55 +291,36 @@ HTTP is **field-extensible**. Extensions like **WebDAV** add methods such as `LO
 | GET request should not have a payload                                                | **True**  | GET is safe; data goes in the query string                                  |
 | Which method to book a flight? (2020 Q2i)                                            | **POST**  | Creating a new booking = POST (not GET, PUT, or ADD)                        |
 # Lecture 3: Representational State Transfer (REST)
-
 ## 1. Origin of REST
-
 > **REST (Representational State Transfer)** was coined by **Roy Fielding**, circa **2000**, in his PhD thesis about network-based software architectures.
-
 ## 2. Dissecting the Term REST
-
 ### 2.1 Representational
-
 **Representational** refers to how data is **represented** when it is sent over the web. The representation of data does **not necessarily match** the way it is stored on the server (or client).
 
 **Example**: Data stored on a server as a **CSV file** could be represented in **JSON**, **HTML**, **XML**, or even **plain text** formats when sent to the client.
 
 **Exam trap (2020 Q1.6)**: "When a client requests a resource, the server responds with a representation of this resource that **always matches** the server's internal representation of the resource data" — **False**. The representation sent to the client can differ from how the resource is internally stored.
-
 ### 2.2 State
-
 **State** describes the state of an entity — what the entity knows about the world. As a client interacts with a server, it gradually learns about and discovers new resources, and its **state changes**.
 
 **Example**: When a web browser first loads, it knows nothing about a website except its root URL. As the user follows hyperlinks, the client acquires more information and its state changes.
-
 ### 2.3 Transfer
-
 **Transfer** denotes the transfer of a **representation** from server to client (or vice versa).
-
 ### 2.4 Putting It Together
-
 > **Representational State Transfer** means: the change in the **state** of an entity (either client or server) driven by a **representation transferred** to it from another entity.
 
 This is exactly what happens when browsing a website — as we follow hyperlinks from page to page, we discover new information and our state (of knowledge) changes.
-
 ## 3. Usage of the Term REST
-
 The term REST is widely used and often **abused**. People tend to use it to describe any API that doesn't use SOAP. However, for an API to be truly **RESTful**, it must satisfy a number of **design (architectural) constraints** set out by Roy Fielding. Many APIs that call themselves RESTful only **partially fulfil** these constraints.
-
 ### 3.1 Web Service vs API
-
 The term "web service" became so tightly coupled with SOAP that today it is more common to use the term **RESTful API** instead of RESTful web service (though both are correct).
-
 ## 4. The Five REST Constraints
 
 ### 4.1 Client-Server Architecture
-
 The most obvious constraint — satisfied by every web application. The client and server are separated.
 
 **Advantages**: improves **portability** of the user interface across multiple platforms (e.g. many different browsers interacting with the same website), and allows components to **evolve independently**.
-
 ### 4.2 Statelessness
-
 > **Statelessness** means that each request from client to server must contain **all the information necessary** to understand the request, and does **not rely on any previous requests**. No client context is stored on the server between requests.
 
 **Stateful (Case A)**: Student says "My name is Mike, student id 123, email m@g.com. Can I know my grade?" Then later says "Can you email me the slides?" — the second request relies on the server **remembering** who the student is. This is **stateful**.
@@ -358,15 +339,11 @@ The most obvious constraint — satisfied by every web application. The client a
 
 - Can decrease **network performance** by increasing repetitive data sent in a series of requests
 - Placing application state on the client-side reduces the **server's control** over application behaviour
-
 ### 4.3 Cacheability
-
 > Data within a response must be **implicitly or explicitly labelled** as **cacheable or non-cacheable**. If cacheable, the client cache can **reuse** that response data for later equivalent requests.
 
 **Advantage**: Eliminates some interactions, improving **performance** and reducing **latency**. **Disadvantage**: Reduced **reliability** if **stale data** in the cache differs from data on the server.
-
 ### 4.4 Uniform Interface
-
 The most important constraint, divided into **4 sub-constraints**:
 
 **4.4.1 Identification of Resources** — Each resource must be identified by a **unique and stable identifier**:
@@ -387,15 +364,12 @@ The most important constraint, divided into **4 sub-constraints**:
 **Example**: If an e-commerce client requests a shopping cart's contents, the server should also send hyperlinks for **checkout**, **payment**, and other related actions — not just the cart data.
 
 **Exam trap (2020 Q2d)**: "Which of the following is NOT an essential part of a RESTful API working cycle? A. Client requests a representation of a resource. B. **Client captures the structure of the resource in a DOM tree.** C. Client decides on a new resource to be requested. D. Client changes its current state when the new resource is received." — Answer is **B**. Capturing structure in a DOM tree is not a REST constraint; it's a browser implementation detail.
-
 ### 4.5 Layered System
-
 > A **layered architecture** allows the API implementation to reside on one server but source data from a **separate database server**, or perform authentication from yet another server.
 
 From the client's perspective, it connects **directly with the end server** and has **no knowledge of the intermediaries** along the way. Each layer is only aware of the **next layer**, not layers beyond it.
 
 **Advantage**: Boosts **scalability** as tasks (security, storage, authentication) are separated between servers without burdening the client. **Disadvantage**: Adds **latency** because each request needs to go through several layers.
-
 ## 5. The Semantic Gap (Exam-Critical)
 
 **Exam trap (2020 Q2g)**: "The biggest challenge in RESTful web API design is: A. Finding suitable media types to represent all the resources. B. **Bridging the semantic gap between understanding a document's structure and understanding what it means.** C. Avoiding identical URLs. D. Parsing representations." — Answer is **B**. The semantic gap is about the difference between understanding a document's structure (e.g. HTML tags) and understanding what the data actually _means_.
