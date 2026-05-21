@@ -377,19 +377,35 @@ A representation returned from the server should contain **hypermedia references
 
 **Example**: If an e-commerce client requests a shopping cart's contents, the server should also send hyperlinks for **checkout**, **payment**, and other related actions — not just the cart data.
 
-**Exam trap (2020 Q2d)**: "Which of the following is NOT an essential part of a RESTful API working cycle? A. Client requests a representation of a resource. B. **Client captures the structure of the resource in a DOM tree.** C. Client decides on a new resource to be requested. D. Client changes its current state when the new resource is received." — Answer is **B**. Capturing structure in a DOM tree is not a REST constraint; it's a browser implementation detail.
+**Exam trap (2020 Q2d)**: "Which of the following is NOT an essential part of a RESTful API working cycle? 
+- A. Client requests a representation of a resource. 
+- B. **Client captures the structure of the resource in a DOM tree.** 
+- C. Client decides on a new resource to be requested. 
+- D. Client changes its current state when the new resource is received." 
+
+— Answer is **B**. Capturing structure in a DOM tree is not a REST constraint; it's a browser implementation detail.
 ### 4.5 Layered System
 > A **layered architecture** allows the API implementation to reside on one server but source data from a **separate database server**, or perform authentication from yet another server.
 
 From the client's perspective, it connects **directly with the end server** and has **no knowledge of the intermediaries** along the way. Each layer is only aware of the **next layer**, not layers beyond it.
 
-**Advantage**: Boosts **scalability** as tasks (security, storage, authentication) are separated between servers without burdening the client. **Disadvantage**: Adds **latency** because each request needs to go through several layers.
+**Advantage**: Boosts **scalability** as tasks (security, storage, authentication) are separated between servers without burdening the client. 
+**Disadvantage**: Adds **latency** because each request needs to go through several layers.
 ## 5. The Semantic Gap (Exam-Critical)
-**Exam trap (2020 Q2g)**: "The biggest challenge in RESTful web API design is: A. Finding suitable media types to represent all the resources. B. **Bridging the semantic gap between understanding a document's structure and understanding what it means.** C. Avoiding identical URLs. D. Parsing representations." — Answer is **B**. The semantic gap is about the difference between understanding a document's structure (e.g. HTML tags) and understanding what the data actually _means_.
+**Exam trap (2020 Q2g)**: "The biggest challenge in RESTful web API design is: 
+- A. Finding suitable media types to represent all the resources. 
+- B. **Bridging the semantic gap between understanding a document's structure and understanding what it means.** 
+- C. Avoiding identical URLs. 
+- D. Parsing representations." 
 
+— Answer is **B**. The semantic gap is about the difference between understanding a document's structure (e.g. HTML tags) and understanding what the data actually _means_.
 ## 6. Fiat Standards
-**Exam trap (2020 Q2e)**: "In RESTful APIs, a 'fiat standard' is called as such because: A. **No one agreed to it. It is just a description of the way somebody does things.** B. It is widely accepted like FIAT cars. C. Set by FIAT team. D. Set by the US government." — Answer is **A**. A fiat standard is one that is simply a description of how someone does things, without formal agreement or standardisation body approval.
-
+**Exam trap (2020 Q2e)**: "In RESTful APIs, a 'fiat standard' is called as such because: 
+- A. **No one agreed to it. It is just a description of the way somebody does things.** 
+- B. It is widely accepted like FIAT cars. 
+- C. Set by FIAT team. 
+- D. Set by the US government."
+— Answer is **A**. A fiat standard is one that is simply a description of how someone does things, without formal agreement or standardisation body approval.
 ## 7. Past Paper Traps for Lecture 3
 
 | Statement                                                                                                          | Answer                                               | Reason                                                |
