@@ -483,7 +483,6 @@ The behaviour may be documented, but they lack the core assumption of a standard
 **Exam trap (2020 Q2e)**: "A 'fiat standard' means no one formally agreed to it; it's just a description of how someone does things." – **True**.
 
 ### 4.3 How Maze+XML Works
-
 Each **cell** in the maze is a resource with its own **URL**.
 
 **Representation of a cell** (GET request to `/cells/M`):
@@ -501,9 +500,7 @@ Each **cell** in the maze is a resource with its own **URL**.
 - **Link relation** (`rel="east"`, `rel="west"`) explains **what will happen** if the client follows that link
 
 > **Link relation** = a string associated with a hypermedia control. It explains the **change in application state** (for safe requests) or **resource state** (for unsafe requests) that will occur if the client triggers the control.
-
 ### 4.4 Link Relations – Registered vs Extension
-
 - **Registered relation types**: Short strings like `next`, `previous`, `search`, `alternate`. Managed by **IANA**. Currently ~60 registered relations.
 - **Extension relation types**: Look like **URLs**. If you own a domain, you can name a link relation `http://mydomain.com/whatever` and define it to mean anything you want.
 
@@ -524,9 +521,7 @@ Each **cell** in the maze is a resource with its own **URL**.
 | `tag` | A tag/keyword for the current document |
 
 **Example**: `<a rel="nofollow" href="http://www.functravel.com/">Cheap Flights</a>`
-
 ### 4.5 Changing Application State by Following Links
-
 When a client **follows** a link (e.g. `rel="east"` to `/cells/N`), it receives a **new representation** of the destination cell:
 
 ```xml
@@ -549,7 +544,6 @@ When the client reaches the **exit**, the representation includes a special link
 ```
 
 ### 4.6 How Does the Client Know Where to Start?
-
 There is no `rel="entrance"` defined. The Maze+XML standard solves this with a **collection**:
 
 **Root URL response** (collection of mazes):
@@ -574,9 +568,7 @@ There is no `rel="entrance"` defined. The Maze+XML standard solves this with a *
 
 - `rel="maze"` → takes client to an individual maze
 - `rel="start"` → takes client to the start cell of the maze
-
 ### 4.7 Client Knowledge (Programmed from Specification)
-
 A client that has been programmed with the Maze+XML specification knows:
 - How to parse the **collection** representation
 - That `rel="maze"` indicates an individual maze → perform a GET
@@ -587,9 +579,7 @@ A client that has been programmed with the Maze+XML specification knows:
 - What `exit` means → knows when the maze is completed
 
 > **Key insight**: Starting with **no information except the root URL**, a correctly programmed client can discover **everything** – all mazes, all cells, all navigation options – by following hypermedia links. This is **HATEOAS** in action.
-
 ### 4.8 Human-Driven vs Automated Clients
-
 **Human-driven client** (e.g. mobile app for a human to play the maze game):
 - Human makes the decisions about where to go
 - **Semantic gap is not a problem** because the human understands the meaning
@@ -597,7 +587,6 @@ A client that has been programmed with the Maze+XML specification knows:
 **Automated client** (e.g. "Mapmaker" – a client that maps the entire maze by automatic exploration):
 - Must be **pre-programmed** with the semantics (what `east`, `west`, `exit`, `start`, `maze` mean)
 - The specification **bridges the gap** for the automated client
-
 ## 5. Summary: Bridging the Semantic Gap
 
 - There is **no magic shortcut**; computers are not as smart as humans
