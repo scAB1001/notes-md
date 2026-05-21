@@ -327,7 +327,13 @@ The most obvious constraint — satisfied by every web application. The client a
 
 **Stateless (Case B)**: Student repeats their full identity in **every** request. "My name is Mike, student id 123, email m@g.com. Can you email me the slides?" — this is **stateless** because each request is **self-contained**.
 
-**Exam trap (2020 Q2h)**: "In RESTful APIs, statelessness means that: A. No client context is stored on the server between requests. B. Each request contains all the information necessary to service the request. C. The session state is held in the client. D. **All of the above.**" — Answer is **D. All of the above**.
+**Exam trap (2020 Q2h)**: "In RESTful APIs, statelessness means that: 
+- A. No client context is stored on the server between requests. 
+- B. Each request contains all the information necessary to service the request. 
+- C. The session state is held in the client. 
+- D. **All of the above.**" 
+
+— Answer is **D. All of the above**.
 
 **Advantages of Statelessness**:
 
