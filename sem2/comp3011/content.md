@@ -351,21 +351,29 @@ The most obvious constraint — satisfied by every web application. The client a
 **Advantage**: Eliminates some interactions, improving **performance** and reducing **latency**. **Disadvantage**: Reduced **reliability** if **stale data** in the cache differs from data on the server.
 ### 4.4 Uniform Interface
 The most important constraint, divided into **4 sub-constraints**:
-
-**4.4.1 Identification of Resources** — Each resource must be identified by a **unique and stable identifier**:
-
+#### **4.4.1 Identification of Resources** — 
+Each resource must be identified by a **unique and stable identifier**:
 - **Unique**: each identifier points to one and only one resource
 - **Stable**: should not be altered later on
 - **Persistent**: remains valid as long as the resource exists
 - **Opaque**: clients don't need to understand what the ID means
 
-**Good REST identifiers**: `/users/123`, `/blog/2025/02/03/rest-tutorial`, `/invoices/INV-2024-0003` **Bad REST identifiers**: `/getUser/getUserData/fetchOrder` (verbs in URL), `/user?id=123` (query string as identifier), `/users/current` (unstable — changes depending on who's logged in)
+**Good REST identifiers**: 
+- `/users/123`, 
+- `/blog/2025/02/03/rest-tutorial`, 
+- `/invoices/INV-2024-0003` 
+**Bad REST identifiers**: 
+- `/getUser/getUserData/fetchOrder` (verbs in URL), 
+- `/user?id=123` (query string as identifier), 
+- `/users/current` (unstable — changes depending on who's logged in)
+#### **4.4.2 Manipulation of Resources Through Representations** — 
+The client does **not directly manipulate** the resource itself. Instead, it works with a **representation** of that resource, and the server uses that representation to update the real thing. The representation contains **all the information** needed to process the request.
+#### **4.4.3 Self-Descriptive Messages** — 
+Messages should carry **all the information** that the receiving party needs to process the message successfully. 
 
-**4.4.2 Manipulation of Resources Through Representations** — The client does **not directly manipulate** the resource itself. Instead, it works with a **representation** of that resource, and the server uses that representation to update the real thing. The representation contains **all the information** needed to process the request.
-
-**4.4.3 Self-Descriptive Messages** — Messages should carry **all the information** that the receiving party needs to process the message successfully. For example, the **media type** of the message body should be stated (e.g. `Content-Type: application/json`) so the receiver knows how to interpret the payload.
-
-**4.4.4 HATEOAS (Hypermedia As The Engine Of Application State)** — A representation returned from the server should contain **hypermedia references (hyperlinks)** to perform further actions or access related resources. This is sometimes called the **discoverability rule**.
+For example, the **media type** of the message body should be stated (e.g. `Content-Type: application/json`) so the receiver knows how to interpret the payload.
+#### **4.4.4 HATEOAS (Hypermedia As The Engine Of Application State)** — 
+A representation returned from the server should contain **hypermedia references (hyperlinks)** to perform further actions or access related resources. This is sometimes called the **discoverability rule**.
 
 **Example**: If an e-commerce client requests a shopping cart's contents, the server should also send hyperlinks for **checkout**, **payment**, and other related actions — not just the cart data.
 
@@ -377,11 +385,9 @@ From the client's perspective, it connects **directly with the end server** and 
 
 **Advantage**: Boosts **scalability** as tasks (security, storage, authentication) are separated between servers without burdening the client. **Disadvantage**: Adds **latency** because each request needs to go through several layers.
 ## 5. The Semantic Gap (Exam-Critical)
-
 **Exam trap (2020 Q2g)**: "The biggest challenge in RESTful web API design is: A. Finding suitable media types to represent all the resources. B. **Bridging the semantic gap between understanding a document's structure and understanding what it means.** C. Avoiding identical URLs. D. Parsing representations." — Answer is **B**. The semantic gap is about the difference between understanding a document's structure (e.g. HTML tags) and understanding what the data actually _means_.
 
 ## 6. Fiat Standards
-
 **Exam trap (2020 Q2e)**: "In RESTful APIs, a 'fiat standard' is called as such because: A. **No one agreed to it. It is just a description of the way somebody does things.** B. It is widely accepted like FIAT cars. C. Set by FIAT team. D. Set by the US government." — Answer is **A**. A fiat standard is one that is simply a description of how someone does things, without formal agreement or standardisation body approval.
 
 ## 7. Past Paper Traps for Lecture 3
