@@ -596,13 +596,27 @@ A client that has been programmed with the Maze+XML specification knows:
   3. **Client developers reading and implementing** those specifications
 - **HATEOAS** (hypermedia links) enables **discoverability** – clients can navigate from a root URL to all resources without out-of-band knowledge of URLs
 
-**Exam trap (2020 Q2c)**: "In HTML, a link relation (rel) can be added to: A. `<link>` elements only. B. `<a>` elements only. C. **Both `<a>` and `<link>` elements**. D. None of the above." – Answer is **C**.
+**Exam trap (2020 Q2c)**: "In HTML, a link relation (rel) can be added to: 
+- A. `<link>` elements only. 
+- B. `<a>` elements only. 
+- C. **Both `<a>` and `<link>` elements**. 
+- D. None of the above."
+– Answer is **C**.
 
-**Exam trap (2020 Q2k)**: "Which one is NOT a feature of a badly designed robot? A. Quick requests to same site. B. Failure to read robots.txt. C. **Failure to set a value to the Accept HTTP header field**. D. Making requests at a regular monotonous rate." – Answer is **C** (not setting Accept is poor practice but not a sign of a bad robot; the others are bad behaviours). Wait, re-read: The question asks "NOT a feature of a badly designed robot". Failure to set Accept header is not necessarily bad – many simple robots don't. Quick requests, ignoring robots.txt, monotonous rate – all are bad. So answer is C.
+**Exam trap (2020 Q2k)**: "Which one is NOT a feature of a badly designed robot? 
+- A. Quick requests to same site. 
+- B. Failure to read robots.txt. 
+- C. **Failure to set a value to the Accept HTTP header field**. 
+- D. Making requests at a regular monotonous rate." 
+– Answer is **C** (not setting Accept is poor practice but not a sign of a bad robot; the others are bad behaviours). Failure to set Accept header is not necessarily bad – many simple robots don't. Quick requests, ignoring robots.txt, monotonous rate – all are bad. So answer is C.
 
-**Exam trap (2020 Q2j)**: "Which data type should the server use to return a list of items? A. JSON B. XML C. Collection+JSON D. **Any of the above**" – Answer is **D**. REST does not mandate a specific format.
+**Exam trap (2020 Q2j)**: "Which data type should the server use to return a list of items? 
+- A. JSON 
+- B. XML 
+- C. Collection+JSON 
+- D. **Any of the above**" 
+– Answer is **D**. REST does not mandate a specific format.
 # Lecture 5: The Hypermedia Zoo
-
 ## 1. Media Types Overview
 
 > A **media type** (formerly MIME type) describes the format of data sent over HTTP. Hundreds of (hyper)media types are available for web services. Choosing the right one depends on the application: human vs machine consumption, data complexity, bandwidth constraints.
