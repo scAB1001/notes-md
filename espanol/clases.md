@@ -138,6 +138,6 @@ Es mas facil para entender explicando
 Una vaina asi
 muy quieto
 es una mierda
-
+# 19/05 
 ancha - wide 
 el esfuerzo - effort
