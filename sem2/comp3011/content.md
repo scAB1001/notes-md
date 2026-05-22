@@ -618,7 +618,6 @@ A client that has been programmed with the Maze+XML specification knows:
 – Answer is **D**. REST does not mandate a specific format.
 # Lecture 5: The Hypermedia Zoo
 ## 1. Media Types Overview
-
 > A **media type** (formerly MIME type) describes the format of data sent over HTTP. Hundreds of (hyper)media types are available for web services. Choosing the right one depends on the application: human vs machine consumption, data complexity, bandwidth constraints.
 
 **Key decision factors**:
@@ -626,19 +625,14 @@ A client that has been programmed with the Maze+XML specification knows:
 - **Structure** required (simple text vs complex nested data)
 - **Bandwidth** overhead (heavy vs lightweight)
 - **Semantic gap** (does the format itself convey meaning, or must semantics be defined separately?)
-
 ## 2. Plain Text (`text/plain`)
-
 > **Plain text** has no structure beyond natural language rules (vocabulary, grammar). Best for **very short API responses targeted at humans**.
 
 **Example**: A simple status endpoint returning `"OK"` or `"Service unavailable"`.
 
 **Limitations**: No machine-readable structure, no hypermedia controls, no data typing.
-
 ## 3. HTML – HyperText Markup Language (`text/html`)
-
 > **HTML** is the oldest and most widely used hypermedia format (dating to 1993). It is **textual**, readable by humans and machines. Tags denote document structure (headings, paragraphs, lists). Browsers render based on tags, but **tags themselves are not displayed**.
-
 ### 3.1 HTML Evolution
 - Early versions: only structural tags for textual content.
 - Later versions added: images, video, audio, **JavaScript** (client-side scripting), **forms** (deliver content to server), **CSS** (rendering control – without CSS, the client decides how to render).
@@ -657,9 +651,7 @@ A client that has been programmed with the Maze+XML specification knows:
 **Exam insight**: HTML is for **machine-to-human** communication; XML/JSON are for **machine-to-machine**.
 
 ## 4. XML – Extensible Markup Language (`application/xml` or `text/xml`)
-
 > **XML** (first published 1998) is a textual markup language similar in syntax to HTML, but with a key difference: **HTML tags are predefined with specific semantics**; **XML tags can be anything**. XML's purpose is **pure data representation and serialisation**, independent of rendering.
-
 ### 4.1 Key Characteristics
 - The XML standard imposes **syntax rules only** (well-formedness: closing tags, proper nesting, quotes around attributes). It assigns **no semantics** to tags.
 - Anyone can invent their own XML-based format and define the semantics separately (e.g. in a human-readable specification or schema).
@@ -677,7 +669,6 @@ A client that has been programmed with the Maze+XML specification knows:
 - **No built-in semantics** – must be defined separately (creates extra work and risks semantic gap).
 
 ## 5. XML-Based Formats (Piggybacking on XML)
-
 Hundreds of data formats use XML as the underlying representation. Key examples:
 
 | Format | Media Type | Purpose |
@@ -687,7 +678,6 @@ Hundreds of data formats use XML as the underlying representation. Key examples:
 | **SOAP** | `application/soap+xml` | SOAP-based web services |
 | **Maze+XML** | `application/vnd.amundsen.maze+xml` | Maze navigation (lecture 4 example) |
 | **Custom** | Your own (e.g. `application/vnd.mycompany.myformat+xml`) | Only as last resort to avoid fiat standards |
-
 ### 5.1 RSS Example (simplified)
 ```xml
 <rss>
@@ -719,16 +709,13 @@ Hundreds of data formats use XML as the underlying representation. Key examples:
 ### 5.3 Creating Your Own XML Media Type
 - If no existing XML format meets your needs, you **can create your own** and attempt to register with IANA.
 - **Use as last resort** to avoid creating yet another **fiat standard**.
-
 ## 6. JSON – JavaScript Object Notation (`application/json`)
-
 > **JSON** (devised circa 2001) is a human-readable, language-independent data format. Despite the name, it is **not tied to JavaScript**. It is built on two universal data structures:
 
 1.  **A collection of name-value pairs** (object, record, dict, hash table, associative array)
 2.  **An ordered list of values** (array, vector, list, sequence)
 
 These structures are supported by **all programming languages**, making JSON highly interoperable.
-
 ### 6.1 JSON Example
 ```json
 {
@@ -754,7 +741,6 @@ These structures are supported by **all programming languages**, making JSON hig
 **Exam note**: SOAP uses XML **only**; REST APIs commonly use JSON, but can use XML or others.
 
 ## 7. YAML – YAML Ain't Markup Language
-
 > **YAML** is a human-friendly data serialisation standard. **Indentation defines structure** (spaces only – tabs not allowed). Often used for **configuration files** (e.g. Docker Compose, CI/CD pipelines).
 
 ### 7.1 YAML Syntax Features
