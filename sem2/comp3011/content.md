@@ -653,7 +653,6 @@ A client that has been programmed with the Maze+XML specification knows:
 - The XML standard imposes **syntax rules only** (well-formedness: closing tags, proper nesting, quotes around attributes). It assigns **no semantics** to tags.
 - Anyone can invent their own XML-based format and define the semantics separately (e.g. in a human-readable specification or schema).
 - **Natural choice for SOAP** – SOAP uses XML for data exchange.
-
 ### 4.2 Advantages of XML
 - **Underlying syntax for any media type** (e.g. Maze+XML uses `+xml` suffix).
 - **Human-readable and machine-readable** (text-based).
