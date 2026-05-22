@@ -2184,19 +2184,19 @@ _:alice foaf:knows <http://example.com/bob> .
 | vCard | `vcard:` | `vcard:locality`, `vcard:country-name` |
 
 ---
-# Lecture 16: RDF Exercises
-## 1. Exercise 1: United Kingdom RDF Diagram (2019 Q2 style)
+## 10. RDF Exercises
+### 1. Exercise 1: United Kingdom RDF Diagram (2019 Q2 style)
 **Statement**: "The United Kingdom comprises four countries: England (whose capital is London), Wales, Scotland, and Northern Ireland. The capitals of Wales and Scotland are Cardiff and Edinburgh, respectively. Belfast is the capital of Northern Ireland. London is also the capital of the United Kingdom and it has a population of 8 million people. English is the official language of England, while in Wales both English and Welsh are official languages."
-### Step 1 – Identify resources (subjects)
+#### Step 1 – Identify resources (subjects)
 - `:UnitedKingdom`, `:England`, `:Wales`, `:Scotland`, `:NorthernIreland`
 - `:London`, `:Cardiff`, `:Edinburgh`, `:Belfast`
 - (Literals for population and languages)
-### Step 2 – Identify predicates (use existing vocabularies where possible)
+#### Step 2 – Identify predicates (use existing vocabularies where possible)
 - `:comprises` (or `dcterms:hasPart`) – not standard; could invent `:comprises`
 - `:hasCapital` (or `dbo:capital`)
 - `:hasPopulation` (or `dbo:population`)
 - `:officialLanguage` (or `dcterms:language`)
-### Step 3 – Write RDF triples (Turtle)
+#### Step 3 – Write RDF triples (Turtle)
 ```turtle
 @prefix : <http://example.org/uk/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -2215,27 +2215,27 @@ _:alice foaf:knows <http://example.com/bob> .
 :England :officialLanguage "English" .
 :Wales :officialLanguage "English", "Welsh" .
 ```
-### Step 4 – Draw RDF diagram
+#### Step 4 – Draw RDF diagram
 - **Nodes** (circles/rectangles): each resource (`:UnitedKingdom`, `:England`, etc.) and literals (e.g. `"English"`).
 - **Arrows** labelled with predicate names (e.g. `:comprises`, `:hasCapital`).
 - For multiple objects of same predicate (e.g. `:Wales :officialLanguage "English", "Welsh"`), draw two arrows from `:Wales` to each literal, or use a blank node list (simpler: two separate triples).
 
 **Exam tip**: In 2019 Q2, you were asked to **draw** an RDF diagram. Use clear labels and show literals as rectangles (or ovals with quotes). Ensure subject→predicate→object direction is correct.
-## 2. Exercise 2: Clement Attlee RDF Diagram
+### 2. Exercise 2: Clement Attlee RDF Diagram
 **Statement**: "Clement Attlee was a British politician. He was born in London in 1883. His father was a solicitor and, after studying at Oxford University, Attlee became a barrister. He became Prime Minister when the Labour Party won the 1945 election. Attlee's government created the National Health Service."
-### Step 1 – Identify resources
+#### Step 1 – Identify resources
 - `:ClementAttlee` (person)
 - `:London` (place)
 - `:OxfordUniversity` (organisation)
 - `:LabourParty` (organisation)
 - `:NationalHealthService` (organisation)
 - Literals: `"British politician"` (could be a type), `"solicitor"`, `"barrister"`, `"1883"^^xsd:gYear`
-### Step 2 – Suitable vocabularies (from LOV)
+#### Step 2 – Suitable vocabularies (from LOV)
 - `foaf:Person`, `foaf:name`, `foaf:based_near`
 - `dbo:birthPlace`, `dbo:birthYear`, `dbo:primeMinister`, `dbo:party`
 - `dbo:education` (Oxford University)
 - `dc:creator` (Attlee's government created NHS)
-### Step 3 – Example triples (Turtle with prefixes)
+#### Step 3 – Example triples (Turtle with prefixes)
 ```turtle
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix dbo: <http://dbpedia.org/ontology/> .
@@ -2256,11 +2256,11 @@ _:alice foaf:knows <http://example.com/bob> .
 
 :NationalHealthService dbo:creator :ClementAttlee .
 ```
-### Step 4 – Diagram
+#### Step 4 – Diagram
 - Main node `:ClementAttlee` with multiple outgoing edges (`a`, `foaf:name`, `dbo:birthPlace`, etc.).
 - Literal nodes for `"Clement Attlee"`, `"1883"`, `"solicitor"`, etc.
 - Resource nodes for `:London`, `:OxfordUniversity`, `:LabourParty`, `:NationalHealthService`.
-## 3. Using LOV to Find Predicates
+### 3. Using LOV to Find Predicates
 > The **Linked Open Vocabularies** website (`https://lov.linkeddata.es/dataset/lov`) allows you to search for existing predicates.
 
 **Approach for exercises**:
@@ -2271,7 +2271,7 @@ _:alice foaf:knows <http://example.com/bob> .
 5. For “prime minister” → `dbo:primeMinister`.
 
 **Exam note**: You are not expected to memorise all URIs, but you should know common prefixes (`foaf:`, `dbo:`, `dc:`, `rdfs:`) and the principle of **reusing existing vocabularies** before inventing your own.
-## 4. Past Paper Traps for Lectures 15 & 16
+### 4. Past Paper Traps for Lectures 15 & 16
 | Statement | Answer | Reason |
 |-----------|--------|--------|
 | The subject in an RDF statement must be a resolvable URI | **True** | Linked Data principle |
