@@ -1364,7 +1364,6 @@ Servers detect unwanted crawlers via:
 - D. Monotonous rate." 
 – Answer **C** (Accept header missing is not inherently bad; others are signs of bad design).
 ## 6. Sitemaps
-
 > `sitemap.xml` – an XML file listing URLs of a site, with metadata: `lastmod`, `changefreq`, `priority`. Helps crawlers discover pages (including deep web pages behind forms). **Default priority = 0.5**.
 
 ```xml
@@ -1377,33 +1376,30 @@ Servers detect unwanted crawlers via:
   </url>
 </urlset>
 ```
-
 **changefreq values**: `always`, `hourly`, `daily`, `weekly`, `monthly`, `yearly`, `never`.
 
 **Exam trap (2020 Q2q)**: "Default value of priority tag is **0.5**."
-
 ## 7. Maintaining Freshness
-
 - Web pages change over time; crawlers must **revisit** to keep index fresh.
 - **HEAD request** (returns headers only, no body) can check `Last-Modified` header without downloading full page.
 - **ETag** (entity tag) also used for change detection.
 - Crawlers can learn change frequency and schedule revisits accordingly.
-
 ## 8. Distributed Crawling
-
 > Crawling the entire web requires **multiple computers** (distributed crawling). Reasons:
 > 1. Put crawler **closer** to sites (geographic distribution).
 > 2. **Reduce** the size of frontier and visited list per node.
 > 3. **Reduce** individual computing resources (CPU, bandwidth).
 
-**Exam trap (2020 Q2t)**: "We use distributed crawling to: A. Find pages in invisible web. B. **Put the crawler closer to the sites it crawls**. C. Reduce cost. D. Avoid detection." – Answer **B** (primary reason; cost reduction is secondary).
-
+**Exam trap (2020 Q2t)**: "We use distributed crawling to: 
+- A. Find pages in invisible web. 
+- B. **Put the crawler closer to the sites it crawls**. 
+- C. Reduce cost. 
+- D. Avoid detection." 
+– Answer **B** (primary reason; cost reduction is secondary).
 ## 9. The Conversion Problem
-
 > Search engines index text, but documents come in **hundreds of file formats** (PDF, Word, RTF, ODF, etc.). They must be **converted** to a tagged text format (HTML/XML) to preserve **structural hints** (headings, bold text) that are useful for ranking.
 
 Stripping to plain text loses important information (e.g. title, headings, bolded terms that often describe content).
-
 ## 10. Past Paper Calculations & Traps for Lecture 9
 
 | Question                                             | Answer                                      |
