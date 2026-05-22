@@ -742,7 +742,6 @@ These structures are supported by **all programming languages**, making JSON hig
 
 ## 7. YAML – YAML Ain't Markup Language
 > **YAML** is a human-friendly data serialisation standard. **Indentation defines structure** (spaces only – tabs not allowed). Often used for **configuration files** (e.g. Docker Compose, CI/CD pipelines).
-
 ### 7.1 YAML Syntax Features
 - **Key-value pairs**: `key: value`
 - **Lists**: `- item` (dash and space)
@@ -778,7 +777,6 @@ user:
 **Exam trap (general)**: "SOAP uses JSON" – **False** (SOAP uses XML only).  
 **Exam trap**: "HTML is the best choice for representing pure database records" – **False** (HTML is for human documents; JSON/XML are better).  
 **Exam trap**: "JSON supports comments" – **False** (JSON does not support comments; YAML does).
-
 ## 9. Past Paper Relevance for Lecture 5
 
 | Statement / Question | Answer | Reason |
