@@ -1434,7 +1434,6 @@ Stripping to plain text loses important information (e.g. title, headings, bolde
 **Example** (diagram from lecture): Pages have numbers inside = count of incoming links. Page with highest in-degree gets highest rank.
 
 **Problem with simple link analysis**: Does not consider the **importance (rank) of the source page**. A link from a highly important page should count more than a link from an obscure page.
-
 ## 4. PageRank Algorithm
 > **PageRank** (used by Google) models a **random web surfer** who clicks links randomly, never getting bored. The probability that the surfer is viewing a given page at any moment is that page’s **PageRank**.
 
