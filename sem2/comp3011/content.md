@@ -920,7 +920,6 @@ Use `runserver` and then send HTTP requests using:
 ---
 
 # Lecture 7: More Django – Accessing and Filtering Data
-
 ## 1. Model Manager and QuerySets
 
 > Every model has a default **manager** called `objects`. The manager provides methods to retrieve data, returning a **QuerySet** (a list-like collection of model instances).
@@ -1130,7 +1129,6 @@ def professor_rating(request, prof_id):
 ```
 # Lecture 8: RESTful API Design Exercise (2019 Q5 Solution)
 ## 1. Problem Restatement
-
 Design a RESTful web service for **students to rate professors** (1–5 stars). Modules taught by different professors across years/semesters; multiple professors can co-teach.
 
 **Key constraints**:
@@ -1283,27 +1281,19 @@ def professor_rating(request, prof_id):
 ```
 
 ## 4. Exam Notes for Scenario Questions
-
 - **Always identify relationships** correctly (ForeignKey, ManyToManyField).
 - **Admin site** – Django provides automatically; used for manual data entry of modules/professors.
 - **Authentication** – use `@login_required` decorator; token-based for REST (e.g. DRF).
 - **Calculations on server** – use Django aggregation (`Avg`, `Count`, `Sum`).
 - **Rounding** – `round()` in Python (banker's rounding) or `int(avg + 0.5)` for nearest integer.
 - **Unique together** – ensure a user cannot rate the same professor in the same module instance twice.
-
----
-
 # Lecture 9: Web Crawling
-
 ## 1. Scale of the Web
-
 - Estimated **>50 billion pages**; only **~5 billion visible** (tip of the iceberg).
 - **Deep web (invisible/hidden)** – pages not linked from publicly accessible pages, behind forms, paywalls, login.
 
 **Exam trap (2020 Q1.12)**: "The invisible web forms a very small part of the entire WWW" – **False** (it is much larger than the surface web).
-
 ## 2. Web Crawler Basics
-
 > A **web crawler (spider)** is an automated program that downloads web pages by following hyperlinks, enabling search engines to build an index.
 
 **Crawling as graph traversal** – the web is a huge directed graph. Typically **breadth-first** traversal.
@@ -1315,9 +1305,7 @@ def professor_rating(request, prof_id):
 4. Parse page for **link tags** (`<a href="...">`).
 5. If new URL (not seen before), add to queue. The set of URLs in queue = **frontier**.
 6. Repeat.
-
 ## 3. Politeness Policies
-
 > To avoid overloading servers, crawlers implement **politeness**: no more than one request at a time per server, and wait a **politeness window** (e.g. 30 seconds) between requests to the same server.
 
 **Implementation**: Split frontier into **per-server queues**. Crawler only reads from a queue if the server has not been accessed within the politeness window.
@@ -1327,9 +1315,7 @@ def professor_rating(request, prof_id):
 Max pages/sec = (number of distinct servers) / (politeness window in seconds)
 ```
 **Example**: 30,000 servers, 60 sec window → 30,000/60 = 500 pages/sec. If crawler capacity is 600 pages/sec, **cannot achieve peak** (needs more distinct servers).
-
 ## 4. `robots.txt`
-
 > File placed at `https://example.com/robots.txt` to instruct crawlers which paths are disallowed. It is **not a detection method** – it is a voluntary compliance mechanism.
 
 **Format**:
@@ -1346,7 +1332,6 @@ Sitemap: http://example.com/sitemap.xml
 - `Disallow: /` blocks everything; `Disallow:` (empty) allows everything.
 
 **Exam trap (2019 Q1b)**: "Web robots are detected when they download robots.txt" – **False** (downloading robots.txt is normal, not detection).
-
 ## 5. Robot Detection & Blocking
 
 Servers detect unwanted crawlers via:
