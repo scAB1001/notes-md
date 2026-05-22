@@ -685,7 +685,6 @@ Hundreds of data formats use XML as the underlying representation. Key examples:
   </channel>
 </rss>
 ```
-
 ### 5.2 Atom Example (simplified)
 ```xml
 <feed xmlns="http://www.w3.org/2005/Atom">
@@ -697,9 +696,7 @@ Hundreds of data formats use XML as the underlying representation. Key examples:
   </entry>
 </feed>
 ```
-
 **Difference**: Atom has stricter standards, better support for metadata (author, updated time), and is IETF standard. RSS is simpler but has multiple incompatible versions.
-
 ### 5.3 Creating Your Own XML Media Type
 - If no existing XML format meets your needs, you **can create your own** and attempt to register with IANA.
 - **Use as last resort** to avoid creating yet another **fiat standard**.
@@ -721,19 +718,16 @@ These structures are supported by **all programming languages**, making JSON hig
   }
 }
 ```
-
 ### 6.2 Advantages of JSON
 - **Low overhead** alternative to XML → reduces storage and bandwidth.
 - **Easy to parse** (native in JavaScript, libraries in all languages).
 - Can represent **almost all kinds of data** (nested objects, arrays, primitives).
 - **Human-readable** (similar to JavaScript object literal syntax).
-
 ### 6.3 Disadvantages of JSON
 - **No comments** (cannot annotate data; workaround: use `"_comment"` field, but that's non-standard).
 - Shares limitations of other text-based formats (no built-in security, no schema by default – though JSON Schema exists separately).
 
 **Exam note**: SOAP uses XML **only**; REST APIs commonly use JSON, but can use XML or others.
-
 ## 7. YAML – YAML Ain't Markup Language
 > **YAML** is a human-friendly data serialisation standard. **Indentation defines structure** (spaces only – tabs not allowed). Often used for **configuration files** (e.g. Docker Compose, CI/CD pipelines).
 ### 7.1 YAML Syntax Features
