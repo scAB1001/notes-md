@@ -736,7 +736,6 @@ These structures are supported by **all programming languages**, making JSON hig
 - **Nested structures**: via indentation
 - **Comments**: start with `#` (JSON lacks this)
 - **Scalars**: strings (can be unquoted, single, or double quoted), numbers, booleans, `null`
-
 ### 7.2 YAML Example
 ```yaml
 # Basic user profile
@@ -751,7 +750,6 @@ user:
 ```
 
 **Comparison**: YAML is **more human-readable** than JSON (fewer brackets, comments), but **whitespace-sensitive** (can cause errors). JSON is more common for web APIs due to simpler parsing and widespread library support.
-
 ## 8. Choosing a Media Type – Summary
 
 | Format | Media Type | Best For | Human-Readable | Machine-Readable | Comments | Overhead |
@@ -1131,7 +1129,6 @@ def professor_rating(request, prof_id):
         return JsonResponse({'professor_id': prof_id, 'average_rating': rounded})
 ```
 # Lecture 8: RESTful API Design Exercise (2019 Q5 Solution)
-
 ## 1. Problem Restatement
 
 Design a RESTful web service for **students to rate professors** (1–5 stars). Modules taught by different professors across years/semesters; multiple professors can co-teach.
@@ -1143,7 +1140,6 @@ Design a RESTful web service for **students to rate professors** (1–5 stars). 
 - Overall professor rating = average of all ratings across all module instances, **rounded to nearest integer**.
 - All filtering and calculations on **server**; client only displays.
 - Academic year given by first year only (e.g. 2018 for 2018–19).
-
 ## 2. Database Design (Django Models)
 
 ```python
@@ -1190,7 +1186,6 @@ class Rating(models.Model):
 **Relationships explained**:
 - `ModuleInstance` links a `Module` to a specific year/semester and **many professors** (ManyToManyField).
 - `Rating` links a `User`, a `ModuleInstance`, and a `Professor` – because a module instance may have multiple professors, the student rates each professor separately.
-
 ## 3. API Endpoint Design
 
 | Method | Endpoint | Description | Authentication |
@@ -1202,9 +1197,7 @@ class Rating(models.Model):
 | `GET` | `/api/professors/{id}/rating/` | Get overall rating of a professor | Optional |
 | `GET` | `/api/modules/{code}/professors/{id}/rating/` | Get average rating of a professor in a specific module | Optional |
 | `POST` | `/api/ratings/` | Submit a rating (requires login) | Required |
-
 ### 3.1 Example Request/Response
-
 **GET `/api/module-instances/`** → returns JSON:
 ```json
 [
@@ -1226,7 +1219,6 @@ class Rating(models.Model):
   }
 ]
 ```
-
 **POST `/api/ratings/`** (authenticated, token in header):
 ```json
 {
