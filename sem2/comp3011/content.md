@@ -637,19 +637,16 @@ A client that has been programmed with the Maze+XML specification knows:
 - Early versions: only structural tags for textual content.
 - Later versions added: images, video, audio, **JavaScript** (client-side scripting), **forms** (deliver content to server), **CSS** (rendering control – without CSS, the client decides how to render).
 - **HTML5.2** was the last numbered version. HTML is now a **living standard** (continuously updated without version numbers).
-
 ### 3.2 Advantages of HTML
 - Widely used → extensive support, tools, libraries on all platforms.
 - Ideal for applications serving **human-readable data** (web pages).
 - Rich features (multimedia, interactivity, forms).
 - Can **embed other data formats** (e.g. XML, JSON inside `<script>` or as data attributes).
-
 ### 3.3 Disadvantages of HTML
 - Designed for **human-readable documents**, not pure data for machine-to-machine communication (e.g. database records, spreadsheet values).
 - **Verbose**: useful content surrounded by large amounts of metadata (tags, attributes) → increases bandwidth.
 
 **Exam insight**: HTML is for **machine-to-human** communication; XML/JSON are for **machine-to-machine**.
-
 ## 4. XML – Extensible Markup Language (`application/xml` or `text/xml`)
 > **XML** (first published 1998) is a textual markup language similar in syntax to HTML, but with a key difference: **HTML tags are predefined with specific semantics**; **XML tags can be anything**. XML's purpose is **pure data representation and serialisation**, independent of rendering.
 ### 4.1 Key Characteristics
