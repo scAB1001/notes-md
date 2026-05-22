@@ -1314,7 +1314,9 @@ def professor_rating(request, prof_id):
 ```
 Max pages/sec = (number of distinct servers) / (politeness window in seconds)
 ```
-**Example**: 30,000 servers, 60 sec window → 30,000/60 = 500 pages/sec. If crawler capacity is 600 pages/sec, **cannot achieve peak** (needs more distinct servers).
+**Example**: 
+30,000 servers, 60 sec window → 30,000/60 = 500 pages/sec. 
+If crawler capacity is 600 pages/sec, **cannot achieve peak** (needs more distinct servers).
 ## 4. `robots.txt`
 > File placed at `https://example.com/robots.txt` to instruct crawlers which paths are disallowed. It is **not a detection method** – it is a voluntary compliance mechanism.
 
@@ -1333,7 +1335,6 @@ Sitemap: http://example.com/sitemap.xml
 
 **Exam trap (2019 Q1b)**: "Web robots are detected when they download robots.txt" – **False** (downloading robots.txt is normal, not detection).
 ## 5. Robot Detection & Blocking
-
 Servers detect unwanted crawlers via:
 
 | Detection Method | Description |
@@ -1349,10 +1350,19 @@ Servers detect unwanted crawlers via:
 - Unusual content delivery delay
 - Frequent HTTP status codes: **401 Unauthorized, 403 Forbidden, 404 Not Found, 408 Timeout, 429 Too Many Requests, 503 Service Unavailable** (also 301/302 redirections to trap pages)
 
-**Exam trap (2020 Q2s)**: "Which is an indication your robot is being blocked? A. Very long content delivery delay. B. CAPTCHA pages. C. Frequent appearance of 401,403,404,408,429. D. **All of the above**" – Answer **D**.
+**Exam trap (2020 Q2s)**: "Which is an indication your robot is being blocked? 
+- A. Very long content delivery delay. 
+- B. CAPTCHA pages. 
+- C. Frequent appearance of 401,403,404,408,429. 
+- D. **All of the above**" 
+– Answer **D**.
 
-**Exam trap (2020 Q2k)**: "Which is NOT a feature of a badly designed robot? A. Quick requests. B. Failure to read robots.txt. C. **Failure to set Accept header**. D. Monotonous rate." – Answer **C** (Accept header missing is not inherently bad; others are signs of bad design).
-
+**Exam trap (2020 Q2k)**: "Which is NOT a feature of a badly designed robot? 
+- A. Quick requests. 
+- B. Failure to read robots.txt. 
+- C. **Failure to set Accept header**. 
+- D. Monotonous rate." 
+– Answer **C** (Accept header missing is not inherently bad; others are signs of bad design).
 ## 6. Sitemaps
 
 > `sitemap.xml` – an XML file listing URLs of a site, with metadata: `lastmod`, `changefreq`, `priority`. Helps crawlers discover pages (including deep web pages behind forms). **Default priority = 0.5**.
