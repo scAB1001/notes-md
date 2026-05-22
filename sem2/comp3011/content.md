@@ -1411,27 +1411,22 @@ Stripping to plain text loses important information (e.g. title, headings, bolde
 | Which status codes indicate blocking?                | 401, 403, 404, 408, 429, 503                |
 | Distributed crawling primary purpose                 | Put crawler closer to sites                 |
 # Lecture 10: Link Analysis & PageRank Algorithm
-
 ## 1. Why Link Analysis?
-
 > The web has billions of pages, many with little useful content. Only a few pages containing a search term are **popular and useful** to most people. **Links** determine which pages are referenced by others, so we can use links to **rank web pages**.
-
 ## 2. Anchor Text
-
 > **Anchor text** is the clickable text in a hyperlink: `<a href="URL">anchor text</a>`
 
 **Example**: `<a href="http://www.fish.com">tropical fish</a>` – anchor text = `"tropical fish"`
 
 **Why anchor text is useful**: Many queries are short topical descriptions (like anchor text). Anchor text concisely describes the **linked page**’s topic.
 
-**Simple anchor text ranking**: Search all links for anchor text matching the user’s query; each match adds 1 to the destination page’s score. **Problems**:
+**Simple anchor text ranking**: Search all links for anchor text matching the user’s query; each match adds 1 to the destination page’s score.
+**Problems**:
 - Queries like `"click here"` break the approach.
 - Does not consider the **rank of the source page**.
 
 **Better approach**: Use anchor text as an **additional text field** for the destination page.
-
 ## 3. Simple Link Analysis (In-Degree)
-
 > The simplest ranking: count the number of **incoming links** to a page. More links = more votes of importance.
 
 **Assumption**: Important pages are referenced by many other pages.
@@ -1441,15 +1436,12 @@ Stripping to plain text loses important information (e.g. title, headings, bolde
 **Problem with simple link analysis**: Does not consider the **importance (rank) of the source page**. A link from a highly important page should count more than a link from an obscure page.
 
 ## 4. PageRank Algorithm
-
 > **PageRank** (used by Google) models a **random web surfer** who clicks links randomly, never getting bored. The probability that the surfer is viewing a given page at any moment is that page’s **PageRank**.
 
 **Key insight**: Popular pages (many incoming links, or links from popular pages) are visited more often.
 
 > **PageRank is a probability value** – the chance that a random surfer is on that page.
-
 ### 4.1 Basic PageRank Formula (without “surprise me” button)
-
 For a page `u`:
 ```
 PR(u) = Σ_{v ∈ B_u} PR(v) / L_v
@@ -1472,17 +1464,13 @@ PR(u) = Σ_{v ∈ B_u} PR(v) / L_v
 | ... converges | **0.4** | **0.2** | **0.4** |
 
 **Final**: PR(A)=0.4, PR(B)=0.2, PR(C)=0.4
-
 ### 4.2 Problem: Dead Ends (Rank Sinks)
-
 > If a page has **no outgoing links**, the random surfer gets stuck. Pages that form a **loop** also trap the surfer.
 
 **Solution**: Add a **“surprise me” button** (teleportation). At each step, with probability λ (lambda) the surfer jumps to a **random page**; with probability (1−λ) they follow a link.
 
 > Typical value: **λ = 0.15** (15% chance of teleportation, 85% chance of following a link)
-
 ### 4.3 PageRank Formula with Teleportation
-
 ```
 PR(u) = λ/N + (1−λ) × Σ_{v∈B_u} PR(v) / L_v
 ```
@@ -1494,15 +1482,11 @@ PR(u) = λ/N + (1−λ) × Σ_{v∈B_u} PR(v) / L_v
 ```
 PR(C) = 0.15/3 + 0.85 × (PR(A)/2 + PR(B)/1)
 ```
-
 ### 4.4 Handling Rank Sinks in Algorithm
-
 In the iterative algorithm:
 - For a page `p` with **outgoing links** (`|Q| > 0`): distribute `(1−λ) × PR(p) / |Q|` to each page it links to.
 - For a page `p` with **no outgoing links** (rank sink): treat it as if it links to **all pages** equally – distribute `(1−λ) × PR(p) / N` to every page.
-
 ## 5. PageRank Calculation Example from Past Paper (2020 Q2y)
-
 **Given the PageRank formula (without damping – simplified version used in exam)**:
 ```
 PR(u) = Σ_{v∈B_u} PR(v) / L_v
@@ -1519,7 +1503,6 @@ PR(u) = Σ_{v∈B_u} PR(v) / L_v
 3. Normalise so sum = 1.
 
 **Exam note**: The exam may give the **simplified formula** (without λ) – check the question. If λ is not mentioned, use the basic formula.
-
 ## 6. Key Points for Exam
 
 | Concept | Value / Description |
@@ -1530,7 +1513,6 @@ PR(u) = Σ_{v∈B_u} PR(v) / L_v
 | `N` | Total number of pages |
 | Without teleportation | Risk of **rank sinks** (pages with no outlinks) |
 | PageRank is a **probability** | Sum of all PageRanks = 1 |
-
 ## 7. Past Paper Traps for Lecture 10
 
 | Statement | Answer |
@@ -1539,19 +1521,15 @@ PR(u) = Σ_{v∈B_u} PR(v) / L_v
 | PageRank uses anchor text | **False** (PageRank uses link structure, not anchor text; anchor text is separate ranking signal) |
 | λ = 0.15 is typical | **True** |
 | Without teleportation, pages with no outlinks cause problems | **True** (rank sinks) |
-| PageRank values for a small web can be calculated iteratively | **True** |
+| PageRank values for a small web can be calculated iteratively | **True**
 # Lecture 11: Parsing and Tokenisation
-
 ## 1. Tokenisation – Basic Definition
-
 > **Tokenisation** is the process of forming **tokens (words)** from the sequence of characters in a document.
 
 **Simple definition (plain text)**: A word = any sequence of **alphanumeric characters** (letters/digits) terminated by a space or punctuation mark.
 
 **Example**: `"Bigcorp's 2007 bi-annual report"` → simple tokenisation might produce `["Bigcorp", "s", "2007", "bi", "annual", "report"]` (incorrect handling of apostrophe and hyphen).
-
 ## 2. Why Tokenisation is Harder for Web Pages
-
 Web pages contain **markup (HTML tags)** and **metadata** (author, date, etc.). Metadata is **not part of the useful text** for searching, but must be separated from content.
 
 **Example HTML snippet**:
@@ -1566,17 +1544,13 @@ Web pages contain **markup (HTML tags)** and **metadata** (author, date, etc.). 
 > **Two-pass tokenisation**:
 > 1. **First pass**: Identify markup/tags (using an HTML parser like **Beautiful Soup** in Python).
 > 2. **Second pass**: Extract useful words from headings, body text, tables, etc.
-
 ## 3. Parsing and DOM
-
 > A **parser** interprets document structure based on markup language syntax (syntactic analysis). It produces a language-agnostic representation.
 
 > For HTML, the parser creates a **Document Object Model (DOM)** – a tree structure representing the page’s elements, attributes, and text.
 
 **Exam trap (2019 Q1h)**: "In a search engine, the lexical analyser creates a Document Object Model (DOM) of the page" – **False**. The **parser** (not lexical analyser) creates the DOM. Lexical analysis is tokenisation.
-
 ## 4. Document Structure and Ranking Significance
-
 > **Some parts of HTML structure are very significant for ranking**: headings (`<h1>`, `<h2>`), bold (`<b>`), italics (`<i>`), and **anchor text** (the clickable text of a link).
 
 **Example**: A phrase appearing in the main heading, then again in bold in the body, is strong evidence of importance for that page.
@@ -1584,32 +1558,24 @@ Web pages contain **markup (HTML tags)** and **metadata** (author, date, etc.). 
 **Anchor text**: `<a href="http://example.com">tropical fish</a>` – `"tropical fish"` is likely a good description of the destination page.
 
 **Exam trap (2019 Q1g)**: "A search engine must give text tagged as boldface higher score as a search keyword" – **False**. It is a strong signal, but not mandatory; ranking algorithms vary.
-
 ## 5. Challenges in Tokenisation (Exam-Critical)
-
 ### 5.1 Small Words (1–2 characters)
 Can be important in combinations: `"xp"`, `"pm"`, `"j lo"`, `"world war II"`. **Do not always ignore**.
 
 **Exam trap (2020 Q2m)**: "Which words should a search engine always ignore when tokenizing? A. Small words. B. Hyphenated words. C. Capitalised words. D. **None of the above**." – Answer **D**. It depends on context.
-
 ### 5.2 Hyphens
 Hyphenated forms may be necessary: `"e-bay"`, `"wal-mart"`, `"cd-rom"`, `"t-shirts"`. Some queries need the hyphen; removing it changes meaning.
-
 ### 5.3 Capitalisation
 Capitalised words can have different meaning: `"Bush"` (president) vs `"bush"` (shrub); `"Apple"` (company) vs `"apple"` (fruit).
 
 **Tokeniser strategy**: Usually **case-fold** (convert to lowercase) for English to improve recall, but this loses distinction. Many search engines case-fold by default.
 
 **Exam trap (2019 Q1k)**: "The tokeniser in a search engine must not convert capital letters to small letters" – **False**. Most do convert (case-folding).
-
 ### 5.4 Apostrophes
 Apostrophes can be part of a word (possessives, contractions): `"Rosie O'Donnell"`, `"can't"`, `"80's"`, `"men's straw hats"`. Removing the apostrophe can create a different word.
-
 ### 5.5 Numbers and Periods
 Numbers matter: `"Nokia 3250"`, `"top 10 courses"`, `"QuickTime 6.5 pro"`. Periods in abbreviations: `"I.B.M."`, `"Ph.D."`, URLs, decimal numbers.
-
 ## 6. Stopwords (Function Words)
-
 > **Stopwords** (function words) are common words with little meaning in isolation: `"the"`, `"a"`, `"an"`, `"that"`, `"over"`, `"under"`, `"above"`, `"below"`. Also called **function words**.
 
 **Frequency**: `"the"` appears ~16.5% of all words in English text.
@@ -1623,9 +1589,7 @@ Numbers matter: `"Nokia 3250"`, `"top 10 courses"`, `"QuickTime 6.5 pro"`. Perio
 - Some queries consist entirely of stopwords (e.g. `"to be or not to be"`) – removal would break the query.
 
 **Exam trap (2020 Q1.10)**: "In natural languages, function words are also called stop words" – **True**.
-
 ## 7. Stemming (Conflation)
-
 > **Stemming** reduces different word forms (inflectional or derivational) to a **common stem**. For example, `"swimming"`, `"swam"`, `"swims"` → stem `"swim"`.
 
 **Why use stemming**: Allows matching query `"swimming"` with document containing `"swam"`.
@@ -1635,7 +1599,6 @@ Numbers matter: `"Nokia 3250"`, `"top 10 courses"`, `"QuickTime 6.5 pro"`. Perio
 - **Highly inflectional languages** (Arabic, Russian, Spanish): stemming can improve effectiveness by **>50%**.
 
 **Exam trap (2019 Q1l)**: "An English search engine can be 60% more accurate if it uses stemming" – **False**. The improvement is much smaller (single-digit percentages). The 60% figure applies to highly inflectional languages like Arabic.
-
 ### 7.1 Types of Stemmers
 
 | Type | Description | Example |
@@ -1644,9 +1607,7 @@ Numbers matter: `"Nokia 3250"`, `"top 10 courses"`, `"QuickTime 6.5 pro"`. Perio
 | **Dictionary-based** | Uses pre-created dictionary of term relationships | Can map `"is"`, `"be"`, `"was"` to same root (algorithmic stemmers cannot) |
 
 **Exam trap (2020 Q2n)**: "An algorithmic stemmer is based on: A. Knowledge of word prefixes and suffixes for a particular language. B. Pre-created dictionaries. C. Both. D. None." – Answer **A**. Algorithmic stemmers use suffix/prefix rules, not dictionaries.
-
 ### 7.2 Porter Stemmer Step 1a (Exam Example – 2019 Q4)
-
 Rules (simplified):
 - `SSES` → `SS` (e.g. `stresses` → `stress`)
 - `IES` → `I` (e.g. `cries` → `cri`; `ties` → `ti`? Actually Porter: if more than one letter before, replace with `i`; else `ie`)
@@ -1659,15 +1620,11 @@ Rules (simplified):
 - `masses` → `mass` (replace `sses` with `ss` → `mass`)
 - `mucus` → no change (`us` ending, do nothing)
 - `tries` → `tri` (replace `ies` with `i` because `tr` has more than one letter)
-
 ## 8. Phrases and N-grams
-
 > A **phrase** is more precise than single words (e.g. `"tropical fish"` vs `"fish"`) and less ambiguous.
 
 **Common definition in IR**: a simple noun phrase (sequence of nouns, or adjectives followed by nouns). Identified using a **Part-of-Speech (POS) tagger**.
-
 ### 8.1 POS Taggers
-
 > A **POS tagger** marks each word with its part of speech (noun, verb, adjective, etc.) based on context. Taggers are **trained on large manually labelled corpora**.
 
 **Common tags**:
@@ -1685,7 +1642,6 @@ Rules (simplified):
 **Exam trap (2019 Q1e)**: "A 'parts of speech' tagger is trained using large collections of documents that have been manually labelled" – **True**.
 
 **Exam trap (2020 Q2q)**: "A stemmer is a program that tags each word with its correct part of speech" – **False** (that’s a POS tagger, not a stemmer).
-
 ## 9. Past Paper Traps Summary for Lecture 11
 
 | Statement | Answer | Reason |
@@ -1699,18 +1655,14 @@ Rules (simplified):
 | Stemmer tags part of speech | **False** | Stemmer reduces words to stems |
 | Words search engine always ignore: small words? | **None of the above** | Depends on query |
 | Algorithmic stemmer uses dictionaries? | **False** | Uses suffix/prefix rules |
-
 ## 10. Key Equations & Rules for Exam
-
 **Porter Stemmer Step 1a (as given in lecture)**:
 - `sses` → `ss`
 - Delete `s` if preceding part contains a vowel not immediately before the `s`
 - `ied` or `ies` → `i` if preceded by more than one letter, otherwise → `ie`
-- `us` or `ss` → do nothing
+- `us` or `ss` → do nothin
 # Lecture 12: Indexing
-
 ## 1. Document Features for Ranking
-
 > To rank documents, search engines transform text into **numerical features**. Two types: **Topical features** (about the subject) and **Quality features** (importance, freshness).
 
 **Topical features**: Estimate degree to which a document is about a particular topic (e.g. term frequency, TF-IDF).
@@ -1725,12 +1677,10 @@ R(Q, D) = Σ_i g_i(Q) × f_i(D)
 - `g_i(Q)` = feature function from query (e.g. is term in query? related terms?)
 
 **Example**: For query `"tropical fish"`, `g_tropical(Q)` is large (term in query), `g_barb(Q)` might be small non-zero (barb is a type of fish, related).
-
 ## 2. Inverted Index – Core Concept
-
 > All modern search engine indices are based on the **inverted index** – the computational equivalent of a book’s back-of-the-book index.
 
-**Forward index** (document → words): Not used for querying.  
+**Forward index** (document → words): Not used for querying.
 **Inverted index** (word → list of documents): Enables fast lookup.
 
 **Structure**:
@@ -1746,22 +1696,18 @@ amplitude, 26
 Bessel function, 30
 ```
 → term `"amplitude"` appears on page 26.
-
 ## 3. Types of Inverted Indices (Increasing Information)
-
 ### 3.1 Document Numbers Only
 Simplest form: stores just the document IDs that contain each term.
 
-**Use**: Boolean retrieval (find documents containing all query terms).  
+**Use**: Boolean retrieval (find documents containing all query terms).
 **Limitation**: Cannot rank by term frequency or phrase matching.
-
 ### 3.2 With Word Counts (Term Frequency)
 Each posting stores: `(docID, term_frequency)`
 
 **Why useful**: Word counts help distinguish documents that are **about** a subject from those that mention it in passing. Higher frequency → more relevant.
 
 **Example**: Query `"tropical fish"`. Document S2 contains `"tropical"` twice and `"fish"` three times → higher score than S1 (once each).
-
 ### 3.3 With Word Positions (for Phrase Queries)
 Each posting stores: `(docID, [position1, position2, ...])`
 
@@ -1770,14 +1716,12 @@ Each posting stores: `(docID, [position1, position2, ...])`
 **Example**: For `"tropical"` at position 4, `"fish"` at position 5 in same document → phrase match.
 
 **Exam trap (2020 Q2p)**: "Which type of inverted index can result in the best phrase matches? A. Document numbers only. B. Document numbers and word positions. C. Document numbers and word counts. D. All equally good." – Answer **B**.
-
 ### 3.4 With Fields and Extents (Structural Information)
 > An **extent** is a contiguous region of a document (e.g. title, heading) represented by word position ranges `(start, end)`.
 
 **Why useful**: Words in **titles, headings, bold text** are more important than body text.
 
 **Example**: Store title extent as positions (5,9). Then only count `"fish"` if its position falls within that range.
-
 ### 3.5 Precomputed Scores (Direct Feature Values)
 Each posting stores a **precomputed feature value** (e.g. `(docID, 3.6)` where 3.6 combines TF, title presence, bold, anchor text, related terms).
 
@@ -1786,9 +1730,7 @@ Each posting stores a **precomputed feature value** (e.g. `(docID, 3.6)` where 3
 **Cons**:
 - **Loses flexibility**: Cannot change scoring mechanism after index is built.
 - **Loses proximity information**: Cannot support phrase queries unless phrase lists are also precomputed (which takes huge space).
-
 ## 4. Physical Storage of Inverted Indices
-
 ### 4.1 Naïve Approach: One File per Term
 Store each inverted list as a separate file named after the term.
 
@@ -1796,30 +1738,24 @@ Store each inverted list as a separate file named after the term.
 - Millions of tiny files. File systems reserve **~1KB per file** (even if file contains 30 bytes).
 - **Wasted space**: Example – 70,000 unique terms, each occurring once, 30 bytes per posting. Actual data = 2MB, but file system allocates 70,000 × 1KB = 70MB.
 - Directory lookups can be slow.
-
 ### 4.2 Standard Approach: Single Inverted File + Vocabulary Lexicon
 - Store **all inverted lists concatenated** in one large **inverted file**.
 - Maintain a separate **vocabulary (lexicon)** – a lookup table mapping each term to the **byte offset** where its inverted list starts in the file.
 - Vocabulary is small enough to fit in memory (hash table for O(1) lookup). For very large vocabularies, use a **tree-based structure** (e.g. B-tree) to minimise disk accesses.
 
 **This is why it’s called an “inverted file”** – all lists in one file.
-
 ## 5. Retrieval Algorithms: Document-at-a-Time vs Term-at-a-Time
-
 **Exam relevance (2020 Q2r)**: "In a real search engine, which retrieval algorithm is better in terms of memory use? A. Document-at-a-time. B. Term-at-a-time. C. Roughly equal but require optimisation. D. Roughly equal and do not require optimisation." – Answer **C** (roughly equal but require optimisation).
 
 **Document-at-a-time**: Process one document at a time, accumulating scores from all query terms. Memory usage per document.
 
 **Term-at-a-time**: Process one term at a time, accumulating contributions to all documents. Memory usage for score array of size N (number of documents). Both have trade-offs; real engines optimise.
-
 ## 6. Skip Pointers (Exam Revisited)
-
 > **Skip pointers** are additional links within a posting list that allow jumping ahead during query processing (like skipping pages in a book index).
 
 **Exam trap (2019 Q1m)**: "If we add skip pointers to an inverted list, we can achieve a substantial improvement in the asymptotic performance of search operations" – **False**. Skip pointers improve **practical speed** but do **not** change asymptotic complexity (still O(n) in list length). However, they are still worth using.
 
 **Exam trap (2020 Q2o)**: "Using skip pointers to locate a term in a large list: A. Improves asymptotic running time. B. Does not improve asymptotic time, hence should not be used. C. **Does not improve asymptotic time, yet can lead to significant running time improvements hence should be used.** D. Increases running time." – Answer **C**.
-
 ## 7. Past Paper Traps for Lecture 12
 
 | Statement | Answer | Reason |
@@ -1829,11 +1765,9 @@ Store each inverted list as a separate file named after the term.
 | Storing precomputed scores increases flexibility | **False** | It decreases flexibility (can't change scoring) |
 | Skip pointers improve asymptotic performance | **False** | They improve practical speed, not asymptotic |
 | Inverted indices are stored as one file per term | **False** | That wastes space; standard is a single inverted file with lexicon |
-| Vocabulary lexicon maps terms to byte offsets | **True** | Enables fast lookup in the inverted file |
+| Vocabulary lexicon maps terms to byte offsets | **True** | Enables fast lookup in the inverted file
 # Lecture 13: Query Processing
-
 ## 1. The Ranking Function (Recap)
-
 For a document `D` and query `Q`, the ranking score is:
 
 ```
@@ -1843,9 +1777,7 @@ R(Q, D) = Σ_i g_i(Q) × f_i(D)
 - `g_i(Q)` = query feature (e.g. 1 if term `i` is in Q, or related term weight)
 
 **Example**: Query `"tropical fish"`. `g_tropical(Q)` is large (term in query). `g_barb(Q)` might be small non-zero because `"barb"` is a type of fish (related term). Quality features (incoming links, freshness) also have corresponding `g` and `f` functions.
-
 ## 2. Document-at-a-Time (DAAT) Evaluation
-
 > **Document-at-a-time** scores documents one by one. For each document, it sums contributions from all query term posting lists that contain that document.
 
 **Visual analogy**: Inverted lists aligned vertically; each column = one document. Process column 1 (all terms), then column 2, etc.
@@ -1860,9 +1792,7 @@ R(Q, D) = Σ_i g_i(Q) × f_i(D)
 **Memory advantage**: Only needs priority queue for `k` documents (e.g. `k=10`). Very low memory.
 
 **Disk access disadvantage**: Jumps between lists frequently; requires large list buffers to reduce seeking.
-
 ## 3. Term-at-a-Time (TAAT) Evaluation
-
 > **Term-at-a-time** processes one query term’s entire inverted list at a time, accumulating scores into an **accumulator table** (one entry per document that appears in any list).
 
 **Pseudocode summary**:
@@ -1875,9 +1805,7 @@ R(Q, D) = Σ_i g_i(Q) × f_i(D)
 **Memory disadvantage**: Accumulator table `A` can be as large as the number of distinct documents appearing in any list (potentially millions). Requires hash table or array.
 
 **Disk access advantage**: Reads each inverted list sequentially from start to finish → minimal disk seeking, very efficient.
-
 ## 4. DAAT vs TAAT Comparison
-
 | Aspect | Document-at-a-Time | Term-at-a-Time |
 |--------|--------------------|----------------|
 | **Memory** | Low (only top-k queue) | High (accumulator table) |
@@ -1886,16 +1814,14 @@ R(Q, D) = Σ_i g_i(Q) × f_i(D)
 | **Optimisation** | Requires large list buffers | Requires compressed accumulators |
 
 **Exam trap (2020 Q2r)**: "In a real search engine, which retrieval algorithm is better in terms of memory use? A. Document-at-a-time. B. Term-at-a-time. C. Roughly equal but require optimisation. D. Roughly equal and do not require optimisation." – **Answer C**. Both are used with optimisations; neither is strictly better without tuning.
-
 ## 5. Conjunctive Processing (AND queries)
-
 > **Conjunctive processing** requires that **every document returned contains all query terms**. Default mode for many web search engines (users expect all terms to appear).
 
 **Key optimisation**: Process terms in order of **increasing frequency** (rarest term first).
 
-**Example**: Query `"galago AND animal"`.  
-- `"galago"` occurs in ~1 million documents.  
-- `"animal"` occurs in ~300 million documents.  
+**Example**: Query `"galago AND animal"`.
+- `"galago"` occurs in ~1 million documents.
+- `"animal"` occurs in ~300 million documents.
 - Rare term `"galago"` is the **driver**.
 
 **Simple merge algorithm** (both lists sorted by docID):
@@ -1911,9 +1837,7 @@ while (both lists not exhausted):
         advance galago list
 ```
 **Problem**: This processes almost all 300M animal postings, 99% of which do not contain `"galago"` – very expensive.
-
 ## 6. Skip Pointers for List Skipping
-
 > **Skip pointers** are additional links inserted at regular intervals in a posting list, allowing the algorithm to jump ahead without reading every posting.
 
 **How skipping works**:
@@ -1922,16 +1846,13 @@ while (both lists not exhausted):
 - Then linearly search within a small block.
 
 **Skip pointer structure**: Grey boxes (skip pointers) point to later white boxes (postings). Stored as `(target_docID, byte_offset)`.
-
 ### 6.1 Skip Pointers Do Not Improve Asymptotic Complexity
 
 > Adding skip pointers does **not** change the **asymptotic** (big-O) running time – still O(n) for list of length n. However, practical speedup is huge (factor of 10–100).
 
-**Exam trap (2019 Q1m)**: "Skip pointers improve asymptotic performance" – **False**.  
+**Exam trap (2019 Q1m)**: "Skip pointers improve asymptotic performance" – **False**.
 **Exam trap (2020 Q2o)**: "Using skip pointers: A. Improves asymptotic time. B. Does not improve asymptotic time, hence should not be used. C. Does not improve asymptotic time, yet gives significant improvements – should be used. D. Increases time." – **Answer C**.
-
 ### 6.2 Skip Pointer Optimisation (Cost Model)
-
 **Parameters**:
 - `n` = list length (bytes)
 - `k` = skip pointer size (bytes, e.g. 4)
@@ -1943,16 +1864,13 @@ while (both lists not exhausted):
 - Second term: reading half an interval on average for each target posting.
 
 **Trade-off**: Larger `c` reduces first term (fewer skip pointers) but increases second term (larger intervals to scan). Optimal `c` depends on `p` (unknown). Systems learn from past queries to estimate best `c`.
-
 ## 7. Practical Optimisations
-
 - **Early termination**: Stop processing once top-k scores are stable.
 - **Max score pruning**: Skip documents that cannot reach top-k even with maximum possible contributions.
 - **Caching**: Frequently used posting lists kept in memory.
 - **Compression**: Posting lists stored with variable-byte encoding or delta encoding.
 
 **Exam note**: Real search engines use **neither pure DAAT nor pure TAAT without optimisations**. They combine techniques.
-
 ## 8. Past Paper Traps for Lecture 13
 
 | Statement | Answer | Reason |
@@ -1962,12 +1880,10 @@ while (both lists not exhausted):
 | Conjunctive processing requires all query terms | **True** | Definition |
 | Process rarest term first in conjunctive queries | **True** | Minimises work |
 | Skip pointers improve asymptotic complexity | **False** | Still O(n) but huge constant factor improvement |
-| Skip pointers should not be used | **False** | They give significant practical speedups |
+| Skip pointers should not be used | **False** | They give significant practical speedups
 # Lecture 14: Linked Data
-
 ## 1. Motivation – The Inspector Gadget Problem
-
-> How can we answer the question: **“Did my teacher go to Finland?”**  
+> How can we answer the question: **“Did my teacher go to Finland?”**
 > This requires integrating data from multiple sources: teacher’s profile, travel records, country definitions. Traditional web (documents for humans) makes this hard.
 
 **Limitation of the traditional WWW**:
@@ -1975,23 +1891,17 @@ while (both lists not exhausted):
 - Data in many formats: HTML, PDF, CSV, Excel, Word tables.
 - Formatted for **human consumption**, not automated processing.
 - Only humans can easily analyse **semantic relationships** across pages.
-
 ## 2. Linked Data – Definition
-
 > **Linked Data** refers to a set of techniques for **publishing and connecting structured data** on the Web. It adheres to standards set by the **W3C**.
 
 **Exam trap (2020 Q1.13)**: "Linked Data refers to a set of techniques for publishing and connecting structured data on the Web" – **True**.
 
 **Goal**: Enable **automated agents** to access the Web intelligently and perform complex queries on behalf of users.
-
 ## 3. The Semantic Web
-
 > When elements of the web are **structured data entities** connected by **semantic relations**, the resulting graph is called the **Semantic Web**.
 
 **Contrast**: Traditional web = documents linked by hyperlinks. Semantic web = **things (entities)** linked by **relationships**.
-
 ## 4. RDF – Resource Description Framework
-
 > **RDF** (Resource Description Framework) is the **data model** for Linked Data. It uses an **Entity-Attribute-Value (EAV)** model, also called **subject–predicate–object** triples.
 
 **Triple structure**:
@@ -2010,9 +1920,7 @@ while (both lists not exhausted):
 - Second triple: subject same book, predicate `dc:creator`, object another resource (author’s URI)
 
 **Exam trap (2020 Q2u)**: "In RDF, the attribute of an entity is also called: A. The predicate. B. The object. C. The value. D. None." – **Answer A (predicate)**.
-
 ### 4.1 RDF Diagram (Graph Representation)
-
 RDF triples form a **directed graph**:
 - Subjects and objects = **nodes** (circles/rectangles)
 - Predicates = **edges** (arrows labelled with predicate URI)
@@ -2023,18 +1931,15 @@ dbpedia:Bonobo  rdf:type  dbpedia-owl:Mammal .
 ```
 Diagram: node `dbpedia:Bonobo` → arrow labelled `rdf:type` → node `dbpedia-owl:Mammal`.
 
-**Exam trap (2020 Q2v)**: "Which RDF statement is NOT correct for 'bonobo is a mammal'?  
-A. `dbpedia:Bonobo rdf:type dbpedia-owl:Mammal` (correct)  
-B. `dbpedia:Bonobo a dbpedia-owl:Mammal` (correct – `a` is shorthand for `rdf:type`)  
-C. `rdf:type dbpedia:Bonobo dbpedia-owl:Mammal` (incorrect – subject must come first)  
+**Exam trap (2020 Q2v)**: "Which RDF statement is NOT correct for 'bonobo is a mammal'?
+A. `dbpedia:Bonobo rdf:type dbpedia-owl:Mammal` (correct)
+B. `dbpedia:Bonobo a dbpedia-owl:Mammal` (correct – `a` is shorthand for `rdf:type`)
+C. `rdf:type dbpedia:Bonobo dbpedia-owl:Mammal` (incorrect – subject must come first)
 D. All are correct" – **Answer C**.
-
 ### 4.2 Predicates are Discoverable
-
 > Anytime you want to know what a predicate means, you can **type its URI into a web browser** and look up its definition (e.g. in an RDF schema or ontology).
 
 **Example**: `http://xmlns.com/foaf/0.1/knows` – FOAF (Friend of a Friend) vocabulary defines `knows` as a relationship between people.
-
 ## 5. RDF Serialisation Formats
 
 | Format | Description | Example |
@@ -2057,9 +1962,7 @@ D. All are correct" – **Answer C**.
 ```
 - `a` is shorthand for `rdf:type`.
 - Semicolon `;` separates multiple predicates for the same subject.
-
 ## 6. DBpedia – Linked Data from Wikipedia
-
 > **DBpedia** extracts structured data from Wikipedia **infoboxes** and publishes it as RDF. One of the largest Linked Open Data datasets.
 
 **Scale** (2016 release): 6 million entities, including 1.5 million persons, 800,000 places, 135,000 music albums, 100,000 films. Today > 228 million entities.
@@ -2069,9 +1972,7 @@ D. All are correct" – **Answer C**.
 - `http://dbpedia.org/resource/United_Kingdom`
 
 **Properties**: `dbo:capital`, `dbo:population`, `dbo:country`, etc.
-
 ## 7. Linked Open Data (LOD) Cloud
-
 > The **LOD cloud** is the collection of Linked Data datasets published on the Web, connected by links (RDF triples where subject and object are from different datasets).
 
 **Key facts** (from lecture, approximate historical numbers):
@@ -2083,9 +1984,7 @@ D. All are correct" – **Answer C**.
 **Open data**: Freely available for anyone to use, under open licenses.
 
 **Exam note**: Linked Data + Open Data = **Linked Open Data** (LOD). The LOD cloud visualisation shows datasets as circles, links as arrows.
-
 ## 8. SPARQL – Query Language for RDF
-
 > **SPARQL** (SPARQL Protocol and RDF Query Language) is the SQL-like query language for RDF graphs.
 
 **Basic query pattern**:
@@ -2100,20 +1999,18 @@ WHERE {
 - Variables start with `?` (e.g. `?subject`, `?name`).
 - Triple patterns match against RDF data.
 
-**Exam trap (2020 Q2w)**: "Which is a correct SPARQL query to find any 'subject' related to Leeds?  
-A. `SELECT ?sub WHERE { ?sub ?pred :Leeds. }`  
-B. `SELECT ?entity WHERE { ?entity ?pred :Leeds. }`  
-C. `SELECT ?sub WHERE { ?sub ?predicate :Leeds. }`  
+**Exam trap (2020 Q2w)**: "Which is a correct SPARQL query to find any 'subject' related to Leeds?
+A. `SELECT ?sub WHERE { ?sub ?pred :Leeds. }`
+B. `SELECT ?entity WHERE { ?entity ?pred :Leeds. }`
+C. `SELECT ?sub WHERE { ?sub ?predicate :Leeds. }`
 D. **All of the above**" – Answer **D** (variable names don’t matter; pattern is the same).
 
-**Exam trap (2020 Q2x)**: "Find the name of any person born in Leeds.  
-A. `SELECT ?name WHERE { ?name foaf:name ?name. ?name dbo:birthPlace :Leeds. }` (incorrect – same variable used for name and person)  
-B. `SELECT ?name WHERE { ?entity foaf:name ?name. ?entity dbo:birthPlace :Leeds. }` (correct)  
-C. `SELECT ?name WHERE { ?entity foaf:name ?name. ?name dbo:birthPlace :Leeds. }` (incorrect – `?name` is a literal, cannot have birthPlace)  
+**Exam trap (2020 Q2x)**: "Find the name of any person born in Leeds.
+A. `SELECT ?name WHERE { ?name foaf:name ?name. ?name dbo:birthPlace :Leeds. }` (incorrect – same variable used for name and person)
+B. `SELECT ?name WHERE { ?entity foaf:name ?name. ?entity dbo:birthPlace :Leeds. }` (correct)
+C. `SELECT ?name WHERE { ?entity foaf:name ?name. ?name dbo:birthPlace :Leeds. }` (incorrect – `?name` is a literal, cannot have birthPlace)
 D. `SELECT ?name WHERE { ?entity foaf:name ?Leeds. ?name dbo:birthPlace :Leeds. }` (incorrect)" – Answer **B**.
-
 ## 9. RDF Diagram Drawing (Exam 2019 Q2)
-
 You may be asked to draw an RDF diagram from a textual description.
 
 **Example** (2019 Q2): "The United Kingdom comprises four countries: England (capital London), Wales (capital Cardiff), Scotland (capital Edinburgh), Northern Ireland (capital Belfast). London also capital of UK, population 8 million. English official language of England; English and Welsh official in Wales."
@@ -2136,7 +2033,6 @@ You may be asked to draw an RDF diagram from a textual description.
 :England :officialLanguage "English" .
 :Wales :officialLanguage "English", "Welsh" .
 ```
-
 ## 10. Key Vocabulary Prefixes (Exam-Relevant)
 
 | Prefix | URI | Use |
@@ -2146,7 +2042,6 @@ You may be asked to draw an RDF diagram from a textual description.
 | `foaf:` | `http://xmlns.com/foaf/0.1/` | Friend of a Friend (people, names, knows) |
 | `dbo:` / `dbpedia-owl:` | `http://dbpedia.org/ontology/` | DBpedia ontology |
 | `rel:` | `http://purl.org/vocab/relationship/` | Relationships (e.g. `Spouse_Of`) |
-
 ## 11. Past Paper Traps for Lecture 14
 
 | Statement | Answer | Reason |
@@ -2158,11 +2053,9 @@ You may be asked to draw an RDF diagram from a textual description.
 | The predicate in an RDF statement defines attributes of the object (2019 Q1j) | **False** | Defines attribute of the **subject** |
 | A SPARQL query variable must be named `?subject` | **False** | Any name with `?` prefix |
 | DBpedia extracts data from Wikipedia infoboxes | **True** | |
-| The LOD cloud contains only government data | **False** | Many domains (geography, life sciences, media, publications) |
+| The LOD cloud contains only government data | **False** | Many domains (geography, life sciences, media, publications)
 # Lecture 15: RDF – Resource Description Framework (Detailed)
-
 ## 1. RDF Triple – Subject, Predicate, Object
-
 > **RDF** represents knowledge as **triples**: `(subject, predicate, object)`. This is also called the **Entity-Attribute-Value (EAV)** model.
 
 **Subject** – the resource being described.
@@ -2177,9 +2070,7 @@ You may be asked to draw an RDF diagram from a textual description.
 **Object** – the value.
 - Can be a **resolvable URI** (another resource) or a **literal** (string, number, date, etc.).
 - Literals can have language tags (`"Hello"@en`) or datatypes (`"25"^^xsd:integer`).
-
 ## 2. URL Abbreviations (Prefixes)
-
 > To save space, URIs are abbreviated as **prefix:suffix**. The prefix expands to a base URI.
 
 **Common prefixes**:
@@ -2192,9 +2083,7 @@ You may be asked to draw an RDF diagram from a textual description.
 | `vcard:` | `http://www.w3.org/2006/vcard/ns#` | Contact information |
 
 **Example**: `dc:creator` means `http://purl.org/dc/elements/1.1/creator`.
-
 ## 3. Blank Nodes
-
 > **Blank nodes** (anonymous resources) are used when you need to describe a resource that doesn’t have a URI. They are written as `_:nodeID` or `[]`.
 
 **Example** (a person with unknown URI):
@@ -2209,9 +2098,7 @@ _:alice foaf:knows <http://example.com/bob> .
 - **Avoid using blank nodes whenever possible** (use persistent URIs).
 
 **Skolemization**: Some RDF databases automatically assign URIs to blank nodes to make them addressable.
-
 ## 4. Classes and Types
-
 > **Classes** group resources. Use `rdf:type` (or shorthand `a`) to declare that a resource is an instance of a class.
 
 ```turtle
@@ -2227,9 +2114,7 @@ _:alice foaf:knows <http://example.com/bob> .
 ```
 
 **Exam trap**: In RDF diagrams, the `rdf:type` edge is often labelled `type` or `a`.
-
 ## 5. RDF Vocabularies (Ontologies)
-
 > An **RDF vocabulary** is a collection of terms (predicates, classes) with defined meanings, published on the Web.
 
 **Anyone can mint a vocabulary**. To make it reusable:
@@ -2244,9 +2129,7 @@ _:alice foaf:knows <http://example.com/bob> .
 - `rdfs:seeAlso` – link to related information
 - `foaf:name` – full name of a person
 - `vcard:locality` – city or town
-
 ## 6. Minting Good URIs (Exam-Relevant)
-
 > When creating your own URIs for Linked Data resources or vocabulary terms, follow these guidelines:
 
 1. **Use a DNS domain you control** (e.g. `http://example.com/`)
@@ -2256,9 +2139,7 @@ _:alice foaf:knows <http://example.com/bob> .
 3. **Make URIs neutral to implementation details** (no file extensions like `.aspx`, `.php`, or internal server paths).
    - Good: `http://example.com/people/alice`
    - Bad: `http://example.com/showperson.aspx?id=123`
-
 ## 7. Fragment Identifiers (`#`)
-
 > **Fragment identifiers** are the part of a URL after the `#` symbol, e.g. `http://example.com/vocab#person`.
 
 **Key behaviours**:
@@ -2267,9 +2148,7 @@ _:alice foaf:knows <http://example.com/bob> .
 - **Should be avoided** for identifying resources in Linked Data (prefer full URIs without fragments, or use hash URIs only when the whole document represents a single resource).
 
 **Exam trap (2020 Q1.15)**: "Fragment identifiers are the part of the URL that follows the @ symbol" – **False** (they follow the **hash `#`** symbol, not `@`).
-
 ## 8. RDF Serialisation Formats
-
 > **RDF is a data model, not a format**. Several concrete syntaxes (serialisations) exist.
 
 | Format | Description | Use case |
@@ -2295,7 +2174,6 @@ _:alice foaf:knows <http://example.com/bob> .
   "foaf:name": "Anakin Skywalker"
 }
 ```
-
 ## 9. Core RDF Vocabularies Table
 
 | Vocabulary | Prefix | Example term |
@@ -2307,24 +2185,18 @@ _:alice foaf:knows <http://example.com/bob> .
 | vCard | `vcard:` | `vcard:locality`, `vcard:country-name` |
 
 ---
-
 # Lecture 16: RDF Exercises
-
 ## 1. Exercise 1: United Kingdom RDF Diagram (2019 Q2 style)
-
 **Statement**: "The United Kingdom comprises four countries: England (whose capital is London), Wales, Scotland, and Northern Ireland. The capitals of Wales and Scotland are Cardiff and Edinburgh, respectively. Belfast is the capital of Northern Ireland. London is also the capital of the United Kingdom and it has a population of 8 million people. English is the official language of England, while in Wales both English and Welsh are official languages."
-
 ### Step 1 – Identify resources (subjects)
 - `:UnitedKingdom`, `:England`, `:Wales`, `:Scotland`, `:NorthernIreland`
 - `:London`, `:Cardiff`, `:Edinburgh`, `:Belfast`
 - (Literals for population and languages)
-
 ### Step 2 – Identify predicates (use existing vocabularies where possible)
 - `:comprises` (or `dcterms:hasPart`) – not standard; could invent `:comprises`
 - `:hasCapital` (or `dbo:capital`)
 - `:hasPopulation` (or `dbo:population`)
 - `:officialLanguage` (or `dcterms:language`)
-
 ### Step 3 – Write RDF triples (Turtle)
 ```turtle
 @prefix : <http://example.org/uk/> .
@@ -2344,18 +2216,14 @@ _:alice foaf:knows <http://example.com/bob> .
 :England :officialLanguage "English" .
 :Wales :officialLanguage "English", "Welsh" .
 ```
-
 ### Step 4 – Draw RDF diagram
 - **Nodes** (circles/rectangles): each resource (`:UnitedKingdom`, `:England`, etc.) and literals (e.g. `"English"`).
 - **Arrows** labelled with predicate names (e.g. `:comprises`, `:hasCapital`).
 - For multiple objects of same predicate (e.g. `:Wales :officialLanguage "English", "Welsh"`), draw two arrows from `:Wales` to each literal, or use a blank node list (simpler: two separate triples).
 
 **Exam tip**: In 2019 Q2, you were asked to **draw** an RDF diagram. Use clear labels and show literals as rectangles (or ovals with quotes). Ensure subject→predicate→object direction is correct.
-
 ## 2. Exercise 2: Clement Attlee RDF Diagram
-
 **Statement**: "Clement Attlee was a British politician. He was born in London in 1883. His father was a solicitor and, after studying at Oxford University, Attlee became a barrister. He became Prime Minister when the Labour Party won the 1945 election. Attlee's government created the National Health Service."
-
 ### Step 1 – Identify resources
 - `:ClementAttlee` (person)
 - `:London` (place)
@@ -2363,13 +2231,11 @@ _:alice foaf:knows <http://example.com/bob> .
 - `:LabourParty` (organisation)
 - `:NationalHealthService` (organisation)
 - Literals: `"British politician"` (could be a type), `"solicitor"`, `"barrister"`, `"1883"^^xsd:gYear`
-
 ### Step 2 – Suitable vocabularies (from LOV)
 - `foaf:Person`, `foaf:name`, `foaf:based_near`
 - `dbo:birthPlace`, `dbo:birthYear`, `dbo:primeMinister`, `dbo:party`
 - `dbo:education` (Oxford University)
 - `dc:creator` (Attlee's government created NHS)
-
 ### Step 3 – Example triples (Turtle with prefixes)
 ```turtle
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
@@ -2391,14 +2257,11 @@ _:alice foaf:knows <http://example.com/bob> .
 
 :NationalHealthService dbo:creator :ClementAttlee .
 ```
-
 ### Step 4 – Diagram
 - Main node `:ClementAttlee` with multiple outgoing edges (`a`, `foaf:name`, `dbo:birthPlace`, etc.).
 - Literal nodes for `"Clement Attlee"`, `"1883"`, `"solicitor"`, etc.
 - Resource nodes for `:London`, `:OxfordUniversity`, `:LabourParty`, `:NationalHealthService`.
-
 ## 3. Using LOV to Find Predicates
-
 > The **Linked Open Vocabularies** website (`https://lov.linkeddata.es/dataset/lov`) allows you to search for existing predicates.
 
 **Approach for exercises**:
@@ -2409,9 +2272,7 @@ _:alice foaf:knows <http://example.com/bob> .
 5. For “prime minister” → `dbo:primeMinister`.
 
 **Exam note**: You are not expected to memorise all URIs, but you should know common prefixes (`foaf:`, `dbo:`, `dc:`, `rdfs:`) and the principle of **reusing existing vocabularies** before inventing your own.
-
 ## 4. Past Paper Traps for Lectures 15 & 16
-
 | Statement | Answer | Reason |
 |-----------|--------|--------|
 | The subject in an RDF statement must be a resolvable URI | **True** | Linked Data principle |
@@ -2420,21 +2281,18 @@ _:alice foaf:knows <http://example.com/bob> .
 | Blank nodes should be used whenever possible | **False** | Avoid them; use URIs |
 | `a` is shorthand for `rdf:type` | **True** | In Turtle and many serialisations |
 | RDF/XML is the only RDF format | **False** | Turtle, JSON-LD, RDFa also exist |
-| Anyone can create an RDF vocabulary | **True** | But reuse existing ones |
-# Lecture 17 & 18: SPARQL – Querying Linked Data
-
+| Anyone can create an RDF vocabulary | **True** | But reuse existing ones
+# Lecture 17 & 18: SPARQL – Querying Linked Dat
 ## 1. What is SPARQL?
-
 > **SPARQL** (recursive acronym for **SPARQL Protocol and RDF Query Language**) is the query language for structured data on the Web. It is the **RDF equivalent of SQL** for relational databases.
 
 **Key capabilities**:
 - Query the **Web of Data** as if it were a single, highly distributed database.
 - Query **multiple data sources** at once, dynamically building a large virtual RDF graph.
 - Designed to look and act as much like SQL as possible, but with important differences.
-
 ## 2. SPARQL vs SQL – Key Difference
 
-> In SQL, `SELECT` clause names columns to retrieve from tables.  
+> In SQL, `SELECT` clause names columns to retrieve from tables.
 > In SPARQL, `SELECT` clause names **variables** that were **bound in the `WHERE` clause’s triple patterns**.
 
 **Example**:
@@ -2447,9 +2305,7 @@ WHERE {
 ```
 - `?name` and `?url` are variables that appear in the triple patterns.
 - The `WHERE` clause finds all matching triples; `SELECT` decides which variables to output.
-
 ## 3. Basic SPARQL Query Structure
-
 ```sparql
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -2468,7 +2324,6 @@ WHERE {
 - **Variables** start with `?` (e.g. `?person`, `?name`).
 - **Period (`.`)** separates triple patterns (like AND).
 - **Semicolon (`;`)** allows repeating the same subject for multiple predicates (as in Turtle).
-
 ## 4. Triple Patterns and Graph Matching
 
 > A **triple pattern** is like an RDF triple where any of subject, predicate, or object can be a variable.
@@ -2479,9 +2334,7 @@ The SPARQL engine finds all RDF triples in the dataset that **match** the patter
 - Matches any triple with predicate `foaf:name`.
 - `?person` binds to the subject (a person URI).
 - `?name` binds to the object (a literal name).
-
 ## 5. Querying Multiple RDF Files (FROM clause)
-
 > Use `FROM` to specify a particular RDF document (by URL). Multiple `FROM` clauses combine graphs from different sources.
 
 ```sparql
@@ -2491,16 +2344,13 @@ FROM <http://example.com/person2.rdf>
 WHERE { ?person foaf:name ?name }
 ```
 
-**Magic of Linked Data**: Reusing the **same URI** across different files allows data to be combined automatically. Two files referring to `http://example.org/people/alice` are assumed to talk about the same resource.
-
+**Magic of Linked Data**: Reusing the **same URI** across different files allows data to be combined automatically. Two files referring to `http://example.org/people/alice` are assumed to talk about the same resource
 ## 6. SPARQL Endpoints
-
 > A **SPARQL endpoint** is a web-accessible service that accepts SPARQL queries (usually via HTTP GET or POST). It returns results in formats like JSON, XML, CSV, or HTML.
 
 **Convention**: Many datasets expose their endpoint at `/sparql` (e.g. `http://dbpedia.org/sparql`).
 
 **DBpedia SPARQL endpoint**: `http://dbpedia.org/sparql` – provides a web form for interactive queries.
-
 ## 7. Common SPARQL Clauses and Keywords
 
 | Keyword | Purpose |
@@ -2511,10 +2361,8 @@ WHERE { ?person foaf:name ?name }
 | `FILTER` | Restrict results based on conditions (e.g. numeric comparison, string matching) |
 | `ORDER BY` | Sort results by a variable |
 | `LIMIT` | Restrict number of results (not in examples but common) |
-| `FROM` | Specify RDF source document(s) |
-
+| `FROM` | Specify RDF source document(s)
 ## 8. SPARQL Query Examples (from Lecture 18)
-
 ### 8.1 Find any entity with a `foaf:name`
 ```sparql
 SELECT ?entity
@@ -2522,7 +2370,6 @@ WHERE {
   ?entity foaf:name ?name
 }
 ```
-
 ### 8.2 Find any subject related to Leeds (as entity)
 ```sparql
 PREFIX dbr: <http://dbpedia.org/resource/>
@@ -2532,7 +2379,6 @@ WHERE {
 }
 ```
 **Exam trap (2020 Q2w)**: "Which is a correct SPARQL query to find any subject related to Leeds?" – All of `SELECT ?sub WHERE { ?sub ?pred :Leeds. }`, `SELECT ?entity WHERE { ?entity ?pred :Leeds. }`, etc. are correct because variable names don’t matter. Answer: **D. All of the above**.
-
 ### 8.3 Find any subject related to the string "Leeds" (English language)
 ```sparql
 SELECT ?sub
@@ -2540,7 +2386,6 @@ WHERE {
   ?sub ?pred "Leeds"@en .
 }
 ```
-
 ### 8.4 Find the name of any person born in Leeds (correct pattern)
 ```sparql
 PREFIX dbr: <http://dbpedia.org/resource/>
@@ -2554,7 +2399,6 @@ WHERE {
 }
 ```
 **Exam trap (2020 Q2x)**: The correct query must bind `?entity` as the person, then `foaf:name` gives the name, and `dbo:birthPlace` gives the place. Option B from the paper was correct.
-
 ### 8.5 Find name and spouse of any person born in Leeds
 ```sparql
 PREFIX dbr: <http://dbpedia.org/resource/>
@@ -2569,7 +2413,6 @@ WHERE {
   ?entity dbp:spouse ?spouse .
 }
 ```
-
 ### 8.6 Find any person born in Leeds before 1900-01-01 (FILTER)
 ```sparql
 PREFIX dbr: <http://dbpedia.org/resource/>
@@ -2584,7 +2427,6 @@ WHERE {
   FILTER (?birth < "1900-01-01"^^xsd:date)
 }
 ```
-
 ### 8.7 People born in Berlin, ordered by name (ORDER BY)
 ```sparql
 PREFIX dbr: <http://dbpedia.org/resource/>
@@ -2597,7 +2439,6 @@ WHERE {
 }
 ORDER BY ?name
 ```
-
 ### 8.8 Find capital of France
 ```sparql
 PREFIX dbr: <http://dbpedia.org/resource/>
@@ -2608,7 +2449,6 @@ WHERE {
   dbr:France dbo:capital ?city .
 }
 ```
-
 ### 8.9 Find capital cities of all countries
 ```sparql
 PREFIX dbo: <http://dbpedia.org/ontology/>
@@ -2618,7 +2458,6 @@ WHERE {
   ?country dbo:capital ?city .
 }
 ```
-
 ## 9. Using `DISTINCT` and Discovering Classes
 
 **Discover all RDF types (classes) present in a dataset**:
@@ -2631,9 +2470,7 @@ WHERE {
 - `[]` is a **blank node** (matches any subject).
 - `a` is shorthand for `rdf:type`.
 - `DISTINCT` removes duplicate class names.
-
 ## 10. Important SPARQL Syntax Notes
-
 - **Variables** begin with `?` (e.g. `?person`). Variable names can be any alphanumeric string.
 - **Prefixes** must be declared before use (either in query or the endpoint may have default prefixes).
 - **Literals** can have language tags (`"Leeds"@en`) or datatypes (`"1900-01-01"^^xsd:date`).
@@ -2650,7 +2487,6 @@ Equivalent to:
 ?person rdfs:seeAlso ?url .
 ?person foaf:name ?name .
 ```
-
 ## 11. Past Paper Traps for Lectures 17 & 18
 
 | Statement | Answer | Reason |
@@ -2664,5 +2500,3 @@ Equivalent to:
 | Variable names are fixed (`?subject` must be used) | **False** | Any name with `?` prefix is allowed |
 | `FILTER` can compare dates and numbers | **True** | |
 | `ORDER BY` sorts results | **True** | |
-
-*End of Lectures 17 & 18 notes.*
