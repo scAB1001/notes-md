@@ -1442,7 +1442,7 @@ Stripping to plain text loses important information (e.g. title, headings, bolde
 > **PageRank is a probability value** – the chance that a random surfer is on that page.
 ### 4.1 Basic PageRank Formula (without “surprise me” button)
 For a page `u`:
-```
+```tex
 PR(u) = Σ_{v ∈ B_u} PR(v) / L_v
 ```
 - `B_u` = set of pages that **point to** u
