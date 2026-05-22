@@ -659,11 +659,9 @@ A client that has been programmed with the Maze+XML specification knows:
 - Excellent for **tree-like data structures**.
 - **Platform independent** (shared by all text-based formats).
 - You can **invent your own XML-based format** to match your application's semantics.
-
 ### 4.3 Disadvantages of XML
 - **Heavyweight**: contains much metadata (tag delimiters, opening/closing tags). Each tag requires ~7 lexical tokens.
 - **No built-in semantics** – must be defined separately (creates extra work and risks semantic gap).
-
 ## 5. XML-Based Formats (Piggybacking on XML)
 Hundreds of data formats use XML as the underlying representation. Key examples:
 
