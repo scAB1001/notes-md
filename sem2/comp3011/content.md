@@ -1720,7 +1720,12 @@ Each posting stores: `(docID, [position1, position2, ...])`
 
 **Example**: For `"tropical"` at position 4, `"fish"` at position 5 in same document → phrase match.
 
-**Exam trap (2020 Q2p)**: "Which type of inverted index can result in the best phrase matches? A. Document numbers only. B. Document numbers and word positions. C. Document numbers and word counts. D. All equally good." – Answer **B**.
+**Exam trap (2020 Q2p)**: "Which type of inverted index can result in the best phrase matches? 
+- A. Document numbers only. 
+- **B. Document numbers and word positions.** 
+- C. Document numbers and word counts. 
+- D. All equally good." 
+– Answer **B**.
 ### 3.4 With Fields and Extents (Structural Information)
 > An **extent** is a contiguous region of a document (e.g. title, heading) represented by word position ranges `(start, end)`.
 
