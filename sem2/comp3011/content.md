@@ -1597,7 +1597,8 @@ Numbers matter: `"Nokia 3250"`, `"top 10 courses"`, `"QuickTime 6.5 pro"`. Perio
 - **English**: small improvement (<5% for large collections, ~10% for domain-specific)
 - **Highly inflectional languages** (Arabic, Russian, Spanish): stemming can improve effectiveness by **>50%**.
 
-**Exam trap (2019 Q1l)**: "An English search engine can be 60% more accurate if it uses stemming" – **False**. The improvement is much smaller (single-digit percentages). The 60% figure applies to highly inflectional languages like Arabic.
+**Exam trap (2019 Q1l)**: "An English search engine can be 60% more accurate if it uses stemming" 
+– **False**. The improvement is much smaller (single-digit percentages). The 60% figure applies to highly inflectional languages like Arabic.
 ### 7.1 Types of Stemmers
 
 | Type | Description | Example |
@@ -1605,7 +1606,12 @@ Numbers matter: `"Nokia 3250"`, `"top 10 courses"`, `"QuickTime 6.5 pro"`. Perio
 | **Algorithmic** | Uses programmed rules (suffix removal) | Porter stemmer |
 | **Dictionary-based** | Uses pre-created dictionary of term relationships | Can map `"is"`, `"be"`, `"was"` to same root (algorithmic stemmers cannot) |
 
-**Exam trap (2020 Q2n)**: "An algorithmic stemmer is based on: A. Knowledge of word prefixes and suffixes for a particular language. B. Pre-created dictionaries. C. Both. D. None." – Answer **A**. Algorithmic stemmers use suffix/prefix rules, not dictionaries.
+**Exam trap (2020 Q2n)**: "An algorithmic stemmer is based on: 
+- **A. Knowledge of word prefixes and suffixes for a particular language.** 
+- B. Pre-created dictionaries. 
+- C. Both. 
+- D. None." 
+– Answer **A**. Algorithmic stemmers use suffix/prefix rules, not dictionaries.
 ### 7.2 Porter Stemmer Step 1a (Exam Example – 2019 Q4)
 Rules (simplified):
 - `SSES` → `SS` (e.g. `stresses` → `stress`)
