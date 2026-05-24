@@ -1695,7 +1695,7 @@ R(Q, D) = Σ_i g_i(Q) × f_i(D)
 - Terms are often stored in a **hash table** for O(1) lookup.
 
 **Example (book index style)**:
-```
+```python
 fluid, 25
 amplitude, 26
 Bessel function, 30
