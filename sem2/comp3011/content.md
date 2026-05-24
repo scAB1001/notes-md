@@ -1755,7 +1755,12 @@ Store each inverted list as a separate file named after the term.
 
 **This is why it’s called an “inverted file”** – all lists in one file.
 ## 5. Retrieval Algorithms: Document-at-a-Time vs Term-at-a-Time
-**Exam relevance (2020 Q2r)**: "In a real search engine, which retrieval algorithm is better in terms of memory use? A. Document-at-a-time. B. Term-at-a-time. C. Roughly equal but require optimisation. D. Roughly equal and do not require optimisation." – Answer **C** (roughly equal but require optimisation).
+**Exam relevance (2020 Q2r)**: "In a real search engine, which retrieval algorithm is better in terms of memory use? 
+A. Document-at-a-time. 
+B. Term-at-a-time. 
+**C. Roughly equal but require optimisation.** 
+D. Roughly equal and do not require optimisation." 
+– Answer **C** (roughly equal but require optimisation).
 
 **Document-at-a-time**: Process one document at a time, accumulating scores from all query terms. Memory usage per document.
 
