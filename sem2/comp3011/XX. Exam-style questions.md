@@ -1,870 +1,1438 @@
-# Prompt
-You are an expert in the UK UG BSc, MSc Computer Science, Web Services and Web Data field. I am currently taking this module and need assistance writing my lecture revision notes for my exam.
-Ensure keywords, terminology, language and concepts are always clear and bold.
-There should be brief, concise examples and explanations for every important concept --- multiple if complex.
-I want no unnecessary spacing and I want clear headers that fit with the module outline.
-
-Here is some guidance about the exam from the module leads, use it to tailor/format my notes:
-# Guidance
-- Standard exam (closed essays, MCQs etc)
-- 2 hours long
-- In-person
-- No calculators allowed
-- Closed book (no notes allowed)
-## Module Overview
-### Objectives
-On completion of this module, students will be able to:  
-
-- Understand in detail how search engines work  
-- Understand the different architectures and foundational technologies of web services  
-- Appreciate the role played by cloud computing in providing web services  
-- Understand the concepts of and philosophy behind linked and open data  
-- Develop applications that consume and aggregate sources of open data  
-- Implement web services and develop web applications that use these services  
-- Develop certain components of a search engine
-### Learning outcomes
-- understand and demonstrate coherent and detailed subject knowledge and professional competencies some of which will be informed by recent research/scholarship in the discipline;  
-- deploy accurately standard techniques of analysis and enquiry within the discipline;  
-- demonstrate a conceptual understanding which enables the development and sustaining of an argument;  
-- describe and comment on aspects of recent research and/or scholarship;  
-- appreciate the uncertainty, ambiguity and limitations of knowledge in the discipline;  
-- make appropriate use of scholarly reviews and primary sources;  
-- apply their knowledge and understanding in order to initiate and carry out an extended piece of work or project;
-### Syllabus
-- Search engine architecture; web crawlers; page indexing and ranking; web service architectures; 
-- scalability; cloud-based systems; overview of XML & SOAP in web services; 
-- use of REST architecture for web services; linked data and open data; handling of common  data formats (XML, CSV, JSON, etc); data consumption and aggregation
-## Question types
-### MCQ
-- Multiple choice questions
-- For MCQ, clearly marked 'select one', 'select two', 'select three' (you should select all correct answers to be awarded the marks)
-### Scenario Based – You are given some background and asked to design a system.
-- Pay attention to the task:
-- What is the problem you need to solve?
-- What are the variables/features/input?
-- What is the output? / What is asked?
-- Are there any specific conditions? (e.g. data properties, outliers, a specific solution)
-- Which algorithms can / cannot be used / is best suited for the task?
-- What can / can not be said about the task?
-- What could help improve performance? What is a better approach?
-- Is this task an example of classification?, etc.
-- Types of Questions
-### Knowledge Based – Requires you to know/recall details and apply them
-- Concepts / approaches / methods / algorithms / metrics
-- How do they work? What can / cannot be said about these?
-
-## Example of previous exam notes written for another module
-```markdown
-# Lecture 1: Introduction to Data Science
-## 1. Core Definition & Scope
-> **Data Science** is a multidisciplinary field using principles, algorithms, and processes to extract **nonobvious and useful patterns** from **large data sets**. It encompasses the full **data lifecycle**: capture, cleaning, analysis, modelling, and presentation.
-
-* **Machine Learning (ML)** is a subset focused on algorithmic pattern extraction.
-* **Data Mining** typically analyses structured data for discovery.
-* **Data Science** includes **unstructured data** (e.g., social media), **big-data technologies**, and **data ethics**.
-## 2. Datafication
-> **Datafication** is the process of taking all aspects of life and turning them into **quantifiable data**. Once datafied, information can be repurposed into new forms of value.
-
-**Example**: A **fitness tracker** datafies sleep, movement, and heart rate. The resulting data allows a user to derive **actionable insights**, such as linking poor sleep quality to late-night screen time, which would be difficult to notice otherwise.
-## 3. Key Skills of a Data Scientist
-* **Technical**: Computer Science, Mathematics, Statistics, Machine Learning.
-* **Domain Expertise**: Understanding the specific field (e.g., healthcare, film).
-* **Soft Skills**: Communication, Presentation, **Data Visualisation**.
-## 4. Core Process & Workflow
-1.  **Data Collection & Preparation**: **Collecting, Curating, Cleaning**. The most time-consuming phase.
-2.  **Analysis & Modelling**: **Visualize, Analyze, Model (Machine Learning)**.
-3.  **Critical Questions Before Modelling**:
-    * Does the **past represent the future**? (Assumption for predictive models).
-    * What is the **goal** of the model?
-    * How will it be **used**?
-    * What data is **needed** vs. **available**?
-## 5. Example Applications
-* **IMDb**: Structured, crowdsourced data enabling questions on actor careers, film success factors (**correlation** between budget/ratings), and societal trends (e.g., age disparity between actors/actresses).
-* **Gapminder**: Uses **GDP per capita** (a **metric** for national wealth) to analyse relationships with health outcomes like life expectancy, demonstrating **exploratory data analysis**.
-## 6. Historical Context & Greater Data Science (GDS)
-* **50-Year Foundation**: Roots in statistics (Tukey, Cleveland) advocating for a broader **data analysis** science beyond theory.
-* **Lesser Data Science (LDS)**: Current, narrow commercial focus on **big-data** tools and scalability.
-* **Greater Data Science (GDS)**: Donoho's proposed rigorous framework with six divisions:
-    1.  Data Exploration & Preparation.
-    2.  Data Representation & Transformation.
-    3.  Computing with Data.
-    4.  Data Modelling (includes both **statistical inference** and **predictive modelling**).
-    5.  Data Visualisation & Presentation.
-    6.  **Science about Data Science**: Empirical study of data analysis methods themselves.
-* **Common Task Framework (CTF)**: Key driver of ML progress; uses public **benchmarks**, shared data, and objective scoring to compare algorithms.
-## 7. Core Objectives & Values
-* **Primary Goal**: Derive **actionable insights**, not just numbers. Requires asking the **right questions**.
-* **Statistical Reasoning Values**: Understanding the **application domain**, appreciating the **small** (details matter), quest for **significance**, hunger for **exploration**.
-* **Future Direction**: Evolution towards **evidence-based methodology** via **Science about Data Science**, using meta-analysis of computational research to improve methods.
-# Lecture 2: Data Understanding & Profiling
-## 2.1 What is Data?
-> A **datum** is a single measurement of something on a scale understandable to both recorder and reader.
-
-**Example**: Using the **Titanic dataset** (891 rows, 12 columns) to predict passenger survival based on personal characteristics (age, ticket class, gender). This is a **classification** task.
-## 2.2 Data Sources
-* **Internal Sources**: Data already collected within an organization (e.g., business operations data, experimental data).
-* **Existing External Sources**: Ready-to-use data from outside (e.g., government databases, stock market feeds, Yelp reviews). Accessed via **APIs** (often paid), **RSS feeds**, or downloads.
-* **External Sources Requiring Collection**: Data requiring extraction effort (e.g., printed data, website data). **Web scraping** (extracting data from HTML) is a common method.
-## 2.3 Web Scraping Considerations
-* **Why**: Lack of API, cost avoidance, data availability.
-* **Ethical/Legal Concerns**: Violating **Terms of Service**, privacy issues, bypassing paid services. Essential to consider before publishing analysis or products.
-## 2.4 Key Data Properties
-* **Structure**: The "shape" of a data file (e.g., tabular, **non-rectangular**). Tabular data is standard, with rows as records and columns as fields/variables.
-* **Granularity**: The level of detail (e.g., individual people vs. aggregated groups).
-* **Scope**: How complete the data is relative to the research question. **Poor scope** leads to inability to answer the question or need for filtering.
-* **Temporality**: How data is situated in time. Considerations: collection date, **periodicity** (e.g., diurnal patterns), and the meaning of time fields (event time vs. entry time).
-* **Faithfulness**: How well data captures reality. Check for: unrealistic values (future dates, negative counts), violated dependencies (age vs. birthday), data entry errors, default values, duplication, and timezone inconsistencies.
-## 2.5 Data Types & Values
-**Atomic Types**: Numeric (integers, floats), Boolean, Strings.
-**Compound Types**:
-* **Date/Time**: Structured temporal data.
-* **Lists**: Sequences of values.
-* **Dictionaries**: Collections of **key-value pairs** (e.g., `{"First": "Kevin", "Last": "Rader", "Classes": ["CS-109A", "STAT139"]}`).
-## 2.6 Handling Missing Data
-* **Deletion**: Dropping records with missing values. Risk: introduces **bias** if missingness is not random.
-* **Keep as NaN**: Represent missingness explicitly.
-* **Imputation**: Inferring missing values.
-    * **Average Imputation**: Replace with mean/median (often within a subgroup).
-    * **Hot Deck Imputation**: Replace with a random value from similar records.
-    * **Regression Imputation**: Replace with a value predicted by a model.
-    * **Multiple Imputation**: Create multiple datasets with different imputed values to account for uncertainty.
-    * **Essential**: Understand **why data is missing** (Missing Completely at Random - MCAR, Missing at Random - MAR, Missing Not at Random - MNAR).
-## 2.7 Data Storage Formats
-* **Tabular Data**: Two-dimensional tables (rows=records, columns=variables) -> CSV, Excel.
-* **Structured Data**: Records as dictionaries with consistent keys. Formats: JSON, XML.
-* **Semi-structured Data**: Records lack uniform structure; some data not in key-value pairs.
-## 2.8 Common Issues & Data Cleaning
-**Generic Profiling Questions**: Dataset size, completeness, representativeness, presence of outliers/artificial data, uniqueness of identifiers.
-**Joining Data**: Use **primary keys** (unique column(s) identifying a record) and **foreign keys** (columns referencing a primary key in another table). `pd.merge` in Pandas performs joins.
-**Messy Data Symptoms**: Column headers are values, variables in rows/columns, multiple variables in one column, multiple entity types in one table.
-**Tidy Data Principle**: Each file is a dataset, each column a single **variable**, each row a single **observation**.
-## 2.9 Hierarchy of Data Categories
-![[data-types.png|400]]
-* **Quantitative** (intervals have meaning):
-    * **Continuous**: Measurable to arbitrary precision (e.g., Price, Temperature).
-    * **Discrete**: Finite, countable values (e.g., Number of siblings).
-* **Qualitative (Categorical)**:
-    * **Ordinal**: Categories with ordered levels, but differences not consistent (e.g., Education level, Shirt size (S,M,L), Yelp star rating).
-    * **Nominal**: Categories with no inherent order (e.g., Political affiliation, Race/Ethnicity).
-**Complex Examples**: GPA (treated as continuous), Income bracket (ordinal), CO2 level (continuous).
-## 2.10 Practical Guide to Data Profiling
-**Goal**: Move from *ad-hoc* to **rigorous, reproducible** data investigation, which consumes 50-90% of project time.
-**Six-Step Workflow**:
-1.  **Look at your data** (initial sanity check).
-2.  **Watch out for special values** (codes for missing data).
-3.  **Check for missing data** (coverage, duplicates).
-4.  **Check each variable** individually (format, distribution, plausibility).
-5.  **Check combinations of variables** (correlations, business rules).
-6.  **Characterise the cleaned data** (final profiling).
-**Core Aspects**:
-* **Data Characterisation**: Understanding what the data *is* (structure, distributions).
-* **Data Quality Investigation**: Assessing **fitness for purpose** via:
-    * **Completeness** (missing data).
-    * **Accuracy** (incorrect/implausible values).
-    * **Consistency** (format, units across sources).
-**Tool**: Python package `vizdataquality` to automate profiling tasks in Jupyter.
-# Lecture 3: Data Science Roadmap & Exploratory Data Analysis (EDA)
-## 3.1 Data Science Roadmap
-1.  **Frame Problem**: Define the objective and scope (e.g., predict Titanic survival).
-2.  **Understand Data**: Perform **data profiling** and **cleaning**.
-3.  **Extract Features**: Engineer or select relevant variables.
-4.  **Model and Analyse**: Apply **machine learning** algorithms.
-5.  **Present/Deploy**: Communicate results and deploy solution.
-## 3.2 Exploratory Data Analysis (EDA)
-> **EDA** is an attitude of flexibility aimed at discovering both expected and unexpected patterns in data. It is the "unboxing" of data.
-
-**Goal**: Develop hypotheses, understand data structure, and inform modelling choices using **visualisations** and **summary statistics**.
-
-**Example Context**: Titanic dataset (891 passengers, 12 features) for survival prediction.
-## 3.3 Key Python Libraries for EDA
-* **Matplotlib**: Core plotting library. Powerful but has non-intuitive syntax.
-* **Pandas**: Data manipulation. Provides high-level plotting wrappers around matplotlib.
-* **NumPy**: Foundation for numerical computation (arrays, matrices).
-* **Scikit-learn**: Machine learning library (algorithms, utilities, built-in datasets like **Iris**).
-## 3.4 Iris Dataset Example
-A built-in dataset for **classification** (predicting iris species).
-	```python
-	from sklearn.datasets import load_iris
-	iris = load_iris()
-	X = iris.data  # Feature matrix (150 samples, 4 features)
-	y = iris.target  # Target vector (species: 0=setosa, 1=versicolor, 2=virginica)
-	```
-**Key Steps**: Load data, inspect `shape`, `feature_names`, `target_names`, convert to Pandas DataFrame, use `.describe()` for summary statistics (mean, std, min, max, percentiles).
-## 3.5 Summary Statistics & Central Tendency
-* **Central Tendency**: `mean` (average), `median` (middle value), `mode` (most frequent).
-* **Variability**: `variance` (average squared deviation from mean), `standard deviation` (sqrt of variance), `quantiles` (e.g., 25th percentile = Q1, 75th percentile = Q3).
-* **Robust Statistics**: Median and **interquartile range (IQR = Q3 - Q1)** are less sensitive to **outliers** than mean and standard deviation.
-* **Outlier Handling**: Can filter using percentiles (e.g., remove data outside IQR) but context is critical (e.g., fraud detection requires keeping outliers).
-## 3.6 Key Visualisation Techniques
-### Pie Chart
-* **Use Case**: Showing proportion of a whole for a **categorical variable**.
-* **Data Type**: **Nominal** or **Ordinal**.
-* **Example**: Breakdown of Iris species counts in the dataset.
-* **Code**: `df.groupby('species').sum().plot(kind='pie')`
-### Bar Chart
-* **Use Case**: Comparing quantities across **discrete categories**.
-* **Data Type**: **Categorical** (Nominal/Ordinal) on one axis, **quantitative** on the other.
-* **Example**: Average sepal width per Iris species.
-* **Code**: `df.groupby('species').mean().plot(kind='bar')`
-### Histogram
-* **Use Case**: Visualising the **distribution** of a single **continuous variable**.
-* **Data Type**: **Quantitative** (Continuous or Discrete).
-* **Example**: Distribution of petal lengths across all flowers.
-* **Code**: `df['petal length (cm)'].plot(kind='hist')`
-### Box Plot
-* **Use Case**: Summarising distribution and identifying **outliers**. Shows median, IQR (box), and whiskers (typically 1.5\*IQR).
-* **Data Type**: **Quantitative**.
-* **Example**: Comparing sepal length distributions across species.
-* **Code**: `df.pivot('ind', 'species')['sepal length (cm)'].plot(kind='box')`
-### Scatter Plot
-* **Use Case**: Visualising relationship between **two continuous variables**.
-* **Data Type**: **Quantitative** vs. **Quantitative**.
-* **Enhancements**: Use `color`, `size`, `marker`, `alpha` (transparency) to encode additional dimensions (e.g., species).
-* **Example**: Sepal length vs. sepal width, colored by species.
-* **Code**: `df.plot(kind='scatter', x='sepal length (cm)', y='sepal width (cm)')`
-### Scatter Plot with Logarithmic Axes
-* **Use Case**: Data spanning **orders of magnitude**. Reveals patterns obscured on a linear scale.
-* **Data Type**: **Positive quantitative** data with wide range.
-* **Example**: Crime rate vs. median home value (inverse relationship becomes clear on log scale).
-* **Method**: Plot `log(data)` or set `ax.set_xscale('log')`.
-### Scatter Matrix (Pairs Plot)
-* **Use Case**: Simultaneously visualising pairwise relationships between **multiple numeric features**.
-* **Data Type**: **Quantitative**.
-* **Output**: Grid of scatterplots and histograms.
-* **Example**: Quick assessment of all feature relationships in the Iris dataset.
-### Heatmap
-* **Use Case**: Visualising **density** or **intensity** in a 2D space, especially useful for large datasets where scatterplots become cluttered.
-* **Data Type**: **Quantitative** density derived from two quantitative variables.
-* **Example**: Density of data points in petal length vs. petal width space.
-### Time Series Plot
-* **Use Case**: Analysing data points indexed in **time order** to identify trends, cycles, and anomalies.
-* **Data Type**: **Quantitative** values over **time**.
-* **Considerations**: Periodicity, overall trend, noise, spikes.
-* **Transformations**: Log scale, **Fourier transform** for frequency analysis.
-* **Example**: Atmospheric CO2 levels over years, showing yearly cycles and upward trend.
-## 3.7 Profiling Studies & Best Practices
-* **Core Insight**: Profiling is often **ad-hoc and superficial**. A **structured workflow** (e.g., the 6-step guide) improves rigour.
-* **Six-Step Workflow**: 1) Initial look, 2) Find special values, 3) Check missing data, 4) Inspect individual variables, 5) Check variable relationships, 6) Final characterisation.
-* **Data Quality Dimensions**: Assess **Completeness** (missingness), **Accuracy** (valid, plausible values), **Consistency** (formats, units).
-* **Visualisation for Profiling**: Underutilised for quality checks. Should be used more comprehensively.
-* **Tool Support**: Python packages like `vizdataquality` can automate and formalise the profiling process.
-# Lecture 4: Machine Learning Overview
-## 4.1 Core Definitions & Relationships
-> **Data Mining (Knowledge Discovery in Data - KDD)** is the process of uncovering patterns and valuable information from large datasets.
-
-> **Artificial Intelligence (AI)** is the broader field of creating systems that perform tasks requiring human-like intelligence (e.g., learning, reasoning). It has two main approaches:
-> * **Top-down (Knowledge-driven)**: Starts with symbolic rules and logic (e.g., Expert Systems).
-> * **Bottom-up (Data-driven)**: Uses data to build decision mechanisms mathematically (ML).
-
-> **ML is a subset of AI focused on programming computers to **optimise a performance criterion using example data or past experience**. It combines **Statistics** (inference from a sample) and **CS** (efficient algorithms for optimisation and model evaluation).
-## 4.2 When to Use Machine Learning
-Use ML when:
-1.  **Human expertise does not exist** (e.g., navigating on Mars).
-2.  **Humans cannot explain their expertise** (e.g., speech recognition).
-3.  **The solution changes over time** (e.g., network routing).
-4.  **The solution needs personalisation** (e.g., user biometrics).
-
-**Core Principle**: Learning **general models** from **specific example data**. Data is abundant; knowledge (models) is valuable.
-## 4.3 Data Mining vs. Machine Learning
-* **Data Mining**: Discovers **existing patterns** in data (descriptive).
-* **Machine Learning**: **Learns from past data** to build models for **predicting future outcomes** (predictive). ML is a primary tool used within the KDD process.
-## 4.4 Supervised Learning
-When you have a dataset of **input/output pairs (labeled data)** and want to predict an output for new inputs.
-**Goal**: Learn a **mapping function** from inputs to outputs.
-**Training**: Model learns from a **training set** of example pairs.
-### Classification
-The output is a **categorical label** (class) from a predefined list.
-* **Binary Classification**: Two possible classes (e.g., spam/not spam, low-risk/high-risk credit).
-* **Multiclass Classification**: More than two classes (e.g., language of a website, digit recognition).
-**Example**: Credit scoring. **Inputs**: Income, savings. **Output**: "low-risk" or "high-risk". A **discriminant** function (e.g., `IF income > θ1 AND savings > θ2`) can be learned.
-### Regression
-The output is a **continuous quantitative value**.
-**Goal**: Predict a number.
-**Example**: Predicting the steering angle for a self-driving car (**Robot Arm Kinematics**), forecasting house prices, estimating patient recovery time.
-![[supervised-unsupervised-tree 1.png|400]]
-## 4.5 Unsupervised Learning
-When you have **input data without corresponding labels** (unlabeled data). The goal is to find inherent structure or patterns.
-**No supervision**: The algorithm is only given input data.
-### Dimensionality Reduction
-You have high-dimensional data (many features) and want a **lower-dimensional representation** that preserves essential information. Used for **visualisation** (reducing to 2D/3D), noise reduction, or data compression.
-**Primary Method**: **Principal Component Analysis (PCA)**.
-**Example**: Visualising a multi-feature dataset (like Iris) in 2D to see if natural groupings exist.
-### Clustering
-You want to **partition data into distinct groups** where points in the same group are similar and points in different groups are dissimilar.
-**Goal**: Discover inherent groupings.
-**Examples**:
-* **Customer Segmentation (CRM)**: Group customers by purchasing behavior.
-* **Image Compression**: **Color quantization** by grouping similar pixel colors.
-* **Biology**: Grouping genes with similar expression patterns.
-![[cluster-ex.png|400]]
-## 4.6 Reinforcement Learning
-An **agent learns to make decisions by performing actions in an environment to maximise cumulative reward**. It receives **delayed feedback** (reward or penalty), not direct supervision.
-**Key Challenge**: **Credit Assignment Problem** – determining which actions led to the received rewards.
-**Examples**: Game playing (AlphaGo), robot navigation in a maze, autonomous driving systems.
-# Lecture 5: Clustering & Similarity
-## 5.1 Data Similarity & Distance Metrics
-When you need to quantify how alike (or different) two data points are. This is foundational for **clustering**, **recommendation systems**, and **nearest-neighbour algorithms**.
-**Core Idea**: Objects represented as **feature vectors**. Similarity ${\propto}^{-1}$ **distance** in the feature space.
-### Euclidean Distance
-The most common distance metric, used when data is **continuous** and features are on **comparable scales**. It measures the "straight-line" distance.
-**Formula**: For points $p = (p_1, p_2, ..., p_n)$ and $q = (q_1, q_2, ..., q_n)$:
-$$
-d(p, q) = \sqrt{(p_1 - q_1)^2 + (p_2 - q_2)^2 + ... + (p_n - q_n)^2}
-$$
-**Example**: Measuring distance between two customers based on their (scaled) annual spending and age.
-![[euclidian-dist.png|400]]
-## 5.2 k-Means Clustering
-When you need to partition data into a **predefined number (k)** of **spherical or convex clusters** of roughly equal size. It is **scalable** to large datasets.
-### Algorithm Steps:
-1.  **Initialization**: Randomly select **k** data points as initial **cluster centers** (centroids).
-2.  **Assignment Step**: Assign each data point to the **closest centroid** (using Euclidean distance).
-3.  **Update Step**: Recompute each centroid as the **mean** of all points assigned to it.
-4.  **Iteration**: Repeat steps 2 & 3 until **convergence** (assignments no longer change).
-![[k-means-cluster-ex.png|400]]
-**Python Implementation**:
-	```python
-	from sklearn.cluster import KMeans
-	kmeans = KMeans(n_clusters=3)
-	kmeans.fit(X)
-	labels = kmeans.labels_          # Cluster assignments for training data
-	new_labels = kmeans.predict(X_new) # Assign new points to clusters
-	```
-### Loss Functions: Inertia and Distortion
-Each time you run K-Means, you get a different output, depending on where centers started.
-To evaluate different clustering results, we need a loss function.
-* **Inertia (Within-Cluster Sum of Squares)**: Sum of squared distances of each point to its assigned centroid. **k-Means minimizes inertia**.
-* **Distortion**: Weighted average of squared distances (weighted by cluster size). More formal probabilistic interpretation.
-**Choosing Best Run**: Run k-means multiple times (due to random initialization) and select the result with the **lowest inertia**.
-![[inertia-vs-distortion.png|400]]
-### Limitations of k-Means (Failure Cases)
-Use k-means with caution or avoid when:
-1.  **Clusters have different densities or sizes**.
-![[k-means-fail-1.png|400]]
-2.  **Clusters are non-spherical or elongated** (it assumes isotropic shapes).
-![[k-means-fail-2.png|400]]
-3.  **Clusters have complex, non-convex shapes**.
-![[k-means-fail-3.png|400]]
-**Underlying Assumption**: k-means assumes clusters are defined by **centers** and **convex**. It performs **hard assignment** (each point belongs to exactly one cluster).
-### Vector Quantization View
-k-means can be seen as a **compression** or **decomposition** technique. It represents each data point by its nearest cluster center (**codebook vector**). Useful for **image compression** (color quantization) and **feature engineering**.
-## 5.3 Agglomerative Hierarchical Clustering
-When you do **not know the number of clusters** in advance, or you want to explore a **hierarchy** of clusterings (from fine to coarse). Also useful when you need a **visual representation (dendrogram)** of the clustering process.
-### Algorithm:
-1.  **Start**: Each point is its own cluster.
-2.  **Merge**: Iteratively merge the **two most similar clusters**.
-3.  **Stop**: When a stopping criterion is met (e.g., desired number of clusters, or a distance threshold).
-**Linkage Criteria** (Defines "most similar clusters"):
-* **Ward** (default in sklearn): Minimizes variance of the clusters being merged. Tends to create **clusters of equal size**.
-* **Average**: Merges clusters with the smallest **average distance** between all points.
-* **Complete**: Merges clusters with the smallest **maximum distance** between points.
-* **Single**: Merges clusters with the smallest **minimum distance** between points (can lead to "chaining").
-![[agglomerative-1.png|700]]
-![[agglomerative-2.png|700]]
-**Python Implementation**:
-	```python
-	from sklearn.cluster import AgglomerativeClustering
-	agg = AgglomerativeClustering(n_clusters=3)
-	labels = agg.fit_predict(X)  # Note: Cannot predict on new data
-	```
-![[hierarchical-clustering.png|300]]
-## 5.4 Dendrograms
-The primary tool for **visualizing and interpreting hierarchical clustering** results, especially with multi-dimensional data. Allows you to decide the number of clusters *after* analysis.
-
-**Interpretation**:
-* **Leaves**: Individual data points.
-* **Branches/Nodes**: Represent the merging of clusters.
-* **Y-axis (Height)**: The **distance** at which clusters were merged. Longer branches indicate merges between **dissimilar** clusters.
-* **Cutting the Dendrogram**: Drawing a horizontal line across the tree. The number of vertical lines it intersects = **number of clusters**. Cuts across long branches show **distinct** clusters.
-![[dendogram.png|440]]
-**Python Implementation**:
-	```python
-	from scipy.cluster.hierarchy import dendrogram, linkage, ward
-	# Compute linkage matrix
-	linkage_matrix = ward(X)  # or linkage(X, method='ward')
-	# Plot
-	dendrogram(linkage_matrix)
-	plt.xlabel("Sample index")
-	plt.ylabel("Cluster distance")
-	```
-### Limitations of Agglomerative Clustering
-* **Computational Cost**: Generally more expensive than k-means for large N.
-* **No Predictions**: The `fit_predict` method must be used on the entire dataset; the model cannot assign new points to existing clusters.
-* **Shape Assumptions**: Like k-means, it often uses Euclidean distance and linkage criteria that favor convex clusters, so it can also fail on complex shapes.
-# Lecture 6: Classification, k-NN, & Decision Trees
-## 6.1 Classification Problem Definition
-> **Classification** is a **supervised learning** task where the goal is to predict a **categorical label (class)** for a given input, based on a model learned from a dataset of **input-output pairs (labeled data)**.
-
-**Example Context: Iris Species Classification**
-* **Inputs (Features)**: Sepal length/width, petal length/width (continuous measurements).
-* **Output (Label/Class)**: Species of iris: *setosa*, *versicolor*, or *virginica*.
-* **Problem Type**: **Three-class classification**.
-* **Goal**: Build a model from known data (training set) to predict the species of new iris flowers.
-## 6.2 Training and Testing Data
-To evaluate a model's ability to **generalize** to unseen data, we must split our labeled dataset.
-* **Training Set**: Used to **build/train** the machine learning model (e.g., 75% of data).
-* **Test Set (Hold-out Set)**: Used to **assess** the model's performance on new data (e.g., 25% of data).
-**Crucial Step**: **Shuffle** the data before splitting to ensure the test set contains examples from all classes, preventing bias.
-
-**Python (scikit-learn)**:
-```python
-from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, 
-													random_state=42, stratify=y)
-	```
-## 6.3 k-Nearest neighbours (k-NN) Classifier
-> **k-NN** is a **lazy**, instance-based learning algorithm that classifies a new data point based on the **majority class** among its **k closest training examples** in the feature space.
-
-Useful for simple, interpretable classification, especially when the decision boundary is irregular. It makes **no assumptions** about the data distribution. Can be sensitive to the **curse of dimensionality**.
-### Algorithm Steps:
-1.  **Choose k**: The number of nearest neighbours (typically odd for binary classification).
-2.  **Calculate Distance**: Compute distance (e.g., **Euclidean**) from the query point to all training points.
-3.  **Identify neighbours**: Select the **k** training points with the smallest distances.
-4.  **Vote for Label**: Assign the most common class among the **k neighbours**.
-
-| step 1                   | step 2                     | step 3              |
-| ------------------------ | -------------------------- | ------------------- |
-| ![[iris-knn-1.png\|290]] | ![[iris-knn-2 1.png\|300]] | ![[iris-knn-3.png]] |
-**Advantages**:
-* **Simple** to understand and implement.
-* **No training phase** (stores the training data).
-* Naturally handles **multi-class** problems.
-* Can model **complex decision boundaries** if k is small.
-
-**Disadvantages**:
-* **Computationally expensive at prediction time** (compute distances to all training points).
-* **Sensitive to irrelevant features** and the **scale** of features (requires scaling).
-* **Performance degrades with high dimensionality** (curse of dimensionality).
-* **Choice of k is critical**: Small k->**high variance/noise sensitivity**; large k->**high bias/oversmoothing**.
-## 6.4 Decision Tree Classifier
-> A **Decision Tree** is a supervised learning model that predicts a target label by learning simple **decision rules** inferred from the data features. It splits the data into subsets based on feature values, forming a tree-like structure.
-
-Useful when you need an **interpretable, white-box model**. Handles both numerical and categorical data. Prone to **overfitting** if not regularized.
-### Building a Tree: The Algorithm
-1.  **Start**: All data at the **root node**.
-2.  **Find Best Split**: For each feature, find the **split value** that best separates the data into purer child nodes. The "best" split minimizes **impurity**.
-3.  **Split**: Create child nodes based on the rule (e.g., `petal_width < 0.8 cm`).
-4.  **Repeat**: Recursively apply steps 2-3 to each child node until a **stopping criterion** is met (node is pure, node is unsplittable, max depth reached).
-![[iris-decision-tree.png|240]]
-### Impurity Measures: Entropy & Gini
-To quantify the "goodness" of a split, we measure the **impurity** of a node.
->**Entropy** is an impurity measure based on information theory. For a node with class proportions $p_c$, it is defined as: 
-$$S = -\sum_{c} p_c \log_2 p_c$$
->**Low entropy**: the node is pure (predictable). **High entropy**: node is mixed (unpredictable).
-
-A node where all data are part of the same class has zero entropy: $−1 log_2 1 = 0$
-A node where data are evenly split between two classes has entropy 1.
-A node where data are evenly split into $C$ classes has entropy $log2C$.
-
-> **Gini Impurity** is another common measure: $G = 1 - \sum_c p_c^2$. It measures the probability of misclassifying a randomly chosen element.
-
-**Choosing the Best Split**: We select the feature and split value that result in the **minimum weighted impurity** across the child nodes.$$\text{Loss (Weighted Impurity)} = \frac{N_{left} \cdot S_{left} + N_{right} \cdot S_{right}}{N_{left} + N_{right}}$$The split with the **lowest loss** is chosen.
-![[entropy-ex.png|400]]
-For example, S for the top node is:
-$−0.31 \cdot log_2(0.31) − 0.33 \cdot log_2(0.33) − 0.36 \cdot log_2(0.36) = (0.52 + 0.53 + 0.53) = 1.58$
-### Visualizing Decision Trees & Boundaries
-* **Tree Structure**: Can be visualized to understand the decision rules (using `plot_tree`).
-* **Decision Boundary**: Creates **axis-aligned, rectangular partitions** of the feature space, leading to a **nonlinear, piecewise-constant** boundary.
-
-|                                 |                                            |
-| ------------------------------- | ------------------------------------------ |
-| ![[decision-tree-vis.png\|400]] | ![[iris-decision-scatter-scikit.png\|400]] |
-### Overfitting in Decision Trees
-A tree that grows too deep will create complex rules to fit the **training data perfectly**, including its noise. This model will have **high variance** and perform poorly on new data (low generalization).
-
-**Signs of Overfitting**:
-* 100% accuracy on training set.
-* Very deep tree with many nodes.
-* Rules that seem overly specific (e.g., `petal_length < 4.800001`).
-
-**Mitigation Strategies (Regularization)**:
-* **Limit tree depth** (`max_depth`).
-* **Set a minimum number of samples** required to split a node (`min_samples_split`).
-* **Set a minimum number of samples** in a leaf node (`min_samples_leaf`).
-* **Use pruning** (remove nodes that provide little power).
-### Advantages & Disadvantages of Decision Trees
-**Advantages**:
-* **Simple to understand and interpret** (white box model).
-* **Requires little data preparation** (handles mixed data, robust to outliers).
-* **Nonparametric** (makes no assumptions about data distribution).
-* Can model **nonlinear relationships**.
-**Disadvantages**:
-* **Prone to overfitting**, especially with deep trees. **Requires careful tuning** (pruning, depth limits).
-* **Unstable**: Small variations in data can lead to a completely different tree.
-* **Biased towards features with more levels**.
-* Not ideal for **extrapolation** (predicting outside the range of training data).
-* The **axis-aligned splits** can be inefficient for modeling some relationships compared to models that can create oblique splits.
-# Lecture 7: Regression, Overfitting, and Random Forests
-## 7.1 Regression Definition
-> **Regression** is a **supervised learning** task where the goal is to predict the value of one or more **continuous target variables** $t$ given a $D$-dimensional vector of input variables $x$. The model learns a mapping from inputs to a real-valued output.
-
-Used when the target is a quantity (e.g., price, temperature, coordinate). Contrast with **classification**, where the target is categorical.
-**Example**: Predicting house prices from size/location (**regression**) vs. predicting if a house will sell (yes/no) (**classification**).
-## 7.2 Linear Regression & Model Fitting
-E.g. **linear regression**: $y = mx + b$, where $y$ is the prediction, $m$ is the slope, $b$ is the intercept.
-### Least Squares Fitting
-The standard method for fitting a linear model. It finds parameters ($m$, $b$) that minimize the **sum of squared errors (SSE)** between predictions and true values.
-**Penalty/Loss Function**:$$L = \sum_{i} (y_i - (mx_i + b))^2$$**Advantages**:
-* Has a **closed-form solution** (can be solved analytically).
-* Optimal if errors are **normally distributed**.
-**Disadvantage**: **Highly sensitive to outliers** because errors are squared, giving large deviations disproportionate influence.
-### L1 Regression (Absolute Error)
-An alternative more **robust to outliers**. Minimizes the sum of absolute errors.
-**Penalty Function**:$$L = \sum_{i} |y_i - (mx_i + b)|$$**Advantages**:
-* More **robust**; outliers have less influence.
-**Disadvantages**:
-* **No closed-form solution**; computationally more complex.
-* Penalizes small deviations more harshly relative to least squares.
-## 7.3 Nonlinear Curve Fitting & Polynomial Regression
-When the relationship between input and output is not linear. We can fit more complex functions (e.g., exponential decay, logistic growth, polynomials).
-
-**Polynomial Regression Model**:$$y(x, w) = w_0 + w_1x + w_2x^2 + ... + w_Mx^M = \sum_{j=0}^{M} w_j x^j$$* **Linear in parameters** $w$ (a **linear model**), but **nonlinear in $x$**.
-* $M$ is the **polynomial order** (model complexity).
-### Error Function & Root-Mean-Square Error (RMSE)
-We minimize the **sum-of-squares error**:$$E(w) = \frac{1}{2} \sum_{n=1}^{N} \{ y(x_n, w) - t_n \}^2$$To compare models across different dataset sizes, use the **Root-Mean-Square Error (RMSE)**:
-$$E_{RMS} = \sqrt{ \frac{E(w^*)}{N} }$$
-## 7.4 Overfitting in Model Selection
-A critical problem where a model learns the **noise** or random fluctuations in the **training data** to such an extent that it performs poorly on new, unseen data (**fails to generalize**).
-
-**Key Symptom**: **Low training error, but high test error**. The model has **high variance**.
-![[regression-interp-orders-of-m.png|400]]
-**Illustration with Polynomial Order $M$**:
-* **$M=0$ or $M=1$ (Underfitting)**: Model is too simple (**high bias**). Poor fit to both training and test data.
-* **$M=3$**: A good balance. Captures the underlying trend `sin(2πx)` without fitting the noise.
-* **$M=9$ (Overfitting)**: Model is too complex. Training error is zero (fits all points exactly), but test error is very high. The curve **oscillates wildly**.
-### How to Prevent Overfitting in Regression
-1.  **Use a Simpler Model**: Reduce polynomial order $M$ (reduce model capacity).
-2.  **Get More Data**: As shown, increasing $N$ (data points) reduces overfitting for a fixed $M=9$ model.
-3.  **Regularization**: Add a penalty term to the loss function that discourages large coefficient values (e.g., Ridge/Lasso regression).
-## 7.5 Overfitting in Decision Trees & Prevention
-A **fully grown** decision tree (splitting until nodes are pure) will **always overfit** the training data. It creates overly complex, **high-variance** rules.
-
-**Example**: Using only sepal data for iris classification leads to erratic, complex decision boundaries and poor test accuracy (~70%).
-### Strategies to Restrict Tree Complexity (Prevent Overfitting)
-**Approach 1: Prevent Growth (Pre-pruning)**. Set constraints *during* tree building:
-* `max_depth`: Maximum depth of the tree.
-* `min_samples_split`: Minimum number of samples required to split a node.
-* `min_samples_leaf`: Minimum number of samples required in a leaf node.
-* `max_features`: Number of features to consider for the best split.
-
-**Approach 2: Pruning (Post-pruning)**. Grow the tree fully, then *remove* branches that provide little predictive power.
-* **Method**: Use a **validation set**. If replacing a subtree with a leaf node (predicting the majority class) does not increase validation error, prune it.
-## 7.6 Random Forests (RF)
-> A **Random Forest** is an **ensemble learning** method that constructs a multitude of decision trees during training and outputs the **mode** (for classification) or **mean** (for regression) of the predictions of individual trees, reducing overfitting by averaging multiple **high-variance** models.
-
-**Core Idea**: **Bootstrap Aggregating (Bagging)** + **Random Feature Subsets**.
-1.  **Bagging (Bootstrap Aggregating)**: Create many **bootstrap samples** (random samples with replacement) from the training data. Train a separate decision tree on each sample.
-2.  **Random Feature Selection**: At each split in a tree, only consider a **random subset of $m$ features** (typically $m = \sqrt{p}$ for classification). This **decorrelates** the trees.
-
-**Prediction**: For a new point, collect predictions from all trees and take the **majority vote** (classification) or **average** (regression).
-![[random-forest-9-models.png|400]]
-### Advantages of Random Forests
-* **Reduces Overfitting**: By averaging many trees, it reduces the **high variance** of a single decision tree.
-* **Versatile**: Handles both **classification and regression**.
-* **Robust**: Less sensitive to outliers and irrelevant features than single trees.
-* **Automatic Feature Selection**: The random feature subsetting naturally evaluates feature importance.
-* **Requires Less Tuning**: Often works well with default parameters.
-* **Nonlinear**: Can capture complex interactions without explicit feature engineering.
-### Disadvantages of Random Forests
-* **Less Interpretable**: A "black box" compared to a single decision tree.
-* **Computationally Expensive**: Training many trees is slower than training one tree.
-* **Memory Intensive**: Requires storing all the individual trees.
-## 7.7 Decision Trees for Regression
-Decision trees can also be used for **regression** tasks. Instead of predicting a class at a leaf node, they predict a **continuous value** (typically the **mean** of the target values of the training samples in that leaf).
-
-**Process**:
-* **Splitting Criterion**: Minimize the **variance** (or MSE) within the child nodes, not entropy/Gini impurity.
-* **Prediction**: The output for a region is the average target value of training points in that region.
-
-**Advantage**: Can model **piecewise constant** functions and complex, nonlinear relationships.
-**Disadvantage**: Prone to the same **overfitting** issues as classification trees, requiring the same regularization techniques (pruning, random forests).
-# Lecture 8: Model Evaluation
-## 8.1 Making Predictions & Baseline Evaluation
-After training a model (e.g., k-NN on Iris), we need to **predict** on new, unseen data and **evaluate** how trustworthy the model is.
-**Process**:
-1.  Use `.predict()` on the model with new feature data.
-2.  For **initial evaluation**, compare predictions on the **test set** (data not used in training) to the true labels.
-**Key Metric (Initial)**: **Accuracy**.
-$$ \text{Accuracy} = \frac{\text{Number of Correct Predictions}}{\text{Total Number of Predictions}} $$
-**Limitation**: Accuracy can be **misleading for imbalanced datasets** (e.g., a model that always predicts the majority class will have high accuracy but is useless).
-## 8.2 The Confusion Matrix
-A **detailed breakdown** of prediction errors, essential for **binary** and **multiclass classification**, especially with **imbalanced classes**.
-
-**Structure (Binary Case)**:
-
-|                 | Predicted: NO       | Predicted: YES      |
-| --------------- | ------------------- | ------------------- |
-| **Actual: NO**  | True Negative (TN)  | False Positive (FP) |
-| **Actual: YES** | False Negative (FN) | True Positive (TP)  |
-![[confusison-matrix.png|340]]
-### Key Derived Metrics
->**Precision** answers: "**Of all instances predicted as positive, how many are actually positive?**" It focuses on **minimizing False Positives (FP)**.
-$$\text{Precision} = \frac{TP}{TP + FP}$$
-> **Use when**: The cost of a **false alarm (FP)** is high (e.g., spam detection, fraud alert).
-
-> **Recall (Sensitivity, True Positive Rate - TPR)** answers: "**Of all actual positive instances, how many did we correctly identify?**" It focuses on **minimizing False Negatives (FN)**.
-$$\text{Recall} = \frac{TP}{TP + FN}$$
-> **Use when**: Missing a positive case (FN) is costly (e.g., disease screening, search engine results).
-
-> **Specificity (True Negative Rate - TNR)** answers: "**Of all actual negative instances, how many did we correctly identify?**"
-$$\text{Specificity} = \frac{TN}{TN + FP}$$
-> **Use when**: Correctly identifying negatives is critical.
-### The Precision-Recall Trade-off
-You cant maximize **both** precision and recall simultaneously. Increasing one often decreases the other (e.g., a more conservative classifier has higher precision but lower recall).
-### The F1 Score
-Provides a **single metric** that balances both precision and recall, using their **harmonic mean**. Useful when you need a single number to compare models and when there is an **imbalanced class distribution**.
-$$F1 = \frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} = \frac{2}{\frac{1}{\text{Precision}} + \frac{1}{\text{Recall}}}$$
-* **High F1** indicates both high precision and high recall.
-## 8.3 Cross-Validation
-A **robust technique** for model evaluation and selection that provides a better estimate of generalization performance than a single train/test split. It maximizes data usage for both training and validation.
-### k-Fold Cross-Validation
-**Process**:
-1.  Randomly split the data into **k** equal-sized **folds**. (Common Choice: **k=5** or **k=10**).
-2.  For each fold *i*:
-    * Use fold *i* as the **validation set**.
-    * Use the remaining **k-1** folds as the **training set**.
-    * Train the model and evaluate it on the validation set.
-3.  The final performance metric is the **average** of the *k* validation scores.
-![[cross-validation.png|340]]
-**Advantages**:
-* **Reduces variance** in performance estimation compared to a single split.
-* **Uses data more efficiently** (every data point is used for both training and validation).
-* Helps detect **overfitting** (if training score is much higher than validation scores).
-**Disadvantages**:
-* **Computationally expensive** (trains the model *k* times).
-* Not suitable for **temporal data** (where time ordering matters; use time-series splits instead).
-# Lecture 9: Dimensionality Reduction
-## 9.1 Understanding Dimensionality
-> **Dimensionality** of a dataset is the number of independent attributes (features) needed to represent each observation. Mathematically, it is equivalent to the **rank** of the data matrix (the maximum number of linearly independent columns).
-
-Real-world data often has many features (high $d$), but many features may be **redundant** or correlated, meaning the *intrinsic* dimensionality is lower than $d$. Identifying this is key for simplification and analysis.
-
-**Example**: A table with `Height`, `Weight (lbs)`, `Weight (kg)`, `Age`. The two weight columns are linearly dependent (`Weight (kg) ≈ 0.454 * Weight (lbs)`). The **rank** is 3, not 4, because one feature adds no new independent information.
-
-**Key Insight**: If features are perfectly linearly related, the data matrix rank is less than the number of columns. This **redundancy** wastes storage and can confuse some algorithms. Dimensionality reduction aims to find a **lower-rank approximation** that captures the essential information.
-## 9.2 The Challenge of High Dimensions
-Visualizing and analyzing data becomes difficult when $d > 2$ or $3$. While we can use color, size, or animation for a 4th or 5th dimension, this approach quickly fails.
-
-**Common Need**: To visualize **clusters** or relationships, we often need to **project** data down to 2 or 3 dimensions.
-* **Naive Approach**: Simply pick the 2 features with the highest variance. This can work but may miss important patterns captured by combinations of features.
-* **Better Approach**: Use techniques like **Principal Component Analysis (PCA)**, which finds the **best** lower-dimensional projection to preserve variance or structure.
-## 9.3 Singular Value Decomposition (SVD) - Conceptual Foundation
-> **Singular Value Decomposition (SVD)** is a fundamental matrix factorization technique. For any $m \times n$ real matrix $X$, SVD factorizes it into three matrices: $X = U \Sigma V^T$, where $U$ and $V$ are orthogonal matrices (with orthonormal columns/rows), and $\Sigma$ is a diagonal matrix of **singular values** in descending order.
-
-**Intuition**: SVD automatically discovers the **underlying structure** and **redundancies** in your data. It re-expresses the data in a new coordinate system (the columns of $V$, called **principal components**) where the first axis points in the direction of greatest variance, the second in the next greatest orthogonal direction, and so on.
-![[svd.png|400]]
-### 9.3.1 The Components of SVD
-1.  **$U$ (Left Singular Vectors)**: An $m \times m$ orthogonal matrix. Its columns form an **orthonormal basis** for the column space of $X$. In a data context (where rows are samples), $U\Sigma$ represents the coordinates of your data in the new PCA space.
-2.  **$\Sigma$ (Singular Values)**: An $m \times n$ diagonal matrix. Its diagonal entries $\sigma_1 \geq \sigma_2 \geq ... \geq \sigma_r > 0$ are the **singular values**, where $r$ is the rank of $X$. They indicate the "importance" or "magnitude" of each corresponding principal component. A singular value of **zero** means that dimension is perfectly redundant.
-$$\Sigma = \begin{bmatrix}
-\sigma_1 & 0 & \dots & 0 \\
-0 & \sigma_2 & \dots & 0 \\
-\vdots & \vdots & \ddots & \vdots \\
-0 & 0 & \dots & \sigma_r \\
-\end{bmatrix}$$
-3.  **$V^T$ (Right Singular Vectors, Transposed)**: An $n \times n$ orthogonal matrix. Its **rows** (columns of $V$) are the **principal components** (PCs). They form an orthonormal basis for the row space of $X$ and define the new axes. $V^T$ is the **transformation matrix** that maps the original data ($X$) into the new space ($U\Sigma$).
-
-**Orthonormal Set Property**: The columns of $U$ and $V$ are **unit vectors** (length 1) and **orthogonal** (perpendicular, dot product = 0). This means $U^T U = I$ and $V^T V = I$.
-## 9.4 Low-Rank Approximation via SVD
-We have noisy, high-dimensional data that is *approximately* low-rank. We want a simpler representation that removes noise and redundancy.
-
-**Process**: Since singular values are ordered by importance, we can create a **rank-$k$ approximation** $X_k$ of the original matrix $X$ by keeping only the first $k$ columns of $U$, the first $k$ singular values in $\Sigma$, and the first $k$ rows of $V^T$:$$X \approx X_k = U_k \Sigma_k V_k^T$$
-where $U_k$ is $m \times k$, $\Sigma_k$ is $k \times k$, and $V_k^T$ is $k \times n$.
-![[mortality-fertility-vis.png|]]
-![[rank3-data.png|440]]
-**Interpretation**:
-* **Rank-1 Approximation ($k=1$)**: Represents all data points as lying along a single line (the first principal component). All variation is attributed to one latent factor. For the rectangle example, it found a rough relationship like `Area ≈ 3*(Width + Height)`.
-* **Rank-3 Approximation ($k=3$)**: For the noisy rectangle data (true rank ~4), a rank-3 approximation captures almost all the systematic variation while filtering out the noise in the 4th, least important dimension.
-* **Choosing $k$**: Look at the **singular value spectrum**. A large drop indicates that subsequent components contribute little information. You choose $k$ to retain, say, 95% or 99% of the total variance (calculated from squared singular values).
-
-**Why it's Powerful**: SVD provides the **optimal** low-rank approximation in terms of the Frobenius norm (a measure of matrix difference). It automatically finds the best lower-dimensional subspace to project your data onto.
-## 9.5 SVD vs. Manual Decomposition
-**Manual Decomposition (Example)**: For the noiseless rectangle data, we could manually see that `Perimeter = 2*Width + 2*Length` and create a 3D to 4D transformation matrix. This is **exact** but requires human insight.
-![[trunc-data-and-matrix.png|400]]
-**SVD Decomposition**: Does this automatically and more generally. It doesn't necessarily yield human-interpretable features like "width" and "length" in the reduced space ($U\Sigma$). Instead, it yields abstract **principal components** that are linear combinations of original features. For the noiseless case, SVD would yield a singular value of **0** for the redundant dimension, clearly identifying it.
-![[svd-applied.png|400]]
-**Key Difference**: SVD's output ($U$, $\Sigma$, $V^T$) is mathematically unique (up to sign) and optimal. The reduced data $U\Sigma$ is in a rotated, scaled coordinate system aligned with directions of maximum variance, not the original feature axes.
-# Lecture 10: Principal Component Analysis (PCA)
-## 10.1 PCA: Definition and Goal
-> **Principal Component Analysis (PCA)** is a linear dimensionality reduction technique that transforms data into a new coordinate system such that the greatest variance by any projection of the data comes to lie on the first coordinate (the **first principal component**), the second greatest variance on the second coordinate, and so on. It is achieved by performing **Singular Value Decomposition (SVD)** on the **mean-centered** data matrix.
-
-**Core Idea**: PCA finds the **best lower-dimensional linear subspace** (like a line or plane) onto which to project high-dimensional data, aiming to **preserve as much of the data's variance** (i.e., spread) as possible. This allows for visualization, noise reduction, and more efficient computation.
-
-**Two Equivalent Goals**:
-1.  **Maximize Captured Variance**: Find the directions (axes) that retain the maximum spread of the data points.
-2.  **Minimize Projection Error**: Find the directions that minimize the squared distance between the original data points and their projections onto the lower-dimensional subspace.
-
-These goals are **dual**: maximizing the variance of the projections is equivalent to minimizing the reconstruction error (the length of the "springs" connecting points to the projection line).
-## 10.2 The PCA Procedure
-**Step 1: Center the Data**.
-This is **crucial**. For each feature (column), subtract the column's mean from every value. This translates the data so its mean is at the origin. Without centering, the first principal component would be biased towards the direction of the mean, not the direction of maximum variance.$$X_{\text{centered}} = X - \bar{X}$$**Step 2: Perform SVD on the Centered Matrix**.
-Compute the SVD: $X_{\text{centered}} = U \Sigma V^T$.
-* **$V^T$ (Rows are Principal Directions)**: The **rows** of $V^T$ (or columns of $V$) are the **principal directions** (axes). The first row is the direction of the **1st Principal Component (PC1)**, the second row is **PC2**, etc. They are orthonormal vectors in the original feature space.
-* **$U\Sigma$ (Columns are Principal Components)**: The **columns** of $U\Sigma$ (or equivalently, $X_{\text{centered}} V$) contain the **principal component scores** for each data point. Column 1 holds the score for PC1 for all observations, Column 2 for PC2, etc. This is the transformed, lower-dim data.
-
-**Step 3: Choose the Number of Components $k$**.
-Examine the **singular values** ($\sigma_i$, the diagonal entries of $\Sigma$). The variance captured by the $i$-th PC is $\sigma_i^2 / N$. To decide $k$:
-* **Scree Plot**: Plot the variance (or singular values) associated with each PC in descending order. Look for an "elbow" point where the curve bends; components after this add little explanatory power.
-* **Cumulative Variance**: Choose $k$ such that the retained PCs explain a sufficiently high proportion (e.g., 95%) of the total variance:
-$$\frac{\sum_{i=1}^{k} \sigma_i^2}{\sum_{i=1}^{r} \sigma_i^2} \geq 0.95$$
-**Step 4: Project the Data (Dimensionality Reduction)**.
-To reduce to $k$ dimensions, keep only the first $k$ columns of $U\Sigma$ (the scores). This $N \times k$ matrix is your reduced-dimension data. You can also compute it as:
-$$
-X_{\text{reduced}} = X_{\text{centered}} \cdot V_k
-$$
-where $V_k$ contains the first $k$ columns of $V$ (the top $k$ principal directions).
-## 10.3 Geometric Interpretation & Visualization
-Consider 2D data (e.g., Child Mortality vs. Fertility Rate).
-* **PC1 Direction**: The line through the origin that best fits the "cloud" of data points, minimizing the perpendicular distances (red lines). It is the direction of **maximum variance**.
-* **PC2 Direction**: Orthogonal to PC1, capturing the next largest remaining variance. It often represents deviations from the main trend.
-* **Rank-1 Approximation**: Projecting all points onto the PC1 line. This gives each country a single **PC1 score** (its position along the line). The approximation for a point is found by mapping its PC1 score back along the PC1 direction (plus the mean).
-![[mortality-fertility-vis-pc.png|300]]
-**Key Insight**: PCA provides a **new coordinate system**. In the 2D example, instead of describing a country by (Mortality, Fertility), we describe it by (PC1_Score, PC2_Score). Often, PC1_Score alone (a 1D summary) captures the dominant global pattern (e.g., overall development level), while PC2_Score captures more specific, orthogonal variations.
-## 10.4 PCA vs. Linear Regression
-It's vital to distinguish PCA from fitting a regression line.
-
-| Aspect        | Linear Regression                                                                                                    | Principal Component Analysis (PCA)                                                                                        |
-| :------------ | :------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------ |
-| **Goal**    | Predict a **target variable** $Y$ from a **feature** $X$. Minimizes error **in $Y$ direction** (vertical distances). | **Describe the data** itself. No distinction between features/targets. Minimizes **perpendicular distances** to the line. |
-| **Asymmetry** | Direction matters. Regressing $Y$ on $X$ gives a different line than regressing $X$ on $Y$.                          | Symmetric. Treats all variables equally.                                                                                  |
-| **Lines**   | For 2D data, you get two different regression lines.                                                                 | You get a **single line** that is a compromise between the two regression lines.                                          |
-| **Output**  | A predictive model for a specific variable.                                                                          | A new set of orthogonal axes (PCs) for the entire dataset.                                                                |
-![[mortality-fertility-vis-svd.png|300]]
-**Simple Analogy**: If you hammer nails (data points) into a board, linear regression is like fitting a ruler to predict nail height from horizontal position. PCA is like finding the best single tight string to which all nails are closest *perpendicularly*.
-## 10.5 When to Use PCA
-**Use PCA for Exploratory Data Analysis (EDA) when**:
-1.  Aim to **visualize high-dimensional data** in 2D/3D to identify clusters, outliers, or trends.
-2.  You suspect the data is **inherently low-rank** (many features are linear combinations of a few latent factors).
-3.  You need to **reduce noise** or compress data before applying other algorithms (a preprocessing step).
-4.  You want to **decorrelate features** (PCs are orthogonal by construction).
-
-**Do NOT use PCA as a default preprocessing step if**:
-1.  You are in the final modelling stage for a **supervised task** (prediction). Feature selection or regularization (like Lasso) is more appropriate as PCA can obscure interpretability.
-2.  The **meaning of individual features** is critically important for your analysis.
-3.  The relationships in your data are **highly nonlinear** (consider t-SNE or UMAP instead).
-## 10.6 Advantages and Disadvantages of PCA
-**Advantages**:
-* **Dimensionality Reduction**: Effectively reduces the number of variables, combating the **curse of dimensionality**.
-* **Noise Reduction**: By discarding low-variance components (often associated with noise), it can improve model performance.
-* **Decorrelates Features**: Output PCs are orthogonal, removing multicollinearity.
-* **Visualization**: Enables plotting of high-dimensional data.
-* **Unsupervised**: Requires no labels.
-
-**Disadvantages**:
-* **Linear Assumption**: PCA only captures **linear relationships**. It fails for complex nonlinear manifolds.
-* **Interpretability**: Principal components are linear combinations of all original features, making them often hard to interpret.
-* **Scale Sensitivity**: Results are influenced by the scale of variables. **Features must be standardized** (centered and scaled to unit variance) if they are on different units, otherwise high-variance features dominate PC1.
-* **Variance ≠ Importance**: Directions of maximum variance may not be the most important for a specific predictive task.
-* **Outlier Sensitivity**: Since it maximizes variance, outliers can disproportionately influence the principal directions.
-# Lecture 11: Ethics and Data Governance
-## 11.1 What is Ethics?
-> **Ethics** is a systematic way of deciding what we **should and should not do**, by evaluating our actions and choices, assessing the reasons behind our judgments, and aiming to act accordingly. It seeks to uphold people's **moral rights** (distinct from legal rights) and **wellbeing** (welfare, happiness, quality of life).
-
-**Purpose**: To develop a **consistent and sound set of principles** to guide action, especially in situations where our immediate intuitions are unclear or conflicting.
-
-**Methodology (The Trolley Problem Example)**:
-1.  **Identify Intuition**: e.g., "It seems better to pull the lever to save five lives, sacrificing one."
-2.  **Articulate Reason**: e.g., "Saving more lives is morally better."
-3.  **Test and Refine**: Apply the reason to similar cases (e.g., the **Fat Man Bridge** variant). If the reason leads to an action that feels deeply wrong (pushing the fat man), we must **interrogate and refine the principle** (e.g., adding "...but we must not directly harm an innocent bystander"). This process of **refining principles** based on reasoned analysis of cases is the core of doing ethics.
-
-**Key Ethical Concepts**: **Fairness**, **Responsibility**, **Duty**, **Harm/Welfare**, **Rights**.
-## 11.2 Why Data Science Raises Ethical Issues
-**Core Reason**: Data science involves **extracting knowledge about people** from data. With knowledge comes the **power to affect them**, often in ways that are **unpredictable** due to data linkage and unforeseen uses.
-
-* **Historical Precedent**: Technology often creates new ethical challenges (e.g., photography leading to a "right to be let alone").
-* **Data-Specific Risks**:
-	* **Harm to Subjects**: Breaches of **privacy**, lack of **consent**, insecure handling.
-    * **Usage Issues**: **Bias** in tools/interpretations, "**black box**" opacity, loss of human control.
-    * **Societal Externalities**: Shaping preferences, sustainability costs, altering interpersonal relations, automation's impact on work.
-
-**The Rebecca Schaeffer Case (1989)**: A stalker used motor vehicle records to find an actress's address, leading to her murder. This illustrates how **seemingly benign data can be linked to cause grave harm**, prompting legal change (Driver’s Privacy Protection Act).
-## 11.3 The Relationship Between Ethics and Law
-**Ethics and law are related but distinct**.
-* **Ethics** determines **moral** rights and obligations based on impacts on others.
-* **Law (ideally)** provides enforceable rules to restrict harmful behaviour, protect rights, and implement a society's ethical viewpoint.
-
-**Why "Just Follow the Law" is Insufficient**:
-1.  Laws can be **unethical, incomplete, or lag behind technology**.
-2.  To **interpret and apply laws** (which contain ethical concepts like "fairness"), ethical reasoning is required.
-3.  Some unethical acts (e.g., lying to a friend) are not, and should not be, illegal.
-## 11.4 Data Protection Law: UK-GDPR & DPA 2018
-The UK General Data Protection Regulation (UK-GDPR) and Data Protection Act 2018 establish the legal framework for handling personal data.
-### Key Roles and Definitions
-> **Personal Data** is any information relating to an identified or **identifiable** living individual. Identifiability can be direct or through linkage with other information.
-
-> A **Data Controller** determines the **purposes and means** of processing personal data.
-> A **Data Processor** processes personal data **on behalf of** the controller.
-> A **Data Subject** is the individual whom the personal data is about.
-   *(A single entity can be both a controller and a processor for different data flows.)*
-
-> **Special Category Data** is personal data revealing **sensitive** aspects (e.g., racial/ethnic origin, political opinions, health data, biometric data). Processing this requires a higher legal justification.
-
-**Example (E4)**: A dataset of house sale prices and exact addresses in Leeds **could be** personal data. While about houses, linkage with other public records (e.g., electoral register) could identify the individuals who lived there.
-### The Seven UK-GDPR Principles (Article 5)
-Personal data must be processed:
-1.  **Lawfully, fairly and transparently**.
-2.  **For specified, explicit and legitimate purposes** (purpose limitation).
-3.  **Adequate, relevant and limited** to what is necessary (data minimisation).
-4.  **Accurate** and, where necessary, kept up to date.
-5.  **Kept for no longer than necessary** (storage limitation).
-6.  **Processed securely** (integrity and confidentiality).
-7.  The controller is **accountable** for complying with these principles.
-### Key Data Subject Rights
-Subjects have rights including: to be **informed**, to **access** their data, to **rectification**, to **erasure** ("right to be forgotten"), to **restrict processing**, to **data portability**, and to **object** to processing (e.g., direct marketing).
-## 11.5 Core Ethical Issues in the Data Lifecycle
-### 1. Privacy
-> **Privacy** is the right to control access to facts about oneself and one's life. It is a **fundamental human right** linked to **autonomy, individuality, intimacy, and security**.
-
-**Why it Matters Beyond Obvious Harm**: Even if data seems "harmless," violating privacy constitutes a **wrong** because it usurps an individual's control over their self-presentation and personal information. (Example: secret laptop surveillance with no embarrassing content is still a violation).
-### 2. Consent
-> **Valid Consent** must be: **Informed** (the subject understands the use), **Autonomous** (freely given, not coerced), and **Ongoing** (can be withdrawn).
-
-**Challenges in Practice**:
-* **Implied Consent**: Often not sufficient for non-obvious data uses.
-* **T&Cs**: Lengthy, complex documents are a poor mechanism for **informed** consent.
-* **Context & Drift**: Consent given for one purpose (e.g., improving service) does not cover unrelated future uses (e.g., psychological experiments).
-### 3. Anonymisation & Data Linkage
-A primary method to protect privacy when using data.
-**Data linkage** (combining datasets of anonymised data) can **re-identify** individuals.
-* **Direct Identifiers**: Name, address, NHS number – must be removed.
-* **Indirect Identifiers**: Postcode, age, rare disease – in combination, can identify individuals. Risk must be assessed and mitigated.
-## 11.6 Case Studies in Ethical Failure
-### Target's Pregnancy Prediction (2012)
-* Data scientists analyzed shopping patterns to identify pregnant customers and send targeted coupons.
-* **Ethical Issue**: Violation of **privacy** and lack of **meaningful consent**. Customers did not know their data was being used for this sensitive inference. It caused distress (e.g., revealing a teen's pregnancy to her father).
-### Facebook Emotional Contagion Experiment (2014)
-* Researchers manipulated news feeds of 689,000 users to study "emotional contagion."
-* **Ethical Issues**:
-    1.  **Lack of Informed Consent**: Burying permission in Terms of Service is inadequate. Users did not consent to **psychological manipulation**.
-    2.  **Potential for Harm**: The study could have negatively impacted vulnerable users' mental health.
-    3.  **Broader Societal Risk**: This capability for manipulation has been linked to influencing elections (e.g., Cambridge Analytica), threatening **democratic autonomy**.
-### COMPAS Recidivism Algorithm
-* An algorithm used in US courts to predict a defendant's likelihood of reoffending.
-* **Ethical Issue**: **Bias**. Trained on historically biased policing and sentencing data, unfairly labelled Black defendants as higher risk than white defendants with similar profiles.
-* **Types of Bias Illustrated**:
-    * **Historical Bias**: The training data reflected past societal injustices.
-    * **Proxy Discrimination**: Even if 'race' was not a direct feature, the algorithm used correlated proxies (e.g., postcode, income).
-    * **Lack of Transparency & Accountability**: The "black box" nature made it hard to diagnose, challenge, or assign responsibility for unfair outcomes.
-## 11.7 The Problem of Bias in Data Science
-**Bias** leads to **unfair treatment** of individuals or groups. It comes in multiple stages:
-1.  **Data Collection Bias**: Non-representative samples (e.g., health data from white males).
-2.  **Historical Bias**: Data reflects past prejudices and inequalities.
-3.  **Algorithmic Bias**: The model's design or objective function creates unfair outcomes.
-4.  **Interpretation Bias**: Analyst preconceptions affect how results are understood and used.
-
-**Why it's a Profound Ethical Problem**: Automated systems can **amplify and institutionalize** human biases at scale, making them harder to detect and correct, while obscuring **accountability**.
-## 11.8 Moral Responsibility of the Data Scientist
-**Central Question**: Are you responsible only for the technical accuracy of your analysis, or also for its **social consequences**?
-
-**Arguments for Extended Responsibility**:
-* **Foreseeability**: Many harmful uses (discrimination, manipulation) are foreseeable outcomes of certain types of analysis.
-* **Professional Duty**: As an expert, you have a **duty of care** to consider how your work will be deployed, similar to engineers or doctors.
-* **The "Neutral Tool" Fallacy**: Algorithms encode the values and priorities of their creators; they are not neutral.
-
-**Conclusion for Practice**: The ethical data scientist must proactively ask:
-1.  **Consent & Purpose**: Has the subject consented to *this* use of their data?
-2.  **Responsible Execution**: Can I achieve this aim without causing unfair harm or undermining the original consent?
-
-If the answer to either is unclear or "no," you have an ethical obligation to **reconsider, mitigate risks, or refrain from the analysis**.
+# Lecture 2: HTTP – The Workhorse of the Web – Practice Exam Questions
+## Section A: True or False (1 mark each)
+**For each statement, write T (True) or F (False).**
+### 1. HTTP stands for HyperText Transfer Protocol.
+#### Model Answer
+**True.** HTTP stands for **HyperText Transfer Protocol**. It is the set of rules that allows web browsers and web servers to communicate.
+### 2. HTTP is a transport layer protocol.
+#### Model Answer
+**False.** HTTP is an **application layer** protocol, meaning it sits on top of all other network layers (including the transport layer, which is TCP).
+### 3. In HTTP, requests can be initiated by either the client or the server.
+#### Model Answer
+**False.** Requests are **always initiated by the client**. The server only sends **responses**. This is a fundamental feature of the HTTP client-server model.
+### 4. A web resource can only be a static file such as an image or text document.
+#### Model Answer
+**False.** A web resource can be a **static file** (the simplest kind), but it can also be a **software program** that generates content on demand (e.g. a stock trading gateway, a search engine results page, a real estate search).
+### 5. Each web resource is given a unique identifier called a Uniform Resource Identifier (URI).
+#### Model Answer
+**True.** Every resource on the web is identified by a **URI (Uniform Resource Identifier)**. A URL is a specific type of URI that also specifies the location.
+### 6. A URL is the same as a URI.
+#### Model Answer
+**False.** A **URL is a type of URI**, but they are not the same thing. A **URI** is the broader concept — it **identifies** a resource. A **URL** is a subset of URI that also specifies the **location** (how to access it). Every URL is a URI, but not every URI is a URL. This was tested directly in 2019 Q1i.
+### 7. Anything that has a URL is a resource.
+#### Model Answer
+**True.** By definition, if something has a URL, it is a web resource. This was tested in 2020 Q1.5.
+### 8. HTTP has evolved from HTTP/0.9 to HTTP/3, but the request–response semantics have fundamentally changed with each version.
+#### Model Answer
+**False.** HTTP has evolved from HTTP/0.9 to HTTP/3, improving **performance and reliability**, but the same **request–response semantics** have been **preserved** across all versions.
+### 9. Each line in an HTTP message ends with a two-character sequence consisting of a carriage return and a tab character.
+#### Model Answer
+**False.** Each line ends with a **carriage return** followed by a **line feed** (CRLF: `\r\n`), **not** a tab character. This exact trap appeared in 2020 Q1.3.
+### 10. An HTTP message consists of a start line, a block of headers, and a mandatory body.
+#### Model Answer
+**False.** An HTTP message consists of a **start line**, a **block of headers**, and an **optional body** (entity body). Not all messages contain entity bodies — for example, GET requests and HEAD responses have no body.
+### 11. The status code in an HTTP response is a three-digit number, where the first digit describes the general class of the response.
+#### Model Answer
+**True.** The status code is a **three-digit number**. The **first digit** indicates the category: **1xx** = Informational, **2xx** = Successful, **3xx** = Redirection, **4xx** = Client error, **5xx** = Server error.
+### 12. HTTP status code 200 means "Not Found".
+#### Model Answer
+**False.** Status code **200** means **"OK"** (success — requested data is in the response body). **404** is the code that means "Not Found".
+### 13. Response messages to HTTP HEAD requests do not have a body.
+#### Model Answer
+**True.** The HEAD method behaves like GET but the server returns **only the headers** — **no entity body** is returned. This was tested directly in 2020 Q1.4.
+### 14. The HEAD method can be used to determine the resource type without downloading the full resource.
+#### Model Answer
+**True.** HEAD returns only headers (including `Content-Type`), so you can determine the **resource type**, check if the resource **exists** (via the status code), and check if it has been **modified** (via the `Last-Modified` header) — all without downloading the body.
+### 15. A GET request is used when we do not intend to change the data on a server, and therefore a GET message should not have a payload.
+#### Model Answer
+**True.** GET is a **safe** method (does not modify server state). While GET *technically can* have a message body, it is **recommended not to send data in it**. Data should instead be sent in a **query string**. This was tested in 2019 Q1o.
+### 16. The POST method stores the body of the request at a specific URL on the server.
+#### Model Answer
+**False.** This describes **PUT**, not POST. **POST** sends input data to the server **for processing** (e.g. submitting a form). The **server decides** what to do with the data. **PUT** writes/stores the request body at the **specified URL**.
+### 17. The DELETE method guarantees that the resource will be removed from the server.
+#### Model Answer
+**False.** There is **no guarantee** the delete is carried out. The HTTP specification allows the server to **override the request without telling the client**.
+### 18. TRACE is a standard HTTP method.
+#### Model Answer
+**True.** TRACE is a **standard HTTP method** that allows clients to see how their request looks when it finally reaches the server. The server returns a TRACE response with the **original request message** in the body.
+### 19. MOVE is a standard HTTP method.
+#### Model Answer
+**False.** MOVE is **not** a standard HTTP method. It is a **WebDAV extension method** (along with LOCK, MKCOL, and COPY). This was tested in 2020 Q2a.
+### 20. MIME types were originally designed for use with HTTP.
+#### Model Answer
+**False.** MIME (Multipurpose Internet Mail Extensions) types were **originally designed for electronic mail**. HTTP later **adopted** them to describe multimedia content in headers.
+### 21. MIME types are registered and maintained by the Internet Engineering Task Force (IETF).
+#### Model Answer
+**False.** MIME types are registered and maintained by **IANA (Internet Assigned Numbers Authority)**, not the IETF. The IETF *tree* is one of the four registration trees within IANA, but the overall registry authority is IANA. This was tested directly in 2020 Q1.7.
+### 22. The MIME type `video/html` is a valid media type.
+#### Model Answer
+**False.** There is no `html` subtype under the `video` primary type. `html` belongs under the `text` primary type (i.e. `text/html`). Valid MIME types include `image/gif`, `text/plain`, and `application/vnd.ms-powerpoint`. This was tested in 2020 Q2f.
+### 23. The MIME type for a Microsoft PowerPoint presentation is `application/vnd.ms-powerpoint`.
+#### Model Answer
+**True.** This is a **vendor tree** MIME type (indicated by the `vnd.` prefix), registered with IANA for commercially available products.
+### 24. Each MIME type consists of a primary type and a subtype separated by a colon.
+#### Model Answer
+**False.** The primary type and subtype are separated by a **slash** (`/`), not a colon. Example: `text/html`, `image/jpeg`. Optional parameters begin with a **semicolon** (`;`).
+### 25. When a client requests a resource, the server responds with a representation that always matches the server's internal representation of the resource data.
+#### Model Answer
+**False.** The **representation** sent to the client does **not necessarily match** the way the data is stored internally on the server. For example, data stored as a CSV file on the server could be sent to the client as JSON, HTML, or XML. This was tested in 2020 Q1.6.
+
+---
+## Section B: Multiple Choice Questions (1 mark each)
+
+**Select the single correct answer unless otherwise stated.**
+### 26. Which of the following is NOT a standard HTTP method?
+- A. PUT
+- B. POST
+- C. MOVE
+- D. TRACE
+#### Model Answer
+**C. MOVE.** PUT, POST, and TRACE are all standard HTTP methods. MOVE is a **WebDAV extension method**, not part of the HTTP standard. This was tested directly in 2020 Q2a.
+### 27. Which HTTP method should be used in an airline API to book a flight?
+- A. GET /flight
+- B. PUT /flight
+- C. POST /flight
+- D. ADD /flight
+#### Model Answer
+**C. POST /flight.** Booking a flight **creates a new resource** (the booking), which is a POST operation. GET only retrieves data. PUT replaces/updates a resource at a known URL. ADD is **not a standard HTTP method** at all. This was tested in 2020 Q2i.
+### 28. HTTP status codes in the range 400–499 indicate:
+- A. Informational responses
+- B. Successful responses
+- C. Redirection
+- D. Client errors
+#### Model Answer
+**D. Client errors.** The five status code classes are: **1xx** = Informational, **2xx** = Successful, **3xx** = Redirection, **4xx** = Client error, **5xx** = Server error.
+### 29. Which of the following HTTP status codes means "Unauthorized"?
+- A. 200
+- B. 401
+- C. 404
+- D. 500
+#### Model Answer
+**B. 401.** 401 Unauthorized means the client needs to provide **credentials** (username and password). 200 = OK, 404 = Not Found, 500 = Internal Server Error.
+### 30. Which of the following is NOT a valid MIME type?
+- A. `video/html`
+- B. `image/gif`
+- C. `application/vnd.ms-powerpoint`
+- D. `text/plain`
+#### Model Answer
+**A. `video/html`.** There is no `html` subtype under the `video` primary type. The correct MIME type for HTML is `text/html`. The other three are all valid registered MIME types. This was tested in 2020 Q2f.
+### 31. A URL has three parts. Which of the following correctly identifies them?
+- A. Protocol, Domain, Fragment
+- B. Scheme, Host, Path
+- C. Method, Address, Query
+- D. Header, Body, Status
+#### Model Answer
+**B. Scheme, Host, Path.** The three parts of a URL are the **Scheme** (how — e.g. `http://`), the **Host** (where — e.g. `www.example.com`), and the **Path** (what — e.g. `/seasonal/index.html`).
+### 32. Which HTTP method retrieves only the headers of a resource, without the body?
+- A. GET
+- B. POST
+- C. HEAD
+- D. OPTIONS
+#### Model Answer
+**C. HEAD.** HEAD behaves like GET but the server returns **only the headers** — no entity body. GET returns headers and body. POST sends data to the server. OPTIONS asks the server about supported methods.
+### 33. What does the OPTIONS method do?
+- A. Deletes a resource from the server
+- B. Sends data to the server for processing
+- C. Asks the server about what methods it supports
+- D. Traces the message through proxy servers
+#### Model Answer
+**C. Asks the server about what methods it supports.** OPTIONS queries the server's **supported capabilities** — what methods it supports in general or for particular resources. This helps client applications determine how to access various resources.
+### 34. Which of the following header types provides extra information from the client to the server, such as what data formats the client is willing to receive?
+- A. General headers
+- B. Request headers
+- C. Response headers
+- D. Entity headers
+#### Model Answer
+**B. Request headers.** Request headers provide extra information **to servers**, such as what data types the client will accept (e.g. `Accept: image/gif, image/jpeg, text/html`). General headers are used by both sides, response headers inform the client, and entity headers describe the body.
+### 35. The MIME type `image/jpeg` describes:
+- A. A plain text document
+- B. A JPEG image
+- C. A JavaScript file
+- D. An HTML page
+#### Model Answer
+**B. A JPEG image.** The primary type `image` indicates an image format, and the subtype `jpeg` specifies the JPEG encoding.
+### 36. MIME types are divided into four registration trees. Which of the following is NOT one of them?
+- A. IETF
+- B. Vendor (vnd.)
+- C. Personal/Vanity (prs.)
+- D. Commercial (com.)
+#### Model Answer
+**D. Commercial (com.).** The four MIME registration trees are: **IETF** (general significance, e.g. `text/html`), **Vendor** (`vnd.`, e.g. `application/vnd.ms-powerpoint`), **Personal/Vanity** (`prs.`, private use), and **Experimental** (`x-` or `x.`, unregistered types). There is no "Commercial" tree.
+### 37. Which of the following HTTP methods has a message body? (Select two)
+- A. GET
+- B. POST
+- C. HEAD
+- D. PUT
+#### Model Answer
+**B and D. POST and PUT.** According to the lecture's method table, only **POST** ("Send data to the server for processing" — body: Yes) and **PUT** ("Store the body of the request on the server" — body: Yes) have message bodies. GET, HEAD, TRACE, OPTIONS, and DELETE do **not** have message bodies (or are recommended not to).
+### 38. What is the difference between PUT and POST?
+- A. PUT creates a resource; POST updates a resource
+- B. PUT stores/replaces a resource at a known URL (idempotent); POST submits data for processing and the server decides where to store it (not idempotent)
+- C. PUT sends data to a form; POST deletes a resource
+- D. There is no difference; they are interchangeable
+#### Model Answer
+**B.** **PUT** writes/stores/replaces a resource at a **known URL** and is **idempotent** (repeating the same PUT request produces the same result). **POST** submits data for processing, and the **server decides** where/how to store it; POST is **not idempotent** (repeating it may create multiple resources).
+### 39. Which of the following is a correct description of the TRACE method?
+- A. It deletes a resource on the server
+- B. It allows clients to see how their request looks when it finally reaches the server
+- C. It creates a new resource on the server
+- D. It returns the headers of a resource without the body
+#### Model Answer
+**B.** TRACE allows clients to see how their request looks when it finally reaches the server. The server returns a TRACE response with the **original request message** in the body. This is useful for diagnosing **proxy modifications** to the request along the way.
+### 40. HTTP is field-extensible. What does this mean?
+- A. HTTP messages can be of unlimited length
+- B. New features and methods can be added without causing older software to fail
+- C. HTTP can only be used with HTML content
+- D. HTTP extensions require a new protocol version
+#### Model Answer
+**B.** HTTP being **field-extensible** means new features can be added (such as new methods or headers) **without causing older software to fail**. Extensions like **WebDAV** add methods such as LOCK, MKCOL, COPY, and MOVE that extend HTTP's capabilities beyond the core standard.
+
+---
+## Section C: Short Answer / Scenario-Based Questions
+### 41. (3 marks) Explain the structure of an HTTP request message. Include all components and give an example of a complete request line.
+#### Model Answer
+An HTTP request message has three parts **(1 mark each)**:
+
+1. **Start line (request line)**: Contains the **method** (action to perform, e.g. GET, POST), the **request-URL** (path to the resource), and the **HTTP version** (e.g. HTTP/1.1).
+
+2. **Headers**: Zero or more headers, each formatted as `Name: value`. These provide metadata such as the host (`Host: www.example.com`), accepted content types (`Accept: text/html`), and content type of the body (`Content-Type: application/json`).
+
+3. **Entity body (optional)**: A block of arbitrary data. Not all messages have a body — for example, GET and HEAD requests typically do not.
+
+**Example request line**: `GET /seasonal/index-fall.html HTTP/1.1`
+### 42. (3 marks) Explain the structure of an HTTP response message. What is a status code, what is a reason phrase, and give three examples of status codes with their meanings.
+#### Model Answer
+An HTTP response message has three parts: a **start line** (containing the HTTP version, a status code, and a reason phrase), **headers**, and an **optional body** **(1 mark)**.
+
+A **status code** is a **three-digit number** describing what happened. The **first digit** indicates the general class (1xx informational, 2xx success, 3xx redirection, 4xx client error, 5xx server error). A **reason phrase** is a **human-readable version** of the status code **(1 mark)**.
+
+Three examples **(1 mark)**:
+- **200 OK** — Success; any requested data is in the response body.
+- **401 Unauthorized** — The client needs to provide a username and password.
+- **404 Not Found** — The server cannot find a resource at the requested URL.
+### 43. (4 marks) Describe four different uses of the HEAD method and explain why it is useful compared to GET for each use case.
+#### Model Answer
+**(1 mark each, any four):**
+
+1. **Determine resource type** — HEAD returns the `Content-Type` header, allowing the client to know the resource's MIME type (e.g. `image/jpeg`, `text/html`) **without downloading the entire body**, saving bandwidth.
+
+2. **Check if a resource exists** — By examining the **status code** of the HEAD response (e.g. 200 = exists, 404 = not found), the client can verify existence without transferring potentially large content.
+
+3. **Check if a resource has been modified** — The `Last-Modified` header in the HEAD response tells the client when the resource was last changed, enabling **conditional fetching** (only download if newer than the cached version).
+
+4. **Determine resource size** — The `Content-Length` header reveals the size of the body **without downloading it**, useful for estimating download time or checking storage requirements.
+
+In all cases, HEAD is more efficient than GET because it returns **only headers with no entity body**, reducing bandwidth and processing time.
+### 44. (4 marks) Explain the difference between PUT and POST with reference to idempotency. Give a practical example of when you would use each method in a RESTful API for a bookshop.
+#### Model Answer
+**PUT** writes or replaces a resource at a **specific, known URL**. It is **idempotent**, meaning sending the same PUT request multiple times produces the **same server state** (the resource is simply overwritten with the same data each time) **(1 mark)**.
+
+**POST** sends data to the server **for processing**. The server decides what to do with the data (e.g. where to store it, what resource to create). It is **not idempotent** — sending the same POST request multiple times may create **multiple new resources** **(1 mark)**.
+
+**Bookshop example — POST**: `POST /books` with body `{"title": "New Book", "author": "Smith"}` — this **creates a new book** resource. The server assigns an ID (e.g. `/books/456`). Sending it again would create a **second** book entry **(1 mark)**.
+
+**Bookshop example — PUT**: `PUT /books/456` with body `{"title": "Updated Title", "author": "Smith"}` — this **replaces** the book at `/books/456` with the new data. Sending it again produces the **same result** — the book at `/books/456` is still the same updated version **(1 mark)**.
+### 45. (3 marks) What are MIME types? Explain their origin, structure, and give three examples of valid MIME types with their descriptions.
+#### Model Answer
+**MIME (Multipurpose Internet Mail Extensions)** types were **originally designed for electronic mail** to describe the type of content being sent. HTTP later adopted them to describe **multimedia content** in headers **(1 mark)**.
+
+Each MIME type consists of a **primary type** and a **subtype** separated by a **slash** (`/`), with optional parameters beginning with a **semicolon** (`;`). Example structure: `primary-type/subtype; parameter=value` **(1 mark)**.
+
+Three valid examples **(1 mark)**:
+- **`text/html`** — an HTML-formatted text document
+- **`image/jpeg`** — a JPEG image file
+- **`application/vnd.ms-powerpoint`** — a Microsoft PowerPoint presentation (vendor tree MIME type)
+### 46. (3 marks) MIME types are registered with a specific organisation and are divided into four registration trees. Name the organisation and describe each of the four trees with an example MIME type for each.
+#### Model Answer
+MIME types are registered with **IANA (Internet Assigned Numbers Authority)** **(0.5 marks)**.
+
+The four registration trees **(0.5 marks each + 0.5 for examples)**:
+
+1. **IETF tree** — For types of general significance to the internet community. Require approval by the Internet Engineering Steering Group. IETF tree types have **no periods** in their tokens. Example: **`text/html`**.
+
+2. **Vendor tree (vnd.)** — For media types associated with **commercially available products**. Types begin with `vnd.`. Example: **`application/vnd.ms-powerpoint`**.
+
+3. **Personal/Vanity tree (prs.)** — For private, personal, or vanity types **not distributed commercially**. Types begin with `prs.`. Example: **`image/prs.btif`** (internal check-management format).
+
+4. **Experimental tree (x- or x.)** — For **unregistered or experimental** media types. Types begin with `x.` or `x-`. Example: **`application/x-tar`** (Unix tar archive).
+### 47. (2 marks) A developer notices that their web crawler is receiving frequent HTTP status codes 401, 403, 404, 408, and 429. What do these status codes indicate, and what is the most likely explanation for this pattern?
+#### Model Answer
+These are all **client error (4xx)** status codes **(0.5 marks)**:
+- **401** = Unauthorized (needs credentials)
+- **403** = Forbidden (access denied)
+- **404** = Not Found
+- **408** = Request Timeout
+- **429** = Too Many Requests
+
+**(0.5 marks)**
+
+The most likely explanation is that the **web crawler is being blocked** by the target server **(1 mark)**. This pattern of error codes — especially 403 (forbidden), 429 (rate limiting), and 408 (timeouts) — strongly indicates the server has detected automated crawling behaviour and is actively rejecting or throttling requests. This was tested in 2020 Q2s.
+### 48. (2 marks) Explain the difference between a URI and a URL with an example.
+#### Model Answer
+A **URI (Uniform Resource Identifier)** is the broader concept — it **identifies** a resource, giving it a unique name **(1 mark)**. A **URL (Uniform Resource Locator)** is a **specific type of URI** that not only identifies the resource but also specifies its **location** on the network (i.e. how to access it, via scheme + host + path) **(1 mark)**.
+
+**Example**: `http://www.example.com/page.html` is both a **URI** (it identifies the resource) and a **URL** (it tells you *where* to find it via HTTP on that host). However, an ISBN like `urn:isbn:978-0-123456-47-2` is a URI (it identifies a book) but **not** a URL (it doesn't tell you where to download it).
+
+Every URL is a URI, but not every URI is a URL.
+### 49. (3 marks) You are designing a RESTful API for a library system. Specify the HTTP method, a suitable URL, and whether the request has a message body for each of the following operations:
+
+(a) Retrieve a list of all books
+(b) Add a new book to the catalogue
+(c) Delete a book with ID 42
+#### Model Answer
+**(1 mark each)**
+
+**(a)** Retrieve all books:
+- **Method**: `GET`
+- **URL**: `/books`
+- **Message body**: **No** (GET should not carry a payload; any parameters go in the query string)
+
+**(b)** Add a new book:
+- **Method**: `POST`
+- **URL**: `/books`
+- **Message body**: **Yes** (contains the book data, e.g. `{"title": "...", "author": "..."}`)
+
+**(c)** Delete book 42:
+- **Method**: `DELETE`
+- **URL**: `/books/42`
+- **Message body**: **No** (DELETE requests do not carry a body)
+### 50. (2 marks) Explain the four types of HTTP headers and give one example of each.
+#### Model Answer
+**(0.5 marks each)**
+
+1. **General headers** — Used by **both** clients and servers. Example: `Date: Tue, 3 Oct 1997 02:16:03 GMT` (the date the message was generated).
+
+2. **Request headers** — Provide extra information **from client to server**, such as acceptable content types. Example: `Accept: image/gif, image/jpeg, text/html` (the client tells the server what formats it can handle).
+
+3. **Response headers** — Provide information **from server to client**. Example: `Server: Tiki-Hut/1.0` (tells the client which server software is running).
+
+4. **Entity headers** — Describe the **entity body** (the payload). Example: `Content-Type: text/html; charset=iso-latin-1` (tells the receiver that the body is an HTML document in ISO Latin-1 encoding).
+# Lecture 3: Representational State Transfer (REST) – Practice Exam Questions
+
+---
+
+## Section A: True or False (1 mark each)
+
+**For each statement, write T (True) or F (False).**
+
+### 1. REST stands for Representational State Transitions.
+
+#### Model Answer
+
+**False.** REST stands for **Representational State Transfer**. "Transitions" is a common incorrect variant. This was tested in 2020 Q1.1.
+
+### 2. REST is a protocol, not an architectural style.
+
+#### Model Answer
+
+**False.** REST is an **architectural style** (not a protocol). It uses **existing web protocols** such as HTTP, but does not define a new protocol of its own.
+
+### 3. There is an official standard for RESTful Web APIs.
+
+#### Model Answer
+
+**False.** There is **no official standard** for RESTful Web APIs. REST implementations make use of **existing internet standards** (HTTP, URIs, JSON, XML) but the style itself has no standard. This was tested in 2019 Q1n.
+
+### 4. The representation of data sent over the web must always match how it is stored on the server.
+
+#### Model Answer
+
+**False.** The **representation** sent to the client does **not necessarily match** the way the data is stored internally. Data stored as a CSV file on the server could be sent as JSON, HTML, or XML. This is the "Representational" aspect of REST and was tested in 2020 Q1.6.
+
+### 5. Statelessness means that no client context is stored on the server between requests.
+
+#### Model Answer
+
+**True.** Statelessness requires that each request from client to server contains **all the information necessary** to understand the request, and the server does **not rely on any previous requests**. No client context is stored between requests.
+
+### 6. In a stateless API, the session state must be held on the server.
+
+#### Model Answer
+
+**False.** In a stateless API, the **session state is held in the client**, not on the server. Each request is self-contained.
+
+### 7. Statelessness improves reliability because if communication breaks, the process can continue later.
+
+#### Model Answer
+
+**True.** Statelessness improves **reliability** — the ability to recover from partial failure. If communication breaks, the process can continue later because the request contains all needed information.
+
+### 8. Statelessness decreases network performance because repetitive data must be sent in each request.
+
+#### Model Answer
+
+**True.** One **disadvantage** of statelessness is that it can **decrease network performance** by increasing the amount of **repetitive data** sent in a series of requests (e.g. authentication credentials repeated every time).
+
+### 9. Cacheable responses can be reused by the client for later equivalent requests.
+
+#### Model Answer
+
+**True.** Data within a response must be labelled as **cacheable or non-cacheable**. If cacheable, the client cache can **reuse** that response data for later equivalent requests, improving performance and reducing latency.
+
+### 10. Caching improves reliability because it guarantees data is always fresh.
+
+#### Model Answer
+
+**False.** Caching has a **disadvantage** of reduced **reliability** if **stale data** in the cache differs from data on the server. It does not guarantee freshness.
+
+### 11. HATEOAS stands for "Hypermedia As The Engine Of Application State".
+
+#### Model Answer
+
+**True.** HATEOAS is the fourth sub-constraint of the Uniform Interface. It means a representation should contain **hypermedia references (hyperlinks)** to perform further actions or access related resources.
+
+### 12. In a truly RESTful API, a client with only the root URL can discover all other resources by following hypermedia links.
+
+#### Model Answer
+
+**True.** This is the **discoverability rule** (HATEOAS). The client should not need out-of-band knowledge of URL structures. Starting from the root URL, hypermedia links lead to all other resources.
+
+### 13. The biggest challenge in RESTful web API design is finding suitable media types to represent all resources.
+
+#### Model Answer
+
+**False.** The biggest challenge is **bridging the semantic gap** between understanding a document's **structure** and understanding **what it means**. This was tested in 2020 Q2g.
+
+### 14. A "fiat standard" means no one formally agreed to it; it is just a description of how someone does things.
+
+#### Model Answer
+
+**True.** Fiat standards are not really standards; they are **behaviours**. No one agreed to them. Pretty much every API today (Twitter API, Facebook API, Google API) is a fiat standard. This was tested in 2020 Q2e.
+
+### 15. In the Maze+XML API, the `+xml` suffix indicates that the media type uses XML syntax but has its own defined semantics.
+
+#### Model Answer
+
+**True.** A **structured syntax suffix** (e.g. `+xml`, `+json`, `+zip`) is an augmentation to a media type that specifies the underlying **syntax**. `application/vnd.amundsen.maze+xml` means it uses XML syntax but has its own maze-specific semantics.
+
+### 16. Structured syntax suffixes (like `+xml` and `+json`) are registered and maintained by IETF.
+
+#### Model Answer
+
+**False.** Structured syntax suffixes are registered and maintained by **IANA (Internet Assigned Numbers Authority)**. Currently registered suffixes include `+xml`, `+json`, `+zip`, `+ber`, `+der`, `+fastinfoset`, `+wbxml`, and `+cbor`.
+
+### 17. The default priority value in a sitemap's priority tag is 0.7.
+
+#### Model Answer
+
+**False.** The default priority value is **0.5**. The priority range is 0.0 to 1.0, with 0.5 being the default. This was tested in 2020 Q2q.
+
+### 18. In RESTful APIs, it is recommended to create new domain-specific media types rather than adding semantics to generic hypermedia formats.
+
+#### Model Answer
+
+**False.** It is **not recommended** to create new domain-specific media types. It is **less work** to add application semantics to a **generic hypermedia format** (e.g. using standard link relations). However, domain-specific design is the first instinct of many developers, leading to fiat standards.
+
+### 19. A link relation explains the change in application state that will happen if the client triggers the control.
+
+#### Model Answer
+
+**True.** A **link relation** (e.g. `rel="east"`, `rel="next"`) explains the **change in application state** (for safe requests) or **resource state** (for unsafe requests) that will occur if the client follows that link.
+
+### 20. Extension link relations look like URLs and can be defined by anyone who owns a domain.
+
+#### Model Answer
+
+**True.** **Extension relation types** look like URLs (e.g. `http://mydomain.com/whatever`). If you own a domain, you can name a link relation with that domain and define it to mean anything you want. **Registered relation types** are short strings like `next`, `previous`, `search`, `alternate`.
+
+### 21. The `nofollow` link relation tells search engine crawlers not to follow the link.
+
+#### Model Answer
+
+**True.** `rel="nofollow"` is a registered link relation used to indicate that the linked document is **not endorsed**. Google uses it to specify that the search spider **should not follow** that link. Example: `<a rel="nofollow" href="http://www.functravel.com/">Cheap Flights</a>`.
+
+### 22. A layered system architecture reduces scalability because each request goes through multiple layers.
+
+#### Model Answer
+
+**False.** A **layered system** actually **boosts scalability** because tasks (security, storage, authentication) are separated between servers without burdening the client. However, it does add **latency** because each request goes through several layers — but this is a disadvantage, not a scalability reduction.
+
+### 23. In a layered system, the client knows exactly which servers handle each part of the request.
+
+#### Model Answer
+
+**False.** From the client's perspective, it connects **directly with the end server** and has **no knowledge of the intermediaries** along the way. Each layer is only aware of the **next layer**, not layers beyond it.
+
+### 24. The Uniform Interface constraint includes resource identification, manipulation through representations, self-descriptive messages, and HATEOAS.
+
+#### Model Answer
+
+**True.** The Uniform Interface has **four sub-constraints**:
+1. Identification of resources
+2. Manipulation of resources through representations
+3. Self-descriptive messages
+4. HATEOAS (Hypermedia As The Engine Of Application State)
+
+---
+
+## Section B: Multiple Choice Questions (1 mark each)
+
+**Select the single correct answer unless otherwise stated.**
+
+### 25. REST was coined by Roy Fielding in his PhD thesis around which year?
+- A. 1990
+- B. 1995
+- C. 2000
+- D. 2005
+
+#### Model Answer
+
+**C. 2000.** REST was coined by **Roy Fielding** circa **2000** in his PhD thesis about network-based software architectures.
+
+### 26. In RESTful APIs, statelessness means that: (Select all that apply)
+- A. No client context is stored on the server between requests
+- B. Each request from any client contains all the information necessary to service the request
+- C. The session state is held in the client
+- D. The server must remember all previous requests from a client
+
+#### Model Answer
+
+**A, B, and C.** Statelessness means: **no client context stored on the server** (A), **each request contains all necessary information** (B), and **session state is held in the client** (C). The server does **not** remember previous requests (D is the opposite of statelessness). This was tested in 2020 Q2h (where the correct answer was "All of the above").
+
+### 27. Which of the following is NOT an essential part of a RESTful API working cycle?
+- A. The client requests a representation of a resource
+- B. The client captures the structure of the resource in a DOM tree
+- C. The client decides on a new resource to be requested
+- D. The client changes its current state when the new resource is received
+
+#### Model Answer
+
+**B. The client captures the structure of the resource in a DOM tree.** Capturing structure in a DOM tree is a **browser implementation detail**, not a REST constraint. The other three options (request representation, decide new resource, change state) are all essential parts of the REST cycle. This was tested in 2020 Q2d.
+
+### 28. What is the biggest challenge in RESTful web API design?
+- A. Finding suitable media types to represent all resources
+- B. Bridging the semantic gap between understanding a document's structure and understanding what it means
+- C. Avoiding identical URLs across different services
+- D. Parsing the representations returned by servers
+
+#### Model Answer
+
+**B. Bridging the semantic gap.** A computer can easily understand a document's **structure** (e.g. discover HTML links), but it cannot understand **what each link actually does**. This gap between syntax/structure and meaning is the biggest challenge. This was tested in 2020 Q2g.
+
+### 29. In RESTful APIs, a "fiat standard" is called as such because:
+- A. No one agreed to it. It is just a description of the way somebody does things.
+- B. It is widely accepted and used like the famous FIAT car brand
+- C. It is set by the Free Internet Access Team (FIAT)
+- D. It is set by the US Federal Government
+
+#### Model Answer
+
+**A. No one agreed to it. It is just a description of the way somebody does things.** Fiat standards are not really standards; they are behaviours. Pretty much every API today (Twitter API, Facebook API, Google API) is a fiat standard. This was tested in 2020 Q2e.
+
+### 30. In the Maze+XML media type `application/vnd.amundsen.maze+xml`, what does the `+xml` suffix indicate?
+- A. The media type uses XML syntax but has its own defined semantics
+- B. The media type is compressed using XML
+- C. The media type is only for XML files
+- D. The media type requires an XML schema
+
+#### Model Answer
+
+**A. The media type uses XML syntax but has its own defined semantics.** A **structured syntax suffix** (e.g. `+xml`, `+json`) specifies the underlying **syntax** (structure) while allowing the media type to define its own **semantics** (meaning).
+
+### 31. Which of the following is a registered link relation?
+- A. http://mydomain.com/custom-relation
+- B. east
+- C. next
+- D. start
+
+#### Model Answer
+
+**C. next.** `next` is a **registered link relation** (short string managed by IANA). `http://mydomain.com/custom-relation` is an **extension relation type** (looks like a URL). `east` and `start` are domain-specific relations defined in Maze+XML, not IANA-registered (though anyone can use them).
+
+### 32. Which of the following is a valid IANA-registered structured syntax suffix? (Select two)
+- A. +html
+- B. +xml
+- C. +json
+- D. +rest
+
+#### Model Answer
+
+**B and C. +xml and +json.** Registered suffixes include: `+xml`, `+json`, `+zip`, `+ber`, `+der`, `+fastinfoset`, `+wbxml`, and `+cbor`. `+html` and `+rest` are not registered.
+
+### 33. What is the default priority value in a sitemap's `<priority>` tag?
+- A. 0.0
+- B. 0.5
+- C. 0.7
+- D. 1.0
+
+#### Model Answer
+
+**B. 0.5.** The default priority of a page is **0.5**. Valid values range from 0.0 to 1.0. Priority is relative within a site — assigning high priority to all pages does not help. This was tested in 2020 Q2q.
+
+### 34. Which of the following is an advantage of statelessness?
+- A. Decreases network performance
+- B. Reduces server control over application behaviour
+- C. Improves reliability (recovery from partial failure)
+- D. Requires sending repetitive data
+
+#### Model Answer
+
+**C. Improves reliability (recovery from partial failure).** Advantages of statelessness include: improved **reliability** (recovery from partial failure), improved **visibility** (a monitor only needs one request), and **simplified implementation** (server doesn't remember previous requests). Disadvantages include decreased network performance (A), reduced server control (B), and repetitive data (D).
+
+### 35. In the Maze+XML API, how does a client know where to start exploring the maze?
+- A. There is a `rel="entrance"` link relation
+- B. The root URL returns a collection with `rel="maze"` links, and each maze has a `rel="start"` link
+- C. The client must guess the start cell URL
+- D. The first cell is always `/cells/A`
+
+#### Model Answer
+
+**B. The root URL returns a collection with `rel="maze"` links, and each maze has a `rel="start"` link.** The Maze+XML standard defines: collection (`rel="maze"`) → individual maze (`rel="start"`) → start cell. This demonstrates **discoverability** (HATEOAS).
+
+### 36. What does `rel="nofollow"` tell search engine crawlers?
+- A. The link is the most important on the page
+- B. The crawler should not follow the link (the linked document is not endorsed)
+- C. The link points to the next document in a series
+- D. The link points to a help document
+
+#### Model Answer
+
+**B. The crawler should not follow the link (the linked document is not endorsed).** `rel="nofollow"` is used for paid links or unendorsed content. Google's crawler respects this directive.
+
+### 37. Which of the following is a valid registered HTML link relation for providing a link to the author of a document?
+- A. `rel="author"`
+- B. `rel="creator"`
+- C. `rel="writer"`
+- D. `rel="owner"`
+
+#### Model Answer
+
+**A. `rel="author"`.** `author` is a registered HTML link relation that provides a link to the **author of the document**. Other common registered relations include `alternate`, `bookmark`, `external`, `help`, `license`, `next`, `prev`, `search`, and `tag`.
+
+### 38. Which of the following statements about blank nodes in RDF is true?
+- A. Blank nodes should be used whenever possible
+- B. Blank nodes are resources that have a URI
+- C. Blank nodes are anonymous resources without a URI and should be avoided when possible
+- D. Blank nodes cannot be used in RDF diagrams
+
+#### Model Answer
+
+**C. Blank nodes are anonymous resources without a URI and should be avoided when possible.** Blank nodes (`_:nodeID` or `[]`) are used when you need to describe a resource that doesn't have a URI. However, they cannot be referenced from outside the document, make data merging difficult, and should be **avoided whenever possible**.
+
+### 39. In a layered system architecture, which statement is true?
+- A. The client knows all intermediate servers
+- B. Each layer is aware of all other layers
+- C. From the client's perspective, it connects directly with the end server
+- D. Layered systems cannot use caching
+
+#### Model Answer
+
+**C. From the client's perspective, it connects directly with the end server.** The client has **no knowledge of the intermediaries** along the way. Each layer is only aware of the **next layer**. This is one of the five REST constraints.
+
+### 40. What is the purpose of the `rel="alternate"` link relation?
+- A. Provides a link to an alternate representation of the document (e.g. print page, translated version)
+- B. Provides a link to the next document in a series
+- C. Provides a link to a search tool for the document
+- D. Provides a link to copyright information
+
+#### Model Answer
+
+**A. Provides a link to an alternate representation of the document (e.g. print page, translated version).** `alternate` is a registered link relation. Examples: a print-friendly version, a translated page, or an RSS feed version of the current page.
+
+---
+
+## Section C: Short Answer / Scenario-Based Questions
+
+### 41. (4 marks) List and briefly explain the five REST constraints.
+
+#### Model Answer
+
+**(1 mark each, any five — the lecture covers five constraints; some lists include Code-on-Demand as optional sixth):**
+
+1. **Client-Server** — Separation of concerns between user interface (client) and data storage (server). Improves portability and allows independent evolution.
+
+2. **Statelessness** — Each request contains all necessary information; no client context is stored on the server between requests. Session state is held in the client.
+
+3. **Cacheability** — Responses must be labelled as cacheable or non-cacheable. Cacheable responses can be reused for later equivalent requests, improving performance.
+
+4. **Uniform Interface** — Standardised methods (HTTP verbs), resource identification via URIs, manipulation through representations, self-descriptive messages, and HATEOAS.
+
+5. **Layered System** — Client cannot tell if it is connected directly to the end server or an intermediary. Each layer is only aware of the next layer.
+
+**(Optional sixth constraint: Code-on-Demand — server can extend client functionality by sending executable code, e.g. JavaScript.)**
+
+### 42. (3 marks) Explain HATEOAS. Why is it important for a truly RESTful API?
+
+#### Model Answer
+
+**HATEOAS (Hypermedia As The Engine Of Application State)** is the fourth sub-constraint of the Uniform Interface **(1 mark)**.
+
+It requires that a representation returned from the server should contain **hypermedia references (hyperlinks)** to perform further actions or access related resources **(1 mark)**.
+
+**Importance for truly RESTful APIs**: With HATEOAS, a client starting with **only the root URL** can discover **all other resources** by following hypermedia links. The client does **not need out-of-band knowledge** of URL structures (e.g. `/users/123` is not hardcoded; it is discovered via a link). This enables **loose coupling** — the server can change URL structures without breaking clients, as long as link relations remain consistent **(1 mark)**.
+
+### 43. (3 marks) Explain the semantic gap in RESTful API design and how the Maze+XML API attempts to bridge it.
+
+#### Model Answer
+
+The **semantic gap** is the difference between understanding a document's **structure/syntax** (e.g. HTML tags, XML elements) and understanding its **meaning** in the application domain **(1 mark)**. A computer can easily parse a link `<a href="/pay">` but doesn't know that following it will **transfer money**.
+
+The **Maze+XML API** bridges the gap by **(2 marks, any two)**:
+1. **Defining application-specific link relations** (`rel="east"`, `rel="west"`, `rel="start"`, `rel="exit"`) with documented meanings that client developers can program into their clients.
+2. **Registering a media type** (`application/vnd.amundsen.maze+xml`) with IANA, associating it with a **human-readable specification** that explains the semantics.
+3. **Providing a collection at the root URL** with `rel="maze"` links, enabling clients to discover mazes without hardcoded URLs.
+
+### 44. (4 marks) Compare and contrast registered link relations and extension link relations. Give two examples of each.
+
+#### Model Answer
+
+**(2 marks for definitions, 2 marks for examples)**
+
+**Registered link relations** are short strings (e.g. `next`, `previous`, `search`, `alternate`) that are **managed by IANA**. There are currently about 60 registered relations deemed generally useful and not tied to a particular data format **(1 mark)**.
+
+**Extension link relations** look like **URLs** (e.g. `http://mydomain.com/custom`). Anyone who owns a domain can define an extension relation to mean anything they want. No formal registration is required **(1 mark)**.
+
+**Examples of registered relations (1 mark for two correct examples)**:
+- `next` — link to the next document in a series
+- `prev` — link to the previous document in a series
+- `alternate` — link to an alternate representation (e.g. print page)
+- `search` — link to a search tool for the document
+- `nofollow` — indicates the linked document is not endorsed
+
+**Examples of extension relations (1 mark for two correct examples)**:
+- `http://example.com/vocab#east` (Maze+XML's `rel="east"` is actually a short string in that API, but extension relations look like URLs)
+- `http://schema.org/author` (schema.org relations are often used as extension relations)
+- Any custom URL like `http://mycompany.com/rels/archive`
+
+### 45. (3 marks) Describe the Maze+XML collection pattern. How does it enable discoverability?
+
+#### Model Answer
+
+The Maze+XML **collection pattern** uses a hierarchical structure to enable clients to discover mazes starting from only the root URL **(1 mark)**.
+
+**Root URL response** (collection of mazes):
+```xml
+<maze version="1.0">
+  <collection>
+    <link rel="maze" title="A Beginner's Maze" href="/beginner"/>
+    <link rel="maze" title="For Experts Only" href="/expert-maze/start"/>
+  </collection>
+</maze>
 ```
 
-Understood?
+**GET `/beginner`** returns an individual maze representation:
+```xml
+<maze version="1.0">
+  <item>
+    <title>A Beginner's Maze</title>
+    <link rel="start" href="/cells/C"/>
+  </item>
+</maze>
+```
+
+**How this enables discoverability (2 marks)**:
+- The client only needs to know the **root URL** and the **semantics of the link relations** (`rel="maze"`, `rel="start"`).
+- Following `rel="maze"` leads to a maze; following `rel="start"` leads to the start cell.
+- No hardcoded URL patterns (`/beginner` or `/cells/C`) are required in the client.
+- The server can change these URLs without breaking clients, as long as the link relations remain the same.
+
+### 46. (2 marks) What are structured syntax suffixes? Name three registered suffixes.
+
+#### Model Answer
+
+**Structured syntax suffixes** are augmentations to a media type that specify the underlying **structure (syntax)** of that media type **(1 mark)**. For example, `application/vnd.amundsen.maze+xml` means the media type uses XML syntax but has its own defined semantics.
+
+**Three registered suffixes (1 mark for any three)**: `+xml`, `+json`, `+zip`, `+ber`, `+der`, `+fastinfoset`, `+wbxml`, `+cbor`.
+
+### 47. (3 marks) Explain the trade-off in statelessness: improved reliability vs decreased network performance.
+
+#### Model Answer
+
+**Improved reliability (1.5 marks)**: Statelessness means each request contains **all necessary information** and does not rely on previous requests. If communication breaks, the process can **continue later** because the next request is self-contained. This also makes it easier to **recover from partial failure** (e.g., if a server crashes, any other server can handle the next request). Monitoring is also easier because a single request shows the complete context.
+
+**Decreased network performance (1.5 marks)**: Because each request must be **self-contained**, repetitive data (e.g. authentication credentials, user context) must be sent in **every request** rather than being remembered by the server. This increases the amount of data transmitted, which can be particularly costly for chatty APIs (many small requests). For example, a client making 100 API calls must send its authentication token 100 times instead of once.
+
+### 48. (2 marks) Explain the difference between safe and idempotent HTTP methods in the context of REST. Give one example of a safe method and one example of a non-safe but idempotent method.
+
+#### Model Answer
+
+**Safe methods** do **not modify server state**. They are read-only operations. Example: **GET** **(1 mark)**.
+
+**Idempotent methods** produce the **same server state** when the same request is sent multiple times. Sending a request once has the same effect as sending it twice or more. Example: **PUT** (replacing a resource with the same data multiple times leaves the resource unchanged) — PUT is **not safe** (it modifies state) but is **idempotent** **(1 mark)**.
+
+**Comparison**: DELETE is idempotent (deleting the same resource twice has the same effect as deleting it once — after the first delete, the resource is gone). POST is neither safe nor idempotent (sending the same POST twice may create two resources).
+
+### 49. (3 marks) A company is designing a new RESTful API. They propose putting all resource identifiers in query parameters (e.g. `GET /getUser?id=123`). Identify two violations of REST constraints and explain how to fix them.
+
+#### Model Answer
+
+**Violation 1 — Uniform Interface (Resource Identification)** (1.5 marks): REST requires that resources be identified by **unique and stable identifiers** in the **URL path**, not by query parameters. `GET /getUser?id=123` uses a verb in the URL (`getUser`) and a query parameter for the ID.
+
+**Fix**: Use `/users/123` — the noun (resource type) in the path, the identifier in the path, no verbs.
+
+**Violation 2 — Uniform Interface (Manipulation through Representations)** (1.5 marks): The URL `GET /getUser` implies an RPC-style operation ("get me a user") rather than retrieving a representation of a resource.
+
+**Fix**: Use HTTP methods correctly — `GET /users/123` retrieves a representation. To update, use `PUT /users/123` with the updated representation in the body. To delete, use `DELETE /users/123`. To create a new user, use `POST /users`.
+
+### 50. (2 marks) What is a rank sink in PageRank? How does the "surprise me" button (teleportation) solve the rank sink problem?
+
+#### Model Answer
+
+A **rank sink** is a page (or set of pages) with **no outgoing links** (dead end) or a page that forms a **loop** that traps the random surfer **(1 mark)**. In the basic PageRank formula, once the surfer reaches a rank sink, they cannot leave, and probability accumulates there incorrectly.
+
+The **"surprise me" button (teleportation)** solves this by introducing a probability `λ` (typically 0.15) that at each step, instead of following a link, the surfer **jumps to a random page** anywhere on the web **(1 mark)**. This guarantees that the surfer can eventually reach every page, eliminating the sink problem. The PageRank formula becomes `PR(u) = λ/N + (1-λ) × Σ PR(v)/L(v)`.
+
+---
+
+# Lecture 4: Bridging the Semantic Gap – Practice Exam Questions
+
+---
+
+## Section A: True or False (1 mark each)
+
+**For each statement, write T (True) or F (False).**
+
+### 1. In the REST cycle, steps 1–5 (request, receive, parse, change state, recognise controls) are easy to implement in autonomous code.
+
+#### Model Answer
+
+**True.** Steps 1–5 (requesting a resource, receiving a representation, parsing it, changing state, and recognising hypermedia controls) can be easily implemented in fully autonomous code. The difficult step is **step 6 — deciding which new resource to request**.
+
+### 2. A computer program can easily understand both the structure and the meaning of a document's hyperlinks.
+
+#### Model Answer
+
+**False.** A computer can easily understand a document's **structure** (e.g. discover HTML links), but it cannot understand **what each link actually does** (the meaning). This is the semantic gap.
+
+### 3. The semantic gap is the difference between understanding a document's syntax and understanding its meaning in the application domain.
+
+#### Model Answer
+
+**True.** The **semantic gap** is the difference between understanding the **structure/syntax** of a document (e.g. HTML tags, XML elements) and understanding its **meaning** in the application domain.
+
+### 4. We can completely eliminate the semantic gap with good API design.
+
+#### Model Answer
+
+**False.** There is **no magic shortcut**. The semantic gap **cannot be eliminated completely** because computers are not as smart as humans. However, we can **narrow the gap** with good API design.
+
+### 5. To bridge the semantic gap from server to client, the API designer should write a human-readable specification and register IANA media types.
+
+#### Model Answer
+
+**True.** The API designer should: (1) write down application semantics in a **human-readable specification**, and (2) **register one or more IANA media types** for the design, associating the media types with the human-readable specification.
+
+### 6. To bridge the semantic gap from client to server, the client developer should look up unknown media types in the IANA registry and read the human-readable specification.
+
+#### Model Answer
+
+**True.** The client developer: (1) looks up an **unknown media type in the IANA registry**, and (2) **reads the human-readable specification** to learn how to deal with documents of that media type.
+
+### 7. A human-driven client (e.g. a mobile app where a human makes decisions) still faces the full semantic gap problem.
+
+#### Model Answer
+
+**False.** With a **human in the loop**, the semantic gap is **not a problem** because the human understands the meaning. The human makes decisions about where to navigate; the computer just follows instructions.
+
+### 8. In HTML, the `rel` attribute (link relation) can only be used on `<a>` elements.
+
+#### Model Answer
+
+**False.** The `rel` attribute can be added to **both `<a>` and `<link>` elements**. This was tested in 2020 Q2c.
+
+### 9. A client that has been programmed with the Maze+XML specification can explore a maze without any human intervention.
+
+#### Model Answer
+
+**True.** An **automated client** (like the "Mapmaker") can explore a maze automatically if it has been programmed with the semantics of `rel="east"`, `rel="west"`, `rel="start"`, and `rel="exit"`.
+
+### 10. Failure to set a value to the Accept HTTP header field is a feature of a badly designed robot.
+
+#### Model Answer
+
+**False.** Failure to set the `Accept` header is **not** necessarily a feature of a badly designed robot (it's poor practice but not a sign of malicious behaviour). Bad robot features include: quick requests to the same site, failure to read robots.txt, and making requests at a regular monotonous rate. This was tested in 2020 Q2k.
+
+### 11. A badly designed robot makes requests to the same website at a regular and monotonous rate, making it easy to detect.
+
+#### Model Answer
+
+**True.** Crawlers that make requests at a **regular and monotonous rate** can be easily detected. Sophisticated bots **randomize the timing** of page requests to avoid detection.
+
+### 12. A server can detect a crawler by checking if it downloads the robots.txt file.
+
+#### Model Answer
+
+**False.** Downloading `robots.txt` is **normal behaviour** for well-behaved crawlers. Detection methods include quick successive requests, monotonous rates, trap links, and fictitious resources.
+
+### 13. Trap links are hidden links that human users cannot see but naive robots will follow.
+
+#### Model Answer
+
+**True.** A **trap link** (e.g. `/trap_unwanted_robots`) can be hidden using CSS (e.g. `display:none`). Human users do not see or click it, but naive robots will follow it, revealing their identity.
+
+### 14. Fictitious resources (e.g. `/followme/1/1`, `/followme/1/2`, ...) can cause naive robots to enter infinite recursion.
+
+#### Model Answer
+
+**True.** Dynamically created links to a sequence of fictitious resources that **never terminates** will cause naive robots to go into **infinite recursion**, destabilising the robot. Crawlers can avoid this by having a **limit on maximum depth**.
+
+### 15. Robots can avoid trap links by reading the robots.txt file, which often points to these trap links.
+
+#### Model Answer
+
+**True.** The `robots.txt` file usually points to robot trap links. A well-behaved robot reads `robots.txt` and will **avoid** those disallowed paths.
+
+### 16. The User-Agent HTTP header can be spoofed (faked) by crawlers to avoid detection.
+
+#### Model Answer
+
+**True.** The `User-Agent` header can be used to declare the identity of a crawler or browser. However, any client can **fake its identity** (spoofing). Servers cannot rely solely on User-Agent for detection.
+
+### 17. CAPTCHA pages are a sign that your robot is being blocked.
+
+#### Model Answer
+
+**True.** CAPTCHA pages, unusual content delivery delays, and frequent HTTP status codes (401, 403, 404, 408, 429) are all indications that a robot is **being blocked**. This was tested in 2020 Q2s.
+
+### 18. The `Crawl-delay` directive in robots.txt is a standard part of the robots.txt specification.
+
+#### Model Answer
+
+**False.** `Crawl-delay` is a **non-standard extension**. The robots.txt standard includes `User-agent`, `Allow`, and `Disallow`. `Crawl-delay` is supported by many crawlers but is not part of the official specification.
+
+---
+
+## Section B: Multiple Choice Questions (1 mark each)
+
+**Select the single correct answer unless otherwise stated.**
+
+### 19. In the REST cycle, which step is the most difficult to implement in fully autonomous code?
+- A. Requesting a representation of a resource
+- B. Parsing the representation
+- C. Changing the client's current state using information from the representation
+- D. Deciding which new resource to request
+
+#### Model Answer
+
+**D. Deciding which new resource to request.** Steps 1–5 are easy to automate. Step 6 — deciding which new resource to request — is difficult because it requires understanding the **meaning** of the available options, not just their syntax.
+
+### 20. Which of the following is NOT an indication that a web crawler is being blocked? (Select the exception)
+- A. CAPTCHA pages
+- B. Frequent 404 Not Found responses
+- C. Very short content delivery delays
+- D. Frequent 429 Too Many Requests responses
+
+#### Model Answer
+
+**C. Very short content delivery delays.** Indications of blocking include: CAPTCHA pages, **unusual content delivery delay** (very long delays, not short), and frequent HTTP status codes (401, 403, 404, 408, 429). Very short delays would indicate normal or fast service, not blocking.
+
+### 21. Which of the following is a feature of a badly designed robot? (Select three)
+- A. Quick page requests to the same website
+- B. Failure to download and read the robots.txt file
+- C. Setting a value to the Accept HTTP header field
+- D. Making requests to the same website at a regular and monotonous rate
+
+#### Model Answer
+
+**A, B, and D.** Bad robot features include: **quick requests to the same site** (A), **failure to read robots.txt** (B), and **monotonous request rate** (D). Setting the `Accept` header (C) is good practice, not a bad feature. This was tested in 2020 Q2k.
+
+### 22. What is the purpose of the `Accept` HTTP header?
+- A. To tell the server what content types the client can handle
+- B. To authenticate the client
+- C. To specify the client's user agent name
+- D. To request only the headers of a resource
+
+#### Model Answer
+
+**A. To tell the server what content types the client can handle.** The `Accept` header (e.g. `Accept: image/gif, image/jpeg, text/html`) informs the server which media types the client is willing to receive. Failure to set this is poor practice but not a sign of a badly designed robot.
+
+### 23. Which of the following can cause a naive crawler to enter infinite recursion?
+- A. robots.txt with `Disallow: /`
+- B. Fictitious resources that never terminate (e.g. `/page/1`, `/page/2`, ...)
+- C. HTTP 200 OK responses
+- D. A single page with no outgoing links
+
+#### Model Answer
+
+**B. Fictitious resources that never terminate.** A sequence of dynamically generated links (e.g. `/followme/1/1`, `/followme/1/2`, `/followme/1/3`, ...) that never ends will cause a naive crawler to follow links forever. Mitigation: set a **maximum depth limit**.
+
+### 24. How can a crawler avoid being trapped by fictitious resources?
+- A. Never follow any links
+- B. Set a limit on the maximum number of levels it can go deep down the same page hierarchy
+- C. Ignore all links with numeric parameters
+- D. Only crawl pages that end in `.html`
+
+#### Model Answer
+
+**B. Set a limit on the maximum number of levels it can go deep down the same page hierarchy.** By setting a **depth limit**, the crawler will stop following links after reaching a certain number of levels, preventing infinite recursion.
+
+### 25. A web server administrator wants to block a specific badly behaved crawler called "BadCrawler" but allow all other crawlers. Which robots.txt directive accomplishes this?
+- A. `User-agent: * Disallow: /`
+- B. `User-agent: BadCrawler Disallow: /`
+- C. `User-agent: BadCrawler Allow: /`
+- D. `Crawl-delay: 0`
+
+#### Model Answer
+
+**B. `User-agent: BadCrawler Disallow: /`.** This blocks all paths (`Disallow: /`) for the specific user agent "BadCrawler". The `*` user agent (all other crawlers) would have no restrictions (assuming no other blocks).
+
+---
+
+## Section C: Short Answer / Scenario-Based Questions
+
+### 26. (3 marks) Explain the REST cycle and identify which step is the most challenging for autonomous clients.
+
+#### Model Answer
+
+The REST cycle for a software agent **(1 mark for listing steps)**:
+1. Client requests a representation of a resource
+2. Server sends the representation in some format (e.g. HTML, JSON)
+3. Client parses the representation
+4. Client changes its current state using information from the representation
+5. Client recognises control structures (e.g. `<a>` tags, hypermedia links)
+6. Client decides on a new resource to request → back to step 1
+
+**Most challenging step (2 marks)**: **Step 6 — deciding which new resource to request**. While steps 1–5 can be easily automated (parsing, state changes, link recognition), step 6 requires understanding **what each link means**. A computer can see a link `<a href="/pay">Click here to pay</a>` but does not know that following it will transfer money. This is the **semantic gap**.
+
+### 27. (3 marks) Describe three ways a web server can detect and block unwanted web crawlers.
+
+#### Model Answer
+
+**(1 mark each, any three):**
+
+1. **Quick successive requests** — The most obvious feature of a badly designed robot is making very quick page requests to the same website. Well-behaved crawlers respect politeness policies (e.g. waiting several seconds between requests).
+
+2. **Trap links** — A hidden link (e.g. using CSS `display:none`) that human users cannot see (and thus will not click). When a naive robot follows this link, the server detects it and can block the crawler. Robots can avoid this by reading `robots.txt`, which usually points to these trap links.
+
+3. **Monotonous request rate** — Crawlers that make requests to the same website at a regular, predictable rate (e.g. exactly every 5 seconds) are easily detected. Sophisticated bots randomise the timing of requests.
+
+4. **Fictitious resources** — A dynamically created sequence of links that never terminates (e.g. `/page/1`, `/page/2`, `/page/3`, ...). Naive robots enter infinite recursion. Mitigation: set a maximum depth limit.
+
+5. **User-Agent blacklisting** — The `User-Agent` HTTP header identifies the crawler. Unwanted bots can be blacklisted. However, crawlers can spoof (fake) their User-Agent to avoid detection.
+
+### 28. (3 marks) What are trap links and fictitious resources? How can a well-designed crawler avoid each?
+
+#### Model Answer
+
+**Trap links (1.5 marks)**: Hidden links (e.g. CSS `display:none`, small font, same colour as background) that **human users cannot see or click**, but naive crawlers will follow because they parse all links regardless of visibility. **Avoidance**: Read the `robots.txt` file, which typically points to these trap links with `Disallow` directives. Do not crawl disallowed paths.
+
+**Fictitious resources (1.5 marks)**: A dynamically generated sequence of links that **never terminates** (e.g. `/followme/1/1`, `/followme/1/2`, `/followme/1/3`, ...). Each page contains a link to the next page in the sequence, creating an infinite chain. **Avoidance**: Set a **maximum depth limit** (e.g. stop after following 10 levels of the same page hierarchy). Once the depth limit is reached, the crawler stops following further links from that branch.
+
+### 29. (2 marks) What HTTP status codes indicate that a web crawler is likely being blocked? Name at least four.
+
+#### Model Answer
+
+**(0.5 marks for status code group explanation, 1.5 marks for four codes):**
+
+Frequent appearance of these status codes is an indication of blocking **(0.5 marks)**:
+
+- **401 Unauthorized** — Credentials required
+- **403 Forbidden** — Access denied
+- **404 Not Found** — Resource not found (may be a trap)
+- **408 Request Timeout** — Server timed out waiting for request
+- **429 Too Many Requests** — Rate limiting (crawling too fast)
+- **503 Service Unavailable** — Server overloaded (possibly due to crawler)
+
+**(Any four correct status codes = 1.5 marks)** This was tested in 2020 Q2s.
+
+### 30. (2 marks) A web server administrator wants to block a crawler that identifies itself as "BadBot" but allow all other crawlers. Write the appropriate robots.txt directives.
+
+#### Model Answer
+
+```txt
+User-agent: BadBot
+Disallow: /
+
+User-agent: *
+Disallow:
+```
+
+**(1 mark for correct structure with two user-agent blocks)**
+
+- The first block (**User-agent: BadBot**) with **Disallow: /** blocks the specific crawler from accessing **any** resources on the site.
+- The second block (**User-agent: ***) with **Disallow:** (empty) allows all other crawlers to access everything (since an empty Disallow means allow all).
+- Alternatively, omitting the second block would mean no restrictions for other crawlers (default is allow), but explicit is clearer.
+
+**(1 mark for correct explanation of what each directive does)**
+
+---
+
+# Lecture 5: The Hypermedia Zoo – Practice Exam Questions
+
+---
+
+## Section A: True or False (1 mark each)
+
+**For each statement, write T (True) or F (False).**
+
+### 1. Plain text (`text/plain`) has no structure except what is dictated by natural language rules.
+
+#### Model Answer
+
+**True.** Plain text has **no structure or format** except what is dictated by the rules of the natural language used (e.g. English vocabulary and grammar). It is best for very short API responses targeted at humans.
+
+### 2. HTML is the best choice for representing pure data intended for machine-to-machine communication.
+
+#### Model Answer
+
+**False.** HTML is designed to describe **human-readable documents**. It is **not the best choice for representing pure data** for machine-to-machine communication (such as database records or spreadsheet values). XML and JSON are better suited for this purpose.
+
+### 3. HTML5.2 was the last numbered version of HTML; HTML is now a living standard.
+
+#### Model Answer
+
+**True.** **HTML5.2** was the last numbered version of HTML. Currently, HTML is a **living standard** — continuously updated without version numbers.
+
+### 4. CSS (Cascading Style Sheets) dictates how HTML documents are rendered by the client.
+
+#### Model Answer
+
+**True.** Without CSS, it is up to the client (browser) to decide how to render the document (e.g. what font size or colour to use). **CSS** provides control over rendering.
+
+### 5. XML tags are predefined with specific meanings, just like HTML tags.
+
+#### Model Answer
+
+**False.** The XML standard only imposes restrictions on the **syntax** of the document and **does not assign any semantics to the tags**. Anyone can invent their own XML-based data format and define the semantics separately. HTML tags, by contrast, are predefined (e.g. `<h1>` means heading, `<p>` means paragraph).
+
+### 6. XML is mainly used for machine-to-human communication, while HTML is mainly used for machine-to-machine communication.
+
+#### Model Answer
+
+**False.** **HTML** is mainly used for **machine-to-human** communication (web pages for people). **XML** is mainly used for **machine-to-machine** communication (data exchange). SOAP chose XML for this reason.
+
+### 7. XML is platform independent and can be read and understood by humans as well as machines.
+
+#### Model Answer
+
+**True.** Being text-based, XML is **platform independent** (shared by other text-based formats) and is **readable and understandable by humans as well as machines**.
+
+### 8. JSON supports comments, making it self-documenting.
+
+#### Model Answer
+
+**False.** JSON does **not** have the capability to add comments. This is a notable disadvantage compared to formats like YAML, which supports `#` comments. Workarounds (e.g. using a `"_comment"` field) are non-standard.
+
+### 9. JSON is built on two universal data structures: a collection of name-value pairs and an ordered list of values.
+
+#### Model Answer
+
+**True.** JSON is built on two structures that are supported by **all programming languages**:
+1. A collection of **name-value pairs** (object, record, dict, hash table)
+2. An **ordered list of values** (array, vector, list, sequence)
+
+### 10. JSON has higher overhead (more metadata) than XML, making it heavier for data transmission.
+
+#### Model Answer
+
+**False.** JSON provides a **low overhead alternative to XML**. XML contains a lot of metadata (e.g. tag delimiters, opening and closing tags), making it heavier. JSON is more compact.
+
+### 11. RSS and Atom are both XML-based syndication formats for website updates.
+
+#### Model Answer
+
+**True.** **RSS (Really Simple Syndication)** and **Atom** are both XML-based formats that allow client applications to access updates to websites in a machine-readable format. Atom is an alternative to RSS, often considered more robust.
+
+### 12. The MIME type for RSS is `application/rss+xml`; for Atom it is `application/atom+xml`.
+
+#### Model Answer
+
+**True.** RSS uses `application/rss+xml`. Atom uses `application/atom+xml`. Both use the `+xml` structured syntax suffix.
+
+### 13. SOAP uses JSON as its underlying data format.
+
+#### Model Answer
+
+**False.** SOAP uses **XML** as its underlying data format. When web services such as SOAP were developed, XML was the natural choice for data exchange. The SOAP media type is `application/soap+xml`.
+
+### 14. YAML uses indentation to define structure, and tabs are allowed for indentation.
+
+#### Model Answer
+
+**False.** YAML uses **indentation** (spaces) to define structure, but **tabs are not allowed**. Only spaces are permitted for indentation.
+
+### 15. JSON is a language-independent data format despite its name "JavaScript Object Notation".
+
+#### Model Answer
+
+**True.** Despite the name, JSON is **language-independent**. It is supported by libraries in virtually all programming languages, not just JavaScript.
+
+### 16. Creating a new XML-based media type should be your first choice when designing an API.
+
+#### Model Answer
+
+**False.** Creating a new domain-specific media type should be a **last resort** in order to avoid creating yet another **fiat standard**. It is less work to add application semantics to a **generic hypermedia format** (e.g. using standard link relations).
+
+### 17. HTML can embed other data formats such as XML.
+
+#### Model Answer
+
+**True.** HTML can embed other data formats. For example, XML can be embedded within HTML (e.g. inside `<script>` tags or as data attributes).
+
+### 18. The MIME type `application/xml` is used for XML documents that are primarily machine-readable.
+
+#### Model Answer
+
+**True.** `application/xml` (or `text/xml`) is the MIME type for XML. Unlike HTML (`text/html`), XML is primarily for machine-to-machine communication, not human consumption.
+
+---
+
+## Section B: Multiple Choice Questions (1 mark each)
+
+**Select the single correct answer unless otherwise stated.**
+
+### 19. Which of the following is NOT a valid structured syntax suffix registered with IANA?
+- A. +xml
+- B. +json
+- C. +yaml
+- D. +zip
+
+#### Model Answer
+
+**C. +yaml.** Registered structured syntax suffixes include `+xml`, `+json`, `+zip`, `+ber`, `+der`, `+fastinfoset`, `+wbxml`, and `+cbor`. `+yaml` is not currently a registered suffix.
+
+### 20. Which media type is best suited for very short API responses targeted at humans (e.g. "OK" or "Service unavailable")?
+- A. `application/json`
+- B. `text/plain`
+- C. `text/html`
+- D. `application/xml`
+
+#### Model Answer
+
+**B. `text/plain`.** Plain text has no structure and is best for **very short API responses targeted at humans**. JSON and XML would add unnecessary structure and overhead.
+
+### 21. Which of the following is NOT a valid MIME type for an XML-based format?
+- A. `application/rss+xml`
+- B. `application/atom+xml`
+- C. `application/soap+xml`
+- D. `application/html+xml`
+
+#### Model Answer
+
+**D. `application/html+xml`.** HTML is not typically served with `+xml` suffix. Valid XML-based MIME types include RSS (`application/rss+xml`), Atom (`application/atom+xml`), SOAP (`application/soap+xml`), and Maze+XML (`application/vnd.amundsen.maze+xml`).
+
+### 22. What is the primary purpose of XML?
+- A. Rendering web pages in browsers
+- B. Data storage and serialisation, regardless of how it is rendered
+- C. Adding styling to HTML documents
+- D. Creating interactive web applications
+
+#### Model Answer
+
+**B. Data storage and serialisation, regardless of how it is rendered.** Unlike HTML (which represents the structure of human-readable documents), XML is used to represent **pure data** independent of rendering. Main purpose is data storage and serialisation.
+
+### 23. Which of the following is an advantage of JSON over XML?
+- A. Supports comments
+- B. Requires more bandwidth (higher overhead)
+- C. Easy to parse and lower overhead
+- D. Has built-in semantics
+
+#### Model Answer
+
+**C. Easy to parse and lower overhead.** JSON advantages include: low overhead (reduces storage and bandwidth), easy to parse (native in JavaScript, libraries in all languages), and ability to represent almost all kinds of data. JSON does **not** support comments (A) and has **no** built-in semantics (D). JSON has **lower** overhead than XML (B is false).
+
+### 24. Which of the following is a disadvantage of JSON compared to YAML?
+- A. JSON is more verbose
+- B. JSON does not support comments
+- C. JSON cannot represent nested data
+- D. JSON is not human-readable
+
+#### Model Answer
+
+**B. JSON does not support comments.** YAML supports comments starting with `#`. JSON has no comment capability. Both can represent nested data (C is false), both are human-readable (D is false), and JSON is actually less verbose than XML but YAML is often even less verbose than JSON (A is debatable but not the primary disadvantage).
+
+### 25. Which YAML feature makes it particularly suitable for configuration files?
+- A. It is a binary format
+- B. It supports comments (`#`) and is highly human-readable
+- C. It requires no indentation
+- D. It has built-in encryption
+
+#### Model Answer
+
+**B. It supports comments (`#`) and is highly human-readable.** YAML's comment support and human-friendly syntax (indentation-based structure, fewer brackets than JSON) make it popular for configuration files (e.g. Docker Compose, CI/CD pipelines).
+
+### 26. What is the MIME type for JSON?
+- A. `text/json`
+- B. `application/json`
+- C. `application/javascript`
+- D. `json/application`
+
+#### Model Answer
+
+**B. `application/json`.** The official MIME type for JSON is `application/json`. Not `text/json` (though sometimes used historically) or `application/javascript` (that's for JavaScript code).
+
+### 27. Which of the following statements about RSS and Atom is true?
+- A. RSS is more robust than Atom
+- B. Atom is an alternative to RSS with better support for metadata
+- C. Both use JSON as the underlying syntax
+- D. RSS is the only syndication format that supports images
+
+#### Model Answer
+
+**B. Atom is an alternative to RSS with better support for metadata.** Atom is often considered more robust and has better metadata support (author, updated time). Both use **XML** as underlying syntax (C is false). RSS does support images (D is false).
+
+### 28. Which of the following is a valid MIME type for a custom XML-based media type you have invented?
+- A. `application/myapp+xml`
+- B. `myapp/xml`
+- C. `text/xml-myapp`
+- D. `application/x-myapp+xml`
+
+#### Model Answer
+
+**D. `application/x-myapp+xml` (or D) – but careful:** The standard pattern for experimental/unregistered types is `application/x-<name>+xml` or `application/vnd.<company>.<name>+xml` for vendor types. The lecture recommends using existing formats when possible, but if you must create one, use the `vnd.` vendor tree or `x-` experimental prefix. `application/myapp+xml` (A) is not a standard pattern (no vendor or experimental prefix). The safest answer among these is not perfect, but in exam terms, `application/vnd.myapp+xml` would be correct. However, given the options, **A** is closer if we assume the exam treats "custom" as unregistered — but the lecture explicitly says "use as last resort" and register with IANA. For exam purposes, remember: **vendor tree = `vnd.` prefix**.
+
+*(Note: The lecture states: "If none of the existing XML-based media types meet your needs, you can create your media type and even try to register it with IANA. Use this as a last resort." The proper pattern is `application/vnd.companyname.format+xml`.)*
+
+### 29. Which format uses indentation (spaces, not tabs) to define structure and supports comments?
+- A. JSON
+- B. XML
+- C. YAML
+- D. CSV
+
+#### Model Answer
+
+**C. YAML.** YAML (YAML Ain't Markup Language) uses **indentation** (spaces only, no tabs) to define structure and supports **comments** starting with `#`. JSON does not support comments. XML uses tags, not indentation. CSV is tabular.
+
+### 30. What is the MIME type for SOAP messages?
+- A. `application/soap+xml`
+- B. `text/soap`
+- C. `application/xml-soap`
+- D. `soap/xml`
+
+#### Model Answer
+
+**A. `application/soap+xml`.** The SOAP media type is `application/soap+xml`. SOAP uses XML as its underlying syntax, hence the `+xml` suffix.
+
+---
+
+## Section C: Short Answer / Scenario-Based Questions
+
+### 31. (4 marks) Compare and contrast HTML and XML. Include their purposes, tag semantics, and typical use cases (human vs machine communication).
+
+#### Model Answer
+
+**(2 marks for similarities, 2 marks for differences):**
+
+**Similarities (1 mark for two similarities)**:
+- Both are textual markup languages
+- Both use tags (angle brackets) to delimit elements
+- Both are platform-independent and human-readable
+- Both can be parsed by standard libraries
+
+**Differences (3 marks):**
+
+| Aspect | HTML | XML |
+|--------|------|-----|
+| **Purpose** | Describes structure of human-readable documents | Represents pure data for storage and serialisation |
+| **Tag semantics** | Tags are **predefined** with specific meanings (`<h1>` = heading, `<p>` = paragraph) | Tags can be **anything**; no predefined semantics |
+| **Communication** | Mainly **machine-to-human** (web pages for people) | Mainly **machine-to-machine** (data exchange) |
+| **Rendering** | Browsers render based on tags | No default rendering (data only) |
+| **Verbosity** | Can be verbose (lots of metadata) | Even more verbose (requires closing tags, quotes) |
+
+### 32. (3 marks) List three advantages and two disadvantages of JSON compared to XML.
+
+#### Model Answer
+
+**Advantages (1.5 marks for any three)**:
+1. **Lower overhead** — JSON is more compact than XML, reducing storage and bandwidth requirements.
+2. **Easy to parse** — JSON maps directly to native data structures in JavaScript and has libraries in all languages.
+3. **Human-readable** — Cleaner syntax with fewer angle brackets and closing tags.
+4. **Faster parsing** — Generally faster to parse than XML due to simpler grammar.
+
+**Disadvantages (1.5 marks for any two)**:
+1. **No comments** — JSON does not support comments, making it harder to self-document.
+2. **No built-in schema** — JSON has no built-in validation (though JSON Schema exists as a separate standard).
+3. **No namespaces** — JSON lacks XML's namespace support, making integration of multiple vocabularies harder.
+4. **Less expressive for certain data structures** — XML handles mixed content (text with inline elements) more naturally.
+
+### 33. (2 marks) What is the difference between RSS and Atom? Which one is more robust for metadata?
+
+#### Model Answer
+
+**RSS (Really Simple Syndication)** and **Atom** are both **XML-based syndication formats** for website updates **(1 mark)**.
+
+**Atom** is generally considered more robust, particularly for **metadata**. Atom provides built-in support for:
+- Author information (`<author>`)
+- Publication and update dates (`<published>`, `<updated>`)
+- Unique identifiers (`<id>`)
+- Multiple alternate representations (`<link rel="alternate">`)
+
+RSS has multiple incompatible versions (0.91, 0.92, 2.0), while Atom is a single, well-defined IETF standard. **Atom is the better choice for applications requiring rich metadata (1 mark).**
+
+### 34. (3 marks) You are designing an API that needs to return a list of items. The server can return JSON, XML, or Collection+JSON. Which format(s) are acceptable in a RESTful API, and why?
+
+#### Model Answer
+
+**All of the above are acceptable (1 mark).**
+
+REST does **not mandate a specific media type**. The Uniform Interface constraint requires that the client and server agree on the media type, but the choice is flexible. This was tested in 2020 Q2j (answer: "Any of the above") **(1 mark)**.
+
+- **JSON** (`application/json`) — Most common choice today; lightweight, easy to parse, supported everywhere.
+- **XML** (`application/xml`) — Acceptable, especially in legacy systems or SOAP-based services; more verbose.
+- **Collection+JSON** (`application/vnd.collection+json`) — A specialised hypermedia format designed specifically for lists/collections; provides built-in support for pagination, queries, and templates.
+
+**Best practice recommendation (1 mark)**: JSON is recommended for most modern REST APIs due to its low overhead and ease of client-side parsing. However, providing **content negotiation** (clients specify `Accept: application/json` or `Accept: application/xml`) allows the server to support multiple formats.
+
+### 35. (2 marks) Explain why creating a new domain-specific XML media type should be a last resort in API design. What should you do instead?
+
+#### Model Answer
+
+Creating a new domain-specific media type should be a **last resort** because it results in a **fiat standard** — a one-off design that no one else has agreed to **(1 mark)**. This creates more work for client developers, reduces interoperability, and fails to benefit from existing standards and tools.
+
+**What to do instead (1 mark)**:
+- **Reuse existing generic hypermedia formats** (e.g. JSON, XML, Collection+JSON) and add application semantics using **standard link relations** (e.g. `rel="next"`, `rel="prev"`, `rel="search"`) registered with IANA.
+- If custom semantics are needed, use **extension link relations** (URLs) rather than inventing a whole new media type.
+- Only create a new media type when the semantics cannot be expressed with existing formats and link relations.
+
+### 36. (2 marks) Name three XML-based data formats discussed in the lecture and their MIME types.
+
+#### Model Answer
+
+**(2/3 mark each for correct name and MIME type — any three):**
+
+1. **RSS (Really Simple Syndication)** — `application/rss+xml`
+2. **Atom (Atom Syndication Format)** — `application/atom+xml`
+3. **SOAP (Simple Object Access Protocol)** — `application/soap+xml`
+4. **Maze+XML** — `application/vnd.amundsen.maze+xml`
+5. **Sitemap** — `application/xml` (or often `text/xml` for sitemap.xml)
+
+### 37. (3 marks) Explain what a "fiat standard" is in the context of RESTful APIs. Why are most commercial APIs (e.g. Twitter API, Facebook API) considered fiat standards?
+
+#### Model Answer
+
+A **fiat standard** is not really a standard; it is a **description of the way somebody does things**. No one formally agreed to it. It may be documented, but it lacks the core assumption of a standard — that other people ought to do things the same way **(1 mark)**.
+
+Most commercial APIs are considered fiat standards because they are **one-off designs associated with a specific company**. The "Twitter API" works for Twitter's specific business requirements, but it is not a general standard that other companies have agreed to follow **(1 mark)**.
+
+**Why this happens (1 mark)**: Under ideal circumstances, a fiat standard would be just a light gloss over a number of other standards (e.g. using standard HTTP methods, standard link relations, and standard media types). However, many developers create domain-specific designs as their first instinct, inventing new media types and custom link relations instead of reusing existing standards. This results in a fiat standard with limited interoperability.
+
+### 38. (2 marks) Write a YAML representation of the following JSON object: `{"person": {"name": "Alice", "age": 30, "hobbies": ["reading", "hiking"]}}`
+
+#### Model Answer
+
+```yaml
+person:
+  name: Alice
+  age: 30
+  hobbies:
+    - reading
+    - hiking
+```
+
+**(1 mark for correct indentation structure; 1 mark for correct conversion of JSON to YAML syntax — no quotes around keys, spaces after colons, dashes for list items.)**
+
+Note: YAML also supports comments; adding e.g. `# user profile` is optional but shows awareness of YAML's comment feature.
+
+### 39. (2 marks) What is a "living standard" for HTML? Why did the W3C move to this model?
+
+#### Model Answer
+
+A **living standard** means the specification is **continuously updated** rather than released in numbered versions (e.g. HTML5.2 was the last numbered version) **(1 mark)**.
+
+**Reason for the move**: The web evolves rapidly. A living standard allows the specification to keep pace with **browser implementations** and new web platform features without waiting for a new numbered version to be finalised. It is maintained by the **WHATWG** (Web Hypertext Application Technology Working Group) rather than W3C for HTML. This model supports **iterative development** and faster deployment of new features **(1 mark)**.
+
+### 40. (2 marks) What is the difference between `application/xml` and `text/xml`? When would you use each?
+
+#### Model Answer
+
+Both are MIME types for XML, but they imply different handling by clients **(1 mark)**:
+
+- **`application/xml`** — The XML document is treated as **generic application data** regardless of content. Clients should not attempt to render it as human-readable text. Preferred for machine-to-machine communication.
+
+- **`text/xml`** — The XML document is treated as **text** (like `text/plain` or `text/html`). Clients may attempt to display it as human-readable. Historically, some clients handle `text/xml` differently (e.g., displaying it in a browser window).
+
+**When to use each (1 mark)**:
+- Use **`application/xml`** for machine-to-machine communication (web services, data exchange).
+- Use **`text/xml`** when the XML is intended to be read by humans (e.g., debugging output, documentation examples). However, many developers simply use `application/xml` for all XML to avoid ambiguity.
+
+*End of Lectures 3, 4, and 5 Practice Exam Questions.*
