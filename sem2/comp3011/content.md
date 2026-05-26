@@ -2034,7 +2034,8 @@ D. **All of the above**" – Answer **D** (variable names don’t matter; patter
 A. `SELECT ?name WHERE { ?name foaf:name ?name. ?name dbo:birthPlace :Leeds. }` (incorrect – same variable used for name and person)
 B. `SELECT ?name WHERE { ?entity foaf:name ?name. ?entity dbo:birthPlace :Leeds. }` (correct)
 C. `SELECT ?name WHERE { ?entity foaf:name ?name. ?name dbo:birthPlace :Leeds. }` (incorrect – `?name` is a literal, cannot have birthPlace)
-D. `SELECT ?name WHERE { ?entity foaf:name ?Leeds. ?name dbo:birthPlace :Leeds. }` (incorrect)" – Answer **B**.
+D. `SELECT ?name WHERE { ?entity foaf:name ?Leeds. ?name dbo:birthPlace :Leeds. }` (incorrect)" 
+– Answer **B**.
 ## 9. RDF Diagram Drawing (Exam 2019 Q2)
 You may be asked to draw an RDF diagram from a textual description.
 
@@ -2404,7 +2405,13 @@ WHERE {
   ?sub ?pred dbr:Leeds .
 }
 ```
-**Exam trap (2020 Q2w)**: "Which is a correct SPARQL query to find any subject related to Leeds?" – All of `SELECT ?sub WHERE { ?sub ?pred :Leeds. }`, `SELECT ?entity WHERE { ?entity ?pred :Leeds. }`, etc. are correct because variable names don’t matter. Answer: **D. All of the above**.
+**Exam trap (2020 Q2w)**: "Which is a correct SPARQL query to find any subject related to Leeds?" – 
+All of 
+`SELECT ?sub WHERE { ?sub ?pred :Leeds. }`, 
+`SELECT ?entity WHERE { ?entity ?pred :Leeds. }`, 
+etc. are correct because variable names don’t matter. 
+
+Answer: **D. All of the above**.
 ### 8.3 Find any subject related to the string "Leeds" (English language)
 ```sparql
 SELECT ?sub
