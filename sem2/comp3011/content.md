@@ -2099,6 +2099,7 @@ You may be asked to draw an RDF diagram from a textual description.
 > To save space, URIs are abbreviated as **prefix:suffix**. The prefix expands to a base URI.
 
 **Common prefixes**:
+
 | Prefix | URI | Purpose |
 |--------|-----|---------|
 | `rdf:` | `http://www.w3.org/1999/02/22-rdf-syntax-ns#` | RDF syntax |
