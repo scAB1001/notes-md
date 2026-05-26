@@ -1958,8 +1958,9 @@ Diagram: node `dbpedia:Bonobo` → arrow labelled `rdf:type` → node `dbpedia-o
 **Exam trap (2020 Q2v)**: "Which RDF statement is NOT correct for 'bonobo is a mammal'?
 A. `dbpedia:Bonobo rdf:type dbpedia-owl:Mammal` (correct)
 B. `dbpedia:Bonobo a dbpedia-owl:Mammal` (correct – `a` is shorthand for `rdf:type`)
-C. `rdf:type dbpedia:Bonobo dbpedia-owl:Mammal` (incorrect – subject must come first)
-D. All are correct" – **Answer C**.
+**C. `rdf:type dbpedia:Bonobo dbpedia-owl:Mammal`** (incorrect – subject must come first)
+D. All are correct" 
+– **Answer C**.
 ### 4.2 Predicates are Discoverable
 > Anytime you want to know what a predicate means, you can **type its URI into a web browser** and look up its definition (e.g. in an RDF schema or ontology).
 
