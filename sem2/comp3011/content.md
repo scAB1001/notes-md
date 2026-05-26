@@ -1828,7 +1828,12 @@ R(Q, D) = Σ_i g_i(Q) × f_i(D)
 | **Typical use** | When memory is constrained | When disk seeks are expensive |
 | **Optimisation** | Requires large list buffers | Requires compressed accumulators |
 
-**Exam trap (2020 Q2r)**: "In a real search engine, which retrieval algorithm is better in terms of memory use? A. Document-at-a-time. B. Term-at-a-time. C. Roughly equal but require optimisation. D. Roughly equal and do not require optimisation." – **Answer C**. Both are used with optimisations; neither is strictly better without tuning.
+**Exam trap (2020 Q2r)**: "In a real search engine, which retrieval algorithm is better in terms of memory use? 
+- A. Document-at-a-time. 
+- B. Term-at-a-time. 
+- C. Roughly equal but require optimisation. 
+- D. Roughly equal and do not require optimisation." 
+– **Answer C**. Both are used with optimisations; neither is strictly better without tuning.
 ## 5. Conjunctive Processing (AND queries)
 > **Conjunctive processing** requires that **every document returned contains all query terms**. Default mode for many web search engines (users expect all terms to appear).
 
