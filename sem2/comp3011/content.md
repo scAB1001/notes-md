@@ -1831,7 +1831,7 @@ R(Q, D) = Σ_i g_i(Q) × f_i(D)
 **Exam trap (2020 Q2r)**: "In a real search engine, which retrieval algorithm is better in terms of memory use? 
 - A. Document-at-a-time. 
 - B. Term-at-a-time. 
-- C. Roughly equal but require optimisation. 
+- **C. Roughly equal but require optimisation.** 
 - D. Roughly equal and do not require optimisation." 
 – **Answer C**. Both are used with optimisations; neither is strictly better without tuning.
 ## 5. Conjunctive Processing (AND queries)
@@ -1867,11 +1867,15 @@ while (both lists not exhausted):
 
 **Skip pointer structure**: Grey boxes (skip pointers) point to later white boxes (postings). Stored as `(target_docID, byte_offset)`.
 ### 6.1 Skip Pointers Do Not Improve Asymptotic Complexity
-
 > Adding skip pointers does **not** change the **asymptotic** (big-O) running time – still O(n) for list of length n. However, practical speedup is huge (factor of 10–100).
 
 **Exam trap (2019 Q1m)**: "Skip pointers improve asymptotic performance" – **False**.
-**Exam trap (2020 Q2o)**: "Using skip pointers: A. Improves asymptotic time. B. Does not improve asymptotic time, hence should not be used. C. Does not improve asymptotic time, yet gives significant improvements – should be used. D. Increases time." – **Answer C**.
+**Exam trap (2020 Q2o)**: "Using skip pointers: 
+- A. Improves asymptotic time. 
+- B. Does not improve asymptotic time, hence should not be used. 
+- **C. Does not improve asymptotic time, yet gives significant improvements – should be used.** 
+- D. Increases time." 
+– **Answer C**.
 ### 6.2 Skip Pointer Optimisation (Cost Model)
 **Parameters**:
 - `n` = list length (bytes)
