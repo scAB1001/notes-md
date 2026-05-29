@@ -64,8 +64,7 @@ I will provide you with exam papers, content and exam structure.
 ## 2.1 What is Data? > A **datum** is a single measurement of something on a scale understandable to both recorder and reader. **Example**: Using the **Titanic dataset** (891 rows, 12 columns) to predict passenger survival based on personal characteristics (age, ticket class, gender). This is a **classification** task.
 ```
 # Lecture 1: Introduction to Cloud Computing (Part 1)
-## Goals
-Understand concepts of Cloud Computing
+**Goals:** Understand concepts of Cloud Computing
 ## Overview
 ### Technology landscape
 > **Cloud computing** = on-demand delivery of **compute, storage, networking** over the internet with **pay-as-you-go pricing** and **no upfront capital expenditure**.
@@ -1285,7 +1284,6 @@ VMs are great... but something more is needed:
 - **Private IP usually changes** – VM gets new IP from new subnet
 - **Best practice**: Use **DNS names** instead of hardcoded IPs
 ### Migration Methods – Storage
-
 **Case 1: Migration within same LAN (easy)** :
 - If SAN or NAS used locally, new VM accesses **same storage**
 - Disk state migration **not required**
@@ -1301,7 +1299,6 @@ VMs are great... but something more is needed:
 | ---------------------------- | ------------------------------------------------------------------------------------------------ | --------------------------- |
 | **Scaling Out** (Horizontal) | Getting additional VM(s) to spread application processing load                                   | Add more servers            |
 | **Scaling Up** (Vertical)    | Upgrading current hardware components within VM, or replacing VM with better performance version | Make existing server bigger |
-
 > **Cloud elasticity**: scale out for increased load, scale in when load decreases.
 ## Conclusion
 - Reviewed important aspects of cloud resource management and scheduling
@@ -1321,7 +1318,6 @@ VMs are great... but something more is needed:
 | **Scaling out**           | Add more VMs (horizontal)                                       |
 | **Scaling up**            | Make VM bigger (vertical)                                       |
 | **Hotspot**               | Excessive overloading of CPU/memory/network/storage             |
-
 **Exam traps**:
 - **Precopy = reliable** (preferred); **Postcopy = faster but less stable**
 - **LAN migration** = same private IP, unsolicited ARP
