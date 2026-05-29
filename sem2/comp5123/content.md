@@ -443,7 +443,6 @@ Understand concepts of Cloud Computing
 - **FPGA** for custom packet processing
 - **TPU** for neural network training
 ## Conclusion
-
 - Reviewed design issues for cloud datacenters at system level:
   - **Servers, racks, clusters**
   - **Storage** (local disks with replication vs SAN/NAS)
@@ -462,7 +461,6 @@ Understand concepts of Cloud Computing
 | **TPU**                     | Google custom ASIC for ML (100 petaflops)                           |
 | **FPGA**                    | Hardware-programmable (VHDL/Verilog)                                |
 | **GFS replication**         | At least 3 replicas on local disks                                  |
-
 **Exam traps**:
 - **2024 Q1f**: FPGA for custom data acquisition/pre-processing
 - **2025 Q1e**: TPU advantage = designed for ML computations
