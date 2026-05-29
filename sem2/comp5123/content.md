@@ -65,7 +65,6 @@ I will provide you with exam papers, content and exam structure.
 ```
 # Lecture 1: Introduction to Cloud Computing (Part 1)
 ## Goals
-
 Understand concepts of Cloud Computing
 ## Overview
 ### Technology landscape
