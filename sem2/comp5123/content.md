@@ -545,9 +545,7 @@ Top of Rack (TOR) Switches
 | ----------------- | ---------------------------------------------------------- | ----------------------------------- |
 | **Data plane**    | Packet forwarding (logic/tables for how to handle packets) | Remains in device (switch)          |
 | **Control plane** | Decision making (algorithms that program the data plane)   | Moved to **centralised controller** |
-
 **Traditional networks**: Control and data planes are coupled (each switch makes its own decisions)
-
 **SDN networks**: Centralised controller makes decisions; switches just forward packets
 ### SDN Components
 
@@ -576,7 +574,6 @@ Top of Rack (TOR) Switches
 | **NORMAL**        | Standard L2/L3 forwarding                             |
 | **MODIFY FIELD**  | Change header field (IP, MAC, VLAN) before forwarding |
 ## Conclusion
-
 - **In-network computing and security** enable modern datacenters to handle complex requirements
 - **Ethernet** is a trend in datacenters; **InfiniBand** offers software-defined, hardware-accelerated networking for HPC
 - **SDN simplifies management** of complex datacenter networks
