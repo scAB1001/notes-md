@@ -1234,7 +1234,6 @@ VMs are great... but something more is needed:
 | **Batch system**     | Maximise throughput, minimise turnaround time   |
 | **Real-time system** | Meet deadlines, be predictable (very difficult) |
 | **Best effort**      | Fair resource sharing                           |
-
 **Best effort scheduling algorithms**: Round-Robin (RR), First-Come-First-Served (FCFS), Shortest-Job-First (SJF), Priority Algorithms. Fairness indexes can be calculated.
 ## Scheduling Approaches
 ### VM Scheduling in OpenNebula
