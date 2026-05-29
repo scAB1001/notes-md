@@ -1456,7 +1456,6 @@ VMs are great... but something more is needed:
 | **System Context**   | Shows what Nephio is and how it interacts with other systems (responsibilities, connections – not deployment details) |
 | **System Landscape** | Explains that Nephio is made of several software systems working together; shows their relationships                  |
 | **Component View**   | Breaks down main parts inside Nephio (core functions, vendor-specific controllers, package management tools)          |
-
 **Component View details**:
 - **Nephio Core** – heart of architecture; operators and functions handling fundamental aspects independent of vendor-specific implementations
 - **Controllers for OAI (Open Air Interface) and Free5GC** – vendor extensions for open-source 5G implementations
