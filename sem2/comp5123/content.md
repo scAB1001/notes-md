@@ -3802,3 +3802,291 @@ Where α, γ, δ are slopes, β is intercept.
 - **Jevons paradox** = efficiency → more use (not less energy)
 - **VM power modelling** uses CPU utilisation proportion – simple but imperfect
 - **Idle servers consume up to 70% of max power** (can't just turn off)
+# Lecture 18: The Internet of Things and Ubiquitous Clouds
+
+## Plan of the Lecture
+
+### Goals
+Understand concepts surrounding ubiquitous clouds and the Internet of Things (IoT)
+
+### Overview
+- Technology abundance
+- Ubiquitous computing
+- Smart environments
+- IoT: architecture, scope, building blocks
+- RFID, NFC, Devices
+- The Challenges
+- IoT data flow to the cloud
+- Programmability of things
+- Wireless networks IoT (LoRa, 5G for IoT, 5G slicing)
+- Conclusion
+
+---
+
+## Technology Abundance
+
+> **The Big Switch in early 21st century** was enabled by:
+- More powerful computers
+- Almost infinite cheap storage
+- High bandwidth network and pervasive connectivity (6G, petabit networking in sight)
+- Industries racing to build massive datacenters
+- Virtualisation realising economies of scale
+
+> **Emerging idea**: Technological abundance (Peter Diamandis) – technology is becoming so cheap and plentiful that scarcity is no longer the limiting factor.
+
+---
+
+## Ubiquitous Computing
+
+> **Ubiquitous Computing** = inexpensive computing leading to **smart environments** or **ambient intelligence** – computing integrated seamlessly into everyday objects and environments.
+
+> Ubiquitous computing leads to **ubiquitous connectivity** – connectivity anywhere, anytime, anyplace, to anyone.
+
+**Result**: Emergence of the **Internet of Things (IoT)** concept.
+
+### Smart Environments and Cloud Computing
+
+> Clouds will be the base to provide future Internet services. Future Internet covers not only people and machines but also **any objects or things**.
+
+**Examples of things**: household appliances, security equipment, sensors and actuators, bottles of wine, surveillance equipment, goods in a supermarket.
+
+> **Key insight**: Interesting IoT applications **must leverage clouds** for processing and storage of massive amounts of data, dynamically.
+
+---
+
+## Internet of Things (IoT) – Definition
+
+> **Kevin Ashton** coined "Internet of Things" phrase to describe a system where the Internet is connected to the physical world via ubiquitous sensors.
+
+> **"Things"** = any physical object with a device that has its own IP address and can connect & send/receive data via a network.
+
+---
+
+## Architecture of the Internet of Things
+
+**Core enabling technology**: **RFID** (Radio Frequency Identification Technology) – allows things to be identified and tracked wirelessly.
+
+---
+
+## Scope of the Internet of Things
+
+IoT spans multiple domains:
+- **Smart Homes** – connected appliances, security, lighting, HVAC
+- **Smart Cities** – traffic management, waste management, smart lighting, parking
+- **Wearables** – fitness trackers, smartwatches, medical monitors
+- **Industrial IoT (IIoT)** – predictive maintenance, asset tracking, process automation
+- **Healthcare** – remote patient monitoring, smart implants
+- **Agriculture** – soil monitoring, precision irrigation, livestock tracking
+- **Transportation** – connected vehicles, fleet management, autonomous driving
+
+---
+
+## Building Blocks of the Internet of Things
+
+| Category | Elements | Examples |
+|----------|----------|----------|
+| **Identification** | Naming, Addressing | EPC (Electronic Product Code), uCode, IPv4, IPv6 |
+| **Sensing** | Sensors, Actuators | Smart sensors, wearable sensing, embedded sensors, RFID tags |
+| **Communication** | Protocols | RFID, NFC, UWB, Bluetooth, BLE, IEEE 802.15.4, Z-Wave, WiFi, WiFi Direct, LTE-A |
+| **Computation** | Hardware, Software | Arduino, Raspberry Pi, BeagleBone, smartphones; Contiki, TinyOS, LiteOS, RIOT OS, Android |
+| **Services** | Types | Identity-related (shipping), Information Aggregation (smart grid), Collaborative-Aware (smart home), Ubiquitous (smart city) |
+| **Semantic** | Data models | RDF, OWL, EXI (Efficient XML Interchange) |
+
+---
+
+## RFID – Radio Frequency Identification
+
+> **RFID** = wireless technology that uses radio waves to identify and track objects, animals, or people automatically.
+
+### Components
+
+| Component | Function |
+|-----------|----------|
+| **Tag** | Contains microchip and antenna; can be **passive** (no battery), **active** (battery-powered), or **semi-passive** |
+| **Reader** | Sends and receives signals to/from the tag |
+| **Antenna** | Facilitates communication between tag and reader |
+
+**How it works**:
+1. Reader emits radio waves
+2. Tag responds with stored data (e.g., ID number)
+3. Reader processes data and sends to backend system
+
+---
+
+## NFC – Near Field Communication
+
+> **NFC** = short-range wireless communication technology enabling data exchange between devices within **~4 cm**.
+
+### Modes of Operation
+
+| Mode | Description | Example |
+|------|-------------|---------|
+| **Peer-to-peer** | Two devices exchange data | Sharing contact info, photos |
+| **Reader/Writer** | Device reads data from NFC tags | Reading product information from smart poster |
+| **Card emulation** | Device acts like contactless card | Mobile payments (Apple Pay, Google Pay) |
+
+**How it works**:
+- Requires two NFC-enabled devices: **initiator** (generates RF field) and **target**
+- Communication automatic when devices brought close together
+
+---
+
+## Other IoT Devices
+
+| Device Type | Examples | Characteristics |
+|-------------|----------|-----------------|
+| **Beacons** | Bluetooth Low Energy (BLE) beacons | Broadcast signals for proximity detection; used in retail, museums, airports |
+| **Dongles** | USB IoT adapters | Add connectivity to existing devices; plug-and-play |
+| **Wearables** | Smartwatches, fitness trackers, medical patches | Body-worn; often have limited battery and compute |
+
+---
+
+## The Challenges of IoT
+
+| Challenge | Description |
+|-----------|-------------|
+| **Massive scale** | Billions of devices to manage |
+| **Heterogeneity** | Different protocols, data formats, hardware capabilities |
+| **Security** | Constrained devices difficult to secure; large attack surface |
+| **RF interference** | Wireless spectrum congestion |
+| **Control traffic** | Large volume of signalling and coordination messages |
+| **Low latency requirements** | Some applications require near-real-time response |
+| **Power constraints** | Many devices battery-powered; must operate for years |
+| **Reliability** | Network or device failures must be handled gracefully |
+
+> **Control traffic and security mechanisms must be lightweight and optimised to minimise power consumption without compromising performance or trust.**
+
+---
+
+## IoT Data Flow to the Cloud
+
+### Forward Flow (Sensor Data Path)
+
+| Layer | Function |
+|-------|----------|
+| **1. Sensing Layer** | Physical sensors collect raw data (temperature, motion, humidity, etc.) |
+| **2. Edge Layer** | Data pre-processed (filtering, aggregation, compression); may trigger local actions |
+| **3. Network Layer** | Data transmitted via protocols (MQTT, CoAP, LoRa, IEEE 802.15.4, Zigbee, Sigfox) to edge servers/gateways and to cloud |
+| **4. Cloud/Platform Layer** | Data stored (big data), analysed, visualised; AI/ML models extract insights or detect anomalies |
+| **5. Application Layer** | Information visualisation; insights used for decision-making, automation, or user interaction |
+
+---
+
+## Programmability of Things
+
+### Reverse Path (Control Flow)
+
+> **Programmability of the physical** = ability to send control commands from cloud/edge back to actuators.
+
+| Step | Description |
+|------|-------------|
+| **1. Control Commands** | Decisions or models generate actuation commands |
+| **2. Edge Execution** | Commands sent to actuators via edge gateways |
+| **3. Actuation Layer** | Physical devices (motors, valves, lights, alarms) controlled in near real-time |
+| **4. Feedback Loop** | Sensor data confirms execution and updates system state; new decisions made |
+
+> **Cloud → Edge → Actuators** path enables closed-loop control of physical systems.
+
+---
+
+## Cloud, Fog, and Edge Computing – The Continuum
+
+| Layer | Location | Characteristics |
+|-------|----------|-----------------|
+| **Cloud Computing** | Centralised datacenters | Massive storage, powerful analytics, high latency |
+| **Fog Computing** | Intermediate layer (network edge) | Local aggregation, filtering, some processing |
+| **Edge Computing** | Device/thing level | Fastest response, local decision-making, minimal bandwidth |
+
+> **Cloud provides elastic storage, analytics, and centralised management. Edge processes data closer to devices to reduce latency, bandwidth use, and energy consumption.**
+
+---
+
+## Wireless Networks for Supporting Ubiquitous Computing
+
+| Feature | LoRaWAN | NB-IoT | Wi-Fi 6 (802.11ax) | BLE | Zigbee |
+|---------|---------|--------|---------------------|-----|--------|
+| **Application Focus** | Long-range, low-power sensors | Cellular IoT for massive deployments | High-speed IoT, smart homes | Short-range, low-power devices | Home automation, industrial IoT |
+| **System Resources** | 32–256 KB | 256 KB+ | 1 MB+ | 32–256 KB | 4–256 KB |
+| **Battery Life (days)** | 1,000+ | 1,000+ | 100–1,000+ | 100–1,000+ | 100–1,000+ |
+| **Network Size** | Unlimited (star) | Unlimited (cellular) | Thousands (multi-AP) | 32,767 (mesh) | Unlimited (mesh) |
+| **Bandwidth (Kbps)** | 0.3–50 | 20–250 | 600,000+ | 125–2,000 | 20–250 |
+| **Range (meters)** | 2,000–10,000 | 1,000–10,000 | 1–100 | 1–100 | 1–100 |
+| **Success Metrics** | Coverage, power efficiency | Coverage, reliability | Speed, flexibility | Cost, convenience | Reliability, cost |
+
+---
+
+## LoRa – Long Range Communication
+
+> **LoRa (Long Range)** = low-power, long-range wireless communication protocol designed for IoT applications.
+
+### Key Characteristics
+
+| Aspect | Specification |
+|--------|---------------|
+| **Frequency bands** | Unlicensed ISM bands (e.g., 868 MHz in Europe, 915 MHz in US, 433 MHz in Asia) |
+| **Range** | Up to 10 km in rural areas; 2–5 km in urban settings |
+| **Data rate** | Low (ideal for small, infrequent data packets) |
+| **Power consumption** | Very low (battery life: years) |
+| **Topology** | Star-of-stars (devices → gateways → network server) |
+
+**Example**: ESP32 LoRa – popular development board combining LoRa with Wi-Fi/Bluetooth.
+
+---
+
+## 5G Support for IoT
+
+> Networks can now be customised through **network slicing** – multiple logical "slices" (virtual networks) of functionality optimised for specific use cases, all operating on a single physical core within the 5G network infrastructure.
+
+### 5G Slicing – Virtualised Isolated Networks
+
+> **Network slicing** creates end-to-end virtual networks with dedicated resources (compute, storage, networking) tailored to specific service requirements.
+
+**Exam relevance (2024 Q1e)**: "What concept does 5G use to support network function virtualisation?" – **D. slice**.
+
+### Example Slices for IoT
+
+| Slice Type | Characteristics | Use Cases |
+|------------|----------------|-----------|
+| **Massive IoT (mMTC)** | Many devices, low bandwidth, long battery life | Sensors, smart meters, asset tracking |
+| **Ultra-Reliable Low Latency (URLLC)** | Very low latency, high reliability | Autonomous vehicles, remote surgery, industrial control |
+| **Enhanced Mobile Broadband (eMBB)** | High bandwidth, moderate latency | Video streaming, VR/AR, fixed wireless |
+
+---
+
+## Conclusion
+
+| Key Point | Summary |
+|-----------|---------|
+| **Cloud + Edge essential for IoT** | Balance scalability with real-time performance |
+| **Cloud provides** | Elastic storage, analytics, centralised management for massive IoT data volumes |
+| **Edge computing provides** | Low latency, reduced bandwidth use, lower energy consumption, faster decision-making |
+| **Together they enable** | Faster decision-making, resilient operation, secure data handling for time-critical and resource-constrained IoT applications |
+
+---
+
+## Quick Reference for This Lecture
+
+| Term | Definition |
+|------|------------|
+| **Ubiquitous computing** | Computing integrated seamlessly into everyday objects/environments |
+| **IoT** | Internet of Things – physical objects with IP addresses connecting to network |
+| **RFID** | Radio Frequency Identification – wireless identification/tracking |
+| **NFC** | Near Field Communication – short-range (~4cm) wireless data exchange |
+| **LoRa** | Long Range – low-power, long-range IoT wireless protocol |
+| **Network slicing** | Virtualised isolated networks on shared 5G infrastructure |
+| **Edge computing** | Data processing near devices (low latency) |
+| **Fog computing** | Intermediate layer between edge and cloud |
+| **EPC** | Electronic Product Code (RFID identification) |
+| **MQTT, CoAP** | IoT communication protocols |
+| **Contiki, TinyOS, RIOT OS** | IoT operating systems |
+| **mMTC** | Massive Machine Type Communication (5G slice) |
+| **URLLC** | Ultra-Reliable Low Latency Communication (5G slice) |
+| **eMBB** | Enhanced Mobile Broadband (5G slice) |
+
+**Exam traps**:
+- **2024 Q1e**: 5G supports NFV through **network slicing** (D – slice)
+- **Cloud vs Edge**: Cloud = centralised, high latency, massive storage; Edge = distributed, low latency, local processing
+- **RFID vs NFC**: RFID longer range (metres), NFC very short range (~4cm)
+- **LoRa** = unlicensed spectrum, long range, low bandwidth, very low power
+- **5G slicing** creates virtual networks – each slice can have different QoS characteristics
+- **Kevin Ashton** coined "Internet of Things" (exam may ask who coined the term)
