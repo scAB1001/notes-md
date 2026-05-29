@@ -93,7 +93,6 @@ Understand concepts of Cloud Computing
 
 **Example**: Moore's Law (transistors doubling every 2 years) → El Capitan supercomputer: **1.742 exaflops/s**, 11 million cores (2024).
 ### Examples of current scales
-
 **Exponential growth trends**:
 
 | Technology      | Doubling Period | 1986 → 2000 → Today                               |
@@ -101,7 +100,6 @@ Understand concepts of Cloud Computing
 | Computer speed  | 18 months       | 64Kbs → 2.5Gbps → Terabits                        |
 | Network speed   | 9 months        | 64Kbs → 2.5Gbps → 1 Petabit/s (CRS-X)             |
 | Storage density | 12 months       | 0.5 PB (2000) → Exabytes → Zetta era (10²¹ bytes) |
-
 **Current data scales (exam-relevant figures)**:
 
 | Company  | Data Scale                                       |
@@ -169,10 +167,8 @@ Understand concepts of Cloud Computing
 - "location independence, multi-tenant" = **Resource pooling**
 # Lecture 2: Introduction to Cloud Computing (Part 2)
 ## Goals
-
 Understand concepts of Cloud Computing
 ## Taxonomy of Cloud Services
-
 > **Cloud Service Stack** comprises three layers; services can be exposed at any layer, with lower layers hidden from end user.
 ### Layer 1: Infrastructure as a Service (IaaS)
 > **IaaS** = pay-as-you-go IT infrastructure by renting **servers, VMs, storage, networks, OS** from a cloud provider.
@@ -243,7 +239,6 @@ Understand concepts of Cloud Computing
 
 **Example**: Cloud broker provides unified interface to AWS, Azure, and GCP.
 ## Virtualisation
-
 > **Virtualisation** = emulating in software a specialised physical resource (machine, network function) into a host computer. Enables reproducing same capabilities/functionalities from client's perspective – **implemented in software**.
 ### Historical context
 - Heated topic in **1970s** following IBM's introduction of **VMM (Virtual Machine Monitor)** in 1960s
