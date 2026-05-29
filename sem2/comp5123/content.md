@@ -636,7 +636,6 @@ Top of Rack (TOR) Switches
 | **Snapshots and clones**  | Capture VM state on the fly; restore to point-in-time                             |
 | **Encapsulation**         | VM can be saved as a file (image) containing OS, apps, data, memory, device state |
 ### Virtual Machine Monitor (Hypervisor)
-
 **Type 1 (Bare-metal)** – runs directly on hardware:
 - VMware ESXi, Xen, KVM, Microsoft Hyper-V
 
