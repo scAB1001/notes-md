@@ -1000,14 +1000,12 @@ Services placed anywhere from dedicated hardware to just a software package.
 - Conclusion
 ## Introduction
 ### Why a Virtual Infrastructure Manager (VIM)?
-
 VMs are great... but something more is needed:
 - Where do I put my VM? (**scheduling & monitoring**)
 - How do I provision a new cluster node? (**clone & context**)
 - What MAC addresses are available? (**networking**)
 > **VIM provides**: uniform view of resource pool, life-cycle management and monitoring of VM, integration of Image, Network and Virtualisation.
 ### Virtual Machine Management Model
-
 **Key principles**:
 - VM Manager is **service agnostic** – doesn't matter if service is web server or database
 - VMs encapsulate service components and act as endpoints for client interactions
@@ -1020,7 +1018,6 @@ VMs are great... but something more is needed:
 - **Image management**: creation, storage, distribution of VM images
 - **Enables scalable, modular control** of VM infrastructure across multiple nodes
 ### Benefits of VIM
-
 **For Infrastructure Manager**:
 - Centralised management of VM workload and distributed infrastructures
 - Support for VM placement policies (load balancing, server consolidation)
@@ -1031,7 +1028,6 @@ VMs are great... but something more is needed:
 > **Server consolidation** = reducing number of physical servers by running multiple VMs on fewer physical hosts.
 ## Virtual Infrastructure Managers – Architectural View
 ### OpenNebula (https://opennebula.io/)
-
 **Additional interaction methods**: CLIs and APIs.
 
 | Feature                       | Function                                                                                     |
@@ -1139,7 +1135,6 @@ VMs are great... but something more is needed:
 | **Trove**      | Database as a Service                                  |
 | **Sahara**     | Rapidly provision Hadoop clusters                      |
 ## Programming – APIs
-
 **Interaction with OpenStack**:
 1. OpenStack portal (Horizon – web GUI)
 2. Python SDK for OpenStack APIs
@@ -1149,7 +1144,6 @@ VMs are great... but something more is needed:
 - OCA libraries (Ruby, Java, Python)
 - CLI tools
 ## Conclusion
-
 - Presented Virtual Infrastructure Management features
 - Two examples: **OpenNebula** (simpler, lightweight) vs **OpenStack** (complex, full-featured)
 - Both provide setting up **private and hybrid clouds**
