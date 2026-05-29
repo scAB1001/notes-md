@@ -67,8 +67,6 @@ I will provide you with exam papers, content and exam structure.
 ## 2.1 What is Data? > A **datum** is a single measurement of something on a scale understandable to both recorder and reader. **Example**: Using the **Titanic dataset** (891 rows, 12 columns) to predict passenger survival based on personal characteristics (age, ticket class, gender). This is a **classification** task.
 ```
 
-
-
 # Lecture 1: Introduction to Cloud Computing (Part 1)
 
 ## Goals
@@ -1718,3 +1716,2089 @@ Understand concepts of resource management and scheduling in clouds
 - **WAN migration** = new public/private IPs, use DNS names
 - **Scaling out** = more VMs; **Scaling up** = bigger VM
 - **Server consolidation** reduces physical servers → saves energy
+# Lecture 9: Container Management – Kubernetes
+
+## Plan of the Lecture
+
+### Goals
+Understand the concepts of container orchestration
+
+### Overview
+- Kubernetes: what is it?
+- Definitions
+- Architecture
+- Key concepts
+- Pods and containers
+- Auto-scaling
+- Nephio
+- References
+
+---
+
+## Kubernetes: What Is It?
+
+> **Kubernetes** (Greek for "pilot" or "helmsman of a ship") = open source cluster manager from Google. **Pronunciation**: Koo-ber-NAY-teez.
+
+**Alternative names**: **kube**, **k8s** ('k' + 8 letters + 's').
+
+> **Kubernetes** = declarative language for launching containers + highly collaborative open-source project originally conceived by Google (10+ years experience with containerised apps). **De facto standard for container orchestration**.
+
+**Key capabilities**:
+- Start, stop, update, and manage a cluster of machines running containers in a consistent and maintainable fashion
+- Provided as a service (Google Cloud, Rackspace, Azure, etc.)
+
+### Kubernetes Role
+
+| Function | Description |
+|----------|-------------|
+| **Coordinates deployments** | Which containers? Where? How do different containers talk to each other? |
+| **Improves reliability** | Continuously monitors and manages containers; scales application to handle load changes |
+| **Manages infrastructure resources** | Reduces infrastructure requirements by scaling up/down gracefully |
+
+---
+
+## Definitions
+
+| Term | Definition |
+|------|------------|
+| **Kubernetes (k8s)** | Open source container orchestration platform originally from Google |
+| **Pod** | Smallest deployable unit of compute; one or more containers sharing network namespace and storage |
+| **Node** | Worker machine (virtual or physical) where pods run |
+| **Cluster** | Set of nodes managed by the control plane |
+| **Control Plane** | Kubernetes master components (API server, etcd, scheduler, controller manager) |
+| **Deployment** | Defines desired state for pods (template + replicas); manages rolling updates |
+| **ReplicaSet** | Ensures specified number of identical pods are always running |
+| **Service** | Stable network endpoint (internal IP/DNS) for accessing pods; internal load balancer |
+| **Namespace** | Logical isolation method; creates virtual environments inside same physical infrastructure |
+
+---
+
+## Architecture
+
+### High-Level Architecture
+
+**Control Plane (Master)** components:
+- **kube-api-server** – API that clients use to interact with control plane; handles authentication, authorisation, request validation, admission control
+- **etcd** – Strong, consistent, highly available key-value store for persisting cluster state
+- **kube-controller-manager** – Primary daemon managing all core component control loops
+- **kube-scheduler** – Assigns pods to nodes; default scheduler uses **bin packing** (smallest number of nodes with enough capacity)
+
+**Node-Level Abstractions**:
+
+| Component | Function |
+|-----------|----------|
+| **kubelet** | Node agent responsible for managing lifecycle of every pod on its host; ensures containers run as defined in PodSpec; reports status to API server |
+| **Container Runtime Engine** | Actually runs and manages container lifecycle (start, stop, delete) – e.g., Docker, containerd |
+| **kube-proxy** | TCP/UDP forwarding; manages network rules on each node; manages iptables/IPVS rules to route traffic to correct pods |
+| **System services** | Essential OS-level services supporting control plane and nodes (networking, storage, process management) |
+
+---
+
+## Key Concepts
+
+### Pods
+
+> **Pod** = atomic unit / smallest "unit of work" of Kubernetes. **One or more containers** that share volumes, a network namespace, and are part of a single context.
+
+**What pods share**:
+- **Storage volumes** – containers can read/write same files
+- **Network namespace** – communicate over **localhost**; share same IP address and ports
+
+### Nodes
+
+> **Node** = worker machine (virtual or physical). Each Node managed by the **Master**. Node can have **multiple pods**. Master automatically schedules pods across cluster nodes considering available resources.
+
+### Namespace
+
+> **Namespace** = logical isolation method. Most resources are namespace-scoped (share same context). Creates **virtual environments** inside same physical infrastructure.
+
+**Uses**:
+- Group similar workloads logically
+- Enforce policies (access controls, resource limits, network policies)
+
+### Deployment
+
+> **Deployment** defines:
+> - **Pod template** (how each pod should be configured)
+> - **Replicas field** (how many copies of the pod should run)
+
+**Behaviour**:
+- Kubernetes constantly monitors system to ensure running pods match Deployment definition
+- If pod crashes → Kubernetes fixes automatically
+- If Deployment changes (e.g., update container image) → **rolling update** gradually replaces old pods with new ones (avoids downtime)
+
+### ReplicaSet
+
+> **ReplicaSet** ensures specified number of identical pods are always running.
+
+**Behaviour**:
+- If pod crashes or deleted → ReplicaSet automatically creates new one to maintain desired count
+- **Horizontal scaling** adjusts replica count dynamically (e.g., 3 → 6 pods) based on metrics (CPU usage)
+- **Deployment manages ReplicaSets over time**
+
+### Service
+
+> **Service** provides stable way to talk to containerised application using internal IP or DNS name. **Internal load balancer** to pod(s).
+
+**Key properties**:
+- Even if pods created/destroyed, Service provides **consistent network endpoint**
+- **Durable resource** – static cluster IP, static namespaced DNS name
+- Clients always reach application regardless of pod changes
+
+---
+
+## Auto-Scaling
+
+### Horizontal Pod Autoscaler (HPA)
+
+> **HPA** = built-in feature; control loop that runs intermittently. **Automatically scales pods in/out** based on metrics (primarily CPU usage).
+
+**Works on top of**:
+- **ReplicaSets** – ensures given number of identical pods are up
+- **Deployments** – manages replica set through time and versions
+
+**Operation**:
+- Makes threshold-based decisions automatically
+- Scales pods up when load increases
+- Scales pods down when load decreases
+
+**Exam trap (2025 Q1f)**: HPA primary function = **B. Automatically adjust number of replicas in a workload based on observed resource utilisation** (not node scaling, not network traffic, not persistent storage).
+
+### Cluster Autoscaler
+
+> **Cluster Autoscaler** changes the number of cluster **nodes** (makes new nodes available). While HPA scales **pods**, Cluster Autoscaler scales **nodes**.
+
+**Triggered when**:
+- HPA requests more pods but cluster lacks available node resources to schedule them
+- Cluster Autoscaler tries to consolidate pods deployed on few nodes
+
+**Loops constantly through both tasks** (scaling in and out).
+
+---
+
+## Nephio: Cloud Native Network Automation
+
+> **Nephio** = Kubernetes-based open-source framework for managing network functions and underlying infrastructure using cloud-native principles.
+
+**Purpose**: Bridges gaps between traditional networking and modern cloud-native paradigms using **Kubernetes-driven intent-based automation** across cloud and edge environments. Aims for **carrier-grade automation** that is open, extensible, and standards-aligned (3GPP, O-RAN).
+
+**Key features**:
+- Uses Kubernetes **declarative automation** and **intent-driven models**
+- Simplifies deployment and management of multi-vendor network functions across distributed cloud environments
+
+**Abstraction levels**:
+| Level | Description |
+|-------|-------------|
+| **System Context** | Shows what Nephio is and how it interacts with other systems (responsibilities, connections – not deployment details) |
+| **System Landscape** | Explains that Nephio is made of several software systems working together; shows their relationships |
+| **Component View** | Breaks down main parts inside Nephio (core functions, vendor-specific controllers, package management tools) |
+
+**Component View details**:
+- **Nephio Core** – heart of architecture; operators and functions handling fundamental aspects independent of vendor-specific implementations
+- **Controllers for OAI (Open Air Interface) and Free5GC** – vendor extensions for open-source 5G implementations
+- **Porch** – key component providing package orchestration and lifecycle management in Kubernetes-native way
+
+---
+
+## Comparison Table: HPA vs Cluster Autoscaler
+
+| Feature | Horizontal Pod Autoscaler (HPA) | Cluster Autoscaler |
+|---------|--------------------------------|---------------------|
+| **Scales** | **Pods** (number of replicas) | **Nodes** (cluster size) |
+| **Trigger** | CPU utilisation, custom metrics | Pods pending due to insufficient resources |
+| **Direction** | Scales out (more pods) and in (fewer pods) | Scales up (more nodes) and down (fewer nodes) |
+| **Works with** | Deployments, ReplicaSets | Node pools, auto-scaling groups |
+| **Relationship** | HPA can trigger CA when pods can't be scheduled | CA adds nodes to accommodate HPA-requested pods |
+
+---
+
+## Quick Reference for This Lecture
+
+| Term | Definition |
+|------|------------|
+| **k8s** | Kubernetes (k + 8 letters + s) |
+| **Pod** | Smallest deployable unit; 1+ containers sharing network/storage |
+| **Node** | Worker machine (VM or physical) |
+| **Control Plane** | Master components (API server, etcd, scheduler, controller manager) |
+| **kube-api-server** | Entry point for all Kubernetes API calls |
+| **etcd** | Key-value store for cluster state |
+| **kube-scheduler** | Assigns pods to nodes (bin packing) |
+| **kubelet** | Node agent managing pods |
+| **kube-proxy** | Network rules and routing |
+| **Deployment** | Desired state for pods (template + replicas) |
+| **ReplicaSet** | Maintains pod count |
+| **Service** | Stable network endpoint for pods |
+| **Namespace** | Logical isolation within cluster |
+| **HPA** | Scales pods based on CPU/metrics |
+| **Cluster Autoscaler** | Scales nodes |
+| **Rolling update** | Gradual pod replacement (zero downtime) |
+| **Nephio** | K8s-based network function automation |
+
+**Exam traps**:
+- **2025 Q1f**: HPA = pod scaling (not node scaling)
+- **Pod vs Container**: Pod can have multiple containers; smallest **Kubernetes** unit is Pod, not container
+- **Deployment vs ReplicaSet**: Deployment manages ReplicaSets; ReplicaSet maintains pod count
+- **Rolling update** = zero downtime; gradual replacement
+- **etcd** stores cluster state (not application data)
+
+---
+
+# Lecture 10: Advanced SDN and NFV
+
+## Plan of the Lecture
+
+### Goals
+- Understand concepts of cloud networking architectures, including modern SDN and traditional NFV
+
+### Overview
+- SDN recap
+- Slicing-as-a-service
+- ONOS
+- SD-RAN
+- P4
+- Stratum
+- P4 + Stratum for security
+- Intent-based networking
+- Zero-touch provisioning
+- YANG and NETCONF
+- NFV and VNF: ETSI Architecture
+- Conclusion
+
+---
+
+## SDN Recap
+
+### SDN and the Cloud – Key Applications
+
+| Application | Description |
+|-------------|-------------|
+| **Centralised Network Management** | SDN controllers manage policies, security, routing across multiple datacenters |
+| **Network Virtualisation** | Create virtual networks dynamically provisioned and modified |
+| **Traffic Engineering & Load Balancing** | Dynamically optimise traffic flow; intelligent load balancing across datacenter resources |
+| **Automation & Orchestration** | Automate network provisioning and configuration |
+| **Security & Access Control** | Isolate workloads, define strict access policies |
+
+### Use Cases of SDN
+
+> SDN modules triggered by events from **southbound API** (e.g., OpenFlow) or **northbound API** (security services, application orchestration).
+
+**Characteristics**:
+- Network services are **short-lived and event-driven** (transcoding, anomaly detection)
+- Require **low start-up latencies**
+- Virtualisation platform needs fast task scheduling
+
+---
+
+## Slicing-as-a-Service (SlaaS)
+
+> **Slicing as a Service** = network service model allowing operators to create and deliver customised, **isolated network slices** on demand to different tenants or applications.
+
+**Definition**:
+- Each slice = virtualised end-to-end network segment with own resources, performance guarantees, and policies
+- Runs over **shared physical infrastructure**
+
+**SDN role**: Provides centralised programmability and real-time telemetry, enabling dynamic path selection, bandwidth allocation, and policy enforcement to meet SLA requirements automatically.
+
+---
+
+## ONOS (Open Network Operating System)
+
+> **ONOS** = open-source SDN controller specifically designed for **Telecom Service Providers, carriers, and high-performance mission-critical networks**. Prioritises **scalability, high availability, and enhanced performance**.
+
+**History**: Originally developed by Open Networking Foundation (ONF); now under Linux Foundation Networking (LFN).
+
+**Key features**:
+- Manages network resources (bandwidth, links, switches) to run network applications
+- Creates **Global Network View** – logical map of entire network; applications interact with this map, not individual switches
+
+### ONOS Architecture – Three Layers
+
+| Layer | Function |
+|-------|----------|
+| **Northbound Core API** | Faces applications (traffic engineering); high-level abstractions – "Connect Host A to Host B" without knowing underlying hardware |
+| **Distributed Core** | Runs as cluster of multiple servers (failover); maintains network topology and state |
+| **Southbound Core API** | Faces network devices; supports multiple protocols (OpenFlow, NETCONF, P4Runtime); uses "drivers" to translate generic commands to device-specific |
+
+---
+
+## SD-RAN (Software-Defined Radio Access Network)
+
+> **SD-RAN** = cloud-native RAN platform consistent with **O-RAN (Open RAN)** architecture.
+
+**Key component**: **μONOS-RIC** (micro version of ONOS RAN Intelligent Controller) – allows operators to install AI/ML applications (xApps) to control RAN in (near) real-time, optimising spectrum utilisation and network performance.
+
+---
+
+## P4 (Programming Protocol-independent Packet Processors)
+
+> **P4** = domain-specific, open-source programming language for the network **data plane** (switches, routers, NICs, packet filters).
+
+**Key characteristics**:
+- **Protocol-independent** – developers specify packet parsing, header formats, tables, and actions
+- Works with SDN control protocols (OpenFlow) but can interoperate with new control protocols
+- **Separates** how packets are processed (P4 program) from which rules are applied (SDN controller)
+- Makes **data plane fully programmable**
+
+### P4 Architecture
+
+> P4 enables switches to process packets using **programmable parser** and **multiple match-action stages** arranged in series, parallel, or both.
+
+**Abstract model** works across various devices – from software switches to high-speed ASICs.
+
+**bmv2** = behavioral model – tool for developing, testing, and debugging P4 data planes and control plane software.
+
+---
+
+## Stratum
+
+> **Stratum** = open-source, silicon-independent switch operating system for SDN. **P4** = language describing what switch should do; **Stratum** = how that logic runs on actual hardware/software targets.
+
+**Features**:
+- Open, minimal production-ready distribution for **white box switches**
+- Provides consistent interface for SDN controllers to manage P4-based pipelines across diverse platforms
+- Controllers (ONOS, etc.) interact with P4-programmable switches via Stratum using **P4Runtime API**
+- Supports Barefoot Tofino, Broadcom Tomahawk, and bmv2 software switch
+
+### P4 + Stratum for Security
+
+| Capability | Description |
+|------------|-------------|
+| **Programmable Data Plane** | Define custom packet parsing and filtering for emerging threats |
+| **Dynamic Policy Enforcement** | Real-time updates to match-action tables for intrusion detection/mitigation |
+| **Protocol Independence** | Inspect and secure non-standard or encrypted headers |
+| **Target Independence** | Apply security logic across ASICs, FPGAs, software switches |
+| **SDN Controller Integration** | Centralised control for adaptive security via P4Runtime |
+
+---
+
+## Intent-Based Networking (IBN)
+
+> **IBN** = modern network management approach where administrators define desired outcomes or **"intent"** (performance, security, connectivity) using high-level, often natural-language inputs.
+
+**How it works**:
+- System automatically translates intents into network configurations
+- Continuously monitors network to ensure compliance
+- Adjusts as needed
+
+**Relationship to SDN**:
+- **SDN** = how to configure and control network (APIs, controllers)
+- **IBN** = what network should achieve (business intent)
+- IBN uses SDN's capabilities to enforce policies automatically
+- **LLMs** can provide natural language explainability
+
+---
+
+## Zero-Touch Provisioning (ZTP)
+
+> **ZTP** handles bootstrap phase bringing new devices online with **minimal or no manual configuration**.
+
+**IBN enhances ZTP**: When new device provisioned, automatically receives configurations aligned with declared intent – seamless, intent-driven onboarding.
+
+**In practice**: ZTP automatically bootstraps new devices, installing Stratum, loading P4 pipelines, connecting node to controller. Switch fabric operates in closed loop, comparing telemetry with declared intent, adjusting policies or reprovisioning via ZTP to maintain compliance.
+
+---
+
+## YANG and NETCONF
+
+| Term | Definition |
+|------|------------|
+| **YANG** (Yet Another Next Generation) | Data modelling language defining structure/semantics of configuration and state data for network devices |
+| **NETCONF** (Network Configuration Protocol) | Network management protocol using XML over SSH to retrieve/modify configuration data, often based on YANG models |
+
+> **YANG and NETCONF are complements to SDN, not competitors**. SDN defines **how** network is controlled; YANG/NETCONF define **how configurations and state are represented and applied**.
+
+---
+
+## NFV and VNF
+
+### Definitions
+
+> **NFV (Network Functions Virtualisation)** = architecture for virtualising network, storage, and computing resources, enabling creation of virtualised network functions as services.
+
+> **VNF (Virtualised Network Function)** = one or more virtual machines that emulate in software the functionalities of network equipment. Run on standard servers – not specialised physical hardware.
+
+**Examples of VNFs**: firewalls, network terminal equipment, gateways, network caches, virtual switches.
+
+### ETSI Architecture (MANO)
+
+> In 2012, **ETSI** began pre-standardisation studies for **MANO (Management and Orchestration)** of virtual network functions.
+
+**Orchestration definition (3GPP TS 28.801)** : "The act of interpreting and translating a given service request into configurations of physical and/or virtualised resources."
+
+**Orchestrator analogy**: The **conductor** of an orchestra – defines who does what and how; receives customer demands; coordinates resources to ensure everything works as intended.
+
+**Orchestrator responsibilities**:
+- Receives customer demands
+- Coordinates integration of various VNFs
+- Forwards configurations in physical networks via SDN controllers
+- **Lifecycle management**: selects hardware → instantiates VMs/containers → initialises network functions → connects programs into **service chain** or **service graph**
+
+---
+
+## Comparison Table: P4 vs OpenFlow
+
+| Feature | OpenFlow | P4 |
+|---------|----------|-----|
+| **Protocol** | Fixed protocol (v1.0, v1.3, etc.) | Protocol-independent language |
+| **Data plane** | Fixed set of match fields | Fully programmable (custom parsers, headers) |
+| **Programmability** | Limited to OpenFlow specification | Complete (define any packet format) |
+| **Targets** | OpenFlow-enabled switches | Switches, NICs, FPGAs, ASICs |
+| **Controller API** | OpenFlow protocol | P4Runtime |
+
+---
+
+## Quick Reference for This Lecture
+
+| Term | Definition |
+|------|------------|
+| **SlaaS** | Slicing as a Service – isolated network slices on shared infrastructure |
+| **ONOS** | Open Network Operating System – carrier-grade SDN controller |
+| **SD-RAN** | Software-Defined RAN – O-RAN with μONOS-RIC |
+| **P4** | Protocol-independent packet processing language (data plane) |
+| **Stratum** | Open source switch OS for white box switches |
+| **bmv2** | Behavioral model – P4 software switch for development |
+| **IBN** | Intent-Based Networking – high-level declarative network management |
+| **ZTP** | Zero-Touch Provisioning – automatic device bootstrap |
+| **YANG** | Data modelling language for network configuration |
+| **NETCONF** | Network configuration protocol (XML over SSH) |
+| **NFV** | Network Functions Virtualisation |
+| **VNF** | Virtualised Network Function (e.g., virtual firewall) |
+| **MANO** | Management and Orchestration (ETSI NFV framework) |
+
+**Exam traps**:
+- **P4** = data plane programmability; **OpenFlow** = control protocol (not language)
+- **Stratum** runs **on** switches; **ONOS** is **controller**
+- **IBN** = what; **SDN** = how
+- **NFV** virtualises network functions; **SDN** separates control/data planes
+- **MANO** = ETSI orchestration framework; **VNFs** run on standard servers (not special hardware)
+
+---
+
+# Lecture 11: Cloud Configuration Management
+
+## Plan of the Lecture
+
+### Goals
+- Present the cloud configuration management landscape
+
+### Overview
+- Infrastructure as Code
+- Solutions – Examples
+- Terraform
+- Architecture
+- Conclusion
+
+---
+
+## Infrastructure as Code (IaC)
+
+> **Infrastructure as Code (IaC)** = managing and provisioning cyberinfrastructure through **machine-readable definition files**, not manual configuration.
+
+**Core Goal**: Treat infrastructure setup like application code – **versionable, testable, repeatable**.
+
+**Key Benefit**: Eliminates **configuration drift**; ensures all environments (dev, test, prod) are identical.
+
+### How IaC Works
+
+> Tools use **declarative approach** (stating desired end-state) to call Cloud Provider APIs (AWS, Azure, GCP).
+
+**IaC vs OpenStack**: IaC can deploy and manage resources within OpenStack cloud (the platform providing underlying virtual resources).
+
+**IaC vs Kubernetes**: 
+- **IaC** provisions the environment (underlying VMs, virtual networks, or K8s cluster itself)
+- **Kubernetes** orchestrates application containers **inside** that provisioned environment
+
+### Top IaC Tools
+
+| Tool | Type | Description |
+|------|------|-------------|
+| **Terraform** | Provisioning | Cloud-agnostic; provisions infrastructure across multiple providers |
+| **Ansible** | Configuration management | SSH/WinRM agentless; server configuration; widely used for orchestration |
+| **AWS CloudFormation** | Provisioning | AWS-native declarative service for modelling, provisioning, managing AWS resources |
+| **Puppet** | Configuration management | Model-driven approach; master-agent architecture; enforces desired state |
+| **Chef** | Configuration management | "Recipes" and "cookbooks" (Ruby DSL) for infrastructure configuration |
+
+### IaC and DevOps
+
+> IaC enables **DevOps collaboration**. Key DevOps practices:
+
+| Practice | Description |
+|----------|-------------|
+| **Continuous Integration (CI)** | Automatically build and test code changes |
+| **Continuous Deployment/Delivery (CD)** | Results of development loop continuously deployed and tested in production environment |
+
+### Environment Variables in IaC
+
+| Environment | Variables |
+|-------------|-----------|
+| **Development** | mock endpoints, test credentials, non-critical configurations |
+| **System Integration Testing** | How different systems and components integrate |
+| **User Acceptance Testing** | Business/end users validate solution meets requirements |
+| **Production** | Live configuration used by real users and workloads |
+
+### Benefits of IaC
+
+- **Multi-cloud automation** across Azure, AWS, GCP
+- **Faster, more efficient deployments** with fewer manual steps
+- **Repeatable, consistent environments** built same every time
+- **Source control and versioning** for collaboration and auditability
+- **Easy scaling and standardisation** through policies and variable changes
+- **Supports CI/CD** for automated build, test, deployment
+- **Static security scanning** directly on infrastructure code
+- **Reduced manual effort** and fewer opportunities for human error
+
+---
+
+## Example: Terraform
+
+> **Terraform** = provisioning declarative tool based on IaC paradigm.
+
+**Core principle**: Describe what infrastructure should look like – **not how to create it**. Terraform reads desired end state from `.tf` files and works out steps automatically.
+
+**Syntax**: **HCL (Hashicorp Configuration Language)**. Written in Go (Golang – developed by Google).
+
+### Terraform Key Concepts
+
+| Concept | Description |
+|---------|-------------|
+| **Resource provisioning** | Using configuration code to create actual infrastructure (VMs, networks) in cloud(s) |
+| **Planning updates** | Determines what changes will be made to match updated code |
+| **Source control** | IaC managed with version control systems (Git) |
+| **Reusing templates (Modules)** | Modularity allows reusability and speedy deployment |
+
+### Terraform Multipurpose Composition
+
+- Composes multiple tiers (**SaaS/PaaS/IaaS**) – all layers of system
+- **Plugin-based architecture** using **providers** (plugins) to interact with different platforms
+- Creates **resource graph** to understand dependencies and build systems safely (dependability)
+
+### Terraform Architecture Components
+
+| Component | Description |
+|-----------|-------------|
+| **Core** | Primary interface for Terraform users |
+| **State file (JSON)** | Stores current state, dependencies, and changes to be made |
+| **Variables (.tfvars)** | Manage variable assignments systematically |
+| **Instances** | Resources that can be created, updated, deleted (e.g., EC2 instance) |
+| **Providers** | Plugins interacting with services via external APIs; manage full lifecycle (CRUD) |
+| **Provisioners** | Plugins executing scripts/commands on local/remote machine; handle post-deployment configuration |
+
+### Terraform Workflow
+
+1. **Write** configuration (.tf files describing desired state)
+2. **Plan** (`terraform plan`) – previews changes
+3. **Apply** (`terraform apply`) – creates/updates infrastructure
+
+---
+
+## Conclusion
+
+- Reviewed cloud configuration management landscape
+- IaC provisions, deploys, configures cloud infrastructure at **massive scale** (10,000+ machines)
+- Presented **Terraform** as leading declarative provisioning tool
+
+---
+
+## Comparison Table: IaC vs Kubernetes
+
+| Aspect | IaC (e.g., Terraform) | Kubernetes |
+|--------|----------------------|-------------|
+| **What it manages** | Infrastructure (VMs, networks, storage, clusters) | Containers (pods, services, deployments) |
+| **Scope** | Provisioning cyberinfrastructure | Orchestrating application workloads |
+| **Declarative** | Yes – desired state in .tf files | Yes – desired state in YAML |
+| **State management** | State file (JSON) tracks resources | etcd stores cluster state |
+| **Example** | Provision 10 VMs on AWS | Deploy 50 nginx pods across those VMs |
+
+---
+
+## Quick Reference for This Lecture
+
+| Term | Definition |
+|------|------------|
+| **IaC** | Infrastructure as Code – machine-readable infrastructure definitions |
+| **Configuration drift** | Environments diverging from each other over time |
+| **Declarative** | Describe desired end-state, not steps to get there |
+| **Terraform** | Cloud-agnostic declarative provisioning tool |
+| **HCL** | Hashicorp Configuration Language (Terraform syntax) |
+| **State file** | JSON file storing Terraform's view of infrastructure |
+| **Provider** | Terraform plugin for cloud/service API |
+| **Provisioner** | Terraform plugin for post-deployment scripts |
+| **Module** | Reusable Terraform component |
+| **Ansible** | Agentless configuration management (SSH/WinRM) |
+| **Puppet/Chef** | Classic configuration management (master-agent) |
+| **CloudFormation** | AWS-native IaC |
+
+**Exam traps**:
+- **IaC ≠ Kubernetes** – IaC provisions the cluster; Kubernetes runs workloads **on** the cluster
+- **Terraform** = declarative, cloud-agnostic; **CloudFormation** = AWS-specific
+- **Ansible** = agentless (SSH); **Puppet/Chef** = master-agent architecture
+- **State file** tracks what Terraform created – critical for updates/destruction
+- **Configuration drift** eliminated by IaC (all environments identical)
+# Lecture 12: Serverless Architectures
+
+## Plan of the Lecture
+
+### Goals
+Understand the concept of serverless architectures
+
+### Overview
+- Introduction
+- Definition
+- Function as a Service
+- Architectural Support
+- Solutions – Commercial & Open Source
+- Summary
+
+---
+
+## Introduction
+
+> **Serverless computing** simply means that you, the developer, **do not have to deal with the server**.
+
+**Core idea**: A serverless computing platform (like AWS Lambda) allows you to build your code and deploy it without ever needing to configure or manage underlying servers. **Your unit of deployment is your code** – not the container that hosts the code, or the server that runs the code, but simply the **code itself**.
+
+---
+
+## Definition
+
+> **Serverless computing** = model where the existence of servers is **hidden from developers**.
+
+> **FaaS (Function-as-a-Service)** = key mechanism by which a developer implements business logic in serverless architecture.
+
+**What serverless provides**: simplicity, speed, and flexibility.
+
+### IaaS, PaaS, SaaS, and FaaS – Where FaaS Fits
+
+| Model | What you manage | What provider manages |
+|-------|----------------|----------------------|
+| **IaaS** | Apps, data, runtime, middleware, OS, virtualization, storage, network, servers | Physical hardware |
+| **PaaS** | Apps, data | Runtime, middleware, OS, virtualization, storage, network, servers, physical hardware |
+| **SaaS** | Just use the app | Everything else |
+| **FaaS** | Code (functions) | Everything else – including scaling, servers, runtime |
+
+> **You own and control the code you deploy!**
+
+---
+
+## Function as a Service (FaaS) – Core of Serverless Computing
+
+**FaaS execution model**:
+
+1. Developer writes a function (small piece of code)
+2. Defines a trigger (HTTP request, queue message, database change, timer)
+3. Platform handles everything else
+
+> **When an event occurs**: Platform checks if function is already running (warm). If not (cold), platform loads function from data store, instantiates container, executes function, returns result.
+
+### Cold Start vs Warm Start
+
+| | Cold Start | Warm Start |
+|--|------------|------------|
+| **When** | First run or after idle period | Run again shortly after previous execution |
+| **What happens** | Platform must instantiate container | Reuses existing container |
+| **Latency** | **Extra latency penalty** | Low latency |
+| **User experience** | Delayed response | Fast response |
+
+**Exam trap (2025 Q1h)**: Cold start overhead negatively impacts user experience – **True**.
+
+---
+
+## Serverless Applications
+
+| Type | Examples |
+|------|----------|
+| **Single-function** | Amazon Alexa, image resizing |
+| **Multiple-function** | IoT pipelines, image recognition, database analysis |
+| **Emerging** | Parallel processing, machine learning |
+
+**Function topologies**:
+- **Linear topology** – functions call functions in sequence
+- **Nested functions** – functions call other functions (composition)
+
+### Serverless Functions vs Microservices
+
+| Aspect | Microservices | Serverless Functions |
+|--------|--------------|---------------------|
+| **Granularity** | Independent, long-running services | Single-purpose functions |
+| **Lifetime** | Long-running (always on) | Short-lived, event-driven |
+| **State** | Can be stateful | **Stateless** (spins up only when triggered) |
+| **Scaling** | Manual or HPA-based | **Instantaneously scalable** |
+| **Pricing** | Pay for running instances | Pay per invocation/compute time |
+
+> Evolution: **Monoliths → Microservices → Functions (nanoservices)**
+
+---
+
+## Architectural Support – Serverless Execution Model
+
+**Serverless computing platform responsibilities**:
+1. Check if function is already running (warm)
+2. If not running (cold): load function from data store, instantiate container
+3. Execute function
+4. Scale automatically based on event volume
+5. Scale to **zero** when no events
+
+---
+
+## Solutions – Commercial and Open Source
+
+| Type | Examples |
+|------|----------|
+| **Commercial** | AWS Lambda, Google Cloud Functions, Microsoft Azure Functions, IBM Cloud Functions (OpenWhisk) |
+| **Open Source** | Apache OpenWhisk, OpenFaaS, Knative, Iron.io, Fission |
+
+---
+
+### AWS Lambda – In Practice
+
+> **AWS Lambda** = Amazon's FaaS offering.
+
+**Key characteristics**:
+- When container created first time → **initialisation penalty (cold start)**
+- After that → **quicker (warm start)**
+- Triggers: API Gateway, S3, SQS, DynamoDB, CloudWatch events, etc.
+- Supported languages: Node.js, Python, Java, Go, Ruby, C# (.NET)
+
+**Exam trap (2025 Q1g)**: Lambda execution model = **invoked and executed only when an event occurs** (not continuously running).
+
+---
+
+### Microsoft Azure Functions
+
+| Feature | Description |
+|---------|-------------|
+| **Event-driven** | Activated by triggers (HTTP, timers, queues, events) |
+| **Bindings** | Declarative integration with services (Cosmos DB, HTTP, Storage) – reduce repetitive coding |
+| **Stateless execution** | Each invocation independent; state externalised to storage |
+| **Consumption-based billing** | Pay for actual executions and compute time |
+| **Hosting plans** | Consumption, Premium, Dedicated |
+| **Deployment** | Code packages (.zip), containers, CI/CD pipelines |
+| **Languages** | C#, JavaScript/Node.js, Python, Java, PowerShell |
+| **Scaling** | Automatic horizontal scaling based on event volume |
+| **Ecosystem integration** | Event Grid, Service Bus, Storage Queues, Logic Apps |
+| **Monitoring** | Application Insights (logging, metrics, distributed tracing) |
+| **Continuous deployment** | GitHub, Bitbucket, Azure Repos |
+| **Testing** | Manual trigger in Azure portal |
+
+---
+
+### OpenFaaS – Architecture
+
+> **OpenFaaS** = open-source FaaS platform built on **Kubernetes**.
+
+**Key characteristics**:
+- Provides compute management and automatic scaling through PaaS/FaaS
+- Each function or microservice = **immutable Docker container** managed by Kubernetes
+- **NATS** = lightweight, high-performance messaging system for cloud-native systems (message durability, replay, at-least-once delivery)
+
+---
+
+### Knative – Architecture
+
+> **Knative** = Kubernetes-based platform for serverless workloads. Two main pillars: **Knative Serving** (HTTP-triggered) and **Knative Eventing** (event-driven).
+
+#### Knative Serving Components
+
+| Component | Function |
+|-----------|----------|
+| **Configuration** | Desired state (container image, environment variables); updates create new Revision |
+| **Revision** | Immutable snapshot of code and configuration; versioned unit |
+| **Route** | Traffic policy ("90% → Revision A, 10% → Revision B") |
+| **Service** (Knative) | Logical config object combining Configuration and Route |
+| **Ingress** (Istio/other) | Handles network traffic, mTLS, routing rules, telemetry |
+| **Activator** | Intercepts traffic for scaled-to-zero services; queues requests; tells Autoscaler to start Pod |
+| **Autoscaler** | Watches concurrency; adjusts Pod count (scales up/down, even to zero) |
+| **Queue Proxy** | Sidecar container in each Pod; gathers metrics; enforces concurrency limit |
+
+#### Knative Autoscaling
+
+| Autoscaler | Based on | Supports scale-to-zero? |
+|------------|----------|------------------------|
+| **HPA** (Horizontal Pod Autoscaler) | CPU/memory metrics | **No** |
+| **KPA** (Knative Pod Autoscaler) | Request concurrency | **Yes** |
+
+> **PodAutoscaler** defines policy; **Autoscaler** enforces using KPA or HPA.
+
+#### Knative Eventing
+
+> **Event-driven communication** flow: **Source → Broker → Trigger → Service**
+
+**Note**: Route is used only in Knative Serving, not in Eventing.
+
+---
+
+## Summary / Conclusion
+
+| Key Takeaway | Description |
+|--------------|-------------|
+| **Serverless architectures** | Employ **nanoservices** (vs microservices) to increase scalability, lower cost |
+| **FaaS** | Core mechanism – functions as deployment unit |
+| **Cold start** | Key challenge (latency penalty for idle functions) |
+| **Scale-to-zero** | Unique serverless capability (no cost when idle) |
+| **Commercial** | AWS Lambda, Azure Functions, Google Cloud Functions |
+| **Open source** | Knative, OpenFaaS, OpenWhisk |
+
+---
+
+## Comparison Table: Serverless vs Containers vs VMs
+
+| Aspect | Serverless (FaaS) | Containers | Virtual Machines |
+|--------|-------------------|------------|------------------|
+| **Unit of deployment** | Function (code) | Container image | VM image |
+| **Server management** | None (provider) | Cluster management (K8s) | Hypervisor + VIM |
+| **Scaling** | Automatic, per invocation | HPA (pods), Cluster Autoscaler | VIM scheduling |
+| **Scale-to-zero** | **Yes** | No (min replicas usually 1) | No |
+| **Cold start** | **Yes** – latency penalty | No | No (but boot time minutes) |
+| **State** | Stateless (external storage) | Stateful possible | Stateful possible |
+| **Billing** | Per invocation + compute time | Pay for running instances | Pay for running VMs |
+| **Execution time limit** | Yes (e.g., 15 min Lambda) | No | No |
+
+---
+
+## Quick Reference for This Lecture
+
+| Term | Definition |
+|------|------------|
+| **Serverless** | Servers hidden from developer |
+| **FaaS** | Function as a Service – core serverless mechanism |
+| **Cold start** | First invocation latency (container instantiation) |
+| **Warm start** | Subsequent invocation (reusing container) |
+| **Nanoservices** | Even finer granularity than microservices (functions) |
+| **AWS Lambda** | Commercial FaaS from Amazon |
+| **Azure Functions** | Commercial FaaS from Microsoft |
+| **Knative** | Kubernetes-native serverless platform (Serving + Eventing) |
+| **OpenFaaS** | Open-source FaaS on Kubernetes |
+| **KPA** | Knative Pod Autoscaler (concurrency-based, scale-to-zero) |
+| **HPA** | Horizontal Pod Autoscaler (CPU/memory-based, no scale-to-zero) |
+| **Activator** | Knative component handling scale-to-zero traffic |
+| **Queue Proxy** | Sidecar for concurrency limiting and metrics |
+
+**Exam traps**:
+- **2025 Q1g**: AWS Lambda = event-triggered execution (not continuous)
+- **2025 Q1h**: Cold start negatively impacts user experience – **True**
+- **Cold start vs warm start**: Know the difference (latency penalty for first invocation)
+- **FaaS vs PaaS**: FaaS is even more abstracted – no runtime management at all
+- **Knative KPA vs HPA**: KPA supports scale-to-zero (concurrency-based); HPA does not
+
+---
+
+# Lecture 13: Cloud Programming Landscape
+
+## Plan of the Lecture
+
+### Goals
+- Present the cloud programming landscape
+
+### Overview
+- Introduction
+- Cloud Service Lifecycle
+- Cloud Programming – Models
+- MPI and OpenMP
+- MapReduce and Hadoop
+- TensorFlow
+- Other frameworks
+- Amazon Web Services
+- Conclusion
+
+---
+
+## Introduction
+
+### Cloud Applications – Three Categories
+
+| Category | Examples |
+|----------|----------|
+| **Scientific/Tech Applications** | Simulations, data analysis, research computing |
+| **Business Applications** | CRM, ERP, supply chain, financial systems |
+| **Consumer/Social Applications** | Social media, gaming, streaming, e-commerce |
+
+---
+
+## Cloud Service Lifecycle (Revisited)
+
+> Cloud service development workflow:
+
+1. **Develop the service logic** – Build applications that provide functionality to end-users. Use programming models that simplify distributed service creation (MapReduce, MPI).
+
+2. **Prepare execution environments** – Create and configure VM images (or container images) to host the implemented service. Ensure environment includes all runtime libraries and dependencies.
+
+3. **Define service requirements** – Specify functional and non-functional parameters:
+   - Capacity (CPU, memory, storage, throughput)
+   - Location or placement constraints
+   - Energy-efficiency or sustainability constraints
+
+---
+
+## Cloud Programming – Models
+
+Frameworks are empirically classified into categories:
+
+1. **High Performance Computing**
+   - **MPI** (Message Passing Interface)
+   - **OpenMP** (Open Multi-Processing)
+
+2. **Non-general purpose programming models**
+   - **MapReduce** – big data
+   - **TensorFlow** – library for Machine Learning
+   - Platforms/frameworks for distributed cloud applications
+
+3. **New APIs to develop applications**
+   - Azure, Google App Engine, AWS
+
+### The Case for Go (Golang)
+
+> **Go** = programming language by Google. Language of choice for cloud projects like **Docker** and **Kubernetes**.
+
+**Key features**: concurrent operations, exploits cloud provisioning models. Designed to improve upon C++.
+
+---
+
+## Example 1: High Performance Computing
+
+### Historical Problem
+
+- Most interconnection networks shipped with **proprietary communication libraries** (expensive, incompatible)
+- Portability across architectures was difficult
+- Need for **hardware-independent** solution
+
+### MPI (Message Passing Interface)
+
+> **MPI** = standard for parallel applications in high-performance and distributed computing.
+
+| Characteristic | Description |
+|----------------|-------------|
+| **Network usage** | Direct use of underlying physical network; optimised for fast interconnects |
+| **Communication scope** | Within known group of processes (communicator, e.g., `MPI_COMM_WORLD`) |
+| **Communication model** | **Explicit message passing** (send/receive, collective calls: broadcast, scatter, gather, reduce) |
+| **Memory model** | **No shared memory** – each process has own memory space |
+| **Portability** | **Portable programming standard** – vendors implement API for diverse hardware |
+| **Scalability** | Efficient from few processes to thousands of nodes |
+
+**Message-passing model**: Data transfer + synchronisation. Requires cooperation of sender and receiver.
+
+**Primitives**: `MPI_send`, `MPI_recv`, `MPI_Bcast`, `MPI_Scatter`, `MPI_Gather`, `MPI_Reduce`
+
+### OpenMP
+
+> **OpenMP** = shared memory alternative to MPI. API for multi-threaded parallelisation.
+
+**Components**: Source code directives, functions, environment variables.
+
+**Memory model**: Process spawns additional threads within **same memory address space**.
+
+| | MPI | OpenMP |
+|--|-----|--------|
+| **Memory** | Distributed (each process own memory) | Shared (threads share memory) |
+| **Communication** | Explicit message passing | Implicit (shared variables) |
+| **Programming** | Harder (coordination required) | Easier (directives) |
+| **Scalability** | Excellent (thousands of nodes) | Limited to single node |
+
+---
+
+## Example 2: MapReduce and Hadoop
+
+### MapReduce
+
+> **MapReduce** = programming model for fast processing of large datasets. Applied in Web-scale search and cloud computing.
+
+**Users specify**:
+- **Map function** – generates intermediate key/value pairs
+- **Reduce function** – merges all intermediate values with the same key
+
+### Hadoop
+
+> **Hadoop** = open-source platform for large-scale distributed data processing. Created in Nutch project, expanded at Yahoo.
+
+**Attractive features**:
+
+| Feature | Description |
+|---------|-------------|
+| **Big data** | Write and run applications over vast distributed data |
+| **Scalable** | Store and process petabytes of data |
+| **Economical** | Open-source MapReduce minimises overheads |
+| **Efficient** | High-degree of parallelism across commodity nodes |
+| **Reliable** | Automatically maintains multiple data copies; redeploys tasks on failures |
+
+*(More detail in Lectures 14-15 on Big Data)*
+
+---
+
+## Example 3: TensorFlow
+
+> **TensorFlow** = programming model and execution framework for Machine Learning. Open-source numerical computation library developed by Google Brain Team.
+
+**Core idea**: Computation as a **data-flow graph**.
+- **Nodes** = operations (with zero or more inputs/outputs)
+- **Edges** = **tensors** (multi-dimensional arrays) flowing between operations
+
+**Enables**: parallelism, distribution, optimisation of computation.
+
+### TensorFlow Graph Elements
+
+| Element | Description |
+|---------|-------------|
+| **Placeholder** | Node whose value is fed in at execution time (e.g., input X) |
+| **Variable** | Stateful node retaining value across multiple executions (e.g., weights W, bias b) |
+| **Operation** | Combines inputs and parameters (e.g., MatMul, Add, ReLU) |
+
+**Example**: Neural network with one hidden layer – `h = ReLU(Wx + b)`
+- `x` = Placeholder
+- `W`, `b` = Variables
+- `MatMul`, `Add`, `ReLU` = Operations
+
+---
+
+## Example 4: Amazon Web Services (AWS) – Cloud APIs
+
+### AWS Cloud Control APIs
+
+> Make it easy for developers to manage lifecycle of AWS and third-party services. Provide **five operations** for infrastructure: **Create, Read, Update, Delete, List (CRUDL)** .
+
+### AWS Parallel Programming Offerings
+
+| Service | Description |
+|---------|-------------|
+| **EC2** (Elastic Compute Cloud) | Resizable compute capacity; makes web-scale cloud computing easy |
+| **S3** (Simple Storage Service) | Secure, durable, highly-scalable **object storage**; 1B – 5GB per object; 99.99% availability; geographic redundancy |
+| **EBS** (Elastic Block Store) | Persistent block-level storage volumes for EC2; automatically replicated |
+
+### Amazon Machine Images (AMI)
+
+> **AMI** = blueprint (predefined template) for EC2 instances – defines OS, software, configuration.
+
+| AMI Type | Description |
+|----------|-------------|
+| **Private** | Created by you; private by default; can grant access to other users |
+| **Public** | Released to AWS community; anyone can launch instances |
+| **Paid** | Commercial AMIs offered by third parties; pay per hour of usage |
+
+**When you launch an instance**: AWS clones the AMI, creating a fresh VM with same setup. Ensures consistency and scalability.
+
+---
+
+## Other Frameworks (Brief)
+
+| Framework | Purpose |
+|-----------|---------|
+| **Azure SDK** | Develop cloud applications for Microsoft Azure |
+| **Google App Engine** | PaaS for building scalable web applications |
+| **OpenStack APIs** | Programmatic access to OpenStack resources |
+
+---
+
+## Conclusion
+
+- Reviewed cloud programming landscape
+- Classified frameworks for cloud application development:
+  - **HPC**: MPI (distributed memory), OpenMP (shared memory)
+  - **Big Data**: MapReduce/Hadoop
+  - **ML/AI**: TensorFlow
+  - **Cloud APIs**: AWS (EC2, S3, EBS, Cloud Control APIs)
+
+---
+
+## Comparison Table: MPI vs OpenMP vs MapReduce vs TensorFlow
+
+| Aspect | MPI | OpenMP | MapReduce | TensorFlow |
+|--------|-----|--------|-----------|------------|
+| **Paradigm** | Message passing | Shared memory | Data-parallel | Data-flow graph |
+| **Memory** | Distributed | Shared | Distributed (HDFS) | Distributed (optional) |
+| **Granularity** | Process | Thread | Task (Map/Reduce) | Operation |
+| **Best for** | HPC simulations | Single-node parallelism | Batch data processing | Machine Learning |
+| **Cloud use** | HPC on cloud clusters | Limited to single VM | Big data analytics | AI/ML training/inference |
+| **Languages** | C, Fortran, Python | C, C++, Fortran | Java, Python (Hadoop Streaming) | Python, C++ |
+
+---
+
+## Quick Reference for This Lecture
+
+| Term | Definition |
+|------|------------|
+| **MPI** | Message Passing Interface – distributed memory parallel programming |
+| **OpenMP** | Open Multi-Processing – shared memory parallel programming |
+| **Communicator** | MPI group of processes (e.g., `MPI_COMM_WORLD`) |
+| **Collective operations** | Broadcast, scatter, gather, reduce |
+| **MapReduce** | Map (key/value) + Reduce (aggregate) programming model |
+| **Hadoop** | Open-source MapReduce platform |
+| **TensorFlow** | ML data-flow graph framework (Google) |
+| **Tensors** | Multi-dimensional arrays flowing between operations |
+| **Placeholder** | Input node (value fed at execution) |
+| **Variable** | Stateful node (weights/biases) |
+| **AMI** | Amazon Machine Image – EC2 blueprint |
+| **EC2** | Elastic Compute Cloud (VMs) |
+| **S3** | Simple Storage Service (objects) |
+| **EBS** | Elastic Block Store (block storage) |
+| **CRUDL** | Create, Read, Update, Delete, List (Cloud Control APIs) |
+
+**Exam traps**:
+- **MPI** = distributed memory (each process has own memory) → explicit message passing
+- **OpenMP** = shared memory (threads share address space) → directives
+- **MPI is portable standard** – not tied to specific vendor hardware
+- **Go language**: used by Docker and Kubernetes (exam may ask which language cloud projects use)
+- **AMI types**: Private (you), Public (community), Paid (commercial)
+- **S3**: object storage (not block storage – that's EBS); 1B–5GB per object
+# Lecture 14: Introduction to Big Data Systems
+
+## Plan of the Lecture
+
+### Goals
+- Appreciate the generation and use of big data through examples
+- Understand the technology landscape
+- Understand key concepts in a big-data architecture
+- Introduction to MapReduce and Hadoop
+
+### Overview
+- Introduction
+- Big data classification
+- Technology landscape
+- Layered Architecture Overview
+- MapReduce
+- Hadoop
+- Conclusion
+
+---
+
+## Introduction
+
+### Data Everywhere – Current Scales
+
+| Company | Data Scale |
+|---------|------------|
+| Google | 15+ exabytes stored, processes 100 PB/day |
+| Facebook | 300 PB user data, processes 600 TB/day |
+| YouTube | 90 PB stored, processes 100 PB/day |
+| Global (by 2025) | 400 exabytes generated **per day** |
+
+> **1 exabyte = 10¹⁸ bytes** (1,000 petabytes)
+
+---
+
+## Big Data Classification
+
+### Data Types
+
+| Type | Description | Examples |
+|------|-------------|----------|
+| **Structured** | Fixed format (tables, columns, rows) | SQL databases, numbers, dates |
+| **Unstructured** | No predefined organisation | Free text, images, videos, audio |
+| **Semi-structured** | Some organisation, not as rigid as tables | JSON, XML, emails (header + body) |
+| **Relational** | Typically structured | Tables/transactions/legacy RDBMS |
+| **Text data** | Often unstructured | HTML pages, blogs, social posts, documents |
+| **Graph data** | Usually semi-structured (nodes/edges with properties) | Social network, Semantic Web |
+| **Streaming data** | Can be any type; high-velocity event streams | IoT sensor data, clickstreams |
+
+**Exam trap (2024 Q1i)**: "Which type of data falls under 'unstructured data'?" – **C. Emails, social media posts, and images** (not relational databases, spreadsheets, or sensor data – those are structured or semi-structured).
+
+### What "Big Data" Means
+
+> **Big Data** = extremely large collections of structured, semi-structured, and unstructured data that grow exponentially.
+
+**Why traditional systems fall short**:
+- Older database tools could not store or analyse such large and varied datasets
+- Smartphones exceeded 300 million worldwide by 2010 → accelerated digital data generation
+
+**Why it matters**: Big data technologies enable **scalable, timely processing, analysis, visualisation, and knowledge extraction**.
+
+---
+
+## The 5 Vs of Big Data (Exam-Ready)
+
+> The **5 Vs** characterise big data challenges. **Exam may ask to apply these to a scenario** (e.g., 2025 Q2a – Netflix video streaming service).
+
+| V | Definition | Example (Netflix) |
+|---|------------|-------------------|
+| **Volume** | Enormous quantity of data generated | Millions of users watching billions of hours; petabytes of video content |
+| **Velocity** | High speed of data generation and processing | Real-time viewing data, clickstreams, recommendations need near-instant processing |
+| **Variety** | Different types of data (structured, semi-structured, unstructured) | User profiles (structured), video metadata (semi-structured), viewing history (structured), reviews (unstructured text), thumbnails (images) |
+| **Veracity** | Quality and accuracy of data | Data quality issues – duplicate accounts, incorrect viewing metrics, bot traffic |
+| **Value** | Extracting meaningful insights for business benefit | Personalised recommendations, content investment decisions, churn prediction |
+
+### Big Data Use Cases
+
+| Domain | Applications |
+|--------|--------------|
+| **Business Intelligence** | Data-driven decision making, customer insights and personalisation, operational efficiency |
+| **Environmental Impact** | Climate modelling, smart cities, intelligent transport, datacenter energy/cooling |
+| **Knowledge Discovery** | Machine learning/AI, scientific research, healthcare |
+| **Monetary Value** | Financial trading, fraud detection, personalised offers |
+
+---
+
+## Technology Landscape
+
+### Desired Big Data System Properties
+
+| Property | Description |
+|----------|-------------|
+| **Schema flexibility** | Handle evolving data structures |
+| **Distributed processing** | Scale across many machines |
+| **High throughput** | Process large volumes quickly |
+| **Robustness & fault tolerance** | Survive failures without restarting |
+| **Low-latency reads/updates** | Respond quickly when needed |
+| **Scalability** | Grow with data volume |
+| **Generalisation** | Handle many use cases |
+| **Extensibility** | Add new functionality |
+| **Ad-hoc queries** | Support unplanned queries |
+| **Minimal maintenance** | Reduce operational burden |
+| **Debuggability** | Troubleshoot when things fail |
+| **Security & access control** | Protect data |
+
+---
+
+## Layered Architecture Overview
+
+### Six Layers of Big Data Architecture
+
+| Layer | Function |
+|-------|----------|
+| **1. Data Collection & Ingestion** | IoT devices, sensors, mobile apps, logs; streaming or bulk ingestion |
+| **2. Data Storage** | Distributed, scalable storage for raw and processed data |
+| **3. Data Processing** | Transformation & cleansing (batch processing, real-time processing) |
+| **4. Data Analysis** | Data mining, machine learning, statistical models |
+| **5. Visualisation & Insights** | Dashboards, reports, KPIs, alerts, recommendations |
+| **6. Orchestration & Governance** | Pipelines, metadata, security, access control, compliance |
+
+### Logical Layers with Verticals
+
+| Layer | Description |
+|-------|-------------|
+| **Big Data sources** | All data available for analysis (format, velocity, volume, real-time vs batch, internal/external) |
+| **Data messaging and store** | Acquires data from sources; sends to ingestion or storage; possibly converts format |
+| **Analysis layer** | Produces desired analytics; derives insight; determines algorithms and tools |
+| **Consumption layer** | Consumes output (dashboards, apps, APIs) |
+
+### Vertical Concerns (Cross-cutting)
+
+| Concern | Description |
+|---------|-------------|
+| **Information Integration** | Connectors, adapters, communication protocols, APIs, web services |
+| **Big Data Governance** | Legal concerns, data ownership, storage conditions, security, privacy, compliance, accountability (GDPR) |
+| **Quality of Service (QoS)** | Service downtime, timeliness, availability, reliability |
+| **Infrastructure** | Cloud or any other infrastructure |
+
+---
+
+## MapReduce
+
+### The Problem MapReduce Solves
+
+> **Problem**: Data kept growing beyond what a single machine could process quickly. One machine = limited CPU, memory, storage, I/O.
+
+**Requirements**:
+- Split job across many machines and still get one correct answer
+- Survive machine failures without starting again
+- Store data resiliently and access it quickly
+
+### Core Ideas of MapReduce
+
+> **MapReduce** = programming model with two small functions: **map** and **reduce**.
+
+| Function | Description |
+|----------|-------------|
+| **Map** | Process chunks of input independently; output **key-value pairs** |
+| **Shuffle & Sort** | Group all values that share the same key (system handles) |
+| **Reduce** | Combine values per key to produce results |
+
+### MapReduce Dataflow
+
+```
+Input → Map → (key, value) pairs → Shuffle & Sort (by key) → Reduce → Output
+```
+
+**Analogy (kitchen)** :
+- **Map** = Many cooks chop different piles of vegetables at the same time
+- **Shuffle & Sort** = All chopped carrots end up in one bowl, onions in another
+- **Reduce** = Chef counts amounts in each bowl for final dishes
+
+### Key Characteristics
+
+| Characteristic | Description |
+|----------------|-------------|
+| **Abstraction** | Hides parallelisation, fault tolerance, data distribution, load balancing |
+| **Computation** | Done locally on distributed nodes (commodity hardware) |
+| **Fault-tolerant** | Data stored with multiple copies; another node can read same split if one fails |
+| **Stateless, idempotent tasks** | Map and Reduce can be rerun elsewhere and produce same output |
+| **History** | Originally developed by **Google** |
+| **Open-source** | **Hadoop** implementation |
+
+---
+
+## Hadoop
+
+> **Hadoop** = open-source framework under Apache Software Foundation. First developed by **Yahoo!**
+
+**Well-suited for**: VOLUME and VARIETY in big data.
+
+**Use cases**: Retail & e-commerce, healthcare, finance, web search engines.
+
+**Two main components**:
+1. **Distributed Processing Framework** – MapReduce
+2. **Distributed File System** – **HDFS** (Hadoop Distributed File System)
+
+---
+
+## Conclusion
+
+- Introduced big-data systems and technology landscape
+- Big data and cloud computing are complementary
+- Architecture of big data systems (layered approach)
+- MapReduce = programming model hiding distributed complexity
+- Hadoop = open-source MapReduce + HDFS
+
+---
+
+## Quick Reference for This Lecture
+
+| Term | Definition |
+|------|------------|
+| **Big Data** | Extremely large collections of data that grow exponentially |
+| **5 Vs** | Volume, Velocity, Variety, Veracity, Value |
+| **Structured data** | Fixed format (tables, columns, rows) |
+| **Unstructured data** | No predefined organisation (text, images, video) |
+| **Semi-structured data** | Some organisation (JSON, XML, emails) |
+| **Map** | Function processing input chunks into key-value pairs |
+| **Reduce** | Function combining values by key |
+| **Shuffle & Sort** | System groups values by key, routes to same reducer |
+| **Hadoop** | Open-source MapReduce + HDFS |
+| **HDFS** | Hadoop Distributed File System |
+
+**Exam traps**:
+- **2024 Q1i**: Unstructured data = emails, social media posts, images (C)
+- **2025 Q2a**: Apply 5 Vs to a scenario (e.g., Netflix)
+- **MapReduce** = two functions (map, reduce); system handles shuffle/sort
+- **Hadoop** = open-source MapReduce (originally Google, implemented by Yahoo!)
+
+---
+
+# Lecture 15: Evolution of Hadoop and Spark
+
+## Plan of the Lecture
+
+### Goals
+Understand evolution of original Hadoop
+
+### Plan
+- Hadoop Architecture
+- Limitations
+- HDFS Federation
+- YARN
+- Spark
+- Summary
+
+---
+
+## Hadoop Architecture (Hadoop 1.0)
+
+### Two Main Components
+
+| Component | Function |
+|-----------|----------|
+| **HDFS** (Hadoop Distributed File System) | Storage layer |
+| **MapReduce** | Compute/processing layer |
+
+### HDFS (Storage Layer)
+
+**Characteristics**:
+- Cluster of hundreds or thousands of commodity computers
+- Average file size > 500MB; **block size = 128MB** (default)
+- File replicas (x3) stored across nodes in different racks
+- **Rack-awareness** to avoid data unavailability
+- **"Write Once, Read Often"** model of data access
+- Controller/Worker architecture (NameNode & DataNode)
+
+| HDFS Component | Function |
+|----------------|----------|
+| **NameNode** | Keeps track of names and locations of all files and blocks (filesystem directory and index); manages system metadata; coordinates with DataNodes |
+| **DataNode** | Stores actual file blocks on disk; sends heartbeats and block reports to NameNode |
+
+### MapReduce (Compute Layer)
+
+| Component | Function |
+|-----------|----------|
+| **JobTracker** | Accepts MapReduce jobs; coordinates with NameNode for input data splits; schedules tasks on TaskTrackers; tracks progress and failures |
+| **TaskTracker** | Runs map and reduce tasks on DataNodes; sends heartbeats to JobTracker; **executes tasks on same node where block is stored** (high data locality) |
+| **Map slots** | Number of map tasks a TaskTracker can run in parallel |
+| **Reduce slots** | Number of reduce tasks a TaskTracker can run in parallel |
+
+### Hadoop 1.0 Definitions
+
+| Term | Definition |
+|------|------------|
+| **Job** | Whole MapReduce computation (program + input dataset + configuration + all tasks) |
+| **Task** | Single unit of work within a job (map task or reduce task) |
+
+---
+
+## Limitations of Hadoop 1.0
+
+| Limitation | Description |
+|------------|-------------|
+| **Single point of failure** | JobTracker and NameNode were single points of failure |
+| **Scalability issues** | Scaled to ~5,000 nodes, ~40,000 concurrent tasks (JobTracker bottleneck); NameNode RAM limited total files/blocks |
+| **Inefficient resource utilisation** | Map slots could be "full" while reduce slots "empty" – slots dedicated to only one task type |
+| **Rigid programming model** | Poor fit for iterative (machine learning) and interactive processing; difficulty expressing complex data pipelines |
+
+---
+
+## Hadoop 2.0 Improvements
+
+> Hadoop 2 moves from restricted batch-oriented model to **multi-purpose platform** (batch, interactive, online, streaming). 2× throughput with same hardware.
+
+**Major changes**:
+- HDFS High Availability
+- HDFS Federation
+- **YARN** (Yet Another Resource Negotiator)
+- Container concept
+- Highly available NameNode
+
+### HDFS High Availability
+
+> **Problem**: In Hadoop 1, single NameNode was single point of failure.
+
+**Solution in Hadoop 2**: Run **two redundant NameNodes** in same cluster in **Active/Passive** configuration.
+
+### HDFS Federation
+
+> **Problem**: Even with HA, two NameNodes alone do not provide horizontal scalability.
+
+**Solution**: **Federate multiple independent NameNodes**.
+
+**Key points**:
+- Federated NameNodes are **independent** – no coordination required
+- DataNodes serve as **common storage** for all NameNodes
+- Each DataNode registers with all NameNodes in cluster
+- Each DataNode sends heartbeats, block reports, handles commands from all NameNodes
+
+### YARN (Yet Another Resource Negotiator)
+
+> **Fundamental idea**: **Decouple cluster resource management from data processing frameworks**.
+
+**Key benefit**: Many different types of applications can be submitted to YARN (not just MapReduce). More jobs run in parallel; scalability dramatically increased.
+
+#### YARN Components
+
+| Component | Function |
+|-----------|----------|
+| **ResourceManager (RM)** | Central authority; accepts application submissions; allocates cluster resources; schedules work across all nodes |
+| **Scheduler** (within RM) | Allocates resources to running applications; does NOT monitor or restart them |
+| **ApplicationsManager Service (AMService)** | Manages application submission; starts each ApplicationMaster; handles application lifecycle |
+| **NodeManager (NM)** | Per-node daemon; monitors local resources; manages container lifecycle (start, stop, clean-up); sends heartbeats to RM |
+| **ApplicationMaster (AM)** | Per-application coordinator; runs in container on NodeManager; negotiates resources with RM; coordinates tasks (does NOT execute job itself) |
+| **Container** | Resource allocation (CPU, memory) on a NodeManager; where tasks actually run |
+
+**Example ApplicationMasters**:
+- **MR AM** = ApplicationMaster for MapReduce (negotiates containers for mappers and reducers)
+- **MPI AM** = ApplicationMaster for MPI applications on YARN
+
+---
+
+## Apache Spark
+
+> **Apache Spark** = general-purpose data processing engine. Originated at UC Berkeley AMPLab (2009) to be **faster and more flexible than Hadoop MapReduce**.
+
+**Key features**:
+- Designed for: faster batch processing, interactive query processing, streaming data, iterative algorithms (machine learning)
+- **In-memory computation engine**
+- Almost **100× faster** than Hadoop MapReduce with in-memory computations
+- Almost **10× faster** using disk I/O
+
+### Spark Architecture – Three Layers
+
+| Layer | Description |
+|-------|-------------|
+| **Resource Management Layer** | Includes own lightweight cluster manager; can integrate with YARN, Mesos, or Kubernetes |
+| **Ecosystems Layer** | Libraries operating on Spark Core (SQL, MLlib, Streaming, GraphX) |
+| **Core Layer** | Generalised layer; defines basic functions; all other functionalities built on top |
+
+### Spark Core Concepts
+
+| Concept | Description |
+|---------|-------------|
+| **Driver** | User code running on driver (Scala, Python, Java, R); calls Spark APIs; produces DataFrame plans and RDD lineages |
+| **RDD** (Resilient Distributed Dataset) | Immutable, fault-tolerant, distributed collections of data elements; can be operated on in parallel |
+| **DataFrame API** | Parses operations; builds/optimises logical plan; creates physical plan; passes to Spark Core |
+| **Directed Acyclic Graph (DAG)** | Graphs of stages and tasks with one-way dependencies; Spark Core turns plans into DAGs |
+| **Executors** | Run tasks in parallel; keep data in memory (enables fast distributed processing); requested from Resource Manager |
+
+### Spark Data Flow
+
+```
+Driver (user code) → DataFrame plans + RDD lineages → DataFrame API (logical plan → physical plan) → Spark Core (DAG of stages/tasks) → Executors (run tasks, keep data in memory)
+```
+
+---
+
+## Comparison Table: Hadoop 1.0 vs Hadoop 2.0 (YARN) vs Spark
+
+| Feature | Hadoop 1.0 | Hadoop 2.0 (YARN) | Spark |
+|---------|------------|-------------------|-------|
+| **Resource management** | JobTracker (monolithic) | ResourceManager + NodeManager | Own manager or YARN/Mesos/K8s |
+| **Processing model** | MapReduce only | Multiple frameworks (MapReduce, MPI, etc.) | Batch, interactive, streaming, iterative |
+| **Storage** | HDFS (disk-based) | HDFS (disk-based) | In-memory + disk |
+| **Speed** | Baseline | ~2× throughput | 10–100× faster (in-memory) |
+| **Fault tolerance** | Task re-execution | Task re-execution | RDD lineage (recompute) |
+| **Programming model** | Rigid (map/reduce) | Flexible | Unified APIs (SQL, ML, streaming) |
+| **Iterative processing** | Poor (many disk writes) | Poor | Excellent (in-memory caching) |
+
+---
+
+## Quick Reference for This Lecture
+
+| Term | Definition |
+|------|------------|
+| **HDFS** | Hadoop Distributed File System (storage layer) |
+| **NameNode** | HDFS master – manages metadata (single point of failure in 1.0) |
+| **DataNode** | HDFS worker – stores actual data blocks |
+| **JobTracker** | Hadoop 1.0 master – schedules MapReduce jobs |
+| **TaskTracker** | Hadoop 1.0 worker – runs map/reduce tasks |
+| **YARN** | Yet Another Resource Negotiator – decouples resource management from processing |
+| **ResourceManager** | YARN central authority |
+| **NodeManager** | YARN per-node daemon |
+| **ApplicationMaster** | YARN per-application coordinator |
+| **Container** | YARN resource allocation (CPU, memory) |
+| **HDFS Federation** | Multiple independent NameNodes sharing DataNodes |
+| **Spark** | In-memory general-purpose data processing engine |
+| **RDD** | Resilient Distributed Dataset – immutable, fault-tolerant distributed collection |
+| **DAG** | Directed Acyclic Graph – stages and tasks with one-way dependencies |
+| **Driver** | Spark process running user code |
+| **Executor** | Spark worker process running tasks, caching data |
+
+**Exam traps**:
+- **Hadoop 1.0** = JobTracker + TaskTracker; **Hadoop 2.0** = ResourceManager + NodeManager (YARN)
+- **HDFS Federation** = multiple NameNodes (not just HA – that's Active/Passive)
+- **YARN decouples** resource management from processing (can run non-MapReduce applications)
+- **Spark** = in-memory (100× faster than Hadoop MapReduce) – **2025 Q1j**: key difference = **D. All of the above**
+- **RDDs** are immutable, fault-tolerant, distributed – can be cached in memory
+- **MapReduce output count (2025 Q1i)** : number of output files = **r** (reducers), not m or m×r
+# Lecture 16: Energy Efficiency in Clouds – Part I
+
+## Plan of the Lecture
+
+### Goals
+Understand concepts surrounding energy efficiency in clouds
+
+### Overview
+- Introduction
+- Powering the Cloud Infrastructure: Energy Consumption, Costs, Implications
+- Power-Aware Computing: Trends and Issues
+- The role of hardware
+- The role of software
+- Towards energy efficient Clouds
+- Review of energy efficiency metrics
+- Conclusion
+
+---
+
+## Introduction
+
+### Ordinary Things, Extraordinary Energy Cost
+
+> Every internet activity (liking on Facebook, streaming movies, posting on Instagram) involves huge amounts of data processed/stored somewhere.
+
+**Driverless cars** – example of "internet of everything" driving further data centre growth.
+
+> The vast network of cloud data centres that have sprouted in the past decade will continue to spread.
+
+---
+
+## Powering the Cloud Infrastructure: Energy Consumption, Costs, Implications
+
+### Cloud Data Centre Workloads
+
+| Workload Type | Examples |
+|---------------|----------|
+| **Short-running** | Serving web requests (e-commerce, social networks) – seconds |
+| **Long-running** | Simulations, large dataset processing – longer periods |
+
+> **Scale**: Total energy bill for data centres is over **$15 billion** (estimate).
+
+### Environmental Impact – The Dark Side
+
+| Statistic | Value |
+|-----------|-------|
+| Global electricity consumption | 3–4% |
+| Global CO₂ emissions | ~2% (estimated 14% by 2040) |
+| Electricity in 2022 | 460 TWh (more than UK's ~320 TWh) |
+| Projected 2026 consumption | 1,000+ TWh |
+| IT sector future | Estimated to become world's most energy-consuming industry |
+
+**Examples of large data centres**:
+- Apple's "iDataCenter" (North Carolina) – estimated energy = 250,000 EU homes
+- Facebook data centre (Lulea, Sweden – 70 miles from Arctic Circle) – 84 acres, tens of thousands of servers, 500 huge fans for cooling
+- **Colossus 2** (AI datacentre) – peak draw ~1.2 GW (enough for 2+ million homes); 7 Titan-class gas turbines (~460 MW); 168 Tesla Megapacks for stability
+
+### Data Centre Power Breakdown
+
+| Component | Percentage |
+|-----------|------------|
+| **Server/Storage** | 50% |
+| Computer Room AC | 34% |
+| Conversion | 7% |
+| Network | 7% |
+| Lighting | 2% |
+
+> **Key insight**: Compute resources (servers) are at the heart – but cooling (34%) is also massive.
+
+### COVID-19 Impact
+> Global internet traffic surged by almost **40%** between February and mid-April 2020 (video streaming, conferencing, gaming, social networking).
+
+---
+
+## Power-Aware Computing: Trends and Issues
+
+### Energy and Power Definitions
+
+| Term | Definition | Formula |
+|------|------------|---------|
+| **Energy** | Physical currency to accomplish a task. Units: **Joule (J)**, **Watt-hour (Wh)**, **Kilowatt-hour (kWh)** | Energy = AvgPower × Time |
+| **Power** | Instantaneous rate of energy use. Units: **Watt (W)** | Power = Energy / Time |
+| **Energy Efficiency (EE)** | Ratio of work done per unit of energy consumed | EE = Work Done / (Power × Time) = Performance / Power |
+
+> **Joule**: The work required to produce one Watt of power for one second.
+
+### Power Measurement Tools
+
+| Tool | Description |
+|------|-------------|
+| **IPMI** (Intelligent Platform Management Interface) | Direct measurement via server-integrated sensors |
+| **RAPL** (Running Average Power Limit) | Intel/AMD power capping interface |
+| **Powerstat** | Linux tool for power measurement |
+| **Powertop** | Linux tool identifying power-hungry components |
+| **Kepler** (Kubernetes Efficient Power Level Exporter) | Container power metrics |
+
+### Key Observations (40 Years of Microprocessor Trend Data)
+
+- Historically: performance increased exponentially, power followed
+- Recently: **energy-optimised programmable hardware is ultimately controlled by software**
+- Hardware is optimised for power/performance/cost; software determines actual energy use
+
+---
+
+## The Role of Hardware
+
+### Hardware Optimisation Approaches
+
+| Approach | Description | Trade-off |
+|----------|-------------|-----------|
+| **Hardware specialisation** | ASICs, FPGAs, accelerators | Less flexibility, better efficiency |
+| **Hardware optimisation** | Instruction-level parallelism, hardware threading | Diminishing returns |
+| **Hardware-software co-design** | Large one-off engineering cost | Expensive but optimal |
+| **Software closer to hardware** | Fewer abstractions | Harder to program; tools are performance-oriented, not energy-oriented |
+| **Optimal software operation** | Off-line and on-line optimisation | Overhead may pay off |
+
+### Data Movement Dominates Power
+
+> **Key principle (exam-relevant)** :
+> 1. **Data Movement Dominates Power** – moving data costs more than computing on it
+> 2. **Optimise the Storage Hierarchy** – use caches, avoid disk when possible
+> 3. **Tailor Memory to the Application** – match memory type to workload
+
+---
+
+## The Role of Software
+
+### Who Is to Blame? Hardware or Software?
+
+> Hardware is often extensively optimised. But **energy-optimised programmable hardware is ultimately controlled by software**.
+
+**Levels of software optimisation**:
+1. **Software design** – architectural choices, algorithms, data structures
+2. **Software operation** – runtime configuration, frequency scaling, core allocation
+
+### Software Operation Space
+
+**Hardware resources to monitor**:
+- Hard disk: bytes/sec, read bytes/sec
+- CPU: percentage utilisation
+- Memory: private bytes, working set
+- Network: bytes total/sec, sent/sec, received/sec
+- IO: bytes/sec, read/sec, write/sec
+
+**Configuration parameters**:
+- Number of cores/threads
+- Frequency of cores
+- Type of core (heterogeneous computing – big.LITTLE)
+
+### Energy Formulation
+
+> **Energy = Power / Performance** OR **Energy = Power × Time**
+
+**Trade-offs**:
+
+| Action | Effect on Performance | Effect on Power | Effect on Energy |
+|--------|----------------------|-----------------|------------------|
+| Increase frequency/voltage | Increases | Increases more (quadratic) | Often increases |
+| Decrease frequency/voltage | Decreases | Decreases more | Often decreases |
+| Add more cores | Increases | Increases | Depends on parallelism |
+
+---
+
+## Towards Energy Efficient Clouds – Six Strategies
+
+> **Six key strategies for energy efficiency**:
+
+1. Data Centre Design Considerations
+2. **Dynamic Voltage and Frequency Scaling (DVFS)**
+3. **Server Consolidation**
+4. Virtualisation and Scheduling
+5. Data Analytics
+6. Software Design
+
+*(Detailed in Part II)*
+
+---
+
+## Review of Energy Efficiency Metrics
+
+### PUE (Power Utilisation Effectiveness)
+
+> **PUE** = Total facility power / IT equipment power
+
+| PUE Value | Meaning |
+|-----------|---------|
+| 1.0 | Ideal (all power to IT, none to cooling/lighting) |
+| 1.1 | Excellent (target) |
+| 1.55 | Median in 2022 study |
+| >2.0 | Poor |
+
+**Limitations of PUE**:
+- 100W of IT equipment might not all be **useful** work
+- Techniques exist to **deflate** PUE (some companies reported 1.02)
+- Doesn't measure **performance** or **useful work**
+
+### Performance Metrics
+
+> **Latency** is important because users see it. **SLOs/SLAs** (e.g., "99% of requests <100ms") must be met even while saving energy.
+
+### Energy Efficiency Metrics Summary
+
+| Metric Type | Unit | Example |
+|-------------|------|---------|
+| **Energy** | J, W, A, kWh | Total consumption |
+| **Performance** | GFLOPS/kWh, % | Work per energy |
+| **Throughput** | Requests/sec per Watt | Service efficiency |
+| **Utilisation** | %, MHz, GB/s | CPU usage |
+| **Economics** | £, $ | Lifecycle cost |
+| **Performance/Energy** | GFLOPS/Watt | Power efficiency |
+| **Pollution** | CO₂ units | Carbon emissions |
+
+### Metrics by Context
+
+| Context | Example Metric |
+|---------|----------------|
+| **Application** | Computational energy cost (CPU, memory, I/O) |
+| **Architecture** | Distributed system energy consumption (sum of components) |
+| **Service** | Execution plan energy efficiency |
+| **Virtual Machine** | Disk energy model over time |
+| **Data Centre** | Data centre energy productivity (bytes per kWh) |
+| **Server** | Server power utilisation vs CPU utilisation |
+| **DBMS** | Power-aware query plan cost |
+
+---
+
+## Conclusion (Part I)
+
+- Data centres consume massive energy (3–4% global electricity) with significant CO₂ impact
+- **Jevons paradox**: efficiency results in increased use (demand trumps savings)
+- Hardware provides the knobs; software must turn them
+- **PUE** measures facility efficiency but not useful work
+- **Energy = Power × Time** – trade-offs between performance and power
+
+---
+
+## Quick Reference for This Lecture
+
+| Term | Definition |
+|------|------------|
+| **Energy** | Power × Time (Joules, Wh, kWh) |
+| **Power** | Instantaneous rate (Watts) |
+| **EE** | Work Done / Energy = Performance / Power |
+| **PUE** | Total facility power / IT equipment power (lower is better) |
+| **Jevons paradox** | Efficiency leads to increased consumption |
+| **IPMI** | Intelligent Platform Management Interface |
+| **RAPL** | Running Average Power Limit |
+| **Data movement** | Dominates power (more than computation) |
+| **Colossus 2** | AI datacentre – 1.2 GW peak, 7 gas turbines, 168 Megapacks |
+
+**Exam traps**:
+- **PUE = 1.0** is ideal (all power to IT); median ~1.55; target ~1.1
+- **PUE doesn't measure useful work** – IT equipment may be idle
+- **Jevons paradox** = efficiency → more use → total energy may not decrease
+- **Energy = Power × Time** (not Power/Time)
+- **Data movement** dominates power – optimise storage hierarchy
+
+---
+
+# Lecture 17: Energy Efficiency in Clouds – Part II
+
+## Plan of the Lecture
+
+### Goals
+Understand concepts surrounding energy efficiency in clouds
+
+### Overview
+- Introduction
+- Powering the Cloud Infrastructure: Energy Consumption, Costs, Implications
+- Power-Aware Computing: Trends and Issues
+- The role of hardware
+- The role of software
+- Towards energy efficient Clouds
+- Review of energy efficiency metrics
+- Conclusion
+
+---
+
+## Towards Energy Efficient Clouds – Eight Strategies (Detailed)
+
+### 1. Data Centre Design Considerations
+
+| Consideration | Description |
+|---------------|-------------|
+| Cost-performance | Balance capital and operational costs |
+| Datacenter layout | Hot/cold aisle containment |
+| Cooling system | Efficient cooling (air, liquid, immersion) |
+| Server architecture | Energy-optimised components |
+| Dependability via redundancy | Trade-off between reliability and energy |
+| Network I/O | Energy-efficient switching |
+| Workload types | Interactive vs batch processing |
+| Server lifecycle | ~18 months refresh cycle |
+
+### 2. Dynamic Voltage and Frequency Scaling (DVFS)
+
+> **DVFS** = power-management technique where clock frequency is decreased to allow corresponding reduction in supply voltage.
+
+**Dynamic energy consumption formula**:
+```
+Dynamic Energy = α × Vdd² × Ncycle
+```
+- **Vdd** = supply voltage
+- **Ncycle** = number of clock cycles
+
+**Key relationships**:
+- Voltage drop → slower transistors → frequency drop
+- Reducing voltage has **quadratic** effect on dynamic energy
+
+**Example** (exam-relevant calculation):
+- Reduce voltage and frequency by 10%
+- Program slows by ~8%
+- **Dynamic power reduces by 27%** (quadratic effect)
+- **Total power reduces by ~23%**
+- **Total energy reduces by ~17%**
+
+> **Motivation for DVFS scheduling algorithms**: minimise energy consumption while meeting job deadlines.
+
+**Exam trap (2024 Q1g, 2025 Q1l)** : Server at Vmax finishes in T/2 seconds. Voltage for T seconds? **Vmax / 2**.
+
+### 3. Server Consolidation
+
+> **Problem**: Most servers utilisation is less than **5%**. Idle servers can consume up to **70% of maximum energy output**.
+
+| Issue | Description |
+|-------|-------------|
+| Low utilisation | 5% typical – massive waste |
+| Idle power | Up to 70% of peak |
+| Can't turn servers off | Breaks hot/cold aisle; may not restart |
+| Admin uncertainty | Unsure how to use effectively |
+
+> **Server consolidation** = reducing number of physical servers by running multiple VMs on fewer hosts.
+
+### 4. Virtualisation and Scheduling
+
+> **Virtualisation** allows many applications on a single server → smarter resource allocation.
+
+**Energy-aware scheduling decisions**:
+
+| Decision Point | Question |
+|----------------|----------|
+| **When to migrate?** | Host overload/underload detection algorithms |
+| **Which VMs to migrate?** | VM selection algorithms (e.g., Minimum Migration Time – MMT) |
+| **Where to migrate?** | Heuristics for bin-packing (Power-Aware Best Fit, Genetic Algorithms, reinforcement learning) |
+
+**Migration trade-off**: Migration requires additional cost and energy but can reduce hotspots.
+
+### 5. Energy-Aware Load Balancing
+
+> **Traditional load balancing** spreads load evenly. **Energy-aware balancing** does the **opposite**.
+
+**Strategy**:
+- Concentrate workloads on a **subset of servers**
+- Keep the rest in **sleep or low-power mode**
+- Reduces number of **partially utilised machines** (least energy-efficient)
+
+**Benefit**: Partially utilised servers are the **least energy-efficient** (idle power high, useful work low).
+
+### 6. Containerisation and Lightweight Virtualisation
+
+> **Containers** reduce overhead compared to full VMs. **Unikernels** implement bare minimum OS functions.
+
+| Technology | Characteristics | Energy benefit |
+|------------|-----------------|----------------|
+| **Containers** | Share host kernel; MBs vs GBs | Lower overhead, faster scaling |
+| **Unikernels** | App + minimal OS components; run directly on hypervisor | Extremely light; born/die in fractions of a second |
+| **WebAssembly (Wasm)** | Binary instruction format for stack-based VM | Emerging lightweight alternative |
+
+### 7. Data Analytics
+
+> Use **Big Data techniques** to identify points of inefficiency.
+
+**Key findings**:
+- Server architecture types exhibit different resource inefficiencies
+- **CPU waste**: 4.33–14.22%
+- **Memory waste**: 1.29–7.61%
+
+**User Resource Estimation Problem**:
+- Users always **overestimate** what they need (just in case, naive)
+- Results in large amounts of idle resources
+- Can use **over-provisioning** (similar to overbooking flight seats)
+
+### VM Power Modelling
+
+> Estimate energy consumption when direct measurement unavailable.
+
+**Simple CPU utilisation model**:
+```
+VM_Px = Host_P × (VM_Utilx / ΣVM_Util)
+```
+
+| Variable | Meaning |
+|----------|---------|
+| VM_Px | VM's power consumption |
+| Host_P | Measured host power |
+| VM_Utilx | VM's CPU utilisation |
+| ΣVM_Util | Sum of CPU utilisation of all VMs on host |
+
+### Physical Machine Power Modelling
+
+**Linear Model**:
+```
+PMx_predPwr = α × PMx_predUtil + β
+```
+
+**Polynomial Model** (more accurate for real CPUs):
+```
+PMx_predPwr = α(PMx_predUtil)³ - γ(PMx_predUtil)² + δ(PMx_predUtil) + β
+```
+
+Where α, γ, δ are slopes, β is intercept.
+
+> Polynomial model better captures non-linear relationship between CPU utilisation and power.
+
+### 8. Energy Efficiency and Software Design
+
+> Can service applications be built with energy awareness at **requirements/design stage**?
+
+**Key principle**: Shared software components are used and reused many times → imperative they are as energy-efficient as possible.
+
+**Programming Model with Energy Optimisation**:
+1. Developer constructs application using Programming Model
+2. Uses Plug-in to analyse code
+3. Identifies **patterns** and **potential energy hotspots**
+4. Adaptive methodology: **Monitor → Analyse → Plan → Execute**
+
+**Adaptation decisions** (5W1H for energy adaptation):
+
+| Question | Considerations |
+|----------|----------------|
+| **When?** | Time: reactive, proactive |
+| **Why?** | Reason: context, resources |
+| **Where?** | Level: application, software, resource |
+| **What?** | Technique: parameter, structure |
+| **How?** | Control: approach, decision criteria |
+
+---
+
+## Energy Awareness Across Cloud Layers
+
+> Energy efficiency must be addressed at **every layer** of the cloud stack:
+
+| Layer | Energy Considerations |
+|-------|----------------------|
+| **User level** | Applications (enterprise, scientific, social) |
+| **User-level middleware** | Cloud programming environments, workflows, libraries |
+| **Apps hosting platforms** | QoS negotiation, admission control, pricing, SLA management |
+| **Core middleware** | Monitoring, execution management, metering, accounting, billing |
+| **Virtualisation** | VM management and deployment |
+| **System level** | Hardware, hypervisors |
+
+---
+
+## A Final Note on Policy
+
+### Societal Enforcement and Policies
+
+- Many companies want to be seen as "green"
+- Increased pressure for enforcement to restrict datacentre energy costs
+
+### Jevons Paradox (Exam-Relevant)
+
+> **Jevons paradox** = efficiency results in **increased use** (not decreased).
+
+**Implication**: The easier/cheaper you make it to consume a product, the **greater the consumption** will be. Energy efficiency gains in data centres may lead to **more data centre use**, not less total energy.
+
+**Example**: More energy-efficient servers → lower cost per computation → more computations performed → total energy may increase.
+
+---
+
+## Summary
+
+| Key Point | Summary |
+|-----------|---------|
+| **Problem** | Data centres consume high energy → high operational cost + environmental impact |
+| **Solutions** | DVFS, server consolidation, energy-aware scheduling, lightweight virtualisation |
+| **Open issues** | Energy-efficient algorithms, software design, resource management for varied workloads, understanding metrics |
+| **Paradox** | Jevons paradox – efficiency may increase total consumption |
+
+---
+
+## Metrics for Measuring Energy Consumption (Reference Tables)
+
+### By Metric Type
+
+| Metrics Type | Units | Example |
+|--------------|-------|---------|
+| Energy | J, W, A, kWh | Total consumption |
+| Performance | GFLOPS/kWh, %, s | Work per energy |
+| Throughput | Requests/sec per Watt | Service efficiency |
+| Utilisation | %, MB, MHz, GB/s | CPU/memory/disk usage |
+| Economics | £, $ | Lifecycle cost |
+| Performance/Energy | GFLOPS/Watt | Power efficiency |
+| Pollution | CO₂ units | Carbon emissions |
+
+### By Context
+
+| Context | Example Metric |
+|---------|----------------|
+| Application | Computational energy cost (CPU, memory, I/O) |
+| Architecture | Distributed system energy consumption |
+| Service | Execution plan energy efficiency |
+| Virtual Machine | Disk energy model over time |
+| Data Centre | Data centre energy productivity (bytes/kWh) |
+| Embedded Software | Executed instructions count |
+| Server | Server power utilisation vs CPU utilisation |
+| DBMS | Power-aware query plan cost |
+
+---
+
+## Quick Reference for This Lecture
+
+| Term | Definition |
+|------|------------|
+| **DVFS** | Dynamic Voltage and Frequency Scaling |
+| **DFS** | Dynamic Frequency Scaling (only frequency, not voltage) |
+| **Dynamic Energy** | α × Vdd² × Ncycle (quadratic with voltage) |
+| **Server consolidation** | Reducing physical servers by running multiple VMs on fewer hosts |
+| **Idle server power** | Up to 70% of max energy |
+| **MMT** | Minimum Migration Time (VM selection policy) |
+| **Jevons paradox** | Efficiency → increased consumption |
+| **PUE** | Power Utilisation Effectiveness (facility metric) |
+| **Linear power model** | PMx_predPwr = α × util + β |
+| **Polynomial power model** | Cubic regression (more accurate) |
+
+**Exam traps**:
+- **DVFS reduces voltage** → quadratic energy reduction (not linear)
+- **Voltage down → frequency down** (cannot lower voltage without lowering frequency on most systems)
+- **Server consolidation** – turning servers off breaks hot/cold aisle; may not restart
+- **Energy-aware load balancing** = concentrate load (opposite of traditional)
+- **Jevons paradox** = efficiency → more use (not less energy)
+- **VM power modelling** uses CPU utilisation proportion – simple but imperfect
+- **Idle servers consume up to 70% of max power** (can't just turn off)
