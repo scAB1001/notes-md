@@ -939,7 +939,6 @@ volumes:
 - Smaller attack surface (no unnecessary OS components)
 
 **Deployment Options – Efficiency Spectrum**:
-
 ```
 Least Efficient ─────────────────────────────────────────► Most Efficient
 
@@ -952,7 +951,6 @@ Services placed anywhere from dedicated hardware to just a software package.
 
 **Further improvement**: Unikernels (even lighter, but less mature).
 ## Conclusion
-
 - **Containers** = alternative to Virtual Machines
 - Comprise just the **application + its dependencies**
 - Run as **isolated process in user space** on host OS, sharing kernel with other containers
