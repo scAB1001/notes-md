@@ -756,7 +756,6 @@ Top of Rack (TOR) Switches
 | KVM                | Type 1 (Linux kernel module) | Hardware-assisted                                 |
 | Microsoft Hyper-V  | Type 1                       | Hardware-assisted                                 |
 ## Conclusion
-
 - Virtualisation enables **secure multiplexing**, **performance isolation**, **snapshots**, **encapsulation**
 - Three hypervisor-based techniques: **full**, **para**, **hardware-assisted**
 - Hardware-assisted (VT-x/AMD-V) offers **lowest overhead**
@@ -832,7 +831,6 @@ Top of Rack (TOR) Switches
 | **What is abstracted**      | Hardware          | Hardware                 | OS kernel                   |
 | **Isolation mechanism**     | Hardware + VMM    | Hardware + VMM + host OS | Kernel namespaces + cgroups |
 | **Performance**             | Good              | Moderate                 | **Best**                    |
-
 **Key insight**: chroot + Linux kernel features (cgroups for resource limits, namespaces for isolation) = container foundation.
 ## VMs vs Containers – Detailed Comparison
 
@@ -846,7 +844,6 @@ Top of Rack (TOR) Switches
 | **Management cost**   | High (each VM requires full OS management)    | Low (single kernel to manage)              |
 | **Resource overhead** | High                                          | **Near-zero**                              |
 | **Use cases**         | Legacy apps, multi-OS, strong isolation       | DevOps, batch computing, **microservices** |
-
 > **Clear advantage for containers in**: DevOps, batch computing, microservices.
 ## Microservices Architecture
 > **Microservices** = architectural pattern where an application is decomposed into **small, autonomous services** that work together.
@@ -865,7 +862,6 @@ Top of Rack (TOR) Switches
 | **Changes**         | Change entire application        | Change individual services          |
 | **Fault isolation** | Failure affects everything       | Failure isolated to one service     |
 | **Development**     | Large team, coordinated releases | Small teams, independent deployment |
-
 > **Containers provide an excellent environment for running microservices** – each microservice runs in its own container, multiple copies for load balancing.
 
 **Typical container contents**: single executable service (a microservice). Multiple containers for same microservice run same code, linked via message queuing or load balancing.
