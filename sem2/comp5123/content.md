@@ -435,7 +435,7 @@ Understand concepts of Cloud Computing
 
 > **WSC storage approach**: Use **local disks** + **replication** (e.g., GFS maintains 3+ replicas) rather than centralised SAN/NAS.
 ## Aspect of heterogeneity
-> Heterogeneity exists at **macro level** (networked computers with diverse architectures) and **micro level** (memory hierarchies, accelerators). It is a **profound challenge** for parallel environments but also enables **specialised acceleration**.
+>Heterogeneity exists at **macro level** (networked computers with diverse architectures) and **micro level** (memory hierarchies, accelerators). It is a **profound challenge** for parallel environments but also enables **specialised acceleration**.
 
 **Example**: A cloud workload may use:
 - **CPU** for control logic and sequential tasks
@@ -482,7 +482,6 @@ Understand concepts of Cloud Computing
 > - Directs workload within datacenter
 > - Returns results to external client, **hiding datacenter internals**
 ### Network Architecture (Tiered)
-
 ```
 External Clients
        │
