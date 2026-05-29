@@ -1612,7 +1612,6 @@ VMs are great... but something more is needed:
 | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | **YANG** (Yet Another Next Generation)       | Data modelling language defining structure/semantics of configuration and state data for network devices         |
 | **NETCONF** (Network Configuration Protocol) | Network management protocol using XML over SSH to retrieve/modify configuration data, often based on YANG models |
-
 > **YANG and NETCONF are complements to SDN, not competitors**. SDN defines **how** network is controlled; YANG/NETCONF define **how configurations and state are represented and applied**.
 ## NFV and VNF
 ### Definitions
@@ -1658,7 +1657,6 @@ VMs are great... but something more is needed:
 | **NFV**     | Network Functions Virtualisation                                        |
 | **VNF**     | Virtualised Network Function (e.g., virtual firewall)                   |
 | **MANO**    | Management and Orchestration (ETSI NFV framework)                       |
-
 **Exam traps**:
 - **P4** = data plane programmability; **OpenFlow** = control protocol (not language)
 - **Stratum** runs **on** switches; **ONOS** is **controller**
