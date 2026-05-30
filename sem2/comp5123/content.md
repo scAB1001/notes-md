@@ -1835,7 +1835,6 @@ VMs are great... but something more is needed:
 | **Single-function**   | Amazon Alexa, image resizing                        |
 | **Multiple-function** | IoT pipelines, image recognition, database analysis |
 | **Emerging**          | Parallel processing, machine learning               |
-
 **Function topologies**:
 - **Linear topology** – functions call functions in sequence
 - **Nested functions** – functions call other functions (composition)
@@ -1848,7 +1847,6 @@ VMs are great... but something more is needed:
 | **State**       | Can be stateful                    | **Stateless** (spins up only when triggered) |
 | **Scaling**     | Manual or HPA-based                | **Instantaneously scalable**                 |
 | **Pricing**     | Pay for running instances          | Pay per invocation/compute time              |
-
 > Evolution: **Monoliths → Microservices → Functions (nanoservices)**
 ## Architectural Support – Serverless Execution Model
 
