@@ -1999,7 +1999,6 @@ VMs are great... but something more is needed:
    - Location or placement constraints
    - Energy-efficiency or sustainability constraints
 ## Cloud Programming – Models
-
 Frameworks are empirically classified into categories:
 
 1. **High Performance Computing**
