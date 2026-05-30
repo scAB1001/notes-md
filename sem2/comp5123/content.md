@@ -1710,7 +1710,6 @@ VMs are great... but something more is needed:
 | **User Acceptance Testing**    | Business/end users validate solution meets requirements       |
 | **Production**                 | Live configuration used by real users and workloads           |
 ### Benefits of IaC
-
 - **Multi-cloud automation** across Azure, AWS, GCP
 - **Faster, more efficient deployments** with fewer manual steps
 - **Repeatable, consistent environments** built same every time
@@ -1752,7 +1751,6 @@ VMs are great... but something more is needed:
 2. **Plan** (`terraform plan`) – previews changes
 3. **Apply** (`terraform apply`) – creates/updates infrastructure
 ## Conclusion
-
 - Reviewed cloud configuration management landscape
 - IaC provisions, deploys, configures cloud infrastructure at **massive scale** (10,000+ machines)
 - Presented **Terraform** as leading declarative provisioning tool
@@ -1781,7 +1779,6 @@ VMs are great... but something more is needed:
 | **Ansible**             | Agentless configuration management (SSH/WinRM)                       |
 | **Puppet/Chef**         | Classic configuration management (master-agent)                      |
 | **CloudFormation**      | AWS-native IaC                                                       |
-
 **Exam traps**:
 - **IaC ≠ Kubernetes** – IaC provisions the cluster; Kubernetes runs workloads **on** the cluster
 - **Terraform** = declarative, cloud-agnostic; **CloudFormation** = AWS-specific
@@ -1814,12 +1811,9 @@ VMs are great... but something more is needed:
 | **PaaS** | Apps, data                                                                     | Runtime, middleware, OS, virtualization, storage, network, servers, physical hardware |
 | **SaaS** | Just use the app                                                               | Everything else                                                                       |
 | **FaaS** | Code (functions)                                                               | Everything else – including scaling, servers, runtime                                 |
-
 > **You own and control the code you deploy!**
 ## Function as a Service (FaaS) – Core of Serverless Computing
-
 **FaaS execution model**:
-
 1. Developer writes a function (small piece of code)
 2. Defines a trigger (HTTP request, queue message, database change, timer)
 3. Platform handles everything else
