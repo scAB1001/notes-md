@@ -1849,7 +1849,6 @@ VMs are great... but something more is needed:
 | **Pricing**     | Pay for running instances          | Pay per invocation/compute time              |
 > Evolution: **Monoliths → Microservices → Functions (nanoservices)**
 ## Architectural Support – Serverless Execution Model
-
 **Serverless computing platform responsibilities**:
 1. Check if function is already running (warm)
 2. If not running (cold): load function from data store, instantiate container
