@@ -2280,7 +2280,6 @@ Frameworks are empirically classified into categories:
 | **Shuffle & Sort** | Group all values that share the same key (system handles)         |
 | **Reduce**         | Combine values per key to produce results                         |
 ### MapReduce Dataflow
-
 ```
 Input → Map → (key, value) pairs → Shuffle & Sort (by key) → Reduce → Output
 ```
@@ -2310,7 +2309,6 @@ Input → Map → (key, value) pairs → Shuffle & Sort (by key) → Reduce → 
 1. **Distributed Processing Framework** – MapReduce
 2. **Distributed File System** – **HDFS** (Hadoop Distributed File System)
 ## Conclusion
-
 - Introduced big-data systems and technology landscape
 - Big data and cloud computing are complementary
 - Architecture of big data systems (layered approach)
@@ -2330,7 +2328,6 @@ Input → Map → (key, value) pairs → Shuffle & Sort (by key) → Reduce → 
 | **Shuffle & Sort**       | System groups values by key, routes to same reducer         |
 | **Hadoop**               | Open-source MapReduce + HDFS                                |
 | **HDFS**                 | Hadoop Distributed File System                              |
-
 **Exam traps**:
 - **2024 Q1i**: Unstructured data = emails, social media posts, images (C)
 - **2025 Q2a**: Apply 5 Vs to a scenario (e.g., Netflix)
@@ -2353,7 +2350,6 @@ Input → Map → (key, value) pairs → Shuffle & Sort (by key) → Reduce → 
 | **HDFS** (Hadoop Distributed File System) | Storage layer            |
 | **MapReduce**                             | Compute/processing layer |
 ### HDFS (Storage Layer)
-
 **Characteristics**:
 - Cluster of hundreds or thousands of commodity computers
 - Average file size > 500MB; **block size = 128MB** (default)
@@ -2388,7 +2384,7 @@ Input → Map → (key, value) pairs → Shuffle & Sort (by key) → Reduce → 
 | **Scalability issues**               | Scaled to ~5,000 nodes, ~40,000 concurrent tasks (JobTracker bottleneck); NameNode RAM limited total files/blocks  |
 | **Inefficient resource utilisation** | Map slots could be "full" while reduce slots "empty" – slots dedicated to only one task type                       |
 | **Rigid programming model**          | Poor fit for iterative (machine learning) and interactive processing; difficulty expressing complex data pipelines |
-## Hadoop 2.0 Improvements
+## Hadoop 2.0 Improvements [!P]
 > Hadoop 2 moves from restricted batch-oriented model to **multi-purpose platform** (batch, interactive, online, streaming). 2× throughput with same hardware.
 
 **Major changes**:
@@ -2425,7 +2421,6 @@ Input → Map → (key, value) pairs → Shuffle & Sort (by key) → Reduce → 
 | **NodeManager (NM)**                        | Per-node daemon; monitors local resources; manages container lifecycle (start, stop, clean-up); sends heartbeats to RM                       |
 | **ApplicationMaster (AM)**                  | Per-application coordinator; runs in container on NodeManager; negotiates resources with RM; coordinates tasks (does NOT execute job itself) |
 | **Container**                               | Resource allocation (CPU, memory) on a NodeManager; where tasks actually run                                                                 |
-
 **Example ApplicationMasters**:
 - **MR AM** = ApplicationMaster for MapReduce (negotiates containers for mappers and reducers)
 - **MPI AM** = ApplicationMaster for MPI applications on YARN
@@ -2454,7 +2449,6 @@ Input → Map → (key, value) pairs → Shuffle & Sort (by key) → Reduce → 
 | **Directed Acyclic Graph (DAG)**        | Graphs of stages and tasks with one-way dependencies; Spark Core turns plans into DAGs                            |
 | **Executors**                           | Run tasks in parallel; keep data in memory (enables fast distributed processing); requested from Resource Manager |
 ### Spark Data Flow
-
 ```
 Driver (user code) → DataFrame plans + RDD lineages → DataFrame API (logical plan → physical plan) → Spark Core (DAG of stages/tasks) → Executors (run tasks, keep data in memory)
 ```
