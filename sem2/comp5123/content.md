@@ -1895,7 +1895,8 @@ VMs are great... but something more is needed:
 - Each function or microservice = **immutable Docker container** managed by Kubernetes
 - **NATS** = lightweight, high-performance messaging system for cloud-native systems (message durability, replay, at-least-once delivery)
 ### Knative – Architecture
-> **Knative** = Kubernetes-based platform for serverless workloads. Two main pillars: **Knative Serving** (HTTP-triggered) and **Knative Eventing** (event-driven).
+> **Knative** = Kubernetes-based platform for serverless workloads. 
+> Two main pillars: **Knative Serving** (HTTP-triggered) and **Knative Eventing** (event-driven).
 #### Knative Serving Components
 
 | Component                 | Function                                                                                       |
