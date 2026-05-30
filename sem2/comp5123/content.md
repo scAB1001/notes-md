@@ -2018,7 +2018,6 @@ Frameworks are empirically classified into categories:
 **Key features**: concurrent operations, exploits cloud provisioning models. Designed to improve upon C++.
 ## Example 1: High Performance Computing
 ### Historical Problem
-
 - Most interconnection networks shipped with **proprietary communication libraries** (expensive, incompatible)
 - Portability across architectures was difficult
 - Need for **hardware-independent** solution
@@ -2033,9 +2032,7 @@ Frameworks are empirically classified into categories:
 | **Memory model**        | **No shared memory** – each process has own memory space                                          |
 | **Portability**         | **Portable programming standard** – vendors implement API for diverse hardware                    |
 | **Scalability**         | Efficient from few processes to thousands of nodes                                                |
-
 **Message-passing model**: Data transfer + synchronisation. Requires cooperation of sender and receiver.
-
 **Primitives**: `MPI_send`, `MPI_recv`, `MPI_Bcast`, `MPI_Scatter`, `MPI_Gather`, `MPI_Reduce`
 ### OpenMP
 > **OpenMP** = shared memory alternative to MPI. API for multi-threaded parallelisation.
@@ -2069,8 +2066,6 @@ Frameworks are empirically classified into categories:
 | **Economical** | Open-source MapReduce minimises overheads                                 |
 | **Efficient**  | High-degree of parallelism across commodity nodes                         |
 | **Reliable**   | Automatically maintains multiple data copies; redeploys tasks on failures |
-
-*(More detail in Lectures 14-15 on Big Data)*
 ## Example 3: TensorFlow
 > **TensorFlow** = programming model and execution framework for Machine Learning. Open-source numerical computation library developed by Google Brain Team.
 
@@ -2086,7 +2081,6 @@ Frameworks are empirically classified into categories:
 | **Placeholder** | Node whose value is fed in at execution time (e.g., input X)                       |
 | **Variable**    | Stateful node retaining value across multiple executions (e.g., weights W, bias b) |
 | **Operation**   | Combines inputs and parameters (e.g., MatMul, Add, ReLU)                           |
-
 **Example**: Neural network with one hidden layer – `h = ReLU(Wx + b)`
 - `x` = Placeholder
 - `W`, `b` = Variables
@@ -2109,7 +2103,6 @@ Frameworks are empirically classified into categories:
 | **Private** | Created by you; private by default; can grant access to other users |
 | **Public**  | Released to AWS community; anyone can launch instances              |
 | **Paid**    | Commercial AMIs offered by third parties; pay per hour of usage     |
-
 **When you launch an instance**: AWS clones the AMI, creating a fresh VM with same setup. Ensures consistency and scalability.
 ## Other Frameworks (Brief)
 
@@ -2119,14 +2112,13 @@ Frameworks are empirically classified into categories:
 | **Google App Engine** | PaaS for building scalable web applications    |
 | **OpenStack APIs**    | Programmatic access to OpenStack resources     |
 ## Conclusion
-
 - Reviewed cloud programming landscape
 - Classified frameworks for cloud application development:
   - **HPC**: MPI (distributed memory), OpenMP (shared memory)
   - **Big Data**: MapReduce/Hadoop
   - **ML/AI**: TensorFlow
   - **Cloud APIs**: AWS (EC2, S3, EBS, Cloud Control APIs)
-## Comparison Table: MPI vs OpenMP vs MapReduce vs TensorFlow
+## Comparison Table: MPI vs OpenMP vs MapReduce vs TensorFlow [!P]
 
 | Aspect          | MPI                   | OpenMP                  | MapReduce                       | TensorFlow               |
 | --------------- | --------------------- | ----------------------- | ------------------------------- | ------------------------ |
@@ -2200,7 +2192,6 @@ Frameworks are empirically classified into categories:
 | **Text data**       | Often unstructured                                    | HTML pages, blogs, social posts, documents |
 | **Graph data**      | Usually semi-structured (nodes/edges with properties) | Social network, Semantic Web               |
 | **Streaming data**  | Can be any type; high-velocity event streams          | IoT sensor data, clickstreams              |
-
 **Exam trap (2024 Q1i)**: "Which type of data falls under 'unstructured data'?" – **C. Emails, social media posts, and images** (not relational databases, spreadsheets, or sensor data – those are structured or semi-structured).
 ### What "Big Data" Means
 > **Big Data** = extremely large collections of structured, semi-structured, and unstructured data that grow exponentially.
