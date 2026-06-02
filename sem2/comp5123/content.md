@@ -3241,7 +3241,7 @@ The functional split: **Central Unit (CU)** — split into **CU-CP** (Control Pl
 **Smart Contract**: A **self-executing digital agreement** with terms directly written into **code**. It executes automatically when predefined conditions are met, without needing a trusted intermediary.
 
 **Example**: A smart contract on a blockchain automatically pays an infrastructure provider when sensor data confirms an SLA has been met — no manual invoicing needed.
-### Service Delivery Models (SDMs)
+### Service Delivery Models (SDMs) [!P]
 > **SDMs** define how **mobile network services** are structured and provided to end users and third-party operators.
 
 | Model                                                  | Description                                                                               |
@@ -3250,18 +3250,18 @@ The functional split: **Central Unit (CU)** — split into **CU-CP** (Control Pl
 | **MVNO (Virtual Mobile Network Operator)**             | Operator that **leases network** from an MNO, does not own physical infrastructure        |
 | **DeWi (Decentralised Wireless)**                      | Emerging model using **decentralised infrastructure** — community-owned wireless networks |
 | **DePIN (Decentralised Physical Infrastructure Nets)** | Blockchain-incentivised **decentralised physical infrastructure** sharing                 |
-### Digital Twin (DT)
+### Digital Twin (DT) [!P]
 > A **Digital Twin** is a **near-real-time virtual representation** of a **physical asset**, enabling **indirect observability** and **programmability** through **service-level APIs**. It can run as a **smart contract**.
 
 The DT receives **data** from the physical asset (sensor readings, state updates) and sends **control** commands back. Services interact with the DT via an **agreement** (API/smart contract), not directly with the physical asset.
 
 **Example**: A **digital twin of a 6G base station** mirrors its real-time state (load, power consumption, antenna config). Network operators interact with the twin to adjust parameters; changes propagate to the physical device automatically.
 ## 6G Starting Points
-### 5G Network Slicing (Recap for Context)
+### 5G Network Slicing (Recap for Context) [!P]
 > **Network Slicing** uses **NFV** and **SDN** to create multiple **virtual networks (slices)** on a single physical infrastructure. Each slice is customised for a specific use case with its own **QoS guarantees**.
 
 5G uses the concept of a **slice** to support NFV. This was a key exam topic: "What concept does 5G use to support network function virtualisation?" → **D. Slice**.
-### From 5G to 6G — Key Differences
+### From 5G to 6G — Key Differences [!P]
 
 | Aspect             | **5G**                              | **6G**                                                             |
 | ------------------ | ----------------------------------- | ------------------------------------------------------------------ |
@@ -3272,7 +3272,7 @@ The DT receives **data** from the physical asset (sensor readings, state updates
 | **Trust model**    | Centralised operators               | **Decentralised** via DLT/blockchain                               |
 | **New enablers**   | NFV, SDN, MEC                       | THz communications, digital twins, quantum, neuromorphic computing |
 ## Case Study: Disruptive 6G (D6G) Architecture
-### D6G Enabler Families (8 Building Blocks)
+### D6G Enabler Families (8 Building Blocks) [!P]
 
 | Family                     | What It Covers                                                                                                                     |
 | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
@@ -3284,8 +3284,7 @@ The DT receives **data** from the physical asset (sensor readings, state updates
 | **6. Intelligence**        | AI, ML, SON (Self-Organising Networks), neuromorphic computing, decision support systems                                           |
 | **7. Security**            | Identity/traceability, secrecy/integrity/authentication, authorisation/trust/transparency                                          |
 | **8. Quantum**             | Quantum computing, quantum communications, quantum security, quantum ML                                                            |
-### D6G Vision — Core Pillars
-
+### D6G Vision — Core Pillars [!P]
 **Native Cloud/Edge Intelligence**: Cloud and edge collaborate with embedded **AI/ML** as a first-class component of the network, not an add-on.
 
 **Smart Contracts**: Automate **agreements**, **resource allocation**, and **digital monetisation** — e.g., automatically paying for network slice usage via blockchain.
@@ -3302,11 +3301,10 @@ The DT receives **data** from the physical asset (sensor readings, state updates
 | **1. Service Stratum**                  | Hosts **on-chain and off-chain services**; producers/consumers interact via **digital markets** | Smart contracts, decentralised service store, Chainlink oracles, off-chain services |
 | **2. Abstraction & Middleware Stratum** | **Virtualises** physical resources, manages security, enables **programmability**               | Software platform, virtualiser (VMs/containers)                                     |
 | **3. Physical Stratum**                 | The underlying **hardware infrastructure**                                                      | SDRs, antennas, switches, RIS/IRS, UAVs, satellites, sensors, quantum hardware      |
-### On-Chain/Off-Chain Interoperability
-
+### On-Chain/Off-Chain Interoperability [!P]
 **Oracles** (e.g., **Chainlink**) act as **bridges** between the **blockchain (on-chain)** smart contracts and **external data sources (off-chain)**. In D6G, an operator expresses **intents** on-chain, an oracle translates these into **slicing parameters** via an **intent decoder (SLOrion)**, which configures **Network Slice as a Service (NSaaS)** across RAN, Transport, and Core. Services self-verify against the on-chain contract.
 ## Some Aspects of 6G Deployment
-### Industry 5.0 Integration Challenges
+### Industry 5.0 Integration Challenges [!P]
 Key challenges of integrating **6G with edge computing** in the context of **Industry 5.0** (exam topic from 2025 paper):
 
 | Challenge                          | Explanation                                                                                                                           |
