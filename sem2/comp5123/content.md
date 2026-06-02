@@ -2662,7 +2662,6 @@ Driver (user code) → DataFrame plans + RDD lineages → DataFrame API (logical
 | **Server**          | Server power utilisation vs CPU utilisation               |
 | **DBMS**            | Power-aware query plan cost                               |
 ## Conclusion (Part I)
-
 - Data centres consume massive energy (3–4% global electricity) with significant CO₂ impact
 - **Jevons paradox**: efficiency results in increased use (demand trumps savings)
 - Hardware provides the knobs; software must turn them
@@ -2700,7 +2699,7 @@ Driver (user code) → DataFrame plans + RDD lineages → DataFrame API (logical
 - Review of energy efficiency metrics
 - Conclusion
 ## Towards Energy Efficient Clouds – Eight Strategies (Detailed)
-### 1. Data Centre Design Considerations
+### 1. Data Centre Design Considerations [!P]
 
 | Consideration                | Description                                |
 | ---------------------------- | ------------------------------------------ |
@@ -2735,7 +2734,7 @@ Dynamic Energy = α × Vdd² × Ncycle
 > **Motivation for DVFS scheduling algorithms**: minimise energy consumption while meeting job deadlines.
 
 **Exam trap (2024 Q1g, 2025 Q1l)** : Server at Vmax finishes in T/2 seconds. Voltage for T seconds? **Vmax / 2**.
-### 3. Server Consolidation
+### 3. Server Consolidation [!P]
 > **Problem**: Most servers utilisation is less than **5%**. Idle servers can consume up to **70% of maximum energy output**.
 
 | Issue                  | Description                            |
@@ -2848,7 +2847,6 @@ Where α, γ, δ are slopes, β is intercept.
 | **System level**           | Hardware, hypervisors                                           |
 ## A Final Note on Policy
 ### Societal Enforcement and Policies
-
 - Many companies want to be seen as "green"
 - Increased pressure for enforcement to restrict datacentre energy costs
 ### Jevons Paradox (Exam-Relevant)
@@ -2865,7 +2863,7 @@ Where α, γ, δ are slopes, β is intercept.
 | **Solutions**   | DVFS, server consolidation, energy-aware scheduling, lightweight virtualisation                               |
 | **Open issues** | Energy-efficient algorithms, software design, resource management for varied workloads, understanding metrics |
 | **Paradox**     | Jevons paradox – efficiency may increase total consumption                                                    |
-## Metrics for Measuring Energy Consumption (Reference Tables)
+## Metrics for Measuring Energy Consumption (Reference Tables) [!P]
 ### By Metric Type
 
 | Metrics Type       | Units                 | Example               |
