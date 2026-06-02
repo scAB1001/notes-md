@@ -2411,7 +2411,7 @@ Input → Map → (key, value) pairs → Shuffle & Sort (by key) → Reduce → 
 > **Fundamental idea**: **Decouple cluster resource management from data processing frameworks**.
 
 **Key benefit**: Many different types of applications can be submitted to YARN (not just MapReduce). More jobs run in parallel; scalability dramatically increased.
-#### YARN Components
+#### YARN Components [!P]
 
 | Component                                   | Function                                                                                                                                     |
 | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -2439,7 +2439,7 @@ Input → Map → (key, value) pairs → Shuffle & Sort (by key) → Reduce → 
 | **Resource Management Layer** | Includes own lightweight cluster manager; can integrate with YARN, Mesos, or Kubernetes |
 | **Ecosystems Layer**          | Libraries operating on Spark Core (SQL, MLlib, Streaming, GraphX)                       |
 | **Core Layer**                | Generalised layer; defines basic functions; all other functionalities built on top      |
-### Spark Core Concepts
+### Spark Core Concepts [!P]
 
 | Concept                                 | Description                                                                                                       |
 | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
@@ -2452,7 +2452,7 @@ Input → Map → (key, value) pairs → Shuffle & Sort (by key) → Reduce → 
 ```
 Driver (user code) → DataFrame plans + RDD lineages → DataFrame API (logical plan → physical plan) → Spark Core (DAG of stages/tasks) → Executors (run tasks, keep data in memory)
 ```
-## Comparison Table: Hadoop 1.0 vs Hadoop 2.0 (YARN) vs Spark
+## Comparison Table: Hadoop 1.0 vs Hadoop 2.0 (YARN) vs Spark [!P]
 
 | Feature                  | Hadoop 1.0              | Hadoop 2.0 (YARN)                          | Spark                                    |
 | ------------------------ | ----------------------- | ------------------------------------------ | ---------------------------------------- |
@@ -2545,7 +2545,7 @@ Driver (user code) → DataFrame plans + RDD lineages → DataFrame API (logical
 ### COVID-19 Impact
 > Global internet traffic surged by almost **40%** between February and mid-April 2020 (video streaming, conferencing, gaming, social networking).
 ## Power-Aware Computing: Trends and Issues
-### Energy and Power Definitions
+### Energy and Power Definitions [!P]
 
 | Term                       | Definition                                                                                                | Formula                                               |
 | -------------------------- | --------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
@@ -2554,7 +2554,7 @@ Driver (user code) → DataFrame plans + RDD lineages → DataFrame API (logical
 | **Energy Efficiency (EE)** | Ratio of work done per unit of energy consumed                                                            | EE = Work Done / (Power × Time) = Performance / Power |
 
 > **Joule**: The work required to produce one Watt of power for one second.
-### Power Measurement Tools
+### Power Measurement Tools [!P]
 
 | Tool                                                   | Description                                      |
 | ------------------------------------------------------ | ------------------------------------------------ |
@@ -2564,12 +2564,11 @@ Driver (user code) → DataFrame plans + RDD lineages → DataFrame API (logical
 | **Powertop**                                           | Linux tool identifying power-hungry components   |
 | **Kepler** (Kubernetes Efficient Power Level Exporter) | Container power metrics                          |
 ### Key Observations (40 Years of Microprocessor Trend Data)
-
 - Historically: performance increased exponentially, power followed
 - Recently: **energy-optimised programmable hardware is ultimately controlled by software**
 - Hardware is optimised for power/performance/cost; software determines actual energy use
 ## The Role of Hardware
-### Hardware Optimisation Approaches
+### Hardware Optimisation Approaches [!P]
 
 | Approach                        | Description                                       | Trade-off                                                              |
 | ------------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------- |
@@ -2591,7 +2590,6 @@ Driver (user code) → DataFrame plans + RDD lineages → DataFrame API (logical
 1. **Software design** – architectural choices, algorithms, data structures
 2. **Software operation** – runtime configuration, frequency scaling, core allocation
 ### Software Operation Space
-
 **Hardware resources to monitor**:
 - Hard disk: bytes/sec, read bytes/sec
 - CPU: percentage utilisation
@@ -2603,7 +2601,7 @@ Driver (user code) → DataFrame plans + RDD lineages → DataFrame API (logical
 - Number of cores/threads
 - Frequency of cores
 - Type of core (heterogeneous computing – big.LITTLE)
-### Energy Formulation
+### Energy Formulation [!P]
 > **Energy = Power / Performance** OR **Energy = Power × Time**
 
 **Trade-offs**:
