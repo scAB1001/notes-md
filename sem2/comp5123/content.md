@@ -2945,10 +2945,8 @@ Where α, γ, δ are slopes, β is intercept.
 > **Kevin Ashton** coined "Internet of Things" phrase to describe a system where the Internet is connected to the physical world via ubiquitous sensors.
 > **"Things"** = any physical object with a device that has its own IP address and can connect & send/receive data via a network.
 ## Architecture of the Internet of Things
-
 **Core enabling technology**: **RFID** (Radio Frequency Identification Technology) – allows things to be identified and tracked wirelessly.
 ## Scope of the Internet of Things
-
 IoT spans multiple domains:
 - **Smart Homes** – connected appliances, security, lighting, HVAC
 - **Smart Cities** – traffic management, waste management, smart lighting, parking
@@ -2957,7 +2955,7 @@ IoT spans multiple domains:
 - **Healthcare** – remote patient monitoring, smart implants
 - **Agriculture** – soil monitoring, precision irrigation, livestock tracking
 - **Transportation** – connected vehicles, fleet management, autonomous driving
-## Building Blocks of the Internet of Things
+## Building Blocks of the Internet of Things [!P]v
 
 | Category           | Elements           | Examples                                                                                                                     |
 | ------------------ | ------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
@@ -3001,7 +2999,7 @@ IoT spans multiple domains:
 | **Beacons**   | Bluetooth Low Energy (BLE) beacons              | Broadcast signals for proximity detection; used in retail, museums, airports |
 | **Dongles**   | USB IoT adapters                                | Add connectivity to existing devices; plug-and-play                          |
 | **Wearables** | Smartwatches, fitness trackers, medical patches | Body-worn; often have limited battery and compute                            |
-## The Challenges of IoT
+## The Challenges of IoT [!P]
 
 | Challenge                    | Description                                                   |
 | ---------------------------- | ------------------------------------------------------------- |
@@ -3076,7 +3074,7 @@ IoT spans multiple domains:
 > **Network slicing** creates end-to-end virtual networks with dedicated resources (compute, storage, networking) tailored to specific service requirements.
 
 **Exam relevance (2024 Q1e)**: "What concept does 5G use to support network function virtualisation?" – **D. slice**.
-### Example Slices for IoT
+### Example Slices for IoT [!P]
 
 | Slice Type                             | Characteristics                                | Use Cases                                               |
 | -------------------------------------- | ---------------------------------------------- | ------------------------------------------------------- |
@@ -3109,7 +3107,6 @@ IoT spans multiple domains:
 | **mMTC**                     | Massive Machine Type Communication (5G slice)                                 |
 | **URLLC**                    | Ultra-Reliable Low Latency Communication (5G slice)                           |
 | **eMBB**                     | Enhanced Mobile Broadband (5G slice)                                          |
-
 **Exam traps**:
 - **2024 Q1e**: 5G supports NFV through **network slicing** (D – slice)
 - **Cloud vs Edge**: Cloud = centralised, high latency, massive storage; Edge = distributed, low latency, local processing
@@ -3137,7 +3134,6 @@ This achieves three benefits: **reduced bandwidth** (less raw data sent over the
 ## Definition of Edge Computing
 > **Edge Computing** is a **distributed computing paradigm** that moves **data processing and storage closer to the source** where data is generated (**IoT devices, sensors, machines**), instead of relying exclusively on the cloud. The goal is to **reduce latency**, **save bandwidth**, and **improve privacy**.
 ### Fog Computing vs Edge Computing
-
 Both push **intelligence and processing** closer to where data originates. The key difference is **where** the processing happens:
 
 | Feature                 | **Edge Computing**                                  | **Fog Computing**                                                            |
@@ -3147,10 +3143,8 @@ Both push **intelligence and processing** closer to where data originates. The k
 | **Function**            | Lowest possible latency, on-device decisions        | **Aggregate, filter, process** data from multiple endpoints before the cloud |
 | **Scale**               | Billions of edge devices                            | Millions of fog nodes                                                        |
 | **Latency**             | Lowest                                              | Low (but higher than pure edge)                                              |
-
 **Example**: A **smart camera** running object detection on-device = **edge computing**. A **local gateway** collecting data from 50 cameras, aggregating results, then sending summaries to the cloud = **fog computing**.
 ### Edge/Fog/Cloud Continuum
-
 The three tiers work together as a **continuum**: **Edge** (immediate local processing) → **Fog** (intermediate aggregation and richer processing) → **Cloud** (heavy computation, long-term storage, global analytics). An **e-Health smart city** example uses wearable sensors (edge) sending vital signs to edge controllers, which compress and encrypt data for fog nodes, which handle serverless processing and container elasticity, with the cloud providing dashboards and high-level notifications to authorities.
 ## EC: Representative Hardware
 
@@ -3184,9 +3178,9 @@ Software that enables running inference on edge hardware: **TensorFlow Lite** (G
 This preserves **privacy** (raw data never leaves the device) while still benefiting from **collective learning**. Tools: **FedAvg** (algorithm), **Flower**, **TensorFlow Federated**, **OpenFL**.
 
 **Example**: Smartphones improve a keyboard prediction model by learning from each user's typing locally, then sharing only the model weight updates — never the actual messages typed.
-### Edge Pipeline
+### Edge Pipeline [!P]
 The typical processing flow on edge: **Pod instantiation** → **Data ingestion** (via **MQTT/Kafka**) → **Pre-processing** (Apache Edgent, NumPy) → **Local inference** (TinyML) → **Feedback loops**. Orchestrated by **lightweight Kubernetes** (**K3s/MicroK8s**) with **Grafana** for observability.
-## EI: Hardware
+## EI: Hardware [!P]
 
 | Hardware                                | Type                                                                  | Use Cases                                              |
 | --------------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------ |
@@ -3201,7 +3195,7 @@ The **Kubernetes control plane** (API Server, Scheduler, Controller Manager, **e
 Key points: Edge node resources are **heterogeneous and limited**. **Lightweight K8s distributions** dominate edge environments: **K3s**, **MicroK8s**, **k0s**. Cloud nodes provide **large computing and memory capacity** for heavier tasks.
 ### LLM-Based Edge Intelligence
 Deploying **Large Language Models** at the edge brings **context understanding** to edge devices, increases device **autonomy** for low-latency decisions, and provides **context-awareness** for near real-time management of **6G edge devices**. Privacy is enhanced via **local processing** or **randomization** of sensitive data.
-### LLM Deployment Strategies
+### LLM Deployment Strategies [!P]
 
 | Strategy                    | Description                                                | Trade-off                                                          |
 | --------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------ |
@@ -3210,7 +3204,7 @@ Deploying **Large Language Models** at the edge brings **context understanding**
 | **On-Device Deployment**    | LLMs on user devices (e.g. Mistral 7B, Gemini Nano 1.8B)   | **Fastest response**, personalisation, but **limited by hardware** |
 | **Cache-Based Deployment**  | Model split/cached across cloud, edge, devices             | **Flexible** but complex synchronisation                           |
 | **Cooperative Deployment**  | Cloud trains large models; edge runs small tailored models | Best of both but requires **coordination**                         |
-### Wasm & Trusted Execution Environments (TEEs)
+### Wasm & Trusted Execution Environments (TEEs) [!P]
 **WebAssembly (Wasm)**: A **portable, lightweight, safe** execution format providing **software-level sandboxing**. **Intel SGX (Software Guard Extensions)**: Provides **hardware-isolated enclaves** that protect code/data from the host OS. The **TWINE Runtime** combines both: executes Wasm inside SGX creating a **two-way sandbox** (Wasm sandbox nested in TEE hardware sandbox). Uses **WASI** for controlled OS access and **attestation** to verify runtime and app integrity.
 ### Serverless + Edge for AI/ML Training
 Running **serverless functions** on edge devices for ML training requires **lightweight Kubernetes** (K3s, MicroK8s, k0s), **lightweight OS images** (Python debian slim), and benchmarking tools like **Benchfaster** for evaluating serverless function performance at the edge.
@@ -3242,7 +3236,6 @@ Typical MEC services: **Radio Network Information Service**, **Location Service*
 
 The functional split: **Central Unit (CU)** — split into **CU-CP** (Control Plane: RRC, PDCP) and **CU-UP** (User Plane: SDAP, PDCP). **Distributed Unit (DU)** — handles RLC, MAC, PHY-high layers, runs at the edge. **Radio Unit (RU)** — handles PHY-low and RF at the **cell site**. The CU and DU run in the **O-Cloud (Edge Cloud)**, enabling **virtualised, software-defined** radio infrastructure.
 ### Immutability and Smart Contracts
-
 **Immutability**: The ability to **persistently store data** and/or **run programs** in a way that they **cannot be changed once registered** (e.g., blockchain).
 
 **Smart Contract**: A **self-executing digital agreement** with terms directly written into **code**. It executes automatically when predefined conditions are met, without needing a trusted intermediary.
