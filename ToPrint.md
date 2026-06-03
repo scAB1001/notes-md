@@ -1,14 +1,14 @@
 ## Comparison Tables
 ### MPI vs OpenMP vs MapReduce vs TensorFlow
 
-| Aspect | MPI | OpenMP | MapReduce | TensorFlow |
-|--------|-----|--------|-----------|------------|
-| **Paradigm** | Message passing | Shared memory | Data-parallel | Data-flow graph |
-| **Memory** | Distributed | Shared | Distributed (HDFS) | Distributed (optional) |
-| **Granularity** | Process | Thread | Task (Map/Reduce) | Operation |
-| **Best for** | HPC simulations | Single-node parallelism | Batch data processing | Machine Learning |
-| **Cloud use** | HPC on cloud clusters | Limited to single VM | Big data analytics | AI/ML training/inference |
-| **Languages** | C, Fortran, Python | C, C++, Fortran | Java, Python (Hadoop Streaming) | Python, C++ |
+| Aspect          | MPI                   | OpenMP                  | MapReduce                       | TensorFlow               |
+| --------------- | --------------------- | ----------------------- | ------------------------------- | ------------------------ |
+| **Paradigm**    | Message passing       | Shared memory           | Data-parallel                   | Data-flow graph          |
+| **Memory**      | Distributed           | Shared                  | Distributed (HDFS)              | Distributed (optional)   |
+| **Granularity** | Process               | Thread                  | Task (Map/Reduce)               | Operation                |
+| **Best for**    | HPC simulations       | Single-node parallelism | Batch data processing           | Machine Learning         |
+| **Cloud use**   | HPC on cloud clusters | Limited to single VM    | Big data analytics              | AI/ML training/inference |
+| **Languages**   | C, Fortran, Python    | C, C++, Fortran         | Java, Python (Hadoop Streaming) | Python, C++              |
 ### Hadoop 1.0 vs Hadoop 2.0 (YARN) vs Spark
 
 | Feature | Hadoop 1.0 | Hadoop 2.0 (YARN) | Spark |
@@ -48,13 +48,13 @@
 | Compatibility | High | Low | High |
 ### VMs vs Containers
 
-| Feature | Virtual Machines | Containers |
-|---------|-----------------|------------|
-| Isolation | Full OS-level | Process-level |
-| Guest OS | Each VM has own | Shared host kernel |
-| Boot time | Minutes | Seconds/milliseconds |
-| Size | GBs | MBs |
-| Overhead | High | Near-zero |
+| Feature   | Virtual Machines | Containers            |
+| --------- | ---------------- | --------------------- |
+| Isolation | Full OS-level    | Process-level         |
+| Guest OS  | Each VM has own  | Shared host kernel    |
+| Boot time | Minutes          | Seconds/milliseconds  |
+| Size      | GBs              | MBs                   |
+| Overhead  | High             | Near-zero             |
 | Use cases | Legacy, multi-OS | Microservices, DevOps |
 ### Deployment Options (Dedicated HW → VM → Container → Unikernel)
 
@@ -205,29 +205,18 @@ Driver → DataFrame plans + RDD lineages → DataFrame API (logical plan → ph
 - **Linear**: PMx_predPwr = α × util + β
 - **Polynomial (more accurate)** : cubic regression
 ### Metrics for Measuring Energy Consumption
-#### By Metric Type
+#### By Metric Type | By Context
 
-| Metrics Type | Units | Example |
-|--------------|-------|---------|
-| Energy | J, W, A, kWh | Total consumption |
-| Performance | GFLOPS/kWh, %, s | Work per energy |
-| Throughput | Requests/sec per Watt | Service efficiency |
-| Utilisation | %, MB, MHz, GB/s | CPU/memory/disk usage |
-| Economics | £, $ | Lifecycle cost |
-| Performance/Energy | GFLOPS/Watt | Power efficiency |
-| Pollution | CO₂ units | Carbon emissions |
-#### By Context
-
-| Context | Example Metric |
-|---------|----------------|
-| Application | Computational energy cost (CPU, memory, I/O) |
-| Architecture | Distributed system energy consumption |
-| Service | Execution plan energy efficiency |
-| Virtual Machine | Disk energy model over time |
-| Data Centre | Data centre energy productivity (bytes/kWh) |
-| Embedded Software | Executed instructions count |
-| Server | Server power utilisation vs CPU utilisation |
-| DBMS | Power-aware query plan cost |
+| Metrics Type       | Units                 | Example               |     | Context           | Example Metric                               |
+| ------------------ | --------------------- | --------------------- | --- | ----------------- | -------------------------------------------- |
+| Energy             | J, W, A, kWh          | Total consumption     |     | Application       | Computational energy cost (CPU, memory, I/O) |
+| Performance        | GFLOPS/kWh, %, s      | Work per energy       |     | Architecture      | Distributed system energy consumption        |
+| Throughput         | Requests/sec per Watt | Service efficiency    |     | Service           | Execution plan energy efficiency             |
+| Utilisation        | %, MB, MHz, GB/s      | CPU/memory/disk usage |     | Virtual Machine   | Disk energy model over time                  |
+| Economics          | £, $                  | Lifecycle cost        |     | Data Centre       | Data centre energy productivity (bytes/kWh)  |
+| Performance/Energy | GFLOPS/Watt           | Power efficiency      |     | Embedded Software | Executed instructions count                  |
+| Pollution          | CO₂ units             | Carbon emissions      |     | Server            | Server power utilisation vs CPU utilisation  |
+|                    |                       |                       |     | DBMS              | Power-aware query plan cost                  |
 ## IoT, Edge Computing, and 6G
 ### Building Blocks of the Internet of Things
 
@@ -460,105 +449,87 @@ Key challenges of integrating **6G with edge computing** in Industry 5.0 (exam t
 | LoRa battery life | 1000+ days |
 | Raspberry Pi cores | 4 (ARM Cortex) |
 | AWS Lambda max execution time | 15 minutes |
-## Docker Commands Reference
-### Management Commands
+## Generic Usage Patterns
 
-| Command | Description |
-|---------|-------------|
-| `docker dockerd` | Launch the Docker daemon |
-| `docker info` | Display system-wide information |
-| `docker inspect` | Return low-level information on a container or image |
-| `docker version` | Show the Docker version information |
-### Image Commands
+| Operation                        | Command pattern                                                     |
+| -------------------------------- | ------------------------------------------------------------------- |
+| **Build image**                  | `docker build -t <name>:<tag> .` (from Dockerfile in current dir)   |
+| **Run container**                | `docker run -d --name <cname> -p host:container <image>` (detached) |
+| **Stop container**               | `docker stop <cname>`                                               |
+| **Remove container**             | `docker rm <cname>`                                                 |
+| **Remove image**                 | `docker rmi <image>`                                                |
+| **Pull image**                   | `docker pull <image>`                                               |
+| **Push image**                   | `docker push <repo>/<image>:<tag>`                                  |
+| **Execute in running container** | `docker exec -it <cname> <command>`                                 |
+| **View logs**                    | `docker logs -f <cname>`                                            |
+# Docker Commands – Width-Efficient Multi-Column Reference
 
-| Command | Description |
-|---------|-------------|
-| `docker build` | Build an image from a Dockerfile |
-| `docker commit` | Create a new image from a container’s changes |
-| `docker history` | Show the history of an image |
-| `docker images` | List images |
-| `docker import` | Import from a tarball to create a filesystem image |
-| `docker load` | Load an image from a tar archive or STDIN |
-| `docker rmi` | Remove one or more images |
-| `docker save` | Save images to a tar archive |
-| `docker tag` | Tag an image into a repository |
-### Container Commands
+## Generic Usage Patterns (copy-paste ready)
 
-| Command | Description |
-|---------|-------------|
-| `docker attach` | Attach to a running container |
-| `docker cp` | Copy files/folders between container and host |
-| `docker create` | Create a new container |
-| `docker diff` | Inspect changes on a container’s filesystem |
-| `docker events` | Get real time events from the server |
-| `docker exec` | Run a command in a running container |
-| `docker export` | Export a container’s filesystem as a tar archive |
-| `docker kill` | Kill a running container |
-| `docker logs` | Fetch the logs of a container |
-| `docker pause` | Pause all processes within a container |
-| `docker port` | List port mappings for the container |
-| `docker ps` | List containers |
-| `docker rename` | Rename a container |
-| `docker restart` | Restart a running container |
-| `docker rm` | Remove one or more containers |
-| `docker run` | Run a command in a new container |
-| `docker start` | Start one or more stopped containers |
-| `docker stats` | Display live stream of container(s) resource usage |
-| `docker stop` | Stop a running container |
-| `docker top` | Display running processes of a container |
-| `docker unpause` | Unpause all processes within a container |
-| `docker update` | Update configuration of one or more containers |
-| `docker wait` | Block until a container stops, then print its exit code |
-### Hub and Registry Commands
+| Operation                        | Pattern                                                  | Example                                     |
+| -------------------------------- | :------------------------------------------------------- | ------------------------------------------- |
+| **Build image**                  | `docker build -t <name>:<tag> .`                         | `docker build -t myapp:1.0 .`               |
+| **Run container**                | `docker run -d --name <cname> -p HOST:CONTAINER <image>` | `docker run -d --name web -p 8080:80 nginx` |
+| **Stop container**               | `docker exec -it <cname> <cmd>`                          | `docker exec -it web bash`                  |
+| **Remove container**             | `docker logs -f <cname>`                                 | `docker logs -f web`                        |
+| **Remove image**                 | `docker stop <cname> && docker rm <cname>`               | `docker stop web && docker rm web`          |
+| **Pull image**                   | `docker pull <image>`                                    | `docker pull nginx:alpine`                  |
+| **Push image**                   | `docker push <repo>/<image>:<tag>`                       | `docker push myrepo/myapp:1.0`              |
+| **Execute in running container** | `docker rmi <image>`                                     | `docker rmi myapp:1.0`                      |
+| **View logs**                    |                                                          |                                             |
 
-| Command | Description |
-|---------|-------------|
-| `docker login` | Register or log in to a Docker registry |
-| `docker logout` | Log out from a Docker registry |
-| `docker pull` | Pull an image or repository from a registry |
-| `docker push` | Push an image or repository to a registry |
-| `docker search` | Search Docker Hub for images |
-### Network Commands
+| Command | Description | | Command | Description | | Command | Description |
+|---------|-------------|-|---------|-------------|-|---------|-------------|
+| **MANAGEMENT** | | | **IMAGE LIFECYCLE** | | | **CONTAINER LIFECYCLE** | |
+| `dockerd` | launch daemon | | `build` | build from Dockerfile | | `attach` | attach to running container |
+| `info` | system info | | `commit` | image from container changes | | `cp` | copy files host↔container |
+| `inspect` | low-level details | | `history` | show image history | | `create` | create (not start) |
+| `version` | show version | | `images` | list images | | `diff` | inspect filesystem changes |
+| | | | `import` | from tarball to filesystem | | `events` | real-time daemon events |
+| | | | `load` | load from tar (STDIN) | | `exec` | run command in running container |
+| | | | `rmi` | remove image(s) | | `export` | export filesystem as tar |
+| | | | `save` | save to tar | | `kill` | kill running container |
+| | | | `tag` | tag image | | `logs` | fetch logs |
+| | | | | | | `pause/unpause` | pause/unpause processes |
+| | | | | | | `port` | list port mappings |
+| | | | | | | `ps` | list containers |
+| | | | | | | `rename` | rename container |
+| | | | | | | `restart` | restart running container |
+| | | | | | | `rm` | remove container(s) |
+| | | | | | | `run` | create + start |
+| | | | | | | `start` | start stopped container(s) |
+| | | | | | | `stop` | stop running container(s) |
+| | | | | | | `stats` | live resource usage |
+| | | | | | | `top` | running processes inside |
+| | | | | | | `update` | update resource limits |
+| | | | | | | `wait` | block until stop, print exit code |
 
-| Command | Description |
-|---------|-------------|
-| `docker network connect` | Connect a container to a network |
-| `docker network create` | Create a new network |
-| `docker network disconnect` | Disconnect a container from a network |
-| `docker network inspect` | Display information about a network |
-| `docker network ls` | List all networks the Engine daemon knows about |
-| `docker network rm` | Remove one or more networks |
-### Volume Commands
+| Command | Description | | Command | Description | | Command | Description |
+|---------|-------------|-|---------|-------------|-|---------|-------------|
+| **HUB / REGISTRY** | | | **NETWORKING** | | | **VOLUMES (STORAGE)** | |
+| `login` | log in to registry | | `network connect` | connect container to network | | `volume create` | create volume |
+| `logout` | log out of registry | | `network create` | create new network | | `volume inspect` | show volume details |
+| `pull` | pull image/repo | | `network disconnect` | disconnect container | | `volume ls` | list volumes |
+| `push` | push image/repo | | `network inspect` | show network details | | `volume rm` | remove volume(s) |
+| `search` | search Docker Hub | | `network ls` | list networks | | | |
+| | | | `network rm` | remove network(s) | | | |
 
-| Command | Description |
-|---------|-------------|
-| `docker volume create` | Create a new volume |
-| `docker volume inspect` | Display information about a volume |
-| `docker volume ls` | List all volumes |
-| `docker volume rm` | Remove one or more volumes |
-### Swarm Commands
-
-| Command                   | Description                              |
-| ------------------------- | ---------------------------------------- |
-| `docker swarm init`       | Initialize a swarm                       |
-| `docker swarm join`       | Join a swarm as a manager or worker      |
-| `docker swarm leave`      | Remove the current node from the swarm   |
-| `docker swarm update`     | Update attributes of a swarm             |
-| `docker swarm join-token` | Display or rotate join tokens            |
-| `docker node promote`     | Promote a node to manager                |
-| `docker node demote`      | Demote a manager to worker               |
-| `docker node inspect`     | Inspect a node in the swarm              |
-| `docker node update`      | Update node attributes                   |
-| `docker node ps`          | List tasks running on a node             |
-| `docker node ls`          | List nodes in the swarm                  |
-| `docker node rm`          | Remove one or more nodes                 |
-| `docker service create`   | Create a new service                     |
-| `docker service inspect`  | Inspect a service                        |
-| `docker service ls`       | List services                            |
-| `docker service rm`       | Remove a service                         |
-| `docker service scale`    | Set the number of replicas for a service |
-| `docker service ps`       | List tasks of a service                  |
-| `docker service update`   | Update service attributes                |
+| Command | Description | | Command | Description |
+|---------|-------------|-|---------|-------------|
+| **SWARM ORCHESTRATION** | | | **SWARM SERVICES (continued)** | |
+| `swarm init` | initialize swarm | | `service create` | create a service |
+| `swarm join` | join as manager/worker | | `service inspect` | inspect service |
+| `swarm leave` | leave swarm | | `service ls` | list services |
+| `swarm update` | update swarm attributes | | `service rm` | remove service |
+| `swarm join-token` | manage join tokens | | `service scale` | set number of replicas |
+| `node promote` | promote to manager | | `service ps` | list tasks of service |
+| `node demote` | demote to worker | | `service update` | update service attributes |
+| `node inspect` | inspect node | | | |
+| `node update` | update node | | | |
+| `node ps` | list tasks on node | | | |
+| `node ls` | list nodes | | | |
+| `node rm` | remove node(s) | | | |
+*Note: commands are shown without the `docker` prefix except where needed for clarity. Add `docker` before each command in actual use.*
 # Past Exam Questions & Model Answers (2018–2026)
 ## 1. NIST Cloud Characteristics
 
