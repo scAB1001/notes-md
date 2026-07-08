@@ -317,16 +317,16 @@ voluntarios
 hubieramos podido parar aca
 haya roto
 # El concierto
-El concierto de Bad Bunny fue super increi'ble. Lo disfrute' much y te lo muestro las detalles ahora. Ya he mencionado algunas cosas como que fui con mi amigo "Pablo" pero creo que nu'nca mas.
+El concierto de Bad Bunny fue super increi'ble. Lo disfrute' mucho y te lo muestro las detalles ahora. Ya he mencionado algunas cosas como que fui con mi amigo "Pablo" pero creo que nada mas.
 El concierto duro' casi tres horas, y constaba de primer nu'mero y despues Bennito por la duracio'n de treinta cancio'nes --guau, un monto'n.
 
-La primero nu'mero fue una banda se llama "Chuwi" y estaban muy berracas. Justo mostraban apoyo para Gaza con una bandera sticker en el tambor. La energi'a fue impressionante y la principal cantante presentaba ma's tarde en la cancio'n "WELTITA".
+La primero nu'mero fue una banda se llama "Chuwi" y era muy berraca. Justo mostraban apoyo para Gaza con una bandera sticker en el tambor. La energi'a fue impresionante y la principal cantante presentaba ma's tarde en la cancio'n "WELTITA".
 
-El concierto ocurrio' en Duesseldorf, Alemania en el "Merkur-Spiel Arena" estadio que aloja (o') seisenta mil personas. Estaba lleno.
+El concierto ocurrio' en Duesseldorf, Alemania en el estadio "Merkur-Spiel Arena" que aloja (o') seisenta mil personas. Estaba lleno.
 
-Pablo y yo esta'bamos situado en el suelo con las entradas de pie/pista. Habi'an dos partes: el frente cerca el principal escenario y atra's (donde estuvimos) al lado de la casita. Estabamos rodeado por un grupo grande de mexicanos y algunas alemanas. Fue chevere pq las mujeres han imprido las letras a sus canciones favoritas. Que lindo no? Nos llegemos a las cinco de la tarde pare un comienzo a las siete de la noche
+Pablo y yo esta'bamos situados/ubicados en el suelo con las entradas de pie/pista. Habi'an dos partes: el frente cerca el principal escenario y atra's (donde estuvimos) al lado de la casita. Estabamos rodeado por un grupo grande de mexicanos y algunas alemanas. Fue chevere pq las mujeres han imprimido las letras a sus canciones favoritas. Que lindo no? Llegamos a las cinco de la tarde para comenzar a las siete de la noche.
 
-Las primeras siete cancio'nes se realizaron en el escenario principal. Adema's, las mayori'as veni'an del album "DTMF" con uno de "Un Verano Sin Ti" (Callai'ta especificamente la versio'n salsa). Mie'ntras el concierto Benito se cambio' en tres diferentes trajes.
+Las primeras siete cancio'nes se realizaron en el escenario principal. Adema's, la mayori'a veni'an del album "DTMF" con una de "Un Verano Sin Ti" (Callai'ta especificamente la versio'n salsa). Mie'ntras el concierto Benito se cambio' en tres diferentes trajes.
 
 
 --- 
