@@ -317,5 +317,7 @@ voluntarios
 hubieramos podido parar aca
 haya roto
 # El concierto
-El concierto de Bad Bunny fue super increi'ble. Lo disfrute' much y te lo muestro las detalles ahora. Ya he mencionado algunas cosas como que fui con mi amigo "Pablo" peo 
-El concierto duro' casi tres horas, y constaba de primer nu'mero y despues Bennito por la duracio'n de treinte cancio'nes --guau.
+El concierto de Bad Bunny fue super increi'ble. Lo disfrute' much y te lo muestro las detalles ahora. Ya he mencionado algunas cosas como que fui con mi amigo "Pablo" pero creo que nu'nca mas.
+El concierto duro' casi tres horas, y constaba de primer nu'mero y despues Bennito por la duracio'n de treinta cancio'nes --guau, un monto'n.
+La primero nu'mero fue una banda se llama "Chuwi" y estaban muy berracas. Justo mostraban apoyo para Gaza con una bandera sticker en el tambor. La energi'a fue impressionante y la principal cantante presentaba en la cancio'n "WELTITA".
+Las primeras siete cancio'nes se realizaron en el escenario principal. Adema's, las mayori'as veni'an del album "DTMF" con uno de "Un Verano Sin Ti" (Callai'ta especificamente la versio'n salsa).
