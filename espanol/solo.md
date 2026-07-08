@@ -324,6 +324,6 @@ La primero nu'mero fue una banda se llama "Chuwi" y estaban muy berracas. Justo 
 
 El concierto ocurrio' en Duesseldorf, Alemania en el "Merkur-Spiel Arena" estadio que aloja (o') seisenta mil personas. Estaba lleno.
 
-Pablo y yo esta'bamos situado en el suelo con las entradas de pie/pista. Habi'an dos partes: el frente cerca el principal escenario y atra's (donde estuvimos) al lado de la casita. Estabamos rodeado por un grupo grande de mexicanos y algunas alemanas. Fue chevere pq las mujeres  
+Pablo y yo esta'bamos situado en el suelo con las entradas de pie/pista. Habi'an dos partes: el frente cerca el principal escenario y atra's (donde estuvimos) al lado de la casita. Estabamos rodeado por un grupo grande de mexicanos y algunas alemanas. Fue chevere pq las mujeres han imprido las letras a sus canciones favoritas. Que lindo no? Nos llegemos a las cinco de la tarde pare un comienzo a las siete de la noche
 
-Las primeras siete cancio'nes se realizaron en el escenario principal. Adema's, las mayori'as veni'an del album "DTMF" con uno de "Un Verano Sin Ti" (Callai'ta especificamente la versio'n salsa).
+Las primeras siete cancio'nes se realizaron en el escenario principal. Adema's, las mayori'as veni'an del album "DTMF" con uno de "Un Verano Sin Ti" (Callai'ta especificamente la versio'n salsa). Mie'ntras el concierto Benito se cambio' en tres diferentes trajes.
