@@ -319,5 +319,11 @@ haya roto
 # El concierto
 El concierto de Bad Bunny fue super increi'ble. Lo disfrute' much y te lo muestro las detalles ahora. Ya he mencionado algunas cosas como que fui con mi amigo "Pablo" pero creo que nu'nca mas.
 El concierto duro' casi tres horas, y constaba de primer nu'mero y despues Bennito por la duracio'n de treinta cancio'nes --guau, un monto'n.
-La primero nu'mero fue una banda se llama "Chuwi" y estaban muy berracas. Justo mostraban apoyo para Gaza con una bandera sticker en el tambor. La energi'a fue impressionante y la principal cantante presentaba en la cancio'n "WELTITA".
+
+La primero nu'mero fue una banda se llama "Chuwi" y estaban muy berracas. Justo mostraban apoyo para Gaza con una bandera sticker en el tambor. La energi'a fue impressionante y la principal cantante presentaba ma's tarde en la cancio'n "WELTITA".
+
+El concierto ocurrio' en Duesseldorf, Alemania en el "Merkur-Spiel Arena" estadio que aloja (o') seisenta mil personas. Estaba lleno.
+
+Pablo y yo esta'bamos situado en el suelo con las entradas de pie/pista. Habi'an dos partes: el frente cerca el principal escenario y atra's (donde estuvimos) al lado de la casita. Estabamos rodeado por un grupo grande de mexicanos y algunas alemanas. Fue chevere pq las mujeres  
+
 Las primeras siete cancio'nes se realizaron en el escenario principal. Adema's, las mayori'as veni'an del album "DTMF" con uno de "Un Verano Sin Ti" (Callai'ta especificamente la versio'n salsa).
