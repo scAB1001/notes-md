@@ -317,3 +317,5 @@ voluntarios
 hubieramos podido parar aca
 haya roto
 # El concierto
+El concierto de Bad Bunny fue super increi'ble. Lo disfrute' much y te lo muestro las detalles ahora. Ya he mencionado algunas cosas como que fui con mi amigo "Pablo" peo 
+El concierto duro' casi tres horas, y constaba de primer nu'mero y despues Bennito por la duracio'n de treinte cancio'nes --guau.
