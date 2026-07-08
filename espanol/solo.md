@@ -326,10 +326,17 @@ El concierto ocurrio' en Duesseldorf, Alemania en el estadio "Merkur-Spiel Arena
 
 Pablo y yo esta'bamos situados/ubicados en el suelo con las entradas de pie/pista. Habi'an dos partes: el frente cerca el principal escenario y atra's (donde estuvimos) al lado de la casita. Estabamos rodeado por un grupo grande de mexicanos y algunas alemanas. Fue chevere pq las mujeres han imprimido las letras a sus canciones favoritas. Que lindo no? Llegamos a las cinco de la tarde para comenzar a las siete de la noche.
 
-Las primeras siete cancio'nes se realizaron en el escenario principal. Adema's, la mayori'a veni'an del album "DTMF" con una de "Un Verano Sin Ti" (Callai'ta especificamente la versio'n salsa). Mie'ntras el concierto Benito se cambio' en tres diferentes trajes.
+Las primeras siete cancio'nes se realizaron en el escenario principal. Adema's, la mayori'a veni'an del album "DTMF" con una de "Un Verano Sin Ti" (Callai'ta especificamente la versio'n salsa). Durante el concierto Benito se cambio' en tres diferentes trajes.
 
 
 --- 
 - Caifanes
 - Spinetta
 - Extremoduro
+
+Tarea
+Parafos mas 
+- Que paso'? Con la gente, el concierto, con Pablo y Benito,
+- Referencias a las cosas - la, le, lo, plurales
+- Hypotesis - subjuntivo (3 tipos) 
+- 
