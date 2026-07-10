@@ -330,9 +330,7 @@ Las primeras siete cancio'nes se realizaron en el escenario principal. Adema's, 
 
 
 --- 
-- Caifanes
-- Spinetta
-- Extremoduro
+- 
 
 ## Tarea
 Parafos mas
@@ -345,12 +343,23 @@ me vuelvo mejor
 me volvi
 
 ### **W**ishes/wants **E**motions **I**mpersonal phrases **R**ecommendations/requests **D**oubt/denial **O**jala'
-Una de mis partes favoritas fue cuando empazara/empezo' la cancio'n "NUEVAYoL" pq el techo del estadio empezo' a abrirse a la misma velocidad como la pantalla grande que estaba exponiendo el escenario. Este contribuyó al tensio'n de la cancio'n y los fans. Dudo que la mayori'a de la gente notara pero yo hice.
+Una de mis partes favoritas fue cuando empazara/empezo' la cancio'n "NUEVAYoL" pq el techo del estadio empezo' a abrirse a la misma velocidad como la pantalla principal. Eso contribuyó a la tensio'n de la cancio'n y los fans. Dudo que la mayori'a de la gente lo notara pero yo lo hice.
 
-Ma's antes en el viaje, estabamos (Pablo y yo) explorando las calles de Duesseldorf. Fuimos a todas partes por el bus, tren, taxi ---transporte pu'blico basicamente. No creo que hubiera justo un nube en el cielo ---e'ramos super suertudos de evitar el clima mal.
+Antes en el viaje, estabamos (Pablo y yo) explorando las calles de Duesseldorf. Fuimos a todas partes en el bus, tren, taxi ---transporte pu'blico basicamente. No creo que hubiera una sola nube en el cielo ---fuimos super suertudos de evitar el mal clima.
 
 La noche anterior del concierto, disfrutamos un evento emergente por el ri'o. Ni tenga ni ide'a que encontrari'amos tantas cosas de latam.
 El concierto teni'a un DJ que estaba tocando reggaeton, merengue y salsa! Y ma's lejos de la orilla del ri'o, habi'a una pista salsa cuadrado. 
-Alternamos entre los dos luga'res y eventualmente conocimons amigas nuevas. Yo conoci' una bailerina increi'ble de salsa y bailamos por una canci'on. Su nombre es Lisa y tiene 23 anyos. En este momento me dejaba una impresio'n intenso pq me dijo sus suenyosy como quiere mudarse a Colombia (creo Cali) y baila baila baila cada di'a. Diri'a que sea un suenyo mio tambie'n. 
+Alternamos entre los dos luga'res y eventualmente conocimos amigas nuevas. Yo conoci' una bailerina increi'ble de salsa y bailamos por una canci'on. Su nombre es Lisa y tiene 23 anyos. En este momento me dejaba una impresio'n intenso pq me dijo sus suenyosy como quiere mudarse a Colombia (creo Cali) y baila baila baila cada di'a. Diri'a que sea un suenyo mio tambie'n. 
 
 Es un arrenpetimiento mi'o pq si hubiera tenido el valor para mudarme al otro lado del mundo, qui'zas sintiere ma's libre que hoy.
+
+CONTINUE
+
+More "les"
+More Pablo (por supuesto)
+More opinions ()
+
+- Caifanes
+- Spinetta
+- Extremoduro
+- Charly Garcia
