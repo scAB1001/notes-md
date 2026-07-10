@@ -341,6 +341,9 @@ Parafos mas
 - Referencias a las cosas - la, le, lo, plurales
 - Hypotesis - subjuntivo (3 tipos) 
 
+me vuelvo mejor
+me volvi
+
 ### **W**ishes/wants **E**motions **I**mpersonal phrases **R**ecommendations/requests **D**oubt/denial **O**jala'
 Una de mis partes favoritas fue cuando empazara/empezo' la cancio'n "NUEVAYoL" pq el techo del estadio empezo' a abrir a la misma velocidad como la pantalla grande que estaba exponiendo el escanrio. Este contribuyó al tensio'n de la cancio'n y los fans. Dudo que la mayori'a de la gente notara pero yo hice.
 
