@@ -346,4 +346,8 @@ Una de mis partes favoritas fue cuando empazara/empezo' la cancio'n "NUEVAYoL" p
 
 Mas antes en el viaje, estabamos (Pablo y yo) explorando las calles de Duesseldorf. Fuimos a todas partes por el bus, tren, taxi ---transporte pu'blico basicamente. No creo que hubiera justo un nube en el cielo ---e'ramos super suertudos de evitar el clima mal.
 
-La noche anterior del concierto, disfrutamos un evento emergente por el ri'o. Ni tenga ni ide'a que 
+La noche anterior del concierto, disfrutamos un evento emergente por el ri'o. Ni tenga ni ide'a que encontrari'amos tantas cosas de latam.
+El concierto teni'a un DJ que estaba tocando reggaeton, merengue y salsa! Y ma's lejos de la orilla del ri'o, habi'a una pista salsa cuadrado. 
+Alternamos entre los dos luga'res y eventualmente conocimons amigas nuevas. Yo conoci' una bailerina increi'ble de salsa y bailamos por una canci'on. Su nombre es Lisa y tiene 23 anyos. En este momento me dejaba una impresio'n intenso pq me dijo sus suenyosy como quiere mudarse a Colombia (creo Cali) y baila baila baila cada di'a. Diri'a que sea un suenyo mio tambie'n. 
+
+Es un arrenpetimiento mi'o pq si hubiera tenido el valor para mudarme al otro lado del mundo, qui'zas sintiere ma's libre que hoy.
