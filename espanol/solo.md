@@ -345,9 +345,9 @@ me vuelvo mejor
 me volvi
 
 ### **W**ishes/wants **E**motions **I**mpersonal phrases **R**ecommendations/requests **D**oubt/denial **O**jala'
-Una de mis partes favoritas fue cuando empazara/empezo' la cancio'n "NUEVAYoL" pq el techo del estadio empezo' a abrir a la misma velocidad como la pantalla grande que estaba exponiendo el escanrio. Este contribuyó al tensio'n de la cancio'n y los fans. Dudo que la mayori'a de la gente notara pero yo hice.
+Una de mis partes favoritas fue cuando empazara/empezo' la cancio'n "NUEVAYoL" pq el techo del estadio empezo' a abrirse a la misma velocidad como la pantalla grande que estaba exponiendo el escenario. Este contribuyó al tensio'n de la cancio'n y los fans. Dudo que la mayori'a de la gente notara pero yo hice.
 
-Mas antes en el viaje, estabamos (Pablo y yo) explorando las calles de Duesseldorf. Fuimos a todas partes por el bus, tren, taxi ---transporte pu'blico basicamente. No creo que hubiera justo un nube en el cielo ---e'ramos super suertudos de evitar el clima mal.
+Ma's antes en el viaje, estabamos (Pablo y yo) explorando las calles de Duesseldorf. Fuimos a todas partes por el bus, tren, taxi ---transporte pu'blico basicamente. No creo que hubiera justo un nube en el cielo ---e'ramos super suertudos de evitar el clima mal.
 
 La noche anterior del concierto, disfrutamos un evento emergente por el ri'o. Ni tenga ni ide'a que encontrari'amos tantas cosas de latam.
 El concierto teni'a un DJ que estaba tocando reggaeton, merengue y salsa! Y ma's lejos de la orilla del ri'o, habi'a una pista salsa cuadrado. 
