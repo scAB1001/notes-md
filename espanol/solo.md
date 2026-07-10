@@ -334,8 +334,11 @@ Las primeras siete cancio'nes se realizaron en el escenario principal. Adema's, 
 - Spinetta
 - Extremoduro
 
-Tarea
-Parafos mas 
+## Tarea
+Parafos mas
+
+
+
 - Que paso'? Con la gente, el concierto, con Pablo y Benito,
 - Referencias a las cosas - la, le, lo, plurales
 - Hypotesis - subjuntivo (3 tipos) 
