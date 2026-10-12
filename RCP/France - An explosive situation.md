@@ -33,12 +33,25 @@ A week before the strike, management announced a €1,000 advance on the annual 
 This dismissal is inline with the union's history of strict demands -where they won't compromise on their goals. This is all good in practice but when the goal is futile, a bigger problem emerges. For example, this is not the first time the union has fought TotalEnergies. In 2022 they led week-long national stirkes across their refineries and fuel depots (like they're doing now) demanding a 10% wage increase- even rejecting a deal for 7% which other large unions signed. 
 As you can see, this is a painful cycle of waiting until the suffering is too much, protesting and then waiting again.
 
-Coming back to this year, we are seeing a spontaneous grass-roots call for protest born out of a shared struggle. Soaring fuel costs are affecting groups that are not traditionally part of the industrial working class and the call, with no formal allegence or backing, has exploded across social media platforms. Some of these viral calls-to-action are said to echo the *yellow-vest* movement of 2018. It too began online, and was triggered by fuel taxes and also bypassed union or party leadership. Nevertheless, it became a major crisis for the government to deal with at the time which goes to show the strength of even the unorganised working peple.
+Coming back to this year, we are seeing a spontaneous grass-roots call for protest born out of a shared struggle to occur in some way on Oct 17th. Soaring fuel costs are affecting groups that are not traditionally part of the industrial working class and the call, with no formal allegence or backing, has exploded across social media platforms. Some of these viral calls-to-action are said to echo the *yellow-vest* movement of 2018. It too began online, and was triggered by fuel taxes and also bypassed union or party leadership. Nevertheless, it became a major crisis for the government to deal with at the time which goes to show the strength of even the unorganised working peple.
 
 So today, when the union issues an empty statement saying *"the government has 48 hours"* to respond to their claims, it makes you turn your head. 
-Why has the union planned protests for 5th, 6th, 8th, and 14th October demanding the cog turn tooth, but haven't mentioned the 17th October at all? This massive  Why? Because *"the CGT leadership fears an explosive social movement spiralling out of its control."*
+Why has the union planned protests for 5th, 6th, 8th, and 14th October demanding the cog turn tooth, but haven't mentioned the 17th October at all? This massive wave of anger that would help their cause in a more permanent way. Why? The article -and I'd have to agree explains that *"the CGT leadership fears an explosive social movement spiralling out of its control."*
+#### Key financial data (2025 financial year, from the company's annual report and results):
+TotalEnergies is a French multinational  energy company covering oil, gas, renewables, and electricity. It operates in around 120 countries with over 100,000 employees -it's huge
+I wanted to look at the financial data from the company's own filings. So, as per their 2025 Universal Registration Document we can see some figures:
 
-**Management response**: A week before the strike, management announced a €1,000 advance on the annual bonus. The CGT dismissed this as *"an obvious attempt to put out the fire."*
+First, the company's performance: TotalEnergies reported a net income of **$13.1 billion** for 2025, making the company extremely profitable - 11.2 billion of that was in the first 6months.
+Second, the CEO's pay: The total compensation allocated to the CEO for 2025 was **€4,164,105**. This includes his fixed salary of €1,550,000 and an annual bonus of €2,535,800, which was 163.6% of his base salary. He was also granted 140,000 performance shares (accounting value of around €5.4 million).
+
+But the most important numbers are the pay ratios on page 252 of the report:
+- **Ratio to Average Employee Compensation: 56:1**  
+    This means the CEO earns **56 times** the average employee's pay. The CEO earns in about **6.5 days** what the average worker earns in a year.
+- **Ratio to Median Employee Compensation: 72:1**  
+    The CEO earns **72 times** the median employee's pay. So, they earn in roughly **5 days** what the median worker earns in an **entire year**.
+
+What's fustrating is that the CGT points out that TotalEnergies is *"not short of money,"* and demands crumbs from the pie in the forms of permanent contracts and a €200 rise for refinery workers. This reformist attitude is impotent.
+
 ## 2. Student Protests
 **Scale**: The blockade movement began on 17 September at Saint-Exupéry high school in Créteil. By 27 September, 180 schools were affected. That rose to over 300, and by early October, more than 400 high schools had been blockaded.
 
@@ -59,10 +72,7 @@ Why has the union planned protests for 5th, 6th, 8th, and 14th October demanding
 - **Austerity**: The government is preparing €54 billion in budget cuts, justified by the public deficit and rising debt interest payments. It refuses to lower fuel taxes or tax TotalEnergies' super-profits, because *"the bosses have already warned they would react by cutting supply, suspending or reallocating investments."*
 
 ## 4. Marxist Article Summary and Proposed Solution
-
 **Core diagnosis**: The crisis of French capitalism is so profound that *"nothing in the coming months will alleviate the suffering of the people"* — neither a change in economic conditions nor government policy. Purchasing power and living conditions will continue to deteriorate.
-
-**Critique of the union leadership**: The article is explicit about the *"conservatism"* of the CGT leadership (including Sophie Binet). On 29 September, the CGT issued a statement saying *"the government has 48 hours"* to respond. But, as the article notes, *"everyone — including Sophie Binet, one assumes — knows that the government will do nothing of the sort."* The CGT planned protests for 5, 6, 8, and 14 October, but **did not mention 17 October at all**. Why? Because *"the CGT leadership fears an explosive social movement spiralling out of its control."*
 
 **The revolutionary solution**:
 1. **Nationalisation of TotalEnergies under workers' control**: Demanding a *"cap"* or *"freeze"* on fuel prices is *"impotent"* — Total's executives would simply cut supply or reallocate investment to protect profits. Only expropriation can control prices and simultaneously improve wages and conditions.
@@ -71,26 +81,8 @@ Why has the union planned protests for 5th, 6th, 8th, and 14th October demanding
 
 ---
 
-# Part 2: Deep Dive into the Facts
 
-## 1. TotalEnergies SE: Background, Financials, and Workers' Demands
 
-**Company profile**: TotalEnergies is a French multinational integrated energy company covering oil, gas, renewables, and electricity. It operates in around 120 countries with over 100,000 employees.
-
-**Key financial data (2025 financial year, from the company's annual report and results)**:
-- **Net income (TotalEnergies share)**: **$13.127 billion** (down from $15.758 billion in 2024 — a fall of 17%).
-- **Adjusted net income**: **$15.587 billion** (down 15% year-on-year).
-- **Cash flow from operations (CFFO)**: nearly **$28 billion**, down only 7%.
-- **First-half 2025 net income**: **$11.2 billion**, up 73% year-on-year.
-
-**CEO pay (2025, from the company's annual report)**:
-- Fixed salary: **€1.55 million**
-- Annual variable pay: **€2.5358 million** (163.6% of base salary; the maximum is 180%)
-- Performance shares: **140,000 shares** (accounting value of around €5.4 million)
-- **CEO-to-median-employee pay ratio**: **72:1**
-- **CEO-to-average-employee pay ratio**: **56:1**
-
-**The essence of the workers' demands**: The CGT points out that TotalEnergies is *"not short of money,"* but that *"the policy of returning money to shareholders takes precedence over everything — even over the protection of production workers."* That is the root of the anger: the company made $11.2 billion in the first half of the year, yet claims it cannot afford permanent contracts and a €200 rise for refinery workers.
 
 ## 2. Student Protests: Background, School Conditions, and Demands
 **Student numbers**: In autumn 2025, there were **5.621 million** pupils in French lower and upper secondary schools (public and private under contract). Of these, **2.2611 million** were in upper secondary: **1.5994 million** in general and technological lycées, and **661,600** in vocational lycées.
@@ -114,13 +106,9 @@ Declared or de facto candidates include:
 - **Right**: Bruno Retailleau (LR official candidate), David Lisnard (Nouvelle Énergie), Xavier Bertrand (President of Hauts-de-France)
 - **Far right**: Marine Le Pen (RN), Éric Zemmour (Reconquête)
 - **Left**: Raphaël Glucksmann (Place publique), Olivier Faure (PS), Nathalie Arthaud (Lutte ouvrière), among others
-
 ### The ruling-class electoral narrative
-
 The Marxist article exposes the central contradiction: the ruling class wants workers and youth to *"wait patiently"* for the election, converting social anger into votes. But the article argues that **no mainstream candidate represents working-class interests**.
-
 ### Why the unions are not enough — the Marxist argument
-
 **First, the structural limits of the union leadership**: On 29 September, the CGT gave the government *"48 hours"* to respond. But, as the article says, *"everyone knows the government will do nothing of the sort."* The CGT planned several protest days but **deliberately omitted 17 October** — the date mobilised organically on TikTok. This is not an oversight; it is because *"the CGT leadership fears an explosive social movement spiralling out of its control."*
 
 **Second, the dead end of reformism**: The article argues that demanding a *"freeze"* or *"cap"* on fuel prices is *"hanging in the air."* TotalEnergies' bosses have already warned that if their profit margins are encroached upon, they will **cut supply, suspend investment, and reallocate capital**. Within capitalism, that is a rational response. Therefore, only **nationalisation** can break the logic.
@@ -128,7 +116,6 @@ The Marxist article exposes the central contradiction: the ruling class wants wo
 **Third, the working class needs its own political representation**: The article's central argument is *"replace the government of the rich with a government of the workers."* This is not rhetoric — it means the working class must organise politically and **seize the key levers of the economy**, rather than merely asking bosses to be more benevolent.
 
 **Fourth, youth need the working class, and the working class needs youth**: The article quotes Karl Liebknecht: *"Youth is the flame of revolution."* But this flame will be extinguished if it remains isolated. High-school students already joined the public-sector demonstrations on 29 September; they now need the labour movement to reciprocate. Trade unions — especially the CGT — have a responsibility to encourage their activists to join student blockades and to prepare a *"renewable"* strike movement in workplaces.
-
 ### The significance of 17 October
 The call for action on 17 October was **not** launched by any major union or party. It spread through TikTok and other social media, with some videos claiming the legacy of the *"gilets jaunes"* (yellow vests). The article argues that the sheer success of this organic mobilisation is itself *"an expression of immense social anger."* But it also warns that spontaneous anger without a programme is fragile — it needs to be organised and given direction.
 
