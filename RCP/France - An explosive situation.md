@@ -9,17 +9,6 @@ Political Lessons:
 
 ---
 ## Summary of the article
-
-#### Detail
-, a multinational energy and petroleum company,
-By looking at [TotalEnergies' Annual Financial Report](https://totalenergies.com/investors/publications-and-regulated-information/regulated-information/annual-financial-reports) we can find the the ratios and trends between the level of compensation of the Chairman and Chief Executive Officer and the average/median compensation of TotalEnergies SE employees as per French Commercial Code.
-### Student
-Meanwhile on the student front, 
-
-
-
-
-
 The article published on Ocotber 2nd is titled "France: An explosive situation" splitting the conversation into two related parts: a worker movement and a student movement.
 ### Worker
 Starting with the worker side of things, the article covers the organisation of mass strikes by a major French labour trade union, the CGT. The strike took place on Thursday 8th of October in response to workers at TotalEnergies SE, reaching a breaking point over pay and working conditions ---all while the company boasts high profits and C-suit executives are being paid handsomely. On the day, fuel shipments were blocked at the Normandy, Donges, and La Mède refineries and biorefinery. The CGT claimed over 50% of workers on shift were striking, whereas management, trying to quench the fire, said fewer than 2% of the entire workforce was on strike, but admitted 13 petrol stations were affected out of 3,300.
@@ -52,23 +41,24 @@ But the most important numbers are the pay ratios on page 252 of the report:
 
 What's fustrating is that the CGT points out that TotalEnergies is *"not short of money,"* and demands crumbs from the pie in the forms of permanent contracts and a €200 rise for refinery workers. This reformist attitude is impotent.
 
-## 2. Student Protests
-**Scale**: The blockade movement began on 17 September at Saint-Exupéry high school in Créteil. By 27 September, 180 schools were affected. That rose to over 300, and by early October, more than 400 high schools had been blockaded.
+### Student
+Meanwhile on the student front, a blockade movement began on 17th September at Saint-Exupéry high school in Créteil. By early October, more than 400 high schools had been blockaded.
 
-**Students' demands** (based on evidence about school conditions):
-- **Teacher shortages**: 65% of high schools are understaffed. Class sizes have been rising since 2010.
-- **Dilapidated buildings**: 86% of high schools need energy-efficiency renovations; 43% of classrooms lack shutters to provide shade during heatwaves.
-- **Parcoursup**: Students oppose the unfair selection process on the higher-education admissions platform, describing it as *"social sorting"* that favours elite schools and wealthy areas.
-- **Budget cuts**: The government plans over €50 billion in cuts for the 2027 budget.
+What are the students' demands?:
+- The first is teacher shortages: 65% of high schools report that they are understaffed and that class sizes have been rising since 2010.
+- The next concerns the health of buildings: 86% of high schools are in desperate need of energy-efficiency renovations; with the record breaking 40+ degree temperatures this summer, 43% of classrooms lack the shutters to provide mere shade during heatwaves.
+- Another is the admissions platform: Parcoursup: Students oppose the unfair selection process on the higher-education admissions platform, describing it as *"social sorting"* that favours elite schools and wealthy areas.
+- Finaly, budget cuts: The government plans over €50 billion in cuts for the 2027 budget.
 
-**State repression**: Police used tear gas, baton charges, and point-blank shots. Over 1,000 people were arrested and around 100 injured. In Saint-Ouen-l'Aumône, a 14-year-old had his teeth knocked out after being shot in the face at point-blank range with a grenade launcher. In Tours, another student lost the use of one eye after being hit by a *"flash-ball"* round.
+In typical repressive fashion, the state responded with Police who used tear gas, baton charges, and point-blank shots. Over 1,000 people were arrested and around 100 injured. In one cae, a 14-year-old had his teeth knocked out after being shot in the face at point-blank range with a grenade launcher, another student lost the use of one eye after being hit by a *"flash-ball"* round and another lost their hand due to a weapon being fired up-close.
 ## 3. Upcoming Elections and the State's Narrative and Reaction
 **Election timing**: The first round of the 2027 presidential election is scheduled for 18 April, with the second round on 2 May.
 
-**The ruling-class narrative**: The Marxist article describes the strategy as telling ordinary people: *"Don't take to the streets: read the manifestos, listen to the speeches (especially ours), and go and vote when the time comes (but not for Mélenchon). It is the winner of the election who, backed by your mandate, will solve all your problems (unless it's Mélenchon)."* In short: postpone social anger until the election.
+The communist.red article frames the ruling-class narrative and solution quite well,*"Don't take to the streets: read the manifestos, listen to the speeches (our speeches), and go and vote (for us) when the time comes. It is the winner of the election who, backed by your mandate, will solve all your problems."* 
+In short: they wish to postpone social anger until the election and explain that therein lies the solution to all your problems
 
-**The state's reaction**:
-- **Repression against students**: The then-Interior Minister, Bruno Retailleau, publicly called for a ban on La France Insoumise (LFI), accusing it of *"organising an insurrection"* by supporting the high-school students.
+The _de facto_ leader of [La France Insoumise](https://en.wikipedia.org/wiki/La_France_Insoumise "La France Insoumise") (LFI), France's, Mélenchon expressed vocal support for the student protests. His party was quickly accused of *"organising an insurrection"* by supporting the high-school students.
+
 - **Austerity**: The government is preparing €54 billion in budget cuts, justified by the public deficit and rising debt interest payments. It refuses to lower fuel taxes or tax TotalEnergies' super-profits, because *"the bosses have already warned they would react by cutting supply, suspending or reallocating investments."*
 
 ## 4. Marxist Article Summary and Proposed Solution
@@ -78,27 +68,8 @@ What's fustrating is that the CGT points out that TotalEnergies is *"not short o
 1. **Nationalisation of TotalEnergies under workers' control**: Demanding a *"cap"* or *"freeze"* on fuel prices is *"impotent"* — Total's executives would simply cut supply or reallocate investment to protect profits. Only expropriation can control prices and simultaneously improve wages and conditions.
 2. **Across-the-board wage rises indexed to inflation**: Inflation will not subside; it will rise. Under capitalism, only a global recession could curb it — at the cost of mass unemployment and poverty.
 3. **A workers' government**: *"The government of the rich would have to be replaced by a government of the workers."*
-
 ---
 
-
-
-
-## 2. Student Protests: Background, School Conditions, and Demands
-**Student numbers**: In autumn 2025, there were **5.621 million** pupils in French lower and upper secondary schools (public and private under contract). Of these, **2.2611 million** were in upper secondary: **1.5994 million** in general and technological lycées, and **661,600** in vocational lycées.
-
-**School conditions data**:
-- **Class sizes**: Average class sizes in lower secondary have been rising steadily, increasing by 1.3 pupils between 2010 and 2025. In general lycées, the public-private gap is 1–2 pupils; in vocational lycées, the gap is smaller (0.4 pupils).
-- **Decline in vocational lycées**: The number fell from 1,177 in 1995 to **756** in 2025 — a reduction of around 36% over 30 years.
-- **Buildings**: 86% of lycées need energy-efficiency renovations; 43% of classrooms lack shutters.
-
-**Evidence behind students' demands**:
-- Teacher shortages: 65% of lycées are understaffed.
-- Dilapidated buildings: lack of shutters directly affects learning during heatwaves.
-- Parcoursup: students see the platform as systematically favouring *"elite schools"* and wealthy areas — *"social sorting."*
-- Budget cuts: the government's planned €50 billion-plus cuts for 2027 are seen as a direct attack on future education investment.
-
-**Repression data**: Over 1,000 arrests and around 100 injuries. A 14-year-old was shot in the face at point-blank range with a grenade launcher, losing his teeth. Another student lost the use of one eye after being hit by a *"flash-ball."*
 ## 3. Elections, the Mood of the Working Class and Youth, and Why the Unions Are Not Enough
 ### Electoral landscape (2027)
 Declared or de facto candidates include:
