@@ -17,18 +17,22 @@ By looking at [TotalEnergies' Annual Financial Report](https://totalenergies.com
 Meanwhile on the student front, 
 
 
+
+
+
 The article published on Ocotber 2nd is titled "France: An explosive situation" splitting the conversation into two related parts: a worker movement and a student movement.
 ### Worker
-The worker side of things covers the organisation of mass strikes by a major French labour trade union, the CGT. This strike was to take place on Thursday 8th of October in response to workers at TotalEnergies SE, reaching a breaking point over pay and working conditions ---all while the company boasts high profits and C-suit executives are being paid handsomely.
+Starting with the worker side of things, the article covers the organisation of mass strikes by a major French labour trade union, the CGT. The strike took place on Thursday 8th of October in response to workers at TotalEnergies SE, reaching a breaking point over pay and working conditions ---all while the company boasts high profits and C-suit executives are being paid handsomely. On the day, fuel shipments were blocked at the Normandy, Donges, and La Mède refineries and biorefinery. The CGT claimed over 50% of workers on shift were striking, whereas management, trying to quench the fire, said fewer than 2% of the entire workforce was on strike, but admitted 13 petrol stations were affected out of 3,300.
 
-On 8 October 2026, the CGT called a strike across TotalEnergies SE. Fuel shipments were blocked at the Normandy, Donges, and La Mède refineries and biorefinery. The CGT claimed over 50% of workers on shift were striking. Management said fewer than 2% of the entire workforce was on strike, but admitted 13 petrol stations were affected out of 3,300.
+The worker demands are simple:
+- **The first concerns jobs and contracts**: The union wants all temporary workers (intérimaires) and fixed-term contract workers (CDD) to be given permanent contracts (CDI) and for vacant posts to be filled. They say that "retirements are not being replaced," leaving staffing levels dangerously low. One quote from the article translates to: *"We're not making chocolate here."* 
+- **The second point of contest is pay**: The union is demanding a €200 monthly rise for all workers and a minimum base salary of 1.2 times the France's minimum wage. In some parts of the company, wages have been caught up by the minimum wage, meaning workers need a permanent rise, not a one-off bonus to stay afloat.
+- **Finally, the union turns to the working conditions**: The Normandy refinery has not had a full shutdown for maintenance in eight years, compared with every five years a decade ago. The union accuses TotalEnergies SE of *"playing Russian roulette with workers and local residents."*
 
-**Workers' demands**:
-- **Jobs**: The CGT wants all temporary workers (intérimaires) and fixed-term contract workers (CDD) to be given permanent contracts (CDI) and for vacant posts to be filled. They say "retirements are not being replaced," leaving staffing levels dangerously low. One quote from the article: *"We're not making chocolate here."*
-- **Pay**: The CGT is demanding a €200 monthly rise for all workers and a minimum base salary of 1.2 times the SMIC (minimum wage). In some subsidiaries, wages have been caught up by the SMIC, meaning workers need a permanent rise, not a one-off bonus.
-- **Working conditions**: The Normandy refinery has not had a full shutdown for maintenance in eight years, compared with every five years a decade ago. The CGT accuses TotalEnergies of *"playing Russian roulette with workers and local residents."*
+A week before the strike, management announced a €1,000 advance on the annual bonus. which the union dismissed as *"an obvious attempt to put out the fire."*
+This dismissal is inline with the union's history of strict demands -where they won't compromise on their goals. This is all good in practice but when the goal is futile, a bigger problem emerges. For example, this is not the first time the union has fought TotalEnergies. In 2022 they led week-long national stirkes across their refineries and fuel depots (like they're doing now) demanding a 10% wage increase- even rejecting a deal for 7% which other large unions signed. 
 
-**Management response**: A week before the strike, management announced a €1,000 advance on the annual bonus. The CGT dismissed this as *"an obvious attempt to put out the fire."*
+To highlight this defeatist mentality further, 
 
 ## 2. Student Protests
 
@@ -56,7 +60,7 @@ On 8 October 2026, the CGT called a strike across TotalEnergies SE. Fuel shipmen
 
 **Core diagnosis**: The crisis of French capitalism is so profound that *"nothing in the coming months will alleviate the suffering of the people"* — neither a change in economic conditions nor government policy. Purchasing power and living conditions will continue to deteriorate.
 
-**Critique of the union leadership**: The article is explicit about the *"conservatism"* of the CGT leadership (including Sophie Binet). On 29 September, the CGT issued a statement saying *"the government has 48 hours"* to respond. But, as the article notes, *"everyone — including Sophie Binet, one assumes — knows that the government will do nothing of the sort."* The CGT planned protests for 5, 6, 8, and 14 October, but **did not mention 17 October at all**. Why? Because *"the CGT leadership fears an explosive social movement spiralling out of its control."*
+**Critique of the union leadership**: The article is explicit about the *"conservatism"* of the CGT leadership (including Sophie Binet).
 
 **The revolutionary solution**:
 1. **Nationalisation of TotalEnergies under workers' control**: Demanding a *"cap"* or *"freeze"* on fuel prices is *"impotent"* — Total's executives would simply cut supply or reallocate investment to protect profits. Only expropriation can control prices and simultaneously improve wages and conditions.
