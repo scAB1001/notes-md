@@ -9,4 +9,5 @@ Political Lessons:
 
 ---
 #### Summary of the article
-The article published on Ocotber 2nd, titled "France: An explosive situation"
+The article published on Ocotber 2nd is titled "France: An explosive situation" splitting the situation into both a worker movement and student movement.
+The worker side of things covers the organisation of mass strikes by a major French 
