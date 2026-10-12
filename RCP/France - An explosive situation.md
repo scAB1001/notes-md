@@ -24,18 +24,22 @@ The article published on Ocotber 2nd is titled "France: An explosive situation" 
 ### Worker
 Starting with the worker side of things, the article covers the organisation of mass strikes by a major French labour trade union, the CGT. The strike took place on Thursday 8th of October in response to workers at TotalEnergies SE, reaching a breaking point over pay and working conditions ---all while the company boasts high profits and C-suit executives are being paid handsomely. On the day, fuel shipments were blocked at the Normandy, Donges, and La Mède refineries and biorefinery. The CGT claimed over 50% of workers on shift were striking, whereas management, trying to quench the fire, said fewer than 2% of the entire workforce was on strike, but admitted 13 petrol stations were affected out of 3,300.
 
-The worker demands are simple:
+The worker's demands are simple:
 - **The first concerns jobs and contracts**: The union wants all temporary workers (intérimaires) and fixed-term contract workers (CDD) to be given permanent contracts (CDI) and for vacant posts to be filled. They say that "retirements are not being replaced," leaving staffing levels dangerously low. One quote from the article translates to: *"We're not making chocolate here."* 
 - **The second point of contest is pay**: The union is demanding a €200 monthly rise for all workers and a minimum base salary of 1.2 times the France's minimum wage. In some parts of the company, wages have been caught up by the minimum wage, meaning workers need a permanent rise, not a one-off bonus to stay afloat.
-- **Finally, the union turns to the working conditions**: The Normandy refinery has not had a full shutdown for maintenance in eight years, compared with every five years a decade ago. The union accuses TotalEnergies SE of *"playing Russian roulette with workers and local residents."*
+- **Finally, the union turns to the working conditions**: The Normandy refinery has not had a full shutdown for maintenance in eight years, compared with every five years a decade ago. The union accused TotalEnergies of *"playing Russian roulette with workers and local residents."*
 
 A week before the strike, management announced a €1,000 advance on the annual bonus. which the union dismissed as *"an obvious attempt to put out the fire."*
 This dismissal is inline with the union's history of strict demands -where they won't compromise on their goals. This is all good in practice but when the goal is futile, a bigger problem emerges. For example, this is not the first time the union has fought TotalEnergies. In 2022 they led week-long national stirkes across their refineries and fuel depots (like they're doing now) demanding a 10% wage increase- even rejecting a deal for 7% which other large unions signed. 
+As you can see, this is a painful cycle of waiting until the suffering is too much, protesting and then waiting again.
 
-To highlight this defeatist mentality further, 
+Coming back to this year, we are seeing a spontaneous grass-roots call for protest born out of a shared struggle. Soaring fuel costs are affecting groups that are not traditionally part of the industrial working class and the call, with no formal allegence or backing, has exploded across social media platforms. Some of these viral calls-to-action are said to echo the *yellow-vest* movement of 2018. It too began online, and was triggered by fuel taxes and also bypassed union or party leadership. Nevertheless, it became a major crisis for the government to deal with at the time which goes to show the strength of even the unorganised working peple.
 
+So today, when the union issues an empty statement saying *"the government has 48 hours"* to respond to their claims, it makes you turn your head. 
+Why has the union planned protests for 5th, 6th, 8th, and 14th October demanding the cog turn tooth, but haven't mentioned the 17th October at all? This massive  Why? Because *"the CGT leadership fears an explosive social movement spiralling out of its control."*
+
+**Management response**: A week before the strike, management announced a €1,000 advance on the annual bonus. The CGT dismissed this as *"an obvious attempt to put out the fire."*
 ## 2. Student Protests
-
 **Scale**: The blockade movement began on 17 September at Saint-Exupéry high school in Créteil. By 27 September, 180 schools were affected. That rose to over 300, and by early October, more than 400 high schools had been blockaded.
 
 **Students' demands** (based on evidence about school conditions):
@@ -45,9 +49,7 @@ To highlight this defeatist mentality further,
 - **Budget cuts**: The government plans over €50 billion in cuts for the 2027 budget.
 
 **State repression**: Police used tear gas, baton charges, and point-blank shots. Over 1,000 people were arrested and around 100 injured. In Saint-Ouen-l'Aumône, a 14-year-old had his teeth knocked out after being shot in the face at point-blank range with a grenade launcher. In Tours, another student lost the use of one eye after being hit by a *"flash-ball"* round.
-
 ## 3. Upcoming Elections and the State's Narrative and Reaction
-
 **Election timing**: The first round of the 2027 presidential election is scheduled for 18 April, with the second round on 2 May.
 
 **The ruling-class narrative**: The Marxist article describes the strategy as telling ordinary people: *"Don't take to the streets: read the manifestos, listen to the speeches (especially ours), and go and vote when the time comes (but not for Mélenchon). It is the winner of the election who, backed by your mandate, will solve all your problems (unless it's Mélenchon)."* In short: postpone social anger until the election.
@@ -60,7 +62,7 @@ To highlight this defeatist mentality further,
 
 **Core diagnosis**: The crisis of French capitalism is so profound that *"nothing in the coming months will alleviate the suffering of the people"* — neither a change in economic conditions nor government policy. Purchasing power and living conditions will continue to deteriorate.
 
-**Critique of the union leadership**: The article is explicit about the *"conservatism"* of the CGT leadership (including Sophie Binet).
+**Critique of the union leadership**: The article is explicit about the *"conservatism"* of the CGT leadership (including Sophie Binet). On 29 September, the CGT issued a statement saying *"the government has 48 hours"* to respond. But, as the article notes, *"everyone — including Sophie Binet, one assumes — knows that the government will do nothing of the sort."* The CGT planned protests for 5, 6, 8, and 14 October, but **did not mention 17 October at all**. Why? Because *"the CGT leadership fears an explosive social movement spiralling out of its control."*
 
 **The revolutionary solution**:
 1. **Nationalisation of TotalEnergies under workers' control**: Demanding a *"cap"* or *"freeze"* on fuel prices is *"impotent"* — Total's executives would simply cut supply or reallocate investment to protect profits. Only expropriation can control prices and simultaneously improve wages and conditions.
@@ -91,7 +93,6 @@ To highlight this defeatist mentality further,
 **The essence of the workers' demands**: The CGT points out that TotalEnergies is *"not short of money,"* but that *"the policy of returning money to shareholders takes precedence over everything — even over the protection of production workers."* That is the root of the anger: the company made $11.2 billion in the first half of the year, yet claims it cannot afford permanent contracts and a €200 rise for refinery workers.
 
 ## 2. Student Protests: Background, School Conditions, and Demands
-
 **Student numbers**: In autumn 2025, there were **5.621 million** pupils in French lower and upper secondary schools (public and private under contract). Of these, **2.2611 million** were in upper secondary: **1.5994 million** in general and technological lycées, and **661,600** in vocational lycées.
 
 **School conditions data**:
@@ -106,11 +107,8 @@ To highlight this defeatist mentality further,
 - Budget cuts: the government's planned €50 billion-plus cuts for 2027 are seen as a direct attack on future education investment.
 
 **Repression data**: Over 1,000 arrests and around 100 injuries. A 14-year-old was shot in the face at point-blank range with a grenade launcher, losing his teeth. Another student lost the use of one eye after being hit by a *"flash-ball."*
-
 ## 3. Elections, the Mood of the Working Class and Youth, and Why the Unions Are Not Enough
-
 ### Electoral landscape (2027)
-
 Declared or de facto candidates include:
 - **Centre**: Édouard Philippe (Horizons), Gabriel Attal (Renaissance)
 - **Right**: Bruno Retailleau (LR official candidate), David Lisnard (Nouvelle Énergie), Xavier Bertrand (President of Hauts-de-France)
